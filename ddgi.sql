@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `agents` (
 -- Dumping data for table ddgi.agents: ~1 rows (approximately)
 /*!40000 ALTER TABLE `agents` DISABLE KEYS */;
 REPLACE INTO `agents` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `job`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `agent_agreement_img`, `labor_contract`, `firm_contract`, `license`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 4, 'Surname', 'Name', 'middlasdc', '2021-01-08', '1231321', 'asas', '2sdfvdsfv', '2020-12-31', '2021-01-07', '4234234234', 'ddfzvdsfvdsfv', '1066be21e9b238f2ef167372166fe978.jpg', NULL, NULL, NULL, '1066be21e9b238f2ef167372166fe978.jpg', 0, '2021-01-08', '2021-01-08', NULL);
+	(1, 4, 'Surname1', 'Name1', 'middlasdc', '2021-01-08', '1231321', 'asas', '2sdfvdsfv', '2020-12-31', '2021-01-07', '4234234234', 'ddfzvdsfvdsfv', NULL, NULL, NULL, NULL, NULL, 0, '2021-01-08', '2021-01-10', NULL);
 /*!40000 ALTER TABLE `agents` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.banks
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `branches` (
 -- Dumping data for table ddgi.branches: ~0 rows (approximately)
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
 REPLACE INTO `branches` (`id`, `parent_id`, `name`, `series`, `founded_date`, `region`, `user_id`, `address`, `phone_number`, `type`, `code_by_office`, `code_by_type`, `hierarchy`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, NULL, 'fdvfdz', 'vfdv', '2021-01-08', 'Бухарская область', 9, 'dfvsdv', '45235325', 'type-1', 'sdfvdv', 'sdfvdsv', '34', '2021-01-08', '2021-01-08', NULL);
+	(1, NULL, 'name', 'series', '2021-01-08', 'Бухарская область', 9, 'dfvsdv', '45235325', 'Тип 1', 'sdfvdv', 'sdfvdsv', '33', '2021-01-08', '2021-01-10', NULL);
 /*!40000 ALTER TABLE `branches` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.directors
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `directors` (
 -- Dumping data for table ddgi.directors: ~1 rows (approximately)
 /*!40000 ALTER TABLE `directors` DISABLE KEYS */;
 REPLACE INTO `directors` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(2, 9, 'FotTestOnly', 'sdfv', 'sdfv', '2021-01-07', '12341234', 'adscsadc', '2021-01-14', NULL, '5555551234', 'PO Box F', '1066be21e9b238f2ef167372166fe978.jpg', 1, '2021-01-08', '2021-01-08', NULL);
+	(2, 9, 'FotTestOnly3', 'sdfv', 'sdfv', '2021-01-07', '12341234', 'adscsadc', '2021-01-14', NULL, '5555551234', 'PO Box F', NULL, 1, '2021-01-08', '2021-01-10', NULL);
 /*!40000 ALTER TABLE `directors` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.failed_jobs
@@ -177,26 +177,72 @@ CREATE TABLE IF NOT EXISTS `kasko` (
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.kasko: ~0 rows (approximately)
+-- Dumping data for table ddgi.kasko: ~18 rows (approximately)
 /*!40000 ALTER TABLE `kasko` DISABLE KEYS */;
+REPLACE INTO `kasko` (`id`, `type`, `product_id`, `from_date`, `to_date`, `reason`, `geo_zone`, `defect_img`, `purpose`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(19, 1, 1, '2021-01-06', '2021-01-13', 'fvsdfv', 'sdfvdsvf', NULL, 'fvdfsgsdfgfgdfgdfg', '2021-01-11', '2021-01-11', NULL),
+	(20, 1, 1, '2021-01-06', '2021-01-13', 'fvsdfv', 'sdfvdsvf', NULL, 'fvdfsgsdfgfgdfgdfg', '2021-01-11', '2021-01-11', NULL);
 /*!40000 ALTER TABLE `kasko` ENABLE KEYS */;
 
--- Dumping structure for table ddgi.kasko_policy_holders
-CREATE TABLE IF NOT EXISTS `kasko_policy_holders` (
+-- Dumping structure for table ddgi.kasko_policy_beneficiaries
+CREATE TABLE IF NOT EXISTS `kasko_policy_beneficiaries` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `policy_holder_id` int(11) unsigned NOT NULL,
+  `policy_beneficiary_id` int(11) unsigned NOT NULL,
   `kasko_id` int(11) unsigned NOT NULL,
   `created_at` date DEFAULT NULL,
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table ddgi.kasko_policy_holders: ~0 rows (approximately)
+-- Dumping data for table ddgi.kasko_policy_beneficiaries: ~3 rows (approximately)
+/*!40000 ALTER TABLE `kasko_policy_beneficiaries` DISABLE KEYS */;
+REPLACE INTO `kasko_policy_beneficiaries` (`id`, `policy_beneficiary_id`, `kasko_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 4, 13, NULL, NULL, NULL),
+	(2, 6, 14, NULL, NULL, NULL),
+	(3, 2, 15, NULL, NULL, NULL),
+	(4, 7, 20, NULL, NULL, NULL);
+/*!40000 ALTER TABLE `kasko_policy_beneficiaries` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.kasko_policy_holders
+CREATE TABLE IF NOT EXISTS `kasko_policy_holders` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `policy_holders_id` int(11) unsigned NOT NULL,
+  `kasko_id` int(11) unsigned NOT NULL,
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  `deleted_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table ddgi.kasko_policy_holders: ~4 rows (approximately)
 /*!40000 ALTER TABLE `kasko_policy_holders` DISABLE KEYS */;
+REPLACE INTO `kasko_policy_holders` (`id`, `policy_holders_id`, `kasko_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(2, 2, 12, NULL, NULL, NULL),
+	(3, 4, 13, NULL, NULL, NULL),
+	(4, 6, 14, NULL, NULL, NULL),
+	(5, 7, 15, NULL, NULL, NULL),
+	(6, 12, 20, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `kasko_policy_holders` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.kasko_policy_informations
+CREATE TABLE IF NOT EXISTS `kasko_policy_informations` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `policy_information_id` int(11) unsigned NOT NULL,
+  `kasko_id` int(11) unsigned NOT NULL,
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  `deleted_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table ddgi.kasko_policy_informations: ~0 rows (approximately)
+/*!40000 ALTER TABLE `kasko_policy_informations` DISABLE KEYS */;
+REPLACE INTO `kasko_policy_informations` (`id`, `policy_information_id`, `kasko_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 1, 20, NULL, NULL, NULL);
+/*!40000 ALTER TABLE `kasko_policy_informations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
@@ -252,6 +298,35 @@ REPLACE INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_se
 	(20, 150, 'asdvvd', 0, 0, 'new', '2021-01-09', '2021-01-09', NULL);
 /*!40000 ALTER TABLE `policies` ENABLE KEYS */;
 
+-- Dumping structure for table ddgi.policy_beneficiaries
+CREATE TABLE IF NOT EXISTS `policy_beneficiaries` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `FIO` varchar(250) NOT NULL,
+  `address` varchar(150) NOT NULL,
+  `phone_number` varchar(50) NOT NULL,
+  `checking_account` varchar(50) NOT NULL,
+  `inn` varchar(50) NOT NULL,
+  `mfo` varchar(50) NOT NULL,
+  `okonx` varchar(50) NOT NULL,
+  `bank_id` int(11) unsigned NOT NULL,
+  `updated_at` date DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `deleted_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='страхователи';
+
+-- Dumping data for table ddgi.policy_beneficiaries: ~6 rows (approximately)
+/*!40000 ALTER TABLE `policy_beneficiaries` DISABLE KEYS */;
+REPLACE INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
+	(1, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-11', '2021-01-11', NULL),
+	(2, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-11', '2021-01-11', NULL),
+	(3, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL),
+	(4, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL),
+	(5, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL),
+	(6, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL),
+	(7, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL);
+/*!40000 ALTER TABLE `policy_beneficiaries` ENABLE KEYS */;
+
 -- Dumping structure for table ddgi.policy_holders
 CREATE TABLE IF NOT EXISTS `policy_holders` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -267,11 +342,87 @@ CREATE TABLE IF NOT EXISTS `policy_holders` (
   `created_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='страхователи';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='страхователи';
 
--- Dumping data for table ddgi.policy_holders: ~0 rows (approximately)
+-- Dumping data for table ddgi.policy_holders: ~11 rows (approximately)
 /*!40000 ALTER TABLE `policy_holders` DISABLE KEYS */;
+REPLACE INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
+	(1, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10', '2021-01-10', NULL),
+	(2, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10', '2021-01-10', NULL),
+	(3, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-10', '2021-01-10', NULL),
+	(4, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10', '2021-01-10', NULL),
+	(5, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-10', '2021-01-10', NULL),
+	(6, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-11', '2021-01-11', NULL),
+	(7, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-11', '2021-01-11', NULL),
+	(8, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL),
+	(9, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL),
+	(10, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL),
+	(11, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL),
+	(12, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11', '2021-01-11', NULL);
 /*!40000 ALTER TABLE `policy_holders` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.policy_informations
+CREATE TABLE IF NOT EXISTS `policy_informations` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `policy_id` int(11) unsigned NOT NULL,
+  `policy_series_id` int(11) unsigned NOT NULL,
+  `period` varchar(50) NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
+  `line_id` varchar(50) NOT NULL,
+  `brand` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  `modification` varchar(100) NOT NULL,
+  `gov_number` varchar(100) NOT NULL,
+  `tech_passport` varchar(100) NOT NULL,
+  `engine_number` varchar(100) NOT NULL,
+  `carcase_number` varchar(100) NOT NULL,
+  `payload` varchar(100) NOT NULL,
+  `seats_number` varchar(25) NOT NULL,
+  `polnaya_strahovaya_stoimost` varchar(100) NOT NULL,
+  `polnaya_strahovaya_summa` varchar(100) NOT NULL,
+  `polnaya_strahovaya_premiya` varchar(100) DEFAULT NULL,
+  `additional_brand` varchar(100) DEFAULT NULL,
+  `additional_equipment` varchar(100) DEFAULT NULL,
+  `additional_serial_number` varchar(100) DEFAULT NULL,
+  `additional_strahovaya_summa` varchar(100) DEFAULT NULL,
+  `additional_terr_vehical` varchar(100) DEFAULT NULL,
+  `additional_terr_insured` varchar(100) DEFAULT NULL,
+  `additional_terr_evacuation` varchar(100) DEFAULT NULL,
+  `additional_is_vihecal_insured` tinyint(3) unsigned DEFAULT NULL,
+  `additional_other_insurence_info` varchar(150) DEFAULT NULL,
+  `additional_is_death` tinyint(3) unsigned DEFAULT NULL,
+  `additional_death_strahovaya_summa` varchar(50) DEFAULT NULL,
+  `additiona_death_strahovaya_premiya` varchar(50) DEFAULT NULL,
+  `additional_death_franchise` varchar(50) DEFAULT NULL,
+  `additional_is_civil` tinyint(3) unsigned DEFAULT NULL,
+  `additional_civil_strahovaya_summa` varchar(50) DEFAULT NULL,
+  `additional_civil_strahovaya_premiya` varchar(50) DEFAULT NULL,
+  `additional_is_accident` tinyint(3) unsigned DEFAULT NULL,
+  `additional_accident_driver_strahovaya_summa` varchar(50) DEFAULT NULL,
+  `additional_accident_driver_strahovaya_premiya` varchar(50) DEFAULT NULL,
+  `additional_accident_pessanger_number` varchar(50) DEFAULT NULL,
+  `additional_accident_pessanger_strahovaya_summa_per` varchar(50) DEFAULT NULL,
+  `additional_accident_pessanger_strahovaya_summa` varchar(50) DEFAULT NULL,
+  `additional_accident_pessanger_strahovaya_premiya` varchar(50) DEFAULT NULL,
+  `additional_accident_limit_number` varchar(50) DEFAULT NULL,
+  `additional_accident_limit_strahovaya_summa_per` varchar(50) DEFAULT NULL,
+  `additional_accident_limit_strahovaya_summa` varchar(50) DEFAULT NULL,
+  `additional_accident_limit_strahovaya_premiya` varchar(50) DEFAULT NULL,
+  `additional_limit` varchar(50) DEFAULT NULL,
+  `additional_policy_from_date` date DEFAULT NULL,
+  `additional_strahovaya_premiya_currency` varchar(50) DEFAULT NULL,
+  `additional_poryadok_oplati_currency` varchar(50) DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  `deleted_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table ddgi.policy_informations: ~0 rows (approximately)
+/*!40000 ALTER TABLE `policy_informations` DISABLE KEYS */;
+REPLACE INTO `policy_informations` (`id`, `policy_id`, `policy_series_id`, `period`, `user_id`, `line_id`, `brand`, `model`, `modification`, `gov_number`, `tech_passport`, `engine_number`, `carcase_number`, `payload`, `seats_number`, `polnaya_strahovaya_stoimost`, `polnaya_strahovaya_summa`, `polnaya_strahovaya_premiya`, `additional_brand`, `additional_equipment`, `additional_serial_number`, `additional_strahovaya_summa`, `additional_terr_vehical`, `additional_terr_insured`, `additional_terr_evacuation`, `additional_is_vihecal_insured`, `additional_other_insurence_info`, `additional_is_death`, `additional_death_strahovaya_summa`, `additiona_death_strahovaya_premiya`, `additional_death_franchise`, `additional_is_civil`, `additional_civil_strahovaya_summa`, `additional_civil_strahovaya_premiya`, `additional_is_accident`, `additional_accident_driver_strahovaya_summa`, `additional_accident_driver_strahovaya_premiya`, `additional_accident_pessanger_number`, `additional_accident_pessanger_strahovaya_summa_per`, `additional_accident_pessanger_strahovaya_summa`, `additional_accident_pessanger_strahovaya_premiya`, `additional_accident_limit_number`, `additional_accident_limit_strahovaya_summa_per`, `additional_accident_limit_strahovaya_summa`, `additional_accident_limit_strahovaya_premiya`, `additional_limit`, `additional_policy_from_date`, `additional_strahovaya_premiya_currency`, `additional_poryadok_oplati_currency`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 1, 1, 'regreb', 1, 'ertgretg', 'ertgre', 'grtg', 'ertgrt', 'rt', 'tgtertger', 'ertgretg', 'ertgetr', 'ertgertg', '252352345', '2343455', '12572901', NULL, 'vrfvdf', 'dsfvdfv', 'sdfvdsfv', '34523', '23452', '2345', '2345245', 1, 'fvdsvdfvsdfv', 1, '234523', '3245235', '3245235', 1, '2345235', '234525', 1, '2345235', '345', '2345', '1', '2345', '234', '1234', '1234', '1522756', '213', '1314124124', NULL, 'Сум', 'Сум', '2021-01-11', '2021-01-11', NULL);
+/*!40000 ALTER TABLE `policy_informations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.policy_registrations
 CREATE TABLE IF NOT EXISTS `policy_registrations` (
@@ -330,8 +481,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table ddgi.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 REPLACE INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(4, 'Name', 'bobur_moscow@mail.ru', NULL, '$2y$10$xogD55RJ1YcsARNn/6uze.t9.6i5pLcSyXtBTuXjEo33xTaEcLfBC', NULL, '2021-01-08 04:47:43', '2021-01-08 04:47:43'),
-	(9, 'sdfv', 'director@director.com', NULL, '$2y$10$hZOx3aztDah9AsOpxbLFiumkOGecJh46VfXQC7NMr6x7mbICIUbsa', NULL, '2021-01-08 13:10:10', '2021-01-08 13:10:10');
+	(4, 'Name1', 'bobur_moscow1@mail.ru', NULL, '$2y$10$3CzSOxHcSQn6HJOm.ahdHORb50aYP.vJN31VSubEMla8QM7UhZV.a', NULL, '2021-01-08 04:47:43', '2021-01-10 15:01:35'),
+	(9, 'sdfv', 'directo3r@director.com', NULL, '$2y$10$OYljKvaiPrLd8i9V1Ms4f.PX6SjBouTvqzdbFFGSb9uBbNLHfOCLm', NULL, '2021-01-08 13:10:10', '2021-01-10 16:26:47');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
