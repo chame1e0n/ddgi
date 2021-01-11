@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1044d9db-fd04-4a3c-9730-c5a147d9dd3a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/policy_transfer/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/polis_transfer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/policy_transfer/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/polis_transfer/transfer.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/_main_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/_main_sidebar.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,13 +33,13 @@
           <entry key="gitignore" value="1" />
           <entry key="html" value="26" />
           <entry key="js" value="1" />
-          <entry key="php" value="141" />
+          <entry key="php" value="142" />
           <entry key="rnc" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Blade" value="51" />
+          <entry key="Blade" value="52" />
           <entry key="CSS" value="2" />
           <entry key="HTML" value="26" />
           <entry key="JavaScript" value="1" />
@@ -56,13 +53,13 @@
           <entry key="dummy" value="27" />
           <entry key="html" value="152" />
           <entry key="js" value="65" />
-          <entry key="php" value="6575" />
+          <entry key="php" value="6615" />
           <entry key="txt" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Blade" value="2765" />
+          <entry key="Blade" value="2805" />
           <entry key="HTML" value="152" />
           <entry key="JavaScript" value="71" />
           <entry key="PHP" value="3810" />
@@ -73,15 +70,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Product/KaskoController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="173" column="58" selection-start-line="173" selection-start-column="8" selection-end-line="173" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Spravochniki/BankController.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -172,11 +160,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/policy_transfer/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="78" column="7" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
+            <state relative-caret-position="80">
+              <caret line="30" column="35" lean-forward="true" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/layouts/_main_sidebar.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="393" column="33" lean-forward="true" selection-start-line="393" selection-start-column="33" selection-end-line="393" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -185,8 +182,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>from_date</find>
-      <find>id=&quot;product-field-modal-</find>
       <find>polises</find>
       <find>period_polis-</find>
       <find>columnName</find>
@@ -211,10 +206,12 @@
       <find>до ном</find>
       <find>policy</find>
       <find>policy_series_id</find>
-      <find>$policiesTransfer</find>
       <find>$policies</find>
       <find>акт</find>
       <find>policiesTransfer</find>
+      <find>распре</find>
+      <find>$policiesTransfer</find>
+      <find>href=&quot;#&quot;</find>
     </findStrings>
     <replaceStrings>
       <replace>assets</replace>
@@ -233,6 +230,7 @@
       <replace>kasko</replace>
       <replace>#</replace>
       <replace>$policiesTransfer</replace>
+      <replace>policyTransfer</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\laragon4\www\ddgi\app\Http\Controllers</dir>
@@ -288,7 +286,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Product/KaskoController.php" />
         <option value="$PROJECT_DIR$/app/Models/PolicyInformation.php" />
         <option value="$PROJECT_DIR$/resources/views/kasko/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/_main_sidebar.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/polis_transfer/transfer.html" />
         <option value="$PROJECT_DIR$/resources/views/polis_transfer/transfer.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
@@ -297,6 +294,7 @@
         <option value="$PROJECT_DIR$/resources/views/policy_transfer/index.html" />
         <option value="$PROJECT_DIR$/app/Models/PolicyTransfer.php" />
         <option value="$PROJECT_DIR$/resources/views/policy_transfer/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/_main_sidebar.blade.php" />
       </list>
     </option>
   </component>
@@ -422,9 +420,9 @@
     </include_path>
   </component>
   <component name="PhpXdebugProxy" ide_key="PHPSTORM" port="9003" />
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="250" />
-    <option name="y" value="-8" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="356" />
+    <option name="y" value="-22" />
     <option name="width" value="697" />
     <option name="height" value="728" />
   </component>
@@ -761,18 +759,18 @@
       <workItem from="1609690608867" duration="1026000" />
       <workItem from="1609938260457" duration="7255000" />
       <workItem from="1610065714341" duration="25276000" />
-      <workItem from="1610212963531" duration="33658000" />
+      <workItem from="1610212963531" duration="34459000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71407000" />
+    <option name="totallyTimeSpent" value="72208000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27760968" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27760968" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -787,7 +785,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50078493" side_tool="true" weight="0.33838382" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49921507" visible="true" weight="0.32786885" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49921507" visible="true" weight="0.32786885" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1067,13 +1065,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/_main_sidebar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="500" column="22" lean-forward="true" selection-start-line="500" selection-start-column="22" selection-end-line="500" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyRegistrationController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -1235,8 +1226,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/policy_transfer/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="78" column="7" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
+        <state relative-caret-position="80">
+          <caret line="30" column="35" lean-forward="true" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/_main_sidebar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="393" column="33" lean-forward="true" selection-start-line="393" selection-start-column="33" selection-end-line="393" selection-end-column="33" />
         </state>
       </provider>
     </entry>
