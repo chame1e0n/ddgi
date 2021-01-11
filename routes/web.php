@@ -29,3 +29,4 @@ Route::resource('spravochniki/branch','Spravochniki\BranchController');
 Route::resource('director','DirectorController');
 Route::resource('policy_registration','PolicyRegistrationController');
 Route::resource('kasko','Product\KaskoController');
+Route::resource('policy_transfer','PolicyTransferController');
