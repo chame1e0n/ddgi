@@ -101,7 +101,7 @@ class PolicySeriesController extends Controller
     {
         $policySeries->delete();
 
-        return redirect()->route('bank.index')
+        return redirect()->route('policy_series.index')
             ->with('success', sprintf('Дынные о серии \'%s\' были успешно удалены', $policySeries->code));
     }
 }

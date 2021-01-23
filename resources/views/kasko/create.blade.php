@@ -1243,14 +1243,14 @@
             let fieldNumber = $(this).data('field-number');
             overallSum =
                 parseFloat($('#insurance_sum-' + fieldNumber).val() || 0) +
-                parseFloat($('#civil_liability_sum-' + fieldNumber).val() || 0) +
-                parseFloat($('#passenger_total_sum-' + fieldNumber).val() || 0) +
-                parseFloat($('#driver_total_sum-' + fieldNumber).val() || 0) +
-                parseFloat($('#vehicle_damage_sum-' + fieldNumber).val() || 0) +
+                parseFloat($('.r-1-sum-' + fieldNumber).val() || 0) +
+                parseFloat($('.r-2-sum-' + fieldNumber).val() || 0) +
+                parseFloat($('.r-3-sum-' + fieldNumber).val() || 0) +
+                parseFloat($('.r-3-sum-1-' + fieldNumber).val() || 0) +
+                parseFloat($('.r-3-sum-2-' + fieldNumber).val() || 0)+
                 parseFloat($('.terror-tc-' + fieldNumber).val() || 0) +
                 parseFloat($('.terror-zl-' + fieldNumber).val() || 0) +
-                parseFloat($('.evocuation-' + fieldNumber).val() || 0) +
-                parseFloat($('.r-summ-' + fieldNumber).val() || 0);
+                parseFloat($('.evocuation-' + fieldNumber).val() || 0);
             let modalTableSum2 =
                 parseFloat($('.r-3-sum-' + fieldNumber).val() || 0) +
                 parseFloat($('.r-3-sum-1-' + fieldNumber).val() || 0) +
@@ -1274,7 +1274,7 @@
                 }
             });
 
-            overAllInsurenceSumByField(fieldNumber);
+            calculateSum4(fieldNumber);
         });
 
         $(document).on("change", ".modal", function () {
@@ -1336,20 +1336,6 @@
         });
 
 
-        function overAllInsurenceSumByField(fieldNumber) {
-            Osum =
-                parseFloat($('#overall-sum-' + fieldNumber).val() || 0) +
-                parseFloat($('.insurance_sum-' + fieldNumber).val() || 0) +
-                parseFloat($('.r-1-premia-' + fieldNumber).val() || 0) +
-                parseFloat($('.r-2-premia-' + fieldNumber).val() || 0) +
-                parseFloat($('.r-summ-premia-' + fieldNumber).val() || 0);
-            $('.overall_insurance_sum-' + fieldNumber).val(Osum);
-            $('.insurance_premium-' + fieldNumber).val(Osum * 0.01); // франшиза 1% -> премия 1% от общей суммы
-            calculateSum3();
-            calculateSum4();
-        }
-
-
         function calculateSum() {
             let sum = 0;
             $('.forsum').each(function () {
@@ -1380,13 +1366,21 @@
             $('.overall-sum3').val(sum.toFixed(2));
         }
 
-        function calculateSum4() {
+        function calculateSum4(fieldNumber) {
             let sum = 0;
-            $('.forsum4').each(function () {
-                if (!isNaN(this.value) && this.value.length != 0) {
-                    sum += parseFloat(this.value);
-                }
-            });
+            try {
+                $('.forsum4').each(function() {
+                    if (!isNaN(this.value) && this.value.length != 0) {
+                        sum = parseFloat(this.value) + parseFloat($('#overall-sum-' + fieldNumber).val())
+                    }
+                });
+            } catch {
+                $('.forsum4').each(function() {
+                    if (!isNaN(this.value) && this.value.length != 0) {
+                        sum = parseFloat(this.value)
+                    }
+                });
+            }
             $('.overall-sum4').val(sum.toFixed(2));
         }
 
