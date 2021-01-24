@@ -53,7 +53,9 @@
     @include('layouts._main_sidebar')
 
     <!-- Content Wrapper. Contains page content -->
-    @yield('content')
+    <div id="ajaxData">
+        @yield('content')
+    </div>    
     <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
@@ -103,6 +105,22 @@
 <script src="/assets/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script src="/assets/plugins/bootstrap-fileinput/themes/fa/theme.min.js"></script>
 <script src="/assets/plugins/bootstrap-fileinput/js/locales/LANG.js"></script>
+<script>
+    let appendData = $("#ajaxData");
+    $('#banki').click(function(event){
+        event.preventDefault();
+        $.ajax({
+            url:'/spravochniki/bank',
+            method:'GET',
+            success:function(response){
+                appendData.html(response)
+            },
+            errors:function(error){
+                console.log(error)
+            }
+        })
+    });
+</script>
 @yield('scripts')
 </html>
 
