@@ -1,4 +1,5 @@
-
+@extends('layouts.index')
+@section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -34,17 +35,19 @@
                                     </div>
                                 @endif
                                 <div class=" mb-4">
+                                     <i class="bi bi-arrow-down"></i> <i class="bi bi-arrow-up"></i>
                                     <a class="btn btn-success" href="{{ route('bank.create') }}">Создать</a>
+                                   
                                 </div>
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="example" class="table table-bordered table-striped">
                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Наименование</th>
-                                        <th>Код</th>
-                                        <th>Статус</th>
-                                        <th>Действия</th>
-                                    </tr>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">#</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Наименование</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Код</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Статус</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Действия</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($banks as $bank)
@@ -86,3 +89,23 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+
+@section('scripts')
+
+<script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+    $("#example").DataTable({
+      "bPaginate": false,
+      "bInfo": false,
+    });
+  });
+</script>
+@endsection
