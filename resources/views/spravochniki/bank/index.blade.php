@@ -52,7 +52,7 @@
                                     <tbody>
                                     @foreach ($banks as $bank)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $bank->name }}</td>
                                             <td>{{ $bank->code }}</td>
                                             <td>{{ $bank->status > 0 ? 'Активный' : 'Неактивный' }}</td>
@@ -74,7 +74,7 @@
                                     </tbody>
 
                                 </table>
-                                {!! $banks->links() !!}
+                                <!--  -->
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -96,16 +96,27 @@
 <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 
-
-
-
-
 <script type="text/javascript">
-    $(function () {
-    $("#example").DataTable({
-      "bPaginate": false,
-      "bInfo": false,
-    });
-  });
+    $(document).ready(function() {
+
+    $('#example').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true,
+        "language": {
+          "info": "Показано с _START_ по _END_ из _TOTAL_ записей",
+          "search":"Поиск",
+          "lengthMenu":"Показать _MENU_ записи",
+          "paginate": {
+            "sFirst": "Первая:с", // This is the link to the first page
+            "sPrevious": "Предыдущая:с", // This is the link to the previous page
+            "sNext": "Следующая:с", // This is the link to the next page
+            "sLast": "Предыдущая:с" // This is the link to the last page
+            },
+        },
+        
+        "pagingType": "full_numbers",
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]]
+    } );
+} );
 </script>
 @endsection
