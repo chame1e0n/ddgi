@@ -36,13 +36,14 @@ CREATE TABLE IF NOT EXISTS `agents` (
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.agents: ~0 rows (approximately)
+-- Dumping data for table ddgi.agents: ~1 rows (approximately)
 DELETE FROM `agents`;
 /*!40000 ALTER TABLE `agents` DISABLE KEYS */;
 INSERT INTO `agents` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `job`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `agent_agreement_img`, `labor_contract`, `firm_contract`, `license`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 4, 'Surname1', 'Name1', 'middlasdc', '2021-01-08', '1231321', 'asas', '2sdfvdsfv', '2020-12-31', '2021-01-07', '4234234234', 'ddfzvdsfvdsfv', NULL, NULL, NULL, NULL, NULL, 0, '2021-01-08', '2021-01-10', NULL);
+	(1, 4, 'Surname1', 'Name1', 'middlasdc', '2021-01-08', '1231321', 'asas', '2sdfvdsfv', '2020-12-31', '2021-01-07', '4234234234', 'ddfzvdsfvdsfv', NULL, NULL, NULL, NULL, NULL, 0, '2021-01-08', '2021-01-10', NULL),
+	(2, 3, 'FotTestOnly', 'ahahah', 'asdcsdac', '2021-01-29', 'sdvfdvf', 'adscsadc', 'dascdd', '2021-01-29', '2021-02-05', '5555551234', 'PO Box F', NULL, NULL, NULL, NULL, NULL, 1, '2021-01-29', '2021-01-29', NULL);
 /*!40000 ALTER TABLE `agents` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.banks
@@ -65,12 +66,12 @@ CREATE TABLE IF NOT EXISTS `banks` (
 DELETE FROM `banks`;
 /*!40000 ALTER TABLE `banks` DISABLE KEYS */;
 INSERT INTO `banks` (`id`, `code`, `name`, `filial`, `address`, `inn`, `raschetniy_schet`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'sdfvdsvf', 'sdvfdsvf', 'sdfvdsvf', 'dsfvvdf', 'dsfvdsfv', 'sdfvdv', 1, '2021-01-06 12:54:01', '2021-01-07 23:34:20', '2021-01-07 23:34:20'),
-	(2, 'sdfvdsvf', 'sdvfdsvf', 'sdfvdsvf', 'dsfvvdf', 'dsfvdsfv', 'sdfvdv', 0, '2021-01-06 12:54:48', '2021-01-06 12:54:48', NULL),
-	(3, '53543', 'afgsdfg', 'sdgsd', 'sdfgvdsf', 'sdfgsdf', 'sdfgsd', 0, '2021-01-06 13:27:14', '2021-01-07 23:34:04', '2021-01-07 23:34:04'),
-	(4, 'dfsvsdfv', 'sdvdsvf', 'sdvfdv', 'sdfv', 'sdfv', 'sdfv', 0, '2021-01-06 13:30:15', '2021-01-06 13:30:15', NULL),
-	(5, 'sdfvdsfv', 'sdfv', 'sdvf', 'sdvf', 'sdvf', 'sdvf', 1, '2021-01-06 13:30:39', '2021-01-07 23:33:21', '2021-01-07 23:33:21'),
-	(6, 'dsfv', 'vsdf', 'sdfv', 'svfvfd', 'sdfv', 'sdvf', 0, '2021-01-06 13:44:45', '2021-01-07 23:32:56', '2021-01-07 23:32:56');
+	(1, 'sdfvdsvf', 'sdvfdsvf', 'sdfvdsvf', 'dsfvvdf', 'dsfvdsfv', 'sdfvdv', 1, '2021-01-06 14:54:01', '2021-01-08 01:34:20', '2021-01-08 01:34:20'),
+	(2, 'sdfvdsvf', 'sdvfdsvf', 'sdfvdsvf', 'dsfvvdf', 'dsfvdsfv', 'sdfvdv', 0, '2021-01-06 14:54:48', '2021-01-06 14:54:48', NULL),
+	(3, '53543', 'afgsdfg', 'sdgsd', 'sdfgvdsf', 'sdfgsdf', 'sdfgsd', 0, '2021-01-06 15:27:14', '2021-01-08 01:34:04', '2021-01-08 01:34:04'),
+	(4, 'dfsvsdfv', 'sdvdsvf', 'sdvfdv', 'sdfv', 'sdfv', 'sdfv', 0, '2021-01-06 15:30:15', '2021-01-06 15:30:15', NULL),
+	(5, 'sdfvdsfv', 'sdfv', 'sdvf', 'sdvf', 'sdvf', 'sdvf', 1, '2021-01-06 15:30:39', '2021-01-08 01:33:21', '2021-01-08 01:33:21'),
+	(6, 'dsfv', 'vsdf', 'sdfv', 'svfvfd', 'sdfv', 'sdvf', 0, '2021-01-06 15:44:45', '2021-01-08 01:32:56', '2021-01-08 01:32:56');
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.beneficiaries
@@ -150,9 +151,9 @@ CREATE TABLE IF NOT EXISTS `clients` (
 DELETE FROM `clients`;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
 INSERT INTO `clients` (`id`, `type`, `name`, `middle_name`, `surname`, `address`, `phone_number`, `mfo`, `inn`, `bank_id`, `raschetniy_schet`, `passport_series`, `passport_number`, `passport_given_date`, `passport_given_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 0, 'name', 'middle', 'surname', 'fsvdvf', 'sdfvfdv', 'sdfvsdfv', 'sdfvsdvf', 2, 'sdvfdfsv', 'sdfvdsvf', 'sdfvsdvf', '2021-01-21', 'sdfvsdv', '2021-01-21 00:24:07', '2021-01-21 00:24:07', NULL),
-	(2, 1, 'sdfvdsfdsfv', NULL, NULL, 'sdvfdsfv', '454353', NULL, NULL, 4, 'sdfvdsvf', NULL, NULL, NULL, NULL, '2021-01-21 00:33:49', '2021-01-21 00:33:49', NULL),
-	(3, 1, 'sfdvsdfv', NULL, NULL, 'vsdfvdsfv', '23553', NULL, NULL, 4, 'dsfvdsfvdsf', NULL, NULL, NULL, NULL, '2021-01-21 00:35:53', '2021-01-21 03:10:26', '2021-01-21 03:10:26');
+	(1, 0, 'name', 'middle', 'surname', 'fsvdvf', 'sdfvfdv', 'sdfvsdfv', 'sdfvsdvf', 2, 'sdvfdfsv', 'sdfvdsvf', 'sdfvsdvf', '2021-01-21', 'sdfvsdv', '2021-01-21 02:24:07', '2021-01-21 02:24:07', NULL),
+	(2, 1, 'sdfvdsfdsfv', NULL, NULL, 'sdvfdsfv', '454353', NULL, NULL, 4, 'sdfvdsvf', NULL, NULL, NULL, NULL, '2021-01-21 02:33:49', '2021-01-21 02:33:49', NULL),
+	(3, 1, 'sfdvsdfv', NULL, NULL, 'vsdfvdsfv', '23553', NULL, NULL, 4, 'dsfvdsfvdsf', NULL, NULL, NULL, NULL, '2021-01-21 02:35:53', '2021-01-21 05:10:26', '2021-01-21 05:10:26');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.currencies
@@ -171,8 +172,8 @@ CREATE TABLE IF NOT EXISTS `currencies` (
 DELETE FROM `currencies`;
 /*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
 INSERT INTO `currencies` (`id`, `name`, `code`, `rate`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'Euro', 'EUR', '12000', '2021-01-21 06:42:56', '2021-01-21 06:42:56', NULL),
-	(2, 'US Dollar', 'USD', '10000', '2021-01-21 07:12:41', '2021-01-21 07:12:41', NULL);
+	(1, 'Euro', 'EUR', '12000', '2021-01-21 08:42:56', '2021-01-21 08:42:56', NULL),
+	(2, 'US Dollar', 'USD', '10000', '2021-01-21 09:12:41', '2021-01-21 09:12:41', NULL);
 /*!40000 ALTER TABLE `currencies` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.directors
@@ -358,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `klass` (
 DELETE FROM `klass`;
 /*!40000 ALTER TABLE `klass` DISABLE KEYS */;
 INSERT INTO `klass` (`id`, `code`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, '23332', 'Class 1', 'Class 1 has been created just for test', '2021-01-21 07:56:18', '2021-01-21 07:56:18', NULL);
+	(1, '23332', 'Class 1', 'Class 1 has been created just for test', '2021-01-21 09:56:18', '2021-01-21 09:56:18', NULL);
 /*!40000 ALTER TABLE `klass` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.migrations
@@ -367,15 +368,65 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.migrations: ~2 rows (approximately)
+-- Dumping data for table ddgi.migrations: ~3 rows (approximately)
 DELETE FROM `migrations`;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(1, '2014_10_12_000000_create_users_table', 1),
-	(2, '2019_08_19_000000_create_failed_jobs_table', 1);
+	(2, '2019_08_19_000000_create_failed_jobs_table', 1),
+	(3, '2021_01_27_043302_create_permission_tables', 2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.model_has_permissions
+CREATE TABLE IF NOT EXISTS `model_has_permissions` (
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`),
+  CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.model_has_permissions: ~1 rows (approximately)
+DELETE FROM `model_has_permissions`;
+/*!40000 ALTER TABLE `model_has_permissions` DISABLE KEYS */;
+INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
+	(1, 'App\\User', 3);
+/*!40000 ALTER TABLE `model_has_permissions` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.model_has_roles
+CREATE TABLE IF NOT EXISTS `model_has_roles` (
+  `role_id` bigint(20) unsigned NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`),
+  CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.model_has_roles: ~0 rows (approximately)
+DELETE FROM `model_has_roles`;
+/*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.permissions
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.permissions: ~1 rows (approximately)
+DELETE FROM `permissions`;
+/*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+	(1, 'show pretensii', 'web', NULL, NULL);
+/*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.policies
 CREATE TABLE IF NOT EXISTS `policies` (
@@ -641,10 +692,10 @@ INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `pol
 -- Dumping structure for table ddgi.pretensii
 CREATE TABLE IF NOT EXISTS `pretensii` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `pretensii_status_id` int(11) unsigned NOT NULL,
+  `pretensii_status_id` int(11) unsigned DEFAULT NULL,
   `case_number` int(11) unsigned NOT NULL,
   `insurer` varchar(50) DEFAULT NULL,
-  `branch_id` int(11) unsigned NOT NULL,
+  `branch_id` int(11) unsigned DEFAULT NULL,
   `insurance_contract` varchar(50) DEFAULT NULL,
   `client_type` tinyint(4) DEFAULT NULL,
   `insurence_type` varchar(50) DEFAULT NULL,
@@ -655,6 +706,7 @@ CREATE TABLE IF NOT EXISTS `pretensii` (
   `last_payment_date` date DEFAULT NULL,
   `franchise_type` varchar(50) DEFAULT NULL,
   `deductible_amount` varchar(50) DEFAULT NULL,
+  `franchise_percentage` varchar(50) DEFAULT NULL,
   `reinsurance` varchar(50) DEFAULT NULL,
   `date_applications` date DEFAULT NULL,
   `date_of_the_insured_event` date DEFAULT NULL,
@@ -672,12 +724,32 @@ CREATE TABLE IF NOT EXISTS `pretensii` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table ddgi.pretensii: ~0 rows (approximately)
 DELETE FROM `pretensii`;
 /*!40000 ALTER TABLE `pretensii` DISABLE KEYS */;
+INSERT INTO `pretensii` (`id`, `pretensii_status_id`, `case_number`, `insurer`, `branch_id`, `insurance_contract`, `client_type`, `insurence_type`, `insurence_period`, `insured_sum`, `payable_by_agreement`, `actually_paid`, `last_payment_date`, `franchise_type`, `deductible_amount`, `franchise_percentage`, `reinsurance`, `date_applications`, `date_of_the_insured_event`, `event_description`, `object_description`, `region`, `district`, `claimed_loss_sum`, `refund_paid_sum`, `currency_exchange_rate`, `total_amount_in_sums`, `date_of_payment_compensation`, `final_settlement_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, NULL, 1, 'insured', 1, 'insurance-contract', 1, 'kasko', NULL, '5000', '5000', '3000', '2021-01-29', '0', '3000', '50', NULL, '2021-01-28', '2021-01-30', 'description-of-the-insured-event', 'description-of-the-insurance-object', 'pretensii-region 2', 'pretensii-district 2', '5000', '5000', '5000', '5000', '2021-02-06', '2021-01-28', '2021-01-29 08:42:22', '2021-01-29 08:42:22', NULL);
 /*!40000 ALTER TABLE `pretensii` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.pretensii_overview
+CREATE TABLE IF NOT EXISTS `pretensii_overview` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `pretensii_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `passed` tinyint(3) unsigned NOT NULL COMMENT '1 - прошел ; 0 - не прошел',
+  `comment` varchar(250) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='рассмотр претензии';
+
+-- Dumping data for table ddgi.pretensii_overview: ~0 rows (approximately)
+DELETE FROM `pretensii_overview`;
+/*!40000 ALTER TABLE `pretensii_overview` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pretensii_overview` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.pretensii_status
 CREATE TABLE IF NOT EXISTS `pretensii_status` (
@@ -696,6 +768,36 @@ INSERT INTO `pretensii_status` (`id`, `status`, `created_at`, `updated_at`, `del
 	(1, 'created', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `pretensii_status` ENABLE KEYS */;
 
+-- Dumping structure for table ddgi.roles
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.roles: ~0 rows (approximately)
+DELETE FROM `roles`;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.role_has_permissions
+CREATE TABLE IF NOT EXISTS `role_has_permissions` (
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `role_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`),
+  KEY `role_has_permissions_role_id_foreign` (`role_id`),
+  CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.role_has_permissions: ~0 rows (approximately)
+DELETE FROM `role_has_permissions`;
+/*!40000 ALTER TABLE `role_has_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `role_has_permissions` ENABLE KEYS */;
+
 -- Dumping structure for table ddgi.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -708,14 +810,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.users: ~2 rows (approximately)
+-- Dumping data for table ddgi.users: ~3 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(4, 'Name1', 'bobur_moscow1@mail.ru', NULL, '$2y$10$3CzSOxHcSQn6HJOm.ahdHORb50aYP.vJN31VSubEMla8QM7UhZV.a', NULL, '2021-01-08 02:47:43', '2021-01-10 13:01:35'),
-	(9, 'sdfv', 'directo3r@director.com', NULL, '$2y$10$OYljKvaiPrLd8i9V1Ms4f.PX6SjBouTvqzdbFFGSb9uBbNLHfOCLm', NULL, '2021-01-08 11:10:10', '2021-01-10 14:26:47');
+	(3, 'ahahah', 'agent@agent.com', NULL, '$2y$10$Y/DkxsEvpZ0aDlAb7uBSGuQlDiBZWvo0UBiY9KMf.iZiNAzH2./Fa', NULL, '2021-01-29 06:24:33', '2021-01-29 06:36:54'),
+	(4, 'Name1', 'bobur_moscow1@mail.ru', NULL, '$2y$10$3CzSOxHcSQn6HJOm.ahdHORb50aYP.vJN31VSubEMla8QM7UhZV.a', NULL, '2021-01-08 04:47:43', '2021-01-10 15:01:35'),
+	(9, 'sdfv', 'directo3r@director.com', NULL, '$2y$10$OYljKvaiPrLd8i9V1Ms4f.PX6SjBouTvqzdbFFGSb9uBbNLHfOCLm', NULL, '2021-01-08 13:10:10', '2021-01-10 16:26:47');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.views

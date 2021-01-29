@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pretensii;
+use App\User;
 use Illuminate\Http\Request;
 
 class PretensiiController extends Controller
@@ -14,7 +15,7 @@ class PretensiiController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -35,7 +36,10 @@ class PretensiiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Pretensii::create($request->all());
+
+        return redirect()->route('pretensii.index')
+            ->with('success','Успешно добавлена новая притензия');
     }
 
     /**
@@ -57,7 +61,7 @@ class PretensiiController extends Controller
      */
     public function edit(Pretensii $pretensii)
     {
-        //
+        return view('pretensii.edit',compact('pretensii'));
     }
 
     /**
