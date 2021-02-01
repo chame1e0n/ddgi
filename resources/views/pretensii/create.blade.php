@@ -67,7 +67,6 @@
                             <label class="col-form-label" for="pretensii-subsidiary">Филиал</label>
                             <select id="pretensii-subsidiary" class="form-control" name="branch_id">
                                 <option selected="selected" value="1">Филиал1</option>
-                                <option>Филиал2</option>
                             </select>
                         </div>
 
@@ -223,10 +222,10 @@
                                     <div class="form-group">
                                         <div class=" col-mb-3">
                                             <label class="col-form-label" for="pretensii-franchise-type">вид</label>
-                                            <select class="form-control success" name="franchise_type"
+                                            <select class="form-control success" name="franchise_type_id"
                                                     style="width: 100%;">
-                                                <option selected="selected" value="0">нет</option>
-                                                <option value="1">условная</option>
+                                                <option selected="selected" value="1">нет</option>
+                                                <option value="2">условная</option>
                                                 <option value="3">безусловная</option>
                                             </select>
                                         </div>
@@ -501,6 +500,9 @@
                     <button type="submit" class="btn btn-primary float-right" id="form-save-button">Найти</button>
                 </div>
                 </form>
+
+
+
             </div>
         </div>
     </section>

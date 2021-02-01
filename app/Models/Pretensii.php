@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Spravochniki\Branch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,5 +19,19 @@ class Pretensii extends Model
     public function status()
     {
         return $this->hasOne(PretensiiStatus::class, 'id', 'pretensii_status_id');
+    }
+
+    public function branch()
+    {
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
+
+    public function franchise_type()
+    {
+        return $this->hasOne(Branch::class, 'id', 'franchise_type_id');
+    }
+
+    public function overview(){
+        return $this->hasMany( PretensiiOverview::class, 'pretensii_id', 'id' );
     }
 }

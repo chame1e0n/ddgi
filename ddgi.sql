@@ -221,6 +221,25 @@ DELETE FROM `failed_jobs`;
 /*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
 
+-- Dumping structure for table ddgi.franchise_type
+CREATE TABLE IF NOT EXISTS `franchise_type` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table ddgi.franchise_type: ~3 rows (approximately)
+DELETE FROM `franchise_type`;
+/*!40000 ALTER TABLE `franchise_type` DISABLE KEYS */;
+INSERT INTO `franchise_type` (`id`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'нет', NULL, NULL, NULL),
+	(2, 'условная', NULL, NULL, NULL),
+	(3, 'безусловная', NULL, NULL, NULL);
+/*!40000 ALTER TABLE `franchise_type` ENABLE KEYS */;
+
 -- Dumping structure for table ddgi.groups
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -704,7 +723,7 @@ CREATE TABLE IF NOT EXISTS `pretensii` (
   `payable_by_agreement` varchar(50) DEFAULT NULL,
   `actually_paid` varchar(50) DEFAULT NULL,
   `last_payment_date` date DEFAULT NULL,
-  `franchise_type` varchar(50) DEFAULT NULL,
+  `franchise_type_id` varchar(50) DEFAULT NULL,
   `deductible_amount` varchar(50) DEFAULT NULL,
   `franchise_percentage` varchar(50) DEFAULT NULL,
   `reinsurance` varchar(50) DEFAULT NULL,
@@ -729,8 +748,8 @@ CREATE TABLE IF NOT EXISTS `pretensii` (
 -- Dumping data for table ddgi.pretensii: ~0 rows (approximately)
 DELETE FROM `pretensii`;
 /*!40000 ALTER TABLE `pretensii` DISABLE KEYS */;
-INSERT INTO `pretensii` (`id`, `pretensii_status_id`, `case_number`, `insurer`, `branch_id`, `insurance_contract`, `client_type`, `insurence_type`, `insurence_period`, `insured_sum`, `payable_by_agreement`, `actually_paid`, `last_payment_date`, `franchise_type`, `deductible_amount`, `franchise_percentage`, `reinsurance`, `date_applications`, `date_of_the_insured_event`, `event_description`, `object_description`, `region`, `district`, `claimed_loss_sum`, `refund_paid_sum`, `currency_exchange_rate`, `total_amount_in_sums`, `date_of_payment_compensation`, `final_settlement_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, NULL, 1, 'insured', 1, 'insurance-contract', 1, 'kasko', NULL, '5000', '5000', '3000', '2021-01-29', '0', '3000', '50', NULL, '2021-01-28', '2021-01-30', 'description-of-the-insured-event', 'description-of-the-insurance-object', 'pretensii-region 2', 'pretensii-district 2', '5000', '5000', '5000', '5000', '2021-02-06', '2021-01-28', '2021-01-29 08:42:22', '2021-01-29 08:42:22', NULL);
+INSERT INTO `pretensii` (`id`, `pretensii_status_id`, `case_number`, `insurer`, `branch_id`, `insurance_contract`, `client_type`, `insurence_type`, `insurence_period`, `insured_sum`, `payable_by_agreement`, `actually_paid`, `last_payment_date`, `franchise_type_id`, `deductible_amount`, `franchise_percentage`, `reinsurance`, `date_applications`, `date_of_the_insured_event`, `event_description`, `object_description`, `region`, `district`, `claimed_loss_sum`, `refund_paid_sum`, `currency_exchange_rate`, `total_amount_in_sums`, `date_of_payment_compensation`, `final_settlement_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 2, 1, 'insured', 1, 'insurance-contract', 1, 'kasko', NULL, '5000', '5000', '3000', NULL, '1', '3000', '50', 'vsdvsdvf', NULL, NULL, 'description-of-the-insured-event', 'description-of-the-insurance-object', 'pretensii-region 2', 'pretensii-district 2', '5000', '5000', '5000', '5000', NULL, NULL, '2021-01-29 08:42:22', '2021-02-01 06:26:57', NULL);
 /*!40000 ALTER TABLE `pretensii` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.pretensii_overview
@@ -744,28 +763,34 @@ CREATE TABLE IF NOT EXISTS `pretensii_overview` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='рассмотр претензии';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='рассмотр претензии';
 
 -- Dumping data for table ddgi.pretensii_overview: ~0 rows (approximately)
 DELETE FROM `pretensii_overview`;
 /*!40000 ALTER TABLE `pretensii_overview` DISABLE KEYS */;
+INSERT INTO `pretensii_overview` (`id`, `pretensii_id`, `user_id`, `passed`, `comment`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 1, 4, 1, 'comment here', '2021-02-01 04:49:15', '2021-02-01 04:49:15', NULL),
+	(2, 1, 3, 0, 'comment here 3', '2021-02-01 05:52:03', '2021-02-01 06:15:44', NULL);
 /*!40000 ALTER TABLE `pretensii_overview` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.pretensii_status
 CREATE TABLE IF NOT EXISTS `pretensii_status` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `status` varchar(50) NOT NULL,
+  `code` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.pretensii_status: ~0 rows (approximately)
+-- Dumping data for table ddgi.pretensii_status: ~3 rows (approximately)
 DELETE FROM `pretensii_status`;
 /*!40000 ALTER TABLE `pretensii_status` DISABLE KEYS */;
-INSERT INTO `pretensii_status` (`id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'created', NULL, NULL, NULL);
+INSERT INTO `pretensii_status` (`id`, `status`, `code`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'на рассмотрении', 'in progress', NULL, NULL, NULL),
+	(2, 'отклонен', 'declined', NULL, NULL, NULL),
+	(3, 'принят', 'accepted', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `pretensii_status` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.roles

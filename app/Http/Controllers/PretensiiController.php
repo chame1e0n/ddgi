@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pretensii;
+use App\Models\PretensiiOverview;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class PretensiiController extends Controller
      */
     public function index()
     {
+        $pretensiis = Pretensii::latest()->paginate(5);
 
+        return view('pretensii.index',compact('pretensiis'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -50,7 +54,7 @@ class PretensiiController extends Controller
      */
     public function show(Pretensii $pretensii)
     {
-        //
+        return view('pretensii.edit',compact('pretensii'));
     }
 
     /**
@@ -73,7 +77,11 @@ class PretensiiController extends Controller
      */
     public function update(Request $request, Pretensii $pretensii)
     {
-        //
+        $pretensii->update($request->all());
+
+        return redirect()->route('pretensii.index')
+            ->with('success', sprintf('Дынные о претензии с номером документа\'%s\' были успешно обновлены', $request->input('case_number')));
+
     }
 
     /**
@@ -84,6 +92,9 @@ class PretensiiController extends Controller
      */
     public function destroy(Pretensii $pretensii)
     {
-        //
+        $pretensii->delete();
+
+        return redirect()->route('pretensii.index')
+            ->with('success', sprintf('Дынные о претензии с номером документа \'%s\' были успешно удалены', $pretensii->case_number));
     }
 }
