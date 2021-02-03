@@ -22,15 +22,25 @@ Route::get('test', function () {
     return view('form/add');
 });
 
-Route::resource('spravochniki/bank','Spravochniki\BankController');
-Route::resource('spravochniki/agent','Spravochniki\AgentController');
-Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
-Route::resource('spravochniki/branch','Spravochniki\BranchController');
-Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
-Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
-Route::resource('spravochniki/currency','CurrencyController');
-Route::resource('spravochniki/klass','KlassController');
-Route::resource('director','DirectorController');
-Route::resource('policy_registration','PolicyRegistrationController');
-Route::resource('kasko','Product\KaskoController');
-Route::resource('policy_transfer','PolicyTransferController');
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('spravochniki/bank','Spravochniki\BankController');
+    Route::resource('spravochniki/agent','Spravochniki\AgentController');
+    Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
+    Route::resource('spravochniki/branch','Spravochniki\BranchController');
+    Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
+    Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
+    Route::resource('spravochniki/currency','CurrencyController');
+    Route::resource('spravochniki/klass','KlassController');
+    Route::resource('director','DirectorController');
+    Route::resource('policy_registration','PolicyRegistrationController');
+    Route::resource('kasko','Product\KaskoController');
+    Route::resource('policy_transfer','PolicyTransferController');
+    Route::resource('pretensii_overview','PretensiiOverviewController');
+    Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
+
+    Route::group(['middleware' => ['permission:show pretensii']], function() {
+        Route::resource('pretensii','PretensiiController'); // ['only' => ['index']]
+    });
+});
+
+Auth::routes();

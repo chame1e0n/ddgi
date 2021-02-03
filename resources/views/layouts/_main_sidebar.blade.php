@@ -107,16 +107,25 @@
 
                 <!--Претензия-->
 
-                {{--<li class="nav-header">Претензии</li>--}}
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-medkit"></i>--}}
-                        {{--<p>--}}
-                            {{--Страховые случаи--}}
-                            {{--<!--<span class="badge badge-info right">2</span>-->--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
+                <li class="nav-header">Претензии</li>
+                <li class="nav-item">
+                    <a href="{{route('pretensii.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-medkit"></i>
+                        <p>
+                            Претензии
+                            <!--<span class="badge badge-info right">2</span>-->
+                        </p>
+                    </a>
+                </li>
+                    <li class="nav-item">
+                    <a href="{{route('pretensii_overview.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-medkit"></i>
+                        <p>
+                            Рассмотр претензий
+                            <!--<span class="badge badge-info right">2</span>-->
+                        </p>
+                    </a>
+                </li>
                 {{--<li class="nav-item">--}}
                     {{--<a href="#" class="nav-link">--}}
                         {{--<i class="nav-icon fas fa-pen"></i>--}}
