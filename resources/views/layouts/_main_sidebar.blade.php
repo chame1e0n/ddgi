@@ -424,7 +424,7 @@
                     <a href="{{route('request.index')}}" id="banki" class="nav-link {{ request()->is('spravochniki/request*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-question-circle" ></i>
                         <p>
-                            Запрось
+                            Запрос
                         </p>
                     </a>
                 </li>
