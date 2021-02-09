@@ -37,6 +37,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('policy_transfer','PolicyTransferController');
     Route::resource('pretensii_overview','PretensiiOverviewController');
     Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
+    Route::resource('spravochniki/request', 'Spravochniki\RequestController');
+
+    Route::get('spravochniki/request/upload/{file}', 'Spravochniki\RequestController@upload')->name('request.upload');
 
     Route::group(['middleware' => ['permission:show pretensii']], function() {
         Route::resource('pretensii','PretensiiController'); // ['only' => ['index']]

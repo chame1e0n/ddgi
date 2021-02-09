@@ -418,6 +418,19 @@
                         </p>
                     </a>
                 </li>
+
+
+                <li class="nav-item" >
+                    <a href="{{route('request.index')}}" id="banki" class="nav-link {{ request()->is('spravochniki/request*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-question-circle" ></i>
+                        <p>
+                            Запрось
+                        </p>
+                    </a>
+                </li>
+
+
+
                 {{--<li class="nav-item">--}}
                     {{--<a href="#" class="nav-link">--}}
                         {{--<i class="nav-icon fas fa-search-dollar"></i>--}}
