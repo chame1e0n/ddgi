@@ -218,6 +218,9 @@ class KaskoController extends Controller
      */
     public function destroy(Kasko $kasko)
     {
-        //
+        $kasko->delete();
+
+        return redirect()->route('kasko.index')
+            ->with('success', sprintf('Дынные об каско \'%s\' были успешно удалены', $kasko->id));
     }
 }
