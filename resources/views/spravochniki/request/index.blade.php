@@ -53,7 +53,12 @@
                                     @foreach ($requestModel as $req)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $req->from_whom }}</td>
+                                            <td>
+                                                {{
+                                                    \App\User::findOrFail($req->from_whom)
+                                                    ->name 
+                                                }}
+                                            </td>
                                             <td>{{ $status[$req->status] }}</td>
                                             <td>{{ $req->data_of_request }}</td>
                                             <td>

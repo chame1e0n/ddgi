@@ -37,7 +37,15 @@
 	                        		@if($filename)
 	                        			<img src="/storage/{{$requestModel->file}}" height="150" width="200">
 	                        		@else
-	                        			<a href=" {{ ($requestModel->file == '') ? '#' :  route('request.upload', $requestModel->id)}} "> <img  src="{{asset('temp/img/')}}/{{ explode('.', $requestModel->file)[1] }}.png" width="50" height="50"> </a>
+	                        			@if(!empty($requestModel->file))
+	                        			<a 
+	                        			href="{{route('request.upload', $requestModel->id)}}"> 
+	                        				<img  
+	                        				src="{{asset('temp/img/')}}/{{ explode('.', $requestModel->file)[1] }}.png" width="50" height="50">
+	                        			 </a>
+	                        			@else 
+	                        				Файл нет
+	                        			@endif
 	                        		@endif
 	                        	</td>
 	                        </tr>
@@ -49,6 +57,25 @@
 	                        	<th>Номер полиса</th>
 	                        	<td>{{ $requestModel->policy_blank }}</td>
 	                        </tr>
+	                        @if($requestModel->status == 'policy_transfer')
+		                        <tr>
+		                        	<th>Количество полисов</th>
+		                        	<td>{{ $requestModel->polis_quantity }}</td>
+		                        </tr>
+
+
+		                        <tr>
+		                        	<th>Номер акта</th>
+		                        	<td>{{ $requestModel->act_number }}</td>
+		                        </tr>
+	                        @endif
+
+	                        @if($requestModel->status == 'underwritting')
+		                        <tr>
+		                        	<th>Причина увелечения лимитов</th>
+		                        	<td>{{ $requestModel->limit_reason }}</td>
+		                        </tr>
+	                        @endif
 	                        <tr>
 	                        	<th>Дата запроса</th>
 	                        	<td>{{ $requestModel->data_of_request }}</td>

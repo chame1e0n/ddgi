@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Spravochniki\RequestModel;
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\Spravochniki\PolicySeries;
 
 class RequestController extends Controller
 {
@@ -30,7 +30,10 @@ class RequestController extends Controller
     public function create()
     {
         $status = RequestModel::STATUS;
-        return view("spravochniki.request.create", compact('status'));
+
+        $policySeries = PolicySeries::all();
+
+        return view("spravochniki.request.create", compact('status', 'policySeries'));
     }
 
     /**
@@ -42,7 +45,6 @@ class RequestController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'from_whom'=>'required',
             'status' => 'required'
         ]);
 
@@ -56,11 +58,14 @@ class RequestController extends Controller
         $datetime = new \DateTime(date("Y-m-d h:i:s"));
 
         RequestModel::create([
-            'from_whom' => $request->from_whom,
+            'from_whom' => \Auth::user()->id,
             'status' => $request->status,
             'file' => $request->file ? $name : '',
             'series' => $request->series,
             'policy_blank' => $request->policy_blank,
+            'act_number' => $request->act_number ?? null,
+            'limit_reason' => $request->limit_reason ?? null,
+            'polis_quantity' => $request->polis_quantity ?? null,
             'comments' =>  $request->comments, 
             'data_of_request' => $datetime
         ]);
@@ -82,7 +87,7 @@ class RequestController extends Controller
         
         $filename = false;
 
-        if (in_array(explode(".", $requestModel->file)[1], $file_type) == true)
+        if (empty($requestModel->file) != true &&  in_array(explode(".", $requestModel->file)[1], $file_type) == true)
         {
             $filename = true;
         }
@@ -104,8 +109,8 @@ class RequestController extends Controller
     {
         $requestModel = RequestModel::findOrFail($id);
         $status = RequestModel::STATUS;
-
-        return view('spravochniki.request.edit', compact('requestModel', 'status'));
+        $policySeries = PolicySeries::all();
+        return view('spravochniki.request.edit', compact('requestModel', 'status', 'policySeries'));
     }
 
     /**
@@ -120,7 +125,6 @@ class RequestController extends Controller
         $requestModel = RequestModel::findOrFail($id);
 
         $request->validate([
-            'from_whom'=>'required',
             'status' => 'required'
         ]);
 
@@ -135,11 +139,14 @@ class RequestController extends Controller
         $datetime = new \DateTime(date("Y-m-d h:i:s"));
 
         $requestModel->update([
-            'from_whom' => $request->from_whom,
+            'from_whom' => \Auth::user()->id,
             'status' => $request->status,
             'file' => $request->file ? $name : '',
             'series' => $request->series,
-            'policy_blank' => $request->policy_blank,
+            'policy_blank' => $request->policy_blank ?? null,
+            'act_number' => $request->act_number ?? null,
+            'limit_reason' => $request->limit_reason ?? null,
+            'polis_quantity' => $request->polis_quantity ?? null,
             'comments' =>  $request->comments, 
             'data_of_request' => $datetime
         ]);

@@ -36,10 +36,6 @@
             <form role="form" action="{{ route('request.update', $requestModel->id) }}" method="post" enctype="multipart/form-data">
               @csrf
               @method('PUT')
-              <div class="form-group" id="act-number-form">
-                <label for="act-number">От кого</label>
-                <input type="text" id="act-number" value="{{ $requestModel->from_whom}} {{ old('from_whom') }}" name="from_whom" class="form-control" placeholder="Полное имя">
-              </div>
 
               <div class="row">
                 <div class="col-sm-6">
@@ -77,14 +73,47 @@
                   </div>
                 </div>
                 <div class="col-sm-6" id="polis-blank">
-                  <div class="form-group">
-                    <label for="polis_blank">Номер полиса</label>
-                    <input id="polis_blank" name="polis_blank" value=" {{$requestModel->polis_blank}} {{old('polis_blank')}} " type="text" class="form-control"
-                      placeholder="Номер полиса">
+                 
+                  <div class="form-group" style="display:{{ 
+                (!is_null($requestModel->policy_blank) == false) ? 'none' : ''  }} " id="policy-type">
+                    <label for="policy-blank">Номер полиса</label>
+                    <select name="policy_blank" class="form-control select2" id="policy-blank">
+                      <option  value="" selected></option>
+                      @foreach($policySeries as $value)
+                        @if(old('polis_blank') == $value->id || $requestModel->policy_blank == $value->id)
+                         <option  value="{{ $value->id }}" selected="">{{$value->code}}</option>
+                        @else
+                          <option  value="{{ $value->id }}">{{$value->code}}</option>
+                        @endif
+                      @endforeach
+                    </select>
                   </div>
+
+                 
+                  <div class="form-group" style="display:{{ 
+                (!is_null($requestModel->polis_quantity) == false) ? 'none' : ''  }} " id="policy-amount">
+                    <label for="polis_quantity">Количество полисов</label>
+                    <input id="polis_quantity" value="{{ $requestModel->polis_quantity }}" name="polis_quantity" type="number" class="form-control" placeholder="100">
+                  </div>
+                 
                 </div>
               </div>
               
+         
+              <div class="form-group" style="display:{{ 
+                (!is_null($requestModel->act_number) == false) ? 'none' : ''  }} "   id="act-number-form">
+                <label for="act-number">Номер акта</label>
+                <input type="text" id="act-number" value=" {{ $requestModel->act_number }} "  name="act_number" class="form-control" placeholder="ADV100023"> 
+              </div>
+            
+
+              
+              <div class="form-group" style="display:{{ 
+                (!is_null($requestModel->limit_reason) == false) ? 'none' : ''  }} " id="exceed-limits">
+                <label for="limit-reason">Причина увелечения лимитов</label>
+                <input type="text" value=" {{ $requestModel->limit_reason }} " id="limit-reason" name="limit_reason" class="form-control" placeholder="">
+              </div>
+
               <div class="form-group" id="comments-form">
                 <label for="comments">Комментарий</label><br>
                 <textarea id="comments" name="comments"  class="textarea" placeholder="Place some text here"
@@ -103,4 +132,38 @@
       </section>
     </div>
 
+@endsection
+
+@section('scripts')
+  <script type="text/javascript">
+      const policyStatus = "policy_transfer"; 
+      const underwrittingStatus = "underwritting";
+      let status = $("#status-type");
+      let actNumber = $("#act-number-form");
+      let exceedLimits = $("#exceed-limits");
+
+      status.click(function(){
+        if (this.value === policyStatus){
+          actNumber.css('display', '');
+          $("#policy-amount").css('display', '');
+          $("#policy-type").css('display', 'none');
+        }
+
+        if (this.value === underwrittingStatus){
+          exceedLimits.css('display', '');
+        }
+
+        if (this.value !== policyStatus){
+          actNumber.css('display', 'none');
+          $("#policy-amount").css('display', 'none');
+          $("#policy-type").css('display', '');
+        }
+
+        if (this.value !== underwrittingStatus){
+          exceedLimits.css('display', 'none');
+        }
+      })
+
+      console.log(status.value)
+  </script>
 @endsection
