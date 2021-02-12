@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\Klass;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,9 @@ class KlassController extends Controller
      */
     public function create()
     {
-        return view('spravochniki.klass.create');
+        $groups = Group::all();
+
+        return view('spravochniki.klass.create', compact('groups'));
     }
 
     /**
@@ -52,7 +55,9 @@ class KlassController extends Controller
      */
     public function show(Klass $klass)
     {
-        return view('spravochniki.klass.edit',compact('klass'));
+        $groups = Group::all();
+
+        return view('spravochniki.klass.edit',compact('klass', 'groups'));
     }
 
     /**
@@ -63,7 +68,9 @@ class KlassController extends Controller
      */
     public function edit(Klass $klass)
     {
-        return view('spravochniki.klass.edit',compact('klass'));
+        $groups = Group::all();
+
+        return view('spravochniki.klass.edit',compact('klass', 'groups'));
     }
 
     /**

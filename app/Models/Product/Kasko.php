@@ -32,10 +32,6 @@ class Kasko extends Model
     }
 
     public function policyInformations() {
-        return $this->belongsToMany(
-            PolicyInformation::class,
-            'kasko_policy_informations',
-            'kasko_id',
-            'policy_information_id');
+        return $this->hasMany( PolicyInformation::class, 'kasko_id', 'id' );
     }
 }

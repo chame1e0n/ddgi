@@ -10,4 +10,9 @@ class Group extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    public function klass()
+    {
+        return $this->hasMany( Klass::class, 'group_id', 'id' );
+    }
 }

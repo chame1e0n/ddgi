@@ -79,6 +79,9 @@ Route::get('test', function () {
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('spravochniki/bank','Spravochniki\BankController');
+    Route::resource('spravochniki/group','GroupController');
+    Route::resource('spravochniki/klass','KlassController');
+    Route::resource('spravochniki/product','ProductController');
     Route::resource('spravochniki/agent','Spravochniki\AgentController');
     Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
     Route::resource('spravochniki/branch','Spravochniki\BranchController');

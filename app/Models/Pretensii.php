@@ -34,4 +34,12 @@ class Pretensii extends Model
     public function overview(){
         return $this->hasMany( PretensiiOverview::class, 'pretensii_id', 'id' );
     }
+
+    /**
+     * Get the policy series.
+     */
+    public function policy()
+    {
+        return $this->hasOne(Policy::class, 'id', 'policy_id');
+    }
 }

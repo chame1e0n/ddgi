@@ -9,14 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class PolicyInformation extends Model
 {
     protected $guarded = [];
-    protected $table = 'policy_informations';
+    protected $table = 'kasko_policy_informations';
 
     public function kasko() {
-        return $this->belongsToMany(
-            Kasko::class,
-            'kasko_policy_informations',
-            'policy_information_id',
-            'kasko_id');
+        return $this->hasOne(Kasko::class, 'id', 'kasko_id');
     }
 
     public function policy()

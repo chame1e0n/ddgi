@@ -35,6 +35,18 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="status">Группа</label>
+                                            <select id="status" name="group_id" class="form-control select2"
+                                                    style="width: 100%;"
+                                                    required>
+                                                @foreach($groups as $group)
+                                                    <option value="{{$group->id}}">{{$group->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">

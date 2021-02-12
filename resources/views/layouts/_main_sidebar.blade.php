@@ -418,6 +418,30 @@
                         </p>
                     </a>
                 </li>
+                    <li class="nav-item">
+                        <a href="{{route('group.index')}}" class="nav-link">
+                            <i class="nav-icon far fa-building"></i>
+                            <p>
+                                Группы
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('klass.index')}}" class="nav-link">
+                            <i class="nav-icon far fa-building"></i>
+                            <p>
+                                Классы
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('product.index')}}" class="nav-link">
+                            <i class="nav-icon far fa-building"></i>
+                            <p>
+                                Продукты
+                            </p>
+                        </a>
+                    </li>
                 {{--<li class="nav-item">--}}
                     {{--<a href="#" class="nav-link">--}}
                         {{--<i class="nav-icon fas fa-search-dollar"></i>--}}

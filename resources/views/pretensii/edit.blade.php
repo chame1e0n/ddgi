@@ -67,6 +67,17 @@
               </div>
 
               <div class="form-group col-sm-3">
+                <label class="col-form-label" for="pretensii-number">№ полиса</label>
+                <select class="form-control success" name="policy_id"
+                        style="width: 100%;">
+                  <option value="{{$pretensii->policy_id}}">{{@$pretensii->policy->policySeries->code}}{{$pretensii->policy->number}}</option>
+                  @foreach($policies as $policy)
+                    <option value="{{$policy->id}}">{{@$policy->policySeries->code}}{{$policy->number}}</option>
+                  @endforeach
+                </select>
+              </div>
+
+              <div class="form-group col-sm-3">
                 <label class="col-form-label" for="pretensii-insured">Страхователь</label>
                 <input type="text" name="insurer" class="form-control client-type-text"
                        id="pretensii-insured" value="{{$pretensii->insurer}}">

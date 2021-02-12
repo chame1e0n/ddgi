@@ -42,6 +42,7 @@
                 <thead>
                 <tr>
                   <th>#</th>
+                  <th>Группа</th>
                   <th>Код</th>
                   <th>Наименование</th>
                   <th>Описание</th>
@@ -52,6 +53,7 @@
                 @foreach ($klasses as $klass)
                 <tr>
                   <td>{{ ++$i }}</td>
+                  <td>{{ @$klass->group->name }}</td>
                   <td>{{ $klass->code }}</td>
                   <td>{{ $klass->name }}</td>
                   <td>{{ $klass->description }}</td>

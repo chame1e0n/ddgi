@@ -41,8 +41,6 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Номер полиса</th>
-                  <th>Серия полиса</th>
                   <th>Тип</th>
                   <th>Цель</th>
                   <th>Действия</th>
@@ -52,17 +50,16 @@
                 @foreach ($kaskos as $key => $kasko)
                 <tr>
                   <td>{{ ++$i }}</td>
-                  <td>{{ $kasko->policy->number }}</td>
-                  <td>{{ $kasko->policySeries->code }}</td>
-                  <td>{{ $kasko->kasko[$key]->type  == 1 ? 'Юр. лицо' : 'Физ. лицо'}}</td>
-                  <td>{{ $kasko->kasko[$key]->purpose  }}</td>
+
+                  <td>{{ $kasko->type  == 1 ? 'Юр. лицо' : 'Физ. лицо'}}</td>
+                  <td>{{ $kasko->purpose  }}</td>
                   <td>
-                    <form action="{{ route('kasko.destroy',$kasko->kasko[$key]->id) }}" method="POST">
+                    <form action="{{ route('kasko.destroy',$kasko->id) }}" method="POST">
 
-                      <a class="btn btn-info disabled" href="{{ route('kasko.show',$kasko->kasko[$key]->id) }}">Посмотреть</a>
+                      <a class="btn btn-info" href="{{ route('kasko.show',$kasko->id) }}">Посмотреть</a>
 
-                      <a class="btn btn-primary disabled"
-                         href="{{ route('kasko.edit',$kasko->kasko[$key]->id) }}">Изменить</a>
+                      <a class="btn btn-primary"
+                         href="{{ route('kasko.edit',$kasko->id) }}">Изменить</a>
                       @csrf
                       @method('DELETE')
 

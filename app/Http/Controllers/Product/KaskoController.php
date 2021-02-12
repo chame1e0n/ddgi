@@ -22,7 +22,7 @@ class KaskoController extends Controller
      */
     public function index()
     {
-        $kaskos = PolicyInformation::latest()->paginate(10);
+        $kaskos = Kasko::latest()->paginate(10);
 
         return view('kasko.index',compact('kaskos'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -57,6 +57,7 @@ class KaskoController extends Controller
 //        dd($request);
 
         foreach ($request->polis_series as $key => $value) {
+            // check if there enough policies in db with given series
             $policyId = Policy::select('id')
                 ->where('status', 'new')
                 ->where('policy_series_id', $request->polis_series)
@@ -71,7 +72,6 @@ class KaskoController extends Controller
                 ]);
             }
         }
-        dd($policyIds);
 
         $kasko = new Kasko;
         $kasko->type = $request->client_type_radio; //Todo::Change it later
@@ -166,6 +166,7 @@ class KaskoController extends Controller
             $policyInformation->additional_policy_from_date = $request->add_from_date[$key];
             $policyInformation->additional_strahovaya_premiya_currency = $request->add_payment[$key];
             $policyInformation->additional_poryadok_oplati_currency = $request->add_payment_order[$key];
+            $policyInformation->kasko_id = $kasko->id;
             $policyInformation->save();
 
             $policyInformationIds[] = $policyInformation->id;
@@ -173,7 +174,6 @@ class KaskoController extends Controller
 
         $kasko->policyHolders()->attach($policyHolderIds);
         $kasko->policyBeneficiaries()->attach($policyBeneficiaryIds);
-        $kasko->policyInformations()->attach($policyInformationIds);
     }
 
     /**
