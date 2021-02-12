@@ -19,6 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('tamojenniy-sklad/create', function () {
+    return view('products.about-tamojenniy-sklad.create');
+});
+Route::get('tc-lizing-zalog/create', function () {
+    return view('products.about-tc-lizing-zalog.create');
+});
+Route::get('imushestvo-lizing-zalog/create', function () {
+    return view('products.about-imushestvo-lizing-zalog.create');
+});
 
 Route::get('test', function () {
     $client = new Client();
