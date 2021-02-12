@@ -65,6 +65,30 @@
                         </p>
                     </a>
                 </li>
+                    <li class="nav-item has-treeview">
+                        <a href="{{url('/tamojenniy-sklad/create')}}" class="nav-link">
+                            <i class="nav-icon fas fa-folder-open"></i>
+                            <p>
+                                Таможенный склад
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="{{url('/imushestvo-lizing-zalog/create')}}" class="nav-link">
+                            <i class="nav-icon fas fa-folder-open"></i>
+                            <p>
+                                Имущество в лизинг/залог
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="{{url('/tc-lizing-zalog/create')}}" class="nav-link">
+                            <i class="nav-icon fas fa-folder-open"></i>
+                            <p>
+                                Т/C в лизинг/залог
+                            </p>
+                        </a>
+                    </li>
                 {{--<li class="nav-item has-treeview">--}}
                     {{--<a href="#" class="nav-link">--}}
                         {{--<i class="nav-icon fas fa-tasks"></i>--}}
