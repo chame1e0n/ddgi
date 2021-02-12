@@ -56,6 +56,18 @@
                 {{--</li>--}}
 
                 <!--Управление-->
+                <li class="nav-header">Заказы с сайта ddgi</li>
+                <li class="nav-item has-treeview">
+                    <a href="{{route('site_order.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-folder-open"></i>
+                        <p>
+                            Заказы
+                        </p>
+                    </a>
+                </li>
+
+
+                <!--Управление-->
                 <li class="nav-header">Управление</li>
                 <li class="nav-item has-treeview">
                     <a href="{{route('kasko.index')}}" class="nav-link">
