@@ -25,11 +25,16 @@ class RequestModel extends Model
 
 	public function user()
 	{
-		return $this->hasone(User::class, 'id', 'from_whom');
+		return $this->hasone(User::class, 'id', 'user_id');
 	}
 
 	public function policy()
 	{
-		return $this->hasOne(Policy::class, 'id', 'policy_blank');
+		return $this->hasOne(Policy::class, 'id', 'policy_id');
 	}
+
+    public function policySeries()
+    {
+        return $this->hasOne(PolicySeries::class, 'id', 'policy_series_id');
+    }
 }
