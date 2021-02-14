@@ -55,8 +55,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 {{
-                                                    \App\User::findOrFail($req->from_whom)
-                                                    ->name 
+                                                    $req->user->name 
                                                 }}
                                             </td>
                                             <td>{{ $status[$req->status] }}</td>

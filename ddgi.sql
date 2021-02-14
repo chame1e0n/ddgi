@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Feb 09, 2021 at 11:54 PM
--- Server version: 10.3.22-MariaDB-log
--- PHP Version: 7.4.5
+-- Хост: 127.0.0.1:3306
+-- Время создания: Фев 12 2021 г., 08:02
+-- Версия сервера: 10.3.22-MariaDB-log
+-- Версия PHP: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ddgi`
+-- База данных: `ddgi`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `agents`
+-- Структура таблицы `agents`
 --
 
 CREATE TABLE `agents` (
@@ -53,7 +53,7 @@ CREATE TABLE `agents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `agents`
+-- Дамп данных таблицы `agents`
 --
 
 INSERT INTO `agents` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `job`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `agent_agreement_img`, `labor_contract`, `firm_contract`, `license`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -63,7 +63,7 @@ INSERT INTO `agents` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `banks`
+-- Структура таблицы `banks`
 --
 
 CREATE TABLE `banks` (
@@ -81,7 +81,7 @@ CREATE TABLE `banks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `banks`
+-- Дамп данных таблицы `banks`
 --
 
 INSERT INTO `banks` (`id`, `code`, `name`, `filial`, `address`, `inn`, `raschetniy_schet`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -95,7 +95,7 @@ INSERT INTO `banks` (`id`, `code`, `name`, `filial`, `address`, `inn`, `raschetn
 -- --------------------------------------------------------
 
 --
--- Table structure for table `beneficiaries`
+-- Структура таблицы `beneficiaries`
 --
 
 CREATE TABLE `beneficiaries` (
@@ -116,7 +116,7 @@ CREATE TABLE `beneficiaries` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `branches`
+-- Структура таблицы `branches`
 --
 
 CREATE TABLE `branches` (
@@ -139,7 +139,7 @@ CREATE TABLE `branches` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `branches`
+-- Дамп данных таблицы `branches`
 --
 
 INSERT INTO `branches` (`id`, `parent_id`, `name`, `series`, `founded_date`, `region`, `user_id`, `address`, `phone_number`, `type`, `code_by_office`, `code_by_type`, `hierarchy`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -148,7 +148,7 @@ INSERT INTO `branches` (`id`, `parent_id`, `name`, `series`, `founded_date`, `re
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clients`
+-- Структура таблицы `clients`
 --
 
 CREATE TABLE `clients` (
@@ -173,7 +173,7 @@ CREATE TABLE `clients` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `clients`
+-- Дамп данных таблицы `clients`
 --
 
 INSERT INTO `clients` (`id`, `type`, `name`, `middle_name`, `surname`, `address`, `phone_number`, `mfo`, `inn`, `bank_id`, `raschetniy_schet`, `passport_series`, `passport_number`, `passport_given_date`, `passport_given_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -184,7 +184,7 @@ INSERT INTO `clients` (`id`, `type`, `name`, `middle_name`, `surname`, `address`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `currencies`
+-- Структура таблицы `currencies`
 --
 
 CREATE TABLE `currencies` (
@@ -198,7 +198,7 @@ CREATE TABLE `currencies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `currencies`
+-- Дамп данных таблицы `currencies`
 --
 
 INSERT INTO `currencies` (`id`, `name`, `code`, `rate`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -208,7 +208,7 @@ INSERT INTO `currencies` (`id`, `name`, `code`, `rate`, `created_at`, `updated_a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `directors`
+-- Структура таблицы `directors`
 --
 
 CREATE TABLE `directors` (
@@ -232,7 +232,7 @@ CREATE TABLE `directors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `directors`
+-- Дамп данных таблицы `directors`
 --
 
 INSERT INTO `directors` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -241,7 +241,7 @@ INSERT INTO `directors` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Структура таблицы `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -256,7 +256,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `franchise_type`
+-- Структура таблицы `franchise_type`
 --
 
 CREATE TABLE `franchise_type` (
@@ -268,7 +268,7 @@ CREATE TABLE `franchise_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `franchise_type`
+-- Дамп данных таблицы `franchise_type`
 --
 
 INSERT INTO `franchise_type` (`id`, `type`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -279,7 +279,7 @@ INSERT INTO `franchise_type` (`id`, `type`, `created_at`, `updated_at`, `deleted
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Структура таблицы `groups`
 --
 
 CREATE TABLE `groups` (
@@ -293,7 +293,7 @@ CREATE TABLE `groups` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `group_klass`
+-- Структура таблицы `group_klass`
 --
 
 CREATE TABLE `group_klass` (
@@ -306,7 +306,7 @@ CREATE TABLE `group_klass` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `group_klass`
+-- Дамп данных таблицы `group_klass`
 --
 
 INSERT INTO `group_klass` (`id`, `group_id`, `klass_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -318,7 +318,7 @@ INSERT INTO `group_klass` (`id`, `group_id`, `klass_id`, `created_at`, `updated_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kasko`
+-- Структура таблицы `kasko`
 --
 
 CREATE TABLE `kasko` (
@@ -337,7 +337,7 @@ CREATE TABLE `kasko` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kasko`
+-- Дамп данных таблицы `kasko`
 --
 
 INSERT INTO `kasko` (`id`, `type`, `product_id`, `from_date`, `to_date`, `reason`, `geo_zone`, `defect_img`, `purpose`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -347,7 +347,7 @@ INSERT INTO `kasko` (`id`, `type`, `product_id`, `from_date`, `to_date`, `reason
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kasko_policy_beneficiaries`
+-- Структура таблицы `kasko_policy_beneficiaries`
 --
 
 CREATE TABLE `kasko_policy_beneficiaries` (
@@ -360,7 +360,7 @@ CREATE TABLE `kasko_policy_beneficiaries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `kasko_policy_beneficiaries`
+-- Дамп данных таблицы `kasko_policy_beneficiaries`
 --
 
 INSERT INTO `kasko_policy_beneficiaries` (`id`, `policy_beneficiary_id`, `kasko_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -372,7 +372,7 @@ INSERT INTO `kasko_policy_beneficiaries` (`id`, `policy_beneficiary_id`, `kasko_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kasko_policy_holders`
+-- Структура таблицы `kasko_policy_holders`
 --
 
 CREATE TABLE `kasko_policy_holders` (
@@ -385,7 +385,7 @@ CREATE TABLE `kasko_policy_holders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kasko_policy_holders`
+-- Дамп данных таблицы `kasko_policy_holders`
 --
 
 INSERT INTO `kasko_policy_holders` (`id`, `policy_holders_id`, `kasko_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -398,7 +398,7 @@ INSERT INTO `kasko_policy_holders` (`id`, `policy_holders_id`, `kasko_id`, `crea
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kasko_policy_informations`
+-- Структура таблицы `kasko_policy_informations`
 --
 
 CREATE TABLE `kasko_policy_informations` (
@@ -411,7 +411,7 @@ CREATE TABLE `kasko_policy_informations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `kasko_policy_informations`
+-- Дамп данных таблицы `kasko_policy_informations`
 --
 
 INSERT INTO `kasko_policy_informations` (`id`, `policy_information_id`, `kasko_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -420,7 +420,7 @@ INSERT INTO `kasko_policy_informations` (`id`, `policy_information_id`, `kasko_i
 -- --------------------------------------------------------
 
 --
--- Table structure for table `klass`
+-- Структура таблицы `klass`
 --
 
 CREATE TABLE `klass` (
@@ -434,7 +434,7 @@ CREATE TABLE `klass` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `klass`
+-- Дамп данных таблицы `klass`
 --
 
 INSERT INTO `klass` (`id`, `code`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -443,7 +443,7 @@ INSERT INTO `klass` (`id`, `code`, `name`, `description`, `created_at`, `updated
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Структура таблицы `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -453,7 +453,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Дамп данных таблицы `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -464,7 +464,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_has_permissions`
+-- Структура таблицы `model_has_permissions`
 --
 
 CREATE TABLE `model_has_permissions` (
@@ -474,7 +474,7 @@ CREATE TABLE `model_has_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `model_has_permissions`
+-- Дамп данных таблицы `model_has_permissions`
 --
 
 INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
@@ -483,7 +483,7 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_has_roles`
+-- Структура таблицы `model_has_roles`
 --
 
 CREATE TABLE `model_has_roles` (
@@ -495,7 +495,7 @@ CREATE TABLE `model_has_roles` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permissions`
+-- Структура таблицы `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -507,7 +507,7 @@ CREATE TABLE `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `permissions`
+-- Дамп данных таблицы `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -516,7 +516,7 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 -- --------------------------------------------------------
 
 --
--- Table structure for table `policies`
+-- Структура таблицы `policies`
 --
 
 CREATE TABLE `policies` (
@@ -534,7 +534,7 @@ CREATE TABLE `policies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `policies`
+-- Дамп данных таблицы `policies`
 --
 
 INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_series_id`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -562,7 +562,7 @@ INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_ser
 -- --------------------------------------------------------
 
 --
--- Table structure for table `policies_policy_transfer`
+-- Структура таблицы `policies_policy_transfer`
 --
 
 CREATE TABLE `policies_policy_transfer` (
@@ -575,7 +575,7 @@ CREATE TABLE `policies_policy_transfer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `policies_policy_transfer`
+-- Дамп данных таблицы `policies_policy_transfer`
 --
 
 INSERT INTO `policies_policy_transfer` (`id`, `policy_transfer_id`, `policy_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -589,7 +589,7 @@ INSERT INTO `policies_policy_transfer` (`id`, `policy_transfer_id`, `policy_id`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `policy_beneficiaries`
+-- Структура таблицы `policy_beneficiaries`
 --
 
 CREATE TABLE `policy_beneficiaries` (
@@ -608,7 +608,7 @@ CREATE TABLE `policy_beneficiaries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='страхователи' ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `policy_beneficiaries`
+-- Дамп данных таблицы `policy_beneficiaries`
 --
 
 INSERT INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
@@ -623,7 +623,7 @@ INSERT INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `che
 -- --------------------------------------------------------
 
 --
--- Table structure for table `policy_holders`
+-- Структура таблицы `policy_holders`
 --
 
 CREATE TABLE `policy_holders` (
@@ -642,7 +642,7 @@ CREATE TABLE `policy_holders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='страхователи';
 
 --
--- Dumping data for table `policy_holders`
+-- Дамп данных таблицы `policy_holders`
 --
 
 INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
@@ -662,7 +662,7 @@ INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `policy_informations`
+-- Структура таблицы `policy_informations`
 --
 
 CREATE TABLE `policy_informations` (
@@ -721,7 +721,7 @@ CREATE TABLE `policy_informations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `policy_informations`
+-- Дамп данных таблицы `policy_informations`
 --
 
 INSERT INTO `policy_informations` (`id`, `policy_id`, `policy_series_id`, `period`, `user_id`, `line_id`, `brand`, `model`, `modification`, `gov_number`, `tech_passport`, `engine_number`, `carcase_number`, `payload`, `seats_number`, `polnaya_strahovaya_stoimost`, `polnaya_strahovaya_summa`, `polnaya_strahovaya_premiya`, `additional_brand`, `additional_equipment`, `additional_serial_number`, `additional_strahovaya_summa`, `additional_terr_vehical`, `additional_terr_insured`, `additional_terr_evacuation`, `additional_is_vihecal_insured`, `additional_other_insurence_info`, `additional_is_death`, `additional_death_strahovaya_summa`, `additiona_death_strahovaya_premiya`, `additional_death_franchise`, `additional_is_civil`, `additional_civil_strahovaya_summa`, `additional_civil_strahovaya_premiya`, `additional_is_accident`, `additional_accident_driver_strahovaya_summa`, `additional_accident_driver_strahovaya_premiya`, `additional_accident_pessanger_number`, `additional_accident_pessanger_strahovaya_summa_per`, `additional_accident_pessanger_strahovaya_summa`, `additional_accident_pessanger_strahovaya_premiya`, `additional_accident_limit_number`, `additional_accident_limit_strahovaya_summa_per`, `additional_accident_limit_strahovaya_summa`, `additional_accident_limit_strahovaya_premiya`, `additional_limit`, `additional_policy_from_date`, `additional_strahovaya_premiya_currency`, `additional_poryadok_oplati_currency`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -730,7 +730,7 @@ INSERT INTO `policy_informations` (`id`, `policy_id`, `policy_series_id`, `perio
 -- --------------------------------------------------------
 
 --
--- Table structure for table `policy_registrations`
+-- Структура таблицы `policy_registrations`
 --
 
 CREATE TABLE `policy_registrations` (
@@ -748,7 +748,7 @@ CREATE TABLE `policy_registrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `policy_registrations`
+-- Дамп данных таблицы `policy_registrations`
 --
 
 INSERT INTO `policy_registrations` (`id`, `act_number`, `act_date`, `from_number`, `to_number`, `policy_series_id`, `document`, `client_type`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -759,7 +759,7 @@ INSERT INTO `policy_registrations` (`id`, `act_number`, `act_date`, `from_number
 -- --------------------------------------------------------
 
 --
--- Table structure for table `policy_series`
+-- Структура таблицы `policy_series`
 --
 
 CREATE TABLE `policy_series` (
@@ -771,7 +771,7 @@ CREATE TABLE `policy_series` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `policy_series`
+-- Дамп данных таблицы `policy_series`
 --
 
 INSERT INTO `policy_series` (`id`, `code`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -780,7 +780,7 @@ INSERT INTO `policy_series` (`id`, `code`, `created_at`, `updated_at`, `deleted_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `policy_transfer`
+-- Структура таблицы `policy_transfer`
 --
 
 CREATE TABLE `policy_transfer` (
@@ -800,7 +800,7 @@ CREATE TABLE `policy_transfer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `policy_transfer`
+-- Дамп данных таблицы `policy_transfer`
 --
 
 INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -809,7 +809,7 @@ INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `pol
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pretensii`
+-- Структура таблицы `pretensii`
 --
 
 CREATE TABLE `pretensii` (
@@ -848,7 +848,7 @@ CREATE TABLE `pretensii` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `pretensii`
+-- Дамп данных таблицы `pretensii`
 --
 
 INSERT INTO `pretensii` (`id`, `pretensii_status_id`, `case_number`, `insurer`, `branch_id`, `insurance_contract`, `client_type`, `insurence_type`, `insurence_period`, `insured_sum`, `payable_by_agreement`, `actually_paid`, `last_payment_date`, `franchise_type_id`, `deductible_amount`, `franchise_percentage`, `reinsurance`, `date_applications`, `date_of_the_insured_event`, `event_description`, `object_description`, `region`, `district`, `claimed_loss_sum`, `refund_paid_sum`, `currency_exchange_rate`, `total_amount_in_sums`, `date_of_payment_compensation`, `final_settlement_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -857,7 +857,7 @@ INSERT INTO `pretensii` (`id`, `pretensii_status_id`, `case_number`, `insurer`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pretensii_overview`
+-- Структура таблицы `pretensii_overview`
 --
 
 CREATE TABLE `pretensii_overview` (
@@ -872,7 +872,7 @@ CREATE TABLE `pretensii_overview` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='рассмотр претензии';
 
 --
--- Dumping data for table `pretensii_overview`
+-- Дамп данных таблицы `pretensii_overview`
 --
 
 INSERT INTO `pretensii_overview` (`id`, `pretensii_id`, `user_id`, `passed`, `comment`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -882,7 +882,7 @@ INSERT INTO `pretensii_overview` (`id`, `pretensii_id`, `user_id`, `passed`, `co
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pretensii_status`
+-- Структура таблицы `pretensii_status`
 --
 
 CREATE TABLE `pretensii_status` (
@@ -895,7 +895,7 @@ CREATE TABLE `pretensii_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `pretensii_status`
+-- Дамп данных таблицы `pretensii_status`
 --
 
 INSERT INTO `pretensii_status` (`id`, `status`, `code`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -906,36 +906,39 @@ INSERT INTO `pretensii_status` (`id`, `status`, `code`, `created_at`, `updated_a
 -- --------------------------------------------------------
 
 --
--- Table structure for table `requests`
+-- Структура таблицы `requests`
 --
 
 CREATE TABLE `requests` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `from_whom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `from_whom` int(11) NOT NULL,
   `status` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
   `comments` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `data_of_request` datetime NOT NULL,
   `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `series` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `act_number` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `limit_reason` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `policy_blank` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `polis_quantity` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `requests`
+-- Дамп данных таблицы `requests`
 --
 
-INSERT INTO `requests` (`id`, `from_whom`, `status`, `comments`, `data_of_request`, `file`, `series`, `policy_blank`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'salom', 'lost', 'wdefgtrhygtrf', '2021-02-09 02:27:29', 'request_file/2clDy0R3pHtlCu5yUoCYH9BzCdkqgbqlCr31Ll6E.docx', 'egtrhytgrf', NULL, '2021-02-09 09:27:29', '2021-02-09 09:27:29', NULL),
-(2, 'egtrhgf', 'terminated', NULL, '2021-02-09 02:38:30', 'request_file/VLgApwZTVSf65N03L553ow9LLaZpCJ5tAhY6Dkcx.jpg', NULL, NULL, '2021-02-09 09:38:30', '2021-02-09 09:38:30', NULL),
-(3, 'Test pdf', 'terminated', NULL, '2021-02-09 06:45:46', 'request_file/KOBNQexBOq4AhJRTt154P6W03X8dUNMst8fY1LXY.pdf', NULL, NULL, '2021-02-09 13:45:46', '2021-02-09 13:45:46', NULL);
+INSERT INTO `requests` (`id`, `from_whom`, `status`, `comments`, `data_of_request`, `file`, `series`, `act_number`, `limit_reason`, `policy_blank`, `polis_quantity`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 11, 'defective', 'Sit earum ullamco si', '2021-02-11 06:57:56', '', 'Deleniti ut maxime m', '386', NULL, NULL, 3434, '2021-02-11 13:43:42', '2021-02-11 13:57:56', NULL),
+(2, 11, 'policy_transfer', 'Libero quae quia sin', '2021-02-11 06:54:07', '', 'Cum temporibus in ex', '169', NULL, NULL, 58, '2021-02-11 13:54:07', '2021-02-11 13:54:07', NULL),
+(3, 11, 'policy_transfer', 'Qui saepe ipsam aspe', '2021-02-11 07:06:36', '', 'Et sed nobis nostrum', '3444443', 'Quo non quod ut ut p', '1', 3434, '2021-02-11 14:03:15', '2021-02-11 14:06:36', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Структура таблицы `roles`
 --
 
 CREATE TABLE `roles` (
@@ -947,7 +950,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `roles`
+-- Дамп данных таблицы `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -956,7 +959,7 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_has_permissions`
+-- Структура таблицы `role_has_permissions`
 --
 
 CREATE TABLE `role_has_permissions` (
@@ -965,7 +968,7 @@ CREATE TABLE `role_has_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `role_has_permissions`
+-- Дамп данных таблицы `role_has_permissions`
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
@@ -974,7 +977,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Структура таблицы `users`
 --
 
 CREATE TABLE `users` (
@@ -989,7 +992,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -1001,7 +1004,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- --------------------------------------------------------
 
 --
--- Table structure for table `views`
+-- Структура таблицы `views`
 --
 
 CREATE TABLE `views` (
@@ -1013,449 +1016,449 @@ CREATE TABLE `views` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
--- Indexes for dumped tables
+-- Индексы сохранённых таблиц
 --
 
 --
--- Indexes for table `agents`
+-- Индексы таблицы `agents`
 --
 ALTER TABLE `agents`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `banks`
+-- Индексы таблицы `banks`
 --
 ALTER TABLE `banks`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `beneficiaries`
+-- Индексы таблицы `beneficiaries`
 --
 ALTER TABLE `beneficiaries`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `branches`
+-- Индексы таблицы `branches`
 --
 ALTER TABLE `branches`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `clients`
+-- Индексы таблицы `clients`
 --
 ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `currencies`
+-- Индексы таблицы `currencies`
 --
 ALTER TABLE `currencies`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `directors`
+-- Индексы таблицы `directors`
 --
 ALTER TABLE `directors`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `failed_jobs`
+-- Индексы таблицы `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `franchise_type`
+-- Индексы таблицы `franchise_type`
 --
 ALTER TABLE `franchise_type`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `groups`
+-- Индексы таблицы `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `group_klass`
+-- Индексы таблицы `group_klass`
 --
 ALTER TABLE `group_klass`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kasko`
+-- Индексы таблицы `kasko`
 --
 ALTER TABLE `kasko`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kasko_policy_beneficiaries`
+-- Индексы таблицы `kasko_policy_beneficiaries`
 --
 ALTER TABLE `kasko_policy_beneficiaries`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kasko_policy_holders`
+-- Индексы таблицы `kasko_policy_holders`
 --
 ALTER TABLE `kasko_policy_holders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kasko_policy_informations`
+-- Индексы таблицы `kasko_policy_informations`
 --
 ALTER TABLE `kasko_policy_informations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `klass`
+-- Индексы таблицы `klass`
 --
 ALTER TABLE `klass`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Индексы таблицы `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `model_has_permissions`
+-- Индексы таблицы `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
   ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Indexes for table `model_has_roles`
+-- Индексы таблицы `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Indexes for table `permissions`
+-- Индексы таблицы `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `policies`
+-- Индексы таблицы `policies`
 --
 ALTER TABLE `policies`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `policies_policy_transfer`
+-- Индексы таблицы `policies_policy_transfer`
 --
 ALTER TABLE `policies_policy_transfer`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `policy_beneficiaries`
+-- Индексы таблицы `policy_beneficiaries`
 --
 ALTER TABLE `policy_beneficiaries`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `policy_holders`
+-- Индексы таблицы `policy_holders`
 --
 ALTER TABLE `policy_holders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `policy_informations`
+-- Индексы таблицы `policy_informations`
 --
 ALTER TABLE `policy_informations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `policy_registrations`
+-- Индексы таблицы `policy_registrations`
 --
 ALTER TABLE `policy_registrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `policy_series`
+-- Индексы таблицы `policy_series`
 --
 ALTER TABLE `policy_series`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `policy_transfer`
+-- Индексы таблицы `policy_transfer`
 --
 ALTER TABLE `policy_transfer`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pretensii`
+-- Индексы таблицы `pretensii`
 --
 ALTER TABLE `pretensii`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pretensii_overview`
+-- Индексы таблицы `pretensii_overview`
 --
 ALTER TABLE `pretensii_overview`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pretensii_status`
+-- Индексы таблицы `pretensii_status`
 --
 ALTER TABLE `pretensii_status`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `requests`
+-- Индексы таблицы `requests`
 --
 ALTER TABLE `requests`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `roles`
+-- Индексы таблицы `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `role_has_permissions`
+-- Индексы таблицы `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `users`
+-- Индексы таблицы `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- Indexes for table `views`
+-- Индексы таблицы `views`
 --
 ALTER TABLE `views`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT for table `agents`
+-- AUTO_INCREMENT для таблицы `agents`
 --
 ALTER TABLE `agents`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `banks`
+-- AUTO_INCREMENT для таблицы `banks`
 --
 ALTER TABLE `banks`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `beneficiaries`
+-- AUTO_INCREMENT для таблицы `beneficiaries`
 --
 ALTER TABLE `beneficiaries`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `branches`
+-- AUTO_INCREMENT для таблицы `branches`
 --
 ALTER TABLE `branches`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `clients`
+-- AUTO_INCREMENT для таблицы `clients`
 --
 ALTER TABLE `clients`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `currencies`
+-- AUTO_INCREMENT для таблицы `currencies`
 --
 ALTER TABLE `currencies`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `directors`
+-- AUTO_INCREMENT для таблицы `directors`
 --
 ALTER TABLE `directors`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT для таблицы `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `franchise_type`
+-- AUTO_INCREMENT для таблицы `franchise_type`
 --
 ALTER TABLE `franchise_type`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `groups`
+-- AUTO_INCREMENT для таблицы `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `group_klass`
+-- AUTO_INCREMENT для таблицы `group_klass`
 --
 ALTER TABLE `group_klass`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `kasko`
+-- AUTO_INCREMENT для таблицы `kasko`
 --
 ALTER TABLE `kasko`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `kasko_policy_beneficiaries`
+-- AUTO_INCREMENT для таблицы `kasko_policy_beneficiaries`
 --
 ALTER TABLE `kasko_policy_beneficiaries`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `kasko_policy_holders`
+-- AUTO_INCREMENT для таблицы `kasko_policy_holders`
 --
 ALTER TABLE `kasko_policy_holders`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `kasko_policy_informations`
+-- AUTO_INCREMENT для таблицы `kasko_policy_informations`
 --
 ALTER TABLE `kasko_policy_informations`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `klass`
+-- AUTO_INCREMENT для таблицы `klass`
 --
 ALTER TABLE `klass`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT для таблицы `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `permissions`
+-- AUTO_INCREMENT для таблицы `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `policies`
+-- AUTO_INCREMENT для таблицы `policies`
 --
 ALTER TABLE `policies`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `policies_policy_transfer`
+-- AUTO_INCREMENT для таблицы `policies_policy_transfer`
 --
 ALTER TABLE `policies_policy_transfer`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `policy_beneficiaries`
+-- AUTO_INCREMENT для таблицы `policy_beneficiaries`
 --
 ALTER TABLE `policy_beneficiaries`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `policy_holders`
+-- AUTO_INCREMENT для таблицы `policy_holders`
 --
 ALTER TABLE `policy_holders`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `policy_informations`
+-- AUTO_INCREMENT для таблицы `policy_informations`
 --
 ALTER TABLE `policy_informations`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `policy_registrations`
+-- AUTO_INCREMENT для таблицы `policy_registrations`
 --
 ALTER TABLE `policy_registrations`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `policy_series`
+-- AUTO_INCREMENT для таблицы `policy_series`
 --
 ALTER TABLE `policy_series`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `policy_transfer`
+-- AUTO_INCREMENT для таблицы `policy_transfer`
 --
 ALTER TABLE `policy_transfer`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `pretensii`
+-- AUTO_INCREMENT для таблицы `pretensii`
 --
 ALTER TABLE `pretensii`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `pretensii_overview`
+-- AUTO_INCREMENT для таблицы `pretensii_overview`
 --
 ALTER TABLE `pretensii_overview`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `pretensii_status`
+-- AUTO_INCREMENT для таблицы `pretensii_status`
 --
 ALTER TABLE `pretensii_status`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `requests`
+-- AUTO_INCREMENT для таблицы `requests`
 --
 ALTER TABLE `requests`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT для таблицы `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `views`
+-- AUTO_INCREMENT для таблицы `views`
 --
 ALTER TABLE `views`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Constraints for table `model_has_permissions`
+-- Ограничения внешнего ключа таблицы `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `model_has_roles`
+-- Ограничения внешнего ключа таблицы `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `role_has_permissions`
+-- Ограничения внешнего ключа таблицы `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
