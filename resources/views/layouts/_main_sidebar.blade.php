@@ -454,7 +454,6 @@
                         </p>
                     </a>
                 </li>
-<<<<<<< HEAD
                     <li class="nav-item">
                         <a href="{{route('group.index')}}" class="nav-link">
                             <i class="nav-icon far fa-building"></i>
@@ -479,9 +478,6 @@
                             </p>
                         </a>
                     </li>
-=======
-
-
                 <li class="nav-item" >
                     <a href="{{route('request.index')}}" id="banki" class="nav-link {{ request()->is('spravochniki/request*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-question-circle" ></i>
@@ -490,10 +486,6 @@
                         </p>
                     </a>
                 </li>
-
-
-
->>>>>>> 78d394da1588926645f41d2bf4bdc500631740d7
                 {{--<li class="nav-item">--}}
                     {{--<a href="#" class="nav-link">--}}
                         {{--<i class="nav-icon fas fa-search-dollar"></i>--}}

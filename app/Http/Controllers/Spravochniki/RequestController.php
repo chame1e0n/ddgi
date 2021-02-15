@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Spravochniki;
 
 use App\Http\Controllers\Controller;
+use App\Models\Policy;
 use Illuminate\Http\Request;
 use App\Models\Spravochniki\RequestModel;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Spravochniki\PolicySeries;
+use Mockery\Exception;
 
 class RequestController extends Controller
 {
@@ -32,68 +34,70 @@ class RequestController extends Controller
         $status = RequestModel::STATUS;
 
         $policySeries = PolicySeries::all();
+        $policySeries = PolicySeries::all();
 
         return view("spravochniki.request.create", compact('status', 'policySeries'));
+    }
+
+    public function getPolicyByPolicySeries(Request $request)
+    {
+        return Policy::where('policy_series_id', $request->input('policy_series_id'))->get()->toJson();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        //Todo::change policy status
         $request->validate([
             'status' => 'required'
         ]);
 
-        if ($file = $request->file('file')){
+        if ($file = $request->file('file')) {
             $request->validate([
-                'file'=>'required|mimes:jpg,jpeg,bmp,png,doc,docx,xlsx,xls,pdf'
+                'file' => 'required|mimes:jpg,jpeg,bmp,png,doc,docx,xlsx,xls,pdf'
             ]);
             $name = $file->store('request_file', ['disk' => 'public']);
         }
 
-        $datetime = new \DateTime(date("Y-m-d h:i:s"));
-
         RequestModel::create([
-            'from_whom' => \Auth::user()->id,
+            'user_id' => \Auth::user()->id,
             'status' => $request->status,
             'file' => $request->file ? $name : '',
-            'series' => $request->series,
-            'policy_blank' => $request->policy_blank,
+            'policy_id' => $request->policy_id,
+            'policy_series_id' => $request->policy_series_id,
             'act_number' => $request->act_number ?? null,
             'limit_reason' => $request->limit_reason ?? null,
             'polis_quantity' => $request->polis_quantity ?? null,
-            'comments' =>  $request->comments, 
-            'data_of_request' => $datetime
+            'comments' => $request->comments
         ]);
 
         return redirect()->route('request.index')
-            ->with('success','Успешно добавлен новый запрос');
+            ->with('success', 'Успешно добавлен новый запрос');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $file_type = ["jpg","jpeg","bmp","png"];
+        $file_type = ["jpg", "jpeg", "bmp", "png"];
         $requestModel = RequestModel::findOrFail($id);
-        
+
         $filename = false;
 
-        if (empty($requestModel->file) != true &&  in_array(explode(".", $requestModel->file)[1], $file_type) == true)
-        {
+        if (empty($requestModel->file) != true && in_array(explode(".", $requestModel->file)[1], $file_type) == true) {
             $filename = true;
         }
 
         $status = RequestModel::STATUS[$requestModel->status];
-
 
 
         return view('spravochniki.request.show', compact('requestModel', 'status', 'filename'));
@@ -102,7 +106,7 @@ class RequestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -116,8 +120,8 @@ class RequestController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -128,9 +132,9 @@ class RequestController extends Controller
             'status' => 'required'
         ]);
 
-        if ($file = $request->file('file')){
+        if ($file = $request->file('file')) {
             $request->validate([
-                'file'=>'required|mimes:jpg,jpeg,bmp,png,doc,docx,xlsx,xls,pdf'
+                'file' => 'required|mimes:jpg,jpeg,bmp,png,doc,docx,xlsx,xls,pdf'
             ]);
             Storage::disk('public')->delete($requestModel->file);
             $name = $file->store('request_file', ['disk' => 'public']);
@@ -139,26 +143,25 @@ class RequestController extends Controller
         $datetime = new \DateTime(date("Y-m-d h:i:s"));
 
         $requestModel->update([
-            'from_whom' => \Auth::user()->id,
+            'user_id' => \Auth::user()->id,
             'status' => $request->status,
             'file' => $request->file ? $name : '',
-            'series' => $request->series,
-            'policy_blank' => $request->policy_blank ?? null,
+            'policy_id' => $request->policy_id,
+            'policy_series_id' => $request->policy_series_id,
             'act_number' => $request->act_number ?? null,
             'limit_reason' => $request->limit_reason ?? null,
             'polis_quantity' => $request->polis_quantity ?? null,
-            'comments' =>  $request->comments, 
-            'data_of_request' => $datetime
+            'comments' => $request->comments
         ]);
 
         return redirect()->route('request.index')
-            ->with('success', sprintf('Дынные о банке \'%s\' были успешно обновлены', $request->input('from_whom')));
+            ->with('success', sprintf('Дынные о запросе \'%s\' были успешно обновлены', $request->input('user_id')));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -171,13 +174,13 @@ class RequestController extends Controller
 
     }
 
-    
+
     public function upload($id)
     {
         $file = RequestModel::findOrFail($id);
-       
+
         $filetype = explode(".", $file->file);
-       
-        return Storage::disk('public')->download($file->file, $file->from_whom.".".$filetype[1]);
+
+        return Storage::disk('public')->download($file->file, $file->from_whom . "." . $filetype[1]);
     }
 }

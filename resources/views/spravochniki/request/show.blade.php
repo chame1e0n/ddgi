@@ -24,7 +24,7 @@
 	                        </tr>
 	                        <tr>
 	                        	<th>От кого</th>
-	                        	<td>{{ $requestModel->from_whom }}</td>
+	                        	<td>{{ $requestModel->user->name }}</td>
 	                        </tr>
 	                        <tr>
 	                        	<th>Статус</th>
@@ -50,11 +50,11 @@
 	                        </tr>
 	                        <tr>
 	                        	<th>Серия</th>
-	                        	<td>{{ $requestModel->series }}</td>
+	                        	<td>{{ @$requestModel->policySeries->code }}</td>
 	                        </tr>
 	                        <tr>
 	                        	<th>Номер полиса</th>
-	                        	<td>{{ $requestModel->policy_blank }}</td>
+	                        	<td>{{ @$requestModel->policy->number }}</td>
 	                        </tr>
 	                        @if($requestModel->status == 'policy_transfer')
 		                        <tr>
@@ -77,7 +77,7 @@
 	                        @endif
 	                        <tr>
 	                        	<th>Дата запроса</th>
-	                        	<td>{{ $requestModel->data_of_request }}</td>
+	                        	<td>{{ $requestModel->created_at }}</td>
 	                        </tr>
 	                        <tr>
 	                        	<th>Комментарий</th>
