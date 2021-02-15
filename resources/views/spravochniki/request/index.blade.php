@@ -36,37 +36,41 @@
                                 @endif
                                 <div class=" mb-4">
                                      <i class="bi bi-arrow-down"></i> <i class="bi bi-arrow-up"></i>
-                                    <a class="btn btn-success" href="{{ route('bank.create') }}">Создать</a>
+                                    <a class="btn btn-success" href="{{ route('request.create') }}">Создать</a>
                                    
                                 </div>
                                 <table id="example" class="table table-bordered table-striped">
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">#</th>
-                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Наименование</th>
-                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Код</th>
-                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Статус</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">От кого</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Статус</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Дата запроса</th>
                                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Действия</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($banks as $bank)
+                                    @foreach ($requestModel as $req)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $bank->name }}</td>
-                                            <td>{{ $bank->code }}</td>
-                                            <td>{{ $bank->status > 0 ? 'Активный' : 'Неактивный' }}</td>
                                             <td>
-                                                <form action="{{ route('bank.destroy',$bank->id) }}" method="POST">
+                                                {{
+                                                    $req->user->name 
+                                                }}
+                                            </td>
+                                            <td>{{ $status[$req->status] }}</td>
+                                            <td>{{ $req->data_of_request }}</td>
+                                            <td>
+                                                <form action="{{ route('request.destroy',$req->id) }}" method="POST">
 
-                                                    <a class="btn btn-info" href="{{ route('bank.show',$bank->id) }}">Посмотреть</a>
+                                                    <a class="btn btn-info" href="{{ route('request.show',$req->id) }}">Посмотреть</a>
 
                                                     <a class="btn btn-primary"
-                                                       href="{{ route('bank.edit',$bank->id) }}">Изменить</a>
+                                                       href="{{ route('request.edit',$req->id) }}">Изменить</a>
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                                    <button type="submit" onclick="return confirm('Вы уверены?')" class="btn btn-danger">Удалить</button>
                                                 </form>
                                             </td>
                                         </tr>

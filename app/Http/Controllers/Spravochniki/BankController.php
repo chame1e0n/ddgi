@@ -15,10 +15,9 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = Bank::latest()->paginate(5);
+        $banks = Bank::all();
 
-        return view('spravochniki.bank.index',compact('banks'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('spravochniki.bank.index',compact('banks'));
     }
 
     /**
