@@ -436,6 +436,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('manager.index')}}" class="nav-link">
+                        <i class="nav-icon far fa-address-card"></i>
+                        <p>
+                            Менеджеры
+                        </p>
+                    </a>
+                </li>
                 <!--Справочники-->
                 <li class="nav-header">Справочники</li>
                 {{--<li class="nav-item">--}}

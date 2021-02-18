@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Spravochniki;
 
-use App\Models\Director;
+use App\Http\Controllers\Controller;
 use App\Models\Spravochniki\Branch;
+use App\Models\Spravochniki\Manager;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class DirectorController extends Controller
+class ManagerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +18,9 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        $directors = Director::latest()->paginate(5);
+        $managers = Manager::latest()->paginate(5);
 
-        return view('director.index',compact('directors'))
+        return view('spravochniki.manager.index',compact('managers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -32,7 +33,7 @@ class DirectorController extends Controller
     {
         $branches = Branch::all();
 
-        return view('director.create', compact('branches'));
+        return view('spravochniki.manager.create', compact('branches'));
     }
 
     /**
@@ -46,76 +47,72 @@ class DirectorController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->branch_id = $request->branch_id;
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $user->director()->create($request->except('email', 'password', 'branch_id'));
+        $user->manager()->create($request->except('email', 'password'));
 
-        return redirect()->route('director.index')
-            ->with('success','Успешно добавлен новый директор');
+        return redirect()->route('manager.index')
+            ->with('success','Успешно добавлен новый агент');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Director  $director
+     * @param  \App\Models\Spravochniki\manager  $manager
      * @return \Illuminate\Http\Response
      */
-    public function show(Director $director)
+    public function show(Manager $manager)
     {
-        return $this->edit($director);
+        return view('spravochniki.manager.edit',compact('manager'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Director  $director
+     * @param  \App\Models\Spravochniki\manager  $manager
      * @return \Illuminate\Http\Response
      */
-    public function edit(Director $director)
+    public function edit(Manager $manager)
     {
-        $branches = Branch::all();
-
-        return view('director.edit',compact('director', 'branches'));
+        return view('spravochniki.manager.edit',compact('manager'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Director  $director
+     * @param  \App\Models\Spravochniki\Manager  $manager
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Director $director)
+    public function update(Request $request, Manager $manager)
     {
-        $user = User::find($director->user_id);
+        $user = User::find($manager->user_id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->branch_id = $request->branch_id;
         if(!empty($user->password)) {
             $user->password = Hash::make($request->password);
         }
         $user->save();
 
-        $director->update($request->except('email', 'password', 'branch_id'));
+        $manager->update($request->except('email', 'password'));
 
-        return redirect()->route('director.index')
-            ->with('success', sprintf('Дынные о директоре \'%s\' были успешно обновлены', $request->input('name')));
+        return redirect()->route('manager.index')
+            ->with('success', sprintf('Дынные об менеджере \'%s\' были успешно обновлены', $request->input('name')));
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Director  $director
+     * @param  \App\Models\Spravochniki\Manager  $manager
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Director $director)
+    public function destroy(Manager $manager)
     {
-        $director->delete();
+        $manager->delete();
 
-        return redirect()->route('director.index')
-            ->with('success', sprintf('Дынные об директоре \'%s\' были успешно удалены', $director->name));
+        return redirect()->route('manager.index')
+            ->with('success', sprintf('Дынные об менеджере \'%s\' были успешно удалены', $manager->name));
     }
 }

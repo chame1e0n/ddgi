@@ -105,6 +105,8 @@
 <script src="/assets/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script src="/assets/plugins/bootstrap-fileinput/themes/fa/theme.min.js"></script>
 <script src="/assets/plugins/bootstrap-fileinput/js/locales/LANG.js"></script>
+<!-- Bootstrap Switch -->
+<script src="/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script>
     // let appendData = $("#ajaxData");
     // $('#banki').click(function(event){
@@ -120,6 +122,11 @@
     //         }
     //     })
     // });
+</script>
+<script>
+    $("input[data-bootstrap-switch]").each(function(){
+        $(this).bootstrapSwitch();
+    });
 </script>
 @yield('scripts')
 </html>

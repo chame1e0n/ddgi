@@ -174,6 +174,9 @@ class KaskoController extends Controller
 
         $kasko->policyHolders()->attach($policyHolderIds);
         $kasko->policyBeneficiaries()->attach($policyBeneficiaryIds);
+
+        return redirect()->route('kasko.index')
+            ->with('success','Успешно заполнен продукт Каско');
     }
 
     /**

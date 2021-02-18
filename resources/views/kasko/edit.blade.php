@@ -21,8 +21,9 @@
   </ul>
 </div>
 @endif
-<form method="post" id="mainFormKasko" action="{{ route('kasko.store') }}">
+<form method="post" id="mainFormKasko" action="{{ route('kasko.update', $director->id) }}">
   @csrf
+  @method('PUT')
   <div class="content-wrapper">
 
     <div class="content-header">
@@ -35,7 +36,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Главная</a></li>
               <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
-              <li class="breadcrumb-item active">Создать Анкету</li>
+              <li class="breadcrumb-item active">Редактировать Анкету</li>
             </ol>
           </div>
         </div>

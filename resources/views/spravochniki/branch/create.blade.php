@@ -78,12 +78,12 @@
                                         <div class="col-sm-4">
                                             <div class="form-group" id="form-group-2">
                                                 <label for="region_id" class="col-form-label">Регион</label>
-                                                <select id="region_id" class="form-control parent-region" name="region"
+                                                <select id="region_id" class="form-control parent-region"
+                                                        name="region_id"
                                                         data-depth="1">
-                                                    <option selected="selected"></option>
-                                                    <option>Андижанская облать</option>
-                                                    <option>Бухарская область</option>
-                                                    <option>город Ташкент</option>
+                                                    @foreach($regions as $region)
+                                                        <option value="{{$region->id}}">{{$region->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -104,7 +104,20 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="role-center">Центр
+                                                    страхования</label>
+                                                <input type="checkbox" id="is_center" name="is_center"
+                                                       data-bootstrap-switch
+                                                       data-off-color="danger"
+                                                       data-on-color="success"
+                                                       data-on-text="Да"
+                                                       data-off-text="Нет"
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="address" class="col-form-label">Местонахождение</label>
                                                 <input id="address" class="form-control" value="{{old('address')}}"

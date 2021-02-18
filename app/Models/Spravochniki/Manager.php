@@ -1,27 +1,22 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Spravochniki;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 
-class Director extends Model
+class Manager extends Model
 {
     use SoftDeletes;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
     /**
-     * Get the director's user profile.
+     * Get the agent's user profile.
      */
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
-    }
-
-    public function delete(){
-        $this->user()->delete();
-        return parent::delete();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Spravochniki;
 
 use App\Http\Controllers\Controller;
 use App\Models\Director;
+use App\Models\Region;
 use App\Models\Spravochniki\Branch;
 use App\User;
 use Illuminate\Http\Request;
@@ -30,10 +31,12 @@ class BranchController extends Controller
      */
     public function create()
     {
-        $directors = Director::all();
+        $alreadyExistDirectorsUserId = Branch::select('user_id')->distinct()->get()->pluck('user_id')->toArray();
+        $regions = Region::all();
+        $directors = Director::whereNotIn('user_id', $alreadyExistDirectorsUserId)->get();
         $branches = Branch::all();
 
-        return view('spravochniki.branch.create', compact('directors', 'branches'));
+        return view('spravochniki.branch.create', compact('directors', 'branches', 'regions'));
     }
 
     /**
@@ -44,6 +47,9 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge([
+            'is_center' => isset($request->is_center) ? 1 : 0,
+        ]);
         Branch::create($request->all());
 
         return redirect()->route('branch.index')
@@ -58,10 +64,10 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        $directors = Director::all()->except($branch->director->id);
-        $branches = Branch::all()->except($branch->id);
+        $agents = $branch->agents()->paginate(5);
+        $managers = $branch->managers()->paginate(5);
 
-        return view('spravochniki.branch.edit',compact('branch','directors', 'branches'));
+        return view('spravochniki.branch.show',compact('branch','agents', 'managers'));
     }
 
     /**
@@ -72,10 +78,12 @@ class BranchController extends Controller
      */
     public function edit(Branch $branch)
     {
-        $directors = Director::all()->except($branch->director->id);
-        $branches = Branch::all()->except($branch->id);
+        $alreadyExistDirectorsUserId = Branch::select('user_id')->where('user_id', '<>', $branch->user_id)->distinct()->get()->pluck('user_id')->toArray();
+        $regions = Region::all();
+        $directors = Director::whereNotIn('user_id', $alreadyExistDirectorsUserId)->get();
+        $branches = Branch::all();
 
-        return view('spravochniki.branch.edit',compact('branch','directors', 'branches'));
+        return view('spravochniki.branch.edit',compact('branch','directors', 'branches', 'regions'));
     }
 
     /**
@@ -87,6 +95,9 @@ class BranchController extends Controller
      */
     public function update(Request $request, Branch $branch)
     {
+        $request->merge([
+            'is_center' => isset($request->is_center) ? 1 : 0,
+        ]);
         $branch->update($request->all());
 
         return redirect()->route('branch.index')
@@ -102,6 +113,9 @@ class BranchController extends Controller
      */
     public function destroy(Branch $branch)
     {
-        //
+        $branch->delete();
+
+        return redirect()->route('branch.index')
+            ->with('success', sprintf('Дынные об офисе \'%s\' были успешно удалены', $branch->name));
     }
 }

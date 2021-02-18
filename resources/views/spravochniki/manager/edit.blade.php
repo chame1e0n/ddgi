@@ -18,7 +18,7 @@
             </div>
         </div>
         <section class="content">
-            <form method="post" id="agent-form" action="{{ route('director.update', $director->id) }}">
+            <form method="post" id="manager-form" action="{{ route('manager.update', $manager->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="card">
@@ -40,7 +40,7 @@
                                         <div class="form-group">
                                             <label for="last_name">Фамилия</label>
                                             <input id="last_name" type="text" class="form-control" name="surname"
-                                                   value="{{$director->surname}}"
+                                                   value="{{$manager->surname}}"
                                                    placeholder="Введите ...">
                                         </div>
                                     </div>
@@ -48,14 +48,14 @@
                                         <div class="form-group">
                                             <label for="first_name">Имя</label>
                                             <input id="first_name" type="text" class="form-control" name="name"
-                                                   value="{{$director->name}}" placeholder="Введите ...">
+                                                   value="{{$manager->name}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="middle_name">Отчество</label>
                                             <input id="middle_name" type="text" class="form-control" name="middle_name"
-                                                   value="{{$director->middle_name}}" placeholder="Введите ...">
+                                                   value="{{$manager->middle_name}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                 </div>
@@ -65,33 +65,33 @@
                                         <div class="form-group">
                                             <label for="passport_data-r">Дата рождения</label>
                                             <input type="date" id="passport_data-r" class="form-control"
-                                                   name="dob" value="{{$director->dob}}" placeholder="Введите ...">
+                                                   name="dob" value="{{$manager->dob}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_series">Серия паспорта</label>
                                             <input type="text" id="passport_series" class="form-control"
-                                                   name="passport_series" value="{{$director->passport_series}}" placeholder="Введите ...">
+                                                   name="passport_series" value="{{$manager->passport_series}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_number">Номер паспорта</label>
                                             <input type="text" id="passport_number" class="form-control"
-                                                   name="passport_number" value="{{$director->passport_number}}" placeholder="Введите ...">
+                                                   name="passport_number" value="{{$manager->passport_number}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    {{--<div class="col-md-4">--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<label for="passport_data-job">Дата начала работы</label>--}}
-                                    {{--<input type="date" id="passport_data-job" class="form-control"--}}
-                                    {{--name="work_start_date" value="" placeholder="Введите ...">--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="passport_job-address">Место работы</label>
+                                            <input type="text" id="passport_job-address" class="form-control"
+                                                   name="job" value="{{$manager->job}}" placeholder="Введите ...">
+                                        </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_job-address">Филиал</label>
@@ -109,15 +109,22 @@
                                             </select>
                                         </div>
                                     </div>
+                                    {{--<div class="col-md-4">--}}
+                                    {{--<div class="form-group">--}}
+                                    {{--<label for="passport_data-job">Дата начала работы</label>--}}
+                                    {{--<input type="date" id="passport_data-job" class="form-control"--}}
+                                    {{--name="work_start_date" value="" placeholder="Введите ...">--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_period-job-after">Период работы</label>
                                             <div class="card-flex" style="display: flex;">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-after"
-                                                       class="form-control" name="work_start_date" value="{{$director->work_start_date}}"
+                                                       class="form-control" name="work_start_date" value="{{$manager->work_start_date}}"
                                                        placeholder="от">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-before"
-                                                       class="form-control" name="work_end_date" value="{{$director->work_end_date}}"
+                                                       class="form-control" name="work_end_date" value="{{$manager->work_end_date}}"
                                                        placeholder="до">
                                             </div>
                                         </div>
@@ -129,14 +136,14 @@
                                             <label for="phone_number">Телефон</label>
                                             <input type="text" id="phone_number" class="form-control"
                                                    name="phone_number"
-                                                   value="{{$director->phone_number}}" placeholder="Введите ...">
+                                                   value="{{$manager->phone_number}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_address">Адрес</label>
                                             <input type="text" id="passport_address" class="form-control"
-                                                   name="address" value="{{$director->address}}" placeholder="Введите ...">
+                                                   name="address" value="{{$manager->address}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     {{--<div class="col-md-4">--}}
@@ -153,6 +160,40 @@
                                             <label for="image-input">Изображение профайла</label>
                                             <div class="file-loading">
                                                 <input id="image-input" class="file" type="file" name="profile_img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="file-input">Соглашение</label>
+                                            <div class="file-loading">
+                                                <input id="file-input" class="file" type="file"
+                                                       name="manager_agreement_img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dogovor-input">Трудовой договор</label>
+                                            <div class="file-loading">
+                                                <input id="dogovor-input" class="file" type="file"
+                                                       name="labor_contract">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="doc-input">Документы фирмы</label>
+                                            <div class="file-loading">
+                                                <input id="doc-input" class="file" type="file" name="firm_contract">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="dogovor-input">Лицензии</label>
+                                            <div class="licen-loading">
+                                                <input id="licen-input" class="file" type="file" name="license">
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +226,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="email">Эл. почта</label>
-                                    <input type="email" id="email" class="form-control" name="email" value="{{$director->user->email}}"
+                                    <input type="email" id="email" class="form-control" name="email" value="{{$manager->user->email}}"
                                            placeholder="Введите ..." required>
                                 </div>
                             </div>
@@ -200,9 +241,9 @@
                                     <label for="status">Статус</label>
                                     <select id="status" name="status" class="form-control select2" style="width: 100%;"
                                             required>
-                                        <option value="{{$director->status}}" selected="selected">{{$director->status == 1 ? 'Активен' : 'Неактивен'}}</option>
+                                        <option value="{{$manager->status}}" selected="selected">{{$manager->status == 1 ? 'Активен' : 'Неактивен'}}</option>
                                         <option value="1">Активен</option>
-                                        <option value="0">Неактивен</option>
+                                        <option value="0" >Неактивен</option>
                                     </select>
                                 </div>
                             </div>
@@ -221,6 +262,37 @@
                     <button type="submit" id="submit-button" class="btn btn-primary float-right">Сохранить</button>
                 </div>
             </form>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Оформленные договора</h3>
+                </div>
+                <div class="card-body">
+                    <div class="col-sm-12">
+                        <table id="currency_table" class="table table-bordered table-hover dataTable dtr-inline"
+                               role="grid"
+                               style="width: 100%;">
+                            <thead>
+                            <tr role="row">
+                                <th>Id</th>
+                                <th>Название</th>
+                                <th>Дата</th>
+                                <th>Действия</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>0001</th>
+                                <th>Договор</th>
+                                <th>20.20.20</th>
+                                <th>
+                                    <button class="btn btn-primary" onclick="editClient()">Редактировать</button>
+                                </th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
     <!-- /.content -->
