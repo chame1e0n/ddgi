@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Policy;
 use App\Models\Pretensii;
 use App\Models\PretensiiOverview;
+use App\Models\Product\Kasko;
+use App\Models\Region;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,26 +17,37 @@ class PretensiiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pretensiis = Pretensii::latest()->paginate(5);
+        $pretensiis = [];
 
-        return view('pretensii.index', compact('pretensiis'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
-    }
+        if (isset($request->unique_number) && !empty($request->unique_number)) {
+            $policies = $this->search($request->unique_number, $request->from_date);
 
-
-    //TODO:: use it in the future
-    public function search($id = null) {
-        if($id) {
-            $policy = Policy::find($id);
-
-            if (!isset($policy) && !empty($policy)) {
-                return redirect()->back()->withErrors(['policy_id.required', 'Не правильный полис']);;
+            if (empty($policies)) {
+                return view('pretensii.index', compact('pretensiis'))->withErrors(['Нет договора с такими параметрами']);
             }
+
+            $pretensiis = Pretensii::whereIn('policy_id', $policies)->paginate(5);
+
+            return view('pretensii.index', compact('pretensiis'))
+                ->with('i', (request()->input('page', 1) - 1) * 5);
         }
 
-        return view('pretensii.search', compact('policy'));
+        return view('pretensii.index', compact('pretensiis'));
+    }
+
+    public function search($uniqueNumber, $fromDate)
+    {
+        $dogovor = Kasko::where('unique_number', $uniqueNumber)
+            ->where('from_date', $fromDate)
+            ->first();
+
+        if (!empty($dogovor)) {
+            return $dogovor->policyInformations->pluck('policy_id')->toArray();
+        }
+
+        return [];
     }
 
     /**
@@ -56,11 +69,13 @@ class PretensiiController extends Controller
         return view('pretensii.create', compact('policies'));
     }
 
-    public function getAvailablePolicies() {
+    public function getAvailablePolicies()
+    {
         $alreadyUsedPolicyIds = Pretensii::all()->pluck('policy_id')->toArray();
         //Todo :: add 'used' policy only here
         return Policy::whereNotIn('id', $alreadyUsedPolicyIds)->get();
     }
+
     /**
      * Store a newly created resource in storage.
      *
