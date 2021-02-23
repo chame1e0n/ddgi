@@ -127,6 +127,8 @@
     $("input[data-bootstrap-switch]").each(function(){
         $(this).bootstrapSwitch();
     });
+
+
 </script>
 @yield('scripts')
 </html>
