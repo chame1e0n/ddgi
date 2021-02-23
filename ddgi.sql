@@ -589,8 +589,8 @@ CREATE TABLE IF NOT EXISTS `policies` (
 DELETE FROM `policies`;
 /*!40000 ALTER TABLE `policies` DISABLE KEYS */;
 INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_series_id`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 141, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
-	(2, 142, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
+	(1, 141, 'asdvvd', 0, 1, 'retransferred', 2, 9, '2021-01-09 00:00:00', '2021-02-23 06:03:52', NULL),
+	(2, 142, 'asdvvd', 0, 1, 'retransferred', 2, 9, '2021-01-09 00:00:00', '2021-02-23 06:03:52', NULL),
 	(3, 143, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
 	(4, 144, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
 	(5, 145, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
@@ -610,6 +610,25 @@ INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_ser
 	(19, 149, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(20, 150, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL);
 /*!40000 ALTER TABLE `policies` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.policies_policy_retransfer
+CREATE TABLE IF NOT EXISTS `policies_policy_retransfer` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `policy_retransfer_id` int(11) unsigned NOT NULL,
+  `policy_id` int(11) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table ddgi.policies_policy_retransfer: ~6 rows (approximately)
+DELETE FROM `policies_policy_retransfer`;
+/*!40000 ALTER TABLE `policies_policy_retransfer` DISABLE KEYS */;
+INSERT INTO `policies_policy_retransfer` (`id`, `policy_retransfer_id`, `policy_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(17, 3, 1, NULL, NULL, NULL),
+	(18, 3, 2, NULL, NULL, NULL);
+/*!40000 ALTER TABLE `policies_policy_retransfer` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.policies_policy_transfer
 CREATE TABLE IF NOT EXISTS `policies_policy_transfer` (
@@ -726,6 +745,32 @@ INSERT INTO `policy_registrations` (`id`, `act_number`, `act_date`, `from_number
 	(3, 'asdvvd', '2021-01-09', '141', '150', 0, 'C:\\Users\\User\\AppData\\Local\\Temp\\php2D49.tmp', 0, '2021-01-09', '2021-01-09', NULL);
 /*!40000 ALTER TABLE `policy_registrations` ENABLE KEYS */;
 
+-- Dumping structure for table ddgi.policy_retransfer
+CREATE TABLE IF NOT EXISTS `policy_retransfer` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `act_number` varchar(50) DEFAULT NULL,
+  `act_date` date NOT NULL,
+  `branch_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `policy_series_id` int(11) DEFAULT NULL,
+  `policy_from` varchar(50) DEFAULT NULL,
+  `policy_to` varchar(50) DEFAULT NULL,
+  `retransfer_distribution` date DEFAULT NULL,
+  `act_file` varchar(50) DEFAULT NULL,
+  `transfer_given` varchar(150) DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  `deleted_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table ddgi.policy_retransfer: ~1 rows (approximately)
+DELETE FROM `policy_retransfer`;
+/*!40000 ALTER TABLE `policy_retransfer` DISABLE KEYS */;
+INSERT INTO `policy_retransfer` (`id`, `act_number`, `act_date`, `branch_id`, `user_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(3, 'asdvvd', '2021-02-23', 1, 4, 1, '141', '142', '2021-02-23', NULL, 'wefwef', '2021-02-23', '2021-02-23', NULL);
+/*!40000 ALTER TABLE `policy_retransfer` ENABLE KEYS */;
+
 -- Dumping structure for table ddgi.policy_series
 CREATE TABLE IF NOT EXISTS `policy_series` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -750,6 +795,7 @@ CREATE TABLE IF NOT EXISTS `policy_transfer` (
   `act_number` varchar(50) DEFAULT NULL,
   `act_date` date NOT NULL,
   `branch_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `policy_series_id` int(11) DEFAULT NULL,
   `policy_from` varchar(50) DEFAULT NULL,
   `policy_to` varchar(50) DEFAULT NULL,
@@ -765,8 +811,8 @@ CREATE TABLE IF NOT EXISTS `policy_transfer` (
 -- Dumping data for table ddgi.policy_transfer: ~1 rows (approximately)
 DELETE FROM `policy_transfer`;
 /*!40000 ALTER TABLE `policy_transfer` DISABLE KEYS */;
-INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(2, 'asdvvd', '2021-01-11', 2, 1, '141', '146', '2021-01-11', 'C:\\Users\\User\\AppData\\Local\\Temp\\php40F.tmp', 'sdfvdsfv', '2021-01-11', '2021-01-11', NULL);
+INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `user_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(2, 'asdvvd', '2021-01-11', 2, NULL, 1, '141', '146', '2021-01-11', 'C:\\Users\\User\\AppData\\Local\\Temp\\php40F.tmp', 'sdfvdsfv', '2021-01-11', '2021-01-11', NULL);
 /*!40000 ALTER TABLE `policy_transfer` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.pretensii
