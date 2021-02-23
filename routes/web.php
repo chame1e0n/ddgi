@@ -35,6 +35,8 @@ Route::get('test', function () {
     echo $dog->createUniqueNumber(3, 1);
 });
 
+Route::get('test1', 'EmployeeController@getEmployees');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('spravochniki/bank','Spravochniki\BankController');
     Route::resource('spravochniki/group','GroupController');
@@ -52,10 +54,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('policy_registration','PolicyRegistrationController');
     Route::resource('kasko','Product\KaskoController');
     Route::resource('policy_transfer','PolicyTransferController');
+    Route::resource('policy_retransfer','PolicyRetransferController');
     Route::resource('pretensii_overview','PretensiiOverviewController');
     Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
     Route::resource('spravochniki/request', 'Spravochniki\RequestController');
     Route::get('get/policies', 'Spravochniki\RequestController@getPolicyByPolicySeries')->name('getPolicies');
+    Route::get('get/employees', 'EmployeeController@getEmployees')->name('getEmployees');
 
     Route::get('spravochniki/request/upload/{file}', 'Spravochniki\RequestController@upload')->name('request.upload');
 
