@@ -20,9 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('tamojenniy-sklad/create', function () {
-    return view('products.about-tamojenniy-sklad.create');
-});
+
+Route::get('tamojenniy-sklad/bonded', 'Product\TamojeniySkladController@bonded')->name('bonded.bonded');
+Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');
+
 Route::get('tc-lizing-zalog/create', function () {
     return view('products.about-tc-lizing-zalog.create');
 });
