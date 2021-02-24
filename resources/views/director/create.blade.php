@@ -18,7 +18,7 @@
             </div>
         </div>
         <section class="content">
-            <form method="post" id="agent-form" action="{{ route('director.store') }}">
+            <form method="post" id="agent-form" action="{{ route('director.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">

@@ -45,7 +45,13 @@ class AgentController extends Controller
     {
         $user = new User;
 
-
+        $request->validate([
+            'profile_img' => 'mimes:jpg,bmp,png,pdf,doc',
+            'agent_agreement_img' => 'mimes:jpg,bmp,png,pdf,doc',
+            'labor_contract' => 'mimes:jpg,bmp,png,pdf,doc',
+            'firm_contract' => 'mimes:jpg,bmp,png,pdf,doc',
+            'license' => 'mimes:jpg,bmp,png,pdf,doc',
+        ]);
 
         $user->name = $request->name;
         $user->email = $request->email;

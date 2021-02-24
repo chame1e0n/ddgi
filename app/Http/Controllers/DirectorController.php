@@ -43,6 +43,10 @@ class DirectorController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'profile_img' => 'mimes:jpg,bmp,png,pdf,doc',
+        ]);
+
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -50,7 +54,28 @@ class DirectorController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $user->director()->create($request->except('email', 'password', 'branch_id'));
+        $logoName = '';
+        if ($request->has('profile_img')) {
+            $logoName = 'profile_img_' . time() . '.' . $request->profile_img->getClientOriginalExtension();
+            $request->profile_img->move(public_path('directors/' . $user->id), $logoName);
+        }
+
+        $user->director()->create([
+            'user_id' => $user->id,
+            'surname' => $request->surname,
+            'name' => $request->name,
+            'middle_name' => $request->middle_name,
+            'dob' => $request->dob,
+            'passport_series' => $request->passport_series,
+            'passport_number' => $request->passport_number,
+            'work_start_date' => $request->work_start_date,
+            'work_end_date' => $request->work_end_date,
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+            'profile_img' => 'agents/' . $user->id . '/' .$logoName,
+            'status' => $request->status,
+
+        ]);
 
         return redirect()->route('director.index')
             ->with('success','Успешно добавлен новый директор');
