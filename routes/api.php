@@ -14,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', 'Api\LoginController@login');
+
+Route::middleware('auth:api')->group( function () {
+    //get data about registered user
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('logout', 'Api\LoginController@logout');
+
+    Route::resource('branch', 'Api\BranchController', [
+        'only' => ['index', 'show']
+    ]);
+
+    Route::post('agent', 'Api\AgentController@index');
+    Route::get('agent/{id}', 'Api\AgentController@show');
 });

@@ -17,6 +17,7 @@
         "laravel/ui": "2.4",
         "laravelcollective/html": "^6.2",
         "spatie/laravel-permission": "^3.18",
+        "laravel/passport": "^9.0",
       "ext-json": "*"
     },
     "require-dev": {
