@@ -92,4 +92,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Director::class);
     }
+
+
+    /**
+     * Get the features profile.
+     */
+    public function features()
+    {
+        return $this->hasOne(UserFeature::class);
+    }
 }
