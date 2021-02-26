@@ -1,5 +1,8 @@
 @extends('layouts.index')
-
+@section('css')
+    <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -108,7 +111,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">Кому
                                                     (агент / менеджер)</label>
-                                                <select class="form-control polises" name="user_id" id="employee"
+                                                <select class="form-control select2" name="user_id" id="employee"
                                                         style="width: 100%;">
                                                     <option selected="selected"></option>
                                                 </select>
@@ -157,7 +160,18 @@
 @endsection
 
 @section('scripts')
+    <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
     <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2();
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            });
+        });
+
         //Get employee by branch id
         $(document).ready(function () {
 
