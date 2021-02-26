@@ -33,9 +33,8 @@
                     <label for="product-id">Вид продукта</label>
                     <select id="product-id" class="form-control select2" onchange="getVal(this.value)" name="product_id"
                             style="width: 100%;">
-                        <option value="bonded" {{ \Request::route()->getName() == "bonded.index" ? "selected" : "" }}>ТАМОЖЕННЫЙ СКЛАД</option>
-                        <option value="kasko" {{ \Request::route()->getName() == "bonded.kasko" ? "selected" : "" }}>KASKO</option>
-                        <option value="example">Example</option>
+                        <option value="1" {{ \Request::route()->getName() == "bonded.index" ? "selected" : "" }}>ТАМОЖЕННЫЙ СКЛАД</option>
+                        <option value="2" {{ \Request::route()->getName() == "bonded.kasko" ? "selected" : "" }}>KASKO</option>
                     </select>
                 </div>
             </div>
@@ -46,10 +45,10 @@
             console.log(val);
             switch (val) {
                 case 'kasko':
-                    window.location.replace(`{{ route('bonded.kasko') }}`);
+                    window.location.replace(`{{ route('kasko.create') }}`);
                     break;
                 case 'bonded':
-                    window.location.replace(`{{ route('bonded.bonded') }}`);
+                    window.location.replace(`{{ route('tamojenniy-sklad.create') }}`);
                     break;
             }
         }
