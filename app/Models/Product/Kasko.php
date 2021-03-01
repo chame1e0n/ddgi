@@ -5,6 +5,7 @@ namespace App\Models\Product;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\PolicyInformation;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,6 +22,10 @@ class Kasko extends Model
             'kasko_policy_holders',
             'kasko_id',
             'policy_holders_id');
+    }
+
+    public function product() {
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 
     public function policyBeneficiaries() {

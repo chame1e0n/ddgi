@@ -22,7 +22,7 @@
                 </div>
             </div>
             <section class="content">
-                @include('products.about-tamojenniy-sklad.select')
+                @include('products.select')
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -34,9 +34,7 @@
                                 </button>
                             </div>
                         </div>
-
                         <div class="card-body">
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">

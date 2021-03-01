@@ -21,8 +21,13 @@ Route::get('/', function () {
 });
 
 
-Route::get('tamojenniy-sklad/bonded', 'Product\TamojeniySkladController@bonded')->name('bonded.bonded');
-Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');
+//Route::get('tamojenniy-sklad/create', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
+//Route::post('tamojenniy-sklad/bonded/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
+
+Route::resource('tamojenniy-sklad', 'Product\TamojeniySkladController');
+Route::resource('all_products', 'AllProductController');
+
+//Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');
 
 Route::get('tc-lizing-zalog/create', function () {
     return view('products.about-tc-lizing-zalog.create');
