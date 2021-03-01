@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Bonded;
+use App\Models\Product\Kasko;
 use Illuminate\Http\Request;
 
 class AllProductController extends Controller
@@ -13,7 +15,13 @@ class AllProductController extends Controller
      */
     public function index()
     {
-        //
+        //ToDo:: complete it
+        $kasko = Kasko::with('product')->select('id', 'unique_number', 'product_id');
+        $tamojenniy_sklad = Bonded::with('product')->select('id', 'unique_number', 'product_id')
+            ->union($kasko)
+            ->paginate(3);
+
+        dd($tamojenniy_sklad);
     }
 
     /**
@@ -26,7 +34,7 @@ class AllProductController extends Controller
 
     public function bonded()
     {
-        return view('products.about-tamojenniy-sklad.bonded');
+        return view('products.about-tamojenniy-sklad.create');
     }
 
     /**
@@ -36,7 +44,7 @@ class AllProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**

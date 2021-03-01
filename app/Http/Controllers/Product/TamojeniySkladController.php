@@ -54,8 +54,6 @@ class TamojeniySkladController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $policyHolder = PolicyHolder::create([
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
