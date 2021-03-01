@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `branches` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.branches: ~4 rows (approximately)
+-- Dumping data for table ddgi.branches: ~3 rows (approximately)
 DELETE FROM `branches`;
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
 INSERT INTO `branches` (`id`, `parent_id`, `name`, `is_center`, `series`, `founded_date`, `user_id`, `region_id`, `address`, `phone_number`, `type`, `code_by_office`, `code_by_type`, `hierarchy`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -496,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `managers` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table ddgi.managers: ~0 rows (approximately)
 DELETE FROM `managers`;
@@ -509,15 +509,21 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.migrations: ~2 rows (approximately)
+-- Dumping data for table ddgi.migrations: ~9 rows (approximately)
 DELETE FROM `migrations`;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(1, '2014_10_12_000000_create_users_table', 1),
 	(2, '2019_08_19_000000_create_failed_jobs_table', 1),
-	(3, '2021_01_27_043302_create_permission_tables', 2);
+	(3, '2021_01_27_043302_create_permission_tables', 2),
+	(4, '2014_10_12_100000_create_password_resets_table', 3),
+	(5, '2016_06_01_000001_create_oauth_auth_codes_table', 3),
+	(6, '2016_06_01_000002_create_oauth_access_tokens_table', 3),
+	(7, '2016_06_01_000003_create_oauth_refresh_tokens_table', 3),
+	(8, '2016_06_01_000004_create_oauth_clients_table', 3),
+	(9, '2016_06_01_000005_create_oauth_personal_access_clients_table', 3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.model_has_permissions
@@ -551,6 +557,116 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
 DELETE FROM `model_has_roles`;
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.oauth_access_tokens
+CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `client_id` bigint(20) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_access_tokens_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.oauth_access_tokens: ~0 rows (approximately)
+DELETE FROM `oauth_access_tokens`;
+/*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+	('029d24cfbd7a254cb9e930bc7e7c779c061bf351b61ee93ad95ab665ac21e75272396c80d69eefd6', 3, 1, 'MyApp', '[]', 1, '2021-02-24 02:10:39', '2021-02-24 02:10:39', '2022-02-24 02:10:39'),
+	('8dd1ecbeee3f449c9e9e13827a73ae8ed733a18ebfded0bccf76cd13dcb6667b41438138c5edef7b', 3, 1, 'MyApp', '[]', 0, '2021-02-24 02:43:10', '2021-02-24 02:43:10', '2022-02-24 02:43:10'),
+	('e272069d3e74f4eb6cb253c8171f4b1ec835b742f3804a4db51e16e430ffff6d2a8267cb9e8fb980', 3, 1, 'MyApp', '[]', 0, '2021-02-24 02:35:53', '2021-02-24 02:35:53', '2022-02-24 02:35:53');
+/*!40000 ALTER TABLE `oauth_access_tokens` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.oauth_auth_codes
+CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `client_id` bigint(20) unsigned NOT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_auth_codes_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.oauth_auth_codes: ~0 rows (approximately)
+DELETE FROM `oauth_auth_codes`;
+/*!40000 ALTER TABLE `oauth_auth_codes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_auth_codes` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.oauth_clients
+CREATE TABLE IF NOT EXISTS `oauth_clients` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `personal_access_client` tinyint(1) NOT NULL,
+  `password_client` tinyint(1) NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_clients_user_id_index` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.oauth_clients: ~2 rows (approximately)
+DELETE FROM `oauth_clients`;
+/*!40000 ALTER TABLE `oauth_clients` DISABLE KEYS */;
+INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
+	(1, NULL, 'Laravel Personal Access Client', 'A1kLwsS888H9z1xr3WJnCEzn8lGbs3Tc6c3EZFXu', NULL, 'http://localhost', 1, 0, 0, '2021-02-24 02:07:59', '2021-02-24 02:07:59'),
+	(2, NULL, 'Laravel Password Grant Client', '6G3UGpjGLSmvosoMQw4p46TM75t7rAmktKhIZTGe', 'users', 'http://localhost', 0, 1, 0, '2021-02-24 02:07:59', '2021-02-24 02:07:59');
+/*!40000 ALTER TABLE `oauth_clients` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.oauth_personal_access_clients
+CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `client_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.oauth_personal_access_clients: ~1 rows (approximately)
+DELETE FROM `oauth_personal_access_clients`;
+/*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
+INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
+	(1, 1, '2021-02-24 02:07:59', '2021-02-24 02:07:59');
+/*!40000 ALTER TABLE `oauth_personal_access_clients` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.oauth_refresh_tokens
+CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.oauth_refresh_tokens: ~0 rows (approximately)
+DELETE FROM `oauth_refresh_tokens`;
+/*!40000 ALTER TABLE `oauth_refresh_tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `oauth_refresh_tokens` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.password_resets
+CREATE TABLE IF NOT EXISTS `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi.password_resets: ~0 rows (approximately)
+DELETE FROM `password_resets`;
+/*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
@@ -589,8 +705,8 @@ CREATE TABLE IF NOT EXISTS `policies` (
 DELETE FROM `policies`;
 /*!40000 ALTER TABLE `policies` DISABLE KEYS */;
 INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_series_id`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 141, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
-	(2, 142, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
+	(1, 141, 'asdvvd', 0, 1, 'retransferred', 2, 9, '2021-01-09 00:00:00', '2021-02-23 06:03:52', NULL),
+	(2, 142, 'asdvvd', 0, 1, 'retransferred', 2, 9, '2021-01-09 00:00:00', '2021-02-23 06:03:52', NULL),
 	(3, 143, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
 	(4, 144, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
 	(5, 145, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
@@ -610,6 +726,25 @@ INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_ser
 	(19, 149, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(20, 150, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL);
 /*!40000 ALTER TABLE `policies` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.policies_policy_retransfer
+CREATE TABLE IF NOT EXISTS `policies_policy_retransfer` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `policy_retransfer_id` int(11) unsigned NOT NULL,
+  `policy_id` int(11) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table ddgi.policies_policy_retransfer: ~2 rows (approximately)
+DELETE FROM `policies_policy_retransfer`;
+/*!40000 ALTER TABLE `policies_policy_retransfer` DISABLE KEYS */;
+INSERT INTO `policies_policy_retransfer` (`id`, `policy_retransfer_id`, `policy_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(17, 3, 1, NULL, NULL, NULL),
+	(18, 3, 2, NULL, NULL, NULL);
+/*!40000 ALTER TABLE `policies_policy_retransfer` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.policies_policy_transfer
 CREATE TABLE IF NOT EXISTS `policies_policy_transfer` (
@@ -726,6 +861,32 @@ INSERT INTO `policy_registrations` (`id`, `act_number`, `act_date`, `from_number
 	(3, 'asdvvd', '2021-01-09', '141', '150', 0, 'C:\\Users\\User\\AppData\\Local\\Temp\\php2D49.tmp', 0, '2021-01-09', '2021-01-09', NULL);
 /*!40000 ALTER TABLE `policy_registrations` ENABLE KEYS */;
 
+-- Dumping structure for table ddgi.policy_retransfer
+CREATE TABLE IF NOT EXISTS `policy_retransfer` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `act_number` varchar(50) DEFAULT NULL,
+  `act_date` date NOT NULL,
+  `branch_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `policy_series_id` int(11) DEFAULT NULL,
+  `policy_from` varchar(50) DEFAULT NULL,
+  `policy_to` varchar(50) DEFAULT NULL,
+  `retransfer_distribution` date DEFAULT NULL,
+  `act_file` varchar(50) DEFAULT NULL,
+  `transfer_given` varchar(150) DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  `deleted_at` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table ddgi.policy_retransfer: ~1 rows (approximately)
+DELETE FROM `policy_retransfer`;
+/*!40000 ALTER TABLE `policy_retransfer` DISABLE KEYS */;
+INSERT INTO `policy_retransfer` (`id`, `act_number`, `act_date`, `branch_id`, `user_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(3, 'asdvvd', '2021-02-23', 1, 4, 1, '141', '142', '2021-02-23', NULL, 'wefwef', '2021-02-23', '2021-02-23', NULL);
+/*!40000 ALTER TABLE `policy_retransfer` ENABLE KEYS */;
+
 -- Dumping structure for table ddgi.policy_series
 CREATE TABLE IF NOT EXISTS `policy_series` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -750,6 +911,7 @@ CREATE TABLE IF NOT EXISTS `policy_transfer` (
   `act_number` varchar(50) DEFAULT NULL,
   `act_date` date NOT NULL,
   `branch_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `policy_series_id` int(11) DEFAULT NULL,
   `policy_from` varchar(50) DEFAULT NULL,
   `policy_to` varchar(50) DEFAULT NULL,
@@ -765,8 +927,8 @@ CREATE TABLE IF NOT EXISTS `policy_transfer` (
 -- Dumping data for table ddgi.policy_transfer: ~1 rows (approximately)
 DELETE FROM `policy_transfer`;
 /*!40000 ALTER TABLE `policy_transfer` DISABLE KEYS */;
-INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(2, 'asdvvd', '2021-01-11', 2, 1, '141', '146', '2021-01-11', 'C:\\Users\\User\\AppData\\Local\\Temp\\php40F.tmp', 'sdfvdsfv', '2021-01-11', '2021-01-11', NULL);
+INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `user_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(2, 'asdvvd', '2021-01-11', 2, NULL, 1, '141', '146', '2021-01-11', 'C:\\Users\\User\\AppData\\Local\\Temp\\php40F.tmp', 'sdfvdsfv', '2021-01-11', '2021-01-11', NULL);
 /*!40000 ALTER TABLE `policy_transfer` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.pretensii
@@ -888,7 +1050,7 @@ CREATE TABLE IF NOT EXISTS `regions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.regions: ~7 rows (approximately)
+-- Dumping data for table ddgi.regions: ~6 rows (approximately)
 DELETE FROM `regions`;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
 INSERT INTO `regions` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -917,7 +1079,7 @@ CREATE TABLE IF NOT EXISTS `requests` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table ddgi.requests: ~0 rows (approximately)
 DELETE FROM `requests`;
