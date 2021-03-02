@@ -25,6 +25,7 @@ Route::get('/', function () {
 //Route::post('tamojenniy-sklad/bonded/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
 
 Route::resource('tamojenniy-sklad', 'Product\TamojeniySkladController');
+Route::patch('tamojenniy-sklad/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
 Route::resource('all_products', 'AllProductController');
 
 //Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');
