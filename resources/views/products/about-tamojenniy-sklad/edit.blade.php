@@ -364,13 +364,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Серия полиса</label>
-                                        <input value="{{$bonded->bondedPolicyInformations->policySeries->code ?? '-'}}" readonly>
+                                        <input value="{{$bonded->policyInformations->policySeries->code ?? '-'}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Номер полиса</label>
-                                        <input value="{{$bonded->bondedPolicyInformations->policy->number}}" readonly>
+                                        <input value="{{$bonded->policyInformations->policy->number}}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -479,7 +479,7 @@
                                                     style="width: 100%;" required>
                                                 <option></option>
                                                 @foreach($policySeries as $series)
-                                                    <option value="{{ $series->id }}" @if($series->id == $bonded->bondedPolicyInformations->policy_series_id) selected @endif>{{ $series->code }}</option>
+                                                    <option value="{{ $series->id }}" @if($series->id == $bonded->policyInformations->policy_series_id) selected @endif>{{ $series->code }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -490,7 +490,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"></span>
                                             </div>
-                                            <input id="insurance_from" name="from_date_info" type="date" value="{{ $bonded->bondedPolicyInformations->from_date }}"
+                                            <input id="insurance_from" name="from_date_info" type="date" value="{{ $bonded->policyInformations->from_date }}"
                                                    class="form-control" required>
                                         </div>
                                     </div>
@@ -502,7 +502,7 @@
                                                 <option></option>
                                                 @foreach($agents as $agent)
                                                     <option
-                                                        value="{{ $agent->user_id }}" @if($agent->user_id == $bonded->bondedPolicyInformations->user_id) selected @endif>{{ $agent->surname }}{{ $agent->name }}{{ $agent->middle_name }}</option>
+                                                        value="{{ $agent->user_id }}" @if($agent->user_id == $bonded->policyInformations->user_id) selected @endif>{{ $agent->surname }}{{ $agent->name }}{{ $agent->middle_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

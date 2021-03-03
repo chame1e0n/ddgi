@@ -123,14 +123,15 @@ CREATE TABLE IF NOT EXISTS `bonded` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.bonded: ~2 rows (approximately)
+-- Dumping data for table ddgi.bonded: ~3 rows (approximately)
 DELETE FROM `bonded`;
 /*!40000 ALTER TABLE `bonded` DISABLE KEYS */;
 INSERT INTO `bonded` (`id`, `type`, `product_id`, `policy_beneficiary_id`, `policy_holder_id`, `insurance_premium_payment_type`, `from_date`, `to_date`, `volume`, `insurance_premium_currency_rate`, `insurance_premium_currency`, `unique_number`, `volume_measure`, `total_price`, `stock_date`, `total_insured_price`, `total_insured_closed_stock_price`, `total_insured_open_stock_price`, `insurance_premium`, `settlement_currency`, `premium_terms`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(9, '0', 2, 15, 20, 2, '2021-03-03', '2021-03-03', 'sdfsdfgsdf', NULL, 'USD', '0100/02/2/2100002', 'tonna', '235235', '2021-03-04', '2021-03-04', '234525', '25252345', '234542535', 'UZS', NULL, '2021-03-03 02:59:46', '2021-03-03 04:20:31', NULL),
-	(10, '0', 2, 16, 21, 1, '2021-03-04', '2021-03-04', 'sdfvdsvf', NULL, 'UZS', '0100/0201/1/2100003', 'shtuka', 'vsdvfdsvff', '2021-03-11', '2021-03-11', '452352345', '23452523', '4542345', 'UZS', NULL, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL);
+	(9, '0', 2, 15, 20, 2, '2021-03-03', '2021-03-03', 'sdfsdfgsdf', NULL, 'USD', '0100/0201/2/2100002', 'tonna', '235235', '2021-03-04', '2021-03-04', '234525', '25252345', '234542535', 'UZS', NULL, '2021-03-03 02:59:46', '2021-03-03 04:20:31', NULL),
+	(10, '0', 2, 16, 21, 1, '2021-03-04', '2021-03-04', 'sdfvdsvf', NULL, 'UZS', '0100/0201/1/2100003', 'shtuka', 'vsdvfdsvff', '2021-03-11', '2021-03-11', '452352345', '23452523', '4542345', 'UZS', NULL, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
+	(12, '0', 2, 18, 23, 1, '2021-03-05', '2021-03-10', '5345', NULL, 'UZS', '0100/0201/1/2100004', 'tonna', '34543', '2021-03-18', '2021-03-18', '345', '345345', '35345', 'UZS', NULL, '2021-03-03 06:13:29', '2021-03-03 06:14:25', NULL);
 /*!40000 ALTER TABLE `bonded` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.bonded_policy_informations
@@ -145,14 +146,15 @@ CREATE TABLE IF NOT EXISTS `bonded_policy_informations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.bonded_policy_informations: ~2 rows (approximately)
+-- Dumping data for table ddgi.bonded_policy_informations: ~3 rows (approximately)
 DELETE FROM `bonded_policy_informations`;
 /*!40000 ALTER TABLE `bonded_policy_informations` DISABLE KEYS */;
 INSERT INTO `bonded_policy_informations` (`id`, `bonded_id`, `policy_series_id`, `policy_id`, `user_id`, `from_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(2, 9, 1, 1, 4, '2021-03-04', '2021-03-03 02:59:46', '2021-03-03 04:20:31', NULL),
-	(3, 10, 1, 2, 4, '2021-03-05', '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL);
+	(3, 10, 1, 2, 4, '2021-03-05', '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
+	(4, 12, 1, 4, 4, '2021-03-10', '2021-03-03 06:13:29', '2021-03-03 06:13:29', NULL);
 /*!40000 ALTER TABLE `bonded_policy_informations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.branches
@@ -177,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `branches` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.branches: ~4 rows (approximately)
+-- Dumping data for table ddgi.branches: ~3 rows (approximately)
 DELETE FROM `branches`;
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
 INSERT INTO `branches` (`id`, `parent_id`, `name`, `is_center`, `series`, `founded_date`, `user_id`, `region_id`, `address`, `phone_number`, `type`, `code_by_office`, `code_by_type`, `hierarchy`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -345,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `from_site_orders` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.from_site_orders: ~3 rows (approximately)
+-- Dumping data for table ddgi.from_site_orders: ~4 rows (approximately)
 DELETE FROM `from_site_orders`;
 /*!40000 ALTER TABLE `from_site_orders` DISABLE KEYS */;
 INSERT INTO `from_site_orders` (`id`, `order_id`, `title`, `object_title`, `status`, `amount`, `prize`, `timestamp`, `term`, `inventory_number`, `total_area`, `city_property`, `street`, `type_property`, `matches_registration_address`, `username`, `first_name`, `last_name`, `middle_name`, `is_active`, `avatar`, `birth_day`, `serial_number`, `passport_number`, `date_issue`, `issued_by`, `phone`, `email_index`, `city`, `district`, `user_street`, `apartment_number`, `home_number`, `created_at`, `updated_at`) VALUES
@@ -571,7 +573,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.migrations: ~11 rows (approximately)
+-- Dumping data for table ddgi.migrations: ~9 rows (approximately)
 DELETE FROM `migrations`;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -696,7 +698,7 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.oauth_personal_access_clients: ~1 rows (approximately)
+-- Dumping data for table ddgi.oauth_personal_access_clients: ~0 rows (approximately)
 DELETE FROM `oauth_personal_access_clients`;
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
@@ -741,7 +743,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.permissions: ~1 rows (approximately)
+-- Dumping data for table ddgi.permissions: ~0 rows (approximately)
 DELETE FROM `permissions`;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -770,8 +772,8 @@ DELETE FROM `policies`;
 INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_series_id`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 141, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-02-23 06:03:52', NULL),
 	(2, 142, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 05:13:10', NULL),
-	(3, 143, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
-	(4, 144, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
+	(3, 143, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:03', NULL),
+	(4, 144, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:29', NULL),
 	(5, 145, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
 	(6, 146, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
 	(7, 147, 'asdvvd', 0, 1, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
@@ -847,9 +849,9 @@ CREATE TABLE IF NOT EXISTS `policy_beneficiaries` (
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='страхователи';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='страхователи';
 
--- Dumping data for table ddgi.policy_beneficiaries: ~16 rows (approximately)
+-- Dumping data for table ddgi.policy_beneficiaries: ~18 rows (approximately)
 DELETE FROM `policy_beneficiaries`;
 /*!40000 ALTER TABLE `policy_beneficiaries` DISABLE KEYS */;
 INSERT INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
@@ -868,7 +870,9 @@ INSERT INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `che
 	(13, 'sdfvsdfvdsfv', 'svdfvsdf', 'vsdfvsdf', 'vsdfvsdf', 'vsdfvsdf', 'vsdfvsdf', 'sdfvsdfv', 2, '2021-03-03 02:55:29', '2021-03-03 02:55:29', NULL),
 	(14, 'sdfgsd', 'gsdgdsg', 'gsdgsdg', 'sdgsdf', 'gsdgsdg', 'dsfgsdg', 'sdfgsdfg', 2, '2021-03-03 02:58:28', '2021-03-03 02:58:28', NULL),
 	(15, 'sdfgsd', 'gsdgdsg', 'gsdgsdg', 'sdgsdf', 'gsdgsdg', 'dsfgsdg', 'sdfgsdfg', 2, '2021-03-03 02:59:46', '2021-03-03 02:59:46', NULL),
-	(16, 'dfvdsfvsdf', 'vsdfvdsfv', 'dsfvsdfv', 'sdfvsdfvsd', 'sdfvsdfv', 'sdfvdsfv', 'dsfvsdfv', 2, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL);
+	(16, 'dfvdsfvsdf', 'vsdfvdsfv', 'dsfvsdfv', 'sdfvsdfvsd', 'sdfvsdfv', 'sdfvdsfv', 'dsfvsdfv', 2, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
+	(17, 'dfbgdfgbdf', 'bgdfgb', 'dfgbdg', 'bdfgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgbdfgb', 2, '2021-03-03 06:13:03', '2021-03-03 06:13:03', NULL),
+	(18, 'ФИО выгодоприобретателя', 'bgdfgb', 'dfgbdg', 'bdfgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgbdfgb', 2, '2021-03-03 06:16:20', '2021-03-03 06:13:29', NULL);
 /*!40000 ALTER TABLE `policy_beneficiaries` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.policy_holders
@@ -886,9 +890,9 @@ CREATE TABLE IF NOT EXISTS `policy_holders` (
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='страхователи';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='страхователи';
 
--- Dumping data for table ddgi.policy_holders: ~21 rows (approximately)
+-- Dumping data for table ddgi.policy_holders: ~23 rows (approximately)
 DELETE FROM `policy_holders`;
 /*!40000 ALTER TABLE `policy_holders` DISABLE KEYS */;
 INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
@@ -912,7 +916,9 @@ INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_
 	(18, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:55:29', '2021-03-03 02:55:29', NULL),
 	(19, 'rtgetr', 'ertgertgertgg', 'fsdfgsd', 'fgsdfgsd', 'gsdgsd', 'sdgsdg', 'gsdfgsdgf', 2, '2021-03-03 02:58:28', '2021-03-03 02:58:28', NULL),
 	(20, 'rtgetr', 'ertgertgertgg', 'fsdfgsd', 'fgsdfgsd', 'gsdgsd', 'sdgsdg', 'gsdfgsdgf', 2, '2021-03-03 02:59:46', '2021-03-03 02:59:46', NULL),
-	(21, 'sdfvsdvf', 'sdfvsdfvsd', 'sdfvdsfv', 'sdfvdsfv', 'fvsdfvsdfv', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL);
+	(21, 'sdfvsdvf', 'sdfvsdfvsd', 'sdfvdsfv', 'sdfvdsfv', 'fvsdfvsdfv', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
+	(22, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:03', '2021-03-03 06:13:03', NULL),
+	(23, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:29', '2021-03-03 06:13:29', NULL);
 /*!40000 ALTER TABLE `policy_holders` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.policy_registrations
@@ -931,7 +937,7 @@ CREATE TABLE IF NOT EXISTS `policy_registrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.policy_registrations: ~3 rows (approximately)
+-- Dumping data for table ddgi.policy_registrations: ~2 rows (approximately)
 DELETE FROM `policy_registrations`;
 /*!40000 ALTER TABLE `policy_registrations` DISABLE KEYS */;
 INSERT INTO `policy_registrations` (`id`, `act_number`, `act_date`, `from_number`, `to_number`, `policy_series_id`, `document`, `client_type`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -976,7 +982,7 @@ CREATE TABLE IF NOT EXISTS `policy_series` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.policy_series: ~3 rows (approximately)
+-- Dumping data for table ddgi.policy_series: ~1 rows (approximately)
 DELETE FROM `policy_series`;
 /*!40000 ALTER TABLE `policy_series` DISABLE KEYS */;
 INSERT INTO `policy_series` (`id`, `code`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1113,7 +1119,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.products: ~2 rows (approximately)
+-- Dumping data for table ddgi.products: ~1 rows (approximately)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `klass_id`, `name`, `code`, `tarif`, `max_acceptable_amount`, `min_acceptable_amount`, `franshiza`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1131,7 +1137,7 @@ CREATE TABLE IF NOT EXISTS `regions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.regions: ~7 rows (approximately)
+-- Dumping data for table ddgi.regions: ~6 rows (approximately)
 DELETE FROM `regions`;
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
 INSERT INTO `regions` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES

@@ -19,7 +19,7 @@ class AllProductController extends Controller
 //        $kasko = Kasko::with('product')->select('id', 'unique_number', 'product_id');
         $allProducts = Bonded::with('product', 'policyInformations')->select('id', 'unique_number', 'product_id')
 //            ->union($kasko)
-            ->paginate(3);
+            ->paginate(10);
 
         return view('products.index',compact('allProducts'));
     }
