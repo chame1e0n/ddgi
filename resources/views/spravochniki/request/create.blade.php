@@ -83,7 +83,7 @@
                                 <div class="col-sm-6" id="policy-type">
                                     <div class="form-group" id="policy-amount" style="display: none;">
                                         <label for="polis_quantity">Количество полисов</label>
-                                        <input id="polis_quantity" name="polis_quantity" type="number"
+                                        <input id="polis_quantity" name="polis_quantity" value="{{ old('polis_quantity') }}" type="number"
                                                class="form-control" placeholder="100">
                                     </div>
                                 </div>
@@ -99,13 +99,13 @@
 
                         <div class="form-group" style="display: none;" id="act-number-form">
                             <label for="act-number">Номер акта</label>
-                            <input type="text" id="act-number" name="act_number" class="form-control"
+                            <input type="text" id="act-number" name="act_number" value="{{ old('act_number') }}" class="form-control"
                                    placeholder="ADV100023">
                         </div>
 
                         <div class="form-group" style="display: none;" id="exceed-limits">
                             <label for="limit-reason">Причина увелечения лимитов</label>
-                            <input type="text" id="limit-reason" name="limit_reason" class="form-control"
+                            <input type="text" id="limit-reason" name="limit_reason" value="{{ old('limit_reason') }}" class="form-control"
                                    placeholder="">
                         </div>
 

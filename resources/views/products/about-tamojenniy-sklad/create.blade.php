@@ -40,39 +40,39 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer" class="form-control" required>
+                                        <input type="text" id="insurer-name" name="fio_insurer" value="{{ old('fio_insurer') }}" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Юр адрес
                                             страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer"
+                                        <input type="text" id="insurer-address" name="address_insurer" value="{{ old('address_insurer') }}"
                                                class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-tel" name="tel_insurer" class="form-control" required>
+                                        <input type="text" id="insurer-tel" name="tel_insurer" value="{{ old('tel_insurer') }}" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-schet" name="address_schet" class="form-control" required>
+                                        <input type="text" id="insurer-schet" name="address_schet" value="{{ old('address_schet') }}" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-inn" name="inn_insurer" class="form-control" required>
+                                        <input type="text" id="insurer-inn" name="inn_insurer" value="{{ old('inn_insurer') }}" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer" class="form-control" required>
+                                        <input type="text" id="insurer-mfo" name="mfo_insurer" value="{{ old('mfo_insurer') }}" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -92,7 +92,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="okonh_insurer" class="form-control" required>
+                                        <input type="text" id="insurer-okonh" name="okonh_insurer" value="{{ old('okonh_insurer') }}" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                                                 <div class="form-group">
                                                     <label for="beneficiary-name" class="col-form-label">ФИО
                                                         выгодоприобретателя</label>
-                                                    <input type="text" id="beneficiary-name" name="fio_beneficiary"
+                                                    <input type="text" id="beneficiary-name" name="fio_beneficiary" value="{{ old('fio_beneficiary') }}"
                                                            class="form-control" required>
                                                 </div>
                                             </div>
@@ -124,13 +124,13 @@
                                                     <label for="beneficiary-address" class="col-form-label">Юр адрес
                                                         выгодоприобретателя</label>
                                                     <input type="text" id="beneficiary-address"
-                                                           name="address_beneficiary" class="form-control" required>
+                                                           name="address_beneficiary" value="{{ old('address_beneficiary') }}" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input type="text" id="beneficiary-tel" name="tel_beneficiary"
+                                                    <input type="text" id="beneficiary-tel" name="tel_beneficiary" value="{{ old('tel_beneficiary') }}"
                                                            class="form-control" required>
                                                 </div>
                                             </div>
@@ -138,21 +138,21 @@
                                                 <div class="form-group">
                                                     <label for="beneficiary-schet" class="col-form-label">Расчетный
                                                         счет</label>
-                                                    <input type="text" id="beneficiary-schet" name="beneficiary_schet"
+                                                    <input type="text" id="beneficiary-schet" name="beneficiary_schet" value="{{ old('beneficiary_schet') }}"
                                                            class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                    <input type="text" id="beneficiary-inn" name="inn_beneficiary"
+                                                    <input type="text" id="beneficiary-inn" name="inn_beneficiary" value="{{ old('inn_beneficiary') }}"
                                                            class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                    <input type="text" id="beneficiary-mfo" name="mfo_beneficiary"
+                                                    <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" value="{{ old('mfo_beneficiary') }}"
                                                            class="form-control" required>
                                                 </div>
                                             </div>
@@ -171,7 +171,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                    <input type="text" id="beneficiary-okonh" name="okonh_beneficiary"
+                                                    <input type="text" id="beneficiary-okonh" name="okonh_beneficiary" value="{{ old('okonh_beneficiary') }}"
                                                            class="form-control" required>
                                                 </div>
                                             </div>
@@ -194,7 +194,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Период страхования от</span>
                                         </div>
-                                        <input id="insurance_from" name="insurance_from" type="date" class="form-control" required>
+                                        <input id="insurance_from" name="insurance_from" type="date" value="{{ old('insurance_from') }}" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -204,7 +204,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Период страхования до</span>
                                         </div>
-                                        <input id="insurance_to" name="insurance_to" type="date" class="form-control" required>
+                                        <input id="insurance_to" name="insurance_to" value="{{ old('insurance_to') }}" type="date" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="geographic-zone">Объём таможенной площади</label>
-                                    <input type="text" id="geographic-zone" name="volume" class="form-control" required>
+                                    <input type="text" id="geographic-zone" name="volume" value="{{ old('volume') }}" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -231,13 +231,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="summ-tovar">Общая стоимость товара на складе</label>
-                                    <input type="text" id="summ-tovar" name="total_price" class="form-control" required>
+                                    <input type="text" id="summ-tovar" name="total_price" value="{{ old('total_price') }}" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="period-sklad">Период нахождения товара на данном складе</label>
-                                    <input id="period-sklad" name="stock_date" type="date" class="form-control" required>
+                                    <input id="period-sklad" name="stock_date" value="{{ old('stock_date') }}" type="date" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -251,26 +251,26 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Общая страховая сумма</label>
-                                        <input type="text" id="all-summ" name="total_insured_price" class="form-control">
+                                        <input type="text" id="all-summ" name="total_insured_price" value="{{ old('total_insured_price') }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="summ-1">Страховая сумма для закрытого склада с общим объемом</label>
-                                        <input type="text" id="summ-1" name="total_insured_closed_stock_price" class="form-control">
+                                        <input type="text" id="summ-1" name="total_insured_closed_stock_price" value="{{ old('total_insured_closed_stock_price') }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="summ-2">Страховая сумма для открытого склада с общим
                                             площадью</label>
-                                        <input type="text" id="summ-2" name="total_insured_open_stock_price" class="form-control">
+                                        <input type="text" id="summ-2" name="total_insured_open_stock_price" value="{{ old('total_insured_open_stock_price') }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="geographic-zone">Страховая премия</label>
-                                        <input type="text" id="geographic-zone" name="insurance_premium" class="form-control">
+                                        <input type="text" id="geographic-zone" name="insurance_premium" value="{{ old('insurance_premium') }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -323,7 +323,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"></span>
                                             </div>
-                                            <input id="insurance_from" name="from_date_info" type="date"
+                                            <input id="insurance_from" name="from_date_info" value="{{ old('from_date_info') }}" type="date"
                                                    class="form-control" required>
                                         </div>
                                     </div>

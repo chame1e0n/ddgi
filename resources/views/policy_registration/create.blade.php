@@ -44,7 +44,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="act_number" class="col-form-label">Номер акта</label>
-                                                <input id="act_number" class="form-control" name="act_number" required>
+                                                <input id="act_number" class="form-control" name="act_number" value="{{ old('act_number') }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -52,7 +52,7 @@
                                                 <label for="act_date" class="col-form-label">Дата акта</label>
                                                 <div class="input-group">
                                                     <input id="act_date" type="date" class="form-control"
-                                                           placeholder="yyyy-mm-dd" name="act_date" required>
+                                                           placeholder="yyyy-mm-dd" name="act_date" value="{{ old('act_date') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,8 +63,8 @@
                                             <div class="form-group">
                                                 <label for="polis_number_from" class="col-form-label">Номер полиса
                                                     с:</label>
-                                                <input id="polis_number_from" type="number" class="form-control"
-                                                       name="from_number" required>
+                                                <input id="polis_number_from" type="number"  class="form-control"
+                                                       name="from_number" value="{{ old('from_number') }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -72,7 +72,7 @@
                                                 <label for="polis_number_to" class="col-form-label">Номер полиса
                                                     до:</label>
                                                 <input id="polis_number_to" type="number" class="form-control"
-                                                       name="to_number" required>
+                                                       name="to_number" value="{{ old('to_number') }}" required>
                                             </div>
                                         </div>
                                     </div>
