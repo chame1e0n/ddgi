@@ -17,6 +17,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Symfony\Component\Console\Input\Input;
 
 /**
  * Class TamojeniySkladController
@@ -55,12 +56,48 @@ class TamojeniySkladController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'fio_insurer' => 'required',
+            'address_insurer' => 'required',
+            'tel_insurer' => 'required',
+            'address_schet' => 'required',
+            'inn_insurer' => 'required',
+            'mfo_insurer' => 'required',
+            'okonh_insurer' => 'required',
+            'bank_insurer' => 'required',
+            'fio_beneficiary' => 'required',
+            'address_beneficiary' => 'required',
+            'tel_beneficiary' => 'required',
+            'beneficiary_schet' => 'required',
+            'inn_beneficiary' => 'required',
+            'mfo_beneficiary' => 'required',
+            'okonh_beneficiary' => 'required',
+            'bank_beneficiary' => 'required',
+            'client_type_radio' => 'required',
+            'product_id' => 'required',
+            'insurance_premium_payment_type' => 'required',
+            'insurance_premium_currency' => 'required',
+            'insurance_from' => 'required',
+            'insurance_to' => 'required',
+            'volume' => 'required',
+            'volume_measure' => 'required',
+            'total_price' => 'required',
+            'stock_date' => 'required',
+            'total_insured_price' => 'required',
+            'total_insured_closed_stock_price' => 'required',
+            'total_insured_open_stock_price' => 'required',
+            'insurance_premium' => 'required',
+            'settlement_currency' => 'required',
+            'litso' => 'required',
+            'from_date_info' => 'required',
+        ]);
+
         $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
 
         if (empty($policy)) {
             $policySeries = PolicySeries::find( $request->policy_series_id);
 
-            return back()->withErrors([
+            return back()->withInput()->withErrors([
                 sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
             ]);
         }
