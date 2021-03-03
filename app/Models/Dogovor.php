@@ -44,25 +44,25 @@ class Dogovor
             return $this->integerToString(1);
         }
 
-        DB::statement(DB::raw('set @row:=0'));
-        $regions = Region::selectRaw('*, @row:=@row+1 as row')->get();
+        DB::statement(DB::raw('set @crow:=0'));
+        $regions = Region::selectRaw('*, @crow:=@crow+1 as crow')->get();
 
-        // get row number
-        return $this->integerToString($regions->find($regionId)->row + 1);
+        // get crow number
+        return $this->integerToString($regions->find($regionId)->crow + 1);
     }
 
     // the second pair of digits (BB)
     public function branchCode($branchRegionId, $branchId, $is_center)
     {
-        DB::statement(DB::raw('set @row:=0'));
+        DB::statement(DB::raw('set @crow:=0'));
         //if the branch is not 'insurance Center' (центр страхования)
-        $branches = Branch::selectRaw('*, @row:=@row+1 as row')
+        $branches = Branch::selectRaw('*, @crow:=@crow+1 as crow')
             ->where('region_id', $branchRegionId)
             ->where('is_center', $is_center)
             ->get();
 
-        // get row number - 1, due to the fact we start our numeration starts from 0
-        $code = $branches->find($branchId)->row - 1;
+        // get crow number - 1, due to the fact we start our numeration starts from 0
+        $code = $branches->find($branchId)->crow - 1;
 
         if ($is_center) {
             $code += 70;
@@ -92,10 +92,10 @@ class Dogovor
     // last 5 digits (GGGGG)
     public function filledProductCode($table, $id)
     {
-        DB::statement(DB::raw('set @row:=0'));
-        $product = DB::table($table)->selectRaw('*, @row:=@row+1 as row')->get();
+        DB::statement(DB::raw('set @crow:=0'));
+        $product = DB::table($table)->selectRaw('*, @crow:=@crow+1 as crow')->get();
 
-        return $this->integerToString($product->where('id', $id)->first()->row, 5);
+        return $this->integerToString($product->where('id', $id)->first()->crow, 5);
     }
 
     // change integer to string with leading zeros
