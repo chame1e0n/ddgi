@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Bonded;
 use App\BondedPolicyInformation;
 use App\Http\Controllers\Controller;
+use App\Models\Dogovor;
 use App\Models\Policy;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
@@ -54,6 +55,16 @@ class TamojeniySkladController extends Controller
      */
     public function store(Request $request)
     {
+        $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
+
+        if (empty($policy)) {
+            $policySeries = PolicySeries::find( $request->policy_series_id);
+
+            return back()->withErrors([
+                sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
+            ]);
+        }
+
         $policyHolder = PolicyHolder::create([
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
@@ -75,9 +86,27 @@ class TamojeniySkladController extends Controller
             'okonx' => $request->okonh_beneficiary,
             'bank_id' => $request->bank_beneficiary,
         ]);
+
+        $insurance_premium_currency_rate = null;
+
+        if ($request->insurance_premium_currency != 'UZS') {
+            $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
+            $json = file_get_contents($jsonurl);
+            $json = json_decode($json);
+
+            foreach ($json as $data) {
+                if ($data->Ccy == $request->insurance_premium_currency) {
+                    $insurance_premium_currency_rate = $data->Rate;
+                }
+            }
+        }
+
         $bonded = Bonded::create([
             'type' => $request->client_type_radio,
             'product_id' => (int)$request->product_id,
+            'insurance_premium_payment_type' => (int)$request->insurance_premium_payment_type,
+            'insurance_premium_currency_rate' => $insurance_premium_currency_rate,
+            'insurance_premium_currency' => $request->insurance_premium_currency,
             'policy_beneficiary_id' => $policyBeneficiaries->id,
             'policy_holder_id' => $policyHolder->id,
             'from_date' => $request->insurance_from,
@@ -94,14 +123,35 @@ class TamojeniySkladController extends Controller
             'premium_terms' => $request->premium_terms,
         ]);
 
+        $policy->update([
+            'status' => 'in_use',
+            'client_type' => $request->client_type_radio,
+            ]);
+
+        $brancId = User::find($request->litso)->branch_id;
+        $uniqueNumber = new Dogovor;
+        $uniqueNumber = $uniqueNumber->createUniqueNumber(
+            $brancId,
+            $request->insurance_premium_payment_type,
+            2,
+            'bonded',
+            $bonded->id
+        );
+
+        $bonded->update([
+            'unique_number' => $uniqueNumber
+        ]);
+
         BondedPolicyInformation::create([
             'bonded_id' => $bonded->id,
             'policy_series_id' => $request->policy_series_id,
+            'policy_id' => $policy->id,
             'user_id' => $request->litso,
             'from_date' => $request->from_date_info,
         ]);
 
-        return redirect()->back()->with('success','Успешно распределены полюсы');
+        return redirect()->route('all_products.index')
+            ->with('success','Успешно заполнен продукт');
     }
 
     /**
@@ -176,14 +226,14 @@ class TamojeniySkladController extends Controller
             'premium_terms' => $request->premium_terms,
         ]);
 
-        $bonded->bondedPolicyInformations->update([
+        $bonded->policyInformations->update([
             'bonded_id' => $bonded->id,
             'policy_series_id' => $request->policy_series_id,
             'user_id' => $request->litso,
             'from_date' => $request->from_date_info,
         ]);
 
-        return redirect()->back()->with('success','Успешно распределены полюсы');
+        return redirect()->back()->with('success', 'Успешно распределены полюсы');
     }
 
     /**
@@ -194,6 +244,11 @@ class TamojeniySkladController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bonded = Bonded::find($id);
+        $bonded->policyInformations->delete();
+        $bonded->delete();
+
+        return redirect()->route('all_products.index')
+            ->with('success', sprintf('Дынные о продукте были успешно удалены', $bonded->unique_number));
     }
 }

@@ -15,15 +15,15 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="icheck-success">
-                                <input type="radio" name="client_type_radio" class="client-type-radio"
-                                       id="client-type-radio-1" value="individual">
+                                <input checked type="radio" name="client_type_radio" class="client-type-radio"
+                                       id="client-type-radio-1" value="0">
                                 <label for="client-type-radio-1">физ. лицо</label>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="icheck-success">
                                 <input type="radio" name="client_type_radio" class="client-type-radio"
-                                       id="client-type-radio-2" value="legal">
+                                       id="client-type-radio-2" value="1">
                                 <label for="client-type-radio-2">юр. лицо</label>
                             </div>
                         </div>
@@ -35,8 +35,8 @@
                             style="width: 100%;">
 
                         <option></option>
-                        <option value="1" {{ \Route::currentRouteName() == "tamojenniy-sklad.create" ? "selected" : "" }}>ТАМОЖЕННЫЙ СКЛАД</option>
-                        <option value="2" {{ \Route::currentRouteName() == "kasko.create" ? "selected" : "" }}>KASKO</option>
+                        <option value="2" {{ \Route::currentRouteName() == "tamojenniy-sklad.create" ? "selected" : "" }}>ТАМОЖЕННЫЙ СКЛАД</option>
+                        <option disabled value="1" {{ \Route::currentRouteName() == "kasko.create" ? "selected" : "" }}>KASKO</option>
                     </select>
                 </div>
             </div>
@@ -45,10 +45,10 @@
     <script>
         function getVal(val) {
             switch (val) {
-                case '1':
+                case '2':
                     window.location.replace(`{{ route('tamojenniy-sklad.create') }}`);
                     break;
-                case '2':
+                case '1':
                     window.location.replace(`{{ route('kasko.create') }}`);
                     break;
             }

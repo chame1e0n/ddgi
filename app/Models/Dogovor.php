@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Dogovor
 {
     // unique 'dogovor' number (ААВВ/ССDD/E/FFGGGGG)
-    public function createUniqueNumber($branchId, $productId, $filledProductTable = 'kasko', $filledProductId = 20)
+    public function createUniqueNumber($branchId, $currencyCode, $productId, $filledProductTable = 'kasko', $filledProductId = 20)
     {
         //ToDo smth with currency code
         $branch = Branch::find($branchId);
@@ -30,7 +30,7 @@ class Dogovor
             $branchCode,
             $klassCode,
             $productCode,
-            '1', //currencyCode which should be changed
+            $currencyCode,
             $yearCode,
             $filledProductCode
         );
@@ -64,7 +64,7 @@ class Dogovor
         // get row number - 1, due to the fact we start our numeration starts from 0
         $code = $branches->find($branchId)->row - 1;
 
-        if($is_center) {
+        if ($is_center) {
             $code += 70;
         }
 
@@ -84,12 +84,14 @@ class Dogovor
     }
 
     // pre last 2 digits(FF)
-    public function yearCode() {
+    public function yearCode()
+    {
         return date("y");
     }
 
     // last 5 digits (GGGGG)
-    public function filledProductCode($table, $id) {
+    public function filledProductCode($table, $id)
+    {
         DB::statement(DB::raw('set @row:=0'));
         $product = DB::table($table)->selectRaw('*, @row:=@row+1 as row')->get();
 

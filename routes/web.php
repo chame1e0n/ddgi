@@ -4,6 +4,7 @@ use App\Models\Dogovor;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use App\User;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::get('/', function () {
 
 Route::resource('tamojenniy-sklad', 'Product\TamojeniySkladController');
 Route::patch('tamojenniy-sklad/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
-Route::resource('all_products', 'AllProductController');
+
 
 //Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');
 
@@ -45,6 +46,12 @@ Route::get('test', function () {
 Route::get('test1', 'EmployeeController@getEmployees');
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::resource('all_products', 'AllProductController');
+    Route::get('/cbu_currencies', function (Request $request) {
+        $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
+        $json = file_get_contents($jsonurl);
+        return response()->json(json_decode($json));
+    })->name('currencies');
     Route::resource('spravochniki/bank','Spravochniki\BankController');
     Route::resource('spravochniki/group','GroupController');
     Route::resource('spravochniki/klass','KlassController');

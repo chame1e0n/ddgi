@@ -26,7 +26,7 @@ class Bonded extends Model
         return $this->hasOne(PolicyBeneficiaries::class, 'id', 'policy_beneficiary_id');
     }
 
-    public function bondedPolicyInformations() {
+    public function policyInformations() {
         return $this->belongsTo(BondedPolicyInformation::class, 'id', 'bonded_id');
     }
 }
