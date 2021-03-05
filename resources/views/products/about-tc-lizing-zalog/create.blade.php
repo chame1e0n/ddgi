@@ -2,7 +2,8 @@
 
 @section('content')
         <!-- Content Wrapper. Contains page content -->
-        <form action="GET" id="mainFormKasko">
+        <form action="{{ route('tc-lizing-zalog.store') }}" method="POST" id="mainFormKasko">
+            @csrf
             <div class="content-wrapper">
 
                 <div class="content-header">
@@ -465,11 +466,11 @@
                                                     <div class="row">
                                                         <div class="col-sm-1">
                                                             <div class="checkbox icheck-success">
-                                                                <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess1" value="1">
+                                                                <input type="radio" class="other_insurance-0" name="strtahovka_0" id="radioSuccess1" value="1">
                                                                 <label for="radioSuccess1">Да</label>
                                                             </div>
                                                             <div class="checkbox icheck-success">
-                                                                <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess2" value="0">
+                                                                <input type="radio" class="other_insurance-0" name="strtahovka_0" id="radioSuccess2" value="0">
                                                                 <label for="radioSuccess2">Нет</label>
                                                             </div>
                                                         </div>
@@ -499,7 +500,7 @@
                                                     <div class="row">
                                                         <div class="col-md-1">
                                                             <div class="checkbox icheck-success">
-                                                                <input type="radio" name="vehicleDamage" class="r-1-0" id="radioSuccess3" value="1">
+                                                                <input type="radio" name="vehicle_damage" class="r-1-0" id="radioSuccess3" value="1">
                                                                 <label for="radioSuccess3">Да</label>
                                                             </div>
                                                             <div class="checkbox icheck-success">
@@ -677,7 +678,7 @@
                                                     <div class="input-group mb-4">
                                                         <input type="text" id="totalLimit-0" class="form-control" name="total_liability_limit_0" value="{{ old('total_liability_limit_0') }}">
                                                         <div class="input-group-append">
-                                                            <select class="form-control success" name="total_liability_limit_currency-0" style="width: 100%;">
+                                                            <select class="form-control success" name="total_liability_limit_currency_0" style="width: 100%;">
                                                                 <option selected="selected">UZS</option>
                                                                 <option>USD</option>
                                                             </select>
@@ -745,7 +746,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Порядок оплаты</label>
-                                                                    <select class="form-control select2" name="payment-order" style="width: 100%;">
+                                                                    <select class="form-control select2" name="payment_order" style="width: 100%;">
                                                                                                 <option selected="selected">Сум</option>
                                                                                                 <option>Доллар</option>
                                                                                                 <option>Евро</option>
@@ -795,8 +796,8 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group form-inline justify-content-between">
                                                         <label>Оплата страховой премии в</label>
-                                                        <select class="form-control" style="width: 100%; text-align: center">
-                                                                            <option selected="selected" name="insurance_premium_currency">UZS</option>
+                                                        <select class="form-control" style="width: 100%; text-align: center" name="insurance_premium_currency">
+                                                                            <option selected="selected" >UZS</option>
                                                                             <option>USD</option>
                                                                             <option>Евро</option>
                                                                         </select>

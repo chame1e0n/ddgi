@@ -31,9 +31,12 @@ Route::patch('tamojenniy-sklad/store', 'Product\TamojeniySkladController@create'
 
 //Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');
 
-Route::get('tc-lizing-zalog/create', function () {
-    return view('products.about-tc-lizing-zalog.create');
-});
+//Route::get('tc-lizing-zalog/create', function () {
+//    return view('products.about-tc-lizing-zalog.create');
+//});
+
+Route::resource('tc-lizing-zalog', 'LisingZalogController');
+
 Route::get('imushestvo-lizing-zalog/create', function () {
     return view('products.about-imushestvo-lizing-zalog.create');
 });
