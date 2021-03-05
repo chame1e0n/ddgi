@@ -37,6 +37,11 @@
                         <option></option>
                         <option value="2" {{ \Route::currentRouteName() == "tamojenniy-sklad.create" ? "selected" : "" }}>ТАМОЖЕННЫЙ СКЛАД</option>
                         <option disabled value="1" {{ \Route::currentRouteName() == "kasko.create" ? "selected" : "" }}>KASKO</option>
+                        <option value="3" {{ \Route::currentRouteName() == "cmp.create" ? "selected" : "" }}>CMP</option>
+                        <option value="4" {{ \Route::currentRouteName() == "avtocredit.create" ? "selected" : "" }}>Авто Кредит</option>
+                        <option value="5" {{ \Route::currentRouteName() == "grant.create" ? "selected" : "" }}>Страхование Гарантии</option>
+                        <option value="6" {{ \Route::currentRouteName() == "nepogashen.create" ? "selected" : "" }}>Непогашение кредита</option>
+                        <option value="7" {{ \Route::currentRouteName() == "rassrochka.create" ? "selected" : "" }}>Cтрахования Рассрочки АВТО</option>
                     </select>
                 </div>
             </div>
@@ -50,6 +55,21 @@
                     break;
                 case '1':
                     window.location.replace(`{{ route('kasko.create') }}`);
+                    break;
+                case '3':
+                    window.location.replace(`{{ route('cmp.create') }}`);
+                    break;
+                case '4':
+                    window.location.replace(`{{ route('avtocredit.create') }}`);
+                    break;
+                case '5':
+                    window.location.replace(`{{ route('grant.create') }}`);
+                    break;
+                case '6':
+                    window.location.replace(`{{ route('nepogashen.create') }}`);
+                    break;
+                case '7':
+                    window.location.replace(`{{ route('rassrochka.create') }}`);
                     break;
             }
         }

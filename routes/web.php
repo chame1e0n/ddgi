@@ -67,6 +67,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('director','DirectorController');
     Route::resource('policy_registration','PolicyRegistrationController');
     Route::resource('kasko','Product\KaskoController');
+    Route::resource('cmp','Product\CmpController');
+    Route::resource('avtocredit','Product\AvtocreditController');
+    Route::resource('grant','Product\GrantController');
+    Route::resource('nepogashen','Product\NepogashenController');
+    Route::resource('rassrochka','Product\RassrochkaController');
     Route::resource('policy_transfer','PolicyTransferController');
     Route::resource('policy_retransfer','PolicyRetransferController');
     Route::resource('pretensii_overview','PretensiiOverviewController');
