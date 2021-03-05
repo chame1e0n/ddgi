@@ -130,6 +130,33 @@
 
 
 </script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '{{route('currencies')}}',
+            method: "GET",
+            type: 'json',
+            // beforeSend: function(xhr) {
+            //     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            // },
+            success: function(data) {
+                // $('#walletNames').append('<option selected="selected"></option>');
+                const products = data;
+                const length = products.length;
+                for (let i = 0; i < length; i++) {
+                    $('#walletNames').append(`<option value="${products[i].id}">${products[i].Ccy}</option>`);
+                }
+            },
+            error: function() {
+                console.log('error');
+            }
+        })
+    });
+    // fetch('https://cbu.uz/ru/arkhiv-kursov-valyut/json/')
+    //     .then(function(data) {
+    //         console.log(data)
+    //     });
+</script>
 @yield('scripts')
 </html>
 

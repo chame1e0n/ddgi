@@ -1,5 +1,12 @@
 @extends('layouts.index')
 
+@php
+//ToDO optimize this code of getting routes depending on product id
+$routes = [
+1 => 'kasko',
+2 => 'tamojenniy-sklad',
+];
+@endphp
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -42,6 +49,7 @@
                 <tr>
                   <th>Наименование продукта</th>
                   <th>Номер договора</th>
+                  <th>Серия полиса</th>
                   <th>Номер полиса</th>
                   <th>Имя агента</th>
                   <th>Действия</th>
@@ -51,15 +59,23 @@
                 @foreach ($allProducts as $product)
                 <tr>
 
-                  <td>{{ $product->name }}</td>
+                  <td>{{ $product->product->name }}</td>
                   <td>{{ $product->unique_number }}</td>
-                  <td>{{ null }}</td>
-                  <td>{{ null }}</td>
+                  <td>{{ @$product->policyInformations->policySeries->code }}</td>
+                  <td>{{ @$product->policyInformations->policy->number }}</td>
+                  <td>{{ @$product->policyInformations->agent->surname }} {{ @$product->policyInformations->agent->name }} {{ @$product->policyInformations->agent->middle_name }}</td>
                   <td>
+                    <form action="{{ route($routes[$product->product_id].'.destroy',$product->id)}}" method="POST">
 
+                      <a class="btn btn-info" href="{{ route($routes[$product->product_id].'.edit',$product->id) }}">Посмотреть</a>
 
-                    <a class="btn btn-info disabled"
-                       href="{{ route(@$product->route, @$product->id) }}">Посмотреть</a>
+                      <a class="btn btn-primary"
+                         href="{{ route($routes[$product->product_id].'.edit',$product->id) }}">Изменить</a>
+                      @csrf
+                      @method('DELETE')
+
+                      <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
 
                   </td>
                 </tr>

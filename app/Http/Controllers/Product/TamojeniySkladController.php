@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Bonded;
 use App\BondedPolicyInformation;
 use App\Http\Controllers\Controller;
+use App\Models\Dogovor;
 use App\Models\Policy;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
@@ -16,6 +17,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Symfony\Component\Console\Input\Input;
 
 /**
  * Class TamojeniySkladController
@@ -54,6 +56,52 @@ class TamojeniySkladController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'fio_insurer' => 'required',
+            'address_insurer' => 'required',
+            'tel_insurer' => 'required',
+            'address_schet' => 'required',
+            'inn_insurer' => 'required',
+            'mfo_insurer' => 'required',
+            'okonh_insurer' => 'required',
+            'bank_insurer' => 'required',
+            'fio_beneficiary' => 'required',
+            'address_beneficiary' => 'required',
+            'tel_beneficiary' => 'required',
+            'beneficiary_schet' => 'required',
+            'inn_beneficiary' => 'required',
+            'mfo_beneficiary' => 'required',
+            'okonh_beneficiary' => 'required',
+            'bank_beneficiary' => 'required',
+            'client_type_radio' => 'required',
+            'product_id' => 'required',
+            'insurance_premium_payment_type' => 'required',
+            'insurance_premium_currency' => 'required',
+            'insurance_from' => 'required',
+            'insurance_to' => 'required',
+            'volume' => 'required',
+            'volume_measure' => 'required',
+            'total_price' => 'required',
+            'stock_date' => 'required',
+            'total_insured_price' => 'required',
+            'total_insured_closed_stock_price' => 'required',
+            'total_insured_open_stock_price' => 'required',
+            'insurance_premium' => 'required',
+            'settlement_currency' => 'required',
+            'litso' => 'required',
+            'from_date_info' => 'required',
+        ]);
+
+        $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
+
+        if (empty($policy)) {
+            $policySeries = PolicySeries::find( $request->policy_series_id);
+
+            return back()->withInput()->withErrors([
+                sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
+            ]);
+        }
+
         $policyHolder = PolicyHolder::create([
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
@@ -75,9 +123,27 @@ class TamojeniySkladController extends Controller
             'okonx' => $request->okonh_beneficiary,
             'bank_id' => $request->bank_beneficiary,
         ]);
+
+        $insurance_premium_currency_rate = null;
+
+        if ($request->insurance_premium_currency != 'UZS') {
+            $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
+            $json = file_get_contents($jsonurl);
+            $json = json_decode($json);
+
+            foreach ($json as $data) {
+                if ($data->Ccy == $request->insurance_premium_currency) {
+                    $insurance_premium_currency_rate = $data->Rate;
+                }
+            }
+        }
+
         $bonded = Bonded::create([
             'type' => $request->client_type_radio,
             'product_id' => (int)$request->product_id,
+            'insurance_premium_payment_type' => (int)$request->insurance_premium_payment_type,
+            'insurance_premium_currency_rate' => $insurance_premium_currency_rate,
+            'insurance_premium_currency' => $request->insurance_premium_currency,
             'policy_beneficiary_id' => $policyBeneficiaries->id,
             'policy_holder_id' => $policyHolder->id,
             'from_date' => $request->insurance_from,
@@ -86,7 +152,7 @@ class TamojeniySkladController extends Controller
             'volume_measure' => $request->volume_measure,
             'total_price' => $request->total_price,
             'stock_date' => $request->stock_date,
-            'total_insured_price' => $request->stock_date,
+            'total_insured_price' => $request->total_insured_price,
             'total_insured_closed_stock_price' => $request->total_insured_closed_stock_price,
             'total_insured_open_stock_price' => $request->total_insured_open_stock_price,
             'insurance_premium' => $request->insurance_premium,
@@ -94,14 +160,35 @@ class TamojeniySkladController extends Controller
             'premium_terms' => $request->premium_terms,
         ]);
 
+        $policy->update([
+            'status' => 'in_use',
+            'client_type' => $request->client_type_radio,
+            ]);
+
+        $brancId = User::find($request->litso)->branch_id;
+        $uniqueNumber = new Dogovor;
+        $uniqueNumber = $uniqueNumber->createUniqueNumber(
+            $brancId,
+            $request->insurance_premium_payment_type,
+            2,
+            'bonded',
+            $bonded->id
+        );
+
+        $bonded->update([
+            'unique_number' => $uniqueNumber
+        ]);
+
         BondedPolicyInformation::create([
             'bonded_id' => $bonded->id,
             'policy_series_id' => $request->policy_series_id,
+            'policy_id' => $policy->id,
             'user_id' => $request->litso,
             'from_date' => $request->from_date_info,
         ]);
 
-        return redirect()->back()->with('success','Успешно распределены полюсы');
+        return redirect()->route('all_products.index')
+            ->with('success','Успешно заполнен продукт');
     }
 
     /**
@@ -161,14 +248,13 @@ class TamojeniySkladController extends Controller
             'bank_id' => $request->bank_beneficiary,
         ]);
         $bonded->update([
-            'type' => $request->client_type_radio,
             'from_date' => $request->insurance_from,
             'to_date' => $request->insurance_to,
             'volume' => $request->volume,
             'volume_measure' => $request->volume_measure,
             'total_price' => $request->total_price,
             'stock_date' => $request->stock_date,
-            'total_insured_price' => $request->stock_date,
+            'total_insured_price' => $request->total_insured_price,
             'total_insured_closed_stock_price' => $request->total_insured_closed_stock_price,
             'total_insured_open_stock_price' => $request->total_insured_open_stock_price,
             'insurance_premium' => $request->insurance_premium,
@@ -176,14 +262,14 @@ class TamojeniySkladController extends Controller
             'premium_terms' => $request->premium_terms,
         ]);
 
-        $bonded->bondedPolicyInformations->update([
+        $bonded->policyInformations->update([
             'bonded_id' => $bonded->id,
             'policy_series_id' => $request->policy_series_id,
             'user_id' => $request->litso,
             'from_date' => $request->from_date_info,
         ]);
 
-        return redirect()->back()->with('success','Успешно распределены полюсы');
+        return redirect()->back()->with('success', 'Успешно распределены полюсы');
     }
 
     /**
@@ -194,6 +280,11 @@ class TamojeniySkladController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bonded = Bonded::find($id);
+        $bonded->policyInformations->delete();
+        $bonded->delete();
+
+        return redirect()->route('all_products.index')
+            ->with('success', sprintf('Дынные о продукте были успешно удалены', $bonded->unique_number));
     }
 }

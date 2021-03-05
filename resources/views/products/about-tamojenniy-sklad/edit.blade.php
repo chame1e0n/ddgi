@@ -16,8 +16,8 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                                <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
-                                <li class="breadcrumb-item active">Создать Анкету</li>
+                                <li class="breadcrumb-item active"><a href="/all_products">Продукты</a></li>
+                                <li class="breadcrumb-item active">Редактировать</li>
                             </ol>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                             <div class="form-group clearfix">
                                 <label>Типы клиента</label>
                                 <div class="row">
-                                    @if($bonded->type == "individual")
+                                    @if($bonded->type == 0)
                                         <div class="col-sm-4">
                                             <div class="icheck-success">
                                                 <input type="radio" class="client-type-radio"
@@ -336,15 +336,124 @@
                                         <option selected="selected">UZS</option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="polises">Условия оплаты страховой премии</label>
-                                    <select class="form-control polises" id="polises" name="premium_terms"
-                                            style="width: 100%;">
-                                        <option selected="selected">Единовременная</option>
-                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Уникальные номера</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="payment-terms-form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Номер договора</label>
+                                        <input value="{{$bonded->unique_number}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Серия полиса</label>
+                                        <input value="{{$bonded->policyInformations->policySeries->code ?? '-'}}" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Номер полиса</label>
+                                        <input value="{{$bonded->policyInformations->policy->number}}" readonly>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Условия оплаты страховой премии</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="payment-terms-form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Способ расчета</label>
+                                        <select name="insurance_premium_payment_type" class="form-control"
+                                                style="width: 100%; text-align: center">
+                                            <option @if($bonded->insurance_premium_payment_type == 1)selected @endif value="1">Сумах</option>
+                                            <option @if($bonded->insurance_premium_payment_type == 2)selected @endif value="2">В ин. валюте</option>
+                                            <option @if($bonded->insurance_premium_payment_type == 3)selected @endif value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
+                                            <option @if($bonded->insurance_premium_payment_type == 4)selected @endif value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
+                                            <option @if($bonded->insurance_premium_payment_type == 5)selected @endif value="5">В ин. валюте по фикс курсу ЦБ на день оплаты премии/первого транша </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Валюта взаиморасчетов</label>
+                                        <select class="form-control" name="insurance_premium_currency" id="walletNames"
+                                                style="width: 100%; text-align: center">
+                                            <option>{{$bonded->insurance_premium_currency}}</option>
+                                            <option>UZS</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Порядок оплаты страховой премии</label>
+                                        <select class="form-control payment-schedule" name="payment_term"
+                                                onchange="showDiv('other-payment-schedule', this)"
+                                                style="width: 100%; text-align: center">
+                                            <option value="1">Единовременно</option>
+                                            <option value="other">Другое</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="other-payment-schedule" style="display: none;">
+                                <div class="form-group">
+                                    <button type="button" onclick="addRow3()" class="btn btn-primary ">
+                                        Добавить
+                                    </button>
+                                </div>
+                                <div class="table-responsive p-0 " style="max-height: 300px;">
+                                    <table class="table table-hover table-head-fixed" id="empTable3">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-nowrap">Сумма</th>
+                                            <th class="text-nowrap">От</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr id="payment-term-tr-0" data-field-number="0">
+                                            <td><input type="text" class="form-control" name="payment_sum-0-0"></td>
+                                            <td><input type="date" class="form-control" name="payment_from-0-0"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -370,7 +479,7 @@
                                                     style="width: 100%;" required>
                                                 <option></option>
                                                 @foreach($policySeries as $series)
-                                                    <option value="{{ $series->id }}" @if($series->id == $bonded->bondedPolicyInformations->policy_series_id) selected @endif>{{ $series->code }}</option>
+                                                    <option value="{{ $series->id }}" @if($series->id == $bonded->policyInformations->policy_series_id) selected @endif>{{ $series->code }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -381,7 +490,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"></span>
                                             </div>
-                                            <input id="insurance_from" name="from_date_info" type="date" value="{{ $bonded->bondedPolicyInformations->from_date }}"
+                                            <input id="insurance_from" name="from_date_info" type="date" value="{{ $bonded->policyInformations->from_date }}"
                                                    class="form-control" required>
                                         </div>
                                     </div>
@@ -393,7 +502,7 @@
                                                 <option></option>
                                                 @foreach($agents as $agent)
                                                     <option
-                                                        value="{{ $agent->user_id }}" @if($agent->user_id == $bonded->bondedPolicyInformations->user_id) selected @endif>{{ $agent->surname }}{{ $agent->name }}{{ $agent->middle_name }}</option>
+                                                        value="{{ $agent->user_id }}" @if($agent->user_id == $bonded->policyInformations->user_id) selected @endif>{{ $agent->surname }}{{ $agent->name }}{{ $agent->middle_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

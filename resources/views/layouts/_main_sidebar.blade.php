@@ -70,6 +70,14 @@
                 <!--Управление-->
                 <li class="nav-header">Управление</li>
                 <li class="nav-item has-treeview">
+                    <a href="{{route('all_products.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-folder-open"></i>
+                        <p>
+                            Продукты
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
                     <a href="{{route('kasko.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-folder-open"></i>
                         <p>

@@ -16,12 +16,12 @@ class AllProductController extends Controller
     public function index()
     {
         //ToDo:: complete it
-        $kasko = Kasko::with('product')->select('id', 'unique_number', 'product_id');
-        $tamojenniy_sklad = Bonded::with('product')->select('id', 'unique_number', 'product_id')
-            ->union($kasko)
-            ->paginate(3);
+//        $kasko = Kasko::with('product')->select('id', 'unique_number', 'product_id');
+        $allProducts = Bonded::with('product', 'policyInformations')->select('id', 'unique_number', 'product_id')
+//            ->union($kasko)
+            ->paginate(10);
 
-        dd($tamojenniy_sklad);
+        return view('products.index',compact('allProducts'));
     }
 
     /**

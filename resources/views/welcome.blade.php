@@ -54,8 +54,8 @@
 <section id="hero">
     <div class="hero-container">
         <h1>DDGI</h1>
-        <h2>Мы прилагаем все усилия, чтобы улучшить нашу платформу,<br> и мы будем готовы к запуску после</h2>
-        <div class="countdown" data-count="2021/3/3" data-template="%w недель %d дней <br> %H:%M:%S"></div>
+        <h2>Мы прилагаем все усилия, чтобы улучшить нашу платформу,<br> и мы будем готовы к запуску в ближайшее время</h2>
+        {{--<div class="countdown" data-count="2021/3/3" data-template="%w недель %d дней <br> %H:%M:%S"></div>--}}
 
 
     </div>
