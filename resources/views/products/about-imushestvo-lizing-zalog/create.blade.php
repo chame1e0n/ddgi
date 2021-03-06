@@ -3,9 +3,9 @@
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
-    <form action="GET" id="mainFormKasko">
+    <form action="{{ route('imushestvo-lizing-zalog.store') }}" method="POST" id="mainFormKasko">
+        @csrf
         <div class="content-wrapper">
-
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -260,7 +260,7 @@
                                     <input type="text" id="geographic-zone" name="geo_zone" class="form-control" value="{{ old('geo_zone') }}">
                                 </div>
                                 <label for="polises">Валюта взаиморасчетов</label>
-                                <select class="form-control polises" id="polises" name="polis-series-0"
+                                <select class="form-control polises" id="polises" name="polis_series_0"
                                         style="width: 100%;">
                                     <option selected="selected">UZS</option>
                                 </select>
@@ -309,7 +309,7 @@
                                             <input type="text" class="form-control" name="polis_modification_0" value="{{ old('polis_modification_0') }}">
                                         </td>
                                         <td>
-                                            <select class="form-control polises" id="polises" name="polis-series-0"
+                                            <select class="form-control polises" id="polises" name="polis_series_0"
                                                     style="width: 100%;">
                                                 <option selected="selected">Кв.м</option>
                                                 <option>Кв.см</option>
@@ -379,7 +379,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="polises">Валюта взаиморасчетов</label>
-                                    <select class="form-control polises" id="polises" name="polis-series-0"
+                                    <select class="form-control polises" id="polises" name="polis_series_0"
                                             style="width: 100%;">
                                         <option selected="selected">UZS</option>
                                     </select>
@@ -926,7 +926,7 @@
                                                             <div class="form-group">
                                                                 <label>Порядок оплаты</label>
                                                                 <select class="form-control select2"
-                                                                        name="payment-order"
+                                                                        name="payment_order"
                                                                         style="width: 100%;">
                                                                     <option selected="selected">Сум</option>
                                                                     <option>Доллар</option>

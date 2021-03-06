@@ -37,9 +37,7 @@ Route::patch('tamojenniy-sklad/store', 'Product\TamojeniySkladController@create'
 
 Route::resource('tc-lizing-zalog', 'LisingZalogController');
 
-Route::get('imushestvo-lizing-zalog/create', function () {
-    return view('products.about-imushestvo-lizing-zalog.create');
-});
+Route::resource('imushestvo-lizing-zalog', 'PropertyLisingZalog');
 
 Route::get('test', function () {
     $dog = new Dogovor();
