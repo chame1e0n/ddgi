@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Product;
 
 use App\Bonded;
-use App\BondedPolicyInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Dogovor;
 use App\Models\Policy;
@@ -158,6 +157,10 @@ class TamojeniySkladController extends Controller
             'insurance_premium' => $request->insurance_premium,
             'settlement_currency' => $request->settlement_currency,
             'premium_terms' => $request->premium_terms,
+            'policy_series_id' => $request->policy_series_id,
+            'policy_id' => $policy->id,
+            'user_id' => $request->litso,
+            'policy_from_date' => $request->from_date_info,
         ]);
 
         $policy->update([
@@ -179,14 +182,6 @@ class TamojeniySkladController extends Controller
             'unique_number' => $uniqueNumber
         ]);
 
-        BondedPolicyInformation::create([
-            'bonded_id' => $bonded->id,
-            'policy_series_id' => $request->policy_series_id,
-            'policy_id' => $policy->id,
-            'user_id' => $request->litso,
-            'from_date' => $request->from_date_info,
-        ]);
-
         return redirect()->route('all_products.index')
             ->with('success','Успешно заполнен продукт');
     }
@@ -204,8 +199,8 @@ class TamojeniySkladController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Bonded $product
-     * @return void
+     * @param Bonded $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
@@ -260,13 +255,9 @@ class TamojeniySkladController extends Controller
             'insurance_premium' => $request->insurance_premium,
             'settlement_currency' => $request->settlement_currency,
             'premium_terms' => $request->premium_terms,
-        ]);
-
-        $bonded->policyInformations->update([
-            'bonded_id' => $bonded->id,
             'policy_series_id' => $request->policy_series_id,
             'user_id' => $request->litso,
-            'from_date' => $request->from_date_info,
+            'policy_from_date' => $request->from_date_info,
         ]);
 
         return redirect()->back()->with('success', 'Успешно распределены полюсы');
@@ -281,7 +272,6 @@ class TamojeniySkladController extends Controller
     public function destroy($id)
     {
         $bonded = Bonded::find($id);
-        $bonded->policyInformations->delete();
         $bonded->delete();
 
         return redirect()->route('all_products.index')

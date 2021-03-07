@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bonded;
+use App\Models\Product\Cmp;
 use App\Models\Product\Kasko;
 use Illuminate\Http\Request;
 
@@ -16,12 +17,11 @@ class AllProductController extends Controller
     public function index()
     {
         //ToDo:: complete it
-//        $kasko = Kasko::with('product')->select('id', 'unique_number', 'product_id');
-        $allProducts = Bonded::with('product', 'policyInformations')->select('id', 'unique_number', 'product_id')
-//            ->union($kasko)
+        $cmp = Cmp::with('product', 'policySeries', 'policy', 'agent')->select('id', 'unique_number', 'product_id', 'policy_id', 'policy_series_id', 'user_id');
+        $allProducts = Bonded::with('product', 'policySeries', 'policy', 'agent')->select('id', 'unique_number', 'product_id', 'policy_id', 'policy_series_id', 'user_id')
+            ->union($cmp)
             ->paginate(10);
-
-        return view('products.index',compact('allProducts'));
+        return view('products.index', compact('allProducts'));
     }
 
     /**
