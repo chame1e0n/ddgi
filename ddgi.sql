@@ -102,6 +102,10 @@ CREATE TABLE IF NOT EXISTS `bonded` (
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `product_id` int(10) unsigned NOT NULL,
   `policy_beneficiary_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `policy_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `policy_series_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `policy_from_date` date DEFAULT NULL,
   `policy_holder_id` int(10) unsigned NOT NULL DEFAULT '0',
   `insurance_premium_payment_type` int(10) unsigned NOT NULL,
   `from_date` date DEFAULT NULL,
@@ -123,15 +127,17 @@ CREATE TABLE IF NOT EXISTS `bonded` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.bonded: ~3 rows (approximately)
+-- Dumping data for table ddgi.bonded: ~5 rows (approximately)
 DELETE FROM `bonded`;
 /*!40000 ALTER TABLE `bonded` DISABLE KEYS */;
-INSERT INTO `bonded` (`id`, `type`, `product_id`, `policy_beneficiary_id`, `policy_holder_id`, `insurance_premium_payment_type`, `from_date`, `to_date`, `volume`, `insurance_premium_currency_rate`, `insurance_premium_currency`, `unique_number`, `volume_measure`, `total_price`, `stock_date`, `total_insured_price`, `total_insured_closed_stock_price`, `total_insured_open_stock_price`, `insurance_premium`, `settlement_currency`, `premium_terms`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(9, '0', 2, 15, 20, 2, '2021-03-03', '2021-03-03', 'sdfsdfgsdf', NULL, 'USD', '0100/0201/2/2100002', 'tonna', '235235', '2021-03-04', '2021-03-04', '234525', '25252345', '234542535', 'UZS', NULL, '2021-03-03 02:59:46', '2021-03-03 04:20:31', NULL),
-	(10, '0', 2, 16, 21, 1, '2021-03-04', '2021-03-04', 'sdfvdsvf', NULL, 'UZS', '0100/0201/1/2100003', 'shtuka', 'vsdvfdsvff', '2021-03-11', '2021-03-11', '452352345', '23452523', '4542345', 'UZS', NULL, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
-	(12, '0', 2, 18, 23, 1, '2021-03-05', '2021-03-10', '5345', NULL, 'UZS', '0100/0201/1/2100004', 'tonna', '34543', '2021-03-18', '2021-03-18', '345', '345345', '35345', 'UZS', NULL, '2021-03-03 06:13:29', '2021-03-03 06:14:25', NULL);
+INSERT INTO `bonded` (`id`, `type`, `product_id`, `policy_beneficiary_id`, `policy_id`, `policy_series_id`, `user_id`, `policy_from_date`, `policy_holder_id`, `insurance_premium_payment_type`, `from_date`, `to_date`, `volume`, `insurance_premium_currency_rate`, `insurance_premium_currency`, `unique_number`, `volume_measure`, `total_price`, `stock_date`, `total_insured_price`, `total_insured_closed_stock_price`, `total_insured_open_stock_price`, `insurance_premium`, `settlement_currency`, `premium_terms`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(9, '0', 2, 15, 1, 1, 4, '2021-03-06', 20, 2, '2021-03-03', '2021-03-03', 'sdfsdfgsdf', NULL, 'USD', '0100/0201/2/2100001', 'tonna', '235235', '2021-03-04', '2021-03-04', '234525', '25252345', '234542535', 'UZS', NULL, '2021-03-03 02:59:46', '2021-03-03 04:20:31', NULL),
+	(10, '0', 2, 16, 2, 1, 4, '2021-03-06', 21, 1, '2021-03-04', '2021-03-04', 'sdfvdsvf', NULL, 'UZS', '0100/0201/1/2100002', 'shtuka', 'vsdvfdsvff', '2021-03-11', '2021-03-11', '452352345', '23452523', '4542345', 'UZS', NULL, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
+	(12, '0', 2, 18, 4, 1, 4, '2021-03-06', 23, 1, '2021-03-05', '2021-03-10', '5345', NULL, 'UZS', '0100/0201/1/2100003', 'tonna', '34543', '2021-03-18', '2021-03-18', '345', '345345', '35345', 'UZS', NULL, '2021-03-03 06:13:29', '2021-03-03 06:14:25', NULL),
+	(13, '0', 2, 19, 11, 0, 4, '2021-03-06', 24, 1, '2021-03-14', '2021-03-05', 'dsfvdsfvsdfv', NULL, 'UZS', '0100/0201/1/2100004', 'litr', 'sdfvsdvf', '2021-03-13', 'sdfvsdv', 'dsfvsdfvsd', 'vsdfvsdfv', 'sdfvsdfvsdvf', 'UZS', NULL, '2021-03-03 08:45:31', '2021-03-03 08:45:31', NULL),
+	(14, '0', 2, 20, 12, 0, 4, '2021-03-26', 25, 2, '2021-03-06', '2021-04-01', '5345', NULL, '69', '0100/0201/2/2100005', 'litr', '34', '2021-03-28', '43523', '345', '2555', '35345', 'UZS', NULL, '2021-03-06 09:14:43', '2021-03-06 09:14:43', NULL);
 /*!40000 ALTER TABLE `bonded` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.bonded_policy_informations
@@ -146,15 +152,16 @@ CREATE TABLE IF NOT EXISTS `bonded_policy_informations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi.bonded_policy_informations: ~3 rows (approximately)
+-- Dumping data for table ddgi.bonded_policy_informations: ~4 rows (approximately)
 DELETE FROM `bonded_policy_informations`;
 /*!40000 ALTER TABLE `bonded_policy_informations` DISABLE KEYS */;
 INSERT INTO `bonded_policy_informations` (`id`, `bonded_id`, `policy_series_id`, `policy_id`, `user_id`, `from_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(2, 9, 1, 1, 4, '2021-03-04', '2021-03-03 02:59:46', '2021-03-03 04:20:31', NULL),
 	(3, 10, 1, 2, 4, '2021-03-05', '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
-	(4, 12, 1, 4, 4, '2021-03-10', '2021-03-03 06:13:29', '2021-03-03 06:13:29', NULL);
+	(4, 12, 1, 4, 4, '2021-03-10', '2021-03-03 06:13:29', '2021-03-03 06:13:29', NULL),
+	(5, 13, 0, 11, 4, '2021-03-05', '2021-03-03 08:45:31', '2021-03-03 08:45:31', NULL);
 /*!40000 ALTER TABLE `bonded_policy_informations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.branches
@@ -220,6 +227,51 @@ INSERT INTO `clients` (`id`, `type`, `name`, `middle_name`, `surname`, `address`
 	(2, 1, 'sdfvdsfdsfv', NULL, NULL, 'sdvfdsfv', '454353', NULL, NULL, 4, 'sdfvdsvf', NULL, NULL, NULL, NULL, '2021-01-21 02:33:49', '2021-01-21 02:33:49', NULL),
 	(3, 1, 'sfdvsdfv', NULL, NULL, 'vsdfvdsfv', '23553', NULL, NULL, 4, 'dsfvdsfvdsf', NULL, NULL, NULL, NULL, '2021-01-21 02:35:53', '2021-01-21 05:10:26', '2021-01-21 05:10:26');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi.cmp
+CREATE TABLE IF NOT EXISTS `cmp` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'тип юр.= 1; физ = 0',
+  `product_id` int(11) unsigned DEFAULT NULL,
+  `policy_id` int(11) unsigned DEFAULT NULL,
+  `policy_series_id` int(11) unsigned DEFAULT NULL,
+  `policy_holder_id` int(11) unsigned NOT NULL,
+  `object_info_dogov_stoy` varchar(200) DEFAULT NULL,
+  `holder_from_date` date DEFAULT NULL,
+  `holder_to_date` date DEFAULT NULL,
+  `object_stroy_mont` varchar(200) DEFAULT NULL,
+  `object_location` varchar(200) DEFAULT NULL,
+  `object_insurance_sum` varchar(200) DEFAULT NULL,
+  `object_from_date` date DEFAULT NULL,
+  `object_to_date` date DEFAULT NULL,
+  `object_tel_povr` varchar(200) DEFAULT NULL,
+  `object_material` varchar(200) DEFAULT NULL,
+  `stroy_mont_sum` varchar(200) DEFAULT NULL,
+  `stroy_sum` varchar(200) DEFAULT NULL,
+  `obor_sum` varchar(200) DEFAULT NULL,
+  `stroy_mash_sum` varchar(200) DEFAULT NULL,
+  `rasx_sum` varchar(200) DEFAULT NULL,
+  `insurance_prem_sum` varchar(200) DEFAULT NULL,
+  `franchise_sum` varchar(200) DEFAULT NULL,
+  `insurence_currency` varchar(200) DEFAULT NULL,
+  `insurence_currency_rate` varchar(200) DEFAULT NULL,
+  `insurance_premium_payment_type` int(10) unsigned DEFAULT NULL,
+  `unique_number` varchar(200) DEFAULT NULL,
+  `polic_given_date` varchar(200) DEFAULT NULL,
+  `payment_term` varchar(200) DEFAULT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table ddgi.cmp: ~1 rows (approximately)
+DELETE FROM `cmp`;
+/*!40000 ALTER TABLE `cmp` DISABLE KEYS */;
+INSERT INTO `cmp` (`id`, `type`, `product_id`, `policy_id`, `policy_series_id`, `policy_holder_id`, `object_info_dogov_stoy`, `holder_from_date`, `holder_to_date`, `object_stroy_mont`, `object_location`, `object_insurance_sum`, `object_from_date`, `object_to_date`, `object_tel_povr`, `object_material`, `stroy_mont_sum`, `stroy_sum`, `obor_sum`, `stroy_mash_sum`, `rasx_sum`, `insurance_prem_sum`, `franchise_sum`, `insurence_currency`, `insurence_currency_rate`, `insurance_premium_payment_type`, `unique_number`, `polic_given_date`, `payment_term`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(5, 0, 3, 6, 1, 37, 'Сведения о договоре строительного порядка', NULL, NULL, 'Объект стриотельно-монтажных работ', 'Расположение объекта', '100000', '2021-03-26', '2021-03-24', 'Телесные повреждения', 'Материальный ущерб', '234242', '33333', '444444', '555555', '222222', '44444', '23', 'UZS', NULL, 1, '0100/0303/1/2100001', '2021-03-11', '1', 4, '2021-03-07 07:35:00', '2021-03-07 07:54:59', NULL);
+/*!40000 ALTER TABLE `cmp` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.currencies
 CREATE TABLE IF NOT EXISTS `currencies` (
@@ -523,14 +575,15 @@ CREATE TABLE IF NOT EXISTS `klass` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.klass: ~2 rows (approximately)
+-- Dumping data for table ddgi.klass: ~1 rows (approximately)
 DELETE FROM `klass`;
 /*!40000 ALTER TABLE `klass` DISABLE KEYS */;
 INSERT INTO `klass` (`id`, `group_id`, `code`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 1, '01', 'Страхование наземных транспортных средств', 'Class 1 has been created just for test', '2021-01-21 09:56:18', '2021-01-21 09:56:18', NULL),
-	(2, 1, '02', 'name', 'descr', NULL, NULL, NULL);
+	(2, 1, '02', 'name', 'descr', NULL, NULL, NULL),
+	(3, 1, '03', 'СМР класс', 'desc', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `klass` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.managers
@@ -774,14 +827,14 @@ INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_ser
 	(2, 142, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 05:13:10', NULL),
 	(3, 143, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:03', NULL),
 	(4, 144, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:29', NULL),
-	(5, 145, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
-	(6, 146, 'asdvvd', 0, 1, 'transferred', 2, 9, '2021-01-09 00:00:00', '2021-01-11 00:00:00', NULL),
+	(5, 145, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:27:38', NULL),
+	(6, 146, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:35:00', NULL),
 	(7, 147, 'asdvvd', 0, 1, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(8, 148, 'asdvvd', 0, 1, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(9, 149, 'asdvvd', 0, 1, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(10, 150, 'asdvvd', 0, 1, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(11, 141, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(12, 142, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(11, 141, 'asdvvd', 0, 0, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-03 08:45:31', NULL),
+	(12, 142, 'asdvvd', 0, 0, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-06 09:14:43', NULL),
 	(13, 143, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(14, 144, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(15, 145, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
@@ -849,7 +902,7 @@ CREATE TABLE IF NOT EXISTS `policy_beneficiaries` (
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='страхователи';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='страхователи';
 
 -- Dumping data for table ddgi.policy_beneficiaries: ~18 rows (approximately)
 DELETE FROM `policy_beneficiaries`;
@@ -872,7 +925,9 @@ INSERT INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `che
 	(15, 'sdfgsd', 'gsdgdsg', 'gsdgsdg', 'sdgsdf', 'gsdgsdg', 'dsfgsdg', 'sdfgsdfg', 2, '2021-03-03 02:59:46', '2021-03-03 02:59:46', NULL),
 	(16, 'dfvdsfvsdf', 'vsdfvdsfv', 'dsfvsdfv', 'sdfvsdfvsd', 'sdfvsdfv', 'sdfvdsfv', 'dsfvsdfv', 2, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
 	(17, 'dfbgdfgbdf', 'bgdfgb', 'dfgbdg', 'bdfgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgbdfgb', 2, '2021-03-03 06:13:03', '2021-03-03 06:13:03', NULL),
-	(18, 'ФИО выгодоприобретателя', 'bgdfgb', 'dfgbdg', 'bdfgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgbdfgb', 2, '2021-03-03 06:16:20', '2021-03-03 06:13:29', NULL);
+	(18, 'ФИО выгодоприобретателя', 'bgdfgb', 'dfgbdg', 'bdfgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgbdfgb', 2, '2021-03-03 06:16:20', '2021-03-03 06:13:29', NULL),
+	(19, 'sdfvsdfvds', 'vfsdfvdsfv', 'vsdfvds', 'fvsdvfsd', 'sdfvsdfvsdfv', 'sdvsdfvsdfv', 'sdfvsdfvsdvf', 2, '2021-03-03 08:45:31', '2021-03-03 08:45:31', NULL),
+	(20, 'sdfvsdfvdsfv', 'PO Box F', '5555551234', 'vsdfvsdf', 'vsdfvsdf', 'vsdfvsdf', 'sdfvsdfv', 2, '2021-03-06 09:14:42', '2021-03-06 09:14:42', NULL);
 /*!40000 ALTER TABLE `policy_beneficiaries` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.policy_holders
@@ -890,9 +945,9 @@ CREATE TABLE IF NOT EXISTS `policy_holders` (
   `created_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='страхователи';
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COMMENT='страхователи';
 
--- Dumping data for table ddgi.policy_holders: ~23 rows (approximately)
+-- Dumping data for table ddgi.policy_holders: ~37 rows (approximately)
 DELETE FROM `policy_holders`;
 /*!40000 ALTER TABLE `policy_holders` DISABLE KEYS */;
 INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`) VALUES
@@ -918,7 +973,21 @@ INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_
 	(20, 'rtgetr', 'ertgertgertgg', 'fsdfgsd', 'fgsdfgsd', 'gsdgsd', 'sdgsdg', 'gsdfgsdgf', 2, '2021-03-03 02:59:46', '2021-03-03 02:59:46', NULL),
 	(21, 'sdfvsdvf', 'sdfvsdfvsd', 'sdfvdsfv', 'sdfvdsfv', 'fvsdfvsdfv', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL),
 	(22, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:03', '2021-03-03 06:13:03', NULL),
-	(23, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:29', '2021-03-03 06:13:29', NULL);
+	(23, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:29', '2021-03-03 06:13:29', NULL),
+	(24, 'vdfvsdfv', 'sdvsdvfds', 'vsdvdfv', 'sdfvsdvf', 'sdvfsdfv', 'sdvfsdfvdsf', 'sdfvsdfv', 2, '2021-03-03 08:45:31', '2021-03-03 08:45:31', NULL),
+	(25, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-06 09:14:42', '2021-03-06 09:14:42', NULL),
+	(26, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:05:34', '2021-03-07 07:05:34', NULL),
+	(27, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:06:12', '2021-03-07 07:06:12', NULL),
+	(28, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:07:13', '2021-03-07 07:07:13', NULL),
+	(29, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:07:46', '2021-03-07 07:07:46', NULL),
+	(30, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:08:38', '2021-03-07 07:08:38', NULL),
+	(31, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:09:54', '2021-03-07 07:09:54', NULL),
+	(32, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:10:58', '2021-03-07 07:10:58', NULL),
+	(33, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:11:32', '2021-03-07 07:11:32', NULL),
+	(34, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-07 07:23:11', '2021-03-07 07:23:11', NULL),
+	(35, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-07 07:23:43', '2021-03-07 07:23:43', NULL),
+	(36, 'sdvfvsvdf', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'fdgbdf', 'sfvsdfv', 2, '2021-03-07 07:27:38', '2021-03-07 07:27:38', NULL),
+	(37, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:35:00', '2021-03-07 07:35:00', NULL);
 /*!40000 ALTER TABLE `policy_holders` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.policy_registrations
@@ -1117,14 +1186,15 @@ CREATE TABLE IF NOT EXISTS `products` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi.products: ~1 rows (approximately)
+-- Dumping data for table ddgi.products: ~3 rows (approximately)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `klass_id`, `name`, `code`, `tarif`, `max_acceptable_amount`, `min_acceptable_amount`, `franshiza`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 1, 'Каско', '03', '4534566', '3463456', '34563465', '43', '2021-02-12 02:51:21', '2021-02-12 02:51:21', NULL),
-	(2, 2, 'Таможенный склад', '01', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	(2, 2, 'Таможенный склад', '01', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(3, 3, 'СМР', '03', '345345', '5434543', '3453', '4', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi.regions
