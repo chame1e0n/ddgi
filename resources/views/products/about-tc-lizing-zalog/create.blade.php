@@ -2,7 +2,8 @@
 
 @section('content')
         <!-- Content Wrapper. Contains page content -->
-        <form action="GET" id="mainFormKasko">
+        <form action="{{ route('tc-lizing-zalog.store') }}" method="POST" id="mainFormKasko">
+            @csrf
             <div class="content-wrapper">
 
                 <div class="content-header">
@@ -76,49 +77,49 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
-                                            <input type="text" id="insurer-name" name="fio-insurer" class="form-control">
+                                            <input type="text" id="insurer-name" name="fio_insurer" value="{{ old('fio_insurer') }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="insurer-address" class="col-form-label">Юр адрес страхователя</label>
-                                            <input type="text" id="insurer-address" name="address-insurer" class="form-control">
+                                            <input type="text" id="insurer-address" name="address_insurer" value="{{ old('address_insurer') }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="insurer-tel" name="tel-insurer" class="form-control">
+                                            <input type="text" id="insurer-tel" name="tel_insurer" value="{{ old('tel_insurer') }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                            <input type="text" id="insurer-schet" name="address-schet" class="form-control">
+                                            <input type="text" id="insurer-schet" name="address_schet" value="{{ old('address_schet') }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                            <input type="text" id="insurer-inn" name="inn-insurer" class="form-control">
+                                            <input type="text" id="insurer-inn" name="inn_insurer" value="{{ old('inn_insurer') }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                            <input type="text" id="insurer-mfo" name="mfo-insurer" class="form-control">
+                                            <input type="text" id="insurer-mfo" name="mfo_insurer" value="{{ old('mfo_insurer') }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-bank" class="col-form-label">Банк</label>
-                                            <input type="text" id="insurer-bank" name="bank-insurer" class="form-control">
+                                            <input type="text" id="insurer-bank" name="bank_insurer" value="{{ old('bank_insurer') }}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                            <input type="text" id="insurer-okonh" name="okonh-insurer" class="form-control">
+                                            <input type="text" id="insurer-okonh" name="okonh_insurer" value="{{ old('okonh_insurer') }}" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -139,49 +140,49 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="beneficiary-name" class="col-form-label">ФИО выгодоприобретателя</label>
-                                                        <input type="text" id="beneficiary-name" name="fio-beneficiary" class="form-control">
+                                                        <input type="text" id="beneficiary-name" name="fio_beneficiary" value="{{ old('fio_beneficiary') }}" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="beneficiary-address" class="col-form-label">Юр адрес выгодоприобретателя</label>
-                                                        <input type="text" id="beneficiary-address" name="address-beneficiary" class="form-control">
+                                                        <input type="text" id="beneficiary-address" name="address_beneficiary" value="{{ old('address_beneficiary') }}" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                        <input type="text" id="beneficiary-tel" name="tel-beneficiary" class="form-control">
+                                                        <input type="text" id="beneficiary-tel" name="tel_beneficiary" value="{{ old('tel_beneficiary') }}" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                                        <input type="text" id="beneficiary-schet" name="beneficiary-schet" class="form-control">
+                                                        <input type="text" id="beneficiary-schet" name="beneficiary_schet" value="{{ old('beneficiary_schet') }}" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                        <input type="text" id="beneficiary-inn" name="inn-beneficiary" class="form-control">
+                                                        <input type="text" id="beneficiary-inn" name="inn_beneficiary" value="{{ old('inn_beneficiary') }}" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                        <input type="text" id="beneficiary-mfo" name="mfo-beneficiary" class="form-control">
+                                                        <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" value="{{ old('mfo_beneficiary') }}" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                                        <input type="text" id="beneficiary-bank" name="bank-beneficiary" class="form-control">
+                                                        <input type="text" id="beneficiary-bank" name="bank_beneficiary" value="{{ old('bank_beneficiary') }}" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                        <input type="text" id="beneficiary-okonh" name="okonh-beneficiary" class="form-control">
+                                                        <input type="text" id="beneficiary-okonh" name="okonh_beneficiary" value="{{ old('okonh_beneficiary') }}" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,7 +204,7 @@
                                             <div class="form-group">
                                                 <div class="form-group">
                                                     <label for="dogovor-lizing-num" class="col-form-label">Договора лизинга №</label>
-                                                    <input type="text" id="dogovor-lizing-num" name="dogovor-lizing-num" class="form-control">
+                                                    <input type="text" id="dogovor-lizing-num" name="dogovor_lizing_num" value="{{ old('dogovor_lizing_num') }}" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -213,7 +214,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">с</span>
                                                 </div>
-                                                <input id="insurance_from" name="insurance_from" type="date" class="form-control">
+                                                <input id="insurance_from" name="insurance_from" value="{{ old('insurance_from') }}" type="date" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -223,7 +224,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="insurance_to" name="insurance_to" type="date" class="form-control">
+                                                    <input id="insurance_to" name="insurance_to" value="{{ old('insurance_to') }}" type="date" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -237,7 +238,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">с</span>
                                                     </div>
-                                                    <input id="insurance_from" name="insurance_from" type="date" class="form-control">
+                                                    <input id="insurance_from" name="insurance_from" value="{{ old('insurance_from') }}" type="date" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -247,17 +248,17 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="insurance_to" name="insurance_to" type="date" class="form-control">
+                                                    <input id="insurance_to" name="insurance_to" value="{{ old('insurance_to') }}" type="date" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="geographic-zone">Географическая зона:</label>
-                                        <input type="text" id="geographic-zone" name="geo-zone" class="form-control">
+                                        <input type="text" id="geographic-zone" name="geo_zone" value="{{ old('geo_zone') }}" class="form-control">
                                     </div>
                                     <label for="polises">Валюта взаиморасчетов</label>
-                                    <select class="form-control polises" id="polises" name="polis-series-0" style="width: 100%;">
+                                    <select class="form-control polises" id="polises" name="polis_series_0" style="width: 100%;">
                                         <option selected="selected">UZS</option>
                                     </select>
                                 </div>
@@ -301,40 +302,40 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis-mark-0">
+                                                    <input type="text" class="form-control" name="polis_mark_0" value="{{ old('polis_mark_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis-model-0">
+                                                    <input type="text" class="form-control" name="polis_model_0" value="{{ old('polis_model_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis-modification-0">
+                                                    <input type="text" class="form-control" name="polis_modification_0" value="{{ old('polis_modification_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis-gos-num-0">
+                                                    <input type="text" class="form-control" name="polis_gos_num_0" value="{{ old('polis_gos_num_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis-teh-passport-0">
+                                                    <input type="text" class="form-control" name="polis_teh_passport_0" value="{{ old('polis_teh_passport_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis-num-engine-0">
+                                                    <input type="text" class="form-control" name="polis_num_engine_0" value="{{ old('polis_num_engine_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis-num-body-0">
+                                                    <input type="text" class="form-control" name="polis_num_body_0" value="{{ old('polis_num_body_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis-payload-0">
+                                                    <input type="text" class="form-control" name="polis_payload_0" value="{{ old('polis_payload_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control forsum2" name="polis-places-0">
+                                                    <input type="text" class="form-control forsum2" name="polis_places_0" value="{{ old('polis_places_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control forsum2" name="polis-places-0">
+                                                    <input type="text" class="form-control forsum2" name="polis_places_0" value="{{ old('polis_places_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum-0">
+                                                    <input type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum_0" value="{{ old('overall_polis_sum_0') }}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control forsum3 insurance_premium-0" readonly name="polis_premium-0">
+                                                    <input type="text" class="form-control forsum3 insurance_premium-0" readonly name="polis_premium_0" value="{{ old('polis_premium_0') }}">
                                                 </td>
                                                 <td>
                                                     <input type="button" value="Заполнить" class="btn btn-success product-fields-button" id="product-fields-button" data-field-number="0">
@@ -379,10 +380,10 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td><input type="text" class="form-control" name="mark_model"></td>
-                                                                <td><input type="text" class="form-control" name="name"></td>
-                                                                <td><input type="text" class="form-control" name="series_number"></td>
-                                                                <td><input type="text" class="form-control forsum5" name="insurance_sum" id="insurance_sum-0"></td>
+                                                                <td><input type="text" class="form-control" name="mark_model" value="{{ old('mark_model') }}"></td>
+                                                                <td><input type="text" class="form-control" name="name" value="{{ old('name') }}"></td>
+                                                                <td><input type="text" class="form-control" name="series_number" value="{{ old('series_number') }}"></td>
+                                                                <td><input type="text" class="form-control forsum5" name="insurance_sum" value="{{ old('insurance_sum') }}" id="insurance_sum-0"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="3"><label class="text-bold">Итого</label></td>
@@ -410,7 +411,7 @@
                                                 <div class="form-group">
                                                     <label>Покрытие террористических актов с ТС </label>
                                                     <div class="input-group mb-4">
-                                                        <input type="text" class="form-control terror-tc-0" name="cover_terror_attacks_sum">
+                                                        <input type="text" class="form-control terror-tc-0" name="cover_terror_attacks_sum" value="{{ old('cover_terror_attacks_sum') }}">
                                                         <div class="input-group-append">
                                                             <select class="form-control success" name="cover_terror_attacks_currency" style="width: 100%;">
                                                                 <option selected="selected">UZS</option>
@@ -423,9 +424,9 @@
                                                 <div class="form-group">
                                                     <label>Покрытие террористических актов с застрахованными лицами </label>
                                                     <div class="input-group mb-4">
-                                                        <input type="text" class="form-control terror-zl-0" name="cover_terror_attacks_insured_sum">
+                                                        <input type="text" class="form-control terror-zl-0" name="cover_terror_attacks_insured_sum" value="{{ old('cover_terror_attacks_insured_sum') }}">
                                                         <div class="input-group-append">
-                                                            <select class="form-control success" name="cover_terror_attacks_insured_currency" style="width: 100%;">
+                                                            <select class="form-control success" name="cover_terror_attacks_insured_currency"  style="width: 100%;">
                                                                 <option selected="selected">UZS</option>
                                                                 <option>USD</option>
                                                             </select>
@@ -436,7 +437,7 @@
                                                 <div class="form-group">
                                                     <label>Покрытие расходы по эвакуации</label>
                                                     <div class="input-group mb-4">
-                                                        <input type="text" class="form-control evocuation-0" name="coverage_evacuation_cost">
+                                                        <input type="text" class="form-control evocuation-0" name="coverage_evacuation_cost" value="{{ old('coverage_evacuation_cost') }}">
                                                         <div class="input-group-append">
                                                             <select class="form-control success" name="coverage_evacuation_currency" style="width: 100%;">
                                                             <option selected="selected">UZS</option>
@@ -465,11 +466,11 @@
                                                     <div class="row">
                                                         <div class="col-sm-1">
                                                             <div class="checkbox icheck-success">
-                                                                <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess1" value="1">
+                                                                <input type="radio" class="other_insurance-0" name="strtahovka_0" id="radioSuccess1" value="1">
                                                                 <label for="radioSuccess1">Да</label>
                                                             </div>
                                                             <div class="checkbox icheck-success">
-                                                                <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess2" value="0">
+                                                                <input type="radio" class="other_insurance-0" name="strtahovka_0" id="radioSuccess2" value="0">
                                                                 <label for="radioSuccess2">Нет</label>
                                                             </div>
                                                         </div>
@@ -477,7 +478,7 @@
                                                 </div>
                                                 <div class="form-group other_insurance_info-0" style="display:none">
                                                     <label>Укажите название и адрес страховой организации и номер Полиса</label>
-                                                    <input class="form-control" type="text" name="other_insurance_info">
+                                                    <input class="form-control" type="text" name="other_insurance_info" value="{{ old('other_insurance_info') }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -499,7 +500,7 @@
                                                     <div class="row">
                                                         <div class="col-md-1">
                                                             <div class="checkbox icheck-success">
-                                                                <input type="radio" name="vehicleDamage" class="r-1-0" id="radioSuccess3" value="1">
+                                                                <input type="radio" name="vehicle_damage" class="r-1-0" id="radioSuccess3" value="1">
                                                                 <label for="radioSuccess3">Да</label>
                                                             </div>
                                                             <div class="checkbox icheck-success">
@@ -514,7 +515,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text">Сумма</span>
                                                                         </div>
-                                                                        <input type="text" class="form-control r-1-sum-0" name="one-sum" id="vehicle_damage_sum-0">
+                                                                        <input type="text" class="form-control r-1-sum-0" name="one_sum" value="{{ old('one_sum') }}" id="vehicle_damage_sum-0">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -524,7 +525,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text">Страховая премия</span>
                                                                         </div>
-                                                                        <input type="text" class="form-control r-1-premia-0" name="one-premia" id="vehicle_damage_sum-0">
+                                                                        <input type="text" class="form-control r-1-premia-0" name="one_premia" value="{{ old('one_premia') }}" id="vehicle_damage_sum-0">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -534,7 +535,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text">Франшиза</span>
                                                                         </div>
-                                                                        <input type="text" class="form-control r-1-frnshiza" name="one-franshiza" id="vehicle_damage_sum-0">
+                                                                        <input type="text" class="form-control r-1-frnshiza" name="one_franshiza" value="{{ old('one_franshiza') }}" id="vehicle_damage_sum-0">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -563,7 +564,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text">Сумма</span>
                                                                         </div>
-                                                                        <input type="text" class="form-control r-2-sum-0" name="tho_sum" id="vehicle_damage_sum-0">
+                                                                        <input type="text" class="form-control r-2-sum-0" name="tho_sum" id="vehicle_damage_sum_0" value="{{ old('vehicle_damage_sum_0') }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -573,7 +574,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text">Страховая премия</span>
                                                                         </div>
-                                                                        <input type="text" class="form-control r-2-premia-0" name="two-preim" id="vehicle_damage_sum-0">
+                                                                        <input type="text" class="form-control r-2-premia-0" name="two_preim" value="{{ old('two_preim') }}"  id="vehicle_damage_sum-0">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -617,7 +618,7 @@
                                                                     <td><input type="number" class="form-control r-3-pass-0" readonly value="1" name="driver_quantity"></td>
                                                                     <td>
                                                                         <div class="input-group mb-4">
-                                                                            <input type="text" class="form-control r-3-one-0" name="driver_one_sum">
+                                                                            <input type="text" class="form-control r-3-one-0" name="driver_one_sum" value="{{ old('driver_one_sum') }}">
                                                                             <div class="input-group-append">
                                                                                 <select class="form-control success" name="driver_currency" style="width: 100%;">
                                                                                     <option selected="selected">UZS</option>
@@ -626,15 +627,15 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td><input type="number" class="form-control r-3-sum-0" name="driver_total_sum" id="driver_total_sum-0"></td>
-                                                                    <td><input type="number" class="form-control r-3-premia-0" name="driver_preim_sum" id="driver_total_sum-0"></td>
+                                                                    <td><input type="number" class="form-control r-3-sum-0" name="driver_total_sum" value="{{ old('driver_total_sum') }}" id="driver_total_sum-0"></td>
+                                                                    <td><input type="number" class="form-control r-3-premia-0" name="driver_preim_sum" value="{{ old('driver_preim_sum') }}" id="driver_total_sum-0"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><label>Пассажиры</label></td>
-                                                                    <td><input type="number" class="form-control r-3-pass-1-0" name="passenger_quantity"></td>
+                                                                    <td><input type="number" class="form-control r-3-pass-1-0" name="passenger_quantity" value="{{ old('passenger_quantity') }}"></td>
                                                                     <td>
                                                                         <div class="input-group mb-4">
-                                                                            <input type="text" class="form-control r-3-one-1-0" name="passenger_one_sum">
+                                                                            <input type="text" class="form-control r-3-one-1-0" name="passenger_one_sum" value="{{ old('passenger_one_sum') }}">
                                                                             <div class="input-group-append">
                                                                                 <select class="form-control success" name="passenger_currency" style="width: 100%;">
                                                                                 <option selected="selected">UZS</option>
@@ -643,15 +644,15 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td><input type="number" class="form-control r-3-sum-1-0" name="passenger_total_sum" id="passenger_total_sum-0"></td>
-                                                                    <td><input type="number" class="form-control r-3-premia-1-0" name="passenger_preim_sum" id="passenger_total_sum-0"></td>
+                                                                    <td><input type="number" class="form-control r-3-sum-1-0" name="passenger_total_sum" value="{{ old('passenger_total_sum') }}" id="passenger_total_sum-0"></td>
+                                                                    <td><input type="number" class="form-control r-3-premia-1-0" name="passenger_preim_sum" value="{{ old('passenger_preim_sum') }}" id="passenger_total_sum-0"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><label class="text-bold">Общий Лимит</label></td>
-                                                                    <td><input type="number" class="form-control r-3-pass-2-0" name="limit_quantity"></td>
+                                                                    <td><input type="number" class="form-control r-3-pass-2-0" name="limit_quantity" value="{{ old('limit_quantity') }}"></td>
                                                                     <td>
                                                                         <div class="input-group mb-4">
-                                                                            <input type="text" class="form-control r-3-one-2-0" name="limit_one_sum">
+                                                                            <input type="text" class="form-control r-3-one-2-0" name="limit_one_sum" value="{{ old('limit_one_sum') }}">
                                                                             <div class="input-group-append">
                                                                                 <select class="form-control success" name="limit_currency" style="width: 100%;">
                                                                                     <option selected="selected">UZS</option>
@@ -660,8 +661,8 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td><input type="number" class="form-control r-3-sum-2-0" name="limit_total_sum"></td>
-                                                                    <td><input type="number" class="form-control r-3-premia-2-0" name="limit_preim_sum"></td>
+                                                                    <td><input type="number" class="form-control r-3-sum-2-0" name="limit_total_sum" value="{{ old('limit_total_sum') }}"></td>
+                                                                    <td><input type="number" class="form-control r-3-premia-2-0" name="limit_preim_sum" value="{{ old('limit_preim_sum') }}"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td colspan="3"><label class="text-bold">Итого</label></td>
@@ -675,9 +676,9 @@
                                                 <div class="form-group col-sm-8">
                                                     <label>Общий лимит ответственности </label>
                                                     <div class="input-group mb-4">
-                                                        <input type="text" id="totalLimit-0" class="form-control" name="total_liability_limit-0">
+                                                        <input type="text" id="totalLimit-0" class="form-control" name="total_liability_limit_0" value="{{ old('total_liability_limit_0') }}">
                                                         <div class="input-group-append">
-                                                            <select class="form-control success" name="total_liability_limit_currency-0" style="width: 100%;">
+                                                            <select class="form-control success" name="total_liability_limit_currency_0" style="width: 100%;">
                                                                 <option selected="selected">UZS</option>
                                                                 <option>USD</option>
                                                             </select>
@@ -717,7 +718,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text">от</span>
                                                                         </div>
-                                                                        <input type="date" class="form-control" name="from_date">
+                                                                        <input type="date" class="form-control" name="from_date" value="{{ old('from_date') }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -745,7 +746,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>Порядок оплаты</label>
-                                                                    <select class="form-control select2" name="payment-order" style="width: 100%;">
+                                                                    <select class="form-control select2" name="payment_order" style="width: 100%;">
                                                                                                 <option selected="selected">Сум</option>
                                                                                                 <option>Доллар</option>
                                                                                                 <option>Евро</option>
@@ -795,8 +796,8 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group form-inline justify-content-between">
                                                         <label>Оплата страховой премии в</label>
-                                                        <select class="form-control" style="width: 100%; text-align: center">
-                                                                            <option selected="selected" name="insurance_premium_currency">UZS</option>
+                                                        <select class="form-control" style="width: 100%; text-align: center" name="insurance_premium_currency">
+                                                                            <option selected="selected" >UZS</option>
                                                                             <option>USD</option>
                                                                             <option>Евро</option>
                                                                         </select>
@@ -828,8 +829,8 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr id="payment-term-tr-0" data-field-number="0">
-                                                                <td><input type="text" class="form-control" name="payment_sum-0-0"></td>
-                                                                <td><input type="date" class="form-control" name="payment_from-0-0"></td>
+                                                                <td><input type="text" class="form-control" name="payment_sum_0_0" value="{{ old('payment_sum_0_0') }}"></td>
+                                                                <td><input type="date" class="form-control" name="payment_from_0_0" value="{{ old('payment_from_0_0') }}"></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -859,7 +860,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                <input type="text" id="polis-series" name="polis-series" class="form-control">
+                                                <input type="text" id="polis-series" name="polis_series" value="{{ old('polis_series') }}" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -868,7 +869,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"></span>
                                                 </div>
-                                                <input id="insurance_from" name="insurance_from" type="date" class="form-control">
+                                                <input id="insurance_from" name="insurance_from" value="{{ old('insurance_from') }}" type="date" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-4">

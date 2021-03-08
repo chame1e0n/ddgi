@@ -59,7 +59,6 @@
                                                class="form-control"
                                                @endif
                                                required="required">
-
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -336,6 +335,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="geographic-zone">Объём таможенной площади</label>
+
                                     <input value="{{old('volume')}}" type="text" id="geographic-zone" name="volume"
                                            @if($errors->has('volume'))
                                            class="form-control is-invalid"

@@ -127,7 +127,7 @@
                                             <span class="input-group-text">с</span>
                                         </div>
                                         <input id="pretensii-insurance-period-under-the-policy"
-                                               name="insurence_period" type="date"
+                                               name="insurence_period" type="date" value="{{ old('insurence_period') }}"
                                                class="form-control" readonly>
                                     </div>
                                 </div>
