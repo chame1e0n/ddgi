@@ -52,6 +52,10 @@ Route::group(['middleware' => ['auth']], function() {
         $json = file_get_contents($jsonurl);
         return response()->json(json_decode($json));
     })->name('currencies');
+
+    ////Product3777
+    Route::resource('test/product3777','Product3777\Product3777Controller');
+    /////
     Route::resource('spravochniki/bank','Spravochniki\BankController');
     Route::resource('spravochniki/group','GroupController');
     Route::resource('spravochniki/klass','KlassController');
