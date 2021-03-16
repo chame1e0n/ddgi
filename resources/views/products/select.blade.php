@@ -40,7 +40,7 @@
                         <option value="3" {{ \Route::currentRouteName() == "cmp.create" ? "selected" : "" }}>CMP</option>
                         <option value="4" {{ \Route::currentRouteName() == "avtocredit.create" ? "selected" : "" }}>Авто Кредит</option>
                         <option value="5" {{ \Route::currentRouteName() == "grant.create" ? "selected" : "" }}>Страхование Гарантии</option>
-                        <option value="6" {{ \Route::currentRouteName() == "nepogashen.create" ? "selected" : "" }}>Непогашение кредита</option>
+                        <option value="6" {{ \Route::currentRouteName() == "credit-nepogashen.create" ? "selected" : "" }}>Непогашение кредита</option>
                         <option value="7" {{ \Route::currentRouteName() == "rassrochka.create" ? "selected" : "" }}>Cтрахования Рассрочки АВТО</option>
                     </select>
                 </div>
@@ -66,7 +66,7 @@
                     window.location.replace(`{{ route('grant.create') }}`);
                     break;
                 case '6':
-                    window.location.replace(`{{ route('nepogashen.create') }}`);
+                    window.location.replace(`{{ route('credit-nepogashen.create') }}`);
                     break;
                 case '7':
                     window.location.replace(`{{ route('rassrochka.create') }}`);

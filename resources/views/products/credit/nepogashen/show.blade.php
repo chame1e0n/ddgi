@@ -3,9 +3,7 @@
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
-    <form method="POST" action="{{route('credit-nepogashen.update', $credit->id)}}" id="mainFormKasko">
-        @method('PUT')
-        @csrf
+
         <div class="content-wrapper">
 
             <div class="content-header">
@@ -18,7 +16,7 @@
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
                                 <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
-                                <li class="breadcrumb-item active">Редактировать Анкету</li>
+                                <li class="breadcrumb-item active">Создать Анкету</li>
                             </ol>
                         </div>
                     </div>
@@ -399,8 +397,5 @@
                         </div>
                     </div>
             </section>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
-            </div>
-    </form>
+
 @endsection

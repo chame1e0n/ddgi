@@ -30,8 +30,8 @@ class CreditNepogashen extends Model
            'total_sum' => $data['total_sum'],
            'total_award' => $data['total_award'],
            'payment_terms' => $data['payment_terms'],
-           'serial_number_policy' => $data['passport_issued'],
-           'date_issue_policy' => $data['passport_when_issued'],
+           'serial_number_policy' => $data['polis_series'],
+           'date_issue_policy' => $data['date_issue_policy'],
 
            'otvet_litso' => $data['litso'],
            'policy_holder_id' => $data['policy_holder_id'],
@@ -40,6 +40,34 @@ class CreditNepogashen extends Model
        ]);
        if($reditNePogashen)
            return $reditNePogashen;
+       else
+           return false;
+   }
+
+   static function updateCreditNePogashen($id, $data)
+   {
+       $credit = CreditNepogashen::getInfoCredit($id);
+       $credit->update([
+           'dogovor_credit_num' => $data['dogovor_credit_num'],
+           'credit_from' => $data['credit_from'],
+           'credit_to' => $data['credit_to'],
+           'credit_validity_period' => $data['credit_validity_period'],
+           'credit_sum' => $data['credit_sum'],
+           'credit_purpose' => $data['credit_purpose'],
+           'other_forms' => $data['other_forms'],
+           'total_sum' => $data['total_sum'],
+           'total_award' => $data['total_award'],
+           'payment_terms' => $data['payment_terms'],
+           'serial_number_policy' => $data['polis_series'],
+           'date_issue_policy' => $data['date_issue_policy'],
+
+           'otvet_litso' => $data['litso'],
+           'policy_holder_id' => $credit->policyHolders->id,
+           'zaemshik_id' => $credit->zaemshik->id,
+
+       ]);
+       if($credit)
+           return true;
        else
            return false;
    }

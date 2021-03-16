@@ -63,9 +63,12 @@ class CreditNepogashenController extends Controller
      * @param  \App\Product\CreditNepogashen  $creditNepogashen
      * @return \Illuminate\Http\Response
      */
-    public function show(CreditNepogashen $creditNepogashen)
+    public function show($id)
     {
-        //
+        $banks      = Bank::getBanks();
+        $agents     = Agent::all();
+        $credit     = CreditNepogashen::getInfoCredit($id);
+        return view('products.credit.nepogashen.show', compact('banks', 'agents', 'credit'));
     }
 
     /**
@@ -79,7 +82,6 @@ class CreditNepogashenController extends Controller
         $banks      = Bank::getBanks();
         $agents     = Agent::all();
         $credit     = CreditNepogashen::getInfoCredit($id);
-        dd($credit);
         return view('products.credit.nepogashen.edit', compact('banks', 'agents', 'credit'));
 
 
@@ -92,9 +94,15 @@ class CreditNepogashenController extends Controller
      * @param  \App\Product\CreditNepogashen  $creditNepogashen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CreditNepogashen $creditNepogashen)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $credit = CreditNepogashen::find($id);
+        $creditUpdate = CreditNepogashen::updateCreditNePogashen($id, $data);
+        $zaemshikUpdate = Zaemshik::updateZaemshik($credit->zaemshik_id, $request);
+        $policyHolderUpdate = PolicyHolder::updatePolicyHolders($credit->policy_holder_id, $request);
+
+        return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 
     /**

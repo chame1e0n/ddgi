@@ -363,7 +363,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                    <input type="text" id="polis-series" name="polis-series" class="form-control">
+                                                    <input type="text" id="polis-series" name="polis_series" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
@@ -372,7 +372,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"></span>
                                                     </div>
-                                                    <input id="insurance_from" name="insurance_from" type="date" class="form-control">
+                                                    <input id="insurance_from" name="date_issue_policy" type="date" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">

@@ -34,4 +34,23 @@ class PolicyHolder extends Model
         else
             return false;
     }
+
+    static function updatePolicyHolders($id, $request)
+    {
+        $policyHolder = PolicyHolder::find($id);
+        $policyHolder->update([
+            'FIO' => $request->fio_insurer,
+            'address' => $request->address_insurer,
+            'phone_number' => $request->tel_insurer,
+            'checking_account' => $request->address_schet,
+            'inn' => $request->inn_insurer,
+            'mfo' => $request->mfo_insurer,
+            'okonx' => $request->okonh_insurer,
+            'bank_id' => $request->bank_insurer,
+        ]);
+        if($policyHolder)
+            return true;
+        else
+            return false;
+    }
 }
