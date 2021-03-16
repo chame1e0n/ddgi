@@ -16,4 +16,22 @@ class PolicyHolder extends Model
             'policy_holders_id',
             'kasko_id');
     }
+
+    static function createPolicyHolders($request)
+    {
+        $policyHolder = PolicyHolder::create([
+            'FIO' => $request->fio_insurer,
+            'address' => $request->address_insurer,
+            'phone_number' => $request->tel_insurer,
+            'checking_account' => $request->address_schet,
+            'inn' => $request->inn_insurer,
+            'mfo' => $request->mfo_insurer,
+            'okonx' => $request->okonh_insurer,
+            'bank_id' => $request->bank_insurer,
+        ]);
+        if($policyHolder)
+            return $policyHolder;
+        else
+            return false;
+    }
 }

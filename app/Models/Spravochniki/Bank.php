@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Bank extends Model
 {
     use SoftDeletes;
-    
-    protected $guarded=[];
+
+//    protected $guarded=[];
+
+    static function getBanks()
+    {
+        $banks = Bank::where('status', 0)->get();
+        return $banks;
+    }
 }
