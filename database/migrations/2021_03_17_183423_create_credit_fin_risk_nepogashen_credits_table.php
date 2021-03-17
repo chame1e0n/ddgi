@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCreditFinRiskNepogashenAvtocreditsTable extends Migration
+class CreateCreditFinRiskNepogashenCreditsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateCreditFinRiskNepogashenAvtocreditsTable extends Migration
      */
     public function up()
     {
-        Schema::create('credit_fin_risk_nepogashen_avtocredits', function (Blueprint $table) {
+        Schema::create('credit_fin_risk_nepogashen_credits', function (Blueprint $table) {
             $table->id();
             $table->string('dogovor_lizing_num')->comment('Кредитный договор');
             $table->date('insurance_from')->comment('Срок кредитования С');
             $table->date('insurance_to')->comment('Срок кредитования До');
             $table->string('credit_sum');
             $table->text('credit_purpose')->nullable()->comment('Цель получения кредита');
-            $table->text('franchise');
             $table->date('date_issue_policy')->nullable()->comment('Срок действия договора');
+            $table->text('other_forms');
             $table->string('total_sum')->nullable();
             $table->string('total_award')->nullable();
             $table->string('payment_terms')->nullable()->comment('Условия оплаты');
@@ -30,7 +30,6 @@ class CreateCreditFinRiskNepogashenAvtocreditsTable extends Migration
             $table->integer('policy_holder_id')->index();
             $table->integer('agent_id')->index();
             $table->integer('zaemshik_id')->index();
-
             $table->timestamps();
         });
     }
@@ -42,6 +41,6 @@ class CreateCreditFinRiskNepogashenAvtocreditsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('credit_fin_risk_nepogashen_avtocredits');
+        Schema::dropIfExists('credit_fin_risk_nepogashen_credits');
     }
 }

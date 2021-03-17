@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Product;
 
 use App\Models\PolicyHolder;
+use App\Models\Product\CrediFinRiskNepogashenAvtocredit;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Zaemshik;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CrediFinRiskNepogashenAvtocredit extends Controller
+class CrediFinRiskNepogashenAvtocreditController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,7 +31,7 @@ class CrediFinRiskNepogashenAvtocredit extends Controller
     {
         $banks = Bank::getBanks();
         $agents = Agent::getActiveAgent();
-        return view('credit-fin-risk.nepogashen-avtocredit.create', compact('banks', 'agents'));
+        return view('products.credit-fin-risk.nepogashen-avtocredit.create', compact('banks', 'agents'));
     }
 
     /**
@@ -40,9 +42,14 @@ class CrediFinRiskNepogashenAvtocredit extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
         $policyHolder = PolicyHolder::createPolicyHolders($request);
         $zaemshik = Zaemshik::createZaemshik($request);
-        \App\Models\CrediFinRiskNepogashenAvtocredit::createCreditFinRiskNepogashenAvtocredits($request,$policyHolder->id, $zaemshik->id);
+        $data['zaemshik_id'] = $zaemshik->id;
+        $data['policy_holder_id'] = $policyHolder->id;
+        CrediFinRiskNepogashenAvtocredit::UpdateOrCreateCreditFinRiskNepogashenAvtocredits($data);
+
+        return redirect()->back();
     }
 
     /**
@@ -53,7 +60,10 @@ class CrediFinRiskNepogashenAvtocredit extends Controller
      */
     public function show($id)
     {
-        //
+        $page = CrediFinRiskNepogashenAvtocredit::with('policyHolders','zaemshik')->findOrFail($id);
+        $banks = Bank::getBanks();
+        $agents = Agent::getActiveAgent();
+        return view('products.credit-fin-risk.nepogashen-avtocredit.show', compact('banks', 'agents', 'page'));
     }
 
     /**
@@ -64,7 +74,10 @@ class CrediFinRiskNepogashenAvtocredit extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = CrediFinRiskNepogashenAvtocredit::with('policyHolders','zaemshik')->findOrFail($id);
+        $banks = Bank::getBanks();
+        $agents = Agent::getActiveAgent();
+        return view('products.credit-fin-risk.nepogashen-avtocredit.edit', compact('banks', 'agents', 'page'));
     }
 
     /**
@@ -76,7 +89,12 @@ class CrediFinRiskNepogashenAvtocredit extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $page = CrediFinRiskNepogashenAvtocredit::UpdateOrCreateCreditFinRiskNepogashenAvtocredits($data, $id);
+        PolicyHolder::updatePolicyHolders($page['policy_holder_id'],$request);
+        Zaemshik::updateZaemshik($page['zaemshik_id'],$request);
+
+        return redirect()->back();
     }
 
     /**

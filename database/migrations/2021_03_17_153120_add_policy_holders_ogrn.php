@@ -17,6 +17,10 @@ class AddPolicyHoldersOgrn extends Migration
             $table->string('oked')->nullable();
             $table->string('okonx')->nullable()->change();
         });
+      Schema::table('zaemshiks', function (Blueprint $table) {
+          $table->string('z_oked')->nullable();
+          $table->string('z_okonx')->nullable()->change();
+      });
     }
 
     /**
@@ -28,6 +32,9 @@ class AddPolicyHoldersOgrn extends Migration
     {
         Schema::table('policy_holders', function (Blueprint $table) {
             $table->dropColumn('oked');
+        });
+        Schema::table('zaemshiks', function (Blueprint $table) {
+            $table->dropColumn('z_oked');
         });
     }
 }
