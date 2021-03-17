@@ -3,9 +3,7 @@
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('otvetstvennost-podryadchik.update', $podryadchik->id)}}" method="POST" id="mainFormKasko">
-        @method('PUT')
-        @csrf
+
         <div class="content-wrapper">
 
             <div class="content-header">
@@ -266,13 +264,13 @@
                                         </thead>
                                         <tbody>
                                         @if(!$podryadchik->strahPremiya)
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment_sum[]">
-                                            </td>
-                                            <td><input type="date" class="form-control" name="payment_from[]">
-                                            </td>
-                                        </tr>
-                                            @else
+                                            <tr id="payment-term-tr-0" data-field-number="0">
+                                                <td><input type="text" class="form-control" name="payment_sum[]">
+                                                </td>
+                                                <td><input type="date" class="form-control" name="payment_from[]">
+                                                </td>
+                                            </tr>
+                                        @else
                                             @foreach($podryadchik->strahPremiya as $premiya)
                                                 <tr id="payment-term-tr-0" data-field-number="0">
                                                     <td><input type="text" class="form-control" name="payment_sum[{{$premiya->id}}]" value="{{$premiya->prem_sum}}">
@@ -280,7 +278,7 @@
                                                     <td><input type="date" class="form-control" name="payment_from[{{$premiya->id}}]" value="{{$premiya->prem_from}}">
                                                     </td>
                                                 </tr>
-                                                @endforeach
+                                            @endforeach
                                         @endif
                                         </tbody>
                                     </table>
@@ -366,11 +364,9 @@
                         </div>
                     </div>
                 </div>
+            </section>
         </div>
 
-        </section>
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
-        </div>
-    </form>
+
+
 @endsection

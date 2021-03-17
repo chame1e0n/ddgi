@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Models\Product\OtvetstvennostPodryadchikStrahPremiya;
+use App\Models\PolicyHolder;
+use App\Models\Product\OtvetstvennostPodryadchik;
+use App\Models\Spravochniki\Agent;
+use App\Models\Spravochniki\Bank;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +29,9 @@ class OtvetstvennostPodryadchikController extends Controller
      */
     public function create()
     {
-        return view('products.otvetstvennost.podryadchik.create');
+        $banks = Bank::all();
+        $agents = Agent::all();
+        return view('products.otvetstvennost.podryadchik.create', compact('banks', 'agents'));
     }
 
     /**
@@ -35,7 +42,27 @@ class OtvetstvennostPodryadchikController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
+        if(!$newPolicyHolders)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
+        $request->policy_holder_id = $newPolicyHolders->id;
+        $newOtvetstvennostPodryadchik = OtvetstvennostPodryadchik::createOtvetstvennostPodryadchik($request);
+        if(!$newOtvetstvennostPodryadchik)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
+        if(!empty($request->post('payment_sum')) && !empty($request->post('payment_sum')))
+            {
+                $i = 0;
+                foreach ($request->post('payment_sum') as $sum)
+                {
+                    $newStrahPremiya = OtvetstvennostPodryadchikStrahPremiya::create([
+                    'prem_sum' => $sum,
+                        'prem_from' => $request->post('payment_from')[$i],
+                        'otvetstvennost_podryadchik_id' => $newOtvetstvennostPodryadchik->id
+                    ]);
+                    $i++;
+                }
+            }
+        return back()->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -46,7 +73,10 @@ class OtvetstvennostPodryadchikController extends Controller
      */
     public function show($id)
     {
-        //
+        $podryadchik = OtvetstvennostPodryadchik::getInfoPodryadchik($id);
+        $banks = Bank::all();
+        $agents = Agent::all();
+        return view('products.otvetstvennost.podryadchik.show', compact('banks', 'agents', 'podryadchik'));
     }
 
     /**
@@ -57,7 +87,10 @@ class OtvetstvennostPodryadchikController extends Controller
      */
     public function edit($id)
     {
-        //
+        $podryadchik = OtvetstvennostPodryadchik::getInfoPodryadchik($id);
+        $banks = Bank::all();
+        $agents = Agent::all();
+        return view('products.otvetstvennost.podryadchik.edit', compact('banks', 'agents', 'podryadchik'));
     }
 
     /**
@@ -69,7 +102,27 @@ class OtvetstvennostPodryadchikController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $otvetstvennostPodryadchik = OtvetstvennostPodryadchik::findOrFail($id);
+        $policyHolders           = PolicyHolder::updatePolicyHolders($otvetstvennostPodryadchik->policy_holder_id, $request);
+        if(!$policyHolders)
+            return back()->withInput()->withErrors([sprintf('Ошибка при обновлении PolicyHolders')]);
+        $otvetstvennostPodryadchik = OtvetstvennostPodryadchik::updateOtvetstvennostPodryadchik($id, $request);
+        if(!$otvetstvennostPodryadchik)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
+        if(!empty($request->post('payment_sum')) && !empty($request->post('payment_sum')))
+        {
+            foreach ($request->post('payment_sum') as $key => $sum)
+            {
+                $newStrahPremiya = OtvetstvennostPodryadchikStrahPremiya::updateOrCreate([
+                    'id' => $key,
+                    'otvetstvennost_podryadchik_id' => $otvetstvennostPodryadchik->id
+                ], [
+                    'prem_sum' => $sum,
+                    'prem_from' => $request->post('payment_from')[$key]
+                ]);
+            }
+        }
+        return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 
     /**

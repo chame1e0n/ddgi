@@ -486,7 +486,7 @@
 
                         </div>
 
-                   
+
 
                         <div class="card-body">
                             <div id="anketa-fields">
@@ -509,7 +509,7 @@
                             </div>
                         </div>
 
-                                   
+
                         <div class="card-body">
                             <div class="card card-info" id="clone-beneficiary">
                                 <div class="card-header">
@@ -549,7 +549,7 @@
                                         </div>
                                     </div>
                                 </div>
-    
+
                             </div>
                         </div>
                     </div>
@@ -647,7 +647,7 @@
                 console.log(products)
                 for (let i = 0; i < length; i++) {
                     $('#walletNames').append(
-                        `<option value="${products[i].id}">${products[i].Ccy}</option>`);
+                        `<option value="${products[i].Ccy}">${products[i].Ccy}</option>`);
                 }
             },
             error: function () {
@@ -660,7 +660,7 @@
     //         console.log(data)
     //     });
 </script>
-<!-- 
+<!--
 <script>
     insurerId.select2();
     beneficiaryId.select2();
@@ -776,7 +776,7 @@
             console.log(clientType);
 
             let clientType = $("input:radio[name='beneficiary_type_radio']:checked").val();
-            // 
+            //
 
             if (clientType === 'individual') {
                 console.log('beneficiary individual');

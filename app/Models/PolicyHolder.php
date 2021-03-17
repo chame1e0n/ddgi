@@ -27,6 +27,8 @@ class PolicyHolder extends Model
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
             'oked' => $request->oked,
+            'okonx' => $request->okonx,
+            'vid_deyatelnosti' => $request->vid_deyatelnosti,
             'bank_id' => $request->bank_insurer,
 
         ]);

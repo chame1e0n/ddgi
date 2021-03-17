@@ -144,7 +144,7 @@
                 const products = data;
                 const length = products.length;
                 for (let i = 0; i < length; i++) {
-                    $('#walletNames').append(`<option value="${products[i].id}">${products[i].Ccy}</option>`);
+                    $('#walletNames').append(`<option value="${products[i].Ccy}">${products[i].Ccy}</option>`);
                 }
             },
             error: function() {

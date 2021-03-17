@@ -134,8 +134,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                            <input value="{{$credit->policyHolders->okonx}}" type="text" id="insurer-okonh" name="okonh_insurer"
-                                                   @if($errors->has('okonh_insurer'))
+                                            <input value="{{$credit->policyHolders->oked}}" type="text" id="oked" name="oked"
+                                                   @if($errors->has('oked'))
                                                    class="form-control is-invalid"
                                                    @else
                                                    class="form-control"

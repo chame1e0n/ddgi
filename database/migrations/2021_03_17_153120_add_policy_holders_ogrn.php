@@ -16,6 +16,7 @@ class AddPolicyHoldersOgrn extends Migration
         Schema::table('policy_holders', function (Blueprint $table) {
             $table->string('oked')->nullable();
             $table->string('okonx')->nullable()->change();
+            $table->string('vid_deyatelnosti')->nullable();
         });
     }
 
@@ -28,6 +29,7 @@ class AddPolicyHoldersOgrn extends Migration
     {
         Schema::table('policy_holders', function (Blueprint $table) {
             $table->dropColumn('oked');
+            $table->dropColumn('vid_deyatelnosti');
         });
     }
 }
