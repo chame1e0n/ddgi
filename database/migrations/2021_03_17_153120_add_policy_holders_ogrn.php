@@ -15,6 +15,7 @@ class AddPolicyHoldersOgrn extends Migration
     {
         Schema::table('policy_holders', function (Blueprint $table) {
             $table->string('oked')->nullable();
+            $table->string('okonx')->nullable()->change();
         });
     }
 
