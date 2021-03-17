@@ -87,7 +87,6 @@
                         </div>
 
                         <div class="card-body">
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -134,7 +133,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="okonh_insurer" class="form-control">
+                                        <input type="text" id="insurer-okonh" name="oked_insurer" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -401,7 +400,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>

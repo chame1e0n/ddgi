@@ -29,6 +29,9 @@ class Product3777 extends Model
         'passport_copy',
         'dogovor_copy',
         'spravka_copy',
-        'other'
+        'other',
+        'oked',
+        'activity_type',
+        'okonx'
     ];
 }

@@ -98,7 +98,7 @@ function addRow() {
 
 let num1 = 1;
 let num2 = 1;
-$('#insurer-modal-button').on('click', function() {
+$('#insurer-modal-button').on('click', function () {
 
     let clone = $('#clone-insurance:last').clone();
     clone.insertAfter('#clone-insurance:last');
@@ -130,13 +130,13 @@ $('#insurer-modal-button').on('click', function() {
     num1++;
     clone.find('.card-title').html(`Страхователь №${num1}`)
     clone.find('#insurer-modal-button').html(`Удалить`).attr('class', 'btn btn-warning')
-    clone.find('#insurer-modal-button').on('click', function() {
+    clone.find('#insurer-modal-button').on('click', function () {
         $(this).parent().parent().parent().remove();
         num1--;
     })
 });
 
-$('#beneficiary-modal-button').on('click', function() {
+$('#beneficiary-modal-button').on('click', function () {
 
     let clone = $('#clone-beneficiary:last').clone();
     clone.insertAfter('#clone-beneficiary:first');
@@ -168,20 +168,20 @@ $('#beneficiary-modal-button').on('click', function() {
     num2++;
     clone.find('.card-title').html(`Выгодоприобретатель №${num2}`)
     clone.find('#beneficiary-modal-button').html(`Удалить`).attr('class', 'btn btn-warning')
-    clone.find('#beneficiary-modal-button').on('click', function() {
+    clone.find('#beneficiary-modal-button').on('click', function () {
         $(this).parent().parent().parent().remove();
         num2--;
     })
 
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $(document).on("keyup", ".forsum", calculateSum);
     $(document).on("keyup", ".forsum2", calculateSum2);
     $(document).on("keyup", ".forsum3", calculateSum3);
     $(document).on("keyup", ".forsum4", calculateSum4);
     $(document).on("keyup", ".forsum5", calculateSum5);
-    $('.defects').on('change', function() {
+    $('.defects').on('change', function () {
         console.log('sa');
         let targetBox = $('.defects_images');
         if ($(this).attr("value") === '1') {
@@ -191,7 +191,7 @@ $(document).ready(function() {
         }
     });
 });
-$(document).on('keyup', function() {
+$(document).on('keyup', function () {
     if ($('.overall-sum4').val() < $('.overall-sum').val()) {
         alert('Страховая стоимость не должна превышать страховую сумму')
         $('#form-save-button').attr('disabled', true)
@@ -200,7 +200,7 @@ $(document).on('keyup', function() {
     }
 });
 
-$(document).on("keyup", ".modal", function() {
+$(document).on("keyup", ".modal", function () {
     let fieldNumber = $(this).data('field-number');
     overallSum =
         parseFloat($('#insurance_sum-' + fieldNumber).val() || 0) +
@@ -224,7 +224,7 @@ $(document).on("keyup", ".modal", function() {
     $('.r-summ-' + fieldNumber).val(modalTableSum2);
     $('.r-summ-premia-' + fieldNumber).val(modalTableSum3);
 
-    $('#totalLimit-' + fieldNumber).on('keyup', function() {
+    $('#totalLimit-' + fieldNumber).on('keyup', function () {
         if ($('.r-summ-' + fieldNumber).val() >= $('#totalLimit-' + fieldNumber).val()) {
             $('#form-save-button').attr('disabled', true)
             // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
@@ -237,10 +237,10 @@ $(document).on("keyup", ".modal", function() {
     calculateSum4(fieldNumber);
 });
 
-$(document).on("change", ".modal", function() {
+$(document).on("change", ".modal", function () {
     let fieldNumber = $(this).data('field-number');
 
-    $('.other_insurance-' + fieldNumber).on('change', function() {
+    $('.other_insurance-' + fieldNumber).on('change', function () {
         let targetBox = $('.other_insurance_info-' + fieldNumber);
         if ($(this).attr("value") === '1') {
             $(targetBox).show(400);
@@ -248,7 +248,7 @@ $(document).on("change", ".modal", function() {
             $(targetBox).hide(400);
         }
     });
-    $('.r-1-' + fieldNumber).on('change', function() {
+    $('.r-1-' + fieldNumber).on('change', function () {
         let targetBox = $('.r-1-show-' + fieldNumber);
         if ($(this).attr("value") === '1') {
             $(targetBox).show(400);
@@ -256,7 +256,7 @@ $(document).on("change", ".modal", function() {
             $(targetBox).hide(400);
         }
     });
-    $('.r-2-' + fieldNumber).on('change', function() {
+    $('.r-2-' + fieldNumber).on('change', function () {
         let targetBox = $(`.r-2-show-${fieldNumber}`);
         if ($(this).attr("value") === '1') {
             $(targetBox).show(400);
@@ -264,7 +264,7 @@ $(document).on("change", ".modal", function() {
             $(targetBox).hide(400);
         }
     });
-    $('.r-3-' + fieldNumber).on('change', function() {
+    $('.r-3-' + fieldNumber).on('change', function () {
         let targetBox = $(`.r-3-show-${fieldNumber}`);
         if ($(this).attr("value") === '1') {
             $(targetBox).show(400);
@@ -272,23 +272,23 @@ $(document).on("change", ".modal", function() {
             $(targetBox).hide(400);
         }
     });
-    $('.r-3-one-' + fieldNumber).on('keyup', function() {
+    $('.r-3-one-' + fieldNumber).on('keyup', function () {
         let numOne = $(this).val() * $(`.r-3-pass-${fieldNumber}`).val();
         $(document).find(`.r-3-sum-${fieldNumber}`).val(numOne);
     });
-    $('.r-3-pass-1-' + fieldNumber).on('keyup', function() {
+    $('.r-3-pass-1-' + fieldNumber).on('keyup', function () {
         let numOne = $(this).val() * $(`.r-3-one-1-${fieldNumber}`).val();
         $(document).find(`.r-3-sum-1-${fieldNumber}`).val(numOne);
     });
-    $('.r-3-one-1-' + fieldNumber).on('keyup', function() {
+    $('.r-3-one-1-' + fieldNumber).on('keyup', function () {
         let numOne = $(this).val() * $(`.r-3-pass-1-${fieldNumber}`).val();
         $(document).find(`.r-3-sum-1-${fieldNumber}`).val(numOne);
     });
-    $('.r-3-pass-2-' + fieldNumber).on('keyup', function() {
+    $('.r-3-pass-2-' + fieldNumber).on('keyup', function () {
         let numOne = $(this).val() * $(`.r-3-one-2-${fieldNumber}`).val();
         $(document).find(`.r-3-sum-2-${fieldNumber}`).val(numOne);
     });
-    $('.r-3-one-2-' + fieldNumber).on('keyup', function() {
+    $('.r-3-one-2-' + fieldNumber).on('keyup', function () {
         let numOne = $(this).val() * $(`.r-3-pass-2-${fieldNumber}`).val();
         $(document).find(`.r-3-sum-2-${fieldNumber}`).val(numOne);
     });
@@ -296,10 +296,9 @@ $(document).on("change", ".modal", function() {
 });
 
 
-
 function calculateSum() {
     let sum = 0;
-    $('.forsum').each(function() {
+    $('.forsum').each(function () {
         if (!isNaN(this.value) && this.value.length != 0) {
             sum += parseFloat(this.value);
         }
@@ -309,7 +308,7 @@ function calculateSum() {
 
 function calculateSum2() {
     let sum = 0;
-    $('.forsum2').each(function() {
+    $('.forsum2').each(function () {
         if (!isNaN(this.value) && this.value.length != 0) {
             sum += parseFloat(this.value);
         }
@@ -319,7 +318,7 @@ function calculateSum2() {
 
 function calculateSum3() {
     let sum = 0;
-    $('.forsum3').each(function() {
+    $('.forsum3').each(function () {
         if (!isNaN(this.value) && this.value.length != 0) {
             sum += parseFloat(this.value);
         }
@@ -330,13 +329,13 @@ function calculateSum3() {
 function calculateSum4(fieldNumber) {
     let sum = 0;
     try {
-        $('.forsum4').each(function() {
+        $('.forsum4').each(function () {
             if (!isNaN(this.value) && this.value.length != 0) {
                 sum = parseFloat(this.value) + parseFloat($('#overall-sum-' + fieldNumber).val())
             }
         });
     } catch {
-        $('.forsum4').each(function() {
+        $('.forsum4').each(function () {
             if (!isNaN(this.value) && this.value.length != 0) {
                 sum = parseFloat(this.value)
             }
@@ -347,7 +346,7 @@ function calculateSum4(fieldNumber) {
 
 function calculateSum5() {
     let sum = 0;
-    $('.forsum5').each(function() {
+    $('.forsum5').each(function () {
         if (!isNaN(this.value) && this.value.length != 0) {
             sum += parseFloat(this.value);
         }
@@ -398,18 +397,17 @@ function showDiv(divId, element) {
     document.getElementById(divId).style.display = element.value == 'other' ? 'block' : 'none';
 }
 
-function addRow3(fieldNumber, ) {
+function addRow3(fieldNumber,) {
     let empTab = document.getElementById('empTable3');
 
     let rowCnt = empTab.rows.length; // get the number of rows.
     let tr = empTab.insertRow(rowCnt); // table row.
 
     paymentTypeFieldNumber++;
-
+    console.log($("#empTable3 tr th").length)
     for (let c = 0; c < $("#empTable3 tr th").length; c++) {
         let td = document.createElement('td'); // TABLE DEFINITION.
         td = tr.insertCell(c);
-
         if (c == ($("#empTable3 tr th").length - 1)) { // if its the first column of the table.
             // add a button control.
             let button = document.createElement('input');
@@ -463,7 +461,8 @@ function submit() {
         }
     }
 }
-$('#form-save-button').on('click', function() {
+
+$('#form-save-button').on('click', function () {
     $('#mainFormKasko').submit();
 })
 
@@ -484,7 +483,7 @@ function addProductFields(fieldNumber) {
             </div>
             <div class="card-body">
                 <div class="table-responsive p-0 " style="max-height: 300px;">
-                    <form method="POST" id="product-fields-${fieldNumber}-1">
+
                         <table class="table table-hover table-head-fixed" id="empTable2">
                             <thead>
                                 <tr>
@@ -496,18 +495,18 @@ function addProductFields(fieldNumber) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="text" class="form-control" name="mark_model"></td>
-                                    <td><input type="text" class="form-control" name="name"></td>
-                                    <td><input type="text" class="form-control" name="series_number"></td>
-                                    <td><input type="text" class="form-control forsum5" name="insurance_sum" id="insurance_sum-${fieldNumber}"></td>
+                                    <td><input type="text" class="form-control" name="other_mark_model[]"></td>
+                                    <td><input type="text" class="form-control" name="other_name_tools[]"></td>
+                                    <td><input type="text" class="form-control" name="other_series_number[]"></td>
+                                    <td><input type="text" class="form-control forsum5" name="other_insurance_sum[]" id="insurance_sum-${fieldNumber}"></td>
                                 </tr>
                                 <tr>
                                     <td colspan="3"><label class="text-bold">Итого</label></td>
-                                    <td><input type="text" class="form-control overall-sum${fieldNumber}" readonly name="total"></td>
+                                    <td><input type="text" class="form-control overall-sum${fieldNumber}" readonly name="other_total[]"></td>
                                 </tr>
                             </tbody>
                         </table>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -523,13 +522,13 @@ function addProductFields(fieldNumber) {
             </div>
 
             <div class="card-body">
-                <form method="POST" id="product-fields-${fieldNumber}-2">
+               
                     <div class="form-group">
                         <label>Покрытие террористических актов с ТС </label>
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control terror-tc-${fieldNumber}" name="cover_terror_attacks_sum">
+                            <input type="text" class="form-control terror-tc-${fieldNumber}" name="other_cover_terror_attacks_sum[]">
                             <div class="input-group-append">
-                                <select class="form-control success" name="cover_terror_attacks_currency" style="width: 100%;">
+                                <select class="form-control success" name="other_cover_terror_attacks_currency[]" style="width: 100%;">
                                     <option selected="selected">UZS</option>
                                     <option>USD</option>
                                 </select>
@@ -542,7 +541,7 @@ function addProductFields(fieldNumber) {
                         <div class="input-group mb-4">
                             <input type="text" class="form-control terror-zl-${fieldNumber}" name="cover_terror_attacks_insured_sum">
                             <div class="input-group-append">
-                                <select class="form-control success" name="cover_terror_attacks_insured_currency" style="width: 100%;">
+                                <select class="form-control success" name="other_cover_terror_attacks_insured_currency[]" style="width: 100%;">
                                     <option selected="selected">UZS</option>
                                     <option>USD</option>
                                 </select>
@@ -553,16 +552,16 @@ function addProductFields(fieldNumber) {
                     <div class="form-group">
                         <label>Покрытие расходы по эвакуации</label>
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control evocuation-${fieldNumber}" name="coverage_evacuation_cost">
+                            <input type="text" class="form-control evocuation-${fieldNumber}" name="other_coverage_evacuation_cost[]">
                             <div class="input-group-append">
-                                <select class="form-control success" name="coverage_evacuation_currency" style="width: 100%;">
+                                <select class="form-control success" name="other_coverage_evacuation_currency[]" style="width: 100%;">
                                 <option selected="selected">UZS</option>
                                 <option>USD</option>
                             </select>
                             </div>
                         </div>
                     </div>
-                </form>
+                
             </div>
         </div>
 
@@ -576,17 +575,17 @@ function addProductFields(fieldNumber) {
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" id="product-fields-${fieldNumber}-3">
+                
                     <div class="form-group">
                         <label>Застрахованы ли автотранспортные средства на момент заполнения настоящей анкеты? </label>
                         <div class="row">
                             <div class="col-sm-1">
                                 <div class="checkbox icheck-success">
-                                    <input type="radio" class="other_insurance-${fieldNumber}" name="strtahovka-${fieldNumber}" id="radioSuccess1-${fieldNumber}" value="1">
+                                    <input type="radio" class="other_insurance-${fieldNumber}" name="other_strtahovka[]" id="radioSuccess1-${fieldNumber}" value="1">
                                     <label for="radioSuccess1-${fieldNumber}">Да</label>
                                 </div>
                                 <div class="checkbox icheck-success">
-                                    <input type="radio" class="other_insurance-${fieldNumber}" name="strtahovka-${fieldNumber}" id="radioSuccess2-${fieldNumber}" value="0">
+                                    <input type="radio" class="other_insurance-${fieldNumber}" name="other_strtahovka[]" id="radioSuccess2-${fieldNumber}" value="0">
                                     <label for="radioSuccess2-${fieldNumber}">Нет</label>
                                 </div>
                             </div>
@@ -595,9 +594,9 @@ function addProductFields(fieldNumber) {
                     <div class="form-group other_insurance_info-${fieldNumber}\
                     " style="display:none">
                         <label>Укажите название и адрес страховой организации и номер Полиса</label>
-                        <input class="form-control" type="text" name="other_insurance_info${fieldNumber}">
+                        <input class="form-control" type="text" name="other_insurance_info[]">
                     </div>
-                </form>
+                
             </div>
         </div>
 
@@ -611,17 +610,16 @@ function addProductFields(fieldNumber) {
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" id="product-fields-${fieldNumber}-4">
                     <div class="form-group">
                         <label>Раздел I. Гибель или повреждение транспортного средства</label>
                         <div class="row">
                             <div class="col-md-1">
                                 <div class="checkbox icheck-success">
-                                    <input type="radio" name="vehicle_damage-${fieldNumber}" class="r-1-${fieldNumber}" id="radioSuccess3-${fieldNumber}" value="1">
+                                    <input type="radio" name="vehicle_damage[]" class="r-1-${fieldNumber}" id="radioSuccess3-${fieldNumber}" value="1">
                                     <label for="radioSuccess3-${fieldNumber}">Да</label>
                                 </div>
                                 <div class="checkbox icheck-success">
-                                    <input type="radio" name="vehicle_damage-${fieldNumber}" class="r-1-${fieldNumber}" id="radioSuccess4-${fieldNumber}" value="0">
+                                    <input type="radio" name="vehicle_damage[]" class="r-1-${fieldNumber}" id="radioSuccess4-${fieldNumber}" value="0">
                                     <label for="radioSuccess4-${fieldNumber}">Нет</label>
                                 </div>
                             </div>
@@ -632,7 +630,7 @@ function addProductFields(fieldNumber) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Сумма</span>
                                             </div>
-                                            <input type="text" class="form-control r-1-sum-${fieldNumber}" name="one-sum-${fieldNumber}" id="vehicle_damage_sum-${fieldNumber}">
+                                            <input type="text" class="form-control r-1-sum-${fieldNumber}" name="one_sum[]" id="vehicle_damage_sum-${fieldNumber}">
                                         </div>
                                     </div>
                                 </div>
@@ -642,7 +640,7 @@ function addProductFields(fieldNumber) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Страховая премия</span>
                                             </div>
-                                            <input type="text" class="form-control r-1-premia-${fieldNumber}" name="one-premia-${fieldNumber}" id="vehicle_damage_sum-${fieldNumber}">
+                                            <input type="text" class="form-control r-1-premia-${fieldNumber}" name="one_premia[]" id="vehicle_damage_sum-${fieldNumber}">
                                         </div>
                                     </div>
                                 </div>
@@ -652,25 +650,23 @@ function addProductFields(fieldNumber) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Франшиза</span>
                                             </div>
-                                            <input type="text" class="form-control r-1-frnshiza-${fieldNumber}" name="one-franshiza-${fieldNumber}" id="vehicle_damage_sum-${fieldNumber}">
+                                            <input type="text" class="form-control r-1-frnshiza-${fieldNumber}" name="one_franshiza[]" id="vehicle_damage_sum-${fieldNumber}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
-                <form method="POST" id="product-fields-${fieldNumber}-5">
                     <div class="form-group">
                         <label class=>Раздел II. Автогражданская ответственность</label>
                         <div class="row">
                             <div class="col-sm-1">
                                 <div class="checkbox icheck-success">
-                                    <input type="radio" name="civil_liability-${fieldNumber}" class="r-2-${fieldNumber}" id="radioSuccess5-${fieldNumber}" value="1">
+                                    <input type="radio" name="civil_liability[]" class="r-2-${fieldNumber}" id="radioSuccess5-${fieldNumber}" value="1">
                                     <label for="radioSuccess5-${fieldNumber}">Да</label>
                                 </div>
                                 <div class="checkbox icheck-success">
-                                    <input type="radio" name="civil_liability-${fieldNumber}" class="r-2-${fieldNumber}" id="radioSuccess6-${fieldNumber}" value="0">
+                                    <input type="radio" name="civil_liability[]" class="r-2-${fieldNumber}" id="radioSuccess6-${fieldNumber}" value="0">
                                     <label for="radioSuccess6-${fieldNumber}">Нет</label>
                                 </div>
                             </div>
@@ -681,7 +677,7 @@ function addProductFields(fieldNumber) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Сумма</span>
                                             </div>
-                                            <input type="text" class="form-control r-2-sum-${fieldNumber}" name="tho_sum-${fieldNumber}" id="vehicle_damage_sum-${fieldNumber}">
+                                            <input type="text" class="form-control r-2-sum-${fieldNumber}" name="tho_sum[]" id="vehicle_damage_sum-${fieldNumber}">
                                         </div>
                                     </div>
                                 </div>
@@ -691,33 +687,30 @@ function addProductFields(fieldNumber) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Страховая премия</span>
                                             </div>
-                                            <input type="text" class="form-control r-2-premia-${fieldNumber}" name="two-preim-${fieldNumber}" id="vehicle_damage_sum-${fieldNumber}">
+                                            <input type="text" class="form-control r-2-premia-${fieldNumber}" name="two_preim[]" id="vehicle_damage_sum-${fieldNumber}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
 
-                <form method="POST" id="product-fields-${fieldNumber}-6">
                     <div class="form-group">
                         <label>Раздел III. Несчастные случаи с Застрахованными лицами</label>
                         <div class="row">
                             <div class="col-md-1">
                                 <div class="checkbox icheck-success">
-                                    <input type="radio" name="accidents-${fieldNumber}" class="r-3-${fieldNumber}" id="radioSuccess7-${fieldNumber}" value="1">
+                                    <input type="radio" name="accidents[]" class="r-3-${fieldNumber}" id="radioSuccess7-${fieldNumber}" value="1">
                                     <label for="radioSuccess7-${fieldNumber}">Да</label>
                                 </div>
                                 <div class="checkbox icheck-success">
-                                    <input type="radio" name="accidents-${fieldNumber}" class="r-3-${fieldNumber}" id="radioSuccess8-${fieldNumber}" value="0">
+                                    <input type="radio" name="accidents[]" class="r-3-${fieldNumber}" id="radioSuccess8-${fieldNumber}" value="0">
                                     <label for="radioSuccess8-${fieldNumber}">Нет</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="table-responsive p-0 r-3-show-${fieldNumber}" style="display: none;">
-                        <form method="POST" id="product-fields-${fieldNumber}-7">
                             <table class="table table-hover table-head-fixed">
                                 <thead>
                                     <tr>
@@ -731,54 +724,54 @@ function addProductFields(fieldNumber) {
                                 <tbody>
                                     <tr>
                                         <td><label>Водитель(и)</label></td>
-                                        <td><input type="number" class="form-control r-3-pass-${fieldNumber}" value="1" readonly name="driver_quantity-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-pass-${fieldNumber}" value="1" readonly name="driver_quantity[]"></td>
                                         <td>
                                             <div class="input-group mb-4">
-                                                <input type="text" class="form-control r-3-one-${fieldNumber}" name="driver_one_sum-${fieldNumber}">
+                                                <input type="text" class="form-control r-3-one-${fieldNumber}" name="driver_one_sum[]">
                                                 <div class="input-group-append">
-                                                    <select class="form-control success" name="driver_currency-" style="width: 100%;">
+                                                    <select class="form-control success" name="driver_currency[]" style="width: 100%;">
                                                         <option selected="selected">UZS</option>
                                                         <option>USD</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><input type="number" class="form-control r-3-sum-${fieldNumber}" name="driver_total_sum-${fieldNumber}" id="driver_total_sum-${fieldNumber}"></td>
-                                        <td><input type="number" class="form-control r-3-premia-${fieldNumber}" name="driver_preim_sum-${fieldNumber}" id="driver_total_sum-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-sum-${fieldNumber}" name="driver_total_sum[]" id="driver_total_sum-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-premia-${fieldNumber}" name="driver_preim_sum[]" id="driver_total_sum-${fieldNumber}"></td>
                                     </tr>
                                     <tr>
                                         <td><label>Пассажиры</label></td>
-                                        <td><input type="number" class="form-control r-3-pass-1-${fieldNumber}" name="passenger_quantity-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-pass-1-${fieldNumber}" name="passenger_quantity[]"></td>
                                         <td>
                                             <div class="input-group mb-4">
-                                                <input type="text" class="form-control r-3-one-1-${fieldNumber}" name="passenger_one_sum-${fieldNumber}">
+                                                <input type="text" class="form-control r-3-one-1-${fieldNumber}" name="passenger_one_sum[]">
                                                 <div class="input-group-append">
-                                                    <select class="form-control success" name="passenger_currency" style="width: 100%;">
+                                                    <select class="form-control success" name="passenger_currency[]" style="width: 100%;">
                                                         <option selected="selected">UZS</option>
                                                         <option>USD</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><input type="number" class="form-control r-3-sum-1-${fieldNumber}" name="passenger_total_sum-${fieldNumber}" id="passenger_total_sum-${fieldNumber}"></td>
-                                        <td><input type="number" class="form-control r-3-premia-1-${fieldNumber}" name="passenger_preim_sum-${fieldNumber}" id="passenger_total_sum-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-sum-1-${fieldNumber}" name="passenger_total_sum[]" id="passenger_total_sum-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-premia-1-${fieldNumber}" name="passenger_preim_sum[]" id="passenger_total_sum-${fieldNumber}"></td>
                                     </tr>
                                     <tr>
                                         <td><label class="text-bold">Общий Лимит</label></td>
-                                        <td><input type="number" class="form-control r-3-pass-2-${fieldNumber}" name="limit_quantity-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-pass-2-${fieldNumber}" name="limit_quantity[]"></td>
                                         <td>
                                             <div class="input-group mb-4">
-                                                <input type="text" class="form-control r-3-one-2-${fieldNumber}" name="limit_one_sum-${fieldNumber}">
+                                                <input type="text" class="form-control r-3-one-2-${fieldNumber}" name="limit_one_sum[]">
                                                 <div class="input-group-append">
-                                                    <select class="form-control success" name="limit_currency" style="width: 100%;">
+                                                    <select class="form-control success" name="limit_currency[]" style="width: 100%;">
                                                         <option selected="selected">UZS</option>
                                                         <option>USD</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><input type="number" class="form-control r-3-sum-2-${fieldNumber}" name="limit_total_sum-${fieldNumber}"></td>
-                                        <td><input type="number" class="form-control r-3-premia-2-${fieldNumber}" name="limit_preim_sum-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-sum-2-${fieldNumber}" name="limit_total_sum[]"></td>
+                                        <td><input type="number" class="form-control r-3-premia-2-${fieldNumber}" name="limit_preim_sum[]"></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3"><label class="text-bold">Итого</label></td>
@@ -787,21 +780,21 @@ function addProductFields(fieldNumber) {
                                     </tr>
                                 </tbody>
                             </table>
-                        </form>
+                        
                     </div>
                     <div class="form-group col-sm-8">
                         <label>Общий лимит ответственности </label>
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control" id="totalLimit-${fieldNumber}" name="total_liability_limit-${fieldNumber}">
+                            <input type="text" class="form-control" id="totalLimit-${fieldNumber}" name="total_liability_limit[]">
                             <div class="input-group-append">
-                                <select class="form-control success" name="total_liability_limit_currency-${fieldNumber}" style="width: 100%;">
+                                <select class="form-control success" name="total_liability_limit_currency[]" style="width: 100%;">
                                     <option selected="selected">UZS</option>
                                     <option>USD</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                </form>
+               
             </div>
         </div>
 
@@ -816,13 +809,13 @@ function addProductFields(fieldNumber) {
             </div>
             <div class="card payment">
                 <div class="card-body">
-                    <form method="POST" id="polis-fields-${fieldNumber}">
+                    
                         <div class="row policy">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="polises">Полис</label>
-                                    <select class="form-control polises" id="polises" name="policy-${fieldNumber}" style="width: 100%;">
-                                        <option selected="selected"></option>
+                                    <select class="form-control polises" id="polises" name="other_form_policy[]" style="width: 100%;">
+                                        <option selected="selected">test</option>
                                     </select>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -836,14 +829,14 @@ function addProductFields(fieldNumber) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">от</span>
                                         </div>
-                                        <input type="date" class="form-control" name="from_date-${fieldNumber}">
+                                        <input type="date" class="form-control" name="other_from_date">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Ответственный Агент</label>
-                                    <select class="form-control select2" name="agent-${fieldNumber}" style="width: 100%;">
+                                    <select class="form-control select2" name="other_agent[]" style="width: 100%;">
                                         <option selected="selected">Ф.И.О агента</option>
                                         <option></option>
                                     </select>
@@ -854,7 +847,7 @@ function addProductFields(fieldNumber) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Оплата страховой премии</label>
-                                    <select class="form-control select2" name="payment-${fieldNumber}" style="width: 100%;">
+                                    <select class="form-control select2" name="other_payment[]" style="width: 100%;">
                                         <option selected="selected">Сум</option>
                                         <option>Доллар</option>
                                         <option>Евро</option>
@@ -864,7 +857,7 @@ function addProductFields(fieldNumber) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Порядок оплаты</label>
-                                        <select class="form-control select2" name="payment-order-${fieldNumber}" style="width: 100%;">
+                                        <select class="form-control select2" name="payment_order[]" style="width: 100%;">
                                         <option selected="selected">Сум</option>
                                         <option>Доллар</option>
                                         <option>Евро</option>
@@ -872,7 +865,7 @@ function addProductFields(fieldNumber) {
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
             </div>
             <div class="card card-info polis" id="Overall">
@@ -890,7 +883,7 @@ function addProductFields(fieldNumber) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Общая страховая сумма</span>
                             </div>
-                            <input type="text" class="form-control" readonly id="overall-sum-${fieldNumber}">
+                            <input type="text" class="form-control" readonly id="overall-sum-${fieldNumber}" name="other_totally_sum">
                         </div>
                     </div>
                 </div>
@@ -901,4 +894,167 @@ function addProductFields(fieldNumber) {
         `;
 
     generalProductFields.append(fields);
+}
+
+
+////////////////////// Ulugbek Scripts/////////////////////
+function addRowBorrowerSportsmanInfo(agents) {
+    let empTab = document.getElementById('empTable_u');
+    var fieldNames = [
+        'policy_num',
+        'policy_series',
+        'policy_chronic',
+        'policy_agent',
+        'polis_fio',
+        'polis_date_birth',
+        'polis_passport_series',
+        'polis_usable_period',
+        'polis_benefit',
+        'polis_overall_sum',
+        'polis_bonus',
+        // 'polis-num-body-',
+        // 'polis-payload-',
+        // 'polis-places-',
+        // 'insurance_sum-',
+        // 'overall_insurance_sum-',
+        // 'insurance_premium-',
+    ];
+    let rowCnt = empTab.rows.length; // get the number of rows.
+    let tr = empTab.insertRow(rowCnt - 1); // table row.
+
+    productFieldNumber++;
+
+    var rowsAmount = $("#empTable_u thead tr th").length + 1;
+
+    for (let c = 0; c < rowsAmount; c++) {
+        let td = document.createElement('td'); // TABLE DEFINITION.
+        td = tr.insertCell(c);
+
+        if (c == (rowsAmount - 1)) { // if its the last column of the table.
+            // add delete a button
+            let button = document.createElement('input');
+
+            // set the attributes.
+            button.setAttribute('type', 'button');
+            button.setAttribute('value', 'Удалить');
+
+            // add button's "onclick" event.
+            button.setAttribute('onclick', 'removeRowU(this)');
+            button.setAttribute('data-field-number', productFieldNumber);
+            button.setAttribute('class', 'btn btn-warning');
+
+            td.appendChild(button);
+
+            // add delete a button
+            let button2 = document.createElement('input');
+            button2.setAttribute('type', 'button');
+            button2.setAttribute('value', 'Заполнить');
+            button2.setAttribute('class', 'btn btn-success product-fields-button');
+            button2.setAttribute('id', 'product-fields-button-' + productFieldNumber);
+            button2.setAttribute('data-field-number', productFieldNumber);
+
+            let td2 = document.createElement('td'); // TABLE DEFINITION.
+            let fieldNumer = c + 1;
+            td2 = tr.insertCell(fieldNumer);
+            td2.appendChild(button2);
+        } else {
+            // all except the last colum will have input field.
+            let ele = document.createElement('input');
+
+            let fieldIndex = c + 1;
+            let columnName = fieldNames[c];
+            ele.setAttribute('name', columnName + "[]");
+
+            if (c === 1) {
+                ele = document.createElement('select');
+                ele.setAttribute("name", "policy_series[]");
+                let option = document.createElement('option')
+                option.setAttribute("value", "1");
+                option.appendChild(document.createTextNode("1"))
+                ele.appendChild(option)
+
+            } else if (c === 3) {
+                ele = document.createElement('select');
+                ele.setAttribute("name", "policy_agent[]");
+                for (const agent of agents) {
+                    let option = document.createElement('option')
+                    option.setAttribute("value", agent.id);
+                    option.appendChild(document.createTextNode(agent.name))
+                    ele.appendChild(option)
+                }
+
+            } else {
+                ele.setAttribute('type', 'text');
+            }
+            if (columnName === 'polis_date_birth' || columnName === 'polis_usable_period') {
+                ele.setAttribute('type', 'date');
+                ele.setAttribute('class', 'form-control');
+            } else if (columnName === 'policy_num') {
+                ele.setAttribute('class', 'form-control forsum3 insurance_premium-' + productFieldNumber);
+                ele.setAttribute('hidden', 'true');
+            } else {
+                ele.setAttribute('class', 'form-control');
+            }
+            td.appendChild(ele);
+        }
+    }
+
+    addProductFields(productFieldNumber);
+}
+
+function removeRowU(oButton) {
+    let empTab = document.getElementById('empTable_u');
+    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+    let id = oButton.dataset.fieldNumber;
+    $("#product-field-modal-" + id).remove();
+    calculateSum();
+    calculateSum2();
+    calculateSum3();
+    calculateSum5();
+}
+
+function addRowBonusCondition(fieldNumber,) {
+    let empTab = document.getElementById('addRowBonusCondition');
+
+    let rowCnt = empTab.rows.length; // get the number of rows.
+    let tr = empTab.insertRow(rowCnt); // table row.
+
+    paymentTypeFieldNumber++;
+    for (let c = 0; c < $("#addRowBonusCondition tr th").length; c++) {
+        let td = document.createElement('td'); // TABLE DEFINITION.
+        td = tr.insertCell(c);
+        if (c == ($("#addRowBonusCondition tr th").length - 1)) { // if its the first column of the table.
+            // add a button control.
+            let button = document.createElement('input');
+
+            // set the attributes.
+            button.setAttribute('type', 'button');
+            button.setAttribute('value', 'Удалить');
+
+            // add button's "onclick" event.
+            button.setAttribute('onclick', 'removeRowBonusCondition(this)');
+            button.setAttribute('class', 'btn btn-warning');
+
+            td.appendChild(button);
+        } else {
+            // all except the last colum will have input field.
+            let ele = document.createElement('input');
+
+            if (c === 1) {
+                ele.setAttribute('type', 'date');
+                ele.setAttribute('name', `payment_bonus_from[]`);
+            } else {
+                ele.setAttribute('type', 'text');
+                ele.setAttribute('name', `payment_bonus_sum[]`);
+            }
+
+            ele.setAttribute('class', 'form-control');
+            td.appendChild(ele);
+        }
+    }
+}
+
+function removeRowBonusCondition(oButton) {
+    let empTab = document.getElementById('addRowBonusCondition');
+    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
 }

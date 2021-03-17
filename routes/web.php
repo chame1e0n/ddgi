@@ -53,9 +53,16 @@ Route::group(['middleware' => ['auth']], function() {
         return response()->json(json_decode($json));
     })->name('currencies');
 
-    ////Product3777
-    Route::resource('test/product3777','Product3777\Product3777Controller');
-    /////
+    ////////////////////////////////// Ulugbek //////////////////////////////////////
+    //// Product3777
+
+    Route::resource('test/product3777','Product3777\Product3777Controller')
+        ->only('create', 'store');
+    //// BorrowerSportsman
+
+    Route::resource('test/borrower_sportsman','BorrowerSportsmanController');
+    /////////////////////////////////////////////////////////////////////////////////
+
     Route::resource('spravochniki/bank','Spravochniki\BankController');
     Route::resource('spravochniki/group','GroupController');
     Route::resource('spravochniki/klass','KlassController');

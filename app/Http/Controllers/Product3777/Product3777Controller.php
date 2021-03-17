@@ -43,7 +43,7 @@ class Product3777Controller extends Controller
             'address_schet' => 'required',
             'inn_insurer' => 'required',
             'mfo_insurer' => 'required',
-            'okonh_insurer' => 'required',
+            'oked_insurer' => 'required',
             'bank_insurer' => 'required',
 
             'fio_beneficiary' => 'required',
@@ -82,16 +82,16 @@ class Product3777Controller extends Controller
             'checking_account' => $request->address_schet,
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
-            'okonx' => $request->okonh_insurer,
+            'oked' => $request->oked_insurer,
             'bank_id' => $request->bank_insurer,
         ]);
 
         $zaemshik = Zaemshik::create([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'tel' => $request->tel_insurer,
-            'passport' => $request->address_schet,
-            'passport_num' => $request->inn_insurer,
+            'FIO' => $request->fio_beneficiary,
+            'address' => $request->address_beneficiary,
+            'tel' => $request->tel_beneficiary,
+            'passport' => $request->passport_beneficiary,
+            'passport_num' => $request->passport_num_beneficiary,
         ]);
         $passport_copy_path = $request->passport_copy->store("documents");
         $dogovor_copy_path = $request->dogovor_copy->store("documents");
