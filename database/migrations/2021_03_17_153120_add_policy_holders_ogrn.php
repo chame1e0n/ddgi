@@ -14,7 +14,7 @@ class AddPolicyHoldersOgrn extends Migration
     public function up()
     {
         Schema::table('policy_holders', function (Blueprint $table) {
-            $table->string('ogrn')->nullable();
+            $table->string('oked')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddPolicyHoldersOgrn extends Migration
     public function down()
     {
         Schema::table('policy_holders', function (Blueprint $table) {
-            $table->dropColumn('ogrn');
+            $table->dropColumn('oked');
         });
     }
 }
