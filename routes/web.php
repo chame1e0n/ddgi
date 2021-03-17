@@ -92,6 +92,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('site_order', 'FromSiteOrderController', [
         'only' => ['index', 'show']
     ]);
+
+    Route::resource('credit-fin-risk/nepogashen-avtocredit', 'CrediFinRiskNepogashenAvtocredit')->names('nepogashen-avtocredit');
 });
 
 Auth::routes();

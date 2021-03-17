@@ -19,4 +19,13 @@ class Agent extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    static function getActiveAgent(){
+        return self::where('status',0)->get();
+    }
+    public function getFI(){
+        $surname = $this->surname;
+        $name = $this->name;
+        return $surname.' '.$name;
+    }
 }
