@@ -5,7 +5,7 @@
 @endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('nepogashen-credit.store')}}" id="mainFormKasko" method="POST">
+    <form action="{{route('nepogashen-avtocredit.store')}}" id="mainFormKasko" method="POST">
         @csrf
         <div class="content-wrapper">
             <div class="content-header">
@@ -295,16 +295,22 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="geographic-zone">Сумма кредита</label>
                                             <input type="text" id="geographic-zone" name="credit_sum" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="geographic-zone">Цель получения кредита</label>
                                             <input type="text" id="geographic-zone" name="credit_purpose" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="geographic-zone">Франшиза</label>
+                                            <input type="text" id="geographic-zone" name="franchise" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -318,15 +324,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="form-group">
-                                                <label>Другие формы обеспечения обязательств по кредитному договору</label>
-                                                <input type="text" class="form-control" name="other_forms">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form-group">
                                                 <label>Общая cтраховая сумма</label>
@@ -334,7 +332,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <div class="form-group">
                                                 <label>Общая страховая премия</label>
@@ -342,7 +340,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label for="payment">Условия оплаты</label>
                                         <select class="form-control polises" id="payment" name="payment_terms" style="width: 100%;">
                                             <option selected="selected">Единовременно</option>

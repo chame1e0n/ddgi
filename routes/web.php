@@ -96,7 +96,10 @@ Route::group(['middleware' => ['auth']], function() {
         'only' => ['index', 'show']
     ]);
 
-    Route::resource('credit-fin-risk/nepogashen-avtocredit', 'CrediFinRiskNepogashenAvtocredit')->names('nepogashen-avtocredit');
+    Route::resource('credit-fin-risk/nepogashen-avtocredit', 'Product\CrediFinRiskNepogashenAvtocreditController')->names('nepogashen-avtocredit');
+    Route::resource('credit-fin-risk/nepogashen-credit', 'Product\CreditFinRiskNepogashenCreditController')->names('nepogashen-credit');
+    Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
+
 });
 
 Auth::routes();
