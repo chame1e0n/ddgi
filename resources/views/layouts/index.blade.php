@@ -94,7 +94,6 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="/assets/dist/js/demo.js"></script>
-
 <script src="/assets/custom/js/csrftoken.js"></script>
 <script src="../../assets/custom/js/formjs/variables.js"></script>
 <script src="../../assets/custom/js/formjs/add-clients.js"></script>
