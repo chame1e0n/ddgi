@@ -96,10 +96,10 @@
 <script src="/assets/dist/js/demo.js"></script>
 
 <script src="/assets/custom/js/csrftoken.js"></script>
-<script src="/assets/custom/js/form/variables.js"></script>
-<script src="/assets/custom/js/form/add-clients.js"></script>
-<script src="/assets/custom/js/form/product-fields.js"></script>
-<script src="/assets/custom/js/form/product-fields.add.js"></script>
+<script src="../../assets/custom/js/formjs/variables.js"></script>
+<script src="../../assets/custom/js/formjs/add-clients.js"></script>
+<script src="../../assets/custom/js/formjs/product-fields.js"></script>
+<script src="../../assets/custom/js/formjs/product-fields.add.js"></script>
 <script src="/assets/plugins/bootstrap-fileinput/js/plugins/piexif.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
