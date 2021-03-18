@@ -53,7 +53,7 @@
                                 <div class="form-group col-sm-3">
                                     <label class="col-form-label" for="pretensii-number">№ дела</label>
                                     <input type="text" name="case_number" class=" form-control client-type-text"
-                                           id="pretensii-number" value="0001">
+                                           id="pretensii-number" placeholder="0001" value="{{ old('case_number') }}">
                                 </div>
 
                                 <div class="form-group col-sm-3">
@@ -68,8 +68,8 @@
 
                                 <div class="form-group col-sm-3">
                                     <label class="col-form-label" for="pretensii-insured">Страхователь</label>
-                                    <input type="text" name="insurer" class="form-control client-type-text"
-                                           id="pretensii-insured" value="insured">
+                                    <input type="text" name="insurer" value="{{ old('insurer') }}" class="form-control client-type-text"
+                                           id="pretensii-insured" placeholder="insured">
                                 </div>
 
 
@@ -83,9 +83,9 @@
                                 <div class="form-group col-sm-3">
                                     <label class="col-form-label" for="pretensii-insurance-contract">Договор
                                         страхования</label>
-                                    <input type="text" name="insurance_contract"
+                                    <input type="text" name="insurance_contract" value="{{ old('insurance_contract') }}"
                                            class=" form-control client-type-text" id="pretensii-insurance-contract"
-                                           value="insurance-contract">
+                                           placeholder="insurance-contract">
                                 </div>
                             </div>
 
@@ -130,7 +130,7 @@
                                                 <span class="input-group-text">с</span>
                                             </div>
                                             <input id="pretensii-insurance-period-under-the-policy"
-                                                   name="insurence_period" type="date"
+                                                   name="insurence_period" type="date" value="{{ old('insurence_period') }}"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -142,7 +142,7 @@
                                                 сумма</label>
                                             <div class="input-group mb-4">
                                                 <input type="number" class="form-control r-3-one-1-0"
-                                                       name="insured_sum" value="5000">
+                                                       name="insured_sum" placeholder="5000" value="{{ old('insured_sum') }}">
                                                 <div class="input-group-append">
                                                     <select class="form-control success"
                                                             style="width: 100%;">
@@ -179,7 +179,7 @@
                                                     оплате по договору</label>
                                                 <div class="input-group mb-4">
                                                     <input type="number" class="form-control r-3-one-1-0"
-                                                           name="payable_by_agreement" value="5000">
+                                                           name="payable_by_agreement" placeholder="5000" value="{{ old('payable_by_agreement') }}">
                                                     <div class="input-group-append">
                                                         <select class="form-control success"
                                                                 style="width: 100%;">
@@ -197,7 +197,7 @@
                                                 <input type="text" name="actually_paid"
                                                        class="form-control client-type-text"
                                                        id="pretensii-actually-paid"
-                                                       value="3000">
+                                                       placeholder="3000" value="{{ old('actually_paid') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -210,7 +210,7 @@
                                                         <span class="input-group-text">Дата</span>
                                                     </div>
                                                     <input id="pretensii-last-payment-date" name="last_payment_date"
-                                                           type="date" class="form-control">
+                                                           type="date" class="form-control" value="{{ old('last_payment_date') }}">
                                                 </div>
                                             </div>
 
@@ -255,7 +255,7 @@
                                                 <input type="text" name="deductible_amount"
                                                        class="form-control client-type-text"
                                                        id="pretensii-deductible-amount"
-                                                       value="3000">
+                                                       placeholder="3000" value="{{ old('deductible_amount') }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -265,7 +265,7 @@
                                                 <div class="input-group mb-4">
                                                     <input type="text" size="3" name="franchise_percentage"
                                                            class="form-control client-type-text r-3-one-1-0"
-                                                           id="pretensii-franchise-percentage" value="50">
+                                                           id="pretensii-franchise-percentage" placeholder="50" value="{{ old('franchise_percentage') }}">
                                                     <div class="input-group-append">
                                                         <i class="form-control success">%</i>
                                                     </div>
@@ -281,7 +281,7 @@
                                         <label class="col-form-label"
                                                for="pretensii-reinsurance">Перестрахования</label>
                                         <input type="text" name="reinsurance" class="form-control client-type-text"
-                                               id="pretensii-reinsurance" value="">
+                                               id="pretensii-reinsurance" value="{{ old('reinsurance') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -292,7 +292,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Дата</span>
                                             </div>
-                                            <input id="pretensii-date-applications" name="date_applications"
+                                            <input id="pretensii-date-applications" name="date_applications" value="{{ old('date_applications') }}"
                                                    type="date" class="form-control">
                                         </div>
                                     </div>
@@ -307,7 +307,7 @@
                                                 <span class="input-group-text">Дата</span>
                                             </div>
                                             <input id="pretensii-date-of-occurrence-of-the-insured-event"
-                                                   name="date_of_the_insured_event" type="date"
+                                                   name="date_of_the_insured_event" type="date" value="{{ old('date_of_the_insured_event') }}"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -322,16 +322,16 @@
                                 <input type="text" name="event_description"
                                        class="form-control client-type-text"
                                        id="pretensii-description-of-the-insured-event"
-                                       value="description-of-the-insured-event">
+                                       placeholder="description-of-the-insured-event" value="{{ old('event_description') }}">
                             </div>
 
                             <div class="form-group">
                                 <label class="col-form-label" for="pretensii-description-of-the-insurance-object">Описание
                                     страхового объекта</label>
-                                <input type="text" name="object_description"
+                                <input type="text" name="object_description" value="{{ old('object_description') }}"
                                        class="form-control client-type-text"
                                        id="pretensii-description-of-the-insurance-object"
-                                       value="description-of-the-insurance-object">
+                                       placeholder="description-of-the-insurance-object">
                             </div>
 
 
@@ -422,8 +422,8 @@
                                             <label class="col-form-label"
                                                    for="pretensii-claimed-loss-summ">Сумма</label>
                                             <div class="input-group mb-4">
-                                                <input type="number" class="form-control r-3-one-1-0"
-                                                       name="claimed_loss_sum" value="5000">
+                                                <input type="number" class="form-control r-3-one-1-0" value="{{ old('claimed_loss_sum') }}"
+                                                       name="claimed_loss_sum" placeholder="5000">
                                                 <div class="input-group-append">
                                                     <select class="form-control success"
                                                             style="width: 100%;">
@@ -457,7 +457,7 @@
                                                            for="pretensii-refund-paid-summ">Сумма</label>
                                                     <div class="input-group mb-4">
                                                         <input type="number" class="form-control r-3-one-1-0"
-                                                               name="refund_paid_sum" value="5000">
+                                                               name="refund_paid_sum" placeholder="5000" value="{{ old('refund_paid_sum') }}">
                                                         <div class="input-group-append">
                                                             <select class="form-control success"
                                                                     style="width: 100%;">
@@ -472,18 +472,18 @@
                                                                 for="pretensii-currency-exchange-rate-as-of-the-date-of-payment">курс
                                                             на момент возмещения</label></div>
                                                     <input type="text"
-                                                           name="currency_exchange_rate"
+                                                           name="currency_exchange_rate" value="{{ old('currency_exchange_rate') }}"
                                                            class="form-control client-type-text"
                                                            id="pretensii-currency-exchange-rate-as-of-the-date-of-payment"
-                                                           value="5000">
+                                                           placeholder="5000">
                                                 </div>
                                                 <div class=" col-md-6">
                                                     <div><label class="col-form-label"
                                                                 for="pretensii-total-amount-in-soums">Итого
                                                             сумма в сумах</label></div>
-                                                    <input type="text" name="total_amount_in_sums"
+                                                    <input type="text" name="total_amount_in_sums" value="{{ old('total_amount_in_sums') }}"
                                                            class="form-control client-type-text"
-                                                           id="pretensii-pretensii-total-amount-in-soums" value="5000">
+                                                           id="pretensii-pretensii-total-amount-in-soums" placeholder="5000">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -495,7 +495,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">Дата</span>
                                                             </div>
-                                                            <input id="pretensii-date-of-payment-of-compensation"
+                                                            <input id="pretensii-date-of-payment-of-compensation" value="{{ old('date_of_payment_compensation') }}"
                                                                    name="date_of_payment_compensation" type="date"
                                                                    class="form-control">
                                                         </div>
@@ -515,7 +515,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Дата</span>
                                     </div>
-                                    <input id="pretensii-final-settlement-date" name="final_settlement_date"
+                                    <input id="pretensii-final-settlement-date" name="final_settlement_date" value="{{ old('final_settlement_date') }}"
                                            type="date" class="form-control">
                                 </div>
                             </div>

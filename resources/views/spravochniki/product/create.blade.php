@@ -44,7 +44,7 @@
                                             <div class="form-group">
                                                 <label for="tarif" class="col-form-label">Наименование</label>
                                                 <input id="name" type="text" class="form-control"
-                                                       name="name" required>
+                                                       name="name" value="{{ old('name') }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -63,7 +63,7 @@
                                             <div class="form-group">
                                                 <label for="tarif" class="col-form-label">Тарифная ставка</label>
                                                 <input id="tarif" type="number" class="form-control"
-                                                       name="tarif" required>
+                                                       name="tarif" value="{{ old('tarif') }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +73,7 @@
                                                 <label for="min_acceptable_amount" class="col-form-label">Минимально
                                                     допустимая сумма</label>
                                                 <input id="min_acceptable_amount" type="number" class="form-control"
-                                                       name="min_acceptable_amount" required>
+                                                       name="min_acceptable_amount" value="{{ old('min_acceptable_amount') }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -81,14 +81,14 @@
                                                 <label for="max_acceptable_amount" class="col-form-label">Максимально
                                                     допустимая сумма</label>
                                                 <input id="max_acceptable_amount" type="number" class="form-control"
-                                                       name="max_acceptable_amount" required>
+                                                       name="max_acceptable_amount" value="{{ old('max_acceptable_amount') }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="franshiza" class="col-form-label">Франшиза</label>
                                                 <input id="franshiza" type="number" class="form-control"
-                                                       name="franshiza" required>
+                                                       name="franshiza" value="{{ old('franshiza') }}" required>
                                             </div>
                                         </div>
                                     </div>

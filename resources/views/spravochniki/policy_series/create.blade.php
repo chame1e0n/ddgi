@@ -43,6 +43,7 @@
                                                         id="code"
                                                         class="form-control"
                                                         name="code"
+                                                        value="{{ old('code') }}"
                                                         required
                                                 >
                                             </div>

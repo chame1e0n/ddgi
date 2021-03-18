@@ -42,13 +42,13 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="name" class="col-form-label">Название</label>
-                                                    <input id="name" class="form-control" name="name" required>
+                                                    <input id="name" class="form-control" name="name" value="{{ old('name') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="address" class="col-form-label">Адрес</label>
-                                                    <input id="address" class="form-control" name="address" required>
+                                                    <input id="address" class="form-control" name="address" value="{{ old('address') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="phone_number" class="col-form-label">Номер телефона</label>
-                                                    <input id="phone_number" class="form-control" name="phone_number" required>
+                                                    <input id="phone_number" class="form-control" name="phone_number" value="{{ old('phone_number') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -77,7 +77,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="schet" class="col-form-label">Расчетный счет</label>
-                                                    <input id="schet" class="form-control" name="raschetniy_schet" required>
+                                                    <input id="schet" class="form-control" name="raschetniy_schet" value="{{ old('raschetniy_schet') }}" required>
                                                 </div>
                                             </div>
                                         </div>
