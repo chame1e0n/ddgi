@@ -43,6 +43,7 @@
                                                         id="name"
                                                         class="form-control"
                                                         name="name"
+                                                        value="{{ old('name') }}"
                                                         required
                                                 >
                                             </div>
@@ -55,6 +56,7 @@
                                                             id="code"
                                                             class="form-control"
                                                             name="code"
+                                                            value="{{ old('code') }}"
                                                             required
                                                     >
                                                 </div>
@@ -68,6 +70,7 @@
                                                             id="code"
                                                             class="form-control"
                                                             name="rate"
+                                                            value="{{ old('rate') }}"
                                                             required
                                                     >
                                                 </div>
