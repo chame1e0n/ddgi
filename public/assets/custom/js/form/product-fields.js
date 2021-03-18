@@ -227,7 +227,7 @@ $(document).on("keyup", ".modal", function() {
     $('#totalLimit-' + fieldNumber).on('keyup', function() {
         if ($('.r-summ-' + fieldNumber).val() >= $('#totalLimit-' + fieldNumber).val()) {
             $('#form-save-button').attr('disabled', true)
-            // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
+                // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
         } else {
             $('#form-save-button').removeAttr('disabled');
 
