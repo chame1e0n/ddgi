@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Requests\CreditFinRiskNepogashenCreditRequest;
 use App\Models\PolicyHolder;
 use App\Models\Product\CrediFinRiskNepogashenAvtocredit;
 use App\Models\Product\CreditFinRiskNepogashenCredit;
@@ -41,7 +42,7 @@ class CreditFinRiskNepogashenCreditController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreditFinRiskNepogashenCreditRequest $request)
     {
         $data = $request->all();
         $policyHolder = PolicyHolder::createPolicyHolders($request);
@@ -89,7 +90,7 @@ class CreditFinRiskNepogashenCreditController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreditFinRiskNepogashenCreditRequest $request, $id)
     {
         $data = $request->all();
         $page = CreditFinRiskNepogashenCredit::UpdateOrCreateCreditFinRiskNepogashenCredits($data, $id);
