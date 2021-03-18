@@ -96,10 +96,13 @@
 <script src="/assets/dist/js/demo.js"></script>
 
 <script src="/assets/custom/js/csrftoken.js"></script>
+
 <script src="/assets/custom/js/form/variables.js"></script>
 <script src="/assets/custom/js/form/add-clients.js"></script>
 <script src="/assets/custom/js/form/product-fields.js"></script>
 <script src="/assets/custom/js/form/product-fields.add.js"></script>
+
+
 <script src="/assets/plugins/bootstrap-fileinput/js/plugins/piexif.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
@@ -107,7 +110,9 @@
 <script src="/assets/plugins/bootstrap-fileinput/js/locales/LANG.js"></script>
 <!-- Bootstrap Switch -->
 <script src="/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
 <script>
+
     // let appendData = $("#ajaxData");
     // $('#banki').click(function(event){
     //     event.preventDefault();
