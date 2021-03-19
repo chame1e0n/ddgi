@@ -135,8 +135,8 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                                    <input value="{{old('okonh_insurer')}}" type="text" id="insurer-okonh" name="okonh_insurer"
-                                                           @if($errors->has('okonh_insurer'))
+                                                    <input value="{{old('oked')}}" type="text" id="oked" name="oked"
+                                                           @if($errors->has('oked'))
                                                            class="form-control is-invalid"
                                                            @else
                                                            class="form-control"
@@ -144,6 +144,7 @@
                                                 </div>
                                             </div>
                                     </div>
+                                </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="card card-info" id="clone-beneficiary">
