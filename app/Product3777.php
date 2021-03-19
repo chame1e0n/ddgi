@@ -2,36 +2,24 @@
 
 namespace App;
 
+use App\Models\PolicyHolder;
+use App\Models\Spravochniki\Bank;
 use Illuminate\Database\Eloquent\Model;
 
 class Product3777 extends Model
 {
-    protected $fillable = [
-        'policy_holder_id',
-        'zaemshik_id',
-        'dogovor_lizing_num',
-        'insurance_from',
-        'insurance_to',
-        'insurance_aim',
-        'insurance_sum',
-        'currency',
-        'franshiza',
-        'object_from_date',
-        'object_to_date',
-        'other_info',
-        'insurance_total_sum',
-        'insurance_gift',
-        'payment_currency',
-        'payment_term',
-        'polis_series',
-        'polis_from',
-        'litso',
-        'passport_copy',
-        'dogovor_copy',
-        'spravka_copy',
-        'other',
-        'oked',
-        'activity_type',
-        'okonx'
-    ];
+    protected $table = 'product3777s';
+    protected $guarded = [];
+
+    public function policyHolder()
+    {
+        return $this->hasOne(PolicyHolder::class, 'id', 'policy_holder_id')
+            ->with('bank');
+    }
+
+    public function zaemshik()
+    {
+        return $this->hasOne(Zaemshik::class, 'id', 'zaemshik_id');
+    }
+
 }

@@ -55,12 +55,11 @@ Route::group(['middleware' => ['auth']], function() {
 
     ////////////////////////////////// Ulugbek //////////////////////////////////////
     //// Product3777
+    Route::resource('product3777','Product3777\Product3777Controller')->except('index');
 
-    Route::resource('test/product3777','Product3777\Product3777Controller')
-        ->only('create', 'store');
     //// BorrowerSportsman
+    Route::resource('borrower_sportsman','BorrowerSportsmanController');
 
-    Route::resource('test/borrower_sportsman','BorrowerSportsmanController');
     /////////////////////////////////////////////////////////////////////////////////
 
     Route::resource('spravochniki/bank','Spravochniki\BankController');

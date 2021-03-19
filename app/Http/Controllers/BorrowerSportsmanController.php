@@ -96,6 +96,7 @@ class BorrowerSportsmanController extends Controller
                 "payment_bonus_from" => "required"
             ]);
         }
+
         $policyHolder = PolicyHolder::create([
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
