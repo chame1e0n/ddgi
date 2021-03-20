@@ -48,7 +48,7 @@ class OtvetstvennostPodryadchikController extends Controller
         $request->policy_holder_id = $newPolicyHolders->id;
         $newOtvetstvennostPodryadchik = OtvetstvennostPodryadchik::createOtvetstvennostPodryadchik($request);
         if(!$newOtvetstvennostPodryadchik)
-            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении OtvetstvennostPodryadchik')]);
         if(!empty($request->post('payment_sum')) && !empty($request->post('payment_sum')))
             {
                 $i = 0;

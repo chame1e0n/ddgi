@@ -53,7 +53,7 @@ class PolicyHolder extends Model
             'bank_id' => $request->bank_insurer,
         ]);
         if($policyHolder)
-            return true;
+            return $policyHolder;
         else
             return false;
     }

@@ -266,7 +266,7 @@
                                         <tr id="payment-term-tr-0" data-field-number="0">
                                             <td><input type="text" class="form-control" name="payment_sum[]">
                                             </td>
-                                            <td><input type="date" class="form-control" name="payment_from[]">
+                                            <td><input type="date" class="form-control" name="payment_from[]]">
                                             </td>
                                         </tr>
                                         </tbody>

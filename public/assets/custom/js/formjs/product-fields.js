@@ -429,10 +429,12 @@ function addRow3(fieldNumber, ) {
 
             if (c === 1) {
                 ele.setAttribute('type', 'date');
-                ele.setAttribute('id', `payment_from-${fieldNumber}-${paymentTypeFieldNumber}`);
+                ele.setAttribute('id', `payment_from-${paymentTypeFieldNumber}`);
+                ele.setAttribute('name', `payment_from[]`);
             } else {
                 ele.setAttribute('type', 'text');
-                ele.setAttribute('id', `payment_sum-${fieldNumber}-${paymentTypeFieldNumber}`);
+                ele.setAttribute('id', `payment_sum-${paymentTypeFieldNumber}`);
+                ele.setAttribute('name', `payment_sum[]`);
             }
 
             ele.setAttribute('class', 'form-control');
@@ -485,7 +487,7 @@ function addProductFields(fieldNumber) {
                             </button>
                         </div>
                     </div>
-                           
+
                     <div class="card-body">
                         <div id="product-fields-${fieldNumber}-3">
                             <div class="form-group">
@@ -597,7 +599,7 @@ function addProductFields(fieldNumber) {
                         </div>
                     </div>
 
-                    
+
                     <div class="card-body">
                         <div id="product-fields-${fieldNumber}-3">
                             <div class="form-group">
@@ -625,7 +627,7 @@ function addProductFields(fieldNumber) {
                         </div>
                     </div>
 
-                          
+
                     <div class="card-body">
                         <div id="product-fields-${fieldNumber}-3">
                             <div class="form-group">

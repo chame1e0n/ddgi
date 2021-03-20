@@ -1,0 +1,566 @@
+@extends('layouts.index')
+
+@section('content')
+
+    <!-- Content Wrapper. Contains page content -->
+    <form action="{{route('tamozhnya-add.store')}}" method="POST" id="mainFormKasko">
+        @csrf
+        <div class="content-wrapper">
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                                <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
+                                <li class="breadcrumb-item active">Создать Анкету</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="content">
+                <div class="card card-success product-type">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="client-product-form">
+                            <div class="form-group clearfix">
+                                <label>Типы клиента</label>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icheck-success">
+                                            <input type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-1" value="individual">
+                                            <label for="client-type-radio-1">физ. лицо</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icheck-success">
+                                            <input type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-2" value="legal">
+                                            <label for="client-type-radio-2">юр. лицо</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-id">Вид продукта</label>
+                                <select id="product-id" class="form-control select2" name="product_id" style="width: 100%;">
+                                    <option selected="selected">говно</option>
+                                    <option selected="selected">говно 2</option>
+                                    <option value="1">asdc</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-insurance">
+                        <div class="card-header">
+                            <h3 class="card-title">Общие сведения</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
+                                        <input type="text" id="insurer-name" name="fio_insurer"
+                                               value="{{old('fio_insurer')}}" @if($errors->has('fio_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="insurer-address" class="col-form-label">Юр адрес
+                                            страхователя</label>
+                                        <input value="{{old('address_insurer')}}" type="text" id="insurer-address"
+                                               name="address_insurer"
+                                               @if($errors->has('address_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
+                                        <input value="{{old('tel_insurer')}}" type="text" id="insurer-tel"
+                                               name="tel_insurer"
+                                               @if($errors->has('tel_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
+                                        <input value="{{old('address_schet')}}" type="text" id="insurer-schet"
+                                               name="address_schet"
+                                               @if($errors->has('address_schet'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
+                                        <input value="{{old('inn_insurer')}}" type="text" id="insurer-inn"
+                                               name="inn_insurer"
+                                               @if($errors->has('inn_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="insurer-mfo" class="col-form-label">МФО</label>
+                                        <input value="{{old('mfo_insurer')}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
+                                        class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="insurer-bank" class="col-form-label">Банк</label>
+                                        <select @if($errors->has('bank_insurer'))
+                                                class="form-control is-invalid"
+                                                @else
+                                                class="form-control"
+                                                @endif id="insurer_bank" name="bank_insurer"
+                                                style="width: 100%;" required>
+                                            <option>Выберите банк</option>
+                                            @foreach($banks as $bank)
+                                                @if(old('bank_insurer') == $bank->id)
+                                                    <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                @else
+                                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
+                                        <input value="{{old('oked')}}" type="text" id="oked" name="oked"
+                                               @if($errors->has('oked'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card card-info" id="clone-beneficiary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Выгодоприобретатель</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="beneficiary-card-body">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-name" class="col-form-label">Наименование выгодоприобретателя</label>
+                                                    <input type="text" id="beneficiary-name" name="fio-beneficiary" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-address" class="col-form-label">Юр адрес выгодоприобретателя</label>
+                                                    <input type="text" id="beneficiary-address" name="address-beneficiary" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-tel" class="col-form-label">Телефон</label>
+                                                    <input type="text" id="beneficiary-tel" name="tel-beneficiary" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
+                                                    <input type="text" id="beneficiary-schet" name="beneficiary-schet" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-inn" class="col-form-label">ИНН</label>
+                                                    <input type="text" id="beneficiary-inn" name="inn-beneficiary" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-mfo" class="col-form-label">МФО</label>
+                                                    <input type="text" id="beneficiary-mfo" name="mfo-beneficiary" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-bank" class="col-form-label">Банк</label>
+                                                    <input type="text" id="beneficiary-bank" name="bank-beneficiary" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
+                                                    <input type="text" id="beneficiary-okonh" name="okonh-beneficiary" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div id="anketa-fields">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Период страхования</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">с</span>
+                                            </div>
+                                            <input id="insurance_from" name="insurance_from" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Период страхования</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">до</span>
+                                                </div>
+                                                <input id="insurance_to" name="insurance_to" type="date" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="anketa-fields">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="dogovor-lizing-num" class="col-form-label">Объём площади склада</label>
+                                    <input type="text" id="dogovor-lizing-num" name="dogovor-lizing-num" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="geographic-zone">Объем товара:</label>
+                                    <div class="input-group mb-4">
+                                        <input type="text" class="form-control evocuation-0" name="coverage_evacuation_cost">
+                                        <div class="input-group-append">
+                                            <select class="form-control success" name="total_liability_limit_currency-0" style="width: 100%;">
+                                                <option selected="selected">Литр</option>
+                                                <option>Тонна</option>
+                                                <option>Штука</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="geographic-zone">Общая стоимость:</label>
+                                    <input type="text" id="geographic-zone" name="geo-zone" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Период нахождения товара на складе</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">с</span>
+                                    </div>
+                                    <input id="insurance_from" name="insurance_from" type="date" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Период нахождения товара на складе</label>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">до</span>
+                                        </div>
+                                        <input id="insurance_to" name="insurance_to" type="date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Условия оплаты страховой премии</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="payment-terms-form">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Валюта взаиморасчетов</label>
+                                        <select class="form-control" id="walletNames"
+                                                style="width: 100%; text-align: center" name="insurance_premium_currency">
+                                            <option selected="selected">UZS
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Порядок оплаты страховой премии</label>
+                                        <select class="form-control payment-schedule" name="payment_term"
+                                                onchange="showDiv('other-payment-schedule', this)"
+                                                style="width: 100%; text-align: center">
+                                            <option value="1">Единовременно</option>
+                                            <option value="other">Другое</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Способ расчета</label>
+                                        <select class="form-control sposob_rascheta" name="sposob_rascheta" style="width: 100%; text-align: center">
+                                            <option value="1">Сумах</option>
+                                            <option value="2">Сумах В ин. валюте</option>
+                                            <option value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
+                                            <option value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
+                                            <option value="4">В ин. валюте по фиксированному ЦБ на день оплаты премии/первого транша</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="all-summ">Cтраховая сумма</label>
+                                        <input id="strahovaya_sum" name="strahovaya_sum" value="{{old('strahovaya_sum')}}"
+                                               type="number" @if($errors->has('strahovaya_sum'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="geographic-zone">Страховая премия</label>
+                                        <input id="strahovaya_purpose" name="strahovaya_purpose" value="{{old('strahovaya_purpose')}}"
+                                               type="number" @if($errors->has('strahovaya_purpose'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="geographic-zone">Франшиза</label>
+                                        <input id="franshiza" name="franshiza" value="{{old('franshiza')}}"
+                                               type="text" @if($errors->has('franshiza'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="other-payment-schedule" style="display: none;">
+                                <div class="form-group">
+                                    <button type="button" onclick="addRow3()" class="btn btn-primary ">
+                                        Добавить
+                                    </button>
+                                </div>
+                                <div class="table-responsive p-0 " style="max-height: 300px;">
+                                    <table class="table table-hover table-head-fixed" id="empTable3">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-nowrap">Сумма</th>
+                                            <th class="text-nowrap">От</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr id="payment-term-tr-0" data-field-number="0">
+                                            <td><input type="text" class="form-control" name="payment_sum[]"></td>
+                                            <td><input type="date" class="form-control" name="payment_from[]"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Сведения о страховом полисе</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
+                                            <input id="serial_number_policy" name="serial_number_policy" value="{{old('serial_number_policy')}}"
+                                                   type="text" @if($errors->has('serial_number_policy'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col-form-label">Дата выдачи страхового полиса </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"></span>
+                                            </div>
+                                            <input id="date_issue_policy" name="date_issue_policy" value="{{old('date_issue_policy')}}"
+                                                   type="date" @if($errors->has('date_issue_policy'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="otvet-litso">Ответственное лицо</label>
+                                            <select @if($errors->has('litso'))
+                                                    class="form-control is-invalid"
+                                                    @else
+                                                    class="form-control"
+                                                    @endif id="otvet-litso" name="litso"
+                                                    style="width: 100%;" required>
+                                                <option></option>
+                                                @foreach($agents as $agent)
+                                                    <option @if(old('litso') == $agent->user_id) selected
+                                                            @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Загрузка документов</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="polis-series" class="col-form-label">Анкета</label>
+                                        <input id="anketa_img" name="anketa_img" value="{{old('anketa_img')}}"
+                                               type="file" @if($errors->has('anketa_img'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="polis-series" class="col-form-label">Договор</label>
+                                        <input id="dogovor_img" name="dogovor_img" value="{{old('dogovor_img')}}"
+                                               type="file" @if($errors->has('dogovor_img'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="polis-series" class="col-form-label">Полис</label>
+                                        <input id="polis_img" name="polis_img" value="{{old('polis_img')}}"
+                                               type="file" @if($errors->has('polis_img'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
+            </div>
+        </div>
+    </form>
+
+@endsection
