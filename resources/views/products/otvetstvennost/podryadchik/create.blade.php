@@ -11,7 +11,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -91,7 +99,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-inn" class="col-form-label">Вид деятельности</label>
-                                        <input type="text" id="vid_deyatelnosti" name="vid_deyatelnosti" value="{{old('vid_deyatelnosti')}}" class="form-control">
+                                        <input type="text" id="vid_deyatelnosti" name="vid_deyatelnosti" value="{{old('vid_deyatelnosti')}}" @if($errors->has('vid_deyatelnosti'))
+                                        class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -141,7 +153,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input value="{{old('okonx')}}" type="text" id="okonx" name="okonx"
+                                        <input value="{{old('okonx')}}" type="text" id="okonx" name="okonh_insurer"
                                                @if($errors->has('okonx'))
                                                class="form-control is-invalid"
                                                @else
@@ -164,7 +176,13 @@
                                     <div class="form-group">
                                         <label for="description" class="col-form-label">Информация о персонале
                                         </label>
-                                        <textarea id="informaciya_o_personale" class="form-control" name="informaciya_o_personale" required>
+                                        <textarea id="informaciya_o_personale"
+                                                  @if($errors->has('informaciya_o_personale'))
+                                                  class="form-control is-invalid"
+                                                  @else
+                                                  class="form-control"
+                                                  @endif
+                                                  name="informaciya_o_personale" required>{{old('informaciya_o_personale')}}
                                             </textarea>
                                     </div>
                                 </div>
@@ -184,8 +202,12 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">с</span>
                                                     </div>
-                                                    <input id="from_date" name="from_date" type="date"
-                                                           class="form-control">
+                                                    <input value="{{old('from_date')}}" id="from_date" name="from_date" type="date"
+                                                           @if($errors->has('from_date'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                        @endif>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,16 +217,24 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="to_date" name="to_date" type="date"
-                                                           class="form-control">
+                                                    <input value="{{old('to_date')}}" id="to_date" name="to_date" type="date"
+                                                           @if($errors->has('to_date'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                        @endif>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="geographic-zone">Географическая зона:</label>
-                                        <input type="text" id="geo_zone" name="geo_zone"
-                                               class="form-control">
+                                        <input value="{{old('geo_zone')}}" type="text" id="geo_zone" name="geo_zone"
+                                               @if($errors->has('geo_zone'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
                                     </div>
                                 </div>
                             </div>
@@ -262,11 +292,19 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody>{{--@dd($errors)--}}
                                         <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment_sum[]">
+                                            <td><input type="text" @if($errors->has('payment_sum.*'))
+                                                class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif name="payment_sum[]" value="{{old('payment_sum.*')}}">
                                             </td>
-                                            <td><input type="date" class="form-control" name="payment_from[]">
+                                            <td><input type="date" @if($errors->has('payment_from.*'))
+                                                class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif name="payment_from[]" value="{{old('payment_from.*')}}">
                                             </td>
                                         </tr>
                                         </tbody>
@@ -285,14 +323,22 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="strahovaya_sum" name="strahovaya_sum" class="form-control">
+                                        <input value="{{old('strahovaya_sum')}}" type="text" id="strahovaya_sum" name="strahovaya_sum" @if($errors->has('strahovaya_sum'))
+                                        class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="geographic-zone">Страховая премия</label>
-                                        <input type="text" id="strahovaya_purpose" name="strahovaya_purpose"
-                                               class="form-control">
+                                        <input value="{{old('strahovaya_purpose')}}" type="text" id="strahovaya_purpose" name="strahovaya_purpose"
+                                               @if($errors->has('strahovaya_purpose'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
                                     </div>
                                 </div>
 
@@ -317,7 +363,11 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                <input type="text" id="serial_number_policy" name="serial_number_policy" class="form-control">
+                                                <input value="{{old('serial_number_policy')}}" type="text" id="serial_number_policy" name="serial_number_policy" @if($errors->has('serial_number_policy'))
+                                                class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -326,7 +376,11 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"></span>
                                                 </div>
-                                                <input id="date_issue_policy" name="date_issue_policy" type="date" class="form-control">
+                                                <input value="{{old('date_issue_policy')}}" id="date_issue_policy" name="date_issue_policy" type="date" @if($errors->has('date_issue_policy'))
+                                                class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
                                             </div>
                                         </div>
                                         <div class="col-md-4">

@@ -12,7 +12,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -142,7 +150,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input value="{{$podryadchik->policyHolders->okonx}}" type="text" id="okonx" name="okonx"
+                                        <input value="{{$podryadchik->policyHolders->okonx}}" type="text" id="okonx" name="okonh_insurer"
                                                @if($errors->has('okonx'))
                                                class="form-control is-invalid"
                                                @else
