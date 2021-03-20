@@ -15,6 +15,9 @@ class CreateTamozhnyaAddStrahPremiyasTable extends Migration
     {
         Schema::create('tamozhnya_add_strah_premiyas', function (Blueprint $table) {
             $table->id();
+            $table->string('prem_sum');
+            $table->date('prem_from');
+            $table->integer('tamozhnya_add_id');
             $table->timestamps();
         });
     }

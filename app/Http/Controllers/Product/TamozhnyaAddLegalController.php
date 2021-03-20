@@ -73,7 +73,7 @@ class TamozhnyaAddLegalController extends Controller
                 $i++;
             }
         }
-        return back()->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('tamozhnya-add-legal.update', $newTamozhnyaAddLegal->id)->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**

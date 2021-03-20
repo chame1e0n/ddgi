@@ -20,19 +20,43 @@ class PolicyBeneficiaries extends Model
 
     static function createPolicyBeneficiaries($request){
 //        dd($request->all());
-        self::create([
-            'FIO' => $request->post('FIO'),
-            'address' => $request->post('address'),
-            'phone_number' => $request->post('phone_number'),
-            'checking_account' => $request->post('checking_account'),
-            'inn' => $request->post('inn'),
-            'mfo' => $request->post('mfo'),
+        $policyBeneficiaries = self::create([
+            'FIO' => $request->post('fio_beneficiary'),
+            'address' => $request->post('address_beneficiary'),
+            'phone_number' => $request->post('tel_beneficiary'),
+            'checking_account' => $request->post('beneficiary_schet'),
+            'inn' => $request->post('inn_beneficiary'),
+            'mfo' => $request->post('mfo_beneficiary'),
             'okonx' => $request->post('okonx'),
-            'bank_id' => $request->post('bank_id'),
+            'bank_id' => $request->post('bank_beneficiary'),
             'seria_passport' => $request->post('seria_passport'),
             'nomer_passport' => $request->post('nomer_passport'),
-            'oked' => $request->post('oked'),
-
+            'oked' => $request->post('okonh_beneficiary'),
         ]);
+        if($policyBeneficiaries)
+            return $policyBeneficiaries;
+        else
+            return false;
+    }
+
+    static function updatePolicyBeneficiaries($id, $request){
+        $policyBeneficiaries = PolicyBeneficiaries::find($id);
+        $policyBeneficiaries->update([
+            'FIO' => $request->post('fio_beneficiary'),
+            'address' => $request->post('address_beneficiary'),
+            'phone_number' => $request->post('tel_beneficiary'),
+            'checking_account' => $request->post('beneficiary_schet'),
+            'inn' => $request->post('inn_beneficiary'),
+            'mfo' => $request->post('mfo_beneficiary'),
+            'okonx' => $request->post('okonx'),
+            'bank_id' => $request->post('bank_beneficiary'),
+            'seria_passport' => $request->post('seria_passport'),
+            'nomer_passport' => $request->post('nomer_passport'),
+            'oked' => $request->post('okonh_beneficiary'),
+        ]);
+        if($policyBeneficiaries)
+            return $policyBeneficiaries;
+        else
+            return false;
     }
 }

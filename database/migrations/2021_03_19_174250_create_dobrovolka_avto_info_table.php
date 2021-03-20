@@ -33,8 +33,6 @@ class CreateDobrovolkaAvtoInfoTable extends Migration
             $table->string('neschastnuy_slushau')->nullable();
             $table->string('avto_otvetstvennost')->nullable();
             $table->string('zastrahovanu_avto')->nullable();
-            $table->string('seriya_polisa')->nullable();
-            $table->string('seriya_polisa')->nullable();
             $table->timestamps();
         });
     }
