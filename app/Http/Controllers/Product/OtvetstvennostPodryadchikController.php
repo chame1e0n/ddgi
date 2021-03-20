@@ -55,11 +55,13 @@ class OtvetstvennostPodryadchikController extends Controller
                 $i = 0;
                 foreach ($request->post('payment_sum') as $sum)
                 {
-                    $newStrahPremiya = OtvetstvennostPodryadchikStrahPremiya::create([
-                    'prem_sum' => $sum,
-                        'prem_from' => $request->post('payment_from')[$i],
-                        'otvetstvennost_podryadchik_id' => $newOtvetstvennostPodryadchik->id
-                    ]);
+                    if($sum != null && $request->post('payment_from')[$i] != null) {
+                        $newStrahPremiya = OtvetstvennostPodryadchikStrahPremiya::create([
+                            'prem_sum' => $sum,
+                            'prem_from' => $request->post('payment_from')[$i],
+                            'otvetstvennost_podryadchik_id' => $newOtvetstvennostPodryadchik->id
+                        ]);
+                    }
                     $i++;
                 }
             }
