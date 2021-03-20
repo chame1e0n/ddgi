@@ -376,6 +376,7 @@ function addRow3(fieldNumber) {
 
       button.setAttribute('onclick', 'removeRow3(this)');
       button.setAttribute('class', 'btn btn-warning');
+
       td.appendChild(button);
     } else {
       // all except the last colum will have input field.
