@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Requests\OtvetstvennostPodryadchikRequest;
 use App\Models\Product\OtvetstvennostPodryadchikStrahPremiya;
 use App\Models\PolicyHolder;
 use App\Models\Product\OtvetstvennostPodryadchik;
@@ -40,7 +41,7 @@ class OtvetstvennostPodryadchikController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OtvetstvennostPodryadchikRequest $request)
     {
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
@@ -88,6 +89,7 @@ class OtvetstvennostPodryadchikController extends Controller
     public function edit($id)
     {
         $podryadchik = OtvetstvennostPodryadchik::getInfoPodryadchik($id);
+
         $banks = Bank::all();
         $agents = Agent::all();
         return view('products.otvetstvennost.podryadchik.edit', compact('banks', 'agents', 'podryadchik'));
@@ -100,7 +102,7 @@ class OtvetstvennostPodryadchikController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OtvetstvennostPodryadchikRequest $request, $id)
     {
         $otvetstvennostPodryadchik = OtvetstvennostPodryadchik::findOrFail($id);
         $policyHolders           = PolicyHolder::updatePolicyHolders($otvetstvennostPodryadchik->policy_holder_id, $request);

@@ -65,7 +65,7 @@ class OtvetstvennostPodryadchik extends Model
 
     static function getInfoPodryadchik($id)
     {
-        $podryadchik = OtvetstvennostPodryadchik::where('id', $id)->with(['strahPremiya', 'policyHolders'])->first();
+        $podryadchik = OtvetstvennostPodryadchik::where('id', $id)->with(['strahPremiya', 'policyHolders'])->firstorFail();
         return $podryadchik;
     }
 }
