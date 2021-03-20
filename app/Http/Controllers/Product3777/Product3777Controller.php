@@ -8,6 +8,7 @@ use App\Models\Spravochniki\Bank;
 use App\Product3777;
 use App\Zaemshik;
 use Illuminate\Http\Request;
+use Mnvx\EloquentPrintForm\PrintFormProcessor;
 
 class Product3777Controller extends Controller
 {
@@ -292,5 +293,53 @@ class Product3777Controller extends Controller
     {
         Product3777::destroy($id);
         return 'Успешно обновлен удалень Product 3777';
+    }
+
+    public function print($id)
+    {
+        $product = Product3777::query()->with('policyHolder', 'zaemshik')->findOrFail($id);
+        $entity = $product;
+        $date = $product->insurance_from;
+        $date_object_from = $product->object_from_date;
+        $date_object_to = $product->object_to_date;
+        $time = strtotime($date);
+        $time_object_from = strtotime($date_object_from);
+        $time_object_to = strtotime($date_object_to);
+
+        //////insurance_from
+        $day = date('d', $time);
+        $month = date('m', $time);
+        $year = date('y', $time);
+
+        //////object_date_from
+        $day_object_from = date('d', $time_object_from);
+        $month_object_from = date('m', $time_object_from);
+        $year_object_from = date('y', $time_object_from);
+
+        //////object_date_to
+        $day_object_to = date('d', $time_object_to);
+        $month_object_to = date('m', $time_object_to);
+        $year_object_to = date('y', $time_object_to);
+
+        ///////insurance_from
+        $entity->day_of_insurance = $day;
+        $entity->month_of_insurance = $month;
+        $entity->year_of_insurance = $year;
+
+        //////object_date_from
+        $entity->day_of_object = $day_object_from;
+        $entity->month_of_object = $month_object_from;
+        $entity->year_of_object = $year_object_from;
+
+        //////object_date_to
+        $entity->day_of_object_to = $day_object_to;
+        $entity->month_of_object_to = $month_object_to;
+        $entity->year_of_object_to = $year_object_to;
+
+        $printFormProcessor = new PrintFormProcessor();
+        $templateFile = resource_path('product3777\document.docx');
+        $tempFileName = $printFormProcessor->process($templateFile, $entity);
+        $fileName = 'product3777_' . $id;
+        return response()->download($tempFileName, $fileName . '.docx')->deleteFileAfterSend();
     }
 }

@@ -449,5 +449,8 @@
         <div class="card-footer">
             <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
         </div>
+        <div class="card-footer">
+            <a href="{{route('print',$product->id)}}" type="submit" class="btn btn-warning float-right" id="form-save-button">Print</a>
+        </div>
     </form>
 @endsection

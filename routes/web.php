@@ -60,6 +60,9 @@ Route::group(['middleware' => ['auth']], function() {
     //// BorrowerSportsman
     Route::resource('borrower_sportsman','BorrowerSportsmanController');
 
+    ///Printing
+    Route::get('product3777/print/{id}','Product3777\Product3777Controller@print')->name('print');
+
     /////////////////////////////////////////////////////////////////////////////////
 
     Route::resource('spravochniki/bank','Spravochniki\BankController');
