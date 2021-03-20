@@ -16,7 +16,6 @@ class EditPolicyBeneficiariesTable extends Migration
         Schema::table('policy_beneficiaries', function (Blueprint $table) {
             $table->string('seria_passport')->nullable();
             $table->string('nomer_passport')->nullable();
-            $table->string('telephone')->nullable();
             $table->string('oked')->nullable();
             $table->string('okonx')->nullable()->change();
         });
@@ -32,7 +31,6 @@ class EditPolicyBeneficiariesTable extends Migration
         Schema::table('policy_beneficiaries', function (Blueprint $table) {
             $table->dropColumn('seria_passport');
             $table->dropColumn('nomer_passport');
-            $table->dropColumn('telephone');
             $table->dropColumn('oked');
         });
     }

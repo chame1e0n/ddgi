@@ -20,16 +20,16 @@ class PolicyHolder extends Model
     static function createPolicyHolders($request)
     {
         $policyHolder = PolicyHolder::create([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'oked' => $request->oked,
-            'okonx' => $request->okonx,
-            'vid_deyatelnosti' => $request->vid_deyatelnosti,
-            'bank_id' => $request->bank_insurer,
+            'FIO' => $request->fio_insurer ?? null,
+            'address' => $request->address_insurer ?? null,
+            'phone_number' => $request->tel_insurer ?? null,
+            'checking_account' => $request->address_schet ?? null,
+            'inn' => $request->inn_insurer ?? null,
+            'mfo' => $request->mfo_insurer ?? null,
+            'oked' => $request->oked ?? null,
+            'okonx' => $request->okonh_insurer ?? null,
+            'vid_deyatelnosti' => $request->vid_deyatelnosti ?? null,
+            'bank_id' => $request->bank_insurer ?? null,
         ]);
         if($policyHolder)
             return $policyHolder;
@@ -41,15 +41,15 @@ class PolicyHolder extends Model
     {
         $policyHolder = PolicyHolder::find($id);
         $policyHolder->update([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'okonx' => $request->okonh_insurer,
-            'oked'  => $request->oked,
-            'bank_id' => $request->bank_insurer,
+            'FIO' => $request->fio_insurer ?? null,
+            'address' => $request->address_insurer ?? null,
+            'phone_number' => $request->tel_insurer ?? null,
+            'checking_account' => $request->address_schet ?? null,
+            'inn' => $request->inn_insurer ?? null,
+            'mfo' => $request->mfo_insurer ?? null,
+            'okonx' => $request->okonh_insurer ?? null,
+            'oked'  => $request->oked ?? null,
+            'bank_id' => $request->bank_insurer ?? null,
         ]);
         if($policyHolder)
             return true;
