@@ -231,16 +231,16 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="checkbox icheck-success">
-                                                            <input id="defects-1" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="1" @if($tamozhnya->pretenzii_in_ruz == 1) checked @endif>
+                                                            <input id="defects-1" onclick="Go()" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="1" @if($tamozhnya->pretenzii_in_ruz == 1) checked @endif>
                                                             <label for="defects-1">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success ">
-                                                            <input id="defects-0" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="0" @if($tamozhnya->pretenzii_in_ruz == 0) checked @endif>
+                                                            <input id="defects-0" onclick="Go()" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="0" @if($tamozhnya->pretenzii_in_ruz == 0) checked @endif>
                                                             <label for="defects-0">Нет</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group defects_images" style="display: none;">
+                                                <div class="form-group defects_images" id="hide" @if ($tamozhnya->pretenzii_in_ruz == 1 || old('pretenzii_in_ruz') == 1) style = "display: block;" @else style = "display: none;" @endif>
                                                     <label>Опсиание причины</label>
                                                     <input id="prichina_pretenzii" name="prichina_pretenzii" value="{{$tamozhnya->prichina_pretenzii}}"
                                                            type="text" @if($errors->has('prichina_pretenzii'))
@@ -500,4 +500,12 @@
         </div>
     </form>
 
+@endsection
+@section('scripts_vars')
+    <script>
+
+        function Go() {
+            document.getElementById('hide').style.display=(document.getElementById('defects-1').checked)? 'block': 'none'
+        }
+    </script>
 @endsection

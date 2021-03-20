@@ -1,3 +1,4 @@
+   @include('errors.errors')
     <div class="card card-success product-type">
         <div class="card-header">
             <h3 class="card-title"></h3>

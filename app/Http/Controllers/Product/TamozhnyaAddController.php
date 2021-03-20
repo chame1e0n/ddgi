@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\TamozhnyaAddRequest;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\TamozhnyaAdd;
@@ -41,7 +42,7 @@ class TamozhnyaAddController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TamozhnyaAddRequest $request)
     {
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
@@ -71,15 +72,18 @@ class TamozhnyaAddController extends Controller
             $i = 0;
             foreach ($request->post('payment_sum') as $sum)
             {
-                $newStrahPremiya = \App\Models\Product\TamozhnyaAddStrahPremiya::create([
-                    'prem_sum' => $sum,
-                    'prem_from' => $request->post('payment_from')[$i],
-                    'tamozhnya_add_id' => $newTamozhnyaAdd->id
-                ]);
+                if($sum != null && $request->post('payment_from')[$i] != null)
+                {
+                    $newStrahPremiya = \App\Models\Product\TamozhnyaAddStrahPremiya::create([
+                        'prem_sum' => $sum,
+                        'prem_from' => $request->post('payment_from')[$i],
+                        'tamozhnya_add_id' => $newTamozhnyaAdd->id
+                    ]);
+                }
                 $i++;
             }
         }
-        return redirect()->route('tamozhnya-add.update', $newTamozhnyaAdd->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('tamozhnya-add.edit', $newTamozhnyaAdd->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
 
     }
 
@@ -118,7 +122,7 @@ class TamozhnyaAddController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TamozhnyaAddRequest $request, $id)
     {
         $tamozhnyaAdd = TamozhnyaAdd::findOrFail($id);
         $policyHolders           = PolicyHolder::updatePolicyHolders($tamozhnyaAdd->policy_holder_id, $request);

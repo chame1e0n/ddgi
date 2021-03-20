@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TamozhnyaAddLegalRequest;
 use App\Models\PolicyHolder;
 use App\Models\Product\TamozhnyaAddLegal;
 use App\Models\Spravochniki\Agent;
@@ -39,8 +40,9 @@ class TamozhnyaAddLegalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TamozhnyaAddLegalRequest $request)
     {
+//        dd($request->all());
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
@@ -65,15 +67,18 @@ class TamozhnyaAddLegalController extends Controller
             $i = 0;
             foreach ($request->post('payment_sum') as $sum)
             {
-                $newStrahPremiya = TamozhnyaAddLegalStrahPremiya::create([
-                    'prem_sum' => $sum,
-                    'prem_from' => $request->post('payment_from')[$i],
-                    'tamozhnya_add_legal_id' => $newTamozhnyaAddLegal->id
-                ]);
+                if($sum != null && $request->post('payment_from')[$i] != null)
+                {
+                    $newStrahPremiya = TamozhnyaAddLegalStrahPremiya::create([
+                        'prem_sum' => $sum,
+                        'prem_from' => $request->post('payment_from')[$i],
+                        'tamozhnya_add_legal_id' => $newTamozhnyaAddLegal->id
+                    ]);
+                }
                 $i++;
             }
         }
-        return redirect()->route('tamozhnya-add-legal.update', $newTamozhnyaAddLegal->id)->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('tamozhnya-add-legal.edit', $newTamozhnyaAddLegal->id)->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -111,7 +116,7 @@ class TamozhnyaAddLegalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TamozhnyaAddLegalRequest $request, $id)
     {
         $tamozhnyaAddLegal = TamozhnyaAddLegal::findOrFail($id);
         $policyHolders           = PolicyHolder::updatePolicyHolders($tamozhnyaAddLegal->policy_holder_id, $request);
