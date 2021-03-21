@@ -39,7 +39,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer"
+                                        <input readonly type="text" id="insurer-name" name="fio_insurer"
                                                value="{{$tamozhnya->policyHolders->FIO}}" @if($errors->has('fio_insurer'))
                                                class="form-control is-invalid"
                                                @else
@@ -52,7 +52,7 @@
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Юр адрес
                                             страхователя</label>
-                                        <input value="{{$tamozhnya->policyHolders->address}}" type="text" id="insurer-address"
+                                        <input readonly value="{{$tamozhnya->policyHolders->address}}" type="text" id="insurer-address"
                                                name="address_insurer"
                                                @if($errors->has('address_insurer'))
                                                class="form-control is-invalid"
@@ -64,7 +64,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input value="{{$tamozhnya->policyHolders->phone_number}}" type="text" id="insurer-tel"
+                                        <input readonly value="{{$tamozhnya->policyHolders->phone_number}}" type="text" id="insurer-tel"
                                                name="tel_insurer"
                                                @if($errors->has('tel_insurer'))
                                                class="form-control is-invalid"
@@ -76,7 +76,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input value="{{$tamozhnya->policyHolders->checking_account}}" type="text" id="insurer-schet"
+                                        <input readonly value="{{$tamozhnya->policyHolders->checking_account}}" type="text" id="insurer-schet"
                                                name="address_schet"
                                                @if($errors->has('address_schet'))
                                                class="form-control is-invalid"
@@ -88,7 +88,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input value="{{$tamozhnya->policyHolders->inn}}" type="text" id="insurer-inn"
+                                        <input readonly value="{{$tamozhnya->policyHolders->inn}}" type="text" id="insurer-inn"
                                                name="inn_insurer"
                                                @if($errors->has('inn_insurer'))
                                                class="form-control is-invalid"
@@ -101,7 +101,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input value="{{$tamozhnya->policyHolders->mfo}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
+                                        <input readonly value="{{$tamozhnya->policyHolders->mfo}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
                                         class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -111,7 +111,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <select @if($errors->has('bank_insurer'))
+                                        <select readonly @if($errors->has('bank_insurer'))
                                                 class="form-control is-invalid"
                                                 @else
                                                 class="form-control"
@@ -131,7 +131,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input value="{{$tamozhnya->policyHolders->oked}}" type="text" id="oked" name="oked"
+                                        <input readonly value="{{$tamozhnya->policyHolders->oked}}" type="text" id="oked" name="oked"
                                                @if($errors->has('oked'))
                                                class="form-control is-invalid"
                                                @else
@@ -186,7 +186,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">с</span>
                                                 </div>
-                                                <input id="from_date" name="from_date" value="{{$tamozhnya->from_date}}"
+                                                <input readonly id="from_date" name="from_date" value="{{$tamozhnya->from_date}}"
                                                        type="date" @if($errors->has('from_date'))
                                                        class="form-control is-invalid"
                                                        @else
@@ -201,7 +201,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="to_date" name="to_date" value="{{$tamozhnya->to_date}}"
+                                                    <input readonly id="to_date" name="to_date" value="{{$tamozhnya->to_date}}"
                                                            type="date" @if($errors->has('to_date'))
                                                            class="form-control is-invalid"
                                                            @else
@@ -213,7 +213,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="insurer-okonh" class="col-form-label">Профессиональные риски</label>
-                                                <input id="prof_riski" name="prof_riski" value="{{$tamozhnya->prof_riski}}"
+                                                <input readonly id="prof_riski" name="prof_riski" value="{{$tamozhnya->prof_riski}}"
                                                        type="text" @if($errors->has('prof_riski'))
                                                        class="form-control is-invalid"
                                                        @else
@@ -227,18 +227,18 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="checkbox icheck-success">
-                                                            <input id="defects-1" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="1" @if($tamozhnya->pretenzii_in_ruz == 1) checked @endif>
+                                                            <input readonly id="defects-1" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="1" @if($tamozhnya->pretenzii_in_ruz == 1) checked @endif>
                                                             <label for="defects-1">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success ">
-                                                            <input id="defects-0" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="0" @if($tamozhnya->pretenzii_in_ruz == 0) checked @endif>
+                                                            <input readonly id="defects-0" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="0" @if($tamozhnya->pretenzii_in_ruz == 0) checked @endif>
                                                             <label for="defects-0">Нет</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group defects_images" style="display: none;">
                                                     <label>Опсиание причины</label>
-                                                    <input id="prichina_pretenzii" name="prichina_pretenzii" value="{{$tamozhnya->prichina_pretenzii}}"
+                                                    <input readonly id="prichina_pretenzii" name="prichina_pretenzii" value="{{$tamozhnya->prichina_pretenzii}}"
                                                            type="text" @if($errors->has('prichina_pretenzii'))
                                                            class="form-control is-invalid"
                                                            @else
@@ -268,7 +268,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Валюта взаиморасчетов</label>
-                                        <select disabled class="form-control" id="walletNames"
+                                        <select readonly disabled class="form-control" id="walletNames"
                                                 style="width: 100%; text-align: center" name="insurance_premium_currency">
                                             <option selected="selected" value="{{$tamozhnya->currencies}}">{{$tamozhnya->currencies}}
                                             </option>
@@ -278,7 +278,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
-                                        <select disabled class="form-control payment-schedule" name="payment_term"
+                                        <select readonly disabled class="form-control payment-schedule" name="payment_term"
                                                 onchange="showDiv('other-payment-schedule', this)"
                                                 style="width: 100%; text-align: center">
                                             <option value="1" @if($tamozhnya->payment_term == 1) selected @endif>Единовременно</option>
@@ -289,7 +289,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Способ расчета</label>
-                                        <select disabled class="form-control sposob_rascheta" name="sposob_rascheta" style="width: 100%; text-align: center">
+                                        <select readonly disabled class="form-control sposob_rascheta" name="sposob_rascheta" style="width: 100%; text-align: center">
                                             @foreach(config('app.sposob_rascheta') as $key => $sposob)
                                                 <option value="{{$key}}" @if($key == $tamozhnya->sposob_rascheta) selected @endif>{{$sposob}}</option>
                                             @endforeach
@@ -302,7 +302,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input id="strahovaya_sum" name="strahovaya_sum" value="{{$tamozhnya->strahovaya_sum}}"
+                                        <input readonly id="strahovaya_sum" name="strahovaya_sum" value="{{$tamozhnya->strahovaya_sum}}"
                                                type="number" @if($errors->has('strahovaya_sum'))
                                                class="form-control is-invalid"
                                                @else
@@ -313,7 +313,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="geographic-zone">Страховая премия</label>
-                                        <input id="strahovaya_purpose" name="strahovaya_purpose" value="{{$tamozhnya->strahovaya_purpose}}"
+                                        <input readonly id="strahovaya_purpose" name="strahovaya_purpose" value="{{$tamozhnya->strahovaya_purpose}}"
                                                type="number" @if($errors->has('strahovaya_purpose'))
                                                class="form-control is-invalid"
                                                @else
@@ -324,7 +324,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="geographic-zone">Франшиза</label>
-                                        <input id="franshiza" name="franshiza" value="{{$tamozhnya->franshiza}}"
+                                        <input readonly id="franshiza" name="franshiza" value="{{$tamozhnya->franshiza}}"
                                                type="text" @if($errors->has('franshiza'))
                                                class="form-control is-invalid"
                                                @else
@@ -348,17 +348,17 @@
                                         <tbody>
                                         @if(!$tamozhnya->strahPremiya)
                                             <tr id="payment-term-tr-0" data-field-number="0">
-                                                <td><input type="text" class="form-control" name="payment_sum[]">
+                                                <td><input readonly type="text" class="form-control" name="payment_sum[]">
                                                 </td>
-                                                <td><input type="date" class="form-control" name="payment_from[]">
+                                                <td><input readonly type="date" class="form-control" name="payment_from[]">
                                                 </td>
                                             </tr>
                                         @else
                                             @foreach($tamozhnya->strahPremiya as $premiya)
                                                 <tr id="payment-term-tr-0" data-field-number="0">
-                                                    <td><input type="text" class="form-control" name="payment_sum[{{$premiya->id}}]" value="{{$premiya->prem_sum}}">
+                                                    <td><input readonly type="text" class="form-control" name="payment_sum[{{$premiya->id}}]" value="{{$premiya->prem_sum}}">
                                                     </td>
-                                                    <td><input type="date" class="form-control" name="payment_from[{{$premiya->id}}]" value="{{$premiya->prem_from}}">
+                                                    <td><input readonly type="date" class="form-control" name="payment_from[{{$premiya->id}}]" value="{{$premiya->prem_from}}">
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -386,7 +386,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                            <input id="serial_number_policy" name="serial_number_policy" disabled value="{{$tamozhnya->serial_number_policy}}"
+                                            <input readonly id="serial_number_policy" name="serial_number_policy" disabled value="{{$tamozhnya->serial_number_policy}}"
                                                    type="text" @if($errors->has('serial_number_policy'))
                                                    class="form-control is-invalid"
                                                    @else
@@ -400,7 +400,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"></span>
                                             </div>
-                                            <input id="date_issue_policy" disabled name="date_issue_policy" value="{{$tamozhnya->date_issue_policy}}"
+                                            <input readonly id="date_issue_policy" disabled name="date_issue_policy" value="{{$tamozhnya->date_issue_policy}}"
                                                    type="date" @if($errors->has('date_issue_policy'))
                                                    class="form-control is-invalid"
                                                    @else
@@ -411,7 +411,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="otvet-litso">Ответственное лицо</label>
-                                            <select disabled @if($errors->has('litso'))
+                                            <select readonly disabled @if($errors->has('litso'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
