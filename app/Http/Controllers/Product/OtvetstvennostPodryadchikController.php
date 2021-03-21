@@ -65,7 +65,7 @@ class OtvetstvennostPodryadchikController extends Controller
                     $i++;
                 }
             }
-        return back()->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('otvetstvennost_podryadchik.edit', $newOtvetstvennostPodryadchik->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
