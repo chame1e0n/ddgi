@@ -64,6 +64,7 @@ class TamozhnyaAddRequest extends FormRequest
             'litso' => 'required|integer',
             'franshiza' => 'required',
 
+
 //            'anketa_img' => 'required',
 //            'dogovor_img' => 'required',
 //            'polis_img' => 'required',
