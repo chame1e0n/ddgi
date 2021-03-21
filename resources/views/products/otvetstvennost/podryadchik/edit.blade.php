@@ -146,11 +146,10 @@
                                         >
                                     </div>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input value="{{$podryadchik->policyHolders->okonx}}" type="text" id="okonx" name="okonh_insurer"
+                                        <input value="{{$podryadchik->policyHolders->okonx}}" type="text" id="okonx" name="okonx"
                                                @if($errors->has('okonx'))
                                                class="form-control is-invalid"
                                                @else
@@ -257,7 +256,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="other-payment-schedule" style="display: block;">
+                            <div id="other-payment-schedule" @if($podryadchik->payment_term == 1) style="display: none;" @else style="display: block;" @endif>
                                 <div class="form-group">
                                     <button type="button" onclick="addRow3()" class="btn btn-primary ">
                                         Добавить
@@ -273,7 +272,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @if(!$podryadchik->strahPremiya)
+                                        @if(!$podryadchik->strahPremiya ?? $podryadchik->payment_term == 'other')
                                         <tr id="payment-term-tr-0" data-field-number="0">
                                             <td><input type="text" class="form-control" name="payment_sum[]">
                                             </td>

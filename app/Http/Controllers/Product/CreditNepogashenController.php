@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Requests\CreditNepogashenRequest;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
@@ -40,7 +41,7 @@ class CreditNepogashenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreditNepogashenRequest $request)
     {
         $data                       = $request->all();
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
@@ -54,7 +55,7 @@ class CreditNepogashenController extends Controller
         $newCreditNePogashen        = CreditNepogashen::createCreditNePogashen($data);
 
         if($newCreditNePogashen)
-            return back()->withInput()->with([sprintf('Продукт успешно добавлен')]);
+            return redirect()->route('credit-nepogashen.edit', $newCreditNePogashen->id)->withInput()->with([sprintf('Продукт успешно добавлен')]);
     }
 
     /**
@@ -94,7 +95,7 @@ class CreditNepogashenController extends Controller
      * @param  \App\Product\CreditNepogashen  $creditNepogashen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreditNepogashenRequest $request, $id)
     {
         $data = $request->all();
         $credit = CreditNepogashen::find($id);

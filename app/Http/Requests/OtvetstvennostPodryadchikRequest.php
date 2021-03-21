@@ -33,7 +33,7 @@ class OtvetstvennostPodryadchikRequest extends FormRequest
             'mfo_insurer' => 'required',
             'bank_insurer' => 'required|integer',
             'inn_insurer' => 'required',
-            'okonh_insurer' => 'required',
+            'okonx' => 'required',
             'oked' => 'required',
             'informaciya_o_personale' => 'required',
             'from_date' => 'required',
