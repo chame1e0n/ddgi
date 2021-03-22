@@ -24,7 +24,7 @@
                 </div>
             </div>
             <section class="content">
-                
+
                     @include('products.select')
 
                 <div class="card-body">
@@ -557,8 +557,8 @@
                                                     style="width: 100%;" required>
                                                 <option></option>
                                                 @foreach($agents as $agent)
-                                                    <option @if(old('litso') == $agent->user_id) selected
-                                                            @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
+                                                    <option @if(old('litso') == $agent->id) selected
+                                                            @endif value="{{ $agent->id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
