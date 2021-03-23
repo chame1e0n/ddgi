@@ -24,7 +24,7 @@
                 </div>
             </div>
             <section class="content">
-                
+
                     @include('products.select')
 
                 <div class="card-body">
@@ -425,8 +425,10 @@
                                         <select class="form-control payment-schedule" name="payment_term"
                                                 onchange="showDiv('other-payment-schedule', this)"
                                                 style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="other">Другое</option>
+                                            <option value="1" @if(old('payment_term') == 1) selected
+                                                @endif>Единовременно</option>
+                                            <option value="other" @if(old('payment_term') == 'other') selected
+                                                @endif>Другое</option>
                                         </select>
                                     </div>
                                 </div>
