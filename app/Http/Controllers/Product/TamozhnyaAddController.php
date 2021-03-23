@@ -149,7 +149,7 @@ class TamozhnyaAddController extends Controller
                 'fio_insurer' => $tamozhnya->policyHolders->FIO,
             ]);
             $document->saveAs('za.docx');
-            return response()->download('za.docx');
+            return response()->url('za.docx');
         }
         if (isset($_GET['download']) && $_GET['download'] == 'polis'){
             $document = new TemplateProcessor(public_path('tamozhnya_documents/polis.docx'));
@@ -160,7 +160,7 @@ class TamozhnyaAddController extends Controller
                 'to_date'   => $tamozhnya->to_date,
                 'strahovaya_sum' =>  $tamozhnya->strahovaya_sum,
                 'strahovaya_purpose' => $tamozhnya->strahovaya_purpose,
-                'director'     => $tamozhnya->agent->user->director->getFIO(),
+                'director'     => $tamozhnya->agent->user->branch->director->getFIO(),
                 'filial'           => $tamozhnya->agent->user->brnach->name,
             ]);
             $document->saveAs('polis.docx');

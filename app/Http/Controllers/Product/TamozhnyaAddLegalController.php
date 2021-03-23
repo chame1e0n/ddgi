@@ -159,7 +159,7 @@ class TamozhnyaAddLegalController extends Controller
                 'to_date'   => $tamozhnya->to_date,
                 'strahovaya_sum' =>  $tamozhnya->strahovaya_sum,
                 'strahovaya_purpose' => $tamozhnya->strahovaya_purpose,
-                'director'     => $tamozhnya->agent->user->director->getFIO(),
+                'director'     => $tamozhnya->agent->user->branch->director->getFIO(),
             ]);
             $document->saveAs('polis.docx');
             return response()->download('polis.docx');
