@@ -9,6 +9,9 @@ use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Product\TamozhnyaAddLegalStrahPremiya;
 use Illuminate\Http\Request;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class TamozhnyaAddLegalController extends Controller
 {
@@ -102,9 +105,62 @@ class TamozhnyaAddLegalController extends Controller
      */
     public function edit($id)
     {
+
+
+
         $tamozhnya = TamozhnyaAddLegal::getInfoTamozhnya($id);
         $banks = Bank::all();
         $agents = Agent::all();
+        if (isset($_GET['download']) && $_GET['download'] == 'dogovor'){
+            $document = new TemplateProcessor(public_path('tamozhnya_add_legal/dogovor.docx'));
+            $document->setValues([
+                'litso' => $tamozhnya->agent->getFio(),
+                'fio_insurer' => $tamozhnya->policyHolders->FIO,
+                'strahovaya_sum' =>  $tamozhnya->strahovaya_sum,
+                'strahovaya_purpose' => $tamozhnya->strahovaya_purpose,
+                'address' => $tamozhnya->agent->user->brnach->address,
+                'tel'     => $tamozhnya->agent->user->brnach->phone_numner,
+                'insurer_address' => $tamozhnya->policyHolders->address,
+                'insurer_tel'     => $tamozhnya->policyHolders->phone_number,
+
+                'insurer_schet'     => $tamozhnya->policyHolders->checking_account,
+                'insurer_mfo'     => $tamozhnya->policyHolders->inn,
+                'insurer_inn'     => $tamozhnya->policyHolders->mfo,
+                'insurer_oked'     => $tamozhnya->policyHolders->oked,
+
+            ]);
+            $document->saveAs('dogovor.docx');
+            return response()->download('dogovor.docx');
+        }
+        if (isset($_GET['download']) && $_GET['download'] == 'za'){
+            $document = new TemplateProcessor(public_path('tamozhnya_add_legal/za.docx'));
+            $document->setValues([
+                'description' => $tamozhnya->description,
+                'prichina_pretenzii' => $tamozhnya->prichina_pretenzii,
+                'insurer_tel'     => $tamozhnya->policyHolders->phone_number,
+                'insurer_schet'     => $tamozhnya->policyHolders->checking_account,
+                'insurer_mfo'     => $tamozhnya->policyHolders->inn,
+                'insurer_inn'     => $tamozhnya->policyHolders->mfo,
+                'litso' => $tamozhnya->agent->getFio(),
+                'fio_insurer' => $tamozhnya->policyHolders->FIO,
+            ]);
+            $document->saveAs('za.docx');
+            return response()->download('za.docx');
+        }
+        if (isset($_GET['download']) && $_GET['download'] == 'polis'){
+            $document = new TemplateProcessor(public_path('tamozhnya_add_legal/polis.docx'));
+            $document->setValues([
+                'date_issue_policy' => $tamozhnya->date_issue_policy,
+                'fio_insurer' => $tamozhnya->policyHolders->FIO,
+                'from_date' => $tamozhnya->from_date,
+                'to_date'   => $tamozhnya->to_date,
+                'strahovaya_sum' =>  $tamozhnya->strahovaya_sum,
+                'strahovaya_purpose' => $tamozhnya->strahovaya_purpose,
+                'director'     => $tamozhnya->agent->user->director->getFIO(),
+            ]);
+            $document->saveAs('polis.docx');
+            return response()->download('polis.docx');
+        }
         return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya'));
     }
 

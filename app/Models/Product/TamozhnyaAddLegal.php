@@ -2,6 +2,7 @@
 
 namespace App\Models\Product;
 
+use App\Models\Spravochniki\Agent;
 use Illuminate\Database\Eloquent\Model;
 
 class TamozhnyaAddLegal extends Model
@@ -16,6 +17,10 @@ class TamozhnyaAddLegal extends Model
     public function policyHolders()
     {
         return $this->belongsTo('App\Models\PolicyHolder', 'policy_holder_id');
+    }
+
+    public function agent(){
+        return $this->belongsTo(Agent::class, 'otvet_litso', 'id');
     }
 
     static function createTamozhnyaAddLegal($request)
@@ -84,7 +89,7 @@ class TamozhnyaAddLegal extends Model
 
     static function getInfoTamozhnya($id)
     {
-        $tamozhnya = TamozhnyaAddLegal::where('id', $id)->with(['strahPremiya', 'policyHolders'])->first();
+        $tamozhnya = TamozhnyaAddLegal::where('id', $id)->with(['strahPremiya', 'policyHolders', 'agent'])->first();
         return $tamozhnya;
     }
 }

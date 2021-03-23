@@ -2,6 +2,7 @@
 
 namespace App\Models\Product;
 
+use App\Models\Spravochniki\Agent;
 use Illuminate\Database\Eloquent\Model;
 
 class TamozhnyaAdd extends Model
@@ -20,6 +21,10 @@ class TamozhnyaAdd extends Model
     public function policyBeneficiaries()
     {
         return $this->belongsTo('App\Models\PolicyBeneficiaries', 'policy_beneficiary_id');
+    }
+
+    public function agent(){
+        return $this->belongsTo(Agent::class, 'otvet_litso', 'id');
     }
 
     static function createTamozhnyaAdd($request)

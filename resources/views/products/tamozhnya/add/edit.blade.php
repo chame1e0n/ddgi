@@ -12,7 +12,9 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            <a href="{{route('tamozhnya-add.edit', $tamozhnya->id)}}?download=dogovor">Скачать Договор</a>
+                            <a href="{{route('tamozhnya-add.edit', $tamozhnya->id)}}?download=za">Скачать Заявление</a>
+                            <a href="{{route('tamozhnya-add.edit', $tamozhnya->id)}}?download=polis">Скачать Полис</a>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -569,8 +571,8 @@
                                                     style="width: 100%;" required>
                                                 <option></option>
                                                 @foreach($agents as $agent)
-                                                    <option @if($tamozhnya->otvet_litso == $agent->user_id) selected
-                                                            @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
+                                                    <option @if($tamozhnya->otvet_litso == $agent->id) selected
+                                                            @endif value="{{ $agent->id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

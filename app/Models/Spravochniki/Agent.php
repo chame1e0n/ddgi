@@ -28,4 +28,11 @@ class Agent extends Model
         $name = $this->name;
         return $surname.' '.$name;
     }
+    public function getFIO(){
+        $surname = $this->surname;
+        $name = $this->name;
+        $middleName = $this->middle_name;
+        return $surname.' '.$name. ' ' .$middleName;
+    }
+
 }
