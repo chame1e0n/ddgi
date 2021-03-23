@@ -156,7 +156,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="beneficiary-name" class="col-form-label">Описание</label>
-                                                <textarea id="description" name="description"  @if($errors->has('description'))
+                                                <textarea disabled id="description" name="description"  @if($errors->has('description'))
                                                 class="form-control is-invalid"
                                                           @else
                                                           class="form-control"
@@ -227,16 +227,16 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="checkbox icheck-success">
-                                                            <input readonly id="defects-1" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="1" @if($tamozhnya->pretenzii_in_ruz == 1) checked @endif>
+                                                            <input disabled id="defects-1" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="1" @if($tamozhnya->pretenzii_in_ruz == 1) checked @endif>
                                                             <label for="defects-1">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success ">
-                                                            <input readonly id="defects-0" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="0" @if($tamozhnya->pretenzii_in_ruz == 0) checked @endif>
+                                                            <input disabled id="defects-0" type="radio" class="pretenzii_in_ruz" name="pretenzii_in_ruz" value="0" @if($tamozhnya->pretenzii_in_ruz == 0) checked @endif>
                                                             <label for="defects-0">Нет</label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group defects_images" style="display: none;">
+                                                <div class="form-group defects_images" @if ($tamozhnya->pretenzii_in_ruz == 1 ) style = "display: block;" @else style = "display: none;" @endif>
                                                     <label>Опсиание причины</label>
                                                     <input readonly id="prichina_pretenzii" name="prichina_pretenzii" value="{{$tamozhnya->prichina_pretenzii}}"
                                                            type="text" @if($errors->has('prichina_pretenzii'))
@@ -468,8 +468,6 @@
                 </div>
             </section>
         </div>
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
-        </div>
+
 
 @endsection
