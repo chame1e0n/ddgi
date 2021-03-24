@@ -45,7 +45,7 @@ Route::get('test', function () {
 
 Route::get('test1', 'EmployeeController@getEmployees');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('all_products', 'AllProductController');
     Route::get('/cbu_currencies', function (Request $request) {
         $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
@@ -55,39 +55,42 @@ Route::group(['middleware' => ['auth']], function() {
 
     ////////////////////////////////// Ulugbek //////////////////////////////////////
     //// Product3777
-    Route::resource('product3777','Product3777\Product3777Controller')->except('index');
+    Route::resource('product3777', 'Product3777\Product3777Controller')->except('index');
 
     //// BorrowerSportsman
-    Route::resource('borrower_sportsman','BorrowerSportsmanController');
+    Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
 
     ///Printing
-    Route::get('product3777/print/{id}','Product3777\Product3777Controller@print')->name('print');
+    Route::get('product3777/print/{id}', 'Product3777\Product3777Controller@print')->name('print');
+
+    ///Audit
+    Route::resource('audit', 'OtvetsvennostAuditController');
 
     /////////////////////////////////////////////////////////////////////////////////
 
-    Route::resource('spravochniki/bank','Spravochniki\BankController');
-    Route::resource('spravochniki/group','GroupController');
-    Route::resource('spravochniki/klass','KlassController');
-    Route::resource('spravochniki/product','ProductController');
-    Route::resource('spravochniki/agent','Spravochniki\AgentController');
-    Route::resource('spravochniki/manager','Spravochniki\ManagerController');
-    Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
-    Route::resource('spravochniki/branch','Spravochniki\BranchController');
-    Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
-    Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
-    Route::resource('spravochniki/currency','CurrencyController');
-    Route::resource('spravochniki/klass','KlassController');
-    Route::resource('director','DirectorController');
-    Route::resource('policy_registration','PolicyRegistrationController');
-    Route::resource('kasko','Product\KaskoController');
-    Route::resource('cmp','Product\CmpController');
-    Route::resource('avtocredit','Product\AvtocreditController');
-    Route::resource('grant','Product\GrantController');
-    Route::resource('nepogashen','Product\NepogashenController');
-    Route::resource('rassrochka','Product\RassrochkaController');
-    Route::resource('policy_transfer','PolicyTransferController');
-    Route::resource('policy_retransfer','PolicyRetransferController');
-    Route::resource('pretensii_overview','PretensiiOverviewController');
+    Route::resource('spravochniki/bank', 'Spravochniki\BankController');
+    Route::resource('spravochniki/group', 'GroupController');
+    Route::resource('spravochniki/klass', 'KlassController');
+    Route::resource('spravochniki/product', 'ProductController');
+    Route::resource('spravochniki/agent', 'Spravochniki\AgentController');
+    Route::resource('spravochniki/manager', 'Spravochniki\ManagerController');
+    Route::resource('spravochniki/policy_series', 'Spravochniki\PolicySeriesController');
+    Route::resource('spravochniki/branch', 'Spravochniki\BranchController');
+    Route::resource('spravochniki/individual_client', 'Spravochniki\IndividualClientController');
+    Route::resource('spravochniki/legal_client', 'Spravochniki\LegalClientController');
+    Route::resource('spravochniki/currency', 'CurrencyController');
+    Route::resource('spravochniki/klass', 'KlassController');
+    Route::resource('director', 'DirectorController');
+    Route::resource('policy_registration', 'PolicyRegistrationController');
+    Route::resource('kasko', 'Product\KaskoController');
+    Route::resource('cmp', 'Product\CmpController');
+    Route::resource('avtocredit', 'Product\AvtocreditController');
+    Route::resource('grant', 'Product\GrantController');
+    Route::resource('nepogashen', 'Product\NepogashenController');
+    Route::resource('rassrochka', 'Product\RassrochkaController');
+    Route::resource('policy_transfer', 'PolicyTransferController');
+    Route::resource('policy_retransfer', 'PolicyRetransferController');
+    Route::resource('pretensii_overview', 'PretensiiOverviewController');
     Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
     Route::resource('spravochniki/request', 'Spravochniki\RequestController');
     Route::get('get/policies', 'Spravochniki\RequestController@getPolicyByPolicySeries')->name('getPolicies');
@@ -95,9 +98,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('spravochniki/request/upload/{file}', 'Spravochniki\RequestController@upload')->name('request.upload');
 
-    Route::group(['middleware' => ['permission:show pretensii']], function() {
-        Route::resource('pretensii','PretensiiController'); // ['only' => ['index']]
-        Route::get('pretensii/create/{id}','PretensiiController@create'); // ['only' => ['index']]
+    Route::group(['middleware' => ['permission:show pretensii']], function () {
+        Route::resource('pretensii', 'PretensiiController'); // ['only' => ['index']]
+        Route::get('pretensii/create/{id}', 'PretensiiController@create'); // ['only' => ['index']]
     });
 
     Route::get('site_order/refresh', 'FromSiteOrderController@refresh')->name('site_order.refresh');
