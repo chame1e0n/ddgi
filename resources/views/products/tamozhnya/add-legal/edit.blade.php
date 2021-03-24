@@ -342,7 +342,7 @@
 
                     </div>
                 </div>
-                
+
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>
@@ -514,8 +514,8 @@
                                                     style="width: 100%;" required>
                                                 <option></option>
                                                 @foreach($agents as $agent)
-                                                    <option @if($tamozhnya->otvet_litso == $agent->user_id) selected
-                                                            @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
+                                                    <option @if($tamozhnya->otvet_litso == $agent->id) selected
+                                                            @endif value="{{ $agent->id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
