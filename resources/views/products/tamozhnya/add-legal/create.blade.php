@@ -297,7 +297,7 @@
                                             <option value="2">Сумах В ин. валюте</option>
                                             <option value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
                                             <option value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option value="4">В ин. валюте по фиксированному ЦБ на день оплаты премии/первого транша</option>
+                                            <option value="5">В ин. валюте по фиксированному ЦБ на день оплаты премии/первого транша</option>
                                         </select>
                                     </div>
                                 </div>
@@ -383,12 +383,17 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                            <input id="serial_number_policy" name="serial_number_policy" value="{{old('serial_number_policy')}}"
-                                                   type="text" @if($errors->has('serial_number_policy'))
-                                                   class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                @endif>
+                                            <select type="text" id="serial_number_policy" name="serial_number_policy" @if($errors->has('serial_number_policy'))
+                                            class="form-control is-invalid"
+                                                    @else
+                                                    class="form-control"
+                                                    @endif>
+                                                <option value="0"></option>
+                                                @foreach($policySeries as $series)
+                                                    <option @if(old('serial_number_policy') == $series->id) selected
+                                                            @endif value="{{ $series->id }}">{{ $series->code }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">

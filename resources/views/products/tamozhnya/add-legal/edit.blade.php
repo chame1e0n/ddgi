@@ -25,7 +25,50 @@
                 </div>
             </div>
             <section class="content">
-                    @include('products.select')
+                <div class="card card-success product-type">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="client-product-form">
+                            <div class="form-group clearfix">
+                                <label>Типы клиента</label>
+                                <div class="row">
+                                    @if($tamozhnya->type == 0)
+                                        <div class="col-sm-4">
+                                            <div class="icheck-success">
+                                                <input type="radio" class="client-type-radio"
+                                                       id="client-type-radio-1" value="individual" checked>
+                                                <label for="client-type-radio-1">физ. лицо</label>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-sm-4">
+                                            <div class="icheck-success">
+                                                <input type="radio" class="client-type-radio"
+                                                       id="client-type-radio-2" value="legal" checked>
+                                                <label for="client-type-radio-2" >юр. лицо</label>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-id">Вид продукта</label>
+                                <select id="product-id" class="form-control select2"
+                                        style="width: 100%;" readonly="true">
+                                    <option value="1">{{ $tamozhnya->product->name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -257,6 +300,46 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Уникальные номера</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="payment-terms-form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Номер договора</label>
+                                        <input value="{{$tamozhnya->unique_number}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Серия полиса</label>
+                                        <input value="{{$tamozhnya->policySeries->code ?? '-'}}" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Номер полиса</label>
+                                        <input value="{{$tamozhnya->policy->number}}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>
@@ -395,12 +478,12 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                            <input id="serial_number_policy" name="serial_number_policy" value="{{$tamozhnya->serial_number_policy}}"
-                                                   type="text" @if($errors->has('serial_number_policy'))
-                                                   class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                @endif>
+                                            <select type="text" id="serial_number_policy" name="serial_number_policy" class="form-control">
+                                                <option value="0"></option>
+                                                @foreach($policySeries as $series)
+                                                    <option value="{{ $series->id }}" @if($series->id == $tamozhnya->serial_number_policy) selected @endif>{{ $series->code }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">

@@ -2,13 +2,9 @@
 
 namespace App\Models\Product;
 
-use App\Models\Policy;
-use App\Models\Product;
-use App\Models\Spravochniki\Agent;
-use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Database\Eloquent\Model;
 
-class OtvetstvennostPodryadchik extends Model
+class OtvetstvennostBroker extends Model
 {
     protected $guarded = [];
     public function strahPremiya()
@@ -24,9 +20,6 @@ class OtvetstvennostPodryadchik extends Model
     {
         $otvetstvennostPodryadchik = OtvetstvennostPodryadchik::create([
             'informaciya_o_personale' => $request->informaciya_o_personale,
-            'type' => $request->client_type_radio,
-            'product_id' => $request->product_id,
-            'insurance_premium_payment_type' => $request->insurance_premium_payment_type,
             'from_date' => $request->from_date,
             'to_date' => $request->to_date,
             'geo_zone' => $request->geo_zone,
@@ -62,7 +55,6 @@ class OtvetstvennostPodryadchik extends Model
             'date_issue_policy' => $request->date_issue_policy,
             'otvet_litso' => $request->litso,
             'policy_holder_id' => $otvetstvennostPodryadchik->policy_holder_id,
-            'insurance_premium_payment_type' => $request->insurance_premium_payment_type,
 
         ]);
         if($otvetstvennostPodryadchik)
@@ -75,22 +67,6 @@ class OtvetstvennostPodryadchik extends Model
     {
         $podryadchik = OtvetstvennostPodryadchik::where('id', $id)->with(['strahPremiya', 'policyHolders'])->firstorFail();
         return $podryadchik;
-    }
-
-    public function policy() {
-        return $this->hasOne(Policy::class, 'id', 'policy_id');
-    }
-
-    public function policySeries() {
-        return $this->hasOne(PolicySeries::class, 'id', 'serial_number_policy');
-    }
-
-    public function product() {
-        return $this->hasOne(Product::class, 'id', 'product_id');
-    }
-
-    public function agent() {
-        return $this->hasOne(Agent::class, 'user_id', 'otvet_litso');
     }
 }
 
