@@ -1796,7 +1796,7 @@ CREATE TABLE IF NOT EXISTS `tamozhnya_add_legals` (
 DELETE FROM `tamozhnya_add_legals`;
 /*!40000 ALTER TABLE `tamozhnya_add_legals` DISABLE KEYS */;
 INSERT INTO `tamozhnya_add_legals` (`id`, `description`, `from_date`, `to_date`, `prof_riski`, `pretenzii_in_ruz`, `prichina_pretenzii`, `payment_term`, `currencies`, `unique_number`, `sposob_rascheta`, `product_id`, `policy_id`, `type`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `policy_holder_id`, `anketa_img`, `dogovor_img`, `polis_img`, `created_at`, `updated_at`) VALUES
-	(3, 'dfsdvdsfv', '2021-03-05', '2021-03-18', '2322423', 0, NULL, '1', 'UZS', '0100/0505/1/2100001', 1, 5, 10, 0, '234234', '34', '3433', 1, '2021-03-04', 4, 45, NULL, NULL, NULL, '2021-03-24 06:13:42', '2021-03-24 06:13:43');
+	(3, 'dfsdvdsfv', '2021-03-05', '2021-03-18', '2322423', 0, NULL, '1', 'UZS', '0100/0505/1/2100001', 1, 5, 10, 0, '234234', '34', '3433', 1, '2021-03-04', 1, 45, NULL, NULL, NULL, '2021-03-24 06:13:42', '2021-03-24 06:13:43');
 /*!40000 ALTER TABLE `tamozhnya_add_legals` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.tamozhnya_add_legal_strah_premiyas

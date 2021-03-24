@@ -200,7 +200,7 @@ class TamozhnyaAddLegalController extends Controller
             $document->saveAs('polis.docx');
             return response()->download('polis.docx');
         }
-        return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya'));
+        return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya', 'policySeries'));
 
     }
 
