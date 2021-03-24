@@ -22,6 +22,10 @@ class TamozhnyaAddLegal extends Model
         return $this->belongsTo('App\Models\PolicyHolder', 'policy_holder_id');
     }
 
+    public function agent(){
+        return $this->belongsTo(Agent::class, 'otvet_litso', 'id');
+    }
+
     static function createTamozhnyaAddLegal($request)
     {
         $tamozhnyaAddLegal = TamozhnyaAddLegal::create([
@@ -90,7 +94,7 @@ class TamozhnyaAddLegal extends Model
 
     static function getInfoTamozhnya($id)
     {
-        $tamozhnya = TamozhnyaAddLegal::where('id', $id)->with(['strahPremiya', 'policyHolders'])->first();
+        $tamozhnya = TamozhnyaAddLegal::where('id', $id)->with(['strahPremiya', 'policyHolders', 'agent'])->first();
         return $tamozhnya;
     }
 
@@ -105,9 +109,4 @@ class TamozhnyaAddLegal extends Model
     public function product() {
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
-
-    public function agent() {
-        return $this->hasOne(Agent::class, 'user_id', 'otvet_litso');
-    }
-
 }

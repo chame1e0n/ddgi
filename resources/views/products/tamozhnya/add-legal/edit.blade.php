@@ -3,16 +3,16 @@
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('tamozhnya-add-legal.update', $tamozhnya->id)}}" method="POST" id="mainFormKasko"  enctype="multipart/form-data">
-        @method('PUT')
-        @csrf
+
         <div class="content-wrapper">
 
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=dogovor">Скачать Договор</a>
+                            <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=za">Скачать Заявление</a>
+                            <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=polis">Скачать Полис</a>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -24,6 +24,9 @@
                     </div>
                 </div>
             </div>
+            <form action="{{route('tamozhnya-add-legal.update', $tamozhnya->id)}}" method="POST" id="mainFormKasko"  enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
             <section class="content">
                 <div class="card card-success product-type">
                     <div class="card-header">

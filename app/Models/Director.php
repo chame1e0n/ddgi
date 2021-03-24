@@ -24,4 +24,11 @@ class Director extends Model
         $this->user()->delete();
         return parent::delete();
     }
+
+    public function getFIO(){
+        $surname = $this->surname;
+        $name = $this->name;
+        $middleName = $this->middle_name;
+        return $surname.' '.$name. ' ' .$middleName;
+    }
 }
