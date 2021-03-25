@@ -282,14 +282,14 @@
                                             <tr>
 
                                                 <td>
-                                                    <input type="text" class="form-control" name="number_polis_main"
+                                                    <input type="text" class="form-control" name="number_polis[]"
                                                            @if(!empty($product->auditInfos[0]->number_polis[$key]))
                                                            value="{{ $product->auditInfos[0]->number_polis[$key] }}"
                                                             @endif>
 
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="series_polis_main"
+                                                    <input type="text" class="form-control" name="series_polis[]"
                                                            @if(!empty($product->auditInfos[0]->series_polis[$key]))
                                                            value="{{ $product->auditInfos[0]->series_polis[$key] }}"
                                                             @endif>
@@ -297,7 +297,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="date" class="form-control"
-                                                           name="validity_period_from_main"
+                                                           name="validity_period_from[]"
                                                            @if(!empty($product->auditInfos[0]->validity_period_from[$key]))
                                                            value="{{ $product->auditInfos[0]->validity_period_from[$key] }}"
                                                             @endif>
@@ -305,7 +305,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="date" class="form-control"
-                                                           name="validity_period_to_main"
+                                                           name="validity_period_to[]"
                                                            @if(!empty($product->auditInfos[0]->validity_period_to[$key]))
                                                            value="{{ $product->auditInfos[0]->validity_period_to[$key] }}"
                                                             @endif>
@@ -313,7 +313,7 @@
                                                 </td>
                                                 <td>
                                                     <select class="form-control polises" id="polises"
-                                                            name="polis_agent_main"
+                                                            name="polis_agent[]"
                                                             style="width: 100%;">
                                                         <option selected="selected"></option>
                                                         <option value="1"
@@ -331,51 +331,51 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis_mark_main"
+                                                    <input type="text" class="form-control" name="polis_mark[]"
                                                            @if(!empty($product->auditInfos[0]->polis_mark[$key]))
                                                            value="{{ $product->auditInfos[0]->polis_mark[$key] }}"
                                                             @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="specialty_main"
+                                                    <input type="text" class="form-control" name="specialty[]"
                                                            @if(!empty($product->auditInfos[0]->specialty[$key]))
                                                            value="{{ $product->auditInfos[0]->specialty[$key] }}"
                                                             @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="workExp_main"
+                                                    <input type="text" class="form-control" name="workExp[]"
                                                            @if(!empty($product->auditInfos[0]->workExp[$key]))
                                                            value="{{ $product->auditInfos[0]->workExp[$key] }}"
                                                             @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis_model_main"
+                                                    <input type="text" class="form-control" name="polis_model[]"
                                                            @if(!empty($product->auditInfos[0]->polis_model[$key]))
                                                            value="{{ $product->auditInfos[0]->polis_model[$key] }}"
                                                             @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="arriving_time_main"
+                                                    <input type="text" class="form-control" name="arriving_time[]"
                                                            @if(!empty($product->auditInfos[0]->arriving_time[$key]))
                                                            value="{{ $product->auditInfos[0]->arriving_time[$key] }}"
                                                             @endif>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control"
-                                                           name="cost_of_insurance_main"
+                                                           name="cost_of_insurance[]"
                                                            @if(!empty($product->auditInfos[0]->cost_of_insurance[$key]))
                                                            value="{{ $product->auditInfos[0]->cost_of_insurance[$key] }}"
                                                             @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="sum_of_insurance_main"
+                                                    <input type="text" class="form-control" name="sum_of_insurance[]"
                                                            @if(!empty($product->auditInfos[0]->sum_of_insurance[$key]))
                                                            value="{{ $product->auditInfos[0]->sum_of_insurance[$key] }}"
                                                             @endif>
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control"
-                                                           name="bonus_of_insurance_main"
+                                                           name="bonus_of_insurance[]"
                                                            @if(!empty($product->auditInfos[0]->bonus_of_insurance[$key]))
                                                            value="{{ $product->auditInfos[0]->bonus_of_insurance[$key] }}"
                                                             @endif>

@@ -293,8 +293,7 @@ class OtvetsvennostAuditController extends Controller
         $product = OtvetsvennostAudit::query()->find($id);
         $policyHolder = PolicyHolder::query()->find($product->policy_holder_id);
         $auditTurnover = AuditTurnover::query()->find($product->audit_turnover_id);
-        $auditInfo = AuditInfo::query()->where('id', $product->id)->first();
-        dd($auditInfo);
+        $auditInfo = AuditInfo::query()->where('otvetsvennost_audit_id', $product->id)->first();
         $currency_terms = CurrencyTerm::query()->where('id', $product->id)->first();
 
         $policyHolder->update([
