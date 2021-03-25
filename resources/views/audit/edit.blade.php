@@ -1,7 +1,8 @@
 @extends('layouts.index')
 
 @section('content')
-    <form action="{{ route('audit.update', $product->id) }}" method="POST" id="form-audit" enctype="multipart/form-data">
+    <form action="{{ route('audit.update', $product->id) }}" method="POST" id="form-audit"
+          enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="content-wrapper">
@@ -277,6 +278,110 @@
                                                        value="{{ $product->bonus_of_insurance_main }}">
                                             </td>
                                         </tr>
+                                        @foreach($product->auditInfos[0]->series_polis as $key => $item)
+                                            <tr>
+
+                                                <td>
+                                                    <input type="text" class="form-control" name="number_polis_main"
+                                                           @if(!empty($product->auditInfos[0]->number_polis[$key]))
+                                                           value="{{ $product->auditInfos[0]->number_polis[$key] }}"
+                                                            @endif>
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="series_polis_main"
+                                                           @if(!empty($product->auditInfos[0]->series_polis[$key]))
+                                                           value="{{ $product->auditInfos[0]->series_polis[$key] }}"
+                                                            @endif>
+
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control"
+                                                           name="validity_period_from_main"
+                                                           @if(!empty($product->auditInfos[0]->validity_period_from[$key]))
+                                                           value="{{ $product->auditInfos[0]->validity_period_from[$key] }}"
+                                                            @endif>
+
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control"
+                                                           name="validity_period_to_main"
+                                                           @if(!empty($product->auditInfos[0]->validity_period_to[$key]))
+                                                           value="{{ $product->auditInfos[0]->validity_period_to[$key] }}"
+                                                            @endif>
+
+                                                </td>
+                                                <td>
+                                                    <select class="form-control polises" id="polises"
+                                                            name="polis_agent_main"
+                                                            style="width: 100%;">
+                                                        <option selected="selected"></option>
+                                                        <option value="1"
+                                                                @if(!empty($product->auditInfos[0]->polis_agent[$key]) and $product->auditInfos[0]->polis_agent[$key] == "1")
+                                                                selected
+                                                                @endif>
+                                                            Да
+                                                        </option>
+                                                        <option value="2"
+                                                                @if(!empty($product->auditInfos[0]->polis_agent[$key]) and $product->auditInfos[0]->polis_agent[$key] == "2")
+                                                                selected
+                                                                @endif>
+                                                            Нет
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="polis_mark_main"
+                                                           @if(!empty($product->auditInfos[0]->polis_mark[$key]))
+                                                           value="{{ $product->auditInfos[0]->polis_mark[$key] }}"
+                                                            @endif>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="specialty_main"
+                                                           @if(!empty($product->auditInfos[0]->specialty[$key]))
+                                                           value="{{ $product->auditInfos[0]->specialty[$key] }}"
+                                                            @endif>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="workExp_main"
+                                                           @if(!empty($product->auditInfos[0]->workExp[$key]))
+                                                           value="{{ $product->auditInfos[0]->workExp[$key] }}"
+                                                            @endif>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="polis_model_main"
+                                                           @if(!empty($product->auditInfos[0]->polis_model[$key]))
+                                                           value="{{ $product->auditInfos[0]->polis_model[$key] }}"
+                                                            @endif>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="arriving_time_main"
+                                                           @if(!empty($product->auditInfos[0]->arriving_time[$key]))
+                                                           value="{{ $product->auditInfos[0]->arriving_time[$key] }}"
+                                                            @endif>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                           name="cost_of_insurance_main"
+                                                           @if(!empty($product->auditInfos[0]->cost_of_insurance[$key]))
+                                                           value="{{ $product->auditInfos[0]->cost_of_insurance[$key] }}"
+                                                            @endif>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="sum_of_insurance_main"
+                                                           @if(!empty($product->auditInfos[0]->sum_of_insurance[$key]))
+                                                           value="{{ $product->auditInfos[0]->sum_of_insurance[$key] }}"
+                                                            @endif>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control"
+                                                           name="bonus_of_insurance_main"
+                                                           @if(!empty($product->auditInfos[0]->bonus_of_insurance[$key]))
+                                                           value="{{ $product->auditInfos[0]->bonus_of_insurance[$key] }}"
+                                                            @endif>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         <tr>
                                             <td colspan="10" style="text-align: right"><label
                                                         class="text-bold">Итого</label></td>
@@ -675,17 +780,19 @@
                                                        value="{{ $product->payment_from_main }}">
                                             </td>
                                         </tr>
-                                        @foreach($product->currencyTerms as $item)
+                                        @foreach($product->currencyTerms[0]->payment_sum as $key => $item)
                                             <tr id="payment-term-tr-${fieldNumber}" data-field-number="${fieldNumber}">
-                                                <td><input type="hidden" value="{{ $item->id }}">
-                                                    <input type="text" class="form-control" data-field="sum"
-                                                           name="payment_sum[]" value="{{ $item->payment_sum }}" >
+                                                <td><input type="text" class="form-control" data-field="sum"
+                                                           name="payment_sum[]"
+                                                           value="{{ $product->currencyTerms[0]->payment_sum[$key] }}">
                                                 </td>
                                                 <td><input type="date" class="form-control" data-field="from"
-                                                           name="payment_from[]" value="{{ $item->payment_from }}" >
+                                                           name="payment_from[]"
+                                                           value="{{ $product->currencyTerms[0]->payment_from[$key] }}">
                                                 </td>
                                                 <td>
-                                                    <input type="button" value="Удалить" data-delte="{{$item->id}}" id="delete_terms" data-action="delete" class="btn btn-warning">
+                                                    <input type="button" value="Удалить" id="delete_terms"
+                                                           data-action="delete" class="btn btn-warning">
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -695,7 +802,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="card-body">

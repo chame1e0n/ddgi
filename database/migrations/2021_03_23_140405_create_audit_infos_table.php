@@ -21,8 +21,8 @@ class CreateAuditInfosTable extends Migration
                 ->on('otvetsvennost_audits');
             $table->string('number_polis')->nullable();
             $table->string('series_polis')->nullable();
-            $table->date('validity_period_from')->nullable();
-            $table->date('validity_period_to')->nullable();
+            $table->string('validity_period_from')->nullable();
+            $table->string('validity_period_to')->nullable();
             $table->string('polis_agent')->nullable();
             $table->string('polis_mark')->nullable();
             $table->string('specialty')->nullable();

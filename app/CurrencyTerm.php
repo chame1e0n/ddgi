@@ -10,4 +10,8 @@ class CurrencyTerm extends Model
     use SoftDeletes;
     protected $table = 'currency_terms';
     protected $guarded = [];
+    protected $casts = [
+        'payment_sum' => 'array',
+        'payment_from' => 'array'
+    ];
 }

@@ -111,6 +111,8 @@ class OtvetsvennostAuditController extends Controller
 //            'payment_from' => 'required',
 //
 //        ]);
+
+//        dd($request->all());
         if ($request->get('insurance_premium_currency') === "other") {
             $request->validate([
                 "payment_sum" => "required",
@@ -168,10 +170,10 @@ class OtvetsvennostAuditController extends Controller
             'second_net_profit' => $request->second_net_profit,
 
         ]);
-        $questionnaire_path = $request->questionnaire->store("documents");
-        $contract_path = $request->contract->store("documents");
-        $policy_file_path = $request->policy_file->store("documents");
-        $retransfer_akt_file_path = $request->retransfer_akt_file->store("documents");
+        $questionnaire_path = (!empty($request->questionnaire)) ? $request->questionnaire->store("documents") : null;
+        $contract_path = (!empty($request->contract)) ? $request->contract->store("documents") : null;
+        $policy_file_path = (!empty($request->policy_file)) ? $request->policy_file->store("documents") : null;
+        $retransfer_akt_file_path = (!empty($request->retransfer_akt_file)) ? $request->retransfer_akt_file->store("documents") : null;
         $audit = OtvetsvennostAudit::create([
             'policy_holder_id' => $policyHolder->id,
             'audit_turnover_id' => $auditTurnover->id,
@@ -225,32 +227,30 @@ class OtvetsvennostAuditController extends Controller
             'bonus_of_insurance_main' => $request->bonus_of_insurance_main,
 
         ]);
-        $quantuty = count($request->get("payment_sum"));
-        for ($i = 0; $i < $quantuty; $i++) {
+        if (!empty($request->get("payment_sum"))) {
             $currency_terms = CurrencyTerm::create([
                 'otvetsvennost_audit_id' => $audit->id,
-                'payment_sum' => $request->get('payment_sum')[$i],
-                'payment_from' => $request->get('payment_from')[$i]
+                'payment_sum' => $request->get('payment_sum'),
+                'payment_from' => $request->get('payment_from')
             ]);
         }
 
-        $count = count($request->get("number_polis"));
-        for ($i = 0; $i < $count; $i++) {
+        if (!empty($request->get("number_polis"))) {
             $auditInfo = AuditInfo::create([
                 'otvetsvennost_audit_id' => $audit->id,
-                'number_polis' => $request->get('number_polis')[$i],
-                'series_polis' => $request->get('series_polis')[$i],
-                'validity_period_from' => $request->get('validity_period_from')[$i],
-                'validity_period_to' => $request->get('validity_period_to')[$i],
-                'polis_agent' => $request->get('polis_agent')[$i],
-                'polis_mark' => $request->get('polis_mark')[$i],
-                'specialty' => $request->get('specialty')[$i],
-                'workExp' => $request->get('workExp')[$i],
-                'polis_model' => $request->get('polis_model')[$i],
-                'arriving_time' => $request->get('arriving_time')[$i],
-                'cost_of_insurance' => $request->get('cost_of_insurance')[$i],
-                'sum_of_insurance' => $request->get('sum_of_insurance')[$i],
-                'bonus_of_insurance' => $request->get('bonus_of_insurance')[$i],
+                'number_polis' => $request->get('number_polis'),
+                'series_polis' => $request->get('series_polis'),
+                'validity_period_from' => $request->get('validity_period_from'),
+                'validity_period_to' => $request->get('validity_period_to'),
+                'polis_agent' => $request->get('polis_agent'),
+                'polis_mark' => $request->get('polis_mark'),
+                'specialty' => $request->get('specialty'),
+                'workExp' => $request->get('workExp'),
+                'polis_model' => $request->get('polis_model'),
+                'arriving_time' => $request->get('arriving_time'),
+                'cost_of_insurance' => $request->get('cost_of_insurance'),
+                'sum_of_insurance' => $request->get('sum_of_insurance'),
+                'bonus_of_insurance' => $request->get('bonus_of_insurance')
             ]);
         }
 
@@ -275,8 +275,8 @@ class OtvetsvennostAuditController extends Controller
      */
     public function edit($id)
     {
-        $product = OtvetsvennostAudit::query()->with('policyHolder', 'auditTurnover', 'auditInfos', 'currencyTerms')->findOrFail($id);
-
+        $product = OtvetsvennostAudit::query()->with('policyHolder', 'auditTurnover', 'auditInfos',
+            'currencyTerms')->findOrFail($id);
         $banks = Bank::query()->get();
         return view('audit.edit', compact('product', 'banks'));
     }
@@ -290,9 +290,12 @@ class OtvetsvennostAuditController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = OtvetsvennostAudit::query()->findOrFail($id);
-        $policyHolder = PolicyHolder::query()->findOrFail($product->policy_holder_id);
-        $auditTurnover = AuditTurnover::query()->findOrFail($product->audit_turnover_id);
+        $product = OtvetsvennostAudit::query()->find($id);
+        $policyHolder = PolicyHolder::query()->find($product->policy_holder_id);
+        $auditTurnover = AuditTurnover::query()->find($product->audit_turnover_id);
+        $auditInfo = AuditInfo::query()->where('id', $product->id)->first();
+        dd($auditInfo);
+        $currency_terms = CurrencyTerm::query()->where('id', $product->id)->first();
 
         $policyHolder->update([
             'FIO' => $request->fio_insurer,
@@ -317,25 +320,25 @@ class OtvetsvennostAuditController extends Controller
             'second_net_profit' => $request->second_net_profit,
 
         ]);
-        if(!empty($request->questionnaire)) {
+        if (!empty($request->questionnaire)) {
             $questionnaire_path = $request->questionnaire->store("pictures");
             Storage::delete($product->questionnaire_path);
         } else {
             $questionnaire_path = $product->questionnaire_path;
         }
-        if(!empty($request->contract)) {
+        if (!empty($request->contract)) {
             $contract_path = $request->contract->store("pictures");
             Storage::delete($product->contract_path);
         } else {
             $contract_path = $product->contract_path;
         }
-        if(!empty($request->policy_file)) {
+        if (!empty($request->policy_file)) {
             $policy_file_path = $request->policy_file->store("pictures");
             Storage::delete($product->policy_file_path);
         } else {
             $policy_file_path = $product->policy_file_path;
         }
-        if(!empty($request->retransfer_akt_file)) {
+        if (!empty($request->retransfer_akt_file)) {
             $retransfer_akt_file_path = $request->retransfer_akt_file->store("pictures");
             Storage::delete($product->policy_file_path);
         } else {
@@ -395,6 +398,27 @@ class OtvetsvennostAuditController extends Controller
 
         ]);
 
+        $auditInfo->update([
+            'number_polis' => $request->get('number_polis'),
+            'series_polis' => $request->get('series_polis'),
+            'validity_period_from' => $request->get('validity_period_from'),
+            'validity_period_to' => $request->get('validity_period_to'),
+            'polis_agent' => $request->get('polis_agent'),
+            'polis_mark' => $request->get('polis_mark'),
+            'specialty' => $request->get('specialty'),
+            'workExp' => $request->get('workExp'),
+            'polis_model' => $request->get('polis_model'),
+            'arriving_time' => $request->get('arriving_time'),
+            'cost_of_insurance' => $request->get('cost_of_insurance'),
+            'sum_of_insurance' => $request->get('sum_of_insurance'),
+            'bonus_of_insurance' => $request->get('bonus_of_insurance')
+        ]);
+
+        $currency_terms->update([
+            'payment_sum' => $request->get('payment_sum'),
+            'payment_from' => $request->get('payment_from')
+        ]);
+        return "success";
     }
 
     /**
