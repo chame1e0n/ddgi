@@ -821,8 +821,8 @@
                     </div>
                 </div>
             </section>
-            <div>
-                <button type="submit">sdksldsllsdldfldlsfldlfldfkl</button>
+            <div class="card-footer">
+                <button class="btn btn-primary float-right" type="submit">Сохранить</button>
             </div>
         </div>
     </form>

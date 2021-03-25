@@ -1017,36 +1017,38 @@
                     </div>
                 </div>
             </section>
-            <div>
-                <button type="submit">sdksldsllsdldfldlsfldlfldfkl</button>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
             </div>
         </div>
     </form>
     <form method="post" action="{{route("audit.destroy", $product->id)}}">
-        @csrf
-        @method("delete")
-        <button type="submit" class="btn-danger">wedfewfwefdwedwedwedwedwedwedweddelete</button>
+        <div class="card-footer">
+            @csrf
+            @method("delete")
+            <button type="submit" class="btn btn-danger float-right">Удалить</button>
+        </div>
     </form>
 @endsection
 @section('scripts')
-    <script>
-        $(document).on('click', '#delete_row_currency', function () {
-            var id = $(this).data('remove');
-            console.log(id)
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'GET',
-                url: '/admin/requests/cancel/' + id,
+{{--    <script>--}}
+{{--        $(document).on('click', '#delete_row_currency', function () {--}}
+{{--            var id = $(this).data('remove');--}}
+{{--            console.log(id)--}}
+{{--            $.ajaxSetup({--}}
+{{--                headers: {--}}
+{{--                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                }--}}
+{{--            });--}}
+{{--            $.ajax({--}}
+{{--                type: 'GET',--}}
+{{--                url: '/admin/requests/cancel/' + id,--}}
 
-                success: function () {
-                    $('#table' + id).remove();
-                }
-            });
-        })
-    </script>
+{{--                success: function () {--}}
+{{--                    $('#table' + id).remove();--}}
+{{--                }--}}
+{{--            });--}}
+{{--        })--}}
+{{--    </script>--}}
     <script src="/assets/custom/js/form/form-actions.js"></script>
 @endsection
