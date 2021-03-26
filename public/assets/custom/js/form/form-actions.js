@@ -1,4 +1,4 @@
-// #form-audit - форма аудита
+// form-audit - форма аудита
 
 // Общие сведения
 // #insurer-name
@@ -608,7 +608,7 @@ if (condition) {
 
 }
 
-const generalProductFields = document.getElementById('general-product-fields');
+// const generalProductFields = document.getElementById('general-product-fields');
 
 function addProductFields(fieldNumber) {
     let fields = `<div id="product-field-modal-${fieldNumber}" class="modal" data-field-number="${fieldNumber}">
