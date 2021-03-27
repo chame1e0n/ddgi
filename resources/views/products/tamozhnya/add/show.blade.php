@@ -41,7 +41,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer"
+                                        <input readonly type="text" id="insurer-name" name="fio_insurer"
                                                value="{{$tamozhnya->policyHolders->FIO}}" @if($errors->has('fio_insurer'))
                                                class="form-control is-invalid"
                                                @else
@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Юр адрес
                                             страхователя</label>
-                                        <input value="{{$tamozhnya->policyHolders->address}}" type="text" id="insurer-address"
+                                        <input readonly value="{{$tamozhnya->policyHolders->address}}" type="text" id="insurer-address"
                                                name="address_insurer"
                                                @if($errors->has('address_insurer'))
                                                class="form-control is-invalid"
@@ -66,7 +66,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input value="{{$tamozhnya->policyHolders->phone_number}}" type="text" id="insurer-tel"
+                                        <input readonly value="{{$tamozhnya->policyHolders->phone_number}}" type="text" id="insurer-tel"
                                                name="tel_insurer"
                                                @if($errors->has('tel_insurer'))
                                                class="form-control is-invalid"
@@ -78,7 +78,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input value="{{$tamozhnya->policyHolders->checking_account}}" type="text" id="insurer-schet"
+                                        <input readonly value="{{$tamozhnya->policyHolders->checking_account}}" type="text" id="insurer-schet"
                                                name="address_schet"
                                                @if($errors->has('address_schet'))
                                                class="form-control is-invalid"
@@ -90,7 +90,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input value="{{$tamozhnya->policyHolders->inn}}" type="text" id="insurer-inn"
+                                        <input readonly value="{{$tamozhnya->policyHolders->inn}}" type="text" id="insurer-inn"
                                                name="inn_insurer"
                                                @if($errors->has('inn_insurer'))
                                                class="form-control is-invalid"
@@ -103,7 +103,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input value="{{$tamozhnya->policyHolders->mfo}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
+                                        <input readonly value="{{$tamozhnya->policyHolders->mfo}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
                                         class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -133,7 +133,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input value="{{$tamozhnya->policyHolders->oked}}" type="text" id="oked" name="oked"
+                                        <input readonly value="{{$tamozhnya->policyHolders->oked}}" type="text" id="oked" name="oked"
                                                @if($errors->has('oked'))
                                                class="form-control is-invalid"
                                                @else
@@ -159,7 +159,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="beneficiary-name" class="col-form-label">Наименование выгодоприобретателя</label>
-                                                    <input value="{{$tamozhnya->policyBeneficiaries->FIO}}" type="text" id="fio_beneficiary"
+                                                    <input readonly value="{{$tamozhnya->policyBeneficiaries->FIO}}" type="text" id="fio_beneficiary"
                                                            name="fio_beneficiary"
                                                            @if($errors->has('fio_beneficiary'))
                                                            class="form-control is-invalid"
@@ -171,7 +171,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="beneficiary-address" class="col-form-label">Юр адрес выгодоприобретателя</label>
-                                                    <input value="{{$tamozhnya->policyBeneficiaries->address}}" type="text" id="address_beneficiary"
+                                                    <input readonly value="{{$tamozhnya->policyBeneficiaries->address}}" type="text" id="address_beneficiary"
                                                            name="address_beneficiary"
                                                            @if($errors->has('address_beneficiary'))
                                                            class="form-control is-invalid"
@@ -183,7 +183,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input value="{{$tamozhnya->policyBeneficiaries->phone_number}}" type="text" id="tel_beneficiary"
+                                                    <input readonly value="{{$tamozhnya->policyBeneficiaries->phone_number}}" type="text" id="tel_beneficiary"
                                                            name="tel_beneficiary"
                                                            @if($errors->has('tel_beneficiary'))
                                                            class="form-control is-invalid"
@@ -195,7 +195,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                                    <input value="{{$tamozhnya->policyBeneficiaries->checking_account}}" type="text" id="beneficiary_schet"
+                                                    <input readonly value="{{$tamozhnya->policyBeneficiaries->checking_account}}" type="text" id="beneficiary_schet"
                                                            name="beneficiary_schet"
                                                            @if($errors->has('beneficiary_schet'))
                                                            class="form-control is-invalid"
@@ -207,7 +207,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                    <input value="{{$tamozhnya->policyBeneficiaries->inn}}" type="number" id="inn_beneficiary"
+                                                    <input readonly value="{{$tamozhnya->policyBeneficiaries->inn}}" type="number" id="inn_beneficiary"
                                                            name="inn_beneficiary"
                                                            @if($errors->has('inn_beneficiary'))
                                                            class="form-control is-invalid"
@@ -219,7 +219,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                    <input value="{{$tamozhnya->policyBeneficiaries->mfo}}" type="text" id="mfo_beneficiary"
+                                                    <input readonly value="{{$tamozhnya->policyBeneficiaries->mfo}}" type="text" id="mfo_beneficiary"
                                                            name="mfo_beneficiary"
                                                            @if($errors->has('mfo_beneficiary'))
                                                            class="form-control is-invalid"
@@ -251,7 +251,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                    <input value="{{$tamozhnya->policyBeneficiaries->oked}}" type="text" id="okonh_beneficiary"
+                                                    <input readonly value="{{$tamozhnya->policyBeneficiaries->oked}}" type="text" id="okonh_beneficiary"
                                                            name="okonh_beneficiary"
                                                            @if($errors->has('okonh_beneficiary'))
                                                            class="form-control is-invalid"
@@ -280,7 +280,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">с</span>
                                             </div>
-                                            <input value="{{$tamozhnya->from_date}}" type="date" id="from_date"
+                                            <input readonly value="{{$tamozhnya->from_date}}" type="date" id="from_date"
                                                    name="from_date"
                                                    @if($errors->has('from_date'))
                                                    class="form-control is-invalid"
@@ -296,7 +296,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">до</span>
                                                 </div>
-                                                <input value="{{$tamozhnya->to_date}}" type="date" id="to_date"
+                                                <input readonly value="{{$tamozhnya->to_date}}" type="date" id="to_date"
                                                        name="to_date"
                                                        @if($errors->has('to_date'))
                                                        class="form-control is-invalid"
@@ -317,7 +317,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="warehouse_volume" class="col-form-label">Объём площади склада</label>
-                                    <input value="{{$tamozhnya->warehouse_volume}}" type="text" id="warehouse_volume"
+                                    <input readonly value="{{$tamozhnya->warehouse_volume}}" type="text" id="warehouse_volume"
                                            name="warehouse_volume"
                                            @if($errors->has('warehouse_volume'))
                                            class="form-control is-invalid"
@@ -330,7 +330,7 @@
                                 <div class="form-group">
                                     <label class="col-form-label" for="geographic-zone">Объем товара:</label>
                                     <div class="input-group mb-4">
-                                        <input value="{{$tamozhnya->product_volume}}" type="number" id="product_volume"
+                                        <input readonly value="{{$tamozhnya->product_volume}}" type="number" id="product_volume"
                                                name="product_volume"
                                                @if($errors->has('product_volume'))
                                                class="form-control is-invalid"
@@ -350,7 +350,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="total_sum" class="col-form-label">Общая стоимость:</label>
-                                    <input value="{{$tamozhnya->total_sum}}" type="text" id="total_sum"
+                                    <input readonly value="{{$tamozhnya->total_sum}}" type="text" id="total_sum"
                                            name="total_sum"
                                            @if($errors->has('total_sum'))
                                            class="form-control is-invalid"
@@ -365,7 +365,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">с</span>
                                     </div>
-                                    <input value="{{$tamozhnya->na_sklade_from_date}}" type="date" id="na_sklade_from_date"
+                                    <input readonly value="{{$tamozhnya->na_sklade_from_date}}" type="date" id="na_sklade_from_date"
                                            name="na_sklade_from_date"
                                            @if($errors->has('na_sklade_from_date'))
                                            class="form-control is-invalid"
@@ -381,7 +381,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">до</span>
                                         </div>
-                                        <input value="{{$tamozhnya->na_sklade_to_date}}" type="date" id="na_sklade_to_date"
+                                        <input readonly value="{{$tamozhnya->na_sklade_to_date}}" type="date" id="na_sklade_to_date"
                                                name="na_sklade_to_date"
                                                @if($errors->has('na_sklade_to_date'))
                                                class="form-control is-invalid"
@@ -443,7 +443,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input id="strahovaya_sum" name="strahovaya_sum" value="{{$tamozhnya->strahovaya_sum}}"
+                                        <input readonly id="strahovaya_sum" name="strahovaya_sum" value="{{$tamozhnya->strahovaya_sum}}"
                                                type="number" @if($errors->has('strahovaya_sum'))
                                                class="form-control is-invalid"
                                                @else
@@ -454,7 +454,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="geographic-zone">Страховая премия</label>
-                                        <input id="strahovaya_purpose" name="strahovaya_purpose" value="{{$tamozhnya->strahovaya_purpose}}"
+                                        <input readonly id="strahovaya_purpose" name="strahovaya_purpose" value="{{$tamozhnya->strahovaya_purpose}}"
                                                type="number" @if($errors->has('strahovaya_purpose'))
                                                class="form-control is-invalid"
                                                @else
@@ -465,7 +465,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="geographic-zone">Франшиза</label>
-                                        <input id="franshiza" name="franshiza" value="{{$tamozhnya->franshiza}}"
+                                        <input readonly id="franshiza" name="franshiza" value="{{$tamozhnya->franshiza}}"
                                                type="text" @if($errors->has('franshiza'))
                                                class="form-control is-invalid"
                                                @else
@@ -494,17 +494,17 @@
                                         <tbody>
                                         @if(!$tamozhnya->strahPremiya)
                                             <tr id="payment-term-tr-0" data-field-number="0">
-                                                <td><input type="text" class="form-control" name="payment_sum[]">
+                                                <td><input readonly type="text" class="form-control" name="payment_sum[]">
                                                 </td>
-                                                <td><input type="date" class="form-control" name="payment_from[]">
+                                                <td><input readonly type="date" class="form-control" name="payment_from[]">
                                                 </td>
                                             </tr>
                                         @else
                                             @foreach($tamozhnya->strahPremiya as $premiya)
                                                 <tr id="payment-term-tr-0" data-field-number="0">
-                                                    <td><input type="text" class="form-control" name="payment_sum[{{$premiya->id}}]" value="{{$premiya->prem_sum}}">
+                                                    <td><input readonly type="text" class="form-control" name="payment_sum[{{$premiya->id}}]" value="{{$premiya->prem_sum}}">
                                                     </td>
-                                                    <td><input type="date" class="form-control" name="payment_from[{{$premiya->id}}]" value="{{$premiya->prem_from}}">
+                                                    <td><input readonly type="date" class="form-control" name="payment_from[{{$premiya->id}}]" value="{{$premiya->prem_from}}">
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -532,7 +532,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                            <input id="serial_number_policy" name="serial_number_policy" value="{{$tamozhnya->serial_number_policy}}"
+                                            <input readonly id="serial_number_policy" name="serial_number_policy" value="{{$tamozhnya->serial_number_policy}}"
                                                    type="text" @if($errors->has('serial_number_policy'))
                                                    class="form-control is-invalid"
                                                    @else
@@ -546,7 +546,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"></span>
                                             </div>
-                                            <input id="date_issue_policy" name="date_issue_policy" value="{{$tamozhnya->date_issue_policy}}"
+                                            <input readonly id="date_issue_policy" name="date_issue_policy" value="{{$tamozhnya->date_issue_policy}}"
                                                    type="date" @if($errors->has('date_issue_policy'))
                                                    class="form-control is-invalid"
                                                    @else
@@ -593,7 +593,7 @@
                                     <div class="form-group">
                                         <img src="/storage/{{$tamozhnya->anketa_img}}" alt="Анкета">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
-                                        <input id="anketa_img" name="anketa_img" value="{{old('anketa_img')}}"
+                                        <input readonly id="anketa_img" name="anketa_img" value="{{old('anketa_img')}}"
                                                type="file" @if($errors->has('anketa_img'))
                                                class="form-control is-invalid"
                                                @else
@@ -605,7 +605,7 @@
                                     <div class="form-group">
                                         <img src="/storage/{{$tamozhnya->dogovor_img}}" alt="Договор">
                                         <label for="polis-series" class="col-form-label">Договор</label>
-                                        <input id="dogovor_img" name="dogovor_img" value="{{old('dogovor_img')}}"
+                                        <input readonly id="dogovor_img" name="dogovor_img" value="{{old('dogovor_img')}}"
                                                type="file" @if($errors->has('dogovor_img'))
                                                class="form-control is-invalid"
                                                @else
@@ -617,7 +617,7 @@
                                     <div class="form-group">
                                         <img src="/storage/{{$tamozhnya->polis_img}}" alt="Полис">
                                         <label for="polis-series" class="col-form-label">Полис</label>
-                                        <input id="polis_img" name="polis_img" value="{{old('polis_img')}}"
+                                        <input readonly id="polis_img" name="polis_img" value="{{old('polis_img')}}"
                                                type="file" @if($errors->has('polis_img'))
                                                class="form-control is-invalid"
                                                @else

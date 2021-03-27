@@ -179,43 +179,45 @@ class TamozhnyaAddController extends Controller
     public function update(TamozhnyaAddRequest $request, $id)
     {
         $tamozhnyaAdd = TamozhnyaAdd::findOrFail($id);
-        $policyHolders           = PolicyHolder::updatePolicyHolders($tamozhnyaAdd->policy_holder_id, $request);
-        if(!$policyHolders)
+        $policyHolders = PolicyHolder::updatePolicyHolders($tamozhnyaAdd->policy_holder_id, $request);
+        if (!$policyHolders)
             return back()->withInput()->withErrors([sprintf('Ошибка при обновлении PolicyHolders')]);
-        $policyBeneficiaries     = PolicyBeneficiaries::updatePolicyBeneficiaries($tamozhnyaAdd->policy_beneficiary_id, $request);
-        if(!$policyBeneficiaries)
+        $policyBeneficiaries = PolicyBeneficiaries::updatePolicyBeneficiaries($tamozhnyaAdd->policy_beneficiary_id, $request);
+        if (!$policyBeneficiaries)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
 
         $request->policy_holder_id = $policyHolders->id;
         $request->policy_beneficiary_id = $policyBeneficiaries->id;
         if ($request->hasFile('anketa_img')) {
-            $image          = $request->file('anketa_img')->store('/img/PolicyHolder', 'public');
-            $request->anketa_img   = $image;
-        }
-        else
+            $image = $request->file('anketa_img')->store('/img/PolicyHolder', 'public');
+            $request->anketa_img = $image;
+        } else
             $request->anketa_img = $tamozhnyaAdd->anketa_img;
 
         if ($request->hasFile('dogovor_img')) {
-            $image          = $request->file('dogovor_img')->store('/img/PolicyHolder', 'public');
-            $request->dogovor_img   = $image;
-        }
-        else
+            $image = $request->file('dogovor_img')->store('/img/PolicyHolder', 'public');
+            $request->dogovor_img = $image;
+        } else
             $request->dogovor_img = $tamozhnyaAdd->dogovor_img;
 
         if ($request->hasFile('polis_img')) {
-            $image          = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
-            $request->polis_img   = $image;
-        }
-        else
+            $image = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
+            $request->polis_img = $image;
+        } else
             $request->polis_img = $tamozhnyaAdd->polis_img;
 
         $tamozhnyaAdd = TamozhnyaAdd::updateTamozhnyaAdd($id, $request);
-        if(!$tamozhnyaAdd)
+        if (!$tamozhnyaAdd)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $tamozhnyaAdd')]);
-        if(!empty($request->post('payment_sum')) && !empty($request->post('payment_sum')))
+
+        if($tamozhnyaAdd->payment_term == '1')
         {
-            foreach ($request->post('payment_sum') as $key => $sum)
-            {
+            $delStrahPremiya = \App\Models\Product\TamozhnyaAddStrahPremiya::where('tamozhnya_add_id', $tamozhnyaAdd->id)->delete();
+        }
+        else
+        {
+        if (!empty($request->post('payment_sum')) && !empty($request->post('payment_sum'))) {
+            foreach ($request->post('payment_sum') as $key => $sum) {
                 $newStrahPremiya = \App\Models\Product\TamozhnyaAddStrahPremiya::updateOrCreate([
                     'id' => $key,
                     'tamozhnya_add_id' => $tamozhnyaAdd->id
@@ -225,6 +227,7 @@ class TamozhnyaAddController extends Controller
                 ]);
             }
         }
+    }
         return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 

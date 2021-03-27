@@ -153,7 +153,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input value="{{old('okonx')}}" type="text" id="okonx" name="okonh_insurer"
+                                        <input value="{{old('okonx')}}" type="text" id="okonx" name="okonx"
                                                @if($errors->has('okonx'))
                                                class="form-control is-invalid"
                                                @else
