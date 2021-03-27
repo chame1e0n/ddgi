@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OtvetstvennostPodryadchikRequest extends FormRequest
+class OtvetstvennostBrokerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,6 @@ class OtvetstvennostPodryadchikRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'fio_insurer' => 'required',
             'address_insurer' => 'required',
@@ -49,7 +48,6 @@ class OtvetstvennostPodryadchikRequest extends FormRequest
             'strahovaya_purpose' => 'required',
             'serial_number_policy' => 'required',
             'date_issue_policy' => 'required',
-            'insurance_premium_payment_type' => 'required',
             'litso' => 'required|integer',
             ];
     }

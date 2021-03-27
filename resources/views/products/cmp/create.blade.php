@@ -427,7 +427,6 @@
                                         <label for="polises">Валюта взаиморасчетов</label>
                                         <select class="form-control" name="insurence_currency" id="walletNames"
                                                 style="width: 100%; text-align: center">
-                                            <option>{{$bonded->insurance_premium_currency}}</option>
                                             <option>UZS</option>
                                         </select>
                                     </div>

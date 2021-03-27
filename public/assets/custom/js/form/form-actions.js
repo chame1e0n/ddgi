@@ -1,491 +1,619 @@
-function addRow() {
-    let empTab = document.getElementById('empTable');
-    var fieldNames = [
-        'polis-num-',
-        'polis-series-',
-        'period_polis-',
-        'polis-agent-',
-        'polis-id-',
-        'polis-mark-',
-        'polis-model-',
-        'polis-modification-',
-        'polis-gos-num-',
-        'polis-teh-passport-',
-        'polis-num-engine-',
-        'polis-num-body-',
-        'polis-payload-',
-        'polis-places-',
-        'insurance_sum-',
-        'overall_insurance_sum-',
-        'insurance_premium-',
-    ];
-    let rowCnt = empTab.rows.length; // get the number of rows.
-    let tr = empTab.insertRow(rowCnt - 1); // table row.
+// #form-audit - форма аудита
 
-    productFieldNumber++;
+// Общие сведения
+// #insurer-name
+// #insurer-address
+// #insurer-phone
+// #insurer-bill
+// #insurer-type-activity
+// #insurer-mfo
+// #insurer-bank
+// #insurer-inn
+// #insurer-okonh
+// #insurer-oked
+// #personal-info
 
-    var rowsAmount = $("#empTable thead tr th").length + 1;
+// #insurance-from
+// #insurance-to
+// #geograph-zone
 
-    for (let c = 0; c < rowsAmount; c++) {
-        let td = document.createElement('td'); // TABLE DEFINITION.
-        td = tr.insertCell(c);
+// Форма аудита
+const formAudit = document.querySelector('#form-audit')
+const formBrokers = document.querySelector('#formBrokers')
+const formNatarius = document.querySelector('#formNatarius')
+const formOtsenshiki = document.querySelector('#formOtsenshiki')
+const formRealtors = document.querySelector('#formRealtors')
 
-        if (c == (rowsAmount - 1)) { // if its the last column of the table.
-            // add delete a button
-            let button = document.createElement('input');
 
-            // set the attributes.
-            button.setAttribute('type', 'button');
-            button.setAttribute('value', 'Удалить');
+// Блок "Период деятельности оганизации"
+const periodActiveOrg = document.querySelector('#period-active-org')
+// Блок с элементами "radio" и "select" форм
+const fieldsChanged = document.querySelector('#fields-changed')
+// Форма "Условия оплаты страховой премии"
+const paymentsForm = document.querySelector('#payment-terms-form')
 
-            // add button's "onclick" event.
-            button.setAttribute('onclick', 'removeRow(this)');
-            button.setAttribute('data-field-number', productFieldNumber);
-            button.setAttribute('class', 'btn btn-warning');
+const actedBoxDescription = document.querySelector('[data-acted]')
+const casesReasonBox = document.querySelector('[data-cases-reason]')
+const administrCaseBox = document.querySelector('[data-administr-case]')
+const otherPaymentSchedule = document.querySelector('#other-payment-schedule')
+const buttonAddRowSchedule = document.querySelector('[data-btn-add-row]')
+const tablePaymentSchedule = document.querySelector('#table-payment-schedule')
+const buttonAddRowInfo = document.querySelector('[data-btn-add-row-info]')
+const buttonAddRowInfo2 = document.querySelector('[data-btn-add-row-info2]')
+const infoTable = document.querySelector('[data-info-table]')
+const infoTable2 = document.querySelector('#personal-table')
 
-            td.appendChild(button);
+const insuranceSum = document.querySelector('[data-insurance-sum]')
+const insuranceValue = document.querySelector('[data-insurance-stoimost]')
+const insuranceAward = document.querySelector('[data-insurance-award]')
+const annualTurnoverInfo = document.querySelector('[data-annual-turnover-info]')
 
-            // add delete a button
-            let button2 = document.createElement('input');
-            button2.setAttribute('type', 'button');
-            button2.setAttribute('value', 'Заполнить');
-            button2.setAttribute('class', 'btn btn-success product-fields-button');
-            button2.setAttribute('id', 'product-fields-button-' + productFieldNumber);
-            button2.setAttribute('data-field-number', productFieldNumber);
+const totalTurnoverField = document.querySelector('[data-total-turnover]')
+const earningsField = document.querySelector('[data-earnings]')
 
-            let td2 = document.createElement('td'); // TABLE DEFINITION.
-            let fieldNumer = c + 1;
-            td2 = tr.insertCell(fieldNumer);
-            td2.appendChild(button2);
-        } else {
-            // all except the last colum will have input field.
-            let ele = document.createElement('input');
+const activityPeriodDates = {}
+const dataSelectAndRadioFields = {}
+const paymentFormData = {}
+const infoTableTotal = {}
 
-            let fieldIndex = c + 1;
-            let columnName = fieldNames[c];
-            ele.setAttribute('name', columnName + productFieldNumber);
+let insuranceTotalValue = 0
+let insuranceTotalSum = 0
+let insuranceTotalAward = 0
 
-            if (c === 1) {
-                ele = document.createElement('select');
-            } else if (c === 3) {
-                ele = document.createElement('select');
-            } else {
-                ele.setAttribute('type', 'text');
-            }
-            if (columnName === 'polis-places-') {
-                ele.setAttribute('class', 'form-control forsum2');
-            } else if (columnName === 'insurance_sum-') {
-                ele.setAttribute('class', 'form-control forsum insurance_sum-' + productFieldNumber);
-                ele.setAttribute('data-field-number', productFieldNumber);
-            } else if (columnName === 'insurance_premium-') {
-                ele.setAttribute('class', 'form-control forsum3 insurance_premium-' + productFieldNumber);
-                ele.setAttribute('readonly', 'true');
-            } else if (columnName === 'overall_insurance_sum-') {
-                ele.setAttribute('class', 'form-control forsum4 overall_insurance_sum-' + productFieldNumber);
-            } else if (columnName === 'polis-num-') {
-                ele.setAttribute('class', 'form-control polis-num-' + productFieldNumber);
-                ele.setAttribute('readonly', 'true');
-            } else {
-                ele.setAttribute('class', 'form-control');
-            }
-            td.appendChild(ele);
-        }
-    }
+let totalTurnover = 0
+let earnings = 0
 
-    addProductFields(productFieldNumber);
+
+/**
+ * @param selector - селектор элемента
+ */
+function getField(selector) {
+    return document.querySelector(selector)
 }
 
+/**
+ * @param from - начальная дата
+ * @param to - конечная дата
+ // Записывает разницу между датами в поле всего
+ */
+function calcDifferenceBetweenDates(from, to) {
+    const dateFrom = new Date(from);
+    const dateTo = new Date(to);
+    const days = Math.ceil(Math.abs(dateTo.getTime() - dateFrom.getTime()) / (1000 * 3600 * 24));
+    const totalField = document.querySelector('[data-total="total-active-org"]')
 
-let num1 = 1;
-let num2 = 1;
-$('#insurer-modal-button').on('click', function() {
-    console.log('modal open')
-    let clone = $('#clone-insurance:last').clone();
-    clone.insertAfter('#clone-insurance:last');
+    totalField.value = `${days} дней`
+}
 
-    clone.find('#insurer-name').attr('name', `insurer-name${num1}`);
-    clone.find('#insurer-address').attr('name', `insurer-address${num1}`);
-    clone.find('#insurer-tel').attr('name', `insurer-tel${num1}`);
-    clone.find('#insurer-schet').attr('name', `insurer-schet${num1}`);
-    clone.find('#insurer-inn').attr('name', `insurer-inn${num1}`);
-    clone.find('#insurer-mfo').attr('name', `insurer-mfo${num1}`);
-    clone.find('#insurer-bank').attr('name', `insurer-bank${num1}`);
-    clone.find('#insurer-okonh').attr('name', `insurer-okonh${num1}`);
-    clone.find('#insurer-name').attr('id', `insurer-name${num1}`)
-    clone.find('#insurer-address').attr('id', `insurer-address${num1}`)
-    clone.find('#insurer-tel').attr('id', `insurer-tel${num1}`)
-    clone.find('#insurer-schet').attr('id', `insurer-schet${num1}`)
-    clone.find('#insurer-inn').attr('id', `insurer-inn${num1}`)
-    clone.find('#insurer-mfo').attr('id', `insurer-mfo${num1}`)
-    clone.find('#insurer-bank').attr('id', `insurer-bank${num1}`)
-    clone.find('#insurer-okonh').attr('id', `insurer-okonh${num1}`)
-    clone.find('#insurer-name').prev().attr('for', `insurer-name${num1}`)
-    clone.find('#insurer-address').prev().attr('for', `insurer-address${num1}`)
-    clone.find('#insurer-tel').prev().attr('for', `insurer-tel${num1}`)
-    clone.find('#insurer-schet').prev().attr('for', `insurer-schet${num1}`)
-    clone.find('#insurer-inn').prev().attr('for', `insurer-inn${num1}`)
-    clone.find('#insurer-mfo').prev().attr('for', `insurer-mfo${num1}`)
-    clone.find('#insurer-bank').prev().attr('for', `insurer-bank${num1}`)
-    clone.find('#insurer-okonh').prev().attr('for', `insurer-okonh${num1}`)
-    num1++;
-    clone.find('.card-title').html(`Страхователь №${num1}`)
-    clone.find('#insurer-modal-button').attr('class', 'btn btn-warning')
-    clone.find('#insurer-modal-button').attr('value', 'Удалить')
-    clone.find('#insurer-modal-button').on('click', function() {
-        $(this).parent().parent().parent().remove();
-        num1--;
+/**
+ * @param element - принимает целевой элемент (элемент формы) и записывает даты в объект activityPeriodDates
+ */
+
+function getActivityDates(element) {
+
+    if (element.dataset.activityPeriod === 'from') {
+        activityPeriodDates.from = element.value
+    }
+
+    if (element.dataset.activityPeriod === 'to') {
+        activityPeriodDates.to = element.value
+    }
+
+    if (activityPeriodDates.from && activityPeriodDates.to) {
+        return true
+    }
+
+    return false
+}
+
+let fieldNumber = 0
+
+function addRowPaymentSchedule() {
+    const tableBody = tablePaymentSchedule.querySelector('tbody')
+
+    const newTableRow = `
+    <tr id="payment-term-tr-${fieldNumber}" data-field-number="${fieldNumber}">
+      <td><input type="text" class="form-control" data-field="sum" name="payment-sum[]">
+      </td>
+      <td><input type="date" class="form-control" data-field="from" name="payment-from[]">
+      </td>
+      <td>
+        <input type="button" value="Удалить" data-action="delete" class="btn btn-warning">
+      </td>
+    </tr>`
+
+    tableBody.insertAdjacentHTML('beforeend', newTableRow)
+    fieldNumber++
+}
+
+function removeRowSchedule(event) {
+    const target = event.target
+    const removeRowElement = target.parentElement.parentElement
+
+    if (target.dataset.action === 'delete' &&
+        removeRowElement.dataset &&
+        removeRowElement.dataset.fieldNumber) {
+        removeRowElement.remove()
+    }
+}
+
+const paymentTransh = {}
+
+if (buttonAddRowSchedule) {
+    buttonAddRowSchedule.addEventListener("click", addRowPaymentSchedule);
+}
+if (tablePaymentSchedule) {
+    tablePaymentSchedule.addEventListener('click', removeRowSchedule)
+}
+
+if (tablePaymentSchedule) {
+    tablePaymentSchedule.addEventListener("change", event => {
+        const target = event.target
+
+        if (target.dataset.field === 'sum') {
+            paymentTransh.sum = target.value.trim()
+        }
+
+        if (target.dataset.field === 'from') {
+            paymentTransh.from = target.value.trim()
+        }
+
+        if (+paymentTransh.sum && paymentTransh.from) {
+            paymentFormData.paymentSchedule.push(paymentTransh)
+        }
+
     })
-});
+}
 
-$('#beneficiary-modal-button').on('click', function() {
-    let clone = $('#clone-beneficiary:last').clone();
-    clone.insertAfter('#clone-beneficiary:first');
 
-    clone.find('#beneficiary-name').attr('name', `beneficiary-name${num2}`);
-    clone.find('#beneficiary-address').attr('name', `beneficiary-address${num2}`);
-    clone.find('#beneficiary-tel').attr('name', `beneficiary-tel${num2}`);
-    clone.find('#beneficiary-schet').attr('name', `beneficiary-schet${num2}`);
-    clone.find('#beneficiary-inn').attr('name', `beneficiary-inn${num2}`);
-    clone.find('#beneficiary-mfo').attr('name', `beneficiary-mfo${num2}`);
-    clone.find('#beneficiary-bank').attr('name', `beneficiary-bank${num2}`);
-    clone.find('#beneficiary-okonh').attr('name', `beneficiary-okonh${num2}`);
-    clone.find('#beneficiary-name').attr('id', `beneficiary-name${num2}`)
-    clone.find('#beneficiary-address').attr('id', `beneficiary-address${num2}`)
-    clone.find('#beneficiary-tel').attr('id', `beneficiary-tel${num2}`)
-    clone.find('#beneficiary-schet').attr('id', `beneficiary-schet${num2}`)
-    clone.find('#beneficiary-inn').attr('id', `beneficiary-inn${num2}`)
-    clone.find('#beneficiary-mfo').attr('id', `beneficiary-mfo${num2}`)
-    clone.find('#beneficiary-bank').attr('id', `beneficiary-bank${num2}`)
-    clone.find('#beneficiary-okonh').attr('id', `beneficiary-okonh${num2}`)
-    clone.find('#beneficiary-name').prev().attr('for', `beneficiary-name${num2}`)
-    clone.find('#beneficiary-address').prev().attr('for', `beneficiary-address${num2}`)
-    clone.find('#beneficiary-tel').prev().attr('for', `beneficiary-tel${num2}`)
-    clone.find('#beneficiary-schet').prev().attr('for', `beneficiary-schet${num2}`)
-    clone.find('#beneficiary-inn').prev().attr('for', `beneficiary-inn${num2}`)
-    clone.find('#beneficiary-mfo').prev().attr('for', `beneficiary-mfo${num2}`)
-    clone.find('#beneficiary-bank').prev().attr('for', `beneficiary-bank${num2}`)
-    clone.find('#beneficiary-okonh').prev().attr('for', `beneficiary-okonh${num2}`)
-    num2++;
-    clone.find('.card-title').html(`Выгодоприобретатель №${num2}`)
-    clone.find('#beneficiary-modal-button').attr('class', 'btn btn-warning')
-    clone.find('#beneficiary-modal-button').attr('value', 'Удалить')
-    clone.find('#beneficiary-modal-button').on('click', function() {
-        $(this).parent().parent().parent().remove();
-        num2--;
+if (formAudit) {
+    formAudit.addEventListener('submit', event => {
+        // event.preventDefault()
+
+        // Данные из формы audit
+        const generalInformation = {
+            insurerName: getField('#insurer-name').value,
+            insurerAddress: getField('#insurer-address').value,
+            insurerPhone: getField('#insurer-phone').value,
+            insurerBill: getField('#insurer-bill').value,
+            insurerTypeActive: getField('#insurer-type-activity').value,
+            insurerTypeMFO: getField('#insurer-mfo').value,
+            insurerBank: getField('#insurer-bank').value,
+            insurerInn: getField('#insurer-inn').value,
+            insurerOkonh: getField('#insurer-okonh').value,
+            insurerOked: getField('#insurer-oked').value,
+            personalInfo: getField('#personal-info').value,
+            insurancePeriod: {
+                from: getField('#insurance-from').value,
+                to: getField('#insurance-to').value
+            },
+            geoZone: getField('#geograph-zone').value
+        }
     })
-
-});
-
-$(document).ready(function() {
-    $(document).on("keyup", ".forsum", calculateSum);
-    $(document).on("keyup", ".forsum2", calculateSum2);
-    $(document).on("keyup", ".forsum3", calculateSum3);
-    $(document).on("keyup", ".forsum4", calculateSum4);
-    $(document).on("keyup", ".forsum5", calculateSum5);
-    $('.defects').on('change', function() {
-        console.log('sa');
-        let targetBox = $('.defects_images');
-        if ($(this).attr("value") === '1') {
-            $(targetBox).show(400);
-            console.log(targetBox)
-        } else {
-            console.log(targetBox)
-            $(targetBox).hide(400);
-        }
-    });
-
-    
-});
-$(document).on('keyup', function() {
-    if ($('.overall-sum').val() < $('.overall-sum').val()) {
-        alert('Страховая стоимость не должна превышать страховую сумму')
-        $('#form-save-button').attr('disabled', true)
-    } else {
-        $('#form-save-button').removeAttr('disabled');
-    }
-});
-
-$(document).on("keyup", ".modal", function() {
-    let fieldNumber = $(this).data('field-number');
-    overallSum =
-        parseFloat($('#insurance_sum-' + fieldNumber).val() || 0) +
-        parseFloat($('.terror-tc-' + fieldNumber).val() || 0) +
-        parseFloat($('.terror-zl-' + fieldNumber).val() || 0) +
-        parseFloat($('.evocuation-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-1-sum-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-2-sum-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-3-sum-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-3-sum-1-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-3-sum-2-' + fieldNumber).val() || 0);
-    let modalTableSum2 =
-        parseFloat($('.r-3-sum-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-3-sum-1-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-3-sum-2-' + fieldNumber).val() || 0);
-    let modalTableSum3 =
-        parseFloat($('.r-3-premia-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-3-premia-1-' + fieldNumber).val() || 0) +
-        parseFloat($('.r-3-premia-2-' + fieldNumber).val() || 0);
-    $('#overall-sum-' + fieldNumber).val(overallSum);
-    $('.r-summ-' + fieldNumber).val(modalTableSum2);
-    $('.r-summ-premia-' + fieldNumber).val(modalTableSum3);
-
-    $('#totalLimit-' + fieldNumber).on('keyup', function() {
-        if ($('.r-summ-' + fieldNumber).val() >= $('#totalLimit-' + fieldNumber).val()) {
-            $('#form-save-button').attr('disabled', true)
-                // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
-        } else {
-            $('#form-save-button').removeAttr('disabled');
-
-        }
-    });
-
-    calculateSum4(fieldNumber);
-});
-
-$(document).on("change", ".modal", function() {
-    let fieldNumber = $(this).data('field-number');
-
-    $('.other_insurance-' + fieldNumber).on('change', function() {
-        let targetBox = $('.other_insurance_info-' + fieldNumber);
-        if ($(this).attr("value") === '1') {
-            console.log('78')
-            $(targetBox).show(400);
-        } else {
-            console.log('78')
-            $(targetBox).hide(400);
-        }
-    });
-    $('.r-1-' + fieldNumber).on('change', function() {
-        let targetBox = $('.r-1-show-' + fieldNumber);
-        if ($(this).attr("value") === '1') {
-            console.log('123')
-            $(targetBox).show(400);
-        } else {
-            console.log('123')
-            $(targetBox).hide(400);
-        }
-    });
-    $('.r-2-' + fieldNumber).on('change', function() {
-        let targetBox = $(`.r-2-show-${fieldNumber}`);
-        if ($(this).attr("value") === '1') {
-            console.log('34')
-            $(targetBox).show(400);
-        } else {
-            console.log('34')
-            $(targetBox).hide(400);
-        }
-    });
-    $('.r-3-' + fieldNumber).on('change', function() {
-        let targetBox = $(`.r-3-show-${fieldNumber}`);
-        if ($(this).attr("value") === '1') {
-            console.log('56')
-            $(targetBox).show(400);
-        } else {
-            console.log('56')
-            $(targetBox).hide(400);
-        }
-    });
-    $('.r-3-one-' + fieldNumber).on('keyup', function() {
-        let numOne = $(this).val() * $(`.r-3-pass-${fieldNumber}`).val();
-        $(document).find(`.r-3-sum-${fieldNumber}`).val(numOne);
-    });
-    $('.r-3-pass-1-' + fieldNumber).on('keyup', function() {
-        let numOne = $(this).val() * $(`.r-3-one-1-${fieldNumber}`).val();
-        $(document).find(`.r-3-sum-1-${fieldNumber}`).val(numOne);
-    });
-    $('.r-3-one-1-' + fieldNumber).on('keyup', function() {
-        let numOne = $(this).val() * $(`.r-3-pass-1-${fieldNumber}`).val();
-        $(document).find(`.r-3-sum-1-${fieldNumber}`).val(numOne);
-    });
-    $('.r-3-pass-2-' + fieldNumber).on('keyup', function() {
-        let numOne = $(this).val() * $(`.r-3-one-2-${fieldNumber}`).val();
-        $(document).find(`.r-3-sum-2-${fieldNumber}`).val(numOne);
-    });
-    $('.r-3-one-2-' + fieldNumber).on('keyup', function() {
-        let numOne = $(this).val() * $(`.r-3-pass-2-${fieldNumber}`).val();
-        $(document).find(`.r-3-sum-2-${fieldNumber}`).val(numOne);
-    });
-
-});
-
-function calculateSum() {
-    let sum = 0;
-    $('.forsum').each(function() {
-        if (!isNaN(this.value) && this.value.length != 0) {
-            sum += parseFloat(this.value);
-        }
-    });
-    $('.overall-sum').val(sum.toFixed(2));
-}
-
-function calculateSum2() {
-    let sum = 0;
-    $('.forsum2').each(function() {
-        if (!isNaN(this.value) && this.value.length != 0) {
-            sum += parseFloat(this.value);
-        }
-    });
-    $('.overall-sum2').val(sum.toFixed(2));
-}
-
-function calculateSum3() {
-    let sum = 0;
-    $('.forsum3').each(function() {
-        if (!isNaN(this.value) && this.value.length != 0) {
-            sum += parseFloat(this.value);
-        }
-    });
-    $('.overall-sum3').val(sum.toFixed(2));
-}
-
-function calculateSum4(fieldNumber) {
-    let sum = 0;
-    try {
-        console.log(this.value)
-        $('.forsum4').each(function() {
-            if (!isNaN(this.value) && this.value.length != 0) {
-                sum += parseFloat(this.value) + parseFloat($('#overall-sum-' + fieldNumber).val())
-            }
-        });
-    } catch {
-        console.log(this.value)
-        $('.forsum4').each(function() {
-            if (!isNaN(this.value) && this.value.length != 0) {
-                sum += parseFloat(this.value)
-            }
-        });
-    }
-    $('.overall-sum4').val(sum.toFixed(2));
-}
-
-function calculateSum5() {
-    let sum = 0;
-    $('.forsum5').each(function() {
-        if (!isNaN(this.value) && this.value.length != 0) {
-            sum += parseFloat(this.value);
-        }
-    });
-    $('.overall-sum5').val(sum.toFixed(2));
 }
 
 
-// function to delete a row.
-function removeRow(oButton) {
-    let empTab = document.getElementById('empTable');
-    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
-    let id = oButton.dataset.fieldNumber;
-    $("#product-field-modal-" + id).remove();
-    calculateSum();
-    calculateSum2();
-    calculateSum3();
-    calculateSum5();
+if (formBrokers) {
+    formBrokers.addEventListener('submit', event => {
+        // event.preventDefault()
+
+        // Данные из формы audit
+        const generalInformation = {
+            insurerName: getField('#insurer-name').value,
+            insurerAddress: getField('#insurer-address').value,
+            insurerPhone: getField('#insurer-phone').value,
+            insurerBill: getField('#insurer-bill').value,
+            insurerTypeActive: getField('#insurer-type-activity').value,
+            insurerTypeMFO: getField('#insurer-mfo').value,
+            insurerBank: getField('#insurer-bank').value,
+            insurerInn: getField('#insurer-inn').value,
+            insurerOkonh: getField('#insurer-okonh').value,
+            insurerOked: getField('#insurer-oked').value,
+            personalInfo: getField('#personal-info').value,
+            insurancePeriod: {
+                from: getField('#insurance-from').value,
+                to: getField('#insurance-to').value
+            },
+            geoZone: getField('#geograph-zone').value
+        }
+    })
 }
 
-// function to add new row.
-function addRow2() {
-    let empTab = document.getElementById('empTable2');
+if (formNatarius) {
+    formNatarius.addEventListener('submit', event => {
+        // event.preventDefault()
 
-    let rowCnt = empTab.rows.length; // get the number of rows.
-    let tr = empTab.insertRow(rowCnt - 1); // table row.
-
-    for (let c = 0; c < $("#empTable2 tr th").length; c++) {
-        let td = document.createElement('td'); // TABLE DEFINITION.
-        td = tr.insertCell(c);
-
-        let ele = document.createElement('input');
-
-        ele.setAttribute('type', 'text');
-        ele.setAttribute('class', 'form-control');
-
-        td.appendChild(ele);
-    }
+        // Данные из формы audit
+        const generalInformation = {
+            insurerName: getField('#insurer-name').value,
+            insurerAddress: getField('#insurer-address').value,
+            insurerPhone: getField('#insurer-phone').value,
+            insurerBill: getField('#insurer-bill').value,
+            insurerTypeActive: getField('#insurer-type-activity').value,
+            insurerTypeMFO: getField('#insurer-mfo').value,
+            insurerBank: getField('#insurer-bank').value,
+            insurerInn: getField('#insurer-inn').value,
+            insurerOkonh: getField('#insurer-okonh').value,
+            insurerOked: getField('#insurer-oked').value,
+            personalInfo: getField('#personal-info').value,
+            insurancePeriod: {
+                from: getField('#insurance-from').value,
+                to: getField('#insurance-to').value
+            },
+            geoZone: getField('#geograph-zone').value
+        }
+    })
 }
 
-// function to delete a row.
-function removeRow2(oButton) {
-    let empTab = document.getElementById('empTable2');
-    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+if (formOtsenshiki) {
+    formOtsenshiki.addEventListener('submit', event => {
+        // event.preventDefault()
+
+        // Данные из формы audit
+        const generalInformation = {
+            insurerName: getField('#insurer-name').value,
+            insurerAddress: getField('#insurer-address').value,
+            insurerPhone: getField('#insurer-phone').value,
+            insurerBill: getField('#insurer-bill').value,
+            insurerTypeActive: getField('#insurer-type-activity').value,
+            insurerTypeMFO: getField('#insurer-mfo').value,
+            insurerBank: getField('#insurer-bank').value,
+            insurerInn: getField('#insurer-inn').value,
+            insurerOkonh: getField('#insurer-okonh').value,
+            insurerOked: getField('#insurer-oked').value,
+            personalInfo: getField('#personal-info').value,
+            insurancePeriod: {
+                from: getField('#insurance-from').value,
+                to: getField('#insurance-to').value
+            },
+            geoZone: getField('#geograph-zone').value
+        }
+    })
 }
 
-function showDiv(divId, element) {
-    document.getElementById(divId).style.display = element.value == 'other' ? 'block' : 'none';
+
+if (formRealtors) {
+    formRealtors.addEventListener('submit', event => {
+        // event.preventDefault()
+
+        // Данные из формы audit
+        const generalInformation = {
+            insurerName: getField('#insurer-name').value,
+            insurerAddress: getField('#insurer-address').value,
+            insurerPhone: getField('#insurer-phone').value,
+            insurerBill: getField('#insurer-bill').value,
+            insurerTypeActive: getField('#insurer-type-activity').value,
+            insurerTypeMFO: getField('#insurer-mfo').value,
+            insurerBank: getField('#insurer-bank').value,
+            insurerInn: getField('#insurer-inn').value,
+            insurerOkonh: getField('#insurer-okonh').value,
+            insurerOked: getField('#insurer-oked').value,
+            personalInfo: getField('#personal-info').value,
+            insurancePeriod: {
+                from: getField('#insurance-from').value,
+                to: getField('#insurance-to').value
+            },
+            geoZone: getField('#geograph-zone').value
+        }
+    })
 }
 
-function addRow3(fieldNumber, ) {
-    let empTab = document.getElementById('empTable3');
 
-    let rowCnt = empTab.rows.length; // get the number of rows.
-    let tr = empTab.insertRow(rowCnt); // table row.
+// Расчет количества дней между датами "Период деятельности организации"
+if (periodActiveOrg) {
+    periodActiveOrg.addEventListener('change', event => {
+        const isDates = getActivityDates(event.target)
+        isDates && calcDifferenceBetweenDates(activityPeriodDates.from, activityPeriodDates.to)
+    })
+}
 
-    paymentTypeFieldNumber++;
+// Изменения "radio и select"
+if (fieldsChanged) {
+    fieldsChanged.addEventListener('change', event => {
+        const target = event.target
 
-    for (let c = 0; c < $("#empTable3 tr th").length; c++) {
-        let td = document.createElement('td'); // TABLE DEFINITION.
-        td = tr.insertCell(c);
-
-        if (c == ($("#empTable3 tr th").length - 1)) { // if its the first column of the table.
-            // add a button control.
-            let button = document.createElement('input');
-
-            // set the attributes.
-            button.setAttribute('type', 'button');
-            button.setAttribute('value', 'Удалить');
-
-            // add button's "onclick" event.
-            button.setAttribute('onclick', 'removeRow3(this)');
-            button.setAttribute('class', 'btn btn-warning');
-
-            td.appendChild(button);
-        } else {
-            // all except the last colum will have input field.
-            let ele = document.createElement('input');
-
-            if (c === 1) {
-                ele.setAttribute('type', 'date');
-                ele.setAttribute('id', `payment_from-${fieldNumber}-${paymentTypeFieldNumber}`);
+        // Скрытие и отображение блока acted
+        if (target.hasAttribute('data-acted-radio')) {
+            if (target.value === 'true') {
+                actedBoxDescription.style.display = 'flex'
+                dataSelectAndRadioFields.acted = {
+                    isActed: true
+                }
             } else {
-                ele.setAttribute('type', 'text');
-                ele.setAttribute('id', `payment_sum-${fieldNumber}-${paymentTypeFieldNumber}`);
-            }
-
-            ele.setAttribute('class', 'form-control');
-            td.appendChild(ele);
-        }
-    }
-}
-
-// function to delete a row.
-function removeRow3(oButton) {
-    let empTab = document.getElementById('empTable3');
-    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
-}
-
-// function to extract and submit table data.
-function submit() {
-    let myTab = document.getElementById('empTable');
-    let arrValues = [];
-
-    // loop through each row of the table.
-    for (row = 1; row < myTab.rows.length - 1; row++) {
-        // loop through each cell in a row.
-        for (c = 0; c < myTab.rows[row].cells.length; c++) {
-            let element = myTab.rows.item(row).cells[c];
-            if (element.childNodes[0].getAttribute('type') == 'text') {
-                arrValues.push("'" + element.childNodes[0].value + "'");
+                actedBoxDescription.style.display = 'none'
+                dataSelectAndRadioFields.acted = {
+                    isActed: false
+                }
             }
         }
-    }
-}
-$('#form-save-button').on('click', function() {
-    $('#mainFormKasko').submit();
-})
 
-//ToDo: delete one of the addproductfields function
+        if (target.hasAttribute('data-cases-radio')) {
+            if (target.value === 'true') {
+                casesReasonBox.style.display = 'flex'
+            } else {
+                casesReasonBox.style.display = 'none'
+            }
+        }
+
+        if (target.hasAttribute('data-administr-radio')) {
+            if (target.value === 'true') {
+                administrCaseBox.style.display = 'flex'
+            } else {
+                administrCaseBox.style.display = 'none'
+            }
+        }
+
+
+        if (target.dataset && target.dataset.selectId) {
+            if (+target.dataset.selectId === 1) {
+                dataSelectAndRadioFields.sphereOfActivity = {
+                    value: +target.value,
+                    description: target.options[target.selectedIndex].text
+                }
+            }
+
+            if (+target.dataset.selectId === 2) {
+                dataSelectAndRadioFields.profInsuranceServices = {
+                    value: +target.value,
+                    description: target.options[target.selectedIndex].text
+                }
+            }
+
+            if (+target.dataset.selectId === 3) {
+                dataSelectAndRadioFields.liabilityLimit = {
+                    value: +target.value,
+                    description: target.options[target.selectedIndex].text
+                }
+            }
+        }
+
+        if (target.dataset && target.dataset.file === 'file') {
+            dataSelectAndRadioFields.documents = {
+                files: Array.from(event.target.files)
+            }
+        }
+
+    })
+}
+
+const calcPrice = () => {
+    insuranceTotalValue = 0;
+    insuranceTotalAward = 0;
+    insuranceTotalSum = 0;
+    infoTable.querySelectorAll('[data-field]').forEach((field) => {
+        if (field.dataset.field === 'sum') {
+            insuranceTotalSum += +field.value.trim()
+            insuranceSum.value = insuranceTotalSum.toFixed(2);
+        }
+
+        if (field.dataset.field === 'value') {
+            insuranceTotalValue += +field.value.trim()
+            insuranceValue.value = insuranceTotalValue.toFixed(2);
+        }
+
+        if (field.dataset.field === 'premiya') {
+            insuranceTotalAward += +field.value.trim()
+            insuranceAward.value = insuranceTotalAward.toFixed(2)
+        }
+    })
+}
+
+const removeEl = (id) => {
+    document.getElementById(id).remove();
+}
+
+const removeAndCalc = (id) => {
+    removeEl(id);
+    calcPrice();
+}
+
+
+if (buttonAddRowInfo) {
+    buttonAddRowInfo.addEventListener('click', event => {
+        const id = Math.random();
+        const rowInfo = `
+      <tr id="${id}">
+        <td>
+            <input type="text" class="form-control" name="period-polis[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-id[]">
+        </td>
+        <td>
+            <input type="date" class="form-control" name="validity-period-from[]">
+        </td>
+        <td>
+            <input type="date" class="form-control" name="validity-period-to[]">
+        </td>
+        <td>
+            <select class="form-control polises" id="polises" name="polis-agent-0" style="width: 100%;">
+                <option selected="selected"></option>
+                <option value="1">Да</option>
+                <option value="2">Нет</option>
+            </select>
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-mark[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="specialty[]" value="Specialty">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="workExp[]" value="work experience">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-model[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-modification[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" data-field="value" name="polis-modification[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" data-field="sum" name="polis-gos-num[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" data-field="premiya" name="polis-teh-passport[]">
+        </td>
+        <td>
+            <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
+        </td>
+      </tr>`
+        infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo)
+    })
+}
+
+
+if (buttonAddRowInfo2) {
+    buttonAddRowInfo2.addEventListener('click', event => {
+        const id = Math.random();
+        const rowInfo = `
+      <tr id="${id}">
+        <td>
+            <input type="text" class="form-control forsum3 insurance_premium-0" data-field="number" name="number">
+        </td>
+        <td>
+            <input type="text" class="form-control forsum4 insurance_premium-0" data-field="director" name="director">
+        </td>
+        <td>
+            <input type="text" class="form-control forsum3 insurance_premium-0" data-field="qualified" name="qualified">
+        </td>
+        <td>
+            <input type="text" class="form-control forsum3 insurance_premium-0" data-field="other" name="other">
+        </td>
+        <td>
+            <input onclick="removeEl(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
+        </td>
+      </tr>`
+        infoTable2.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo)
+    })
+}
+
+
+if (infoTable) {
+    infoTable.addEventListener('change', event => {
+        calcPrice();
+    })
+}
+
+const calcTurnover = () => {
+    totalTurnover = 0;
+    earnings = 0;
+    annualTurnoverInfo.querySelectorAll('[data-field]').forEach((field) => {
+        if (field.dataset.field === 'turnover') {
+            totalTurnover += +field.value.trim()
+            totalTurnoverField.value = totalTurnover.toFixed(2)
+        }
+
+        if (field.dataset.field === 'earnings') {
+            earnings += +field.value.trim()
+            earningsField.value = earnings.toFixed(2)
+        }
+    })
+}
+
+
+if (annualTurnoverInfo) {
+    annualTurnoverInfo.addEventListener('change', event => {
+        calcTurnover();
+    })
+}
+
+
+if (paymentsForm) {
+    paymentsForm.addEventListener('change', event => {
+        const target = event.target
+
+        if (target.dataset && target.dataset.wallet === 'wallet') {
+            paymentFormData.wallet = {
+                currency: {
+                    rate: +target.value,
+                    exchange: target.options[target.selectedIndex].text
+                }
+            }
+        }
+
+        if (target.dataset && target.dataset.payment === 'payment') {
+            otherPaymentSchedule.style.display = target.value == 'other' ? 'block' : 'none';
+
+            paymentProcedure = target.value
+
+            paymentFormData.payment = {
+                term: {
+                    text: target.options[target.selectedIndex].text,
+                    value: target.value
+                }
+            }
+        }
+    })
+}
+
+
+const addBuilderButton = document.getElementById('add-costruct-participant');
+
+const addBuilder = () => {
+    const id = Math.random();
+    const builders = document.getElementById('builders');
+    builders.insertAdjacentHTML('beforeend', `
+        <div id="${id}" class="d-flex form-group mb-20">
+            <input type="text" name="сonstruct-participants" class="form-control mr-5">
+            <input onclick="removeEl(${id})" type="button" value="Удалить" class="btn btn-warning">
+        </div>
+    `)
+}
+
+
+if (addBuilderButton) {
+    addBuilderButton.addEventListener('click', () => {
+        addBuilder();
+    })
+}
+
+
+const condition = document.getElementById('condition');
+const transhPaymentSchedule = document.getElementById('transh-payment-schedule');
+const transhPaymentScheduleButton = document.getElementById('transh-payment-schedule-button');
+
+const addPaymentSchedule = () => {
+    const id = Math.random();
+    const builders = document.getElementById('empTable3').querySelector('tbody');
+    builders.insertAdjacentHTML('beforeend', `
+         <tr id="${id}" data-field-number="0">
+            <td>
+                <input type="text" class="form-control"
+                       name="payment_sum[]">
+            </td>
+            <td>
+                <input type="date" class="form-control"
+                       name="payment_from[]">
+            </td>
+            <td>
+                <input type="button" onclick="removeEl(${id})" value="Удалить" class="btn btn-warning">
+            </td>
+        </tr>
+    `)
+}
+
+if (condition) {
+    condition.addEventListener('change', () => {
+        if (condition.value === 'transh') {
+            transhPaymentSchedule.classList.remove('d-none');
+        } else {
+            transhPaymentSchedule.classList.add('d-none');
+        }
+    });
+
+    transhPaymentScheduleButton.onclick = addPaymentSchedule;
+
+}
+
+const generalProductFields = document.getElementById('general-product-fields');
+
 function addProductFields(fieldNumber) {
-    let fields = `
-<div id="product-field-modal-${fieldNumber}" class="modal" data-field-number="${fieldNumber}">
+    let fields = `<div id="product-field-modal-${fieldNumber}" class="modal" data-field-number="${fieldNumber}">
     <div class="modal-content" id="product-field-modal-content-${fieldNumber}">
-        <span class="close product-fields-close" id="product-fields-close-${fieldNumber}" data-field-number="${fieldNumber}">&times;</span>
+        <span onclick="closeModal(${fieldNumber})" class="close product-fields-close" id="product-fields-close-${fieldNumber}" data-field-number="${fieldNumber}">&times;</span>
         <div class="card card-success">
             <div class="card-header">
                 <h3 class="card-title">Перечень дополнительного оборудования</h3>
@@ -910,8 +1038,92 @@ function addProductFields(fieldNumber) {
             </div>
         </div>
     </div>
-</div>
-        `;
+</div>`;
 
-    generalProductFields.append(fields);
+    generalProductFields.insertAdjacentHTML('beforeend', fields);
+};
+
+const productFieldsTable = document.getElementById('empTable');
+
+const addProductFieldRow = (fieldNumber) => {
+    const fields = `
+    <tr id="${fieldNumber}">
+        <td>
+            <input type="text" class="form-control" name="polis-mark[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-model[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-gos-num[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-teh-passport[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-num-engine[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-num-body[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-payload[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-places[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis-places[]">
+        </td>
+        <td>
+            <input type="text" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
+        </td>
+        <td>
+            <input type="text" class="form-control insurance_premium-0" readonly name="polis_premium[]">
+        </td>
+         <td>
+            <input type="button" onclick="openModal(${fieldNumber})" value="Заполнить" class="btn btn-success product-fields-button" id="product-fields-button" data-field-number="${fieldNumber}">
+        </td>
+         <td>
+            <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
+        </td>
+    </tr>
+`
+
+    productFieldsTable.querySelector('tbody').querySelector('tr').insertAdjacentHTML('afterend', fields);
+};
+
+const removeProductsFieldRow = (fieldNumber) => {
+    productFieldsTable.deleteRow(fieldNumber + 1); // buttton -> td -> tr
+    document.getElementById("product-field-modal-" + fieldNumber).remove();
+    // calculateSum();
+    // calculateSum2();
+    // calculateSum3();
+    // calculateSum5();
+};
+
+const openModal = (fieldNumber) => {
+    document.querySelectorAll('.modal').forEach(div => {
+        div.style.display = 'none'
+    });
+    document.getElementById("product-field-modal-" + fieldNumber).style.display = 'block';
 }
+
+const closeModal = (fieldNumber) => {
+    document.getElementById("product-field-modal-" + fieldNumber).style.display = 'none';
+}
+
+
+const generalProductFieldsAddButton = document.getElementById('generalProductFieldsAddButton');
+
+const addProductField = () => {
+    const fieldNumber = document.querySelectorAll('.modal').length;
+    addProductFields(fieldNumber);
+    addProductFieldRow(fieldNumber);
+};
+
+if(generalProductFieldsAddButton){
+    generalProductFieldsAddButton.onclick = addProductField;
+
+}
+

@@ -2,7 +2,10 @@
 
 namespace App\Models\Product;
 
+use App\Models\Policy;
+use App\Models\Product;
 use App\Models\Spravochniki\Agent;
+use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Database\Eloquent\Model;
 
 class TamozhnyaAddLegal extends Model
@@ -42,6 +45,8 @@ class TamozhnyaAddLegal extends Model
             'date_issue_policy' => $request->date_issue_policy,
             'otvet_litso' => $request->litso,
             'policy_holder_id' => $request->policy_holder_id,
+            'type' => $request->client_type_radio,
+            'product_id' => $request->product_id,
 
             'anketa_img' => $request->anketa_img,
             'dogovor_img' => $request->dogovor_img,
@@ -91,5 +96,17 @@ class TamozhnyaAddLegal extends Model
     {
         $tamozhnya = TamozhnyaAddLegal::where('id', $id)->with(['strahPremiya', 'policyHolders', 'agent'])->first();
         return $tamozhnya;
+    }
+
+    public function policy() {
+        return $this->hasOne(Policy::class, 'id', 'policy_id');
+    }
+
+    public function policySeries() {
+        return $this->hasOne(PolicySeries::class, 'id', 'serial_number_policy');
+    }
+
+    public function product() {
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 }

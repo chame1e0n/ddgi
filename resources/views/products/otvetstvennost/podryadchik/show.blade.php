@@ -283,6 +283,44 @@
 
                     </div>
 
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Уникальные номера</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                        title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="payment-terms-form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-inline justify-content-between">
+                                            <label>Номер договора</label>
+                                            <input value="{{$podryadchik->unique_number}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-inline justify-content-between">
+                                            <label>Серия полиса</label>
+                                            <input value="{{$podryadchik->policySeries->code ?? '-'}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-inline justify-content-between">
+                                            <label>Номер полиса</label>
+                                            <input value="{{$podryadchik->policy->number}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
 
                     <div class="card-body">
@@ -323,7 +361,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                <input readonly type="text" id="serial_number_policy" name="serial_number_policy" class="form-control"  value="{{$podryadchik->serial_number_policy}}">
+                                                <input readonly type="text" id="serial_number_policy" name="serial_number_policy" class="form-control"  value="{{$podryadchik->policySeries->code ?? '-'}}">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
