@@ -6,6 +6,8 @@
     1 => 'kasko',
     2 => 'tamojenniy-sklad',
     3 => 'cmp',
+    4 => 'otvetstvennost-podryadchik',
+    5 => 'tamozhnya-add-legal',
     ];
 @endphp
 @section('content')

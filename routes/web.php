@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('nepogashen','Product\NepogashenController');
     Route::resource('credit-nepogashen','Product\CreditNepogashenController')->names('credit-nepogashen');
     Route::resource('otvetstvennost-podryadchik','Product\OtvetstvennostPodryadchikController')->names('otvetstvennost-podryadchik');
+    Route::resource('otvetstvennost-broker','Product\OtvetstvennostBrokerController')->names('otvetstvennost-broker');
     Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');
     Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('rassrochka','Product\RassrochkaController');

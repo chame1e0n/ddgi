@@ -25,7 +25,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                                <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
+                                <li class="breadcrumb-item active"><a href="/allproducts">Продукты</a></li>
                                 <li class="breadcrumb-item active">Создать Анкету</li>
                             </ol>
                         </div>
@@ -33,7 +33,50 @@
                 </div>
             </div>
             <section class="content">
-
+                <div class="card card-success product-type">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="client-product-form">
+                            <div class="form-group clearfix">
+                                <label>Типы клиента</label>
+                                <div class="row">
+                                    @if($podryadchik->type == 0)
+                                        <div class="col-sm-4">
+                                            <div class="icheck-success">
+                                                <input type="radio" class="client-type-radio"
+                                                       id="client-type-radio-1" value="individual" checked>
+                                                <label for="client-type-radio-1">физ. лицо</label>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-sm-4">
+                                            <div class="icheck-success">
+                                                <input type="radio" class="client-type-radio"
+                                                       id="client-type-radio-2" value="legal" checked>
+                                                <label for="client-type-radio-2" >юр. лицо</label>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-id">Вид продукта</label>
+                                <select id="product-id" class="form-control select2"
+                                        style="width: 100%;" readonly="true">
+                                    <option value="1">{{ $podryadchik->product->name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -256,6 +299,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Способ расчета</label>
+                                        <select name="insurance_premium_payment_type" class="form-control"
+                                                style="width: 100%; text-align: center">
+                                            <option @if($podryadchik->insurance_premium_payment_type == 1)selected @endif value="1">Сумах</option>
+                                            <option @if($podryadchik->insurance_premium_payment_type == 2)selected @endif value="2">В ин. валюте</option>
+                                            <option @if($podryadchik->insurance_premium_payment_type == 3)selected @endif value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
+                                            <option @if($podryadchik->insurance_premium_payment_type == 4)selected @endif value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
+                                            <option @if($podryadchik->insurance_premium_payment_type == 5)selected @endif value="5">В ин. валюте по фикс курсу ЦБ на день оплаты премии/первого транша </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div id="other-payment-schedule" @if($podryadchik->payment_term == 1) style="display: none;" @else style="display: block;" @endif>
                                 <div class="form-group">
                                     <button type="button" onclick="addRow3()" class="btn btn-primary ">
@@ -297,7 +355,44 @@
 
                     </div>
 
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Уникальные номера</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                        title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="payment-terms-form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-inline justify-content-between">
+                                            <label>Номер договора</label>
+                                            <input value="{{$podryadchik->unique_number}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-inline justify-content-between">
+                                            <label>Серия полиса</label>
+                                            <input value="{{$podryadchik->policySeries->code ?? '-'}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-inline justify-content-between">
+                                            <label>Номер полиса</label>
+                                            <input value="{{$podryadchik->policy->number}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
 
                     <div class="card-body">
                         <div id="anketa-fields">
@@ -337,7 +432,12 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                <input type="text" id="serial_number_policy" name="serial_number_policy" class="form-control"  value="{{$podryadchik->serial_number_policy}}">
+                                                <select type="text" id="serial_number_policy" name="serial_number_policy" class="form-control">
+                                                <option value="0"></option>
+                                                @foreach($policySeries as $series)
+                                                    <option value="{{ $series->id }}" @if($series->id == $podryadchik->serial_number_policy) selected @endif>{{ $series->code }}</option>
+                                                @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">

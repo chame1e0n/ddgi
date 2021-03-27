@@ -24,7 +24,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                                <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
+                                <li class="breadcrumb-item active"><a href="/all_products">Анкеты</a></li>
                                 <li class="breadcrumb-item active">Создать Анкету</li>
                             </ol>
                         </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <section class="content">
-
+                @include('products.select')
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -277,7 +277,38 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="other-payment-schedule" style="display: block;">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Способ расчета</label>
+                                        <select name="insurance_premium_payment_type" class="form-control"
+                                                style="width: 100%; text-align: center">
+                                            @if(old('insurance_premium_payment_type'))
+                                                <option value="{{old('insurance_premium_payment_type')}}">
+                                                    @if(old('insurance_premium_payment_type') == 1) Сумах  @endif
+                                                    @if(old('insurance_premium_payment_type') == 2) В ин. валюте  @endif
+                                                    @if(old('insurance_premium_payment_type') == 3) В ин. валюте по
+                                                    курсу ЦБ на день заключение договора  @endif
+                                                    @if(old('insurance_premium_payment_type') == 4) В ин. валюте по
+                                                    курсу ЦБ на день оплаты  @endif
+                                                    @if(old('insurance_premium_payment_type') == 5) В ин. валюте по фикс
+                                                    курсу ЦБ на день оплаты
+                                                    премии/первого транша @endif
+                                                </option>
+                                            @endif
+                                            <option value="1">Сумах</option>
+                                            <option value="2">В ин. валюте</option>
+                                            <option value="3">В ин. валюте по курсу ЦБ на день заключение договора
+                                            </option>
+                                            <option value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
+                                            <option value="5">В ин. валюте по фикс курсу ЦБ на день оплаты
+                                                премии/первого транша
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="other-payment-schedule" style="display: none;">
                                 <div class="form-group">
                                     <button type="button" onclick="addRow3()" class="btn btn-primary ">
                                         Добавить
@@ -363,11 +394,17 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                <input value="{{old('serial_number_policy')}}" type="text" id="serial_number_policy" name="serial_number_policy" @if($errors->has('serial_number_policy'))
+                                                <select type="text" id="serial_number_policy" name="serial_number_policy" @if($errors->has('serial_number_policy'))
                                                 class="form-control is-invalid"
                                                        @else
                                                        class="form-control"
                                                     @endif>
+                                                    <option value="0"></option>
+                                                    @foreach($policySeries as $series)
+                                                        <option @if(old('serial_number_policy') == $series->id) selected
+                                                                @endif value="{{ $series->id }}">{{ $series->code }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">

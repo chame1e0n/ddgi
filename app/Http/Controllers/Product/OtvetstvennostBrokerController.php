@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Requests\OtvetstvennostPodryadchikRequest;
-use App\Models\Dogovor;
+use App\Http\Requests\OtvetstvennostBrokerRequest;
 use App\Models\Policy;
-use App\Models\Product\OtvetstvennostPodryadchikStrahPremiya;
+use App\Models\Product\OtvetstvennostBrokerStrahPremiya;
 use App\Models\PolicyHolder;
-use App\Models\Product\OtvetstvennostPodryadchik;
+use App\Models\Product\OtvetstvennostBroker;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class OtvetstvennostPodryadchikController extends Controller
+class OtvetstvennostBrokerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,7 +35,7 @@ class OtvetstvennostPodryadchikController extends Controller
         $policySeries = PolicySeries::all();
         $banks = Bank::all();
         $agents = Agent::all();
-        return view('products.otvetstvennost.podryadchik.create', compact('banks', 'agents', 'policySeries'));
+        return view('products.otvetstvennost.broker.create', compact('banks', 'agents', 'policySeries'));
     }
 
     /**
@@ -46,12 +44,12 @@ class OtvetstvennostPodryadchikController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OtvetstvennostPodryadchikRequest $request)
+    public function store(OtvetstvennostBrokerRequest $request)
     {
-        $policy = Policy::where('policy_series_id', $request->serial_number_policy)->where('status', '<>', 'in_use')->first();
+        $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
 
         if (empty($policy)) {
-            $policySeries = PolicySeries::find( $request->serial_number_policy);
+            $policySeries = PolicySeries::find( $request->policy_series_id);
 
             return back()->withInput()->withErrors([
                 sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
@@ -61,46 +59,25 @@ class OtvetstvennostPodryadchikController extends Controller
         if(!$newPolicyHolders)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
         $request->policy_holder_id = $newPolicyHolders->id;
-        $newOtvetstvennostPodryadchik = OtvetstvennostPodryadchik::createOtvetstvennostPodryadchik($request);
-        if(!$newOtvetstvennostPodryadchik)
-            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении OtvetstvennostPodryadchik')]);
-
-        $policy->update([
-            'status' => 'in_use',
-            'client_type' => $request->client_type_radio,
-        ]);
-
-        $brancId = User::find($request->litso)->branch_id;
-        $uniqueNumber = new Dogovor;
-        $uniqueNumber = $uniqueNumber->createUniqueNumber(
-            $brancId,
-            $request->insurance_premium_payment_type,
-            4,
-            'otvetstvennost_podryadchiks',
-            $newOtvetstvennostPodryadchik->id
-        );
-
-        $newOtvetstvennostPodryadchik->update([
-            'unique_number' => $uniqueNumber,
-            'policy_id' => $policy->id
-        ]);
-
+        $newOtvetstvennostBroker = OtvetstvennostBroker::createOtvetstvennostBroker($request);
+        if(!$newOtvetstvennostBroker)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении OtvetstvennostBroker')]);
         if(!empty($request->post('payment_sum')) && !empty($request->post('payment_sum')))
             {
                 $i = 0;
                 foreach ($request->post('payment_sum') as $sum)
                 {
                     if($sum != null && $request->post('payment_from')[$i] != null) {
-                        $newStrahPremiya = OtvetstvennostPodryadchikStrahPremiya::create([
+                        $newStrahPremiya = OtvetstvennostBrokerStrahPremiya::create([
                             'prem_sum' => $sum,
                             'prem_from' => $request->post('payment_from')[$i],
-                            'otvetstvennost_podryadchik_id' => $newOtvetstvennostPodryadchik->id
+                            'otvetstvennost_broker_id' => $newOtvetstvennostBroker->id
                         ]);
                     }
                     $i++;
                 }
             }
-        return redirect()->route('otvetstvennost-podryadchik.edit', $newOtvetstvennostPodryadchik->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('otvetstvennost-broker.edit', $newOtvetstvennostBroker->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -111,11 +88,10 @@ class OtvetstvennostPodryadchikController extends Controller
      */
     public function show($id)
     {
-        $podryadchik = OtvetstvennostPodryadchik::getInfoPodryadchik($id);
-        $policySeries = PolicySeries::all();
+        $broker = OtvetstvennostBroker::getInfoPodryadchik($id);
         $banks = Bank::all();
         $agents = Agent::all();
-        return view('products.otvetstvennost.podryadchik.show', compact('banks', 'agents', 'policySeries','podryadchik'));
+        return view('products.otvetstvennost.broker.show', compact('banks', 'agents', 'broker'));
     }
 
     /**
@@ -126,11 +102,11 @@ class OtvetstvennostPodryadchikController extends Controller
      */
     public function edit($id)
     {
-        $podryadchik = OtvetstvennostPodryadchik::getInfoPodryadchik($id);
+        $broker = OtvetstvennostBroker::getInfoPodryadchik($id);
         $policySeries = PolicySeries::all();
         $banks = Bank::all();
         $agents = Agent::all();
-        return view('products.otvetstvennost.podryadchik.edit', compact('banks', 'agents', 'podryadchik', 'policySeries'));
+        return view('products.otvetstvennost.broker.edit', compact('banks', 'agents', 'broker', 'policySeries'));
     }
 
     /**
@@ -140,18 +116,18 @@ class OtvetstvennostPodryadchikController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(OtvetstvennostPodryadchikRequest $request, $id)
+    public function update(OtvetstvennostBrokerRequest $request, $id)
     {
-        $otvetstvennostPodryadchik = OtvetstvennostPodryadchik::findOrFail($id);
-        $policyHolders           = PolicyHolder::updatePolicyHolders($otvetstvennostPodryadchik->policy_holder_id, $request);
+        $OtvetstvennostBroker = OtvetstvennostBroker::findOrFail($id);
+        $policyHolders           = PolicyHolder::updatePolicyHolders($OtvetstvennostBroker->policy_holder_id, $request);
         if(!$policyHolders)
             return back()->withInput()->withErrors([sprintf('Ошибка при обновлении PolicyHolders')]);
-        $otvetstvennostPodryadchik = OtvetstvennostPodryadchik::updateOtvetstvennostPodryadchik($id, $request);
-        if(!$otvetstvennostPodryadchik)
+        $OtvetstvennostBroker = OtvetstvennostBroker::updateOtvetstvennostBroker($id, $request);
+        if(!$OtvetstvennostBroker)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
-        if($otvetstvennostPodryadchik->payment_term == '1')
+        if($OtvetstvennostBroker->payment_term == '1')
         {
-            $delStrahPremiya = OtvetstvennostPodryadchikStrahPremiya::where('otvetstvennost_podryadchik_id', $otvetstvennostPodryadchik->id)->delete();
+            $delStrahPremiya = OtvetstvennostBrokerStrahPremiya::where('otvetstvennost_broker_id', $OtvetstvennostBroker->id)->delete();
         }
         else
         {
@@ -159,9 +135,9 @@ class OtvetstvennostPodryadchikController extends Controller
             {
                 foreach ($request->post('payment_sum') as $key => $sum)
                 {
-                    $newStrahPremiya = OtvetstvennostPodryadchikStrahPremiya::updateOrCreate([
+                    $newStrahPremiya = OtvetstvennostBrokerStrahPremiya::updateOrCreate([
                         'id' => $key,
-                        'otvetstvennost_podryadchik_id' => $otvetstvennostPodryadchik->id
+                        'otvetstvennost_broker_id' => $OtvetstvennostBroker->id
                     ], [
                         'prem_sum' => $sum,
                         'prem_from' => $request->post('payment_from')[$key]
