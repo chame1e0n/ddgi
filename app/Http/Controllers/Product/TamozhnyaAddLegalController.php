@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\Settings;
+use Dompdf\Dompdf;
 
 class TamozhnyaAddLegalController extends Controller
 {
@@ -131,6 +133,23 @@ class TamozhnyaAddLegalController extends Controller
             ]);
             $document->saveAs('dogovor.docx');
             return response()->download('dogovor.docx');
+//            Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
+//            Settings::setPdfRendererPath('.');
+//            $phpWord = IOFactory::load('dogovor.docx', 'Word2007');
+//            $phpWord->save('document.docx', 'Word2007');
+//            $phpWord = IOFactory::load('/tamozhnya_add_legal/document.docx', 'Word2007');
+//            $phpWord->save('document.pdf', 'PDF');
+//            $phpWord = \PhpOffice\PhpWord\IOFactory::load('dogovor.docx');
+//            $random = rand(1000, 3000);
+//            // add a window.print() section @ end of HTML
+//            $section = $phpWord->addSection();
+//            $section->addText('<script>window.print();</script>');
+//            // save HTML with a random number on filename
+//            $fileLink = 'tamozhnya_add_legal/' . $random . '.html';
+//            $phpWord->save($fileLink, 'PDF');
+//            unlink('dogovor.docx');
+//            return redirect($fileLink);
+//            return response()->download('document.pdf');
         }
         if (isset($_GET['download']) && $_GET['download'] == 'za'){
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/za.docx'));
