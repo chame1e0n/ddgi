@@ -61,7 +61,12 @@ class OtvetstvennostOtsenshikiController extends Controller
      */
     public function show($id)
     {
-        //
+        $agents = Agent::getActiveAgent();
+        $banks = Bank::getBanks();
+        $policySeries =  PolicySeries::get();
+        $page = OtvetstvennostOtsenshiki::with('strahPremiya','policyHolders', 'infos')->find($id);
+
+        return view('products.otvetstvennost.otsenshiki.show', compact('banks', 'agents', 'policySeries', 'page'));
     }
 
     /**
