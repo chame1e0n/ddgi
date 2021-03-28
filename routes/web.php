@@ -66,6 +66,9 @@ Route::group(['middleware' => ['auth']], function () {
     ///Audit
     Route::resource('audit', 'OtvetsvennostAuditController');
 
+    ///Cargo
+    Route::resource('cargo', 'CargoController');
+
     /////////////////////////////////////////////////////////////////////////////////
 
     Route::resource('spravochniki/bank', 'Spravochniki\BankController');

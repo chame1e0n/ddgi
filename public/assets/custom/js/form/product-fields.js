@@ -399,7 +399,6 @@ function showDiv(divId, element) {
 
 function addRow3(fieldNumber,) {
     let empTab = document.getElementById('empTable3');
-
     let rowCnt = empTab.rows.length; // get the number of rows.
     let tr = empTab.insertRow(rowCnt); // table row.
 
@@ -427,9 +426,11 @@ function addRow3(fieldNumber,) {
 
             if (c === 1) {
                 ele.setAttribute('type', 'date');
+                ele.setAttribute('name', 'payment_from[]');
                 ele.setAttribute('id', `payment_from-${fieldNumber}-${paymentTypeFieldNumber}`);
             } else {
                 ele.setAttribute('type', 'text');
+                ele.setAttribute('name', 'payment_sum[]');
                 ele.setAttribute('id', `payment_sum-${fieldNumber}-${paymentTypeFieldNumber}`);
             }
 
