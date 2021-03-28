@@ -247,7 +247,6 @@
                                             <td><input type="button" value="Удалить" data-action="delete" class="btn btn-warning"></td>
                                         </tr>
                                         <tr>
-
                                             <td colspan="10" style="text-align: right"><label class="text-bold">Итого</label></td>
                                             <td><input readonly type="text" data-insurance-stoimost class="form-control overall-sum2" />
                                             </td>
