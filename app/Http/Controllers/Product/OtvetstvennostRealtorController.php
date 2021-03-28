@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Product;
 
 use App\Models\PolicyHolder;
+use App\Models\Product\OtvetstvennostRealtorInfo;
+use App\Models\Product\OtvetstvennostRealtorStrahPremiya;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
@@ -45,8 +47,10 @@ class OtvetstvennostRealtorController extends Controller
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
-        $realtor = OtvetstvennostRealtor::createRealtor($request);
-        dd($realtor);
+        $realtor = OtvetstvennostRealtor::createRealtor($request, $newPolicyHolders->id);
+        OtvetstvennostRealtorInfo::createRealtorInfo($request, $realtor->id);
+        OtvetstvennostRealtorStrahPremiya::createRealtorStrahPremiya($request, $realtor->id);
+        return redirect(route('otvetstvennost-realtor.edit', $realtor->id));
     }
 
     /**
@@ -68,7 +72,12 @@ class OtvetstvennostRealtorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $agents = Agent::getActiveAgent();
+        $banks = Bank::getBanks();
+        $policySeries =  PolicySeries::get();
+        $page = OtvetstvennostRealtor::with('strahPremiya','policyHolders','realtorInfos')->find($id);
+
+        return view('products.otvetstvennost.realtor.edit', compact('banks', 'agents', 'policySeries', 'page'));
     }
 
     /**

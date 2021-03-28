@@ -42,10 +42,11 @@ class CreateOtvetstvennostRealtorsTable extends Migration
             $table->string('serial_number_policy');
             $table->date('date_issue_policy');
             $table->integer('otvet_litso');
+            $table->integer('bank_id');
 
             $table->date('activity_period_from')->nullable();
             $table->date('activity_period_to')->nullable();
-            $table->date('activity_period_all')->nullable();
+            $table->string('activity_period_all')->nullable();
 
             $table->boolean('acted')->default(false);
             $table->text('public_sector_comment')->nullable();
@@ -62,6 +63,7 @@ class CreateOtvetstvennostRealtorsTable extends Migration
             $table->string('anketa')->nullable();
             $table->string('dogovor')->nullable();
             $table->string('polis')->nullable();
+            $table->integer('policy_holder_id');
             $table->timestamps();
         });
     }
