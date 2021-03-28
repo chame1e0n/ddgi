@@ -35,9 +35,9 @@ class CreateOtvetstvennostOtsenshikiTable extends Migration
             $table->string('insurance_premium_currency');
             $table->string('poryadok_oplaty_premii');
 
-            $table->string('strahovaya_sum');
-            $table->string('strahovaya_purpose');
-            $table->string('franshiza');
+            $table->string('strahovaya_sum')->nullable();
+            $table->string('strahovaya_purpose')->nullable();
+            $table->string('franshiza')->nullable();
 
             $table->string('serial_number_policy');
             $table->date('date_issue_policy');
@@ -46,6 +46,13 @@ class CreateOtvetstvennostOtsenshikiTable extends Migration
             $table->string('anketa')->nullable();
             $table->string('dogovor')->nullable();
             $table->string('polis')->nullable();
+
+
+            $table->string('public_sector_comment')->nullable();
+            $table->string('private_sector_comment')->nullable();
+            $table->string('reason_case')->nullable();
+            $table->string('reason_administrative_case')->nullable();
+            $table->integer('policy_holder_id');
             $table->timestamps();
         });
 
