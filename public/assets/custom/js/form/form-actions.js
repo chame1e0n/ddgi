@@ -113,9 +113,9 @@ function addRowPaymentSchedule() {
 
     const newTableRow = `
     <tr id="payment-term-tr-${fieldNumber}" data-field-number="${fieldNumber}">
-      <td><input type="text" class="form-control" data-field="sum" name="payment-sum[]">
+      <td><input type="text" class="form-control" data-field="sum" name="prem_sum[]">
       </td>
-      <td><input type="date" class="form-control" data-field="from" name="payment-from[]">
+      <td><input type="date" class="form-control" data-field="from" name="prem_from[]">
       </td>
       <td>
         <input type="button" value="Удалить" data-action="delete" class="btn btn-warning">
@@ -411,55 +411,7 @@ const removeAndCalc = (id) => {
 if (buttonAddRowInfo) {
     buttonAddRowInfo.addEventListener('click', event => {
         const id = Math.random();
-        const rowInfo = `
-      <tr id="${id}">
-        <td>
-            <input type="text" class="form-control" name="period-polis[]">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis-id[]">
-        </td>
-        <td>
-            <input type="date" class="form-control" name="validity-period-from[]">
-        </td>
-        <td>
-            <input type="date" class="form-control" name="validity-period-to[]">
-        </td>
-        <td>
-            <select class="form-control polises" id="polises" name="polis-agent-0" style="width: 100%;">
-                <option selected="selected"></option>
-                <option value="1">Да</option>
-                <option value="2">Нет</option>
-            </select>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis-mark[]">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="specialty[]" value="Specialty">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="workExp[]" value="work experience">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis-model[]">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis-modification[]">
-        </td>
-        <td>
-            <input type="text" class="form-control" data-field="value" name="polis-modification[]">
-        </td>
-        <td>
-            <input type="text" class="form-control" data-field="sum" name="polis-gos-num[]">
-        </td>
-        <td>
-            <input type="text" class="form-control" data-field="premiya" name="polis-teh-passport[]">
-        </td>
-        <td>
-            <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
-        </td>
-      </tr>`
+        const rowInfo = infoTable.querySelector('tbody tr').innerHTML;
         infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo)
     })
 }
