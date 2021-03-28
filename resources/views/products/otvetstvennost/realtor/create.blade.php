@@ -2,9 +2,9 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="GET" id="formRealtors">
+    <form action="{{route('otvetstvennost-realtor.store')}}" method="POST" id="formRealtors">
+        @csrf
         <div class="content-wrapper">
-
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">

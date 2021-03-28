@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
@@ -40,7 +41,9 @@ class OtvetstvennostRealtorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
+        if(!$newPolicyHolders)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
     }
 
     /**
