@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OtvetstvennostOtsenshikiRequest;
 use App\Models\PolicyHolder;
 use App\Models\Product\OtvetstvennostOtsenshiki;
 use App\Models\Product\OtvetstvennostOtsenshikiInfo;
@@ -43,12 +44,12 @@ class OtvetstvennostOtsenshikiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OtvetstvennostOtsenshikiRequest $request)
     {
         $polycyHolder = PolicyHolder::createPolicyHolders($request);
-        $otsenshiki = OtvetstvennostOtsenshiki::createOtsenshik($request,$polycyHolder->id);
-                      OtvetstvennostOtsenshikiInfo::createOtsenshikInfo($request, $otsenshiki->id);
-                      OtvetstvennostOtsenshikiStrahPremiya::createOtsenshikiStrahPremiya($request, $otsenshiki->id);
+        $otsenshiki   = OtvetstvennostOtsenshiki::createOtsenshik($request,$polycyHolder->id);
+                        OtvetstvennostOtsenshikiInfo::createOtsenshikInfo($request, $otsenshiki->id);
+                        OtvetstvennostOtsenshikiStrahPremiya::createOtsenshikiStrahPremiya($request, $otsenshiki->id);
         return redirect(route('otvetstvennost-otsenshiki.edit', $otsenshiki->id));
     }
 
@@ -74,7 +75,7 @@ class OtvetstvennostOtsenshikiController extends Controller
         $agents = Agent::getActiveAgent();
         $banks = Bank::getBanks();
         $policySeries =  PolicySeries::get();
-        $page = OtvetstvennostOtsenshiki::with('strahPremiya','policyHolders')->find($id);
+        $page = OtvetstvennostOtsenshiki::with('strahPremiya','policyHolders', 'infos')->find($id);
 
         return view('products.otvetstvennost.otsenshiki.edit', compact('banks', 'agents', 'policySeries', 'page'));
     }
@@ -86,9 +87,14 @@ class OtvetstvennostOtsenshikiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OtvetstvennostOtsenshikiRequest $request, $id)
     {
-        //
+        $polycyHolder = PolicyHolder::updatePolicyHolders($id, $request);
+        $otsenshiki   = OtvetstvennostOtsenshiki::updateOtsenshik($request,$polycyHolder->id,$id);
+                        OtvetstvennostOtsenshikiInfo::updateOtsenshikInfo($request, $otsenshiki);
+                        OtvetstvennostOtsenshikiStrahPremiya::updateOtsenshikiStrahPremiya($request, $otsenshiki);
+
+        return redirect()->back();
     }
 
     /**
