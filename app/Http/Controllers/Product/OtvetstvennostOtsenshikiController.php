@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PolicyHolder;
 use App\Models\Product\OtvetstvennostOtsenshiki;
 use App\Models\Product\OtvetstvennostOtsenshikiInfo;
+use App\Models\Product\OtvetstvennostOtsenshikiStrahPremiya;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
@@ -44,10 +45,11 @@ class OtvetstvennostOtsenshikiController extends Controller
      */
     public function store(Request $request)
     {
-        PolicyHolder::createPolicyHolders($request);
-        $otsenshiki = OtvetstvennostOtsenshiki::createOtsenshik($request);
-            OtvetstvennostOtsenshikiInfo::createOtsenshikInfo($request, $otsenshiki->id);
-//        return redirect();
+        $polycyHolder = PolicyHolder::createPolicyHolders($request);
+        $otsenshiki = OtvetstvennostOtsenshiki::createOtsenshik($request,$polycyHolder->id);
+                      OtvetstvennostOtsenshikiInfo::createOtsenshikInfo($request, $otsenshiki->id);
+                      OtvetstvennostOtsenshikiStrahPremiya::createOtsenshikiStrahPremiya($request, $otsenshiki->id);
+        return redirect(route('otvetstvennost-otsenshiki.edit', $otsenshiki->id));
     }
 
     /**
@@ -69,7 +71,12 @@ class OtvetstvennostOtsenshikiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $agents = Agent::getActiveAgent();
+        $banks = Bank::getBanks();
+        $policySeries =  PolicySeries::get();
+        $page = OtvetstvennostOtsenshiki::with('strahPremiya','policyHolders')->find($id);
+
+        return view('products.otvetstvennost.otsenshiki.edit', compact('banks', 'agents', 'policySeries', 'page'));
     }
 
     /**

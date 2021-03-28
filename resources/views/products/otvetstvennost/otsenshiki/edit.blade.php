@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('otvetstvennost-otsenshiki.store')}}" id="formOtsenshiki" method="POST" enctype="multipart/form-data">
+    <form action="{{route('otvetstvennost-otsenshiki.update', $page->id)}}" id="formOtsenshiki" method="PUT" enctype="multipart/form-data">
         @csrf
         <div class="content-wrapper">
 
@@ -40,38 +40,38 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-name" class="col-form-label">Наименования</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer" class="form-control">
+                                        <input type="text" id="insurer-name" name="fio_insurer" class="form-control" value="{{$page->policyHolders->FIO}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Адрес
                                             страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer" class="form-control">
+                                        <input type="text" id="insurer-address" name="address_insurer" class="form-control" value="{{$page->policyHolders->address}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-phone" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-phone" name="tel_insurer" class="form-control">
+                                        <input type="text" id="insurer-phone" name="tel_insurer" class="form-control" value="{{$page->policyHolders->phone_number}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-bill" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-bill" name="address_schet" class="form-control">
+                                        <input type="text" id="insurer-bill" name="address_schet" class="form-control" value="{{$page->policyHolders->checking_account}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-type-activity" class="col-form-label">Вид деятельности</label>
-                                        <input type="text" id="insurer-type-activity" name="vid_deyatelnosti" class="form-control">
+                                        <input type="text" id="insurer-type-activity" name="vid_deyatelnosti" class="form-control" value="{{$page->policyHolders->vid_deyatelnosti}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer" class="form-control">
+                                        <input type="text" id="insurer-mfo" name="mfo_insurer" class="form-control" value="{{$page->policyHolders->mfo}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -85,7 +85,7 @@
                                                 style="width: 100%;" required>
                                             <option>Выберите банк</option>
                                             @foreach($banks as $bank)
-                                                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                <option value="{{ $bank->id }}" @if($bank->bank_id == $page->policyHolders->bank_id) selected @endif>{{ $bank->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -93,19 +93,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-okonh" name="inn_insurer" class="form-control">
+                                        <input type="text" id="insurer-okonh" name="inn_insurer" class="form-control" value="{{$page->policyHolders->inn}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" name="okonx" class="form-control">
+                                        <input type="text" id="insurer-okonh" name="okonx" class="form-control" value="{{$page->policyHolders->okonx}}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-oked" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-oked" name="oked" class="form-control">
+                                        <input type="text" id="insurer-oked" name="oked" class="form-control" value="{{$page->policyHolders->oked}}">
                                     </div>
                                 </div>
 
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <label for="personal-info" class="col-form-label">Информация о персонале
                                         </label>
-                                        <textarea id="personal-info" class="form-control" name="info_personal" required></textarea>
+                                        <textarea id="personal-info" class="form-control" name="info_personal" required>{{$page->info_personal}}"</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">с</span>
                                                     </div>
-                                                    <input id="insurance-from" name="insurance_from" type="date" class="form-control">
+                                                    <input id="insurance-from" name="insurance_from" type="date" class="form-control" value="{{$page->insurance_from}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -142,7 +142,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="insurance-to" name="insurance_to" type="date" class="form-control">
+                                                    <input id="insurance-to" name="insurance_to" type="date" class="form-control" value="{{$page->insurance_to}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -581,87 +581,87 @@
                     </div>
                 </div>
                 <!-- раздел 3 - да - show -->
-{{--                <div class="table-responsive p-0 r-3-show-0" style="display: none;">--}}
-{{--                    <div id="product-fields-0-7">--}}
-{{--                        <table class="table table-hover table-head-fixed">--}}
-{{--                            <thead>--}}
-{{--                            <tr>--}}
-{{--                                <th>Объекты страхования </th>--}}
-{{--                                <th>Количество водителей /пассажиров</th>--}}
-{{--                                <th>Страховая сумма на одного лица</th>--}}
-{{--                                <th>Страховая сумма</th>--}}
-{{--                                <th>Страховая премия</th>--}}
-{{--                            </tr>--}}
-{{--                            </thead>--}}
-{{--                            <tbody>--}}
-{{--                            <tr>--}}
-{{--                                <td><label>Водитель(и)</label></td>--}}
-{{--                                <td><input type="number" class="form-control r-3-pass-0" readonly value="1" name="driver_quantity"></td>--}}
-{{--                                <td>--}}
-{{--                                    <div class="input-group mb-4">--}}
-{{--                                        <input type="text" class="form-control r-3-one-0" name="driver_one_sum">--}}
-{{--                                        <div class="input-group-append">--}}
-{{--                                            <select class="form-control success" name="driver_currency" style="width: 100%;">--}}
-{{--                                                <option selected="selected">UZS--}}
-{{--                                                </option>--}}
-{{--                                                <option>USD</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </td>--}}
-{{--                                <td><input type="number" class="form-control r-3-sum-0" name="driver_total_sum" id="driver_total_sum-0">--}}
-{{--                                </td>--}}
-{{--                                <td><input type="number" class="form-control r-3-premia-0" name="driver_preim_sum" id="driver_total_sum-0">--}}
-{{--                                </td>--}}
-{{--                            </tr>--}}
-{{--                            <tr>--}}
-{{--                                <td><label>Пассажиры</label></td>--}}
-{{--                                <td><input type="number" class="form-control r-3-pass-1-0" name="passenger_quantity"></td>--}}
-{{--                                <td>--}}
-{{--                                    <div class="input-group mb-4">--}}
-{{--                                        <input type="text" class="form-control r-3-one-1-0" name="passenger_one_sum">--}}
-{{--                                        <div class="input-group-append">--}}
-{{--                                            <select class="form-control success" name="passenger_currency" style="width: 100%;">--}}
-{{--                                                <option selected="selected">UZS--}}
-{{--                                                </option>--}}
-{{--                                                <option>USD</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </td>--}}
-{{--                                <td><input type="number" class="form-control r-3-sum-1-0" name="passenger_total_sum" id="passenger_total_sum-0"></td>--}}
-{{--                                <td><input type="number" class="form-control r-3-premia-1-0" name="passenger_preim_sum" id="passenger_total_sum-0"></td>--}}
-{{--                            </tr>--}}
-{{--                            <tr>--}}
-{{--                                <td><label class="text-bold">Общий Лимит</label>--}}
-{{--                                </td>--}}
-{{--                                <td><input type="number" class="form-control r-3-pass-2-0" name="limit_quantity"></td>--}}
-{{--                                <td>--}}
-{{--                                    <div class="input-group mb-4">--}}
-{{--                                        <input type="text" class="form-control r-3-one-2-0" name="limit_one_sum">--}}
-{{--                                        <div class="input-group-append">--}}
-{{--                                            <select class="form-control success" name="limit_currency" style="width: 100%;">--}}
-{{--                                                <option selected="selected">UZS--}}
-{{--                                                </option>--}}
-{{--                                                <option>USD</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </td>--}}
-{{--                                <td><input type="number" class="form-control r-3-sum-2-0" name="limit_total_sum"></td>--}}
-{{--                                <td><input type="number" class="form-control r-3-premia-2-0" name="limit_preim_sum"></td>--}}
-{{--                            </tr>--}}
-{{--                            <tr>--}}
-{{--                                <td colspan="3"><label class="text-bold">Итого</label>--}}
-{{--                                </td>--}}
-{{--                                <td><input type="number" class="form-control r-summ-0">--}}
-{{--                                </td>--}}
-{{--                                <td><input type="number" class="form-control r-summ-premia-0"></td>--}}
-{{--                            </tr>--}}
-{{--                            </tbody>--}}
-{{--                        </table>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                {{--                <div class="table-responsive p-0 r-3-show-0" style="display: none;">--}}
+                {{--                    <div id="product-fields-0-7">--}}
+                {{--                        <table class="table table-hover table-head-fixed">--}}
+                {{--                            <thead>--}}
+                {{--                            <tr>--}}
+                {{--                                <th>Объекты страхования </th>--}}
+                {{--                                <th>Количество водителей /пассажиров</th>--}}
+                {{--                                <th>Страховая сумма на одного лица</th>--}}
+                {{--                                <th>Страховая сумма</th>--}}
+                {{--                                <th>Страховая премия</th>--}}
+                {{--                            </tr>--}}
+                {{--                            </thead>--}}
+                {{--                            <tbody>--}}
+                {{--                            <tr>--}}
+                {{--                                <td><label>Водитель(и)</label></td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-pass-0" readonly value="1" name="driver_quantity"></td>--}}
+                {{--                                <td>--}}
+                {{--                                    <div class="input-group mb-4">--}}
+                {{--                                        <input type="text" class="form-control r-3-one-0" name="driver_one_sum">--}}
+                {{--                                        <div class="input-group-append">--}}
+                {{--                                            <select class="form-control success" name="driver_currency" style="width: 100%;">--}}
+                {{--                                                <option selected="selected">UZS--}}
+                {{--                                                </option>--}}
+                {{--                                                <option>USD</option>--}}
+                {{--                                            </select>--}}
+                {{--                                        </div>--}}
+                {{--                                    </div>--}}
+                {{--                                </td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-sum-0" name="driver_total_sum" id="driver_total_sum-0">--}}
+                {{--                                </td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-premia-0" name="driver_preim_sum" id="driver_total_sum-0">--}}
+                {{--                                </td>--}}
+                {{--                            </tr>--}}
+                {{--                            <tr>--}}
+                {{--                                <td><label>Пассажиры</label></td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-pass-1-0" name="passenger_quantity"></td>--}}
+                {{--                                <td>--}}
+                {{--                                    <div class="input-group mb-4">--}}
+                {{--                                        <input type="text" class="form-control r-3-one-1-0" name="passenger_one_sum">--}}
+                {{--                                        <div class="input-group-append">--}}
+                {{--                                            <select class="form-control success" name="passenger_currency" style="width: 100%;">--}}
+                {{--                                                <option selected="selected">UZS--}}
+                {{--                                                </option>--}}
+                {{--                                                <option>USD</option>--}}
+                {{--                                            </select>--}}
+                {{--                                        </div>--}}
+                {{--                                    </div>--}}
+                {{--                                </td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-sum-1-0" name="passenger_total_sum" id="passenger_total_sum-0"></td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-premia-1-0" name="passenger_preim_sum" id="passenger_total_sum-0"></td>--}}
+                {{--                            </tr>--}}
+                {{--                            <tr>--}}
+                {{--                                <td><label class="text-bold">Общий Лимит</label>--}}
+                {{--                                </td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-pass-2-0" name="limit_quantity"></td>--}}
+                {{--                                <td>--}}
+                {{--                                    <div class="input-group mb-4">--}}
+                {{--                                        <input type="text" class="form-control r-3-one-2-0" name="limit_one_sum">--}}
+                {{--                                        <div class="input-group-append">--}}
+                {{--                                            <select class="form-control success" name="limit_currency" style="width: 100%;">--}}
+                {{--                                                <option selected="selected">UZS--}}
+                {{--                                                </option>--}}
+                {{--                                                <option>USD</option>--}}
+                {{--                                            </select>--}}
+                {{--                                        </div>--}}
+                {{--                                    </div>--}}
+                {{--                                </td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-sum-2-0" name="limit_total_sum"></td>--}}
+                {{--                                <td><input type="number" class="form-control r-3-premia-2-0" name="limit_preim_sum"></td>--}}
+                {{--                            </tr>--}}
+                {{--                            <tr>--}}
+                {{--                                <td colspan="3"><label class="text-bold">Итого</label>--}}
+                {{--                                </td>--}}
+                {{--                                <td><input type="number" class="form-control r-summ-0">--}}
+                {{--                                </td>--}}
+                {{--                                <td><input type="number" class="form-control r-summ-premia-0"></td>--}}
+                {{--                            </tr>--}}
+                {{--                            </tbody>--}}
+                {{--                        </table>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
                 <div class="card-body">
                     <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
