@@ -10,7 +10,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -40,38 +48,62 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-name" class="col-form-label">Наименования</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer" class="form-control">
+                                        <input type="text" id="insurer-name" name="fio_insurer" @if($errors->has('fio_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Адрес
                                             страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer" class="form-control">
+                                        <input type="text" id="insurer-address" name="address_insurer" @if($errors->has('address_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-phone" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-phone" name="tel_insurer" class="form-control">
+                                        <input type="text" id="insurer-phone" name="tel_insurer" @if($errors->has('tel_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-bill" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-bill" name="address_schet" class="form-control">
+                                        <input type="text" id="insurer-bill" name="address_schet" @if($errors->has('address_schet'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-type-activity" class="col-form-label">Вид деятельности</label>
-                                        <input type="text" id="insurer-type-activity" name="vid_deyatelnosti" class="form-control">
+                                        <input type="text" id="insurer-type-activity" name="vid_deyatelnosti" @if($errors->has('vid_deyatelnosti'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer" class="form-control">
+                                        <input type="text" id="insurer-mfo" name="mfo_insurer" @if($errors->has('mfo_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -80,7 +112,6 @@
                                         <select @if($errors->has('bank_insurer'))
                                                 class="form-control is-invalid"
                                                 @else
-                                                class="form-control"
                                                 @endif id="bank_insurer" name="bank_insurer"
                                                 style="width: 100%;" required>
                                             <option>Выберите банк</option>
@@ -93,19 +124,31 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-okonh" name="inn_insurer" class="form-control">
+                                        <input type="text" id="insurer-okonh" name="inn_insurer" @if($errors->has('inn_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" name="okonx" class="form-control">
+                                        <input type="text" id="insurer-okonh" name="okonx" @if($errors->has('okonx'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-oked" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-oked" name="oked" class="form-control">
+                                        <input type="text" id="insurer-oked" name="oked" @if($errors->has('oked'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
 
@@ -113,7 +156,11 @@
                                     <div class="form-group">
                                         <label for="personal-info" class="col-form-label">Информация о персонале
                                         </label>
-                                        <textarea id="personal-info" class="form-control" name="info_personal" required></textarea>
+                                        <textarea id="personal-info" @if($errors->has('info_personal'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="info_personal" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +179,11 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">с</span>
                                                     </div>
-                                                    <input id="insurance-from" name="insurance_from" type="date" class="form-control">
+                                                    <input id="insurance-from" name="insurance_from" type="date" @if($errors->has('insurance_from'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,14 +193,22 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="insurance-to" name="insurance_to" type="date" class="form-control">
+                                                    <input id="insurance-to" name="insurance_to" type="date" @if($errors->has('insurance_to'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="geograph-zone">Географическая зона:</label>
-                                        <input type="text" id="geograph-zone" name="geo_zone" class="form-control">
+                                        <input type="text" id="geograph-zone" name="geo_zone" @if($errors->has('geo_zone'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                             </div>
@@ -196,10 +255,14 @@
                                         <tr>
 
                                             <td>
-                                                <input type="text" class="form-control">
+                                                <input type="text" readonly>
                                             </td>
                                             <td>
-                                                <select class="form-control polises" id="polises" name="policy_series_id[]" style="width: 100%;">
+                                                <select  @if($errors->has('policy_series_id.*'))
+                                                         class="form-control is-invalid polises"
+                                                         @else
+                                                         class="form-control polises"
+                                                         @endif  id="polises" name="policy_series_id[]" style="width: 100%;">
                                                     @foreach($policySeries as $policy)
                                                         <option @if(old('policy_series_id[]') == $policy->id) selected
                                                                 @endif value="{{ $policy->id }}">{{$policy->code}}</option>
@@ -207,13 +270,25 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="from_date_polis[]">
+                                                <input type="date" @if($errors->has('from_date_polis.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="from_date_polis[]">
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="to_date_polis[]">
+                                                <input type="date" @if($errors->has('to_date_polis.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="to_date_polis[]">
                                             </td>
                                             <td>
-                                                <select class="form-control polises" id="polises" name="agent_id[]" style="width: 100%;">
+                                                <select @if($errors->has('agent_id.*'))
+                                                        class="form-control is-invalid polises"
+                                                        @else
+                                                        class="form-control polises"
+                                                        @endif id="polises" name="agent_id[]" style="width: 100%;">
                                                     @foreach($agents as $agent)
                                                         <option @if(old('agent_id[]') == $agent->user_id) selected
                                                                 @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
@@ -221,28 +296,60 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" name="insurer_fio[]">
+                                                <input type="text" @if($errors->has('insurer_fio.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="insurer_fio[]">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" name="specialty[]" value="Specialty">
+                                                <input type="text" @if($errors->has('specialty.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="specialty[]" value="Specialty">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" name="experience[]" value="work experience">
+                                                <input type="text" @if($errors->has('experience.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="experience[]" value="work experience">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" name="position[]">
+                                                <input type="text" @if($errors->has('position.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="position[]">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" name="time_stay[]">
+                                                <input type="text" @if($errors->has('time_stay.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="time_stay[]">
                                             </td>
                                             <td>
-                                                <input type="text" data-field="value" class="form-control" name="insurer_price[]">
+                                                <input type="text" data-field="value" @if($errors->has('insurer_price.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="insurer_price[]">
                                             </td>
                                             <td>
-                                                <input type="text" data-field="sum" class="form-control" name="insurer_sum[]">
+                                                <input type="text" data-field="sum" @if($errors->has('insurer_sum.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="insurer_sum[]">
                                             </td>
                                             <td>
-                                                <input type="text" data-field="premiya" class="form-control" name="insurer_premium[]">
+                                                <input type="text" data-field="premiya" @if($errors->has('insurer_premium.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="insurer_premium[]">
                                             </td>
                                         </tr>
                                         <tr>
@@ -344,7 +451,11 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">В гос. секторе</span>
                                                 </div>
-                                                <textarea class="form-control" id="public-sector" name="public_sector_comment"></textarea>
+                                                <textarea @if($errors->has('public_sector_comment'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif id="public-sector" name="public_sector_comment"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -354,7 +465,11 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">В частном секторе</span>
                                                 </div>
-                                                <textarea id="private-sector" class="form-control" name="private_sector_comment"></textarea>
+                                                <textarea id="private-sector" @if($errors->has('private_sector_comment'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="private_sector_comment"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -364,7 +479,11 @@
                         <div class="form-group">
                             <label for="geographic-zone">Риски, связанные с вашей профессиональной деятельностью,
                                 которые Вы опасаетесь больше всего</label>
-                            <input type="text" id="geographic-zone" name="geo-zone" class="form-control">
+                            <input type="text" id="geographic-zone" name="prof_riski" @if($errors->has('prof_riski'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                         </div>
 
                         <div class="form-group">
@@ -388,7 +507,11 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Причина</span>
                                             </div>
-                                            <textarea class="form-control" name="reason_case"></textarea>
+                                            <textarea @if($errors->has('reason_case'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="reason_case"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -415,7 +538,11 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Причина</span>
                                             </div>
-                                            <textarea class="form-control" name="reason_administrative_case"></textarea>
+                                            <textarea @if($errors->has('reason_administrative_case'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="reason_administrative_case"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -443,7 +570,11 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label" for="pretensii-final-settlement-date">Загрузка необходимых документов</label>
-                            <input class="form-control" data-file="file" type="file" multiple name="documents[]">
+                            <input @if($errors->has('documents.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif data-file="file" type="file" multiple name="documents[]">
                         </div>
                     </div>
                 </div>
@@ -463,7 +594,11 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Валюта взаиморасчетов</label>
-                                        <select name="insurance_premium_currency" class="form-control" data-wallet="wallet" id="walletNames" style="width: 100%; text-align: center">
+                                        <select name="insurance_premium_currency" @if($errors->has('insurance_premium_currency'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif data-wallet="wallet" id="walletNames" style="width: 100%; text-align: center">
                                             <option selected="selected" name="insurance_premium_currency">UZS</option>
                                         </select>
                                     </div>
@@ -495,9 +630,17 @@
                                         </thead>
                                         <tbody>
                                         <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="prem_sum[]">
+                                            <td><input type="text" @if($errors->has('prem_sum.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="prem_sum[]">
                                             </td>
-                                            <td><input type="date" class="form-control" name="prem_from[]">
+                                            <td><input type="date" @if($errors->has('prem_from.*'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif name="prem_from[]">
                                             </td>
                                         </tr>
                                         </tbody>
@@ -514,19 +657,31 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="strahovaya_sum" class="form-control">
+                                        <input type="text" id="all-summ" name="strahovaya_sum" @if($errors->has('strahovaya_sum'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-frnshiza" name="franshiza" class="form-control">
+                                        <input type="text" id="all-frnshiza" name="franshiza" @if($errors->has('franshiza'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="all-premia">Страховая премия</label>
-                                        <input type="text" id="all-premia" name="strahovaya_purpose" class="form-control">
+                                        <input type="text" id="all-premia" name="strahovaya_purpose" @if($errors->has('strahovaya_purpose'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
 
@@ -550,7 +705,11 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                <input type="text" id="polis-series" name="serial_number_policy" class="form-control">
+                                                <input type="text" id="polis-series" name="serial_number_policy" @if($errors->has('serial_number_policy'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -559,7 +718,11 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"></span>
                                                 </div>
-                                                <input id="insurance_from" name="date_issue_policy" type="date" class="form-control">
+                                                <input id="insurance_from" name="date_issue_policy" type="date" @if($errors->has('date_issue_policy'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -677,19 +840,31 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="questionnaire" class="col-form-label">Анкета</label>
-                                        <input type="file" id="questionnaire" name="anketa" class="form-control">
+                                        <input type="file" id="questionnaire" name="anketa" @if($errors->has('address_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="contract" class="col-form-label">Договор</label>
-                                        <input type="file" id="contract" name="dogovor" class="form-control">
+                                        <input type="file" id="contract" name="dogovor" @if($errors->has('address_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis" class="col-form-label">Полис</label>
-                                        <input type="file" id="polis" name="polis" class="form-control">
+                                        <input type="file" id="polis" name="polis" @if($errors->has('address_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif>
                                     </div>
                                 </div>
                             </div>

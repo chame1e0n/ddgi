@@ -53,6 +53,7 @@ class CreateOtvetstvennostOtsenshikiTable extends Migration
             $table->string('reason_case')->nullable();
             $table->string('reason_administrative_case')->nullable();
             $table->integer('policy_holder_id');
+            $table->string('prof_riski');
             $table->timestamps();
         });
 

@@ -41,7 +41,6 @@ class TamozhnyaAddRequest extends FormRequest
             'mfo_beneficiary' => 'required',
             'bank_beneficiary' => 'required',
             'okonh_beneficiary' => 'required',
-
             'from_date' => 'required',
             'to_date' => 'required',
             'warehouse_volume' => 'required',
@@ -49,7 +48,6 @@ class TamozhnyaAddRequest extends FormRequest
             'total_sum' => 'required',
             'na_sklade_from_date' => 'required',
             'na_sklade_to_date' => 'required',
-
             'insurance_premium_currency' => 'required',
             'payment_term' => 'required',
             'sposob_rascheta' => 'required|integer',
