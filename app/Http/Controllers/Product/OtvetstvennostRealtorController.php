@@ -6,6 +6,7 @@ use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
+use \App\Models\Product\OtvetstvennostRealtor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 class OtvetstvennostRealtorController extends Controller
@@ -44,6 +45,8 @@ class OtvetstvennostRealtorController extends Controller
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
+        $realtor = OtvetstvennostRealtor::createRealtor($request);
+        dd($realtor);
     }
 
     /**
