@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Product;
 
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
+use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 class OtvetstvennostRealtorController extends Controller
@@ -25,9 +26,10 @@ class OtvetstvennostRealtorController extends Controller
      */
     public function create()
     {
+        $policySeries = PolicySeries::all();
         $banks = Bank::all();
         $agents = Agent::all();
-        return view('products.otvetstvennost.realtor.create', compact('banks', 'agents'));
+        return view('products.otvetstvennost.realtor.create', compact('banks', 'agents', 'policySeries'));
     }
 
     /**

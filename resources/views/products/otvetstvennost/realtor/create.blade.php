@@ -39,69 +39,139 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-name" class="col-form-label">Наименования</label>
-                                        <input type="text" id="insurer-name" name="fio-insurer" class="form-control">
+                                        <input type="text" id="insurer-name" name="fio_insurer"
+                                               value="{{old('fio_insurer')}}" @if($errors->has('fio_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Адрес
+                                        <label for="insurer-address" class="col-form-label">Юр адрес
                                             страхователя</label>
-                                        <input type="text" id="insurer-address" name="address-insurer" class="form-control">
+                                        <input value="{{old('address_insurer')}}" type="text" id="insurer-address"
+                                               name="address_insurer"
+                                               @if($errors->has('address_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-phone" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-phone" name="phone-insurer" class="form-control">
+                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
+                                        <input value="{{old('tel_insurer')}}" type="text" id="insurer-tel"
+                                               name="tel_insurer"
+                                               @if($errors->has('tel_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-bill" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-bill" name="payment-bill" class="form-control">
+                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
+                                        <input value="{{old('address_schet')}}" type="text" id="insurer-schet"
+                                               name="address_schet"
+                                               @if($errors->has('address_schet'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-type-activity" class="col-form-label">Вид деятельности</label>
-                                        <input type="text" id="insurer-type-activity" name="insurer-type-active" class="form-control">
+                                        <label for="insurer-inn" class="col-form-label">Вид деятельности</label>
+                                        <input type="text" id="vid_deyatelnosti" name="vid_deyatelnosti" value="{{old('vid_deyatelnosti')}}" @if($errors->has('vid_deyatelnosti'))
+                                        class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo-insurer" class="form-control">
+                                        <input value="{{old('mfo_insurer')}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
+                                        class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <input type="text" id="insurer-bank" name="bank-insurer" class="form-control">
+                                        <select @if($errors->has('bank_insurer'))
+                                                class="form-control is-invalid"
+                                                @else
+                                                class="form-control"
+                                                @endif id="insurer_bank" name="bank_insurer"
+                                                style="width: 100%;" required>
+                                            <option>Выберите банк</option>
+                                            @foreach($banks as $bank)
+                                                @if(old('bank_insurer') == $bank->id)
+                                                    <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                @else
+                                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-okonh" name="okonh-insurer" class="form-control">
+                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
+                                        <input value="{{old('inn_insurer')}}" type="text" id="insurer-inn"
+                                               name="inn_insurer"
+                                               @if($errors->has('inn_insurer'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif
+                                        >
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" name="okonh-insurer" class="form-control">
+                                        <input value="{{old('okonx')}}" type="text" id="okonx" name="okonx"
+                                               @if($errors->has('okonx'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="insurer-oked" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-oked" name="oked-insurer" class="form-control">
+                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
+                                        <input value="{{old('oked')}}" type="text" id="oked" name="oked"
+                                               @if($errors->has('oked'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif >
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="personal-info" class="col-form-label">Информация о персонале
+                                        <label for="description" class="col-form-label">Информация о персонале
                                         </label>
-                                        <textarea id="personal-info" class="form-control" name="info-personal" required>
+                                        <textarea id="informaciya_o_personale"
+                                                  @if($errors->has('informaciya_o_personale'))
+                                                  class="form-control is-invalid"
+                                                  @else
+                                                  class="form-control"
+                                                  @endif
+                                                  name="informaciya_o_personale" required>{{old('informaciya_o_personale')}}
                                             </textarea>
                                     </div>
                                 </div>
@@ -116,12 +186,17 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="insurance-from">Период страхования</label>
+                                                <label for="insurance_from">Период страхования</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">с</span>
                                                     </div>
-                                                    <input id="insurance-from" name="insurance-from" type="date" class="form-control">
+                                                    <input value="{{old('from_date')}}" id="from_date" name="from_date" type="date"
+                                                           @if($errors->has('from_date'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                        @endif>
                                                 </div>
                                             </div>
                                         </div>
@@ -131,16 +206,25 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="insurance-to" name="insurance-to" type="date" class="form-control">
+                                                    <input value="{{old('to_date')}}" id="to_date" name="to_date" type="date"
+                                                           @if($errors->has('to_date'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                        @endif>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="geograph-zone">Географическая зона:</label>
-                                        <input type="text" id="geograph-zone" name="geo-zone" class="form-control">
+                                        <label for="geographic-zone">Географическая зона:</label>
+                                        <input value="{{old('geo_zone')}}" type="text" id="geo_zone" name="geo_zone"
+                                               @if($errors->has('geo_zone'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                            @endif>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -496,83 +580,97 @@
                             </button>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" data-wallet="wallet" id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected" name="insurance_premium_currency">UZS</option>
-                                        </select>
+                    <div class="card card-success">
+                        <div class="card-body">
+                            <div id="payment-terms-form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-inline justify-content-between">
+                                            <label>Валюта взаиморасчетов</label>
+                                            <select class="form-control" id="walletNames"
+                                                    style="width: 100%; text-align: center" name="insurance_premium_currency">
+                                                <option selected="selected">UZS
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-inline justify-content-between">
+                                            <label>Порядок оплаты страховой премии</label>
+                                            <select class="form-control payment-schedule" name="payment_term"
+                                                    onchange="showDiv('other-payment-schedule', this)"
+                                                    style="width: 100%; text-align: center">
+                                                <option value="1">Единовременно</option>
+                                                <option value="other">Другое</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" data-payment="payment" id="payment-procedure" name="payment-term" style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="other">Другое</option>
-                                        </select>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="all-summ">Cтраховая сумма</label>
+                                            <input id="strahovaya_sum" name="strahovaya_sum" value="{{old('strahovaya_sum')}}"
+                                                   type="number" @if($errors->has('strahovaya_sum'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="geographic-zone">Страховая премия</label>
+                                            <input id="strahovaya_purpose" name="strahovaya_purpose" value="{{old('strahovaya_purpose')}}"
+                                                   type="number" @if($errors->has('strahovaya_purpose'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="geographic-zone">Франшиза</label>
+                                            <input id="franshiza" name="franshiza" value="{{old('franshiza')}}"
+                                                   type="text" @if($errors->has('franshiza'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="other-payment-schedule" style="display: none;">
-                                <div class="form-group">
-                                    <button type="button" data-btn-add-row class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="table-payment-schedule">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment-sum[]">
-                                            </td>
-                                            <td><input type="date" class="form-control" name="payment-from[]">
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+
+
+                                <div id="other-payment-schedule" style="display: none;">
+                                    <div class="form-group">
+                                        <button type="button" onclick="addRow3()" class="btn btn-primary ">
+                                            Добавить
+                                        </button>
+                                    </div>
+                                    <div class="table-responsive p-0 " style="max-height: 300px;">
+                                        <table class="table table-hover table-head-fixed" id="empTable3">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-nowrap">Сумма</th>
+                                                <th class="text-nowrap">От</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr id="payment-term-tr-0" data-field-number="0">
+                                                <td><input type="text" class="form-control" name="payment_sum[]"></td>
+                                                <td><input type="date" class="form-control" name="payment_from[]"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-                    <div class="card-body">
-                        <div id="anketa-fields">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="geo-zone" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-frnshiza" name="geo-zone" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="all-premia">Страховая премия</label>
-                                        <input type="text" id="all-premia" name="geo-zone" class="form-control">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="card-body">
                         <div class="card card-info" id="clone-beneficiary">
                             <div class="card-header">
@@ -589,7 +687,17 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                <input type="text" id="polis-series" name="polis-series" class="form-control">
+                                                <select type="text" id="serial_number_policy" name="serial_number_policy" @if($errors->has('serial_number_policy'))
+                                                class="form-control is-invalid"
+                                                        @else
+                                                        class="form-control"
+                                                    @endif>
+                                                    <option value="0"></option>
+                                                    @foreach($policySeries as $series)
+                                                        <option @if(old('serial_number_policy') == $series->id) selected
+                                                                @endif value="{{ $series->id }}">{{ $series->code }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -598,14 +706,28 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"></span>
                                                 </div>
-                                                <input id="insurance_from" name="insurance_from" type="date" class="form-control">
+                                                <input id="date_issue_policy" name="date_issue_policy" value="{{old('date_issue_policy')}}"
+                                                       type="date" @if($errors->has('date_issue_policy'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <label class="col-form-label">Ответственное лицо</label>
-                                            <div class="input-group">
-                                                <select class="form-control polises" id="otvet-litso" name="litso" style="width: 100%;">
-                                                    <option selected="selected">Имя Фамилия</option>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="otvet-litso" class="col-form-label">Ответственное лицо</label>
+                                                <select @if($errors->has('litso'))
+                                                        class="form-control is-invalid"
+                                                        @else
+                                                        class="form-control"
+                                                        @endif id="otvet-litso" name="litso"
+                                                        style="width: 100%;" required>
+                                                    <option></option>
+                                                    @foreach($agents as $agent)
+                                                        <option @if(old('litso') == $agent->id) selected
+                                                                @endif value="{{ $agent->id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -629,24 +751,40 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="questionnaire" class="col-form-label">Анкета</label>
-                                            <input type="file" id="questionnaire" name="questionnaire" class="form-control">
+                                            <label for="polis-series" class="col-form-label">Анкета</label>
+                                            <input id="anketa_img" name="anketa_img" value="{{old('anketa_img')}}"
+                                                   type="file" @if($errors->has('anketa_img'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="contract" class="col-form-label">Договор</label>
-                                            <input type="file" id="contract" name="contract" class="form-control">
+                                            <label for="polis-series" class="col-form-label">Договор</label>
+                                            <input id="dogovor_img" name="dogovor_img" value="{{old('dogovor_img')}}"
+                                                   type="file" @if($errors->has('dogovor_img'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="polis" class="col-form-label">Полис</label>
-                                            <input type="file" id="polis" name="polis" class="form-control">
+                                            <label for="polis-series" class="col-form-label">Полис</label>
+                                            <input id="polis_img" name="polis_img" value="{{old('polis_img')}}"
+                                                   type="file" @if($errors->has('polis_img'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
