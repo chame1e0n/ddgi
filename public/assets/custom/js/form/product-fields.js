@@ -194,7 +194,7 @@ $(document).ready(function() {
         }
     });
 
-    
+
 });
 $(document).on('keyup', function() {
     if ($('.overall-sum').val() < $('.overall-sum').val()) {
@@ -645,7 +645,7 @@ function addProductFields(fieldNumber) {
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Сумма</span>
                                             </div>
-                                            <input type="text" class="form-control r-1-sum-${fieldNumber}" name="one-sum-${fieldNumber}" id="vehicle_damage_sum-${fieldNumber}">
+                                            <input type="text" class="form-control r-1-sum-${fieldNumber}" name="one_sum[${fieldNumber}]" id="vehicle_damage_sum-${fieldNumber}">
                                         </div>
                                     </div>
                                 </div>
