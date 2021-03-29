@@ -102,6 +102,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('credit-fin-risk/nepogashen-credit', 'Product\CreditFinRiskNepogashenCreditController')->names('nepogashen-credit');
     Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
     Route::resource('otvetstvennost/otsenshiki', 'Product\OtvetstvennostOtsenshikiController')->names('otvetstvennost-otsenshiki');
+    Route::resource('kasco', 'Product\KaskoController')->names('kasco-add');
 });
 
 Auth::routes();
