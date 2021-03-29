@@ -43,8 +43,19 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
 <div class="wrapper">
-    <!-- Navbar -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+@endif
+<!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
@@ -60,7 +71,7 @@
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3" >
+        <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -260,15 +271,14 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{ route('otvetstvennost-notaries.store') }}" id="formNatarius" method="POST">
+    <form action="{{ route('otvetstvennost-notaries.store') }}" method="POST" id="formNatarius"
+          enctype="multipart/form-data">
         @csrf
         <div class="content-wrapper">
-
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -298,70 +308,74 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-name" class="col-form-label">Наименования</label>
-                                        <input type="text" id="insurer-name" name="fio-insurer" class="form-control">
+                                        <input type="text" id="insurer-name" name="fio_insurer" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Адресстрахователя</label>
-                                        <input type="text" id="insurer-address" name="address-insurer"
+                                        <input type="text" id="insurer-address" name="address_insurer"
                                                class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-phone" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-phone" name="phone-insurer" class="form-control">
+                                        <input type="text" id="insurer-phone" name="phone_insurer" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-bill" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-bill" name="payment-bill" class="form-control">
+                                        <input type="text" id="insurer-bill" name="payment_bill" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-type-activity" class="col-form-label">Вид
                                             деятельности</label>
-                                        <input type="text" id="insurer-type-activity" name="insurer-type-active"
+                                        <input type="text" id="insurer-type-activity" name="insurer_type_active"
                                                class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo-insurer" class="form-control">
+                                        <input type="text" id="insurer-mfo" name="mfo_insurer" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <input type="text" id="insurer-bank" name="bank-insurer" class="form-control">
+                                        <select name="bank_insurer" class="form-control">
+                                            @foreach($banks as $bank)
+                                                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-okonh" name="okonh-insurer" class="form-control">
+                                        <input type="text" id="insurer-okonh" name="inn" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" name="okonh-insurer" class="form-control">
+                                        <input type="text" id="insurer-okonh" name="okonh_insurer" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-oked" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-oked" name="oked-insurer" class="form-control">
+                                        <input type="text" id="insurer-oked" name="oked_insurer" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="personal-info" class="col-form-label">Информация о персонале</label>
-                                        <textarea id="personal-info" class="form-control" name="info-personal"
+                                        <textarea id="personal-info" class="form-control" name="info_personal"
                                                   required></textarea>
                                     </div>
                                 </div>
@@ -381,7 +395,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">с</span>
                                                     </div>
-                                                    <input id="insurance-from" name="insurance-from" type="date"
+                                                    <input id="insurance-from" name="insurance_from" type="date"
                                                            class="form-control">
                                                 </div>
                                             </div>
@@ -392,7 +406,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="insurance-to" name="insurance-to" type="date"
+                                                    <input id="insurance-to" name="insurance_to" type="date"
                                                            class="form-control">
                                                 </div>
                                             </div>
@@ -400,7 +414,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="geograph-zone">Географическая зона:</label>
-                                        <input type="text" id="geograph-zone" name="geo-zone" class="form-control">
+                                        <input type="text" id="geograph-zone" name="geo_zone" class="form-control">
                                     </div>
 
                                 </div>
@@ -408,7 +422,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="card-body">
                     <div class="card card-info" id="clone-beneficiary">
@@ -447,18 +460,22 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-
                                             <td>
                                                 <input type="text" class="form-control" name="period_polis[]">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" name="polis_id[]">
+                                                <select name="polis_id[]" id="" class="form-control">
+                                                    @foreach($polis_series as $polis)
+                                                        <option value="{{ $polis->id }}"
+                                                                class="form-control">{{ $polis->code }}</option>
+                                                    @endforeach
+                                                </select>
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="validity-period-from[]">
+                                                <input type="date" class="form-control" name="validity_period_from[]">
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="validity-period-to[]">
+                                                <input type="date" class="form-control" name="validity_period_to[]">
                                             </td>
                                             <td>
                                                 <select class="form-control polises" id="polises" name="polis_agent[]"
@@ -544,19 +561,19 @@
                                     <tr>
                                         <td>
                                             <input type="text" class="form-control insurance_premium-0"
-                                                   data-field="number" name="number">
+                                                   data-field="number" name="number[]">
                                         </td>
                                         <td>
                                             <input type="text" class="form-control insurance_premium-0"
-                                                   data-field="director" name="director">
+                                                   data-field="director" name="director[]">
                                         </td>
                                         <td>
                                             <input type="text" class="form-control insurance_premium-0"
-                                                   data-field="qualified" name="qualified">
+                                                   data-field="qualified" name="qualified[]">
                                         </td>
                                         <td>
                                             <input type="text" class="form-control insurance_premium-0"
-                                                   data-field="other" name="other">
+                                                   data-field="other" name="other[]">
                                         </td>
                                     </tr>
                                     </tbody>
@@ -645,7 +662,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">с</span>
                                                 </div>
-                                                <input data-activity-period="from" name="activity-period-from"
+                                                <input data-activity-period="from" name="activity_period_from"
                                                        type="date" class="form-control">
                                             </div>
                                         </div>
@@ -656,14 +673,14 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">до</span>
                                                 </div>
-                                                <input data-activity-period="to" name="activity-period-to" type="date"
+                                                <input data-activity-period="to" name="activity_period_to" type="date"
                                                        class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="total-active-org">Всего:</label>
+                                    <label>Всего:</label>
                                     <input readonly data-total="total-active-org" type="text" class="form-control">
                                 </div>
 
@@ -671,7 +688,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="card-body" id="fields-changed">
                     <div id="product-fields-0-3">
@@ -699,7 +715,7 @@
                                                 <span class="input-group-text">В гос. секторе</span>
                                             </div>
                                             <textarea class="form-control" id="public-sector"
-                                                      name="public-sector-comment" required></textarea>
+                                                      name="public_sector_comment" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -710,7 +726,7 @@
                                                 <span class="input-group-text">В частном секторе</span>
                                             </div>
                                             <textarea id="private-sector" class="form-control"
-                                                      name="private-sector-comment" required></textarea>
+                                                      name="private_sector_comment" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -719,7 +735,7 @@
                         <div class="form-group">
                             <label for="geographic-zone">Риски, связанные с вашей профессиональной деятельностью,
                                 которые Вы опасаетесь больше всего</label>
-                            <input type="text" id="geographic-zone" name="geo-zone" class="form-control">
+                            <input type="text" id="geographic-zone" name="riski" class="form-control">
                         </div>
 
 
@@ -729,12 +745,12 @@
                             <div class="row">
                                 <div class="col-sm-1">
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases"
+                                        <input type="radio" class="other_insurance_0" data-cases-radio name="cases"
                                                id="case-true" value="true">
                                         <label for="case-true">Да</label>
                                     </div>
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases"
+                                        <input type="radio" class="other_insurance_0" data-cases-radio name="cases"
                                                id="case-false" value="false">
                                         <label for="case-false">Нет</label>
                                     </div>
@@ -747,7 +763,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Причина</span>
                                             </div>
-                                            <textarea class="form-control" name="reason-case" required></textarea>
+                                            <textarea class="form-control" name="reason_case" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -762,12 +778,12 @@
                                 <div class="col-sm-1">
                                     <div class="checkbox icheck-success">
                                         <input type="radio" class="other_insurance-0" data-administr-radio
-                                               name="administrative-case" id="case-administrative-1" value="true">
+                                               name="administrative_case" id="case-administrative-1" value="true">
                                         <label for="case-administrative-1">Да</label>
                                     </div>
                                     <div class="checkbox icheck-success">
                                         <input type="radio" class="other_insurance-0" data-administr-radio
-                                               name="administrative-case" id="case-administrative-2" value="false">
+                                               name="administrative_case" id="case-administrative-2" value="false">
                                         <label for="case-administrative-2">Нет</label>
                                     </div>
                                 </div>
@@ -779,7 +795,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Причина</span>
                                             </div>
-                                            <textarea class="form-control" name="reason-administrative-case"
+                                            <textarea class="form-control" name="reason_administrative_case"
                                                       required></textarea>
                                         </div>
                                     </div>
@@ -811,12 +827,9 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label" for="pretensii-final-settlement-date">Загрузка необходимых
-                                документов</label>
+                            <label class="col-form-label">Загрузка необходимых документов</label>
                             <input class="form-control" data-file="file" type="file" multiple name="retransferAktFile">
                         </div>
-
-
                     </div>
                 </div>
 
@@ -836,7 +849,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" data-wallet="wallet" id="walletNames"
+                                        <select class="form-control" name="wallet" data-wallet="wallet" id="walletNames"
                                                 style="width: 100%; text-align: center">
                                             <option selected="selected" name="insurance_premium_currency">UZS</option>
                                         </select>
@@ -846,7 +859,7 @@
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
                                         <select class="form-control payment-schedule" data-payment="payment"
-                                                id="payment-procedure" name="payment-term"
+                                                id="payment-procedure" name="payment_term"
                                                 style="width: 100%; text-align: center">
                                             <option value="1">Единовременно</option>
                                             <option value="other">Другое</option>
@@ -871,9 +884,9 @@
                                         </thead>
                                         <tbody>
                                         <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment-sum[]">
+                                            <td><input type="text" class="form-control" name="payment_sum[]">
                                             </td>
-                                            <td><input type="date" class="form-control" name="payment-from[]">
+                                            <td><input type="date" class="form-control" name="payment_from[]">
                                             </td>
                                         </tr>
                                         </tbody>
@@ -890,19 +903,20 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="geo-zone" class="form-control">
+                                        <input type="text" id="all-summ" name="sum_insured" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-frnshiza" name="geo-zone" class="form-control">
+                                        <input type="text" id="all-frnshiza" name="franchise" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="all-premia">Страховая премия</label>
-                                        <input type="text" id="all-premia" name="geo-zone" class="form-control">
+                                        <input type="text" id="all-premia" name="insurance_premium"
+                                               class="form-control">
                                     </div>
                                 </div>
 
@@ -928,7 +942,7 @@
                                             <div class="form-group">
                                                 <label for="polis-series" class="col-form-label">Серийный номер полиса
                                                     страхования</label>
-                                                <input type="text" id="polis-series" name="polis-series"
+                                                <input type="text" id="polis-series" name="polis_series"
                                                        class="form-control">
                                             </div>
                                         </div>
@@ -938,7 +952,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"></span>
                                                 </div>
-                                                <input id="insurance_from" name="insurance_from" type="date"
+                                                <input id="insurance_from" name="insurance_policy_from" type="date"
                                                        class="form-control">
                                             </div>
                                         </div>
@@ -948,6 +962,9 @@
                                                 <select class="form-control polises" id="otvet-litso" name="litso"
                                                         style="width: 100%;">
                                                     <option selected="selected">Имя Фамилия</option>
+                                                    @foreach($agents as $agent)
+                                                        <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -973,21 +990,21 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Анкета</label>
-                                            <input type="file" id="geographic-zone" name="geo-zone"
+                                            <input type="file" id="geographic-zone" name="anketaFile"
                                                    class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Договор</label>
-                                            <input type="file" id="geographic-zone" name="geo-zone"
+                                            <input type="file" id="geographic-zone" name="dogovorFile"
                                                    class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Полис</label>
-                                            <input type="file" id="geographic-zone" name="geo-zone"
+                                            <input type="file" id="geographic-zone" name="polisFile"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -1089,28 +1106,23 @@
                         </table>
                     </div>
                 </div>
+            </section>
         </div>
-</div>
-</div>
 
-</div>
-</div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
+        </div>
+    </form>
 
-</section>
-<div class="card-footer">
-    <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
-</div>
-</form>
-
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-        <h5>Title</h5>
-        <p>Sidebar content</p>
-    </div>
-</aside>
-<!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+        <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
 
 </div>
 <style>
@@ -1161,14 +1173,13 @@
 
 <script src="../../assets/custom/js/csrftoken.js"></script>
 
-<script src="../../assets/custom/js/form/variables.js"></script>
+<!--<script src="../../assets/custom/js/form/variables.js"></script>-->
 <!-- <script src="../../assets/custom/js/form/add-clients.js"></script>
 <script src="../../assets/custom/js/form/product-fields.js"></script>
 <script src="../../assets/custom/js/form/product-fields.add.js"></script> -->
 
 <!-- TODO: скрипты на чистом JS для обработки формы audit -->
 <script src="../../assets/custom/js/form/form-actions.js"></script>
-<script src="{{ asset('assets/custom/js/form/form-actions.js') }}"></script>
 
 <script>
     $(document).ready(function () {
@@ -1195,20 +1206,21 @@
         })
     });
 
-    $(document).ready(function(){ //by using td class
-        $("input[type='text']").each(function(){
+    $(document).ready(function () { //by using td class
+        $("input[type='text']").each(function () {
             $(this).val("Phone");
         })
 
 
-        $("input[type='number']").each(function(){
+        $("input[type='number']").each(function () {
             $(this).val("12312312");
         })
 
-        $("textarea").each(function(){
+        $("textarea").each(function () {
             $(this).val("12312312");
         })
-    })
+    });
+
 
     // fetch('https://cbu.uz/ru/arkhiv-kursov-valyut/json/')
     //     .then(function(data) {

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Notary extends Model
 {
-    protected $table = 'otvetstvennost_natarius_info';
+    use SoftDeletes;
+    protected $table = 'otvetstvennost_natarius';
     protected $guarded = [];
 }
