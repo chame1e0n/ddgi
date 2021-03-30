@@ -47,10 +47,11 @@ class ManagerController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->branch_id = $request->branch_id;
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $user->manager()->create($request->except('email', 'password'));
+        $user->manager()->create($request->except('email', 'password', 'branch_id'));
 
         return redirect()->route('manager.index')
             ->with('success','Успешно добавлен новый агент');
