@@ -42,7 +42,6 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Наименование</th>
                                         <th>Код</th>
                                         <th>Статус</th>
                                         <th>Действия</th>
@@ -52,7 +51,6 @@
                                     @foreach ($policySeries as $policySer)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            <td>{{ $policySer->name }}</td>
                                             <td>{{ $policySer->code }}</td>
                                             <td>{{ $policySer->status > 0 ? 'Активный' : 'Неактивный' }}</td>
                                             <td>

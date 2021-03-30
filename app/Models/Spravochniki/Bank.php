@@ -9,7 +9,7 @@ class Bank extends Model
 {
     use SoftDeletes;
 
-//    protected $guarded=[];
+    protected $guarded=[];
 
     static function getBanks()
     {

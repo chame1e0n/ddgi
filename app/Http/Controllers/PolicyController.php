@@ -14,7 +14,9 @@ class PolicyController extends Controller
      */
     public function index()
     {
-        //
+        $policies = Policy::latest()->paginate(10);
+
+        return view('policy.index',compact('policies'));
     }
 
     /**
@@ -57,7 +59,7 @@ class PolicyController extends Controller
      */
     public function edit(Policy $policy)
     {
-        //
+        return view('policy.edit',compact('policy'));
     }
 
     /**
@@ -80,6 +82,10 @@ class PolicyController extends Controller
      */
     public function destroy(Policy $policy)
     {
-        //
+        $policy->delete();
+
+        return redirect()->route('policy.index')
+            ->with('success', sprintf('Дынные о полисе \'%s\' были успешно удалены', $policy->number));
+
     }
 }

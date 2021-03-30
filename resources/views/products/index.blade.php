@@ -18,12 +18,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Продукты</h1>
+                        <h1>Список договоров</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Главная</a></li>
-                            <li class="breadcrumb-item active">Продукты</li>
+                            <li class="breadcrumb-item active">Список договоров</li>
                         </ol>
                     </div>
                 </div>
@@ -72,14 +72,14 @@
                                                       method="POST">
 
                                                     <a class="btn btn-info"
-                                                       href="{{ route($routes[$product->product_id].'.edit',$product->id) }}">Посмотреть</a>
+                                                       href="{{ route($routes[$product->product_id].'.edit',$product->id) }}"><i class="fas fa-eye"></i></a>
 
                                                     <a class="btn btn-primary"
-                                                       href="{{ route($routes[$product->product_id].'.edit',$product->id) }}">Изменить</a>
+                                                       href="{{ route($routes[$product->product_id].'.edit',$product->id) }}"><i class="fas fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
 
                                             </td>

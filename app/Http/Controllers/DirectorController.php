@@ -50,15 +50,14 @@ class DirectorController extends Controller
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->branch_id = $request->branch_id;
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $logoName = '';
         if ($request->has('profile_img')) {
-            $logoName = 'profile_img_' . time() . '.' . $request->profile_img->getClientOriginalExtension();
-            $request->profile_img->move(public_path('directors/' . $user->id), $logoName);
+            $image = $request->file('profile_img')->store('/directors/'.$user->id, 'public');
+            $request->profile_img = $image;
         }
+
 
         $user->director()->create([
             'user_id' => $user->id,
@@ -72,7 +71,7 @@ class DirectorController extends Controller
             'work_end_date' => $request->work_end_date,
             'phone_number' => $request->phone_number,
             'address' => $request->address,
-            'profile_img' => 'agents/' . $user->id . '/' .$logoName,
+            'profile_img' => $request->has('profile_img') ? $request->profile_img : null,
             'status' => $request->status,
 
         ]);
@@ -117,13 +116,31 @@ class DirectorController extends Controller
         $user = User::find($director->user_id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->branch_id = $request->branch_id;
         if(!empty($user->password)) {
             $user->password = Hash::make($request->password);
         }
+
+        if ($request->has('profile_img')) {
+            $image = $request->file('profile_img')->store('/directors/'.$user->id, 'public');
+            $request->profile_img = $image;
+        }
+
         $user->save();
 
-        $director->update($request->except('email', 'password', 'branch_id'));
+        $director->update([
+            'surname' => $request->surname,
+            'name' => $request->name,
+            'middle_name' => $request->middle_name,
+            'dob' => $request->dob,
+            'passport_number' => $request->passport_number,
+            'passport_series' => $request->passport_series,
+            'work_start_date' => $request->work_start_date,
+            'work_end_date' => $request->work_end_date,
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+            'profile_img' => $request->profile_img,
+            'status' => $request->status,
+        ]);
 
         return redirect()->route('director.index')
             ->with('success', sprintf('Дынные о директоре \'%s\' были успешно обновлены', $request->input('name')));

@@ -93,23 +93,6 @@
                                     {{--</div>--}}
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="passport_job-address">Филиал</label>
-                                            <select id="branch" name="branch_id" class="form-control branch"
-                                                    style="width: 100%;"
-                                                    required>
-                                                @foreach($branches as $branch)
-                                                    @if(old('branch_id') == $branch->id)
-                                                        <option value="{{$branch->id}}"
-                                                                selected>{{$branch->name}}</option>
-                                                    @else
-                                                        <option value="{{$branch->id}}">{{$branch->name}}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
                                             <label for="passport_period-job-after">Период работы</label>
                                             <div class="card-flex" style="display: flex;">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-after"

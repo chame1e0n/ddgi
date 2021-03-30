@@ -72,14 +72,16 @@
                                         <div class="form-group">
                                             <label for="passport_series">Серия паспорта</label>
                                             <input type="text" id="passport_series" class="form-control"
-                                                   name="passport_series" value="{{$agent->passport_series}}" placeholder="Введите ...">
+                                                   name="passport_series" value="{{$agent->passport_series}}"
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_number">Номер паспорта</label>
                                             <input type="text" id="passport_number" class="form-control"
-                                                   name="passport_number" value="{{$agent->passport_number}}" placeholder="Введите ...">
+                                                   name="passport_number" value="{{$agent->passport_number}}"
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                 </div>
@@ -104,10 +106,12 @@
                                             <label for="passport_period-job-after">Период работы</label>
                                             <div class="card-flex" style="display: flex;">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-after"
-                                                       class="form-control" name="work_start_date" value="{{$agent->work_start_date}}"
+                                                       class="form-control" name="work_start_date"
+                                                       value="{{$agent->work_start_date}}"
                                                        placeholder="от">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-before"
-                                                       class="form-control" name="work_end_date" value="{{$agent->work_end_date}}"
+                                                       class="form-control" name="work_end_date"
+                                                       value="{{$agent->work_end_date}}"
                                                        placeholder="до">
                                             </div>
                                         </div>
@@ -209,7 +213,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="email">Эл. почта</label>
-                                    <input type="email" id="email" class="form-control" name="email" value="{{$agent->user->email}}"
+                                    <input type="email" id="email" class="form-control" name="email"
+                                           value="{{$agent->user->email}}"
                                            placeholder="Введите ..." required>
                                 </div>
                             </div>
@@ -224,9 +229,10 @@
                                     <label for="status">Статус</label>
                                     <select id="status" name="status" class="form-control select2" style="width: 100%;"
                                             required>
-                                        <option value="{{$agent->status}}" selected="selected">{{$agent->status == 1 ? 'Активен' : 'Неактивен'}}</option>
+                                        <option value="{{$agent->status}}"
+                                                selected="selected">{{$agent->status == 1 ? 'Активен' : 'Неактивен'}}</option>
                                         <option value="1">Активен</option>
-                                        <option value="0" >Неактивен</option>
+                                        <option value="0">Неактивен</option>
                                     </select>
                                 </div>
                             </div>

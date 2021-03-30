@@ -42,7 +42,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Ф.И.О</th>
-                                    <th>Место работы</th>
+                                    <th>Филиал</th>
                                     <th>Статус</th>
                                     <th>Действия</th>
                                 </tr>
@@ -52,7 +52,7 @@
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $director->surname .' '. $director->name .' '. $director->middle_name}}</td>
-                                    <td>{{ $director->job }}</td>
+                                    <td>@if($director->branch) {{ $director->branch->name }} @else - @endif</td>
                                     <td>{{ $director->status > 0 ? 'Активный' : 'Неактивный' }}</td>
                                     <td>
                                         <form action="{{ route('director.destroy',$director->id) }}" method="POST">
