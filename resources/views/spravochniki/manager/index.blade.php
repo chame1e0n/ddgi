@@ -38,7 +38,7 @@
                             <div class=" mb-4">
                                 <a class="btn btn-success" href="{{ route('manager.create') }}">Создать</a>
                             </div>
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -73,7 +73,7 @@
                                 </tbody>
 
                             </table>
-                            {!! $managers->links() !!}
+{{--                            {!! $managers->links() !!}--}}
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -89,3 +89,33 @@
 </div>
 <!-- /.content-wrapper -->
 @endsection
+@section('scripts')
+
+    <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#example').DataTable( {
+                orderCellsTop: true,
+                fixedHeader: true,
+                "language": {
+                    "info": "Показано с _START_ по _END_ из _TOTAL_ записей",
+                    "search":"Поиск",
+                    "lengthMenu":"Показать _MENU_ записи",
+                    "paginate": {
+                        "sFirst": "Первая:с", // This is the link to the first page
+                        "sPrevious": "Предыдущая:с", // This is the link to the previous page
+                        "sNext": "Следующая:с", // This is the link to the next page
+                        "sLast": "Предыдущая:с" // This is the link to the last page
+                    },
+                },
+
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]]
+            } );
+        } );
+    </script>
+@endsection
+

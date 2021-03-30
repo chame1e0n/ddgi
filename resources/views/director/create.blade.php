@@ -38,7 +38,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="last_name">Фамилия</label>
-                                            <input id="last_name" type="text" class="form-control" name="surname"
+                                            <input id="last_name" type="text" class="form-control" name="surname" required
                                                    value="{{old('last_name')}}"
                                                    placeholder="Введите ...">
                                         </div>
@@ -46,7 +46,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="first_name">Имя</label>
-                                            <input id="first_name" type="text" class="form-control" name="name"
+                                            <input id="first_name" type="text" class="form-control" name="name" required
                                                    value="{{old('name')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
@@ -71,14 +71,14 @@
                                         <div class="form-group">
                                             <label for="passport_series">Серия паспорта</label>
                                             <input type="text" id="passport_series" class="form-control"
-                                                   name="passport_series" value="{{old('passport_series')}}" placeholder="Введите ...">
+                                                   required name="passport_series" value="{{old('passport_series')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_number">Номер паспорта</label>
                                             <input type="text" id="passport_number" class="form-control"
-                                                   name="passport_number" value="{{old('passport_number')}}" placeholder="Введите ...">
+                                                   required name="passport_number" value="{{old('passport_number')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                 </div>
@@ -111,14 +111,14 @@
                                             <label for="phone_number">Телефон</label>
                                             <input type="text" id="phone_number" class="form-control"
                                                    name="phone_number"
-                                                   value="{{old('phone_number')}}" placeholder="Введите ...">
+                                                   required value="{{old('phone_number')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_address">Адрес</label>
                                             <input type="text" id="passport_address" class="form-control"
-                                                   name="address" value="{{old('address')}}" placeholder="Введите ...">
+                                                   required name="address" value="{{old('address')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     {{--<div class="col-md-4">--}}

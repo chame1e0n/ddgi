@@ -17,7 +17,8 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        $directors = Director::latest()->paginate(5);
+//        $directors = Director::latest()->paginate(5);
+        $directors = Director::all();
 
         return view('director.index',compact('directors'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -44,6 +45,8 @@ class DirectorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'name' => 'required',
+            'surname' => 'required',
             'profile_img' => 'mimes:jpg,bmp,png,pdf,doc',
         ]);
 
