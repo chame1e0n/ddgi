@@ -41,7 +41,11 @@
                                                 <label for="name" class="col-form-label">Название</label>
                                                 <input
                                                         id="name"
+                                                        @if($errors->has('name'))
+                                                        class="form-control is-invalid"
+                                                        @else
                                                         class="form-control"
+                                                        @endif
                                                         name="name"
                                                         value="{{ old('name') }}"
                                                         required
@@ -54,7 +58,11 @@
                                                 <div class="input-group">
                                                     <input
                                                             id="code"
+                                                            @if($errors->has('code'))
+                                                            class="form-control is-invalid"
+                                                            @else
                                                             class="form-control"
+                                                            @endif
                                                             name="code"
                                                             value="{{ old('code') }}"
                                                             required
@@ -68,7 +76,11 @@
                                                 <div class="input-group">
                                                     <input
                                                             id="code"
+                                                            @if($errors->has('rate'))
+                                                            class="form-control is-invalid"
+                                                            @else
                                                             class="form-control"
+                                                            @endif
                                                             name="rate"
                                                             value="{{ old('rate') }}"
                                                             required

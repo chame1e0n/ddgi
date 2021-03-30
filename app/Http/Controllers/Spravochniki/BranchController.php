@@ -47,6 +47,17 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'series' => 'required',
+            'founded_at' => 'required',
+            'is_center' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required',
+            'code_by_office' => 'required',
+            'code_by_type' => 'required',
+            'hierarchy' => 'required',
+        ]);
         $request->merge([
             'is_center' => isset($request->is_center) ? 1 : 0,
         ]);

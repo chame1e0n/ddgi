@@ -41,6 +41,20 @@ class IndividualClientController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'middle_name' => 'required',
+            'surname' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required',
+            'mfo' => 'required',
+            'inn' => 'required',
+            'raschetniy_schet' => 'required',
+            'passport_series' => 'required',
+            'passport_number' => 'required',
+            'passport_given_date' => 'required',
+            'passport_given_by' => 'required',
+        ]);
         Client::create(array_merge($request->all(), ['type' => 0]));
 
         return redirect()->route('individual_client.index')

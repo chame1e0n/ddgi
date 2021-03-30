@@ -38,7 +38,13 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="last_name">Фамилия</label>
-                                            <input id="last_name" type="text" class="form-control" name="surname"
+                                            <input id="last_name" type="text"
+                                                   @if($errors->has('last_name'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
+                                                   name="surname"
                                                    value="{{old('last_name')}}"
                                                    placeholder="Введите ...">
                                         </div>
@@ -46,14 +52,25 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="first_name">Имя</label>
-                                            <input id="first_name" type="text" class="form-control" name="name"
+                                            <input id="first_name" type="text"
+                                                   @if($errors->has('name'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
+                                                   name="name"
                                                    value="{{old('name')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="middle_name">Отчество</label>
-                                            <input id="middle_name" type="text" class="form-control" name="middle_name"
+                                            <input id="middle_name" type="text" class="form-control"
+                                                   @if($errors->has('middle_name'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
                                                    value="{{old('middle_name')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
@@ -63,21 +80,36 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_data-r">Дата рождения</label>
-                                            <input type="date" id="passport_data-r" class="form-control"
+                                            <input type="date" id="passport_data-r"
+                                                   @if($errors->has('dob'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
                                                    name="dob" value="{{old('dob')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_series">Серия паспорта</label>
-                                            <input type="text" id="passport_series" class="form-control"
+                                            <input type="text" id="passport_series"
+                                                   @if($errors->has('passport_series'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
                                                    name="passport_series" value="{{old('passport_series')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_number">Номер паспорта</label>
-                                            <input type="text" id="passport_number" class="form-control"
+                                            <input type="text" id="passport_number"
+                                                   @if($errors->has('passport_number'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
                                                    name="passport_number" value="{{old('passport_number')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
@@ -96,6 +128,11 @@
                                             <label for="passport_job-address">Филиал</label>
                                             <select id="branch" name="branch_id" class="form-control branch"
                                                     style="width: 100%;"
+                                                    @if($errors->has('branch_id'))
+                                                    class="form-control branch is-invalid"
+                                                    @else
+                                                    class="form-control branch"
+                                                    @endif
                                                     required>
                                                 @foreach($branches as $branch)
                                                     @if(old('branch_id') == $branch->id)
@@ -113,10 +150,20 @@
                                             <label for="passport_period-job-after">Период работы</label>
                                             <div class="card-flex" style="display: flex;">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-after"
-                                                       class="form-control" name="work_start_date" value="{{old('work_start_date')}}"
+                                                       @if($errors->has('work_start_date'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       name="work_start_date" value="{{old('work_start_date')}}"
                                                        placeholder="от">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-before"
-                                                       class="form-control" name="work_end_date" value="{{old('work_end_date')}}"
+                                                       @if($errors->has('work_end_date'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       name="work_end_date" value="{{old('work_end_date')}}"
                                                        placeholder="до">
                                             </div>
                                         </div>
@@ -126,7 +173,12 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="phone_number">Телефон</label>
-                                            <input type="text" id="phone_number" class="form-control"
+                                            <input type="text" id="phone_number"
+                                                   @if($errors->has('phone_number'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
                                                    name="phone_number"
                                                    value="{{old('phone_number')}}" placeholder="Введите ...">
                                         </div>
@@ -134,7 +186,12 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_address">Адрес</label>
-                                            <input type="text" id="passport_address" class="form-control"
+                                            <input type="text" id="passport_address"
+                                                   @if($errors->has('address'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
                                                    name="address" value="{{old('address')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
@@ -184,7 +241,13 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="email">Эл. почта</label>
-                                    <input type="email" id="email" class="form-control" name="email" value="{{old('email')}}"
+                                    <input type="email" id="email"
+                                           @if($errors->has('email'))
+                                           class="form-control is-invalid"
+                                           @else
+                                           class="form-control"
+                                           @endif
+                                           name="email" value="{{old('email')}}"
                                            placeholder="Введите ..." required>
                                 </div>
                             </div>

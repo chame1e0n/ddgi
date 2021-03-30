@@ -41,7 +41,11 @@
                                                 <label for="code" class="col-form-label">Код</label>
                                                 <input
                                                         id="code"
+                                                        @if($errors->has('code'))
+                                                        class="form-control is-invalid"
+                                                        @else
                                                         class="form-control"
+                                                        @endif
                                                         name="code"
                                                         value="{{ old('code') }}"
                                                         required

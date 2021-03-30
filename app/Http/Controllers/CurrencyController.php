@@ -38,6 +38,11 @@ class CurrencyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'rate' => 'required',
+        ]);
         Currency::create($request->all());
 
         return redirect()->route('currency.index')

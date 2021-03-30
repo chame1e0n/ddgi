@@ -44,6 +44,14 @@ class PolicyRetransferController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'act_number' => 'required',
+            'act_date' => 'required',
+            'policy_from' => 'required',
+            'policy_to' => 'required',
+            'retransfer_distribution' => 'required',
+            'transfer_given' => 'required',
+        ]);
         $policies = Policy::where('policy_series_id', $request->policy_series_id)
             ->where('status', 'transferred')
             ->whereBetween('number', [$request->policy_from, $request->policy_to])

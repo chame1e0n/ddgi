@@ -51,6 +51,18 @@ class AgentController extends Controller
             'labor_contract' => 'mimes:jpg,bmp,png,pdf,doc',
             'firm_contract' => 'mimes:jpg,bmp,png,pdf,doc',
             'license' => 'mimes:jpg,bmp,png,pdf,doc',
+            'last_name' => 'required',
+            'name' => 'required',
+            'middle_name' => 'required',
+            'dob' => 'required',
+            'passport_series' => 'required',
+            'passport_number' => 'required',
+            'job' => 'required',
+            'work_start_date' => 'required',
+            'work_end_date' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'email' => 'required',
         ]);
 
         $user->name = $request->name;

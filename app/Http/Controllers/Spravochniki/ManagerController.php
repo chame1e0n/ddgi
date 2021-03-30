@@ -44,6 +44,22 @@ class ManagerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'last_name' => 'required',
+            'name' => 'required',
+            'middle_name' => 'required',
+            'dob' => 'required',
+            'passport_series' => 'required',
+            'passport_number' => 'required',
+            'job' => 'required',
+            'branch_id' => 'required',
+            'work_start_date' => 'required',
+            'work_end_date' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
