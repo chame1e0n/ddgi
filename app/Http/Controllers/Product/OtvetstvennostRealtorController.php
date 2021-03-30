@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Requests\OtvetstvennostRealtorRequest;
 use App\Models\PolicyHolder;
 use App\Models\Product\OtvetstvennostRealtorInfo;
 use App\Models\Product\OtvetstvennostRealtorStrahPremiya;
@@ -42,7 +43,7 @@ class OtvetstvennostRealtorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OtvetstvennostRealtorRequest $request)
     {
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
@@ -75,8 +76,8 @@ class OtvetstvennostRealtorController extends Controller
         $agents = Agent::getActiveAgent();
         $banks = Bank::getBanks();
         $policySeries =  PolicySeries::get();
-        $page = OtvetstvennostRealtor::with('strahPremiya','policyHolders','realtorInfos')->find($id);
-
+        $page = OtvetstvennostRealtor::with('strahPremiya','policyHolders','infos')->find($id);
+//        dd($page);
         return view('products.otvetstvennost.realtor.edit', compact('banks', 'agents', 'policySeries', 'page'));
     }
 
@@ -87,9 +88,14 @@ class OtvetstvennostRealtorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OtvetstvennostRealtorRequest $request, $id)
     {
-        //
+        $realtor   = OtvetstvennostRealtor::updateRealtor($request,$id);
+        $polycyHolder = PolicyHolder::updatePolicyHolders($realtor->policy_holder_id, $request);
+        OtvetstvennostRealtorInfo::updateRealtorInfo($request, $realtor);
+        OtvetstvennostRealtorStrahPremiya::updateRealtorStrahPremiya($request, $realtor);
+
+        return redirect()->back();
     }
 
     /**

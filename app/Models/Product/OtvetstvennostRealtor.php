@@ -15,9 +15,9 @@ class OtvetstvennostRealtor extends Model
     }
     public function policyHolders()
     {
-        return $this->belongsTo(PolicyHolder::class, 'policy_holder_id');
+        return $this->belongsTo('App\Models\PolicyHolder', 'policy_holder_id');
     }
-    public function realtorInfos()
+    public function infos()
     {
         return $this->hasMany(OtvetstvennostRealtorInfo::class);
     }
@@ -52,4 +52,35 @@ class OtvetstvennostRealtor extends Model
 
         return $create;
     }
+
+    static function updateRealtor($request, $id){
+
+        $data = $request->all();
+        $data['total_turnover'] = $data['first_turnover'] + $data['second_turnover'];
+        $data['total_profit'] =  $data['first_profit'] + $data['second_profit'];
+        $update = OtvetstvennostRealtor::find($id);
+        if (isset($data['documents']) && $request->hasFile('documents')){
+            foreach($data['documents'] as $key => $doc){
+                $documents[] = $doc->store('/otvetstvennost_realtor', 'public');
+            }
+            $update->documents = serialize($documents);
+        }
+
+        if($request->hasFile('dogovor')){
+            $dogovor = $request->file('dogovor')->store('/otvetstvennost_realtor', 'public');
+            $update->dogovor = $dogovor;
+        }
+        if($request->hasFile('anketa')){
+            $anketa = $request->file('anketa')->store('/otvetstvennost_realtor', 'public');
+            $update->anketa = $anketa;
+        }
+        if($request->hasFile('polis')){
+            $polis = $request->file('polis')->store('/otvetstvennost_realtor', 'public');
+            $update->polis = $polis;
+        }
+        $update->fill($data);
+        $update->save();
+        return $update;
+    }
+
 }

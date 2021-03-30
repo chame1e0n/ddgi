@@ -26,4 +26,25 @@ class OtvetstvennostRealtorStrahPremiya extends Model
         }
         return $create ?? false;
     }
+
+    static function updateRealtorStrahPremiya($request, $realtor){
+        $data = $request->all();
+        $realtor->strahPremiya()->forceDelete();
+        $count = isset($data['payment_sum']) ? count($data['payment_sum']) : -1;
+        for ($i=0; $i<$count; $i++) {
+
+            if($data['payment_sum'][$i] && $data['payment_from'][$i]){
+                $create = new self();
+
+                $create->otvetstvennost_realtor_id = $realtor->id;
+                $create->prem_sum = $data['payment_sum'][$i];
+                $create->prem_from = $data['payment_from'][$i];
+
+                $create->save();
+            }
+
+        }
+        return $create ?? false;
+    }
+
 }
