@@ -58,14 +58,14 @@
                                                       method="POST">
 
                                                     <a class="btn btn-info"
-                                                       href="{{ route('policy_series.show',$policySer->id) }}">Посмотреть</a>
+                                                       href="{{ route('policy_series.show',$policySer->id) }}"><i class="fas fa-eye"></i></a>
 
                                                     <a class="btn btn-primary"
-                                                       href="{{ route('policy_series.edit',$policySer->id) }}">Изменить</a>
+                                                       href="{{ route('policy_series.edit',$policySer->id) }}"><i class="fas fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

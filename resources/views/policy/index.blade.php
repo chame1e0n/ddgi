@@ -58,11 +58,11 @@
                         <form action="{{ route('policy.destroy',$policy->id) }}" method="POST">
 
                         <a class="btn btn-info"
-                           href="{{ route('policy.edit',$policy->id) }}">Посмотреть</a>
+                           href="{{ route('policy.edit',$policy->id) }}"><i class="fas fa-eye"></i></a>
                           @csrf
                           @method('DELETE')
 
-                          <button type="submit" class="btn btn-danger">Удалить</button>
+                          <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                         </form>
 
                       </td>

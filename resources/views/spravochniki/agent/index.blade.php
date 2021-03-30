@@ -58,14 +58,14 @@
                                     <td>
                                         <form action="{{ route('agent.destroy',$agent->id) }}" method="POST">
 
-                                            <a class="btn btn-info" href="{{ route('agent.show',$agent->id) }}">Посмотреть</a>
+                                            <a class="btn btn-info" href="{{ route('agent.show',$agent->id) }}"><i class="fas fa-eye"></i></a>
 
                                             <a class="btn btn-primary"
-                                               href="{{ route('agent.edit',$agent->id) }}">Изменить</a>
+                                               href="{{ route('agent.edit',$agent->id) }}"><i class="fas fa-edit"></i></a>
                                             @csrf
                                             @method('DELETE')
 
-                                            <button type="submit" class="btn btn-danger">Удалить</button>
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

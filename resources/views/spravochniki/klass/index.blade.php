@@ -60,14 +60,14 @@
                   <td>
                     <form action="{{ route('klass.destroy',$klass->id) }}" method="POST">
 
-                      <a class="btn btn-info" href="{{ route('klass.show',$klass->id) }}">Посмотреть</a>
+                      <a class="btn btn-info" href="{{ route('klass.show',$klass->id) }}"><i class="fas fa-eye"></i></a>
 
                       <a class="btn btn-primary"
-                         href="{{ route('klass.edit',$klass->id) }}">Изменить</a>
+                         href="{{ route('klass.edit',$klass->id) }}"><i class="fas fa-edit"></i></a>
                       @csrf
                       @method('DELETE')
 
-                      <button type="submit" class="btn btn-danger">Удалить</button>
+                      <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                     </form>
                   </td>
                 </tr>

@@ -58,14 +58,14 @@
                       <td>
                         <form action="{{ route('legal_client.destroy',$legalClient->id) }}" method="POST">
 
-                          <a class="btn btn-info" href="{{ route('legal_client.show',$legalClient->id) }}">Посмотреть</a>
+                          <a class="btn btn-info" href="{{ route('legal_client.show',$legalClient->id) }}"><i class="fas fa-eye"></i></a>
 
                           <a class="btn btn-primary"
-                             href="{{ route('legal_client.edit',$legalClient->id) }}">Изменить</a>
+                             href="{{ route('legal_client.edit',$legalClient->id) }}"><i class="fas fa-edit"></i></a>
                           @csrf
                           @method('DELETE')
 
-                          <button type="submit" class="btn btn-danger">Удалить</button>
+                          <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                         </form>
                       </td>
                     </tr>

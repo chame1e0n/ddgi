@@ -60,14 +60,14 @@
                                     <td>
                                         <form action="{{ route('product.destroy',$product->id) }}" method="POST">
 
-                                            <a class="btn btn-info" href="{{ route('product.show',$product->id) }}">Посмотреть</a>
+                                            <a class="btn btn-info" href="{{ route('product.show',$product->id) }}"><i class="fas fa-eye"></i></a>
 
                                             <a class="btn btn-primary"
-                                               href="{{ route('product.edit',$product->id) }}">Изменить</a>
+                                               href="{{ route('product.edit',$product->id) }}"><i class="fas fa-edit"></i></a>
                                             @csrf
                                             @method('DELETE')
 
-                                            <button type="submit" class="btn btn-danger">Удалить</button>
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

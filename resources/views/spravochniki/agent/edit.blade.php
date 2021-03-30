@@ -5,6 +5,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
+                <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -248,7 +249,7 @@
                 </div>
 
                 <div class="card-footer" style="margin-bottom: 16px">
-                    <button type="submit" id="submit-button" class="btn btn-primary float-right">Сохранить</button>
+                    <button type="submit" id="submit-button" class="btn btn-primary float-right">Изменить</button>
                 </div>
             </form>
             <div class="card">

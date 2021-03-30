@@ -59,7 +59,7 @@
                   <td>
 
 
-                      <a class="btn btn-info" href="{{ route('site_order.show',$order->id) }}">Посмотреть</a>
+                      <a class="btn btn-info" href="{{ route('site_order.show',$order->id) }}"><i class="fas fa-eye"></i></a>
                   </td>
                 </tr>
                 @endforeach
