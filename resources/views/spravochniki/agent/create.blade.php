@@ -39,23 +39,40 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="last_name">Фамилия</label>
-                                            <input id="last_name" type="text" class="form-control" name="surname"
+                                            <input id="last_name" type="text" name="surname"
                                                    value="{{old('surname')}}"
+                                                   @if($errors->has('surname'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif
                                                    placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="first_name">Имя</label>
-                                            <input id="first_name" type="text" class="form-control" name="name"
-                                                   required value="{{old('name')}}" placeholder="Введите ...">
+                                            <input id="first_name" type="text" name="name"
+                                                   value="{{old('name')}}"
+                                                   @if($errors->has('name'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="middle_name">Отчество</label>
-                                            <input id="middle_name" type="text" class="form-control" name="middle_name"
-                                                   required value="{{old('middle_name')}}" placeholder="Введите ...">
+                                            <input id="middle_name" type="text" name="middle_name"
+                                                   value="{{old('middle_name')}}"
+                                                   @if($errors->has('middle_name'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                 </div>
@@ -64,22 +81,40 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_data-r">Дата рождения</label>
-                                            <input type="date" id="passport_data-r" class="form-control"
-                                                   required name="dob" value="{{old('dob')}}" placeholder="Введите ...">
+                                            <input type="date" id="passport_data-r"
+                                                   name="dob" value="{{old('dob')}}"
+                                                   @if($errors->has('dob'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_series">Серия паспорта</label>
-                                            <input type="text" id="passport_series" class="form-control"
-                                                   required name="passport_series" value="{{old('passport_series')}}" placeholder="Введите ...">
+                                            <input type="text" id="passport_series"
+                                                   name="passport_series" value="{{old('passport_series')}}"
+                                                   @if($errors->has('passport_series'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_number">Номер паспорта</label>
-                                            <input type="text" id="passport_number" class="form-control"
-                                                   required name="passport_number" value="{{old('passport_number')}}" placeholder="Введите ...">
+                                            <input type="text" id="passport_number"
+                                                   name="passport_number" value="{{old('passport_number')}}"
+                                                   @if($errors->has('passport_number'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                 </div>
@@ -88,8 +123,14 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_job-address">Место работы</label>
-                                            <input type="text" id="passport_job-address" class="form-control"
-                                                   required name="job" value="{{old('job')}}" placeholder="Введите ...">
+                                            <input type="text" id="passport_job-address"
+                                                   name="job" value="{{old('job')}}"
+                                                   @if($errors->has('job'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                     {{--<div class="col-md-4">--}}
@@ -104,10 +145,20 @@
                                             <label for="passport_period-job-after">Период работы</label>
                                             <div class="card-flex" style="display: flex;">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-after"
-                                                       class="form-control" name="work_start_date" value="{{old('work_start_date')}}"
+                                                       name="work_start_date" value="{{old('work_start_date')}}"
+                                                       @if($errors->has('work_start_date'))
+                                                        class="form-control is-invalid"
+                                                       @else
+                                                        class="form-control"
+                                                       @endif
                                                        placeholder="от">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-before"
-                                                       class="form-control" name="work_end_date" value="{{old('work_end_date')}}"
+                                                       name="work_end_date" value="{{old('work_end_date')}}"
+                                                       @if($errors->has('work_end_date'))
+                                                        class="form-control is-invalid"
+                                                       @else
+                                                        class="form-control"
+                                                       @endif
                                                        placeholder="до">
                                             </div>
                                         </div>
@@ -117,15 +168,26 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="phone_number">Телефон</label>
-                                            <input type="text" id="phone_number" class="form-control"
+                                            <input type="text" id="phone_number"
                                                    name="phone_number"
-                                                   value="{{old('phone_number')}}" placeholder="Введите ...">
+                                                   value="{{old('phone_number')}}"
+                                                   @if($errors->has('phone_number'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif
+                                                   placeholder="Введите ...">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="passport_address">Адрес</label>
-                                            <input type="text" id="passport_address" class="form-control"
+                                            <input type="text" id="passport_address"
+                                                   @if($errors->has('address'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif
                                                    name="address" value="{{old('address')}}" placeholder="Введите ...">
                                         </div>
                                     </div>
@@ -209,7 +271,13 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="email">Эл. почта</label>
-                                    <input type="email" id="email" class="form-control" name="email" value="{{old('email')}}"
+                                    <input type="email" id="email"
+                                           @if($errors->has('email'))
+                                            class="form-control is-invalid"
+                                           @else
+                                            class="form-control"
+                                           @endif
+                                           name="email" value="{{old('email')}}"
                                            placeholder="Введите ..." required>
                                 </div>
                             </div>

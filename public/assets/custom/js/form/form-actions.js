@@ -168,7 +168,6 @@ if (tablePaymentSchedule) {
 
 if (formAudit) {
     formAudit.addEventListener('submit', event => {
-        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -195,7 +194,6 @@ if (formAudit) {
 
 if (formBrokers) {
     formBrokers.addEventListener('submit', event => {
-        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -221,7 +219,6 @@ if (formBrokers) {
 
 if (formNatarius) {
     formNatarius.addEventListener('submit', event => {
-        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -247,7 +244,6 @@ if (formNatarius) {
 
 if (formOtsenshiki) {
     formOtsenshёiki.addEventListener('submit', event => {
-        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -274,7 +270,6 @@ if (formOtsenshiki) {
 
 if (formRealtors) {
     formRealtors.addEventListener('submit', event => {
-        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {

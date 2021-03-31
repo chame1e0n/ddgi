@@ -45,14 +45,25 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="act_number" class="col-form-label">Номер акта</label>
-                                                <input id="act_number" class="form-control" name="act_number" value="{{ old('act_number') }}" required>
+                                                <input id="act_number"
+                                                       @if($errors->has('act_number'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       name="act_number" value="{{ old('act_number') }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="act_date" class="col-form-label">Дата акта</label>
                                                 <div class="input-group">
-                                                    <input id="act_date" type="date" class="form-control"
+                                                    <input id="act_date" type="date"
+                                                           @if($errors->has('act_date'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                           @endif
                                                            placeholder="yyyy-mm-dd" name="act_date" value="{{ old('act_date') }}" required>
                                                 </div>
                                             </div>
@@ -64,7 +75,12 @@
                                             <div class="form-group">
                                                 <label for="polis_number_from" class="col-form-label">Номер полиса
                                                     с:</label>
-                                                <input id="polis_number_from" type="number"  class="form-control"
+                                                <input id="polis_number_from" type="number"
+                                                       @if($errors->has('from_number'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
                                                        name="from_number" value="{{ old('from_number') }}" required>
                                             </div>
                                         </div>
@@ -72,7 +88,12 @@
                                             <div class="form-group">
                                                 <label for="polis_number_to" class="col-form-label">Номер полиса
                                                     до:</label>
-                                                <input id="polis_number_to" type="number" class="form-control"
+                                                <input id="polis_number_to" type="number"
+                                                       @if($errors->has('to_number'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
                                                        name="to_number" value="{{ old('to_number') }}" required>
                                             </div>
                                         </div>
@@ -81,7 +102,13 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="polis_series" class="col-form-label">Тип клиента:</label>
-                                                <select id="polis_series" class="form-control" name="client_type"
+                                                <select id="polis_series"
+                                                        @if($errors->has('client_type'))
+                                                        class="form-control is-invalid"
+                                                        @else
+                                                        class="form-control"
+                                                        @endif
+                                                        name="client_type"
                                                         required>
                                                     <option selected></option>
                                                     <option value="0">физ. лицо</option>
@@ -95,7 +122,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="polis_series" class="col-form-label">Серия полиса:</label>
-                                                <select id="polis_series" name="policy_series_id" class="form-control">
+                                                <select id="polis_series" name="policy_series_id" class="form-control" required>
                                                     <option selected value="0"></option>
                                                     @foreach($policySeries as $policySer)
                                                         <option value="{{ $policySer->id }}">{{ $policySer->code }}</option>

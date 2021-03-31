@@ -50,7 +50,12 @@
                                                 <label class="col-form-label" for="retransfer-num-akt">Номер
                                                     акта</label>
                                                 <input type="text" value="{{old('act_number')}}" name="act_number"
-                                                       class="form-control" id="retransfer-num-akt">
+                                                       @if($errors->has('act_number'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       id="retransfer-num-akt">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -58,7 +63,12 @@
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">Дата
                                                     акта</label>
                                                 <input id="pretensii-final-settlement-date" value="{{old('act_date')}}"
-                                                       name="act_date" type="date" class="form-control">
+                                                       name="act_date" type="date"
+                                                       @if($errors->has('act_date'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -82,7 +92,12 @@
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">С
                                                     номера бланка</label>
                                                 <input type="text" value="{{old('policy_from')}}" name="policy_from"
-                                                       class="form-control" id="retransfer-num-akt">
+                                                       @if($errors->has('policy_from'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       id="retransfer-num-akt">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -90,7 +105,12 @@
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">До
                                                     номера бланка</label>
                                                 <input type="text" value="{{old('policy_to')}}" name="policy_to"
-                                                       class="form-control" id="retransfer-num-akt">
+                                                       @if($errors->has('policy_to'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       id="retransfer-num-akt">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -98,7 +118,7 @@
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">Кому
                                                     (филиал / офис)</label>
                                                 <select class="form-control polises" id="branch" name="branch_id" id="branch"
-                                                        style="width: 100%;">
+                                                        style="width: 100%;" required>
                                                     <option selected="selected"></option>
                                                     @if(!empty($branches))
                                                         @foreach($branches as $branch)
@@ -124,7 +144,12 @@
                                                     распределения</label>
                                                 <input id="pretensii-final-settlement-date"
                                                        value="{{old('retransfer_distribution')}}"
-                                                       name="retransfer_distribution" type="date" class="form-control">
+                                                       name="retransfer_distribution" type="date"
+                                                       @if($errors->has('retransfer_distribution'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -139,7 +164,12 @@
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">Кто
                                                     выдал полис</label>
                                                 <input type="text" name="transfer_given"
-                                                       value="{{old('transfer_given')}}" class="form-control"
+                                                       value="{{old('transfer_given')}}"
+                                                       @if($errors->has('transfer_given'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
                                                        id="retransfer-num-akt">
                                             </div>
                                         </div>

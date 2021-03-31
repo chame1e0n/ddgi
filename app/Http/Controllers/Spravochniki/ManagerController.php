@@ -58,6 +58,7 @@ class ManagerController extends Controller
             'passport_series' => 'required',
             'passport_number' => 'required',
             'job' => 'required',
+            'branch_id' => 'required',
             'work_start_date' => 'required',
             'work_end_date' => 'required',
             'phone_number' => 'required',

@@ -38,6 +38,9 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         Group::create($request->all());
 
         return redirect()->route('group.index')

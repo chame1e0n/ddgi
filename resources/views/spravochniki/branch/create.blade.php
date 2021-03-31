@@ -40,14 +40,26 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="title" class="col-form-label">Название</label>
-                                                <input id="title" class="form-control" value="{{old('name')}}"
+                                                <input id="title"
+                                                       @if($errors->has('name'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       value="{{old('name')}}"
                                                        name="name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="series" class="col-form-label">Серии</label>
-                                                <input id="series" class="form-control" value="{{old('series')}}"
+                                                <input id="series"
+                                                       @if($errors->has('series'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       value="{{old('series')}}"
                                                        name="series" required>
                                             </div>
                                         </div>
@@ -55,7 +67,11 @@
                                             <div class="form-group">
                                                 <label for="founded_at" class="col-form-label">Основан</label>
                                                 <input type="date" id="founded_at" value="{{old('founded_at')}}"
+                                                       @if($errors->has('founded_at'))
+                                                       class="form-control is-invalid"
+                                                       @else
                                                        class="form-control"
+                                                       @endif
                                                        placeholder="yyyy-mm-dd" name="founded_date" required>
                                             </div>
                                         </div>
@@ -115,13 +131,24 @@
                                                        data-on-color="success"
                                                        data-on-text="Да"
                                                        data-off-text="Нет"
+                                                       @if($errors->has('is_center'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
                                                 >
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="address" class="col-form-label">Местонахождение</label>
-                                                <input id="address" class="form-control" value="{{old('address')}}"
+                                                <input id="address"
+                                                       @if($errors->has('address'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       value="{{old('address')}}"
                                                        name="address" required>
                                             </div>
                                         </div>
@@ -129,7 +156,12 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="phone_number" class="col-form-label">Номер телефона</label>
-                                                <input id="phone_number" class="form-control"
+                                                <input id="phone_number"
+                                                       @if($errors->has('phone_number'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
                                                        value="{{old('phone_number')}}" name="phone_number" required>
                                             </div>
                                         </div>

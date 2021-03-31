@@ -256,8 +256,12 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">с</span>
                                                 </div>
-                                                <input id="insurance_from" name="insurance_from" type="date"
-                                                       class="form-control">
+                                                <input id="insurance_from" name="insurance_from" value="{{ old('insurance_from') }}" type="date"
+                                                       @if($errors->has('insurance_from'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
                                             </div>
                                         </div>
                                     </div>
@@ -267,8 +271,12 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">до</span>
                                                 </div>
-                                                <input id="insurance_to" name="insurance_to" type="date"
-                                                       class="form-control">
+                                                <input id="insurance_to" name="insurance_to" value="{{ old('insurance_to') }}" type="date"
+                                                       @if($errors->has('insurance_to'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
                                             </div>
                                         </div>
                                     </div>
@@ -276,12 +284,25 @@
 
                                 <div class="form-group">
                                     <label for="reason">Использование транспортного средства на основании:</label>
-                                    <input type="text" id="reason" name="reason" class="form-control">
+                                    <input type="text" id="reason" name="reason"
+                                           @if($errors->has('reason'))
+                                           class="form-control is-invalid"
+                                           @else
+                                           class="form-control"
+                                           @endif
+                                           value="{{old('reason')}}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="geographic-zone">Географическая зона:</label>
-                                    <input type="text" id="geographic-zone" name="geo_zone" class="form-control">
+                                    <input type="text" id="geographic-zone" name="geo_zone"
+                                           value="{{ old('geo_zone') }}"
+                                           @if($errors->has('geo_zone'))
+                                           class="form-control is-invalid"
+                                           @else
+                                           class="form-control"
+                                           @endif
+                                           required>
                                 </div>
                             </div>
                         </div>
@@ -437,7 +458,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Цель использования</label>
-                                    <input type="text" class="form-control" name="purpose">
+                                    <input type="text"
+                                           @if($errors->has('purpose'))
+                                           class="form-control is-invalid"
+                                           @else
+                                           class="form-control"
+                                           @endif
+                                           name="purpose" required value="{{ old('purpose') }}">
                                 </div>
                             </div>
                         </div>

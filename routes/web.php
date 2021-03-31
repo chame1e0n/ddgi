@@ -27,6 +27,7 @@ Route::get('/', function () {
 
 Route::resource('tamojenniy-sklad', 'Product\TamojeniySkladController');
 Route::patch('tamojenniy-sklad/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
+Route::resource('/otvetstvennost-notaries', 'Product\NotaryController');
 
 
 //Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');

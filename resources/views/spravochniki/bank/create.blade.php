@@ -42,7 +42,11 @@
                                             <label for="code" class="col-form-label">Код банка</label>
                                             <input
                                                     id="code"
+                                                    @if($errors->has('code'))
+                                                    class="form-control is-invalid"
+                                                    @else
                                                     class="form-control"
+                                                    @endif
                                                     name="code"
                                                     required
                                                     value="{{old('code')}}"
@@ -54,7 +58,11 @@
                                             <label for="bank_name" class="col-form-label">Наименование банка</label>
                                             <input
                                                     id="bank_name"
+                                                    @if($errors->has('name'))
+                                                    class="form-control is-invalid"
+                                                    @else
                                                     class="form-control"
+                                                    @endif
                                                     name="name"
                                                     required
                                                     value="{{old('name')}}"
@@ -69,7 +77,11 @@
                                             <label for="branch_name" class="col-form-label">Наименование филиала</label>
                                             <input
                                                     id="branch_name"
+                                                    @if($errors->has('filial'))
+                                                    class="form-control is-invalid"
+                                                    @else
                                                     class="form-control"
+                                                    @endif
                                                     name="filial"
                                                     required
                                                     value="{{old('filial')}}"
@@ -81,7 +93,11 @@
                                             <label for="address" class="col-form-label">Адрес банка</label>
                                             <input
                                                     id="address"
+                                                    @if($errors->has('address'))
+                                                    class="form-control is-invalid"
+                                                    @else
                                                     class="form-control"
+                                                    @endif
                                                     name="address"
                                                     required
                                                     value="{{old('address')}}"
@@ -96,7 +112,11 @@
                                             <label for="inn" class="col-form-label">ИНН банка</label>
                                             <input
                                                     id="inn"
+                                                    @if($errors->has('inn'))
+                                                    class="form-control is-invalid"
+                                                    @else
                                                     class="form-control"
+                                                    @endif
                                                     name="inn"
                                                     required
                                                     value="{{old('inn')}}"
@@ -109,7 +129,11 @@
                                                 банка</label>
                                             <input
                                                     id="account_number"
+                                                    @if($errors->has('raschetniy_schet'))
+                                                    class="form-control is-invalid"
+                                                    @else
                                                     class="form-control"
+                                                    @endif
                                                     name="raschetniy_schet"
                                                     required
                                                     value="{{old('raschetniy_schet')}}"
@@ -121,7 +145,11 @@
                                             <label for="status" class="col-form-label">Статус</label>
                                             <select
                                                     id="status"
+                                                    @if($errors->has('status'))
+                                                    class="form-control is-invalid"
+                                                    @else
                                                     class="form-control"
+                                                    @endif
                                                     name="status"
                                             >
                                                 <option value="1">Активный</option>

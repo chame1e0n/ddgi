@@ -48,6 +48,18 @@ class DirectorController extends Controller
             'name' => 'required',
             'surname' => 'required',
             'profile_img' => 'mimes:jpg,bmp,png,pdf,doc',
+            'last_name' => 'required',
+            'name' => 'required',
+            'middle_name' => 'required',
+            'dob' => 'required',
+            'passport_series' => 'required',
+            'passport_number' => 'required',
+            'branch_id' => 'required',
+            'work_start_date' => 'required',
+            'work_end_date' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'email' => 'required',
         ]);
 
         $user = new User;

@@ -62,8 +62,8 @@ class AgentController extends Controller
             'work_start_date' => 'required',
             'work_end_date' => 'required',
             'phone_number' => 'required',
-            'email' => 'required | unique:users',
-            'password' => 'required',
+            'address' => 'required',
+            'email' => 'required'
         ]);
 
         $user->name = $request->name;

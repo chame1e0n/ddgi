@@ -39,7 +39,13 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="name" class="col-form-label">Название</label>
-                          <input id="name" class="form-control" name="name" value="{{old('name')}}" required>
+                          <input id="name"
+                                 @if($errors->has('name'))
+                                 class="form-control is-invalid"
+                                 @else
+                                 class="form-control"
+                                 @endif
+                                 name="name" value="{{old('name')}}" required>
                         </div>
                       </div>
                     </div>
