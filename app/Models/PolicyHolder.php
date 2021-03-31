@@ -50,6 +50,7 @@ class PolicyHolder extends Model
             'mfo' => $request->mfo_insurer,
             'okonx' => $request->okonx,
             'oked'  => $request->oked,
+            'vid_deyatelnosti' => $request->vid_deyatelnosti,
             'bank_id' => $request->bank_insurer,
         ]);
         if($policyHolder)

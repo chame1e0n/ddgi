@@ -19,7 +19,6 @@ class PolicyBeneficiaries extends Model
     }
 
     static function createPolicyBeneficiaries($request){
-//        dd($request->all());
         $policyBeneficiaries = self::create([
             'FIO' => $request->post('fio_beneficiary'),
             'address' => $request->post('address_beneficiary'),
@@ -27,11 +26,11 @@ class PolicyBeneficiaries extends Model
             'checking_account' => $request->post('beneficiary_schet'),
             'inn' => $request->post('inn_beneficiary'),
             'mfo' => $request->post('mfo_beneficiary'),
-            'okonx' => $request->post('okonx'),
+            'okonx' => $request->post('okonx_beneficiary'),
             'bank_id' => $request->post('bank_beneficiary'),
             'seria_passport' => $request->post('seria_passport'),
             'nomer_passport' => $request->post('nomer_passport'),
-            'oked' => $request->post('okonh_beneficiary'),
+            'oked' => $request->post('oked_beneficiary'),
         ]);
         if($policyBeneficiaries)
             return $policyBeneficiaries;
@@ -48,11 +47,11 @@ class PolicyBeneficiaries extends Model
             'checking_account' => $request->post('beneficiary_schet'),
             'inn' => $request->post('inn_beneficiary'),
             'mfo' => $request->post('mfo_beneficiary'),
-            'okonx' => $request->post('okonx'),
+            'okonx' => $request->post('okonx_beneficiary'),
             'bank_id' => $request->post('bank_beneficiary'),
             'seria_passport' => $request->post('seria_passport'),
             'nomer_passport' => $request->post('nomer_passport'),
-            'oked' => $request->post('okonh_beneficiary'),
+            'oked' => $request->post('oked'),
         ]);
         if($policyBeneficiaries)
             return $policyBeneficiaries;
