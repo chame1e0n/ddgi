@@ -11,6 +11,7 @@ use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\TamozhnyaAddStrahPremiya;
 use Illuminate\Http\Request;
+use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class TamozhnyaAddController extends Controller
@@ -124,7 +125,7 @@ class TamozhnyaAddController extends Controller
                 'tel'     => $tamozhnya->agent->user->brnach->phone_numner,
                 'insurer_address' => $tamozhnya->policyHolders->address,
                 'insurer_tel'     => $tamozhnya->policyHolders->phone_number,
-                'director'     => $tamozhnya->agent->user->director->getFIO(),
+                'director'     => /*$tamozhnya->agent->user->director->getFIO()*/'test',
                 'insurer_schet'     => $tamozhnya->policyHolders->checking_account,
                 'insurer_mfo'     => $tamozhnya->policyHolders->inn,
                 'insurer_inn'     => $tamozhnya->policyHolders->mfo,
@@ -132,7 +133,14 @@ class TamozhnyaAddController extends Controller
                 'filial'           => $tamozhnya->agent->user->brnach->name,
             ]);
             $document->saveAs('dogovor.docx');
-            return response()->download('dogovor.docx');
+            Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
+            Settings::setPdfRendererPath('.');
+            $phpWord = \PhpOffice\PhpWord\IOFactory::load('dogovor.docx');
+            $phpWord->setDefaultFontName('dejavu sans');
+
+            $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord , 'PDF');
+            $xmlWriter->save('result.pdf');
+//            return response()->download('dogovor.docx');
         }
         if (isset($_GET['download']) && $_GET['download'] == 'za'){
             $document = new TemplateProcessor(public_path('tamozhnya_documents/anketa.docx'));

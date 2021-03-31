@@ -293,7 +293,6 @@ if (formRealtors) {
     })
 }
 
-
 // Расчет количества дней между датами "Период деятельности организации"
 if (periodActiveOrg) {
     periodActiveOrg.addEventListener('change', event => {
