@@ -36,9 +36,9 @@ CREATE TABLE IF NOT EXISTS `agents` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.agents: ~2 rows (approximately)
+-- Dumping data for table ddgi_test.agents: ~6 rows (approximately)
 DELETE FROM `agents`;
 /*!40000 ALTER TABLE `agents` DISABLE KEYS */;
 INSERT INTO `agents` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `job`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `agent_agreement_img`, `labor_contract`, `firm_contract`, `license`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -176,10 +176,6 @@ CREATE TABLE IF NOT EXISTS `branches` (
   `region_id` int(11) unsigned NOT NULL,
   `address` varchar(150) NOT NULL,
   `phone_number` varchar(50) NOT NULL,
-  `type` varchar(50) NOT NULL,
-  `code_by_office` varchar(100) NOT NULL,
-  `code_by_type` varchar(100) NOT NULL,
-  `hierarchy` varchar(50) NOT NULL,
   `created_at` date DEFAULT NULL,
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
@@ -189,11 +185,11 @@ CREATE TABLE IF NOT EXISTS `branches` (
 -- Dumping data for table ddgi_test.branches: ~4 rows (approximately)
 DELETE FROM `branches`;
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
-INSERT INTO `branches` (`id`, `parent_id`, `name`, `is_center`, `series`, `founded_date`, `user_id`, `region_id`, `address`, `phone_number`, `type`, `code_by_office`, `code_by_type`, `hierarchy`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, NULL, 'Головной офис', 0, 'серия', '2021-02-15', 9, 1, 'Ташкент', '23452352345', 'Тип 2', 'code', 'code 2', '1', '2021-02-15', '2021-02-15', NULL),
-	(2, NULL, 'name', 0, 'series', '2021-01-08', 9, 1, 'dfvsdv', '45235325', 'Тип 1', 'sdfvdv', 'sdfvdsv', '33', '2021-01-08', '2021-01-10', NULL),
-	(3, 3, 'FotTestOnly', 0, 'vfdv', '2021-02-18', 17, 1, 'PO Box F', '5555551234', 'type-1', 'sdfvdv', 'sdfvdsv', '33', '2021-02-18', '2021-02-18', NULL),
-	(4, 4, 'rgwergewrg', 0, 'xcv', '2021-02-19', 20, 1, 'PO Box F', '5555551234', 'type-1', 'sdfvdve', 'rr', '44', '2021-02-18', '2021-02-18', NULL);
+INSERT INTO `branches` (`id`, `parent_id`, `name`, `is_center`, `series`, `founded_date`, `user_id`, `region_id`, `address`, `phone_number`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, NULL, 'Головной офис', 0, 'серия', '2021-02-15', 9, 1, 'Ташкент', '23452352345', '2021-02-15', '2021-02-15', NULL),
+	(2, NULL, 'name', 0, 'series', '2021-01-08', 9, 1, 'dfvsdv', '45235325', '2021-01-08', '2021-01-10', NULL),
+	(3, 3, 'FotTestOnly', 0, 'vfdv', '2021-02-18', 17, 1, 'PO Box F', '5555551234', '2021-02-18', '2021-02-18', NULL),
+	(4, 4, 'rgwergewrg', 0, 'xcv', '2021-02-19', 20, 1, 'PO Box F', '5555551234', '2021-02-18', '2021-02-18', NULL);
 /*!40000 ALTER TABLE `branches` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.clients
@@ -406,15 +402,17 @@ CREATE TABLE IF NOT EXISTS `directors` (
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table ddgi_test.directors: ~3 rows (approximately)
+-- Dumping data for table ddgi_test.directors: ~5 rows (approximately)
 DELETE FROM `directors`;
 /*!40000 ALTER TABLE `directors` DISABLE KEYS */;
 INSERT INTO `directors` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(2, 9, 'FotTestOnly3', 'sdfv', 'sdfv', '2021-01-07', '12341234', 'adscsadc', '2021-01-14', NULL, '5555551234', 'PO Box F', NULL, 1, '2021-01-08', '2021-01-10', NULL),
-	(4, 17, 'Another', 'Name', 'Surname', '2021-02-11', 'sdfvsdv', 'AA', '2021-02-17', NULL, '5555551234', 'PO Box F', NULL, 1, '2021-02-18', '2021-02-18', NULL),
-	(5, 20, 'Another 2', 'Name 2', 'Surname', '2021-02-11', 'sdfvsdv', 'AA', '2021-02-17', NULL, '5555551234', 'PO Box F', NULL, 1, '2021-02-18', '2021-02-18', NULL);
+	(2, 9, 'FotTestOnly3', 'sdfv', 'sdfv', '2021-01-07', '12341234', 'adscsadc', '2021-01-14', NULL, '5555551234', 'PO Box F', 'directors/9/VSYsPtW06DQR5UNFHE7eLzGaWABhsSZkSyGPEMzh.jpg', 1, '2021-01-08', '2021-03-29', NULL),
+	(4, 17, 'Another', 'Name', 'Surname', '2021-02-11', 'sdfvsdv', 'AA', '2021-02-17', NULL, '5555551234', 'PO Box F', 'C:\\Users\\User\\AppData\\Local\\Temp\\phpF1C4.tmp', 1, '2021-02-18', '2021-03-28', NULL),
+	(5, 20, 'Another 2', 'Name 2', 'Surname', '2021-02-11', 'sdfvsdv', 'AA', '2021-02-17', NULL, '5555551234', 'PO Box F', NULL, 1, '2021-02-18', '2021-02-18', NULL),
+	(6, 21, 'Иванов', 'Иван', 'Иванович', '1980-03-11', '12341234', 'AA', '2021-03-30', NULL, '5555551234', 'Ташкент, Узбекистан', 'directors/21/xnq6daN1XHHD3KiNa3x7MqL46pMSwbkmMYeIaQu7.jpg', 1, '2021-03-29', '2021-03-29', NULL),
+	(7, 22, 'test', 'test', 'test', '2021-03-06', 'trrtrtr', 'AA', '2021-03-31', NULL, '5555551234', 'PO Box F', 'directors/22/52e0q1HgnBdOndyUREFqjtFtWpvYDtLKyRhPEUtu.png', 1, '2021-03-29', '2021-03-29', '2021-03-29');
 /*!40000 ALTER TABLE `directors` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.dobrovolka_avto
@@ -585,9 +583,9 @@ CREATE TABLE IF NOT EXISTS `from_site_orders` (
 DELETE FROM `from_site_orders`;
 /*!40000 ALTER TABLE `from_site_orders` DISABLE KEYS */;
 INSERT INTO `from_site_orders` (`id`, `order_id`, `title`, `object_title`, `status`, `amount`, `prize`, `timestamp`, `term`, `inventory_number`, `total_area`, `city_property`, `street`, `type_property`, `matches_registration_address`, `username`, `first_name`, `last_name`, `middle_name`, `is_active`, `avatar`, `birth_day`, `serial_number`, `passport_number`, `date_issue`, `issued_by`, `phone`, `email_index`, `city`, `district`, `user_street`, `apartment_number`, `home_number`, `created_at`, `updated_at`) VALUES
-	(1, 1, 'Страхование инфекционных заболеваний', 'Человек', 'Успешно проведен', '0', '10000', '2021-02-03 12:49:32', '2021-08-31 17:22:34', '', '', '', '', '', '0', 'adminddgi', 'Sardor', 'Maxmudov', 'Maxmudovich', 1, 'http://ddgi.uz/media/profile/2021/02/08/mac.jpg', '2020-09-08', 'AA', '4799722', '2000-02-22', 'IIB Yunusobod Tumani', '998977008055', '10000800', 'Ташкент', 'Юнусабад', '18', '17', '9', '2021-02-08 15:51:34', '2021-02-12 12:18:37'),
-	(2, 2, 'Страхование инфекционных заболеваний', 'Человек', 'Расторгнут', '8340000', '41700', '2021-02-08 10:25:34', '2021-08-08 10:25:34', '', '', '', '', '', '1', 'adminddgi', 'Sardor', 'Maxmudov', 'Maxmudovich', 1, 'http://ddgi.uz/media/profile/2021/02/08/mac.jpg', '2020-09-08', 'AA', '4799722', '2000-02-22', 'IIB Yunusobod Tumani', '998977008055', '10000800', 'Ташкент', 'Юнусабад', '18', '17', '9', '2021-02-08 15:51:34', '2021-02-12 12:18:37'),
-	(3, 3, 'Страхование имущество', 'Квартира', 'Забракован', '32650000000', '3874750.0', '2021-02-08 10:43:47', '2021-08-08 10:43:47', '44766554114777', '120', 'Ташкент', '18', '2', '0', 'adminddgi', 'Sardor', 'Maxmudov', 'Maxmudovich', 1, 'http://ddgi.uz/media/profile/2021/02/08/mac.jpg', '2020-09-08', 'AA', '4799722', '2000-02-22', 'IIB Yunusobod Tumani', '998977008055', '10000800', 'Ташкент', 'Юнусабад', '18', '17', '9', '2021-02-08 15:52:08', '2021-02-12 12:18:37');
+	(1, 1, 'Страхование инфекционных заболеваний', 'Человек', 'Успешно проведен', '0', '10000', '2021-02-03 12:49:32', '2021-08-31 17:22:34', '', '', '', '', '', '0', 'adminddgi', 'Sardor', 'Maxmudov', 'Maxmudovich', 1, 'http://ddgi.uz/media/profile/2021/02/08/mac.jpg', '2020-09-08', 'AA', '4799722', '2000-02-22', 'IIB Yunusobod Tumani', '998977008055', '10000800', 'Ташкент', 'Юнусабад', '18', '17', '9', '2021-02-08 15:51:34', '2021-03-31 08:55:11'),
+	(2, 2, 'Страхование инфекционных заболеваний', 'Человек', 'Расторгнут', '8340000', '41700', '2021-02-08 10:25:34', '2021-08-08 10:25:34', '', '', '', '', '', '1', 'adminddgi', 'Sardor', 'Maxmudov', 'Maxmudovich', 1, 'http://ddgi.uz/media/profile/2021/02/08/mac.jpg', '2020-09-08', 'AA', '4799722', '2000-02-22', 'IIB Yunusobod Tumani', '998977008055', '10000800', 'Ташкент', 'Юнусабад', '18', '17', '9', '2021-02-08 15:51:34', '2021-03-31 08:55:11'),
+	(3, 3, 'Страхование имущество', 'Квартира', 'Забракован', '32650000000', '3874750.0', '2021-02-08 10:43:47', '2021-08-08 10:43:47', '44766554114777', '120', 'Ташкент', '18', '2', '0', 'adminddgi', 'Sardor', 'Maxmudov', 'Maxmudovich', 1, 'http://ddgi.uz/media/profile/2021/02/08/mac.jpg', '2020-09-08', 'AA', '4799722', '2000-02-22', 'IIB Yunusobod Tumani', '998977008055', '10000800', 'Ташкент', 'Юнусабад', '18', '17', '9', '2021-02-08 15:52:08', '2021-03-31 08:55:11');
 /*!40000 ALTER TABLE `from_site_orders` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.groups
@@ -759,7 +757,7 @@ CREATE TABLE IF NOT EXISTS `klass` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.klass: ~4 rows (approximately)
+-- Dumping data for table ddgi_test.klass: ~3 rows (approximately)
 DELETE FROM `klass`;
 /*!40000 ALTER TABLE `klass` DISABLE KEYS */;
 INSERT INTO `klass` (`id`, `group_id`, `code`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1183,11 +1181,10 @@ CREATE TABLE IF NOT EXISTS `policies` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `number` int(11) unsigned NOT NULL,
   `act_number` varchar(50) NOT NULL,
-  `client_type` tinyint(3) unsigned NOT NULL,
   `policy_series_id` int(11) unsigned DEFAULT NULL,
   `status` varchar(50) NOT NULL,
-  `branch_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `branch_id` int(11) unsigned DEFAULT '0',
+  `user_id` int(11) unsigned DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -1197,27 +1194,27 @@ CREATE TABLE IF NOT EXISTS `policies` (
 -- Dumping data for table ddgi_test.policies: ~20 rows (approximately)
 DELETE FROM `policies`;
 /*!40000 ALTER TABLE `policies` DISABLE KEYS */;
-INSERT INTO `policies` (`id`, `number`, `act_number`, `client_type`, `policy_series_id`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 141, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-24 06:13:42', NULL),
-	(2, 142, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 05:13:10', NULL),
-	(3, 143, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:03', NULL),
-	(4, 144, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:29', NULL),
-	(5, 145, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:27:38', NULL),
-	(6, 146, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:35:00', NULL),
-	(7, 147, 'asdvvd', 0, 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 03:51:44', NULL),
-	(8, 148, 'asdvvd', 0, 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 03:57:26', NULL),
-	(9, 149, 'asdvvd', 0, 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 06:11:27', NULL),
-	(10, 150, 'asdvvd', 0, 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(11, 141, 'asdvvd', 0, 0, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-03 08:45:31', NULL),
-	(12, 142, 'asdvvd', 0, 0, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-06 09:14:43', NULL),
-	(13, 143, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(14, 144, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(15, 145, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(16, 146, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(17, 147, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(18, 148, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(19, 149, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(20, 150, 'asdvvd', 0, 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL);
+INSERT INTO `policies` (`id`, `number`, `act_number`, `policy_series_id`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 141, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-24 06:13:42', NULL),
+	(2, 142, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 05:13:10', NULL),
+	(3, 143, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:03', NULL),
+	(4, 144, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:29', NULL),
+	(5, 145, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:27:38', NULL),
+	(6, 146, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:35:00', NULL),
+	(7, 147, 'asdvvd', 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 03:51:44', NULL),
+	(8, 148, 'asdvvd', 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 03:57:26', NULL),
+	(9, 149, 'asdvvd', 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 06:11:27', NULL),
+	(10, 150, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(11, 141, 'asdvvd', 0, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-03 08:45:31', NULL),
+	(12, 142, 'asdvvd', 0, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-06 09:14:43', NULL),
+	(13, 143, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(14, 144, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(15, 145, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(16, 146, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(17, 147, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(18, 148, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(19, 149, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(20, 150, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-03-29 03:12:54', '2021-03-29 03:12:54');
 /*!40000 ALTER TABLE `policies` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policies_policy_retransfer
@@ -1796,7 +1793,7 @@ CREATE TABLE IF NOT EXISTS `tamozhnya_add_legals` (
 DELETE FROM `tamozhnya_add_legals`;
 /*!40000 ALTER TABLE `tamozhnya_add_legals` DISABLE KEYS */;
 INSERT INTO `tamozhnya_add_legals` (`id`, `description`, `from_date`, `to_date`, `prof_riski`, `pretenzii_in_ruz`, `prichina_pretenzii`, `payment_term`, `currencies`, `unique_number`, `sposob_rascheta`, `product_id`, `policy_id`, `type`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `policy_holder_id`, `anketa_img`, `dogovor_img`, `polis_img`, `created_at`, `updated_at`) VALUES
-	(3, 'dfsdvdsfv', '2021-03-05', '2021-03-18', '2322423', 0, NULL, '1', 'UZS', '0100/0505/1/2100001', 1, 5, 10, 0, '234234', '34', '3433', 1, '2021-03-04', 1, 45, NULL, NULL, NULL, '2021-03-24 06:13:42', '2021-03-24 06:13:43');
+	(3, 'dfsdvdsfv', '2021-03-05', '2021-03-18', '2322423', 0, NULL, '1', 'UZS', '0100/0505/1/2100001', 1, 5, 10, 0, '234234', '34', '3433', 1, '2021-03-04', 1, 45, 'img/PolicyHolder/WTn3ZQhDENJ44tbKtFAci9nYqiQMET1NlpdOZFOR.jpg', NULL, NULL, '2021-03-24 06:13:42', '2021-03-28 20:29:14');
 /*!40000 ALTER TABLE `tamozhnya_add_legals` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.tamozhnya_add_legal_strah_premiyas
@@ -1834,7 +1831,7 @@ DELETE FROM `tamozhnya_add_strah_premiyas`;
 -- Dumping structure for table ddgi_test.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `branch_id` int(11) unsigned NOT NULL,
+  `branch_id` int(11) unsigned DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -1845,17 +1842,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.users: ~5 rows (approximately)
+-- Dumping data for table ddgi_test.users: ~7 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `branch_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(3, 1, 'ahahah', 'admin@admin.com', NULL, '$2y$10$a7pUCw5TuXkwkDZ7Z8TgJubAwqkH60RD8s8gDTU2O8EdRrwRnf1La', NULL, '2021-01-29 06:24:33', '2021-02-18 02:49:00', NULL),
 	(4, 1, 'Name1', 'bobur_moscow1@mail.ru', NULL, '$2y$10$3CzSOxHcSQn6HJOm.ahdHORb50aYP.vJN31VSubEMla8QM7UhZV.a', NULL, '2021-01-08 04:47:43', '2021-01-10 15:01:35', NULL),
-	(9, 1, 'sdfv', 'directo3r@director.com', NULL, '$2y$10$OYljKvaiPrLd8i9V1Ms4f.PX6SjBouTvqzdbFFGSb9uBbNLHfOCLm', NULL, '2021-01-08 13:10:10', '2021-01-10 16:26:47', NULL),
-	(17, 1, 'dfgbdfb', 'directo7r@director.com', NULL, '$2y$10$2BeRT0YCJVZv8pOSArLOl.Nj1XvtPgv/cpdvpsOWGvtlp.TCMRsZ2', NULL, '2021-02-18 03:59:55', '2021-02-18 04:00:03', NULL),
-	(20, 1, 'dfgbdfb', 'directo00r@director.com', NULL, '$2y$10$2BeRT0YCJVZv8pOSArLOl.Nj1XvtPgv/cpdvpsOWGvtlp.TCMRsZ2', NULL, '2021-02-18 03:59:55', '2021-02-18 04:00:03', NULL);
+	(9, 1, 'sdfv', 'directo3r@director.com', NULL, '$2y$10$gct4miLEu4b7s6XOK9deXeGg1X.hWUokcoeTqnKxxFgDSpIVUk.6W', NULL, '2021-01-08 13:10:10', '2021-03-29 01:34:48', NULL),
+	(17, 1, 'Name', 'directo7r@director.com', NULL, '$2y$10$/qBHL6LNkuZdJA61fHpNNeLCrQiEXhqFExULUTxtoPY7O9twgj3De', NULL, '2021-02-18 03:59:55', '2021-03-28 20:28:11', NULL),
+	(20, 1, 'dfgbdfb', 'directo00r@director.com', NULL, '$2y$10$2BeRT0YCJVZv8pOSArLOl.Nj1XvtPgv/cpdvpsOWGvtlp.TCMRsZ2', NULL, '2021-02-18 03:59:55', '2021-02-18 04:00:03', NULL),
+	(21, NULL, 'Иван', 'mario@mail.ru', NULL, '$2y$10$alm2j/eP04rgfPWjbMmn/OSgtV7o0itjWfMip9rSgU/kSgk9c/Dta', NULL, '2021-03-29 02:26:44', '2021-03-29 02:30:51', NULL),
+	(22, NULL, 'test', 'bbr@mail.ru', NULL, '$2y$10$QZXD1hqlKVlspYI2V5S7dumowKHB03xe6OTg3NtPC6WCaJGK58MaC', NULL, '2021-03-29 02:29:08', '2021-03-29 02:29:26', '2021-03-29 02:29:26');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.views

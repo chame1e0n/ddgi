@@ -43,7 +43,7 @@
                 <tr>
                   <th>#</th>
                   <th>Наименование</th>
-                  <th>Тип</th>
+                  <th>Номер телефона</th>
                   <th>Адрес</th>
                   <th>Действия</th>
                 </tr>
@@ -53,7 +53,7 @@
                 <tr>
                   <td>{{ ++$i }}</td>
                   <td>{{ $branch->name }}</td>
-                  <td>{{ $branch->type }}</td>
+                  <td>{{ $branch->phone_number }}</td>
                   <td>{{ $branch->address }}</td>
                   <td>
                     <form action="{{ route('branch.destroy',$branch->id) }}" method="POST">
