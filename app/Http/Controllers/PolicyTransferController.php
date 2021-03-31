@@ -18,7 +18,7 @@ class PolicyTransferController extends Controller
      */
     public function index()
     {
-        $policyTransfer = PolicyTransfer::latest()->paginate(5);
+        $policyTransfer = PolicyTransfer::all();
 
         return view('policy_transfer.index',compact('policyTransfer'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

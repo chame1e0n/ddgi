@@ -15,7 +15,7 @@ class KlassController extends Controller
      */
     public function index()
     {
-        $klasses = Klass::latest()->paginate(5);
+        $klasses = Klass::all();
 
         return view('spravochniki.klass.index',compact('klasses'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

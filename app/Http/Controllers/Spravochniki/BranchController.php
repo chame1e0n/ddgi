@@ -18,7 +18,7 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branches = Branch::latest()->paginate(5);
+        $branches = Branch::all();
 
         return view('spravochniki.branch.index',compact('branches'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

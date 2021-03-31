@@ -14,7 +14,7 @@ class PolicyController extends Controller
      */
     public function index()
     {
-        $policies = Policy::latest()->paginate(10);
+        $policies = Policy::all();
 
         return view('policy.index',compact('policies'));
     }

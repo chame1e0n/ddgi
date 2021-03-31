@@ -14,7 +14,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::latest()->paginate(5);
+        $groups = Group::all();
 
         return view('spravochniki.group.index',compact('groups'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
