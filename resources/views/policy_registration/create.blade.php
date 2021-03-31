@@ -76,6 +76,7 @@
                                                 <label for="polis_number_from" class="col-form-label">Номер полиса
                                                     с:</label>
                                                 <input id="polis_number_from" type="number"
+                                                       oninput="countBlanks(false, this.value)"
                                                        @if($errors->has('from_number'))
                                                        class="form-control is-invalid"
                                                        @else
@@ -89,12 +90,19 @@
                                                 <label for="polis_number_to" class="col-form-label">Номер полиса
                                                     до:</label>
                                                 <input id="polis_number_to" type="number"
+                                                       oninput="countBlanks(true, this.value)"
                                                        @if($errors->has('to_number'))
                                                        class="form-control is-invalid"
                                                        @else
                                                        class="form-control"
                                                        @endif
                                                        name="to_number" value="{{ old('to_number') }}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="display: none;" id="countBlanks">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="countBlanks">Всего полисов</label>
+                                                <input id="countBlanksInput" class="form-control" value="0" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -154,5 +162,20 @@
             </div>
         </div>
     </div>
+    <script>
+        let after = 0;
+        let to = 0;
+        function countBlanks(type, value) {
+            if(type){
+                after = value;
+            }else {
+                to = value;
+            }
+            let blanksBlock = document.getElementById('countBlanks');
+            let blanksInput = document.getElementById('countBlanksInput');
+            blanksBlock.style.display = 'block';
+            blanksInput.value = (after - to) + 1;
+        }
+    </script>
     <!-- /.content -->
 @endsection

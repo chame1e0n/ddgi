@@ -89,7 +89,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">С
                                                     номера бланка</label>
-                                                <input type="text" value="{{old('policy_from')}}" name="policy_from"
+                                                <input type="text" value="{{old('policy_from')}}" oninput="countBlanks(false, this.value)" name="policy_from"
                                                        @if($errors->has('policy_from'))
                                                        class="form-control is-invalid"
                                                        @else
@@ -102,7 +102,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">До
                                                     номера бланка</label>
-                                                <input type="text" value="{{old('policy_to')}}" name="policy_to"
+                                                <input type="text" value="{{old('policy_to')}}" oninput="countBlanks(true, this.value)" name="policy_to"
                                                        @if($errors->has('policy_to'))
                                                        class="form-control is-invalid"
                                                        @else
@@ -126,18 +126,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4" style="display: none;" id="countBlanks">
                                             <div class="form-group">
-                                                <label class="col-form-label" for="pretensii-final-settlement-date">Дата
-                                                    распределения</label>
-                                                <input id="pretensii-final-settlement-date"
-                                                       value="{{old('retransfer_distribution')}}"
-                                                       name="retransfer_distribution" type="date"
-                                                       @if($errors->has('retransfer_distribution'))
-                                                       class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                    @endif>
+                                                <label class="col-form-label" for="countBlanks">Всего бланков</label>
+                                                <input id="countBlanksInput" class="form-control" value="0" readonly>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -151,14 +143,11 @@
                                             <div class="form-group">
                                                 <label class="col-form-label" for="pretensii-final-settlement-date">Кто
                                                     выдал полис</label>
-                                                <input type="text" name="transfer_given"
-                                                       value="{{old('transfer_given')}}"
-                                                       @if($errors->has('transfer_given'))
-                                                       class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                       @endif
-                                                       id="retransfer-num-akt">
+                                                <select name="transfer_given" id="retransfer-num-akt" class="form-control">
+                                                    @foreach($agents as $agent)
+                                                        <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -175,5 +164,20 @@
             </div>
         </div>
     </div>
+    <script>
+        let after = 0;
+        let to = 0;
+        function countBlanks(type, value) {
+            if(type){
+                after = value;
+            }else {
+                to = value;
+            }
+            let blanksBlock = document.getElementById('countBlanks');
+            let blanksInput = document.getElementById('countBlanksInput');
+            blanksBlock.style.display = 'block';
+            blanksInput.value = (after - to) + 1;
+        }
+    </script>
     <!-- /.content -->
 @endsection
