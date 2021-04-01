@@ -42,7 +42,6 @@ class CreateOtvetstvennostRealtorsTable extends Migration
             $table->string('serial_number_policy');
             $table->date('date_issue_policy');
             $table->integer('otvet_litso');
-            $table->integer('bank_id');
 
             $table->date('activity_period_from')->nullable();
             $table->date('activity_period_to')->nullable();
