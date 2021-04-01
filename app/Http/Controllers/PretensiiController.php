@@ -84,6 +84,29 @@ class PretensiiController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'case_number' => 'required',
+            'insurer' => 'required',
+            'insurance_contract' => 'required',
+            'insurence_period' => 'required',
+            'insured_sum' => 'required',
+            'payable_by_agreement' => 'required',
+            'actually_paid' => 'required',
+            'last_payment_date' => 'required',
+            'deductible_amount' => 'required',
+            'franchise_percentage' => 'required',
+            'reinsurance' => 'required',
+            'date_applications' => 'required',
+            'date_of_the_insured_event' => 'required',
+            'event_description' => 'required',
+            'object_description' => 'required',
+            'claimed_loss_sum' => 'required',
+            'refund_paid_sum' => 'required',
+            'currency_exchange_rate' => 'required',
+            'total_amount_in_sums' => 'required',
+            'date_of_payment_compensation' => 'required',
+            'final_settlement_date' => 'required',
+        ]);
         Pretensii::create($request->all());
 
         return redirect()->route('pretensii.index')

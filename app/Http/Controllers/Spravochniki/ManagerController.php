@@ -18,7 +18,8 @@ class ManagerController extends Controller
      */
     public function index()
     {
-        $managers = Manager::latest()->paginate(5);
+//        $managers = Manager::latest()->paginate(5);
+        $managers = Manager::all();
 
         return view('spravochniki.manager.index',compact('managers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -44,13 +45,35 @@ class ManagerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+//            'profile_img' => 'mimes:jpg,bmp,png,pdf,doc',
+//            'agent_agreement_img' => 'mimes:jpg,bmp,png,pdf,doc',
+//            'labor_contract' => 'mimes:jpg,bmp,png,pdf,doc',
+//            'firm_contract' => 'mimes:jpg,bmp,png,pdf,doc',
+//            'license' => 'mimes:jpg,bmp,png,pdf,doc',
+            'surname' => 'required',
+            'name' => 'required',
+            'middle_name' => 'required',
+            'dob' => 'required',
+            'passport_series' => 'required',
+            'passport_number' => 'required',
+            'job' => 'required',
+            'branch_id' => 'required',
+            'work_start_date' => 'required',
+            'work_end_date' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'email' => 'required | unique:users',
+            'password' => 'required',
+        ]);
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->branch_id = $request->branch_id;
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $user->manager()->create($request->except('email', 'password'));
+        $user->manager()->create($request->except('email', 'password', 'branch_id'));
 
         return redirect()->route('manager.index')
             ->with('success','Успешно добавлен новый агент');

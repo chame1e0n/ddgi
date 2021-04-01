@@ -485,7 +485,7 @@ function addProductFields(fieldNumber) {
                             </button>
                         </div>
                     </div>
-                           
+
                     <div class="card-body">
                         <div id="product-fields-${fieldNumber}-3">
                             <div class="form-group">
@@ -597,7 +597,7 @@ function addProductFields(fieldNumber) {
                         </div>
                     </div>
 
-                    
+
                     <div class="card-body">
                         <div id="product-fields-${fieldNumber}-3">
                             <div class="form-group">
@@ -625,7 +625,7 @@ function addProductFields(fieldNumber) {
                         </div>
                     </div>
 
-                          
+
                     <div class="card-body">
                         <div id="product-fields-${fieldNumber}-3">
                             <div class="form-group">

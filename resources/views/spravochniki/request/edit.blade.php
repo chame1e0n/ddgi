@@ -126,7 +126,7 @@
 
                         <div class="card-footer">
                             <!-- <button type="save" style="margin-left: 10px" class="btn btn-primary float-right">Распечатать</button> -->
-                            <button type="submit" class="btn btn-primary float-right">Сохранить</button>
+                            <button type="submit" class="btn btn-primary float-right">Изменить</button>
                         </div>
 
                     </form>

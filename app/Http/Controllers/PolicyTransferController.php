@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Policy;
 use App\Models\PolicyInformation;
 use App\Models\PolicyTransfer;
+use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Branch;
 use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class PolicyTransferController extends Controller
      */
     public function index()
     {
-        $policyTransfer = PolicyTransfer::latest()->paginate(5);
+        $policyTransfer = PolicyTransfer::all();
 
         return view('policy_transfer.index',compact('policyTransfer'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -33,8 +34,8 @@ class PolicyTransferController extends Controller
     {
         $policySeries = PolicySeries::all();
         $branches = Branch::all();
-
-        return view('policy_transfer.create', compact('policySeries', 'branches'));
+        $agents = Agent::all();
+        return view('policy_transfer.create', compact('policySeries', 'branches', 'agents'));
     }
 
     /**

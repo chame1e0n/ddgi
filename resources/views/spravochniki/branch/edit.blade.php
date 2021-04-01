@@ -5,6 +5,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
+                <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -151,46 +152,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-4">
-
-                                            <div class="form-group">
-                                                <label for="type" class="col-form-label">Тип</label>
-                                                <select id="type" class="form-control parent-region" name="type">
-                                                    <option selected="selected">{{$branch->type}}</option>
-                                                    <option>Тип 1</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-
-                                            <div class="form-group">
-                                                <label for="code_by_office" class="col-form-label">Код по офису и
-                                                    региону</label>
-                                                <input id="code_by_office" class="form-control"
-                                                       value="{{$branch->code_by_office}}" name="code_by_office"
-                                                       required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-
-                                            <div class="form-group">
-                                                <label for="code_by_type" class="col-form-label">Код офиса</label>
-                                                <input id="code_by_type" class="form-control"
-                                                       value="{{$branch->code_by_type}}" name="code_by_type" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-
-                                            <div class="form-group">
-                                                <label for="hierarchy" class="col-form-label">Иерархия</label>
-                                                <input id="hierarchy" type="number" class="form-control"
-                                                       value="{{$branch->hierarchy}}" name="hierarchy"
-                                                       required>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +159,7 @@
 
                     <div class="card-footer">
                         <div class="form-group">
-                            <button type="submit" id="submit-button" class="btn btn-primary float-right">Сохранить
+                            <button type="submit" id="submit-button" class="btn btn-primary float-right">Изменить
                             </button>
                         </div>
                     </div>

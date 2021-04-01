@@ -19,7 +19,8 @@ class AgentController extends Controller
      */
     public function index()
     {
-        $agents = Agent::latest()->paginate(5);
+//        $agents = Agent::latest()->paginate(5);
+        $agents = Agent::all();
 
         return view('spravochniki.agent.index',compact('agents'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -51,6 +52,18 @@ class AgentController extends Controller
             'labor_contract' => 'mimes:jpg,bmp,png,pdf,doc',
             'firm_contract' => 'mimes:jpg,bmp,png,pdf,doc',
             'license' => 'mimes:jpg,bmp,png,pdf,doc',
+            'surname' => 'required',
+            'name' => 'required',
+            'middle_name' => 'required',
+            'dob' => 'required',
+            'passport_series' => 'required',
+            'passport_number' => 'required',
+            'job' => 'required',
+            'work_start_date' => 'required',
+            'work_end_date' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'email' => 'required'
         ]);
 
         $user->name = $request->name;

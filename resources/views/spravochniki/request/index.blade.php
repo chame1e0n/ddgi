@@ -63,14 +63,14 @@
                                             <td>
                                                 <form action="{{ route('request.destroy',$req->id) }}" method="POST">
 
-                                                    <a class="btn btn-info" href="{{ route('request.show',$req->id) }}">Посмотреть</a>
+                                                    <a class="btn btn-info" href="{{ route('request.show',$req->id) }}"><i class="fas fa-eye"></i></a>
 
                                                     <a class="btn btn-primary"
-                                                       href="{{ route('request.edit',$req->id) }}">Изменить</a>
+                                                       href="{{ route('request.edit',$req->id) }}"><i class="fas fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" onclick="return confirm('Вы уверены?')" class="btn btn-danger">Удалить</button>
+                                                    <button type="submit" onclick="return confirm('Вы уверены?')" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

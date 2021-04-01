@@ -5,6 +5,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
+                <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -39,14 +40,26 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="title" class="col-form-label">Название</label>
-                                                <input id="title" class="form-control" value="{{old('name')}}"
+                                                <input id="title"
+                                                       @if($errors->has('name'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       value="{{old('name')}}"
                                                        name="name" required>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="series" class="col-form-label">Серии</label>
-                                                <input id="series" class="form-control" value="{{old('series')}}"
+                                                <input id="series"
+                                                       @if($errors->has('series'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       value="{{old('series')}}"
                                                        name="series" required>
                                             </div>
                                         </div>
@@ -54,7 +67,11 @@
                                             <div class="form-group">
                                                 <label for="founded_at" class="col-form-label">Основан</label>
                                                 <input type="date" id="founded_at" value="{{old('founded_at')}}"
+                                                       @if($errors->has('founded_at'))
+                                                       class="form-control is-invalid"
+                                                       @else
                                                        class="form-control"
+                                                       @endif
                                                        placeholder="yyyy-mm-dd" name="founded_date" required>
                                             </div>
                                         </div>
@@ -114,13 +131,24 @@
                                                        data-on-color="success"
                                                        data-on-text="Да"
                                                        data-off-text="Нет"
+                                                       @if($errors->has('is_center'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
                                                 >
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="address" class="col-form-label">Местонахождение</label>
-                                                <input id="address" class="form-control" value="{{old('address')}}"
+                                                <input id="address"
+                                                       @if($errors->has('address'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
+                                                       value="{{old('address')}}"
                                                        name="address" required>
                                             </div>
                                         </div>
@@ -128,54 +156,20 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="phone_number" class="col-form-label">Номер телефона</label>
-                                                <input id="phone_number" class="form-control"
+                                                <input id="phone_number"
+                                                       @if($errors->has('phone_number'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                       @endif
                                                        value="{{old('phone_number')}}" name="phone_number" required>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-4">
-
-                                            <div class="form-group">
-                                                <label for="type" class="col-form-label">Тип</label>
-                                                <select id="type" class="form-control parent-region" name="type">
-                                                    <option selected="selected"></option>
-                                                    <option value="type-1">Тип 1</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-
-                                            <div class="form-group">
-                                                <label for="code_by_office" class="col-form-label">Код по офису и
-                                                    региону</label>
-                                                <input id="code_by_office" class="form-control"
-                                                       value="{{old('code_by_office')}}" name="code_by_office"
-                                                       required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-
-                                            <div class="form-group">
-                                                <label for="code_by_type" class="col-form-label">Код офиса</label>
-                                                <input id="code_by_type" class="form-control"
-                                                       value="{{old('code_by_type')}}" name="code_by_type" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-
-                                            <div class="form-group">
-                                                <label for="hierarchy" class="col-form-label">Иерархия</label>
-                                                <input id="hierarchy" type="number" class="form-control"
-                                                       value="{{old('hierarchy')}}" name="hierarchy"
-                                                       required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="card-footer">

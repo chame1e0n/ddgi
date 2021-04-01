@@ -68,7 +68,7 @@
 
 
                 <!--Управление-->
-                <li class="nav-header">Управление</li>
+                <li class="nav-header">Договора</li>
                 <li class="nav-item has-treeview">
                     <a href="{{route('all_products.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-folder-open"></i>
@@ -351,7 +351,7 @@
                 {{--</li>--}}
 
                 <li class="nav-item">
-                    <a href="{{route('policy_registration.index')}}" class="nav-link">
+                    <a href="{{route('policy.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-file-archive"></i>
                         <p>
                             Полисы

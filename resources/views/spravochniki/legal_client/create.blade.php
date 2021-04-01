@@ -42,13 +42,25 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="name" class="col-form-label">Название</label>
-                                                    <input id="name" class="form-control" name="name" value="{{ old('name') }}" required>
+                                                    <input id="name"
+                                                           @if($errors->has('name'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                           @endif
+                                                           name="name" value="{{ old('name') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="address" class="col-form-label">Адрес</label>
-                                                    <input id="address" class="form-control" name="address" value="{{ old('address') }}" required>
+                                                    <input id="address"
+                                                           @if($errors->has('address'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                           @endif
+                                                           name="address" value="{{ old('address') }}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -57,13 +69,25 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="phone_number" class="col-form-label">Номер телефона</label>
-                                                    <input id="phone_number" class="form-control" name="phone_number" value="{{ old('phone_number') }}" required>
+                                                    <input id="phone_number"
+                                                           @if($errors->has('phone_number'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                           @endif
+                                                           name="phone_number" value="{{ old('phone_number') }}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="bank_id" class="col-form-label">МФО</label>
-                                                    <select id="bank_id" class="form-control" name="bank_id" required>
+                                                    <select id="bank_id"
+                                                            @if($errors->has('bank_id'))
+                                                            class="form-control is-invalid"
+                                                            @else
+                                                            class="form-control"
+                                                            @endif
+                                                            name="bank_id" required>
                                                         <option selected></option>
                                                         @foreach($banks as $bank)
                                                             <option value="{{$bank->id}}">{{$bank->name}}</option>
@@ -77,7 +101,13 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="schet" class="col-form-label">Расчетный счет</label>
-                                                    <input id="schet" class="form-control" name="raschetniy_schet" value="{{ old('raschetniy_schet') }}" required>
+                                                    <input id="schet"
+                                                           @if($errors->has('raschetniy_schet'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                           @endif
+                                                           name="raschetniy_schet" value="{{ old('raschetniy_schet') }}" required>
                                                 </div>
                                             </div>
                                         </div>

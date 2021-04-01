@@ -14,7 +14,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::latest()->paginate(5);
+        $groups = Group::all();
 
         return view('spravochniki.group.index',compact('groups'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -38,6 +38,9 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         Group::create($request->all());
 
         return redirect()->route('group.index')

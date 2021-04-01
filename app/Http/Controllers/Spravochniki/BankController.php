@@ -39,7 +39,12 @@ class BankController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'code' => 'required',
             'name' => 'required',
+            'filial' => 'required',
+            'address' => 'required',
+            'inn' => 'required',
+            'raschetniy_schet' => 'required',
             'status' => 'required',
         ]);
 

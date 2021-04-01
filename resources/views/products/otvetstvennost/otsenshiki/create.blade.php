@@ -255,7 +255,7 @@
                                         <tr>
 
                                             <td>
-                                                <input type="text" readonly>
+                                                <input type="text" class="form-control" readonly>
                                             </td>
                                             <td>
                                                 <select  @if($errors->has('policy_series_id.*'))

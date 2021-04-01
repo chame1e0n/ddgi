@@ -31,7 +31,7 @@ class TamozhnyaAddRequest extends FormRequest
             'mfo_insurer' => 'required',
             'bank_insurer' => 'required|integer',
             'inn_insurer' => 'required',
-            'oked' => 'required',
+            'oked_beneficiary' => 'required',
 
             'fio_beneficiary' => 'required',
             'address_beneficiary' => 'required',

@@ -15,7 +15,7 @@ class FromSiteOrderController extends Controller
      */
     public function index()
     {
-        $orders = FromSiteOrder::latest()->paginate(5);
+        $orders = FromSiteOrder::all();
 
         return view('site_order.index',compact('orders'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

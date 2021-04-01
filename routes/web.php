@@ -27,6 +27,7 @@ Route::get('/', function () {
 
 Route::resource('tamojenniy-sklad', 'Product\TamojeniySkladController');
 Route::patch('tamojenniy-sklad/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
+Route::resource('/otvetstvennost-notaries', 'Product\NotaryController');
 
 
 //Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');
@@ -46,7 +47,25 @@ Route::get('test', function () {
 
 Route::get('test1', 'EmployeeController@getEmployees');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
+    ////////////////////////////////// Ulugbek //////////////////////////////////////
+    //// Product3777
+    Route::resource('product3777', 'Product3777\Product3777Controller')->except('index');
+
+    //// BorrowerSportsman
+    Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
+
+    ///Printing
+    Route::get('product3777/print/{id}', 'Product3777\Product3777Controller@print')->name('print');
+
+    ///Audit
+    Route::resource('audit', 'OtvetsvennostAuditController');
+
+    ///Cargo
+    Route::resource('cargo', 'CargoController');
+
+    /////////////////////////////////////////////////////////////////////////////////
+
     Route::resource('all_products', 'AllProductController');
     Route::get('/cbu_currencies', function (Request $request) {
         $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
@@ -67,6 +86,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('spravochniki/klass','KlassController');
     Route::resource('director','DirectorController');
     Route::resource('policy_registration','PolicyRegistrationController');
+    Route::resource('policy','PolicyController');
     Route::resource('kasko','Product\KaskoController');
     Route::resource('cmp','Product\CmpController');
     Route::resource('avtocredit','Product\AvtocreditController');
@@ -90,9 +110,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('spravochniki/request/upload/{file}', 'Spravochniki\RequestController@upload')->name('request.upload');
 
-    Route::group(['middleware' => ['permission:show pretensii']], function() {
-        Route::resource('pretensii','PretensiiController'); // ['only' => ['index']]
-        Route::get('pretensii/create/{id}','PretensiiController@create'); // ['only' => ['index']]
+    Route::group(['middleware' => ['permission:show pretensii']], function () {
+        Route::resource('pretensii', 'PretensiiController'); // ['only' => ['index']]
+        Route::get('pretensii/create/{id}', 'PretensiiController@create'); // ['only' => ['index']]
     });
 
     Route::get('site_order/refresh', 'FromSiteOrderController@refresh')->name('site_order.refresh');
@@ -104,6 +124,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('credit-fin-risk/nepogashen-credit', 'Product\CreditFinRiskNepogashenCreditController')->names('nepogashen-credit');
     Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
     Route::resource('otvetstvennost/otsenshiki', 'Product\OtvetstvennostOtsenshikiController')->names('otvetstvennost-otsenshiki');
+    Route::resource('kasco', 'Product\KaskoController')->names('kasco-add');
 });
 
 Auth::routes();

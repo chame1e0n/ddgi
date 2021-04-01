@@ -11,6 +11,7 @@ class Manager extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+    protected $table = 'managers';
 
     /**
      * Get the agent's user profile.

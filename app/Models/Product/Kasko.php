@@ -16,24 +16,19 @@ class Kasko extends Model
     protected $guarded = [];
     protected $table = 'kasko';
 
-    public function policyHolders() {
-        return $this->belongsToMany(
-            PolicyHolder::class,
-            'kasko_policy_holders',
-            'kasko_id',
-            'policy_holders_id');
-    }
+
 
     public function product() {
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
 
-    public function policyBeneficiaries() {
-        return $this->belongsToMany(
-            PolicyBeneficiaries::class,
-            'kasko_policy_beneficiaries',
-            'kasko_id',
-            'policy_beneficiary_id');
+    public function KascoStrahPremiya()
+    {
+        return $this->hasMany(KascoStrahPremiya::class);
+    }
+    public function policyHolders()
+    {
+        return $this->belongsTo(PolicyHolder::class, 'policy_holder_id');
     }
 
     public function policyInformations() {

@@ -38,14 +38,14 @@
                             <div class=" mb-4">
                                 <a class="btn btn-success" href="{{ route('agent.create') }}">Создать</a>
                             </div>
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example" class="table table-bordered table-striped">
                                 <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Ф.И.О</th>
-                                    <th>Место работы</th>
-                                    <th>Статус</th>
-                                    <th>Действия</th>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" >#</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" >Ф.И.О</th>
+                                    <th  class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" >Место работы</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" >Статус</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" >Действия</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,14 +58,14 @@
                                     <td>
                                         <form action="{{ route('agent.destroy',$agent->id) }}" method="POST">
 
-                                            <a class="btn btn-info" href="{{ route('agent.show',$agent->id) }}">Посмотреть</a>
+                                            <a class="btn btn-info" href="{{ route('agent.show',$agent->id) }}"><i class="fas fa-eye"></i></a>
 
                                             <a class="btn btn-primary"
-                                               href="{{ route('agent.edit',$agent->id) }}">Изменить</a>
+                                               href="{{ route('agent.edit',$agent->id) }}"><i class="fas fa-edit"></i></a>
                                             @csrf
                                             @method('DELETE')
 
-                                            <button type="submit" class="btn btn-danger">Удалить</button>
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -73,7 +73,7 @@
                                 </tbody>
 
                             </table>
-                            {!! $agents->links() !!}
+{{--                            {!! $agents->links() !!}--}}
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -88,4 +88,34 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+@endsection
+
+@section('scripts')
+
+    <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#example').DataTable( {
+                orderCellsTop: true,
+                fixedHeader: true,
+                "language": {
+                    "info": "Показано с _START_ по _END_ из _TOTAL_ записей",
+                    "search":"Поиск",
+                    "lengthMenu":"Показать _MENU_ записи",
+                    "paginate": {
+                        "sFirst": "Первая:с", // This is the link to the first page
+                        "sPrevious": "Предыдущая:с", // This is the link to the previous page
+                        "sNext": "Следующая:с", // This is the link to the next page
+                        "sLast": "Предыдущая:с" // This is the link to the last page
+                    },
+                },
+
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]]
+            } );
+        } );
+    </script>
 @endsection
