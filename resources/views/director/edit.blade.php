@@ -5,6 +5,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
+                <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -18,7 +19,7 @@
             </div>
         </div>
         <section class="content">
-            <form method="post" id="agent-form" action="{{ route('director.update', $director->id) }}">
+            <form method="post" id="agent-form" action="{{ route('director.update', $director->id) }}"  enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card">
@@ -94,23 +95,6 @@
                                     {{--</div>--}}
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="passport_job-address">Филиал</label>
-                                            <select id="branch" name="branch_id" class="form-control branch"
-                                                    style="width: 100%;"
-                                                    required>
-                                                @foreach($branches as $branch)
-                                                    @if(old('branch_id') == $branch->id)
-                                                        <option value="{{$branch->id}}"
-                                                                selected>{{$branch->name}}</option>
-                                                    @else
-                                                        <option value="{{$branch->id}}">{{$branch->name}}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
                                             <label for="passport_period-job-after">Период работы</label>
                                             <div class="card-flex" style="display: flex;">
                                                 <input type="date" style="width: 50%;" id="passport_period-job-after"
@@ -152,7 +136,7 @@
                                         <div class="form-group">
                                             <label for="image-input">Изображение профайла</label>
                                             <div class="file-loading">
-                                                <input id="image-input" class="file" type="file" name="profile_img">
+                                                <input id="image-input" class="file" type="file" name="profile_img" value="{{$director->profile_img}}">
                                             </div>
                                         </div>
                                     </div>
@@ -218,10 +202,37 @@
                 </div>
 
                 <div class="card-footer" style="margin-bottom: 16px">
-                    <button type="submit" id="submit-button" class="btn btn-primary float-right">Сохранить</button>
+                    <button type="submit" id="submit-button" class="btn btn-primary float-right">Изменить</button>
                 </div>
             </form>
         </section>
     </div>
     <!-- /.content -->
+@endsection
+@section('scripts')
+    <script>
+        let imageInput = $('#image-input');
+        let imageUrl = "{{asset('storage')}}" + '/' +imageInput.prop("defaultValue");
+
+        if (imageUrl) {
+            imageInput.fileinput({
+                language: 'ru',
+                initialPreview: [imageUrl],
+                initialPreviewAsData: true,
+                showUpload: false,
+                previewFileType: 'text',
+                browseOnZoneClick: true,
+                overwriteInitial: true,
+                maxFileCount: 1,
+            });
+        } else {
+            imageInput.fileinput({
+                language: 'ru',
+                showUpload: false,
+                previewFileType: 'text',
+                browseOnZoneClick: true,
+                maxFileCount: 1,
+            });
+        }
+    </script>
 @endsection

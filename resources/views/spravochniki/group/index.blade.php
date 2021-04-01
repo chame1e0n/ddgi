@@ -58,14 +58,14 @@
                                             <td>
                                                 <form action="{{ route('group.destroy',$group->id) }}" method="POST">
 
-                                                    <a class="btn btn-info" href="{{ route('group.show',$group->id) }}">Посмотреть</a>
+                                                    <a class="btn btn-info" href="{{ route('group.show',$group->id) }}"><i class="fas fa-eye"></i></a>
 
                                                     <a class="btn btn-primary"
-                                                       href="{{ route('group.edit',$group->id) }}">Изменить</a>
+                                                       href="{{ route('group.edit',$group->id) }}"><i class="fas fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -73,7 +73,7 @@
                                     </tbody>
 
                                 </table>
-                                {!! $groups->links() !!}
+{{--                                {!! $groups->links() !!}--}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -88,4 +88,33 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+@endsection
+@section('scripts')
+
+    <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#example1').DataTable( {
+                orderCellsTop: true,
+                fixedHeader: true,
+                "language": {
+                    "info": "Показано с _START_ по _END_ из _TOTAL_ записей",
+                    "search":"Поиск",
+                    "lengthMenu":"Показать _MENU_ записи",
+                    "paginate": {
+                        "sFirst": "Первая:с", // This is the link to the first page
+                        "sPrevious": "Предыдущая:с", // This is the link to the previous page
+                        "sNext": "Следующая:с", // This is the link to the next page
+                        "sLast": "Предыдущая:с" // This is the link to the last page
+                    },
+                },
+
+                "pagingType": "full_numbers",
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]]
+            } );
+        } );
+    </script>
 @endsection

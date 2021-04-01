@@ -59,10 +59,10 @@
                   <td>
 
 
-                      <a class="btn btn-info" href="{{ route('pretensii.show',$pretensii->id) }}">Посмотреть</a>
+                      <a class="btn btn-info" href="{{ route('pretensii.show',$pretensii->id) }}"><i class="fas fa-eye"></i></a>
 
                       <a class="btn btn-primary"
-                         href="{{ route('pretensii_overview.create')}}/{{$pretensii->id}}">Изменить</a>
+                         href="{{ route('pretensii_overview.create')}}/{{$pretensii->id}}"><i class="fas fa-edit"></i></a>
                   </td>
                 </tr>
                 @endforeach

@@ -53,7 +53,11 @@
                                                 <label for="code" class="col-form-label">Код</label>
                                                 <input
                                                         id="code"
+                                                        @if($errors->has('code'))
+                                                        class="form-control is-invalid"
+                                                        @else
                                                         class="form-control"
+                                                        @endif
                                                         name="code"
                                                         value="{{ old('code') }}"
                                                         required
@@ -65,7 +69,11 @@
                                                 <label for="name" class="col-form-label">Название</label>
                                                 <input
                                                         id="name"
+                                                        @if($errors->has('name'))
+                                                        class="form-control is-invalid"
+                                                        @else
                                                         class="form-control"
+                                                        @endif
                                                         name="name"
                                                         value="{{ old('name') }}"
                                                         required
@@ -77,8 +85,13 @@
                                                 <label for="description" class="col-form-label">Описание</label>
                                                 <textarea
                                                         id="description"
+                                                        @if($errors->has('description'))
+                                                        class="form-control is-invalid"
+                                                        @else
                                                         class="form-control"
+                                                        @endif
                                                         name="description"
+                                                        value="{{ old('description') }}"
                                                         required
                                                 ></textarea>
                                             </div>

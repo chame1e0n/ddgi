@@ -5,6 +5,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
+                <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -41,7 +42,11 @@
                                                 <label for="code" class="col-form-label">Код</label>
                                                 <input
                                                         id="code"
+                                                        @if($errors->has('code'))
+                                                        class="form-control is-invalid"
+                                                        @else
                                                         class="form-control"
+                                                        @endif
                                                         name="code"
                                                         value="{{ old('code') }}"
                                                         required

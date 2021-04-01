@@ -17,6 +17,8 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, HasRoles, SoftDeletes;
+    protected $guarded = [];
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'branch_id'
     ];
 
     /**

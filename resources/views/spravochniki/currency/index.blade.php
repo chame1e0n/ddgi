@@ -58,14 +58,14 @@
                                     <td>
                                         <form action="{{ route('currency.destroy',$currency->id) }}" method="POST">
 
-                                            <a class="btn btn-info" href="{{ route('currency.show',$currency->id) }}">Посмотреть</a>
+                                            <a class="btn btn-info" href="{{ route('currency.show',$currency->id) }}"><i class="fas fa-eye"></i></a>
 
                                             <a class="btn btn-primary"
-                                               href="{{ route('currency.edit',$currency->id) }}">Изменить</a>
+                                               href="{{ route('currency.edit',$currency->id) }}"><i class="fas fa-edit"></i></a>
                                             @csrf
                                             @method('DELETE')
 
-                                            <button type="submit" class="btn btn-danger">Удалить</button>
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

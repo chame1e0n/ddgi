@@ -41,6 +41,13 @@ class LegalClientController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'phone_number' => 'required',
+            'bank_id' => 'required',
+            'raschetniy_schet' => 'required',
+        ]);
         Client::create(array_merge($request->all(), ['type' => 1]));
 
         return redirect()->route('legal_client.index')

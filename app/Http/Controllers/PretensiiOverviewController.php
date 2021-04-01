@@ -52,6 +52,14 @@ class PretensiiOverviewController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'case_number' => 'required',
+            'insurer' => 'required',
+            'branch_id' => 'required',
+            'insurance_contract' => 'required',
+            'passed' => 'required',
+            'comment' => 'required',
+        ]);
         $request->merge([
             'user_id' => Auth::id(),
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Spravochniki\Branch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
@@ -30,5 +31,9 @@ class Director extends Model
         $name = $this->name;
         $middleName = $this->middle_name;
         return $surname.' '.$name. ' ' .$middleName;
+    }
+
+    public function branch() {
+        return $this->hasOne(Branch::class, 'user_id', 'user_id');
     }
 }

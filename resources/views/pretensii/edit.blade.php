@@ -27,6 +27,7 @@
           </ol>
         </div>
       </div>
+      <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
     </div>
   </div>
 
