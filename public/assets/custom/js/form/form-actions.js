@@ -272,31 +272,31 @@ if (formOtsenshiki) {
 }
 
 
-if (formRealtors) {
-    formRealtors.addEventListener('submit', event => {
-        event.preventDefault()
-
-        // Данные из формы audit
-        const generalInformation = {
-            insurerName: getField('#insurer-name').value,
-            insurerAddress: getField('#insurer-address').value,
-            insurerPhone: getField('#insurer-phone').value,
-            insurerBill: getField('#insurer-bill').value,
-            insurerTypeActive: getField('#insurer-type-activity').value,
-            insurerTypeMFO: getField('#insurer-mfo').value,
-            insurerBank: getField('#insurer-bank').value,
-            insurerInn: getField('#insurer-inn').value,
-            insurerOkonh: getField('#insurer-okonh').value,
-            insurerOked: getField('#insurer-oked').value,
-            personalInfo: getField('#personal-info').value,
-            insurancePeriod: {
-                from: getField('#insurance-from').value,
-                to: getField('#insurance-to').value
-            },
-            geoZone: getField('#geograph-zone').value
-        }
-    })
-}
+// if (formRealtors) {
+//     formRealtors.addEventListener('submit', event => {
+//         event.preventDefault()
+//
+//         // Данные из формы audit
+//         const generalInformation = {
+//             insurerName: getField('#insurer-name').value,
+//             insurerAddress: getField('#insurer-address').value,
+//             insurerPhone: getField('#insurer-phone').value,
+//             insurerBill: getField('#insurer-bill').value,
+//             insurerTypeActive: getField('#insurer-type-activity').value,
+//             insurerTypeMFO: getField('#insurer-mfo').value,
+//             insurerBank: getField('#insurer-bank').value,
+//             insurerInn: getField('#insurer-inn').value,
+//             insurerOkonh: getField('#insurer-okonh').value,
+//             insurerOked: getField('#insurer-oked').value,
+//             personalInfo: getField('#personal-info').value,
+//             insurancePeriod: {
+//                 from: getField('#insurance-from').value,
+//                 to: getField('#insurance-to').value
+//             },
+//             geoZone: getField('#geograph-zone').value
+//         }
+//     })
+// }
 
 
 // Расчет количества дней между датами "Период деятельности организации"
