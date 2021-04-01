@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use App\Models\Product\Kasko;
+use App\Models\Spravochniki\Bank;
 use Illuminate\Database\Eloquent\Model;
 
 class PolicyHolder extends Model
 {
     protected $guarded = [];
 
-    public function kasko() {
+    public function kasko()
+    {
         return $this->belongsToMany(
             Kasko::class,
             'kasko_policy_holders',
@@ -32,7 +34,7 @@ class PolicyHolder extends Model
             'bank_id' => $request->bank_insurer,
 
         ]);
-        if($policyHolder)
+        if ($policyHolder)
             return $policyHolder;
         else
             return false;
@@ -49,13 +51,18 @@ class PolicyHolder extends Model
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
             'okonx' => $request->okonx,
-            'oked'  => $request->oked,
+            'oked' => $request->oked,
             'vid_deyatelnosti' => $request->vid_deyatelnosti,
             'bank_id' => $request->bank_insurer,
         ]);
-        if($policyHolder)
+        if ($policyHolder)
             return $policyHolder;
         else
             return false;
+    }
+
+    public function bank()
+    {
+        return $this->hasOne(Bank::class, 'id', 'bank_id');
     }
 }
