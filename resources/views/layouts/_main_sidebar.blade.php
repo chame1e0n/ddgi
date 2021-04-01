@@ -23,39 +23,39 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                {{--<li class="nav-item has-treeview menu-open">--}}
-                    {{--<a href="#" class="nav-link active">--}}
-                        {{--<i class="nav-icon fas fa-poll"></i>--}}
-                        {{--<p>--}}
-                            {{--Статистика--}}
+            {{--<li class="nav-item has-treeview menu-open">--}}
+            {{--<a href="#" class="nav-link active">--}}
+            {{--<i class="nav-icon fas fa-poll"></i>--}}
+            {{--<p>--}}
+            {{--Статистика--}}
 
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
 
-                {{--<li class="nav-item has-treeview">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-file-contract"></i>--}}
-                        {{--<p>--}}
-                            {{--Отчеты--}}
+            {{--<li class="nav-item has-treeview">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-file-contract"></i>--}}
+            {{--<p>--}}
+            {{--Отчеты--}}
 
-                            {{--<!-- <span class="badge badge-info right">6</span>-->--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+            {{--<!-- <span class="badge badge-info right">6</span>-->--}}
+            {{--</p>--}}
+            {{--</a>--}}
 
-                {{--</li>--}}
-                {{--<li class="nav-item has-treeview">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-copy"></i>--}}
-                        {{--<p>--}}
-                            {{--Бланки--}}
+            {{--</li>--}}
+            {{--<li class="nav-item has-treeview">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-copy"></i>--}}
+            {{--<p>--}}
+            {{--Бланки--}}
 
-                        {{--</p>--}}
-                    {{--</a>--}}
+            {{--</p>--}}
+            {{--</a>--}}
 
-                {{--</li>--}}
+            {{--</li>--}}
 
-                <!--Управление-->
+            <!--Управление-->
                 <li class="nav-header">Заказы с сайта ddgi</li>
                 <li class="nav-item has-treeview">
                     <a href="{{route('site_order.index')}}" class="nav-link">
@@ -77,47 +77,47 @@
                         </p>
                     </a>
                 </li>
-                {{--<li class="nav-item has-treeview">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-tasks"></i>--}}
-                        {{--<p>--}}
-                            {{--Фиксация договоров <!-- Здесь должно быть таблица выпики банков и фиксация договоров вместе в одном-->--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+            {{--<li class="nav-item has-treeview">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-tasks"></i>--}}
+            {{--<p>--}}
+            {{--Фиксация договоров <!-- Здесь должно быть таблица выпики банков и фиксация договоров вместе в одном-->--}}
+            {{--</p>--}}
+            {{--</a>--}}
 
-                {{--</li>--}}
-                {{--<li class="nav-item has-treeview">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-calculator"></i>--}}
-                        {{--<p>--}}
-                            {{--Калкуляторы--}}
-                            {{--<i class="fas fa-angle-left right"></i>--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                    {{--<ul class="nav nav-treeview">--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>КАСКО</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>Путишествия</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>ОСГО</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item has-treeview">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-calculator"></i>--}}
+            {{--<p>--}}
+            {{--Калкуляторы--}}
+            {{--<i class="fas fa-angle-left right"></i>--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--<ul class="nav nav-treeview">--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>КАСКО</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>Путишествия</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>ОСГО</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
 
-                    {{--</ul>--}}
-                {{--</li>--}}
+            {{--</ul>--}}
+            {{--</li>--}}
 
-                <!--Претензия-->
+            <!--Претензия-->
 
                 <li class="nav-header">Претензии</li>
                 <li class="nav-item">
@@ -129,7 +129,7 @@
                         </p>
                     </a>
                 </li>
-                    <li class="nav-item">
+                <li class="nav-item">
                     <a href="{{route('pretensii_overview.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-medkit"></i>
                         <p>
@@ -138,191 +138,191 @@
                         </p>
                     </a>
                 </li>
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-pen"></i>--}}
-                        {{--<p>--}}
-                            {{--Регистрация--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-                {{--<li class="nav-item has-treeview">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-info-circle"></i>--}}
-                        {{--<p>--}}
-                            {{--Статусы--}}
-                            {{--<i class="fas fa-angle-left right"></i>--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                    {{--<ul class="nav nav-treeview">--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>Выплаты</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>Отказы</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>На рассмотрении</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-pen"></i>--}}
+            {{--<p>--}}
+            {{--Регистрация--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item has-treeview">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-info-circle"></i>--}}
+            {{--<p>--}}
+            {{--Статусы--}}
+            {{--<i class="fas fa-angle-left right"></i>--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--<ul class="nav nav-treeview">--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>Выплаты</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>Отказы</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>На рассмотрении</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--</ul>--}}
+            {{--</li>--}}
 
-                <!--Финансы-->
-                {{--<li class="nav-header">Финансы</li>--}}
+            <!--Финансы-->
+            {{--<li class="nav-header">Финансы</li>--}}
 
-                {{--<li class="nav-item has-treeview">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-file-alt"></i>--}}
-                        {{--<p>--}}
-                            {{--Отчеты--}}
-                            {{--<i class="fas fa-angle-left right"></i>--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                    {{--<ul class="nav nav-treeview">--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>По договору</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>По полису</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>По бланкам</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>По претензиям</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>По филиалам</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>Органам</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>Договоры по классам</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
+            {{--<li class="nav-item has-treeview">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-file-alt"></i>--}}
+            {{--<p>--}}
+            {{--Отчеты--}}
+            {{--<i class="fas fa-angle-left right"></i>--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--<ul class="nav nav-treeview">--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>По договору</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>По полису</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>По бланкам</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>По претензиям</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>По филиалам</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>Органам</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>Договоры по классам</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
 
-                    {{--</ul>--}}
-                {{--</li>--}}
-
-
-                {{--<li class="nav-item has-treeview">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-money-check"></i>--}}
-                        {{--<p>--}}
-                            {{--Акты на оплату--}}
-                            {{--<i class="fas fa-angle-left right"></i>--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                    {{--<ul class="nav nav-treeview">--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>По договору</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>По расторжению</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                            {{--<a href="#" class="nav-link">--}}
-                                {{--<i class="fas fa-angle-double-right"></i>--}}
-                                {{--<p>По взаиморасчету</p>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-file-invoice-dollar"></i>--}}
-                        {{--<p>--}}
-                            {{--Расчет бонусов--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
+            {{--</ul>--}}
+            {{--</li>--}}
 
 
+            {{--<li class="nav-item has-treeview">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-money-check"></i>--}}
+            {{--<p>--}}
+            {{--Акты на оплату--}}
+            {{--<i class="fas fa-angle-left right"></i>--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--<ul class="nav nav-treeview">--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>По договору</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>По расторжению</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="fas fa-angle-double-right"></i>--}}
+            {{--<p>По взаиморасчету</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--</ul>--}}
+            {{--</li>--}}
 
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon far fa-times-circle"></i>--}}
-                        {{--<p>--}}
-                            {{--Расторжении--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-file-invoice-dollar"></i>--}}
+            {{--<p>--}}
+            {{--Расчет бонусов--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
 
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-money-check-alt	"></i>--}}
-                        {{--<p>--}}
-                            {{--Выписки банка--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
 
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-sync-alt"></i>--}}
-                        {{--<p>--}}
-                            {{--Перестрахования--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-                <!--Продажа-->
-                {{--<li class="nav-header">Продажа</li>--}}
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-file-signature"></i>--}}
-                        {{--<p>--}}
-                            {{--Создать договор--}}
 
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-clipboard-list"></i>--}}
-                        {{--<p>--}}
-                            {{--Список договоров--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon far fa-times-circle"></i>--}}
+            {{--<p>--}}
+            {{--Расторжении--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
 
-                <!--Полисы-->
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-money-check-alt	"></i>--}}
+            {{--<p>--}}
+            {{--Выписки банка--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-sync-alt"></i>--}}
+            {{--<p>--}}
+            {{--Перестрахования--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            <!--Продажа-->
+            {{--<li class="nav-header">Продажа</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-file-signature"></i>--}}
+            {{--<p>--}}
+            {{--Создать договор--}}
+
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-clipboard-list"></i>--}}
+            {{--<p>--}}
+            {{--Список договоров--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+
+            <!--Полисы-->
                 <li class="nav-header">Полисы</li>
                 <li class="nav-item">
                     <a href="{{route('policy_registration.create')}}" class="nav-link">
@@ -342,12 +342,12 @@
                 </li>
 
                 {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-code-branch"></i>--}}
-                        {{--<p>--}}
-                            {{--Перераспределения--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+                {{--<a href="#" class="nav-link">--}}
+                {{--<i class="nav-icon fas fa-code-branch"></i>--}}
+                {{--<p>--}}
+                {{--Перераспределения--}}
+                {{--</p>--}}
+                {{--</a>--}}
                 {{--</li>--}}
 
                 <li class="nav-item">
@@ -371,30 +371,30 @@
                 <!--Клиенты-->
                 {{--<li class="nav-header">Клиенты</li>--}}
                 {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-portrait"></i>--}}
-                        {{--<p>--}}
-                            {{--Физические лица--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+                {{--<a href="#" class="nav-link">--}}
+                {{--<i class="nav-icon fas fa-portrait"></i>--}}
+                {{--<p>--}}
+                {{--Физические лица--}}
+                {{--</p>--}}
+                {{--</a>--}}
                 {{--</li>--}}
                 {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-building"></i>--}}
-                        {{--<p>--}}
-                            {{--Юридические лица--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+                {{--<a href="#" class="nav-link">--}}
+                {{--<i class="nav-icon fas fa-building"></i>--}}
+                {{--<p>--}}
+                {{--Юридические лица--}}
+                {{--</p>--}}
+                {{--</a>--}}
                 {{--</li>--}}
-                <!--Пользователи-->
+            <!--Пользователи-->
                 <li class="nav-header">Пользователи</li>
                 {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-address-card"></i>--}}
-                        {{--<p>--}}
-                            {{--Системные пользователи--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+                {{--<a href="#" class="nav-link">--}}
+                {{--<i class="nav-icon fas fa-address-card"></i>--}}
+                {{--<p>--}}
+                {{--Системные пользователи--}}
+                {{--</p>--}}
+                {{--</a>--}}
                 {{--</li>--}}
                 <li class="nav-item">
                     <a href="{{route('director.index')}}" class="nav-link">
@@ -423,14 +423,14 @@
                 <!--Справочники-->
                 <li class="nav-header">Справочники</li>
                 {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fab fa-product-hunt"></i>--}}
-                        {{--<p>--}}
-                            {{--Страхоовые продукты--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+                {{--<a href="#" class="nav-link">--}}
+                {{--<i class="nav-icon fab fa-product-hunt"></i>--}}
+                {{--<p>--}}
+                {{--Страхоовые продукты--}}
+                {{--</p>--}}
+                {{--</a>--}}
                 {{--</li>--}}
-                <li class="nav-item" >
+                <li class="nav-item">
                     <a href="{{route('bank.index')}}" id="banki" class="nav-link">
                         <i class="nav-icon far fa-building"></i>
                         <p>
@@ -438,45 +438,46 @@
                         </p>
                     </a>
                 </li>
-                    <li class="nav-item">
-                        <a href="{{route('group.index')}}" class="nav-link">
-                            <i class="nav-icon far fa-building"></i>
-                            <p>
-                                Группы
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('klass.index')}}" class="nav-link">
-                            <i class="nav-icon far fa-building"></i>
-                            <p>
-                                Классы
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('product.index')}}" class="nav-link">
-                            <i class="nav-icon far fa-building"></i>
-                            <p>
-                                Продукты
-                            </p>
-                        </a>
-                    </li>
-                <li class="nav-item" >
-                    <a href="{{route('request.index')}}" id="banki" class="nav-link {{ request()->is('spravochniki/request*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-question-circle" ></i>
+                <li class="nav-item">
+                    <a href="{{route('group.index')}}" class="nav-link">
+                        <i class="nav-icon far fa-building"></i>
+                        <p>
+                            Группы
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('klass.index')}}" class="nav-link">
+                        <i class="nav-icon far fa-building"></i>
+                        <p>
+                            Классы
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('product.index')}}" class="nav-link">
+                        <i class="nav-icon far fa-building"></i>
+                        <p>
+                            Продукты
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('request.index')}}" id="banki"
+                       class="nav-link {{ request()->is('spravochniki/request*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-question-circle"></i>
                         <p>
                             Запрос
                         </p>
                     </a>
                 </li>
                 {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-search-dollar"></i>--}}
-                        {{--<p>--}}
-                            {{--Тарифные ставки--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
+                {{--<a href="#" class="nav-link">--}}
+                {{--<i class="nav-icon fas fa-search-dollar"></i>--}}
+                {{--<p>--}}
+                {{--Тарифные ставки--}}
+                {{--</p>--}}
+                {{--</a>--}}
                 {{--</li>--}}
                 <li class="nav-item">
                     <a href="{{route('policy_series.index')}}" class="nav-link">
@@ -486,15 +487,23 @@
                         </p>
                     </a>
                 </li>
-                {{--<li class="nav-item">--}}
-                    {{--<a href="#" class="nav-link">--}}
-                        {{--<i class="nav-icon fas fa-money-bill-wave"></i>--}}
-                        {{--<p>--}}
-                            {{--Валюты--}}
-                        {{--</p>--}}
-                    {{--</a>--}}
-                {{--</li>--}}
-                <!--
+                <li class="nav-item">
+                    <a href="{{ route("db_download") }}" class="nav-link">
+                        <i class="nav-icon fab fa-product-hunt"></i>
+                        <p>
+                            export database
+                        </p>
+                    </a>
+                </li>
+            {{--<li class="nav-item">--}}
+            {{--<a href="#" class="nav-link">--}}
+            {{--<i class="nav-icon fas fa-money-bill-wave"></i>--}}
+            {{--<p>--}}
+            {{--Валюты--}}
+            {{--</p>--}}
+            {{--</a>--}}
+            {{--</li>--}}
+            <!--
                  <li class="nav-header">MULTI LEVEL EXAMPLE</li>
                  <li class="nav-item">
                    <a href="#" class="nav-link">
