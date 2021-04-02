@@ -10,16 +10,35 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=dogovor">Скачать Договор</a>
-                            <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=za">Скачать Заявление</a>
-                            <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=polis">Скачать Полис</a>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                                <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
-                                <li class="breadcrumb-item active">Создать Анкету</li>
+                                <li class="breadcrumb-item active"><a href="/form">Договор</a></li>
+                                <li class="breadcrumb-item active">Изменить Договор</li>
                             </ol>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            @include('layouts._success_or_error')
+                            @if ($tamozhnya->is_underwritting_request)
+                            <div class="alert alert-danger">
+                                <strong>Whoops!</strong>
+                            </div>
+                            @else
+                                <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=dogovor" class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i>
+                            Скачать Договор</a>
+                        <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=za" class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i>
+                            Скачать Заявление</a>
+                        <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=polis" class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i>
+                            Скачать Полис</a>
+                                @endif
                         </div>
                     </div>
                 </div>
@@ -181,8 +200,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input value="{{$tamozhnya->policyHolders->oked}}" type="text" id="oked" name="oked_beneficiary"
-                                               @if($errors->has('oked_beneficiary'))
+                                        <input value="{{$tamozhnya->policyHolders->oked}}" type="text" id="oked" name="oked"
+                                               @if($errors->has('oked'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -368,11 +387,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" name="payment_term"
-                                                onchange="showDiv('other-payment-schedule', this)"
+                                        <select  id="condition"  class="form-control payment-schedule" name="payment_term"
                                                 style="width: 100%; text-align: center">
                                             <option value="1" @if($tamozhnya->payment_term == 1) selected @endif>Единовременно</option>
-                                            <option value="other" @if($tamozhnya->payment_term == 'other') selected @endif>Другое</option>
+                                            <option value="transh" @if($tamozhnya->payment_term == 'transh') selected @endif>Транш</option>
                                         </select>
                                     </div>
                                 </div>
@@ -385,6 +403,42 @@
                                                 @endforeach
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                            <div id="transh-payment-schedule" @if($tamozhnya->payment_term == 1) class="d-none" @endif>
+                                <div class="form-group">
+                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
+                                        Добавить
+                                    </button>
+                                </div>
+                                <div class="table-responsive p-0 " style="max-height: 300px;">
+                                    <table class="table table-hover table-head-fixed" id="empTable3">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-nowrap">Сумма</th>
+                                            <th class="text-nowrap">От</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @if(!$tamozhnya->strahPremiya)
+                                        <tr id="payment-term-tr-0" data-field-number="0">
+                                            <td><input type="text" class="form-control" name="payment_sum[]"></td>
+                                            <td><input type="date" class="form-control" name="payment_from[]">
+                                            </td>
+                                        </tr>
+                                        @else
+                                            @foreach($tamozhnya->strahPremiya as $premiya)
+                                                <tr id="payment-term-tr-0" data-field-number="0">
+                                                    <td><input type="text" class="form-control" name="payment_sum[{{$premiya->id}}]" value="{{$premiya->prem_sum}}">
+                                                    </td>
+                                                    <td><input type="date" class="form-control" name="payment_from[{{$premiya->id}}]" value="{{$premiya->prem_from}}">
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
@@ -421,45 +475,6 @@
                                                class="form-control"
                                             @endif>
                                     </div>
-                                </div>
-                            </div>
-
-
-                            <div id="other-payment-schedule" @if($tamozhnya->payment_term == 1) style="display: none;" @endif>
-                                <div class="form-group">
-                                    <button type="button" onclick="addRow3()" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if(!$tamozhnya->strahPremiya)
-                                            <tr id="payment-term-tr-0" data-field-number="0">
-                                                <td><input type="text" class="form-control" name="payment_sum[]">
-                                                </td>
-                                                <td><input type="date" class="form-control" name="payment_from[]">
-                                                </td>
-                                            </tr>
-                                        @else
-                                            @foreach($tamozhnya->strahPremiya as $premiya)
-                                                <tr id="payment-term-tr-0" data-field-number="0">
-                                                    <td><input type="text" class="form-control" name="payment_sum[{{$premiya->id}}]" value="{{$premiya->prem_sum}}">
-                                                    </td>
-                                                    <td><input type="date" class="form-control" name="payment_from[{{$premiya->id}}]" value="{{$premiya->prem_from}}">
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>

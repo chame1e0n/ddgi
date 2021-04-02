@@ -40,9 +40,9 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="status-type">Статус</label>
-                                    <select name="status" class="form-control select2" id="status-type">
+                                    <select name="status" class="form-control select2" @if(app('request')->input('status')) readonly @endif id="status-type">
                                         @foreach($status as $key => $value)
-                                            @if(old('status') == $key)
+                                            @if(old('status') == $key or app('request')->input('status') == $key)
                                                 <option value="{{ $key }}" selected="">{{$value}}</option>
                                             @else
                                                 <option value="{{ $key }}">{{$value}}</option>
@@ -68,11 +68,11 @@
                             <div class="col-sm-6" id="polis-blank">
                                 <div class="form-group" id="policy-type">
                                     <label for="policy-type">Серия полиса</label>
-                                    <select name="policy_series_id" class="form-control select2" id="policy_series">
+                                    <select name="policy_series_id" @if(app('request')->input('status')) readonly @endif  class="form-control select2" id="policy_series">
                                         <option value="" selected=""></option>
                                         <option value="0">без серии</option>
                                         @foreach($policySeries as $value)
-                                            @if(old('polis_blank') == $value->id)
+                                            @if(old('polis_blank') == $value->id or app('request')->input('policySeries') == $value->id)
                                                 <option value="{{ $value->id }}" selected="">{{$value->code}}</option>
                                             @else
                                                 <option value="{{ $value->id }}">{{$value->code}}</option>
@@ -96,7 +96,7 @@
 
                             <div class="form-group" id="policy-type">
                                 <label for="policy-type">Номер полиса</label>
-                                <select name="policy_id" class="form-control select2" id="policy">
+                                <select name="policy_id" @if(app('request')->input('status')) readonly @endif class="form-control select2" id="policy">
                                     <option value="" selected=""></option>
                                 </select>
                             </div>
@@ -152,7 +152,7 @@
         let actNumber = $("#act-number-form");
         let exceedLimits = $("#exceed-limits");
 
-        status.click(function () {
+        status.on("click change", function () {
             if (this.value === policyStatus) {
                 actNumber.css('display', '');
                 $("#policy-amount").css('display', '');
@@ -175,32 +175,69 @@
         });
 
         //Get policy by policy id
-        $(document).ready(function () {
+        var policySeries = {{ app('request')->input('policySeries') ?? 0}};
 
-            $("#policy_series").change(function () {
-                var id = $(this).val();
+        //if we get some data
+        if(policySeries) {
+            //change it to appropriate status
+            status.trigger( "change" );
+            getPolicies(policySeries);
+        }
+        $('#policy_series').on('change', function() {
+            var id = $(this).val();
 
-                $.ajax({
-                    url: '{{route('getPolicies')}}',
-                    type: 'get',
-                    data: {policy_series_id: id},
-                    dataType: 'json',
-                    success: function (response) {
+            $.ajax({
+                url: '{{route('getPolicies')}}',
+                type: 'get',
+                data: {policy_series_id: id},
+                dataType: 'json',
+                success: function (response) {
 
-                        var len = response.length;
+                    var len = response.length;
+                    var policyId = {{ app('request')->input('policyId') ?? 0}};
 
-                        $("#policy").empty();
-                        for (var i = 0; i < len; i++) {
-                            var id = response[i]['id'];
-                            var name = response[i]['number'];
+                    $("#policy").empty();
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['number'];
 
+                        if (policyId == id ) {
+                            $("#policy").append("<option value='" + id + "' selected>" + name + "</option>");
+                        } else {
                             $("#policy").append("<option value='" + id + "'>" + name + "</option>");
-
                         }
                     }
-                });
+                }
             });
-
         });
+
+        function getPolicies(policySeries = 0) {
+                var id = policySeries ? policySeries : $(this).val();
+
+            $.ajax({
+                url: '{{route('getPolicies')}}',
+                type: 'get',
+                data: {policy_series_id: id},
+                dataType: 'json',
+                success: function (response) {
+
+                    var len = response.length;
+                    var policyId = {{ app('request')->input('policyId') ?? 0}};
+
+                    $("#policy").empty();
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['number'];
+
+                        if (policyId == id ) {
+                            $("#policy").append("<option value='" + id + "' selected>" + name + "</option>");
+                        } else {
+                            $("#policy").append("<option value='" + id + "'>" + name + "</option>");
+                        }
+                    }
+                }
+            });
+        }
+
     </script>
 @endsection

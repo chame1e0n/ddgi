@@ -54,7 +54,7 @@
                                         <th>Номер договора</th>
                                         <th>Серия полиса</th>
                                         <th>Номер полиса</th>
-                                        <th>Имя агента</th>
+                                        {{--<th>Имя агента</th>--}}
                                         <th>Действия</th>
                                     </tr>
                                     </thead>
@@ -66,7 +66,7 @@
                                             <td>{{ $product->unique_number }}</td>
                                             <td>{{ @$product->policySeries->code }}</td>
                                             <td>{{ @$product->policy->number }}</td>
-                                            <td>{{ @$product->agent->surname }} {{ @$product->agent->name }} {{ @$product->agent->middle_name }}</td>
+{{--                                            <td>{{ @$product->agent->surname }} {{ @$product->agent->name }} {{ @$product->agent->middle_name }}</td>--}}
                                             <td>
                                                 <form action="{{ route($routes[$product->product_id].'.destroy',$product->id)}}"
                                                       method="POST">

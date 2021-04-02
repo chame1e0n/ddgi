@@ -1,7 +1,6 @@
 @extends('layouts.index')
 
 @section('content')
-
     <!-- Content Wrapper. Contains page content -->
     <form action="{{route('tamozhnya-add-legal.store')}}" method="POST" id="mainFormKasko"  enctype="multipart/form-data">
         @csrf
@@ -16,10 +15,13 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                                <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
-                                <li class="breadcrumb-item active">Создать Анкету</li>
+                                <li class="breadcrumb-item active"><a href="/form">Договор</a></li>
+                                <li class="breadcrumb-item active">Создать Договор</li>
                             </ol>
                         </div>
+                    </div>
+                    <div class="row">
+                        <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
                     </div>
                 </div>
             </div>
@@ -134,8 +136,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input value="{{old('oked')}}" type="text" id="oked" name="oked_beneficiary"
-                                               @if($errors->has('oked_beneficiary'))
+                                        <input value="{{old('oked')}}" type="text" id="oked" name="oked"
+                                               @if($errors->has('oked'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -281,11 +283,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" name="payment_term"
-                                                onchange="showDiv('other-payment-schedule', this)"
+                                        <select id="condition" class="form-control payment-schedule" name="payment_term"
                                                 style="width: 100%; text-align: center">
                                             <option value="1">Единовременно</option>
-                                            <option value="other">Другое</option>
+                                            <option value="transh">Транш</option>
                                         </select>
                                     </div>
                                 </div>
@@ -302,7 +303,31 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div id="transh-payment-schedule" class="d-none">
+                                <div class="form-group">
+                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
+                                        Добавить
+                                    </button>
+                                </div>
+                                <div class="table-responsive p-0 " style="max-height: 300px;">
+                                    <table class="table table-hover table-head-fixed" id="empTable3">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-nowrap">Сумма</th>
+                                            <th class="text-nowrap">От</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr id="payment-term-tr-0" data-field-number="0">
+                                            <td><input type="text" class="form-control" name="payment_sum[]"></td>
+                                            <td><input type="date" class="form-control" name="payment_from[]">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
@@ -318,7 +343,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="geographic-zone">Страховая премия</label>
-                                        <input id="strahovaya_purpose" name="strahovaya_purpose" value="{{old('strahovaya_purpose')}}"
+                                        <input onchange="changeStrahPremiya()" id="strahovaya_purpose" readonly name="strahovaya_purpose" value="{{old('strahovaya_purpose')}}"
                                                type="number" @if($errors->has('strahovaya_purpose'))
                                                class="form-control is-invalid"
                                                @else
@@ -339,29 +364,28 @@
                                 </div>
                             </div>
 
-
-                            <div id="other-payment-schedule" style="display: none;">
-                                <div class="form-group">
-                                    <button type="button" onclick="addRow3()" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment_sum[]"></td>
-                                            <td><input type="date" class="form-control" name="payment_from[]"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="geographic-zone">Тариф</label>
+                                            <input readonly value="{{$product->tarif}}%"
+                                                   type="text"
+                                                   class="form-control"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="icheck-success col-md-4">
+                                        <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="tarif" id="tarif">
+                                        <label class="form-check-label" for="tarif">Указать другой тариф в процентах</label>
+                                    </div>
+                                    <!-- TODO: Блок должен находится в скрытом состоянии
+                                    отображаться только тогда, когда выбран checkbox "Тариф"
+                                    -->
+                                    <div class="form-group" data-tarif-descr style="display: none">
+                                        <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
+                                        <input class="form-control" id="descrTarif" name="descrTarif" type="number">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -497,6 +521,28 @@
 
         function Go() {
             document.getElementById('hide').style.display=(document.getElementById('defects-1').checked)? 'block': 'none'
+        }
+    </script>
+@endsection
+@section('scripts')
+    <script>
+        var productTarif = {{$product->tarif/100}};
+        const strahPremiya = document.getElementById('strahovaya_purpose');
+        const strahovayaSum = document.getElementById('strahovaya_sum');
+        var descrTarif = document.getElementById('descrTarif');
+
+        strahovayaSum.addEventListener('change', changeStrahPremiya);
+        descrTarif.addEventListener('change', changeStrahPremiya);
+
+        function changeStrahPremiya() {
+            var tarif = document.getElementById('tarif');
+
+            // if tarif checkbox not checked -> use default tarif for that product
+            if (!tarif.checked) {
+                strahPremiya.value = (strahovayaSum.value * productTarif).toFixed(2);
+            } else {
+                strahPremiya.value = (strahovayaSum.value * descrTarif.value / 100).toFixed(2);
+            }
         }
     </script>
 @endsection

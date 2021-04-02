@@ -55,10 +55,6 @@ class RequestController extends Controller
         //Todo::change policy status
         $request->validate([
             'status' => 'required',
-            'polis_blank' => 'required',
-            'polis_quantity' => 'required',
-            'act_number' => 'required',
-            'limit_reason' => 'required',
         ]);
 
         if ($file = $request->file('file')) {

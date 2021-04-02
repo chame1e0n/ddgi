@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Controllers\AllProductController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TamozhnyaAddLegalRequest;
 use App\Models\Dogovor;
 use App\Models\Policy;
 use App\Models\PolicyHolder;
+use App\Models\Product;
 use App\Models\Product\TamozhnyaAddLegal;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
@@ -39,10 +41,21 @@ class TamozhnyaAddLegalController extends Controller
      */
     public function create()
     {
+        $product = Product::where('name', 'Таможенный платеж')->first();
         $policySeries = PolicySeries::all();
         $banks = Bank::all();
         $agents = Agent::all();
-        return view('products.tamozhnya.add-legal.create', compact('banks', 'agents', 'policySeries'));
+        return view('products.tamozhnya.add-legal.create', compact('banks', 'agents', 'policySeries', 'product'));
+    }
+
+    public function countStrahovayaPremiya($strahovayaSumma, $isCustomTarif, $customTarif, $productId) {
+        if($isCustomTarif == 'on') {
+            return ($customTarif/100 * $strahovayaSumma);
+        }
+
+        $productTarif = Product::find($productId)->tarif;
+
+        return ($productTarif/100 * $strahovayaSumma);
     }
 
     /**
@@ -79,22 +92,30 @@ class TamozhnyaAddLegalController extends Controller
             $image = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
             $request->polis_img = $image;
         }
+
+        $request->strahovaya_purpose = $this->countStrahovayaPremiya(
+            $request->strahovaya_sum,
+            $request->tarif ?? 0,
+            $request->descrTarif,
+            $request->product_id
+        );
+
         $newTamozhnyaAddLegal = TamozhnyaAddLegal::createTamozhnyaAddLegal($request);
         if (!$newTamozhnyaAddLegal)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении TamozhnyaAddLegal')]);
 
+        $brancId = Agent::find(1)->user->branch_id;
+
         $policy->update([
             'status' => 'in_use',
-            'client_type' => $request->client_type_radio,
         ]);
 
-        $brancId = User::find($request->litso)->branch_id;
         $uniqueNumber = new Dogovor;
         $uniqueNumber = $uniqueNumber->createUniqueNumber(
             $brancId,
             $request->sposob_rascheta,
             5,
-            'otvetstvennost_podryadchiks',
+            'tamozhnya_add_legals',
             $newTamozhnyaAddLegal->id
         );
 
@@ -143,9 +164,6 @@ class TamozhnyaAddLegalController extends Controller
      */
     public function edit($id)
     {
-
-
-
         $tamozhnya = TamozhnyaAddLegal::getInfoTamozhnya($id);
         $policySeries = PolicySeries::all();
         $banks = Bank::all();

@@ -47,21 +47,18 @@ class PolicyRegistrationController extends Controller
             'act_date' => 'required',
             'from_number' => 'required',
             'to_number' => 'required',
-            'client_type' => 'required',
             'policy_series_id' => 'required',
         ]);
         $policySeriesId = $request->policy_series_id;
         $existRangeOfSeries1 = PolicyRegistration::select('id')
             ->whereBetween('from_number', [$request->from_number, $request->to_number])
             ->where('act_number', $request->act_number)
-            ->where('client_type', $request->client_type)
             ->where('policy_series_id', $policySeriesId)
             ->get()->count();
 
         $existRangeOfSeries2 = PolicyRegistration::select('id')
             ->whereBetween('to_number', [$request->from_number, $request->to_number])
             ->where('act_number', $request->act_number)
-            ->where('client_type', $request->client_type)
             ->where('policy_series_id', $policySeriesId)
             ->get()->count();
 
@@ -79,7 +76,6 @@ class PolicyRegistrationController extends Controller
             $policy->number = $i;
             $policy->act_number = $request->act_number;
             $policy->policy_series_id = $policySeriesId;
-            $policy->client_type = $request->client_type;
             $policy->status = 'new';
             $policy->save();
         }

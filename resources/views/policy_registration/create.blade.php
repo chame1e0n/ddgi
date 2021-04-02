@@ -106,25 +106,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="polis_series" class="col-form-label">Тип клиента:</label>
-                                                <select id="polis_series"
-                                                        @if($errors->has('client_type'))
-                                                        class="form-control is-invalid"
-                                                        @else
-                                                        class="form-control"
-                                                        @endif
-                                                        name="client_type"
-                                                        required>
-                                                    <option selected></option>
-                                                    <option value="0">физ. лицо</option>
-                                                    <option value="1">юр. лицо</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-12">

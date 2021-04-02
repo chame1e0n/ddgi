@@ -36,9 +36,9 @@ CREATE TABLE IF NOT EXISTS `agents` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.agents: ~6 rows (approximately)
+-- Dumping data for table ddgi_test.agents: ~3 rows (approximately)
 DELETE FROM `agents`;
 /*!40000 ALTER TABLE `agents` DISABLE KEYS */;
 INSERT INTO `agents` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `job`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `agent_agreement_img`, `labor_contract`, `firm_contract`, `license`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1183,15 +1183,15 @@ CREATE TABLE IF NOT EXISTS `policies` (
   `act_number` varchar(50) NOT NULL,
   `policy_series_id` int(11) unsigned DEFAULT NULL,
   `status` varchar(50) NOT NULL,
-  `branch_id` int(11) unsigned DEFAULT '0',
+  `branch_id` int(11) unsigned DEFAULT '1',
   `user_id` int(11) unsigned DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.policies: ~20 rows (approximately)
+-- Dumping data for table ddgi_test.policies: ~70 rows (approximately)
 DELETE FROM `policies`;
 /*!40000 ALTER TABLE `policies` DISABLE KEYS */;
 INSERT INTO `policies` (`id`, `number`, `act_number`, `policy_series_id`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1214,7 +1214,57 @@ INSERT INTO `policies` (`id`, `number`, `act_number`, `policy_series_id`, `statu
 	(17, 147, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(18, 148, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
 	(19, 149, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(20, 150, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-03-29 03:12:54', '2021-03-29 03:12:54');
+	(20, 150, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-03-29 03:12:54', '2021-03-29 03:12:54'),
+	(71, 200, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:26:23', NULL),
+	(72, 201, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:33:22', NULL),
+	(73, 202, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:35:15', NULL),
+	(74, 203, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:36:01', NULL),
+	(75, 204, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:36:19', NULL),
+	(76, 205, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:39:01', NULL),
+	(77, 206, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(78, 207, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(79, 208, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(80, 209, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(81, 210, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(82, 211, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(83, 212, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(84, 213, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(85, 214, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(86, 215, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(87, 216, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(88, 217, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(89, 218, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(90, 219, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(91, 220, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(92, 221, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(93, 222, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(94, 223, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(95, 224, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(96, 225, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(97, 226, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(98, 227, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(99, 228, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(100, 229, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(101, 230, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(102, 231, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(103, 232, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(104, 233, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(105, 234, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(106, 235, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(107, 236, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(108, 237, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(109, 238, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(110, 239, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(111, 240, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(112, 241, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(113, 242, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(114, 243, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(115, 244, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(116, 245, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(117, 246, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(118, 247, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(119, 248, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(120, 249, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL);
 /*!40000 ALTER TABLE `policies` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policies_policy_retransfer
@@ -1323,9 +1373,9 @@ CREATE TABLE IF NOT EXISTS `policy_holders` (
   `oked` varchar(255) DEFAULT NULL,
   `vid_deyatelnosti` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COMMENT='страхователи';
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='страхователи';
 
--- Dumping data for table ddgi_test.policy_holders: ~45 rows (approximately)
+-- Dumping data for table ddgi_test.policy_holders: ~52 rows (approximately)
 DELETE FROM `policy_holders`;
 /*!40000 ALTER TABLE `policy_holders` DISABLE KEYS */;
 INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`, `oked`, `vid_deyatelnosti`) VALUES
@@ -1373,7 +1423,19 @@ INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_
 	(42, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', '345235235', '234232', '2342', 'okonx', 2, '2021-03-24 03:57:26', '2021-03-24 03:57:26', NULL, 'oked', 'Вид деятельности'),
 	(43, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:10:43', '2021-03-24 06:10:43', NULL, 'dvdsvf', NULL),
 	(44, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:11:27', '2021-03-24 06:11:27', NULL, 'dvdsvf', NULL),
-	(45, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:13:42', '2021-03-24 06:13:42', NULL, 'dvdsvf', NULL);
+	(45, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:13:42', '2021-03-24 06:13:42', NULL, 'dvdsvf', NULL),
+	(46, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:19:48', '2021-04-01 01:19:48', NULL, 'dsfvsdfv', NULL),
+	(47, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:22:50', '2021-04-01 01:22:50', NULL, 'dsfvsdfv', NULL),
+	(48, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:26:23', '2021-04-01 01:26:23', NULL, 'dsfvsdfv', NULL),
+	(49, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:01', '2021-04-01 01:31:01', NULL, 'dsfvsdfv', NULL),
+	(50, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:13', '2021-04-01 01:31:13', NULL, 'dsfvsdfv', NULL),
+	(51, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:32', '2021-04-01 01:31:32', NULL, 'dsfvsdfv', NULL),
+	(52, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:33:03', '2021-04-01 01:33:03', NULL, 'dsfvsdfv', NULL),
+	(53, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:33:22', '2021-04-01 01:33:22', NULL, 'dsfvsdfv', NULL),
+	(54, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:35:14', '2021-04-01 01:35:14', NULL, 'dsfvsdfv', NULL),
+	(55, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:36:01', '2021-04-01 01:36:01', NULL, 'dsfvsdfv', NULL),
+	(56, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:36:19', '2021-04-01 01:36:19', NULL, 'dsfvsdfv', NULL),
+	(57, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:39:01', '2021-04-01 01:39:01', NULL, 'dsfvsdfv', NULL);
 /*!40000 ALTER TABLE `policy_holders` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policy_registrations
@@ -1385,20 +1447,20 @@ CREATE TABLE IF NOT EXISTS `policy_registrations` (
   `to_number` varchar(50) DEFAULT NULL,
   `policy_series_id` int(11) unsigned DEFAULT NULL,
   `document` varchar(150) DEFAULT NULL,
-  `client_type` tinyint(3) unsigned NOT NULL,
   `created_at` date DEFAULT NULL,
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table ddgi_test.policy_registrations: ~3 rows (approximately)
 DELETE FROM `policy_registrations`;
 /*!40000 ALTER TABLE `policy_registrations` DISABLE KEYS */;
-INSERT INTO `policy_registrations` (`id`, `act_number`, `act_date`, `from_number`, `to_number`, `policy_series_id`, `document`, `client_type`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'asdvvd', '2021-01-09', '101', '140', 1, 'C:\\Users\\User\\AppData\\Local\\Temp\\php1FD7.tmp', 0, '2021-01-09', '2021-01-09', NULL),
-	(2, 'asdvvd', '2021-01-09', '141', '150', 1, 'C:\\Users\\User\\AppData\\Local\\Temp\\php251F.tmp', 0, '2021-01-09', '2021-01-09', NULL),
-	(3, 'asdvvd', '2021-01-09', '141', '150', 0, 'C:\\Users\\User\\AppData\\Local\\Temp\\php2D49.tmp', 0, '2021-01-09', '2021-01-09', NULL);
+INSERT INTO `policy_registrations` (`id`, `act_number`, `act_date`, `from_number`, `to_number`, `policy_series_id`, `document`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 'asdvvd', '2021-01-09', '101', '140', 1, 'C:\\Users\\User\\AppData\\Local\\Temp\\php1FD7.tmp', '2021-01-09', '2021-01-09', NULL),
+	(2, 'asdvvd', '2021-01-09', '141', '150', 1, 'C:\\Users\\User\\AppData\\Local\\Temp\\php251F.tmp', '2021-01-09', '2021-01-09', NULL),
+	(3, 'asdvvd', '2021-01-09', '141', '150', 0, 'C:\\Users\\User\\AppData\\Local\\Temp\\php2D49.tmp', '2021-01-09', '2021-01-09', NULL),
+	(4, 'asdvvd', '2021-04-02', '200', '249', 1, 'C:\\Users\\User\\AppData\\Local\\Temp\\php9BEC.tmp', '2021-04-01', '2021-04-01', NULL);
 /*!40000 ALTER TABLE `policy_registrations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policy_retransfer
@@ -1578,11 +1640,11 @@ CREATE TABLE IF NOT EXISTS `products` (
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `klass_id`, `name`, `code`, `tarif`, `max_acceptable_amount`, `min_acceptable_amount`, `franshiza`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 'Каско', '03', '4534566', '3463456', '34563465', '43', '2021-02-12 02:51:21', '2021-02-12 02:51:21', NULL),
-	(2, 2, 'Таможенный склад', '01', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(3, 3, 'СМР', '03', '345345', '5434543', '3453', '4', NULL, NULL, NULL),
-	(4, 4, 'Ответственность подрядчик', '04', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(5, 5, 'Таможенный платеж', '05', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	(1, 1, 'Каско', '03', '10', '3463456', '34563465', '43', '2021-02-12 02:51:21', '2021-02-12 02:51:21', NULL),
+	(2, 2, 'Таможенный склад', '01', '8', NULL, NULL, NULL, NULL, NULL, NULL),
+	(3, 3, 'СМР', '03', '4', '5434543', '3453', '4', NULL, NULL, NULL),
+	(4, 4, 'Ответственность подрядчик', '04', '12', NULL, NULL, NULL, NULL, NULL, NULL),
+	(5, 5, 'Таможенный платеж', '05', '10', '100000', '50000', '4500', NULL, '2021-04-01 01:54:37', NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.property_lising_zalog
@@ -1668,6 +1730,8 @@ CREATE TABLE IF NOT EXISTS `requests` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL,
   `status` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_underwritting_request` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `is_perestrahovaniya_request` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `comments` text COLLATE utf8mb4_unicode_ci,
   `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `act_number` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1679,11 +1743,13 @@ CREATE TABLE IF NOT EXISTS `requests` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.requests: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.requests: ~1 rows (approximately)
 DELETE FROM `requests`;
 /*!40000 ALTER TABLE `requests` DISABLE KEYS */;
+INSERT INTO `requests` (`id`, `user_id`, `status`, `is_underwritting_request`, `is_perestrahovaniya_request`, `comments`, `file`, `act_number`, `limit_reason`, `policy_id`, `policy_series_id`, `polis_quantity`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 3, 'underwritting', 0, 0, 'comment', 'request_file/VjusCEQoN0cwJy39ZNIzYp0lyrwnJPZKSaBmY4xy.png', NULL, NULL, 1, 1, NULL, '2021-04-01 21:17:45', '2021-04-01 21:17:45', NULL);
 /*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.roles
@@ -1787,13 +1853,14 @@ CREATE TABLE IF NOT EXISTS `tamozhnya_add_legals` (
   PRIMARY KEY (`id`),
   KEY `tamozhnya_add_legals_otvet_litso_index` (`otvet_litso`),
   KEY `tamozhnya_add_legals_policy_holder_id_index` (`policy_holder_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.tamozhnya_add_legals: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.tamozhnya_add_legals: ~2 rows (approximately)
 DELETE FROM `tamozhnya_add_legals`;
 /*!40000 ALTER TABLE `tamozhnya_add_legals` DISABLE KEYS */;
 INSERT INTO `tamozhnya_add_legals` (`id`, `description`, `from_date`, `to_date`, `prof_riski`, `pretenzii_in_ruz`, `prichina_pretenzii`, `payment_term`, `currencies`, `unique_number`, `sposob_rascheta`, `product_id`, `policy_id`, `type`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `policy_holder_id`, `anketa_img`, `dogovor_img`, `polis_img`, `created_at`, `updated_at`) VALUES
-	(3, 'dfsdvdsfv', '2021-03-05', '2021-03-18', '2322423', 0, NULL, '1', 'UZS', '0100/0505/1/2100001', 1, 5, 10, 0, '234234', '34', '3433', 1, '2021-03-04', 1, 45, 'img/PolicyHolder/WTn3ZQhDENJ44tbKtFAci9nYqiQMET1NlpdOZFOR.jpg', NULL, NULL, '2021-03-24 06:13:42', '2021-03-28 20:29:14');
+	(3, 'dfsdvdsfv', '2021-03-05', '2021-03-18', '2322423', 0, NULL, '1', 'UZS', '0100/0505/1/2100001', 1, 5, 10, 0, '234234', '34', '3433', 1, '2021-03-04', 1, 45, NULL, NULL, NULL, '2021-03-24 06:13:42', '2021-03-28 20:29:14'),
+	(15, 'gbsbbfsbgsfsfbsfgbsfgbsfbfsgb', '2021-04-15', '2021-04-30', '2322423', 1, 'sdfvdvf', 'transh', 'UZS', '0100/0505/1/2100013', 1, 5, 76, 0, '234234', '3', '23424', 1, '2021-04-09', 1, 57, NULL, NULL, NULL, '2021-04-01 01:39:01', '2021-04-02 03:44:34');
 /*!40000 ALTER TABLE `tamozhnya_add_legals` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.tamozhnya_add_legal_strah_premiyas
@@ -1805,11 +1872,13 @@ CREATE TABLE IF NOT EXISTS `tamozhnya_add_legal_strah_premiyas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.tamozhnya_add_legal_strah_premiyas: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.tamozhnya_add_legal_strah_premiyas: ~1 rows (approximately)
 DELETE FROM `tamozhnya_add_legal_strah_premiyas`;
 /*!40000 ALTER TABLE `tamozhnya_add_legal_strah_premiyas` DISABLE KEYS */;
+INSERT INTO `tamozhnya_add_legal_strah_premiyas` (`id`, `prem_sum`, `prem_from`, `tamozhnya_add_legal_id`, `created_at`, `updated_at`) VALUES
+	(1, '234242', '2021-03-29', 15, '2021-04-02 03:44:34', '2021-04-02 03:44:34');
 /*!40000 ALTER TABLE `tamozhnya_add_legal_strah_premiyas` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.tamozhnya_add_strah_premiyas

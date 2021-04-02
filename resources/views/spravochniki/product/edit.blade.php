@@ -27,7 +27,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Добавить продукт</h3>
+                                <h3 class="card-title">Изменить продукт</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                             data-toggle="tooltip" title="Collapse">
@@ -106,7 +106,7 @@
 
                 <div class="card-footer">
                     <div class="form-group">
-                        <button type="submit" id="submit-button" class="btn btn-primary float-right">Добавить
+                        <button type="submit" id="submit-button" class="btn btn-primary float-right">Изменить
                         </button>
                     </div>
                 </div>
