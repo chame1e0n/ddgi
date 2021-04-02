@@ -72,6 +72,16 @@ Route::group(['middleware' => ['auth']], function () {
         $json = file_get_contents($jsonurl);
         return response()->json(json_decode($json));
     })->name('currencies');
+
+    //////////////////////////////////// Ulugbek \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    Route::get('/export-database', 'ZaemshikController@download_db')->name('db_download');
+    ////Neshchastka Zaemshik
+    Route::resource('borrower', 'NeshchastkZaemshikController');
+    ///////////////////////////////////////////////////////////////////////////////////////
+    Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
+
+    //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
     Route::resource('spravochniki/bank','Spravochniki\BankController');
     Route::resource('spravochniki/group','GroupController');
     Route::resource('spravochniki/klass','KlassController');

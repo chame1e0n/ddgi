@@ -614,7 +614,7 @@ if (condition) {
 
 }
 
-const generalProductFields = document.getElementById('general-product-fields');
+const generalProductsFields = document.getElementById('general-product-fields');
 
 function addProductFields(fieldNumber) {
     let fields = `<div id="product-field-modal-${fieldNumber}" class="modal" data-field-number="${fieldNumber}">
@@ -1045,7 +1045,7 @@ function addProductFields(fieldNumber) {
         </div>
     </div>
 </div>`;
-    generalProductFields.insertAdjacentHTML('beforeend', fields);
+    generalProductsFields.insertAdjacentHTML('beforeend', fields);
     const $ = (className) => document.querySelector(className)
     document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function () {
         let overallSum =
