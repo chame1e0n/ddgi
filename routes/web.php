@@ -125,6 +125,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
     Route::resource('otvetstvennost/otsenshiki', 'Product\OtvetstvennostOtsenshikiController')->names('otvetstvennost-otsenshiki');
     Route::resource('kasco', 'Product\KaskoController')->names('kasco-add');
+    Route::resource('neshchastka/time', 'Product\Neshchastka24TimeController')->names('neshchastka-time');
 });
 
 Auth::routes();

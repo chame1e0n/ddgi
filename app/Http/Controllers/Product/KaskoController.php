@@ -85,7 +85,6 @@ class KaskoController extends Controller
         $page = KaskoModel::with('PolicyBeneficiaries','policyHolders', 'policyInformations', 'KascoStrahPremiya')->find($id);
         return view('products.kasko.edit', compact('agents', 'banks', 'policySeries', 'page'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -100,6 +99,8 @@ class KaskoController extends Controller
         $kasko               = KaskoModel::updateKasco($request, $policyHolder->id,$policyBeneficiaries->id, $id);
                                KaskoPolicyInformationModel::updateePolicyInfo($request,$kasko);
                                KascoStrahPremiya::updateStrahPremiya($request,$kasko);
+
+        return redirect()->back();
     }
 
     /**

@@ -101,7 +101,7 @@
 <script src="/assets/custom/js/formjs/product-fields.add.js"></script>
 
 <!-- TODO: скрипты на чистом JS для обработки формы audit -->
-{{--<script src="/assets/custom/js/form/form-actions.js"></script>--}}
+<script src="/assets/custom/js/form/form-actions.js"></script>
 
 <script src="/assets/plugins/bootstrap-fileinput/js/plugins/piexif.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
