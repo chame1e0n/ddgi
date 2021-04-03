@@ -83,13 +83,14 @@
                                 <div class="col-sm-6" id="policy-type">
                                     <div class="form-group" id="policy-amount" style="display: none;">
                                         <label for="polis_quantity">Количество полисов</label>
-                                        <input id="polis_quantity" name="polis_quantity" value="{{ old('polis_quantity') }}" type="number"
+                                        <input id="polis_quantity" name="polis_quantity"
+                                               value="{{ old('polis_quantity') }}" type="number"
                                                @if($errors->has('polis_quantity'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif
-                                                placeholder="100">
+                                               placeholder="100">
                                     </div>
                                 </div>
                             </div>
@@ -100,8 +101,17 @@
                                     <option value="" selected=""></option>
                                 </select>
                             </div>
+                            <div class="ml-5 col-md-3">
+                                <div class="form-group mr-3" id="state">
+                                    <label for="state">State</label>
+                                    <select name="state" disabled class="form-control select2" id="state">
+                                        <option value="1" selected="selected">В рассмотрении</option>
+                                        <option value="2">Отказано</option>
+                                        <option value="3">Принят</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-
                         <div class="form-group" style="display: none;" id="act-number-form">
                             <label for="act-number">Номер акта</label>
                             <input type="text" id="act-number" name="act_number" value="{{ old('act_number') }}"

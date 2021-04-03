@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateZaemshiksTable extends Migration
+class CreateRequestOverviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateZaemshiksTable extends Migration
      */
     public function up()
     {
-        Schema::create('zaemshiks', function (Blueprint $table) {
+        Schema::create('request_overviews', function (Blueprint $table) {
             $table->id();
-            $table->string("FIO");
-            $table->string("address");
-            $table->string("tel");
-            $table->string("passport");
-            $table->string("passport_num");
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("request_id");
+            $table->boolean("passed");
+            $table->text("comment");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +31,6 @@ class CreateZaemshiksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zaemshiks');
+        Schema::dropIfExists('request_overviews');
     }
 }
