@@ -32,6 +32,8 @@ class PolicyHolder extends Model
             'okonx' => $request->okonx,
             'vid_deyatelnosti' => $request->vid_deyatelnosti,
             'bank_id' => $request->bank_insurer,
+            'passport_series' => $request->passport_series ?? null,
+            'passport_number' => $request->passport_number ?? null,
 
         ]);
         if ($policyHolder)

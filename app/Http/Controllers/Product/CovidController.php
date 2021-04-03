@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Models\PolicyBeneficiaries;
+use App\Models\PolicyHolder;
+use App\Models\Product\Covid;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
@@ -41,7 +44,31 @@ class CovidController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
+        if(!$newPolicyHolders)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
+        $newPolicyBeneficiaries     = PolicyBeneficiaries::createPolicyBeneficiaries($request);
+        if(!$newPolicyBeneficiaries)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
+        $request->policy_holder_id = $newPolicyHolders->id;
+        $request->policy_beneficiary_id = $newPolicyBeneficiaries->id;
+        if ($request->hasFile('anketa_img')) {
+            $image          = $request->file('anketa_img')->store('/img/PolicyHolder', 'public');
+            $request->anketa_img   = $image;
+        }
+        if ($request->hasFile('dogovor_img')) {
+            $image          = $request->file('dogovor_img')->store('/img/PolicyHolder', 'public');
+            $request->dogovor_img   = $image;
+        }
+        if ($request->hasFile('polis_img')) {
+            $image          = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
+            $request->polis_img   = $image;
+        }
+        $newCovid = Covid::createCovid($request);
+        if(!$newCovid)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newCovid')]);
+
+        return redirect()->route('covid-fiz.edit', $newCovid->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -63,7 +90,10 @@ class CovidController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = Covid::getInfoCovid($id);
+        $banks = Bank::all();
+        $agents = Agent::all();
+        return view('products.covid.fiz-litso.edit', compact('banks', 'agents', 'page'));
     }
 
     /**
