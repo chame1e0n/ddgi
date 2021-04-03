@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('otvetstvennost-broker','Product\OtvetstvennostBrokerController')->names('otvetstvennost-broker');
     Route::resource('otvetstvennost-realtor','Product\OtvetstvennostRealtorController')->names('otvetstvennost-realtor');
     Route::resource('covid-fiz','Product\CovidController')->names('covid-fiz');
+    Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
     Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');
     Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('rassrochka','Product\RassrochkaController');

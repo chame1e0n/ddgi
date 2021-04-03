@@ -457,7 +457,7 @@
                                             <input type="text" class="@if($errors->has('place_of_issue_passport.*')) is-invalid @endif form-control" name="place_of_issue_passport[]" value="">
                                         </td>
                                         <td>
-                                            <select class="@if($errors->has('policy_series_id.*')) is-invalid @endif @endifform-control polises" id="polis-series"
+                                            <select class="@if($errors->has('policy_series_id.*')) is-invalid @endif form-control polises" id="polis-series"
                                                     name="policy_series_id[]"
                                                     style="width: 100%;" required>
                                                 <option value="0"></option>

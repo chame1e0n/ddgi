@@ -1451,37 +1451,37 @@ const propertyAdd = () => {
     const builders = document.getElementById('empTable').querySelector('tbody');
     builders.insertAdjacentHTML('beforeend', `
          <tr id="${id}">
-            <td>
-                <input type="text" class="form-control" name="polis_mark[]">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="polis_model[]">
-            </td>
-            <td>
-                <input disabled type="date" class="form-control">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <select class="form-control polises" id="polises" name="polis_series[]" style="width: 100%;">
-                    <option selected="selected">Кв.м</option>
-                    <option>Кв.см</option>
-                </select>
-            </td>
-              <td>
-                <input type="text" data-field="value" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <input type="text" data-field="sum" class="form-control" name="polis_gos_num[]">
-            </td>
-            <td>
-                <input type="text" data-field="premiya" class="form-control" name="polis_teh_passport[]">
-            </td>
-            <td class="form-group">
-              <input onclick="removeAndCalc(${id})" id="insurer-modal-button" type="button" class="btn btn-warning" value="Удалить">
-          </td>
-        </tr>
+                                        <td>
+                                            <input type="text" class="form-control" name="name_property[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="place_property[]">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" name="date_of_issue_property[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="count_property[]">
+                                        </td>
+                                        <td>
+                                            <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;">
+                                                <option selected="selected" value="1">Кв.м</option>
+                                                <option value="2">Кв.см</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="value" class="form-control" name="insurance_cost[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="sum" class="form-control" name="insurance_sum[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="premiya" class="form-control" name="insurance_premium[]">
+                                        </td>
+                                        <td class="form-group">
+                                            <input onclick="removeAndCalc(${id})" id="insurer-modal-button" type="button" class="btn btn-warning" value="Удалить">
+                                        </td>
+                                    </tr>
     `)
 }
 
