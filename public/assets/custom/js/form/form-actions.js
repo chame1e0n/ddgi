@@ -1,47 +1,67 @@
-const formAudit = document.querySelector('#form-audit')
-const formBrokers = document.querySelector('#formBrokers')
-const formNatarius = document.querySelector('#formNatarius')
-const formOtsenshiki = document.querySelector('#formOtsenshiki')
-const formRealtors = document.querySelector('#formRealtors')
+// #form-audit - форма аудита
+
+// Общие сведения
+// #insurer-name
+// #insurer-address
+// #insurer-phone
+// #insurer-bill
+// #insurer-type-activity
+// #insurer-mfo
+// #insurer-bank
+// #insurer-inn
+// #insurer-okonh
+// #insurer-oked
+// #personal-info
+
+// #insurance-from
+// #insurance-to
+// #geograph-zone
+
+// Форма аудита
+const formAudit = document.querySelector('#form-audit');
+const formBrokers = document.querySelector('#formBrokers');
+const formNatarius = document.querySelector('#formNatarius');
+const formOtsenshiki = document.querySelector('#formOtsenshiki');
+const formRealtors = document.querySelector('#formRealtors');
 
 
 // Блок "Период деятельности оганизации"
-const periodActiveOrg = document.querySelector('#period-active-org')
+const periodActiveOrg = document.querySelector('#period-active-org');
 // Блок с элементами "radio" и "select" форм
-const fieldsChanged = document.querySelector('#fields-changed')
+const fieldsChanged = document.querySelector('#fields-changed');
 // Форма "Условия оплаты страховой премии"
-const paymentsForm = document.querySelector('#payment-terms-form')
+const paymentsForm = document.querySelector('#payment-terms-form');
 
-const actedBoxDescription = document.querySelector('[data-acted]')
-const casesReasonBox = document.querySelector('[data-cases-reason]')
-const administrCaseBox = document.querySelector('[data-administr-case]')
-const otherPaymentSchedule = document.querySelector('#other-payment-schedule')
-const buttonAddRowSchedule = document.querySelector('[data-btn-add-row]')
-const tablePaymentSchedule = document.querySelector('#table-payment-schedule')
-const buttonAddRowInfo = document.querySelector('[data-btn-add-row-info]')
-const buttonAddRowInfo2 = document.querySelector('[data-btn-add-row-info2]')
-const infoTable = document.querySelector('[data-info-table]')
-const infoTable2 = document.querySelector('#personal-table')
+const actedBoxDescription = document.querySelector('[data-acted]');
+const casesReasonBox = document.querySelector('[data-cases-reason]');
+const administrCaseBox = document.querySelector('[data-administr-case]');
+const otherPaymentSchedule = document.querySelector('#other-payment-schedule');
+const buttonAddRowSchedule = document.querySelector('[data-btn-add-row]');
+const tablePaymentSchedule = document.querySelector('#table-payment-schedule');
+const buttonAddRowInfo = document.querySelector('[data-btn-add-row-info]');
+const buttonAddRowInfo2 = document.querySelector('[data-btn-add-row-info2]');
+const infoTable = document.querySelector('[data-info-table]');
+const infoTable2 = document.querySelector('#personal-table');
 
-const insuranceSum = document.querySelector('[data-insurance-sum]')
-const insuranceValue = document.querySelector('[data-insurance-stoimost]')
-const insuranceAward = document.querySelector('[data-insurance-award]')
-const annualTurnoverInfo = document.querySelector('[data-annual-turnover-info]')
+const insuranceSum = document.querySelector('[data-insurance-sum]');
+const insuranceValue = document.querySelector('[data-insurance-stoimost]');
+const insuranceAward = document.querySelector('[data-insurance-award]');
+const annualTurnoverInfo = document.querySelector('[data-annual-turnover-info]');
 
-const totalTurnoverField = document.querySelector('[data-total-turnover]')
-const earningsField = document.querySelector('[data-earnings]')
+const totalTurnoverField = document.querySelector('[data-total-turnover]');
+const earningsField = document.querySelector('[data-earnings]');
 
-const activityPeriodDates = {}
-const dataSelectAndRadioFields = {}
-const paymentFormData = {}
-const infoTableTotal = {}
+const activityPeriodDates = {};
+const dataSelectAndRadioFields = {};
+const paymentFormData = {};
+const infoTableTotal = {};
 
-let insuranceTotalValue = 0
-let insuranceTotalSum = 0
-let insuranceTotalAward = 0
+let insuranceTotalValue = 0;
+let insuranceTotalSum = 0;
+let insuranceTotalAward = 0;
 
-let totalTurnover = 0
-let earnings = 0
+let totalTurnover = 0;
+let earnings = 0;
 
 
 /**
@@ -89,7 +109,7 @@ function getActivityDates(element) {
 let fieldNumber = 0
 
 function addRowPaymentSchedule() {
-    const tableBody = tablePaymentSchedule.querySelector('tbody')
+    const tableBody = tablePaymentSchedule.querySelector('tbody');
 
     const newTableRow = `
     <tr id="payment-term-tr-${fieldNumber}" data-field-number="${fieldNumber}">
@@ -102,13 +122,13 @@ function addRowPaymentSchedule() {
       </td>
     </tr>`
 
-    tableBody.insertAdjacentHTML('beforeend', newTableRow)
+    tableBody.insertAdjacentHTML('beforeend', newTableRow);
     fieldNumber++
 }
 
 function removeRowSchedule(event) {
-    const target = event.target
-    const removeRowElement = target.parentElement.parentElement
+    const target = event.target;
+    const removeRowElement = target.parentElement.parentElement;
 
     if (target.dataset.action === 'delete' &&
         removeRowElement.dataset &&
@@ -117,7 +137,7 @@ function removeRowSchedule(event) {
     }
 }
 
-const paymentTransh = {}
+const paymentTransh = {};
 
 if (buttonAddRowSchedule) {
     buttonAddRowSchedule.addEventListener("click", addRowPaymentSchedule);
@@ -128,7 +148,7 @@ if (tablePaymentSchedule) {
 
 if (tablePaymentSchedule) {
     tablePaymentSchedule.addEventListener("change", event => {
-        const target = event.target
+        const target = event.target;
 
         if (target.dataset.field === 'sum') {
             paymentTransh.sum = target.value.trim()
@@ -148,7 +168,7 @@ if (tablePaymentSchedule) {
 
 if (formAudit) {
     formAudit.addEventListener('submit', event => {
-        event.preventDefault()
+        event.preventDefault();
 
         // Данные из формы audit
         const generalInformation = {
@@ -175,7 +195,7 @@ if (formAudit) {
 
 if (formBrokers) {
     formBrokers.addEventListener('submit', event => {
-        event.preventDefault()
+        event.preventDefault();
 
         // Данные из формы audit
         const generalInformation = {
@@ -201,7 +221,7 @@ if (formBrokers) {
 
 if (formNatarius) {
     formNatarius.addEventListener('submit', event => {
-        event.preventDefault()
+        event.preventDefault();
 
         // Данные из формы audit
         const generalInformation = {
@@ -227,7 +247,7 @@ if (formNatarius) {
 
 if (formOtsenshiki) {
     formOtsenshiki.addEventListener('submit', event => {
-        event.preventDefault()
+        event.preventDefault();
 
         // Данные из формы audit
         const generalInformation = {
@@ -254,7 +274,7 @@ if (formOtsenshiki) {
 
 if (formRealtors) {
     formRealtors.addEventListener('submit', event => {
-        event.preventDefault()
+        event.preventDefault();
 
         // Данные из формы audit
         const generalInformation = {
@@ -282,7 +302,7 @@ if (formRealtors) {
 // Расчет количества дней между датами "Период деятельности организации"
 if (periodActiveOrg) {
     periodActiveOrg.addEventListener('change', event => {
-        const isDates = getActivityDates(event.target)
+        const isDates = getActivityDates(event.target);
         isDates && calcDifferenceBetweenDates(activityPeriodDates.from, activityPeriodDates.to)
     })
 }
@@ -290,7 +310,7 @@ if (periodActiveOrg) {
 // Изменения "radio и select"
 if (fieldsChanged) {
     fieldsChanged.addEventListener('change', event => {
-        const target = event.target
+        const target = event.target;
 
         // Скрытие и отображение блока acted
         if (target.hasAttribute('data-acted-radio')) {
@@ -606,7 +626,10 @@ if (condition) {
 
 }
 
-const generalProductFields = document.getElementById('general-product-fields');
+if(document.getElementById('general-product-fields'))
+{
+    const generalProductFields = document.getElementById('general-product-fields');
+}
 
 function addProductFields(fieldNumber) {
     let fields = `<div id="product-field-modal-${fieldNumber}" class="modal" data-field-number="${fieldNumber}">
@@ -1188,40 +1211,43 @@ if (covidFizAddBtn) {
         const rowInfo = `
       <tr id="${id}">
            <td>
-                <input type="text" class="form-control" name="polis_mark[]">
+                <input type="text" class="form-control" name="person_number[]">
             </td>
             <td>
-                <input type="text" class="form-control" name="polis_mark[]">
+                <input type="text" class="form-control" name="person_surname[]">
             </td>
             <td>
-            <input type="text" class="form-control" name="polis_model[]">
+            <input type="text" class="form-control" name="person_name[]">
             </td>
             <td>
-            <input type="text" class="form-control" name="polis_modification[]">
+            <input type="text" class="form-control" name="person_lastname[]">
             </td>
             <td>
-            <input type="text" class="form-control" name="polis_modification[]">
+            <input type="text" class="form-control" name="series_and_number_passport[]">
             </td>
             <td>
-                <input disabled type="date" class="form-control">
+                <input type="date" class="form-control" name="date_of_issue_passport[]">
             </td>
             <td>
-                <input type="date" class="form-control" name="from_date[]">
+                <input type="text" class="form-control" name="place_of_issue_passport[]">
+            </td>
+
+            <td>
+
+                    <input type="text" class="form-control" name="policy_series_id[]">
+
+            </td>
+
+
+
+            <td>
+                <input type="text" data-field="value" class="form-control" name="insurance_cost[]">
             </td>
             <td>
-                <input type="text" class="form-control" name="polis_modification[]">
+                <input type="text" data-field="sum" class="form-control" name="insurance_sum[]">
             </td>
             <td>
-                <input type="text" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <input type="text" data-field="value" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <input type="text" data-field="sum" class="form-control" name="polis_gos_num[]">
-            </td>
-            <td>
-                <input type="text" data-field="premiya" class="form-control" name="polis_teh_passport[]">
+                <input type="text" data-field="premiya" class="form-control" name="insurance_premium[]">
             </td>
         <td>
             <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">

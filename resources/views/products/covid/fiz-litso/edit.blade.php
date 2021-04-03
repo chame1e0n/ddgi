@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
-    <form method="POST" action="{{route('covid-fiz.update', $page->id)}}" id="mainFormKasko">
+    <form method="POST" action="{{route('covid-fiz.update', $page->id)}}" id="mainFormKasko"  enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="content-wrapper">
@@ -22,6 +22,7 @@
                 </div>
             </div>
             <section class="content">
+                @include('errors.errors')
                 <div class="card card-success product-type">
                     <div class="card-header">
                         <h3 class="card-title"></h3>
@@ -279,7 +280,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                                    <input value="{{old('beneficiary_schet')}}" type="text" id="beneficiary_schet"
+                                                    <input value="{{$page->policyBeneficiaries->checking_account}}" type="text" id="beneficiary_schet"
                                                            name="beneficiary_schet"
                                                            @if($errors->has('beneficiary_schet'))
                                                            class="form-control is-invalid"
@@ -433,41 +434,100 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="text" class="form-control" name="polis_mark[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="polis_mark[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="polis_model[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="polis_modification[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="polis_modification[]">
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control" name="from_date[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="polis_modification[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="polis_modification[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" data-field="value" class="form-control" name="polis_modification[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" data-field="sum" class="form-control" name="polis_gos_num[]">
-                                        </td>
-                                        <td>
-                                            <input type="text" data-field="premiya" class="form-control" name="polis_teh_passport[]">
-                                        </td>
-                                    </tr>
+                                    @if($page->infos->count() > 0)
+                                        @foreach($page->infos as $info)
+                                            <tr id="{{$info->id}}">
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('person_number.*')) is-invalid @endif form-control" name="person_number[]" value="{{$info->person_number}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('person_surname.*')) is-invalid @endif form-control" name="person_surname[]" value="{{$info->person_surname}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('person_name.*')) is-invalid @endif form-control" name="person_name[]" value="{{$info->person_name}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('person_lastname.*')) is-invalid @endif form-control" name="person_lastname[]" value="{{$info->person_lastname}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('series_and_number_passport.*')) is-invalid @endif form-control" name="series_and_number_passport[]" value="{{$info->series_and_number_passport}}">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="@if($errors->has('date_of_issue_passport.*')) is-invalid @endif form-control" name="date_of_issue_passport[]" value="{{$info->date_of_issue_passport}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('place_of_issue_passport.*')) is-invalid @endif form-control" name="place_of_issue_passport[]" value="{{$info->place_of_issue_passport}}">
+                                                </td>
+                                                <td>
+                                                    <select class="@if($errors->has('policy_series_id.*')) is-invalid @endif form-control polises" id="polis-series"
+                                                            name="policy_series_id[]"
+                                                            style="width: 100%;" required>
+                                                        <option value="0"></option>
+                                                        @foreach($policySeries as $series)
+                                                            <option @if($info->policy_series_id == $series->id) selected
+                                                                    @endif value="{{ $series->id }}">{{ $series->code }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('insurance_cost.*')) is-invalid @endif form-control" name="insurance_cost[]" value="{{$info->insurance_cost}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('insurance_sum.*')) is-invalid @endif form-control" name="insurance_sum[]" value="{{$info->insurance_sum}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="@if($errors->has('insurance_premium.*')) is-invalid @endif form-control" name="insurance_premium[]" value="{{$info->insurance_premium}}">
+                                                </td>
+                                                <td>
+                                                    <input onclick="removeAndCalc({{$info->id}})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('person_number')) is-invalid @endif form-control" name="person_number[]" value="">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('person_surname')) is-invalid @endif form-control" name="person_surname[]" value="">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('person_name')) is-invalid @endif form-control" name="person_name[]" value="">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('person_lastname')) is-invalid @endif form-control" name="person_lastname[]" value="">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('series_and_number_passport')) is-invalid @endif form-control" name="series_and_number_passport[]" value="">
+                                            </td>
+                                            <td>
+                                                <input type="date" class="@if($errors->has('date_of_issue_passport')) is-invalid @endif form-control" name="date_of_issue_passport[]" value="">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('place_of_issue_passport')) is-invalid @endif form-control" name="place_of_issue_passport[]" value="">
+                                            </td>
+                                            <td>
+                                                <select class="form-control polises" id="polis-series"
+                                                        name="policy_series_id[]"
+                                                        style="width: 100%;" required>
+                                                    <option value="0"></option>
+                                                    @foreach($policySeries as $series)
+                                                        <option @if(old('policy_series_id') == $series->id) selected
+                                                                @endif value="{{ $series->id }}">{{ $series->code }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('insurance_cost')) is-invalid @endif form-control" name="insurance_cost[]" value="">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('insurance_sum')) is-invalid @endif form-control" name="insurance_sum[]" value="">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="@if($errors->has('insurance_premium')) is-invalid @endif form-control" name="insurance_premium[]" value="">
+                                            </td>
+                                        </tr>
+                                    @endif
                                     <tr>
                                         <td colspan="8" style="text-align: right"><label class="text-bold">Итого</label>
                                         </td>
@@ -670,7 +730,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->anketa_img}}" alt="Анкета">
+                                        <img src="/storage/{{$page->anketa_img}}" alt="Анкета" width="250" height="250">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
                                         <input id="anketa_img" name="anketa_img" value="{{old('anketa_img')}}"
                                                type="file" @if($errors->has('anketa_img'))
@@ -682,7 +742,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->dogovor_img}}" alt="Договор">
+                                        <img src="/storage/{{$page->dogovor_img}}" alt="Договор" width="250" height="250">
                                         <label for="polis-series" class="col-form-label">Договор</label>
                                         <input id="dogovor_img" name="dogovor_img" value="{{old('dogovor_img')}}"
                                                type="file" @if($errors->has('dogovor_img'))
@@ -694,7 +754,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->polis_img}}" alt="Полис">
+                                        <img src="/storage/{{$page->polis_img}}" alt="Полис" width="250" height="250">
                                         <label for="polis-series" class="col-form-label">Полис</label>
                                         <input id="polis_img" name="polis_img" value="{{old('polis_img')}}"
                                                type="file" @if($errors->has('polis_img'))
@@ -713,7 +773,6 @@
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
             </div>
-
         </div>
     </form>
 @endsection
