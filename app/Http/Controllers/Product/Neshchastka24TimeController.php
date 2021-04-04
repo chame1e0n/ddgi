@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Requests\Neshchastka24TimeRequest;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\Neshchastka24Time;
@@ -37,9 +38,9 @@ class Neshchastka24TimeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Neshchastka24TimeRequest $request)
     {
-
+//        dd($request->all());
         $p = PolicyHolder::createPolicyHolders($request);
         $b = PolicyBeneficiaries::createPolicyBeneficiaries($request);
 
@@ -84,7 +85,7 @@ class Neshchastka24TimeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Neshchastka24TimeRequest $request, $id)
     {
         $time = Neshchastka24Time::updateTime($request, $id);
 
