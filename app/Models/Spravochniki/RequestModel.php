@@ -2,6 +2,7 @@
 
 namespace App\Models\Spravochniki;
 
+use App\RequestOverview;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
@@ -36,5 +37,10 @@ class RequestModel extends Model
     public function policySeries()
     {
         return $this->hasOne(PolicySeries::class, 'id', 'policy_series_id');
+    }
+
+    public function requestOverview()
+    {
+        return $this->hasMany(RequestOverview::class, 'request_id', 'id')->with('user');
     }
 }

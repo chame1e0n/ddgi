@@ -34,7 +34,8 @@
 	                        	<th>Файл</th>
 	                        	<td>
 	                        		@if($filename)
-	                        			<img src="/storage/{{$requestModel->file}}" height="150" width="200">
+{{--										@dd("/storage/public/".$requestModel->file)--}}
+	                        			<img src="{{Storage::url($requestModel->file)}}" height="150" width="200">
 	                        		@else
 	                        			@if(!empty($requestModel->file))
 	                        			<a 

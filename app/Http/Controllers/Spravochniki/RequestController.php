@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Spravochniki;
 
 use App\Http\Controllers\Controller;
 use App\Models\Policy;
+use App\RequestOverview;
 use Illuminate\Http\Request;
 use App\Models\Spravochniki\RequestModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Spravochniki\PolicySeries;
 use Mockery\Exception;
@@ -55,6 +57,11 @@ class RequestController extends Controller
         //Todo::change policy status
         $request->validate([
             'status' => 'required',
+            'policy_id' => 'required',
+//            'polis_quantity' => 'required',
+//            'polis_blank' => 'required',
+//            'act_number' => 'required',
+//            'limit_reason' => 'required',
         ]);
 
         if ($file = $request->file('file')) {
@@ -65,10 +72,11 @@ class RequestController extends Controller
         }
 
         RequestModel::create([
-            'user_id' => \Auth::user()->id,
+            'user_id' => Auth::id(),
             'status' => $request->status,
             'file' => $request->file ? $name : '',
             'policy_id' => $request->policy_id,
+            'state' => 1,
             'policy_series_id' => $request->policy_series_id,
             'act_number' => $request->act_number ?? null,
             'limit_reason' => $request->limit_reason ?? null,
@@ -111,10 +119,14 @@ class RequestController extends Controller
      */
     public function edit($id)
     {
-        $requestModel = RequestModel::findOrFail($id);
+        $requestModel = RequestModel::with('requestOverview')->findOrFail($id);
         $status = RequestModel::STATUS;
         $policySeries = PolicySeries::all();
-        return view('spravochniki.request.edit', compact('requestModel', 'status', 'policySeries'));
+        $canAdd = true;
+        if (RequestOverview::query()->where('user_id', Auth::id())->get()->count()) {
+            $canAdd = false;
+        }
+        return view('spravochniki.request.edit', compact('requestModel', 'status', 'policySeries', 'canAdd'));
     }
 
     /**
