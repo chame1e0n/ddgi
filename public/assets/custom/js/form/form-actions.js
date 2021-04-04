@@ -600,11 +600,11 @@ const addPaymentSchedule = () => {
          <tr id="${id}" data-field-number="0">
             <td>
                 <input type="text" class="form-control"
-                       name="payment_sum[]">
+                       name="payment_sum[]" required>
             </td>
             <td>
                 <input type="date" class="form-control"
-                       name="payment_from[]">
+                       name="payment_from[]" required>
             </td>
             <td>
                 <input type="button" onclick="removeEl(${id})" value="Удалить" class="btn btn-warning">
@@ -1214,43 +1214,43 @@ if (covidFizAddBtn) {
                 <input type="text" class="form-control" name="person_number[]">
             </td>
             <td>
-                <input type="text" class="form-control" name="person_surname[]">
+                <input type="text" class="form-control" name="person_surname[]" required>
             </td>
             <td>
-            <input type="text" class="form-control" name="person_name[]">
+            <input type="text" class="form-control" name="person_name[]" required>
             </td>
             <td>
-            <input type="text" class="form-control" name="person_lastname[]">
+            <input type="text" class="form-control" name="person_lastname[]" required>
             </td>
             <td>
-            <input type="text" class="form-control" name="series_and_number_passport[]">
+            <input type="text" class="form-control" name="series_and_number_passport[]" required>
             </td>
             <td>
-                <input type="date" class="form-control" name="date_of_issue_passport[]">
+                <input type="date" class="form-control" name="date_of_issue_passport[]" required>
             </td>
             <td>
-                <input type="text" class="form-control" name="place_of_issue_passport[]">
-            </td>
-
-            <td>
-
-                    <input type="text" class="form-control" name="policy_series_id[]">
-
+                <input type="text" class="form-control" name="place_of_issue_passport[]" required>
             </td>
 
+            <td>
+
+                    <input type="text" class="form-control" name="policy_series_id[]" required>
+
+            </td>
 
 
+
             <td>
-                <input type="text" data-field="value" class="form-control" name="insurance_cost[]">
+                <input type="text" data-field="value" class="form-control" name="insurance_cost[]" required>
             </td>
             <td>
-                <input type="text" data-field="sum" class="form-control" name="insurance_sum[]">
+                <input type="text" data-field="sum" class="form-control" name="insurance_sum[]" required>
             </td>
             <td>
-                <input type="text" data-field="premiya" class="form-control" name="insurance_premium[]">
+                <input type="text" data-field="premiya" class="form-control" name="insurance_premium[]" required>
             </td>
         <td>
-            <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
+            <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning" required>
         </td>
       </tr>`
         infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo)
@@ -1452,31 +1452,31 @@ const propertyAdd = () => {
     builders.insertAdjacentHTML('beforeend', `
          <tr id="${id}">
                                         <td>
-                                            <input type="text" class="form-control" name="name_property[]">
+                                            <input type="text" class="form-control" name="name_property[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="place_property[]">
+                                            <input type="text" class="form-control" name="place_property[]" required>
                                         </td>
                                         <td>
-                                            <input type="date" class="form-control" name="date_of_issue_property[]">
+                                            <input type="date" class="form-control" name="date_of_issue_property[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="count_property[]">
+                                            <input type="text" class="form-control" name="count_property[]" required>
                                         </td>
                                         <td>
-                                            <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;">
+                                            <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;" required>
                                                 <option selected="selected" value="1">Кв.м</option>
                                                 <option value="2">Кв.см</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" data-field="value" class="form-control" name="insurance_cost[]">
+                                            <input type="text" data-field="value" class="form-control" name="insurance_cost[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" data-field="sum" class="form-control" name="insurance_sum[]">
+                                            <input type="text" data-field="sum" class="form-control" name="insurance_sum[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" data-field="premiya" class="form-control" name="insurance_premium[]">
+                                            <input type="text" data-field="premiya" class="form-control" name="insurance_premium[]" required>
                                         </td>
                                         <td class="form-group">
                                             <input onclick="removeAndCalc(${id})" id="insurer-modal-button" type="button" class="btn btn-warning" value="Удалить">

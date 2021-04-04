@@ -9,6 +9,11 @@ class ZalogImushestvo extends Model
 {
     protected $guarded = [];
 
+    public function strahPremiya()
+    {
+        return $this->hasMany(ZalogImushestvoStrahPremiya::class);
+    }
+
     public function policyHolders()
     {
         return $this->belongsTo('App\Models\PolicyHolder', 'policy_holder_id');
@@ -26,7 +31,7 @@ class ZalogImushestvo extends Model
     }
     static function getInfoZalogImushestvo($id)
     {
-        $zalogImushestvo = ZalogImushestvo::where('id', $id)->with(['policyHolders', 'policyBeneficiaries', 'infos'])->first();
+        $zalogImushestvo = ZalogImushestvo::where('id', $id)->with(['strahPremiya', 'policyHolders', 'policyBeneficiaries', 'infos'])->first();
         return $zalogImushestvo;
     }
     static function createZalogImushestvo($request)

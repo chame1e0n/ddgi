@@ -9,6 +9,11 @@ class Covid extends Model
 {
     protected $guarded = [];
 
+    public function strahPremiya()
+    {
+        return $this->hasMany(CovidStrahPremiya::class);
+    }
+
     public function policyHolders()
     {
         return $this->belongsTo('App\Models\PolicyHolder', 'policy_holder_id');
@@ -26,7 +31,7 @@ class Covid extends Model
     }
     static function getInfoCovid($id)
     {
-        $covid = Covid::where('id', $id)->with(['policyHolders', 'policyBeneficiaries', 'infos'])->first();
+        $covid = Covid::where('id', $id)->with(['strahPremiya', 'policyHolders', 'policyBeneficiaries', 'infos'])->first();
         return $covid;
     }
     static function createCovid($request)

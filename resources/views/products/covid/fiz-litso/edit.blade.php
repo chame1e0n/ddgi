@@ -625,7 +625,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="transh-payment-schedule" class="d-none">
+                                <div id="transh-payment-schedule" @if($page->poryadok_oplaty_premii == 1) class="d-none" @endif>
                                     <div class="form-group">
                                         <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
                                             Добавить
@@ -641,11 +641,35 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr id="payment-term-tr-0" data-field-number="0">
-                                                <td><input type="text" class="form-control" name="payment_sum[]"></td>
-                                                <td><input type="date" class="form-control" name="payment_from[]">
-                                                </td>
-                                            </tr>
+                                            @if($page->strahPremiya->count() > 0)
+                                                @foreach($page->strahPremiya as $prem)
+                                                    <tr id="{{$prem->id}}" data-field-number="0">
+                                                        <td><input type="text" class="
+                                                        @if($errors->has('payment_sum.*'))
+                                                                is-invalid
+                                                                @endif form-control" name="payment_sum[]" value="{{$prem->prem_sum}}">
+                                                        </td>
+                                                        <td><input type="date" class="@if($errors->has('payment_from.*'))
+                                                                is-invalid
+                                                                @endif form-control" name="payment_from[]" value="{{$prem->prem_from}}">
+                                                        </td>
+                                                        <td>
+                                                            <input type="button" value="Удалить" data-action="delete" class="btn btn-warning" onclick="removeEl({{$prem->id}})">
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <tr id="payment-term-tr-0" data-field-number="0">
+                                                    <td><input type="text" class="@if($errors->has('payment_sum.*'))
+                                                            is-invalid
+                                                            @endif form-control" name="payment_sum[]" value="">
+                                                    </td>
+                                                    <td><input type="date" class="@if($errors->has('payment_from.*'))
+                                                            is-invalid
+                                                            @endif form-control" name="payment_from[]" value="">
+                                                    </td>
+                                                </tr>
+                                            @endif
                                             </tbody>
                                         </table>
                                     </div>

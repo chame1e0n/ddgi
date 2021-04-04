@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CovidRequest extends FormRequest
+class ZalogImushestvoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -46,16 +46,7 @@ class CovidRequest extends FormRequest
             'seria_passport' => 'sometimes|required',
             'nomer_passport' => 'sometimes|required',
 
-            'person_surname.*'=> 'required',
-            'person_name.*'=> 'required',
-            'person_lastname.*'=> 'required',
-            'series_and_number_passport.*'=> 'required',
-            'date_of_issue_passport.*'=> 'required',
-            'place_of_issue_passport.*'=> 'required',
-            'policy_series_id.*'=> 'required',
-            'insurance_cost.*'=> 'required',
-            'insurance_sum.*'=> 'required',
-            'insurance_premium.*'=> 'required',
+            'plans_percent' => 'required_with:plans',
 
             'payment_sum'=> 'array|required_if:poryadok_oplaty_premii,transh',
             'payment_sum.*'=> 'required_if:poryadok_oplaty_premii,transh',

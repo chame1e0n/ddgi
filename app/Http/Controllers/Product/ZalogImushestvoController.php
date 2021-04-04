@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ZalogImushestvoRequest;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\ZalogImushestvo;
 use App\Models\Product\ZalogImushestvoInfo;
+use App\Models\Product\ZalogImushestvoStrahPremiya;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
@@ -85,7 +87,7 @@ class ZalogImushestvoController extends Controller
 
         $newZalogImushestvo = ZalogImushestvo::createZalogImushestvo($request);
         $newZalogImushestvoInfo = ZalogImushestvoInfo::createZalogImushestvoInfo($request, $newZalogImushestvo);
-
+        ZalogImushestvoStrahPremiya::createImushestvoStrahPremiya($request, $newZalogImushestvo->id);
         if(!$newZalogImushestvo)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newZalogImushestvo')]);
 
@@ -125,7 +127,7 @@ class ZalogImushestvoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ZalogImushestvoRequest $request, $id)
     {
         $zalogImushestvo = ZalogImushestvo::findOrFail($id);
         $policyHolders = PolicyHolder::updatePolicyHolders($zalogImushestvo->policy_holder_id, $request);
@@ -180,7 +182,7 @@ class ZalogImushestvoController extends Controller
             $request->copy_drugie = $zalogImushestvo->copy_drugie;
         $zalogImushestvo = ZalogImushestvo::updateZalogImushestvo($id, $request);
         $zalogImushestvoInfo = ZalogImushestvoInfo::updateZalogImushestvoInfo($request, $zalogImushestvo);
-
+        ZalogImushestvoStrahPremiya::updateImushestvoStrahPremiya($request, $zalogImushestvo);
         if (!$zalogImushestvo)
             return back()->withInput()->withErrors([sprintf('Ошибка при обновлении $zalogImushestvo')]);
 

@@ -7,6 +7,7 @@ use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\Covid;
 use App\Models\Product\CovidPolicyInformation;
+use App\Models\Product\CovidStrahPremiya;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
@@ -68,7 +69,7 @@ class CovidController extends Controller
         }
         $newCovid = Covid::createCovid($request);
         $covidInfo = CovidPolicyInformation::createCovidInfo($request, $newCovid);
-
+        CovidStrahPremiya::createCovidStrahPremiya($request, $newCovid->id);
         if(!$newCovid)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newCovid')]);
 
@@ -146,7 +147,7 @@ class CovidController extends Controller
         if (!$covid)
             return back()->withInput()->withErrors([sprintf('Ошибка при обновлении $covid')]);
         $covidInfo = CovidPolicyInformation::updateCovidInfo($request, $covid);
-
+        CovidStrahPremiya::updateCovidStrahPremiya($request, $covid);
         return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 
