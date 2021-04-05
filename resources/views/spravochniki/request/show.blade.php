@@ -38,8 +38,9 @@
 	                        			<img src="{{Storage::url($requestModel->file)}}" height="150" width="200">
 	                        		@else
 	                        			@if(!empty($requestModel->file))
+											@dd(1)
 	                        			<a 
-	                        			href="{{route('request.upload', $requestModel->id)}}"> 
+	                        			href="{{route('request.upload', $requestModel->id)}}">
 	                        				<img  
 	                        				src="{{asset('temp/img/')}}/{{ explode('.', $requestModel->file)[1] }}.png" width="50" height="50">
 	                        			 </a>

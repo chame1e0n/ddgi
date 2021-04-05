@@ -77,6 +77,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/export-database', 'ZaemshikController@download_db')->name('db_download');
     ////Neshchastka Zaemshik
     Route::resource('borrower', 'NeshchastkZaemshikController');
+    Route::resource('perestrahovaniya', 'PerestrahovaniyaController');
+    Route::resource('perestrahovaniya_overview', 'PerestrahovaniyaOverviewController');
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('request_overview', 'RequestOverviewController');
 
