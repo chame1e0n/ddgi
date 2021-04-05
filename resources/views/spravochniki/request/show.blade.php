@@ -35,11 +35,11 @@
 	                        	<td>
 	                        		@if($filename)
 {{--										@dd("/storage/public/".$requestModel->file)--}}
-	                        			<img src="{{Storage::url($requestModel->file)}}" height="150" width="200">
+	                        			<img src="{{url('/storage/'.$requestModel->file)}}" height="150" width="200">
 	                        		@else
 	                        			@if(!empty($requestModel->file))
-	                        			<a 
-	                        			href="{{route('request.upload', $requestModel->id)}}"> 
+	                        			<a
+												href="{{url('/storage/'.$requestModel->file)}}">
 	                        				<img  
 	                        				src="{{asset('temp/img/')}}/{{ explode('.', $requestModel->file)[1] }}.png" width="50" height="50">
 	                        			 </a>

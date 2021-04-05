@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Spravochniki;
 
 use App\Http\Controllers\Controller;
 use App\Models\Policy;
+use App\Models\Product\AllProduct;
 use App\RequestOverview;
 use Illuminate\Http\Request;
 use App\Models\Spravochniki\RequestModel;
@@ -21,7 +22,7 @@ class RequestController extends Controller
      */
     public function index()
     {
-        $requestModel = RequestModel::all();
+        $requestModel = RequestModel::getAllRequest();
         $status = RequestModel::STATUS;
         return view('spravochniki.request.index', compact('requestModel', 'status'));
     }
@@ -57,18 +58,23 @@ class RequestController extends Controller
         //Todo::change policy status
         $request->validate([
             'status' => 'required',
-            'policy_id' => 'required',
+//            'policy_id' => 'required',
 //            'polis_quantity' => 'required',
 //            'polis_blank' => 'required',
 //            'act_number' => 'required',
 //            'limit_reason' => 'required',
         ]);
 
-        if ($file = $request->file('file')) {
+        if ($request->hasFile('file')) {
             $request->validate([
                 'file' => 'required|mimes:jpg,jpeg,bmp,png,doc,docx,xlsx,xls,pdf'
             ]);
+
+            $file = $request->file('file');
+
             $name = $file->store('request_file', ['disk' => 'public']);
+
+            $request->file = $name;
         }
 
         RequestModel::create([
@@ -122,11 +128,7 @@ class RequestController extends Controller
         $requestModel = RequestModel::with('requestOverview')->findOrFail($id);
         $status = RequestModel::STATUS;
         $policySeries = PolicySeries::all();
-        $canAdd = true;
-        if (RequestOverview::query()->where('user_id', Auth::id())->get()->count()) {
-            $canAdd = false;
-        }
-        return view('spravochniki.request.edit', compact('requestModel', 'status', 'policySeries', 'canAdd'));
+        return view('spravochniki.request.edit', compact('requestModel', 'status', 'policySeries'));
     }
 
     /**
@@ -144,12 +146,19 @@ class RequestController extends Controller
             'status' => 'required'
         ]);
 
-        if ($file = $request->file('file')) {
+        if ($request->hasFile('file')) {
             $request->validate([
                 'file' => 'required|mimes:jpg,jpeg,bmp,png,doc,docx,xlsx,xls,pdf'
             ]);
+
+            $file = $request->file('file');
+
             Storage::disk('public')->delete($requestModel->file);
             $name = $file->store('request_file', ['disk' => 'public']);
+
+            $requestModel->update([
+                'file' => $name,
+            ]);
         }
 
         $datetime = new \DateTime(date("Y-m-d h:i:s"));
@@ -158,8 +167,6 @@ class RequestController extends Controller
             'user_id' => \Auth::user()->id,
             'status' => $request->status,
             'file' => $request->file ? $name : '',
-            'policy_id' => $request->policy_id,
-            'policy_series_id' => $request->policy_series_id,
             'act_number' => $request->act_number ?? null,
             'limit_reason' => $request->limit_reason ?? null,
             'polis_quantity' => $request->polis_quantity ?? null,

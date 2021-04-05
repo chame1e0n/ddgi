@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="status-type">Статус</label>
+                                    <label for="status-type">Вид</label>
                                     <select name="status" class="form-control select2" id="status-type">
                                         @foreach($status as $key => $value)
                                             @if(old('status') == $key || $requestModel->status == $key)
@@ -57,10 +57,17 @@
                             <div class="col-sm-6">
                                 <div class="form-group" id="file">
                                     <label for="file">Файл</label>
-                                    <div class="custom-file">
-                                        <input name="file" type="file" class="custom-file-input" id="file">
-                                        <label class="custom-file-label" for="file">Выбирите файл</label>
-                                    </div>
+                                    <a
+                                            href="{{url('/storage/'.$requestModel->file)}}">
+                                        <img
+                                                src="{{asset('temp/img/')}}/{{ explode('.', $requestModel->file)[1] }}.png" width="50" height="50">
+                                    </a>
+                                    <input id="file" name="file" value="{{old('file')}}"
+                                           type="file" @if($errors->has('file'))
+                                           class="form-control is-invalid"
+                                           @else
+                                           class="form-control"
+                                            @endif>
                                 </div>
                             </div>
 
@@ -72,16 +79,8 @@
                                 <div class="form-group policy-type" style="display:{{
                 (!is_null($requestModel->policy_blank) == false) ? 'none' : ''  }} " id="policy-type">
                                     <label for="policy-blank">Серия полиса</label>
-                                    <select name="policy_series_id" class="form-control select2" id="policy_series">
-                                        <option value="0">без серии</option>
-                                        @foreach($policySeries as $value)
-                                            @if($requestModel->policy_series_id == $value->id)
-                                                <option value="{{ $value->id }}" selected="">{{$value->code}}</option>
-                                            @else
-                                                <option value="{{ $value->id }}">{{$value->code}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
+                                    <input id="polis_quantity" value="{{$requestModel->policySeries->code}}" disabled
+                                           type="text" class="form-control">
                                 </div>
 
 
@@ -96,17 +95,16 @@
 
                             <div class="form-group policy-type" id="policy-type">
                                 <label for="policy-type">Номер полиса</label>
-                                <select name="policy_id" class="form-control select2" id="policy">
-                                    <option value="" selected=""></option>
-                                </select>
+                                <input id="polis_quantity" value="{{$requestModel->policy->number}}" disabled
+                                       type="text" class="form-control">
                             </div>
-                            <div class="ml-5 col-md-3">
-                                <div class="form-group mr-3" id="state">
-                                    <label for="state">State</label>
+                            <div class="col-md-3">
+                                <div class="form-group" id="state">
+                                    <label for="state">Статус</label>
                                     <select name="state" disabled class="form-control select2" id="state">
-                                        <option value="1" selected="selected">В рассмотрении</option>
-                                        <option value="2">Отказано</option>
-                                        <option value="3">Принят</option>
+                                        <option value="0" selected="selected">В рассмотрении</option>
+                                        <option value="1">Отказано</option>
+                                        <option value="2">Принят</option>
                                     </select>
                                 </div>
                             </div>
@@ -140,49 +138,9 @@
                         </div>
 
                     </form>
-                    @if($canAdd)
-                        <form method="post" action="{{ route('request_overview.store') }}">
-                            @csrf
-                            <input type="hidden" value="{{ $requestModel->id }}" name="request_id">
-                            <div class="form-group">
-                                <label>Статус претензии</label>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input name="passed" type="radio" id="passed" class="other_insurance-0"
-                                                   value="1">
-                                            <label for="passed">Принять</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input type="radio" class="other_insurance-0" name="passed"
-                                                   id="not_passed" value="0">
-                                            <label for="not_passed">Отказать</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label" for="pretensii-final-settlement-date">Комментарий</label>
-                                <div class="input-group mb-3">
-                                    <input id="pretensii-final-settlement-date"
-                                           type="text" class="form-control" name="comment">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label" for="pretensii-final-settlement-date">Пользователь</label>
-                                <div class="input-group mb-3">
-                                    <input id="pretensii-final-settlement-date" name="user_name"
-                                           value="{{ Auth::user()->name }}"
-                                           readonly type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary float-right">Сохранить</button>
-                            </div>
-                        </form>
-                    @endif
+                    @php
+                        $noUser = true;
+                    @endphp
                     @foreach($requestModel->requestOverview as $overview)
                         <form method="post" action="{{ route('request_overview.update', $overview->id) }}">
                             @csrf
@@ -228,12 +186,58 @@
                                 </div>
                             </div>
                             @if($overview->user_id == Auth::id())
+                                @php
+                                    $noUser = false;
+                                @endphp
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary float-right">Изменить</button>
                                 </div>
                             @endif
                         </form>
                     @endforeach
+                    @if($noUser)
+                        <form method="post" action="{{ route('request_overview.store') }}">
+                            @csrf
+                            <input type="hidden" value="{{ $requestModel->id }}" name="request_id">
+                            <div class="form-group">
+                                <label>Статус претензии</label>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icheck-success">
+                                            <input name="passed" type="radio" id="passed" class="other_insurance-0"
+                                                   value="1">
+                                            <label for="passed">Принять</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icheck-success">
+                                            <input type="radio" class="other_insurance-0" name="passed"
+                                                   id="not_passed" value="0">
+                                            <label for="not_passed">Отказать</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="pretensii-final-settlement-date">Комментарий</label>
+                                <div class="input-group mb-3">
+                                    <input id="pretensii-final-settlement-date"
+                                           type="text" class="form-control" name="comment">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label" for="pretensii-final-settlement-date">Пользователь</label>
+                                <div class="input-group mb-3">
+                                    <input id="pretensii-final-settlement-date" name="user_name"
+                                           value="{{ Auth::user()->name }}"
+                                           readonly type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary float-right">Сохранить</button>
+                            </div>
+                        </form>
+                    @endif
                 </div>
 
             </div>

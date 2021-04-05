@@ -1,4 +1,14 @@
 @extends('layouts.index')
+@php
+    //ToDO optimize this code of getting routes depending on product id
+    $routes = [
+    1 => 'kasko',
+    2 => 'tamojenniy-sklad',
+    3 => 'cmp',
+    4 => 'otvetstvennost-podryadchik',
+    5 => 'tamozhnya-add-legal',
+    ];
+@endphp
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -50,12 +60,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($requestModel as $req)
+                                    @foreach ($requestModel as $product)
+                                        @foreach($product->requests as $req)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
                                                 {{
-                                                    $req->user->name 
+                                                    $req->user->name
                                                 }}
                                             </td>
                                             <td>{{ $status[$req->status] }}</td>
@@ -63,7 +74,7 @@
                                             <td>
                                                 <form action="{{ route('request.destroy',$req->id) }}" method="POST">
 
-                                                    <a class="btn btn-info" href="{{ route('request.show',$req->id) }}"><i class="fas fa-eye"></i></a>
+                                                    <a class="btn btn-info" href="{{ route($routes[$product->product_id].'.edit',$product->id) }}"><i class="fas fa-eye"></i></a>
 
                                                     <a class="btn btn-primary"
                                                        href="{{ route('request.edit',$req->id) }}"><i class="fas fa-edit"></i></a>
@@ -74,6 +85,7 @@
                                                 </form>
                                             </td>
                                         </tr>
+                                    @endforeach
                                     @endforeach
                                     </tbody>
 

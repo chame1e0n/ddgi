@@ -2,6 +2,7 @@
 
 namespace App\Models\Spravochniki;
 
+use App\Models\Product\AllProduct;
 use App\RequestOverview;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,6 +25,12 @@ class RequestModel extends Model
 			"underwritting" =>"Андеррайтинг"
 	];
 
+	const STATE = [
+			"В рассмотрении",
+			"Отказано",
+			"Принят",
+	];
+
 	public function user()
 	{
 		return $this->hasone(User::class, 'id', 'user_id');
@@ -42,5 +49,10 @@ class RequestModel extends Model
     public function requestOverview()
     {
         return $this->hasMany(RequestOverview::class, 'request_id', 'id')->with('user');
+    }
+
+    static function getAllRequest() {
+        $requestModel = new AllProduct;
+        return $requestModel->getAllRequestProduct();
     }
 }

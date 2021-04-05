@@ -25,21 +25,45 @@
                         </div>
                     </div>
                     <div class="row mb-2">
+                        @include('layouts._success_or_error')
+                        @if($tamozhnya->requests()->exists())
+                            @php
+                                $requestProblem = false;
+
+                                foreach ($tamozhnya->requests as $request) {
+                                    if($request->state != 2) {
+                                        $requestProblem = true;
+                                        break;
+                                    }
+                                }
+
+                            @endphp
+                            @if ($requestProblem)
+                                <div class="alert alert-danger col-sm-12">
+                                    <strong>Данные о продукте нельзя распечатать</strong>, т.к. имеются не решенные <a href="#requests">запросы</a>.
+                                </div>
+                            @endif
+                        @endif
+
+
+
+                        @if($requestUnderwrittingProblem && !$tamozhnya->requests()->exists())
+                        <div class="alert alert-danger col-sm-12">
+                            <strong>Нужно создать запрос на <a href="{{route('request.create')}}?policySeries={{$tamozhnya->serial_number_policy}}&status=underwritting&policyId={{$tamozhnya->policy_id}}">андерайтинг</a>.</strong>
+                        </div>
+                        @endif
+                        @if(!$tamozhnya->requests()->exists() and !$requestUnderwrittingProblem or (isset($requestProblem) and !$requestProblem) )
                         <div class="col-sm-6">
-                            @include('layouts._success_or_error')
-                            @if ($tamozhnya->is_underwritting_request)
-                            <div class="alert alert-danger">
-                                <strong>Whoops!</strong>
-                            </div>
-                            @else
+
                                 <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=dogovor" class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i>
                             Скачать Договор</a>
                         <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=za" class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i>
                             Скачать Заявление</a>
                         <a href="{{route('tamozhnya-add-legal.edit', $tamozhnya->id)}}?download=polis" class="btn btn-warning"><i class="fa fa-download" aria-hidden="true"></i>
                             Скачать Полис</a>
-                                @endif
                         </div>
+
+                        @endif
                     </div>
                 </div>
             </div>
@@ -457,7 +481,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="geographic-zone">Страховая премия</label>
-                                        <input id="strahovaya_purpose" name="strahovaya_purpose" value="{{$tamozhnya->strahovaya_purpose}}"
+                                        <input id="strahovaya_purpose" disabled value="{{$tamozhnya->strahovaya_purpose}}"
                                                type="number" @if($errors->has('strahovaya_purpose'))
                                                class="form-control is-invalid"
                                                @else
@@ -474,6 +498,31 @@
                                                @else
                                                class="form-control"
                                             @endif>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="geographic-zone">Тариф (%)</label>
+                                            <input readonly value="{{$tamozhnya->product->tarif}}"
+                                                   type="number"
+                                                   name="tarif"
+                                                   class="form-control"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="icheck-success col-md-4">
+                                        <input onchange="toggleBlock('tarif', 'data-tarif-descr')" @if($tamozhnya->product->tarif != $tamozhnya->tarif) checked @endif class="form-check-input client-type-radio" type="checkbox" name="isOtherTarif" id="tarif">
+                                        <label class="form-check-label" for="tarif">Указать другой тариф в процентах</label>
+                                    </div>
+                                    <!-- TODO: Блок должен находится в скрытом состоянии
+                                    отображаться только тогда, когда выбран checkbox "Тариф"
+                                    -->
+                                    <div class="form-group" data-tarif-descr @if($tamozhnya->product->tarif == $tamozhnya->tarif) style="display: none" @endif>
+                                        <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
+                                        <input class="form-control" id="descrTarif" name="otherTarif" value="{{$tamozhnya->tarif}}" type="number">
                                     </div>
                                 </div>
                             </div>
@@ -595,11 +644,17 @@
                     </div>
                 </div>
             </section>
-        </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
         </div>
     </form>
+
+            @if(!empty($tamozhnya->requests))
+                @foreach($tamozhnya->requests as $requestModel)
+                    @include('products.elements._request')
+                @endforeach
+            @endif
+        </div>
 
 @endsection
 @section('scripts_vars')
@@ -607,6 +662,29 @@
 
         function Go() {
             document.getElementById('hide').style.display=(document.getElementById('defects-1').checked)? 'block': 'none'
+        }
+    </script>
+@endsection
+
+@section('scripts')
+    <script>
+        var productTarif = {{$tamozhnya->product->tarif/100}};
+        const strahPremiya = document.getElementById('strahovaya_purpose');
+        const strahovayaSum = document.getElementById('strahovaya_sum');
+        var descrTarif = document.getElementById('descrTarif');
+
+        strahovayaSum.addEventListener('change', changeStrahPremiya);
+        descrTarif.addEventListener('change', changeStrahPremiya);
+
+        function changeStrahPremiya() {
+            var tarif = document.getElementById('tarif');
+
+            // if tarif checkbox not checked -> use default tarif for that product
+            if (!tarif.checked) {
+                strahPremiya.value = (strahovayaSum.value * productTarif).toFixed(2);
+            } else {
+                strahPremiya.value = (strahovayaSum.value * descrTarif.value / 100).toFixed(2);
+            }
         }
     </script>
 @endsection

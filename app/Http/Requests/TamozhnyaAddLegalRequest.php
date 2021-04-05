@@ -48,7 +48,7 @@ class TamozhnyaAddLegalRequest extends FormRequest
             'payment_from' => 'required_if:payment_term,transh|array',
             'payment_from.*'=> 'required_if:payment_term,transh',
             'strahovaya_sum' => 'required',
-            'strahovaya_purpose' => 'required',
+            'tarif' => 'required',
             'serial_number_policy' => 'required',
             'date_issue_policy' => 'required',
             'litso' => 'required|integer',

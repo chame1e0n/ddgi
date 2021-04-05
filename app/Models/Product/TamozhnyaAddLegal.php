@@ -6,6 +6,7 @@ use App\Models\Policy;
 use App\Models\Product;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\PolicySeries;
+use App\Models\Spravochniki\RequestModel;
 use Illuminate\Database\Eloquent\Model;
 
 class TamozhnyaAddLegal extends Model
@@ -31,6 +32,7 @@ class TamozhnyaAddLegal extends Model
         $tamozhnyaAddLegal = TamozhnyaAddLegal::create([
             'description' => $request->description,
             'from_date' => $request->from_date,
+            'tarif' => $request->tarif,
             'to_date' => $request->to_date,
             'prof_riski' => $request->prof_riski,
             'pretenzii_in_ruz' => $request->pretenzii_in_ruz,
@@ -61,10 +63,15 @@ class TamozhnyaAddLegal extends Model
 
     static function updateTamozhnyaAddLegal($id, $request)
     {
+        if(isset($request->isOtherTarif) and $request->isOtherTarif == 'on') {
+            $request->tarif = $request->otherTarif;
+        }
+
         $tamozhnyaAddLegal = TamozhnyaAddLegal::find($id);
         $tamozhnyaAddLegal->update([
             'description' => $request->description,
             'from_date' => $request->from_date,
+            'tarif' => $request->tarif,
             'to_date' => $request->to_date,
             'prof_riski' => $request->prof_riski,
             'pretenzii_in_ruz' => $request->pretenzii_in_ruz,
@@ -94,7 +101,7 @@ class TamozhnyaAddLegal extends Model
 
     static function getInfoTamozhnya($id)
     {
-        $tamozhnya = TamozhnyaAddLegal::where('id', $id)->with(['strahPremiya', 'policyHolders', 'agent'])->first();
+        $tamozhnya = TamozhnyaAddLegal::where('id', $id)->with(['strahPremiya', 'policyHolders', 'agent', 'requests', 'product'])->first();
         return $tamozhnya;
     }
 
@@ -108,5 +115,9 @@ class TamozhnyaAddLegal extends Model
 
     public function product() {
         return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
+    public function requests() {
+        return $this->hasMany(RequestModel::class, 'policy_id', 'policy_id');
     }
 }

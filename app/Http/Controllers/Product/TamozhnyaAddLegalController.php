@@ -14,6 +14,7 @@ use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Product\TamozhnyaAddLegalStrahPremiya;
 use App\Models\Spravochniki\PolicySeries;
+use App\Models\Spravochniki\RequestModel;
 use App\User;
 use Illuminate\Http\Request;
 use PhpOffice\PhpWord\IOFactory;
@@ -95,8 +96,8 @@ class TamozhnyaAddLegalController extends Controller
 
         $request->strahovaya_purpose = $this->countStrahovayaPremiya(
             $request->strahovaya_sum,
-            $request->tarif ?? 0,
-            $request->descrTarif,
+            $request->isOtherTarif ?? 0,
+            $request->otherTarif,
             $request->product_id
         );
 
@@ -235,7 +236,22 @@ class TamozhnyaAddLegalController extends Controller
             $document->saveAs('polis.docx');
             return response()->download('polis.docx');
         }
-        return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya', 'policySeries'));
+
+        $requestUnderwrittingProblem = false;
+
+        if($tamozhnya->product->max_acceptable_amount < $tamozhnya->strahovaya_sum) {
+            if($tamozhnya->requests()->exists()) {
+                foreach ($tamozhnya->requests as $req) {
+                    if ($req->status != 'underwritting' or $req->state != 2) {
+                        $requestUnderwrittingProblem = true;
+                    }
+                }
+            } else {
+                $requestUnderwrittingProblem = true;
+            }
+        }
+
+        return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya', 'policySeries', 'requestUnderwrittingProblem'));
 
     }
 
@@ -271,6 +287,13 @@ class TamozhnyaAddLegalController extends Controller
         } else
             $request->polis_img = $tamozhnyaAddLegal->polis_img;
 
+        $request->strahovaya_purpose = $this->countStrahovayaPremiya(
+            $request->strahovaya_sum,
+            $request->isOtherTarif ?? 0,
+            $request->otherTarif,
+            $request->product_id
+        );
+
         $tamozhnyaAddLegal = TamozhnyaAddLegal::updateTamozhnyaAddLegal($id, $request);
         if (!$tamozhnyaAddLegal)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $tamozhnyaAddLegal')]);
@@ -289,6 +312,7 @@ class TamozhnyaAddLegalController extends Controller
                 }
             }
         }
+
         return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 
@@ -300,6 +324,10 @@ class TamozhnyaAddLegalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tamozhnyaAddLegal= TamozhnyaAddLegal::find($id);
+        $tamozhnyaAddLegal->delete();
+
+        return redirect()->route('all_products.index')
+            ->with('success', sprintf('Дынные о продукте %s были успешно удалены', $tamozhnyaAddLegal->unique_number));
     }
 }

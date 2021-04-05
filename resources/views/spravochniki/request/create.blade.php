@@ -33,13 +33,13 @@
                 </div>
 
                 <div class="card-body">
-                    <form role="form" action="{{ route('request.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('request.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="status-type">Статус</label>
+                                    <label for="status-type">Вид</label>
                                     <select name="status" class="form-control select2" @if(app('request')->input('status')) readonly @endif id="status-type">
                                         @foreach($status as $key => $value)
                                             @if(old('status') == $key or app('request')->input('status') == $key)
@@ -55,10 +55,12 @@
                             <div class="col-sm-6">
                                 <div class="form-group" id="file">
                                     <label for="file">Файл</label>
-                                    <div class="custom-file">
-                                        <input name="file" type="file" class="custom-file-input" id="file">
-                                        <label class="custom-file-label" for="file">Выбирите файл</label>
-                                    </div>
+                                    <input id="file" name="file" value="{{old('file')}}"
+                                           type="file" @if($errors->has('file'))
+                                           class="form-control is-invalid"
+                                           @else
+                                           class="form-control"
+                                            @endif>
                                 </div>
                             </div>
 
@@ -104,7 +106,7 @@
                             <div class="ml-5 col-md-3">
                                 <div class="form-group mr-3" id="state">
                                     <label for="state">State</label>
-                                    <select name="state" disabled class="form-control select2" id="state">
+                                    <select name="state" readonly class="form-control select2" id="state">
                                         <option value="1" selected="selected">В рассмотрении</option>
                                         <option value="2">Отказано</option>
                                         <option value="3">Принят</option>

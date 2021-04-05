@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bonded;
+use App\Models\Product\AllProduct;
 use App\Models\Product\Cmp;
 use App\Models\Product\Kasko;
 use App\Models\Product\OtvetstvennostPodryadchik;
@@ -18,16 +19,7 @@ class AllProductController extends Controller
      */
     public function index()
     {
-        //ToDo:: complete it
-        $cmp = Cmp::with('product', 'policySeries', 'policy', 'agent')->select('id', 'unique_number', 'product_id', 'policy_id', 'policy_series_id', 'user_id');
-        $tamojnyaAddLegal = TamozhnyaAddLegal::with('product', 'policySeries', 'policy', 'agent')->select('id', 'unique_number', 'product_id', 'policy_id', 'serial_number_policy', 'otvet_litso');
-        $otvetstvennostPodryadchik = OtvetstvennostPodryadchik::with('product', 'policySeries', 'policy', 'agent')->select('id', 'unique_number', 'product_id', 'policy_id', 'serial_number_policy', 'otvet_litso');
-
-        $allProducts = Bonded::with('product', 'policySeries', 'policy', 'agent')->select('id', 'unique_number', 'product_id', 'policy_id', 'policy_series_id', 'user_id')
-            ->union($cmp)
-            ->union($tamojnyaAddLegal)
-            ->union($otvetstvennostPodryadchik)
-            ->paginate(10);
+        $allProducts = AllProduct::getAllproduct()->get();
         return view('products.index', compact('allProducts'));
     }
 

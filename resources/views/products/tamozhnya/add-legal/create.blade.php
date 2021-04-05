@@ -368,15 +368,16 @@
                                 <div class="col-md-12">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="geographic-zone">Тариф</label>
-                                            <input readonly value="{{$product->tarif}}%"
+                                            <label for="geographic-zone">Тариф (%)</label>
+                                            <input readonly value="{{$product->tarif}}"
                                                    type="text"
+                                                   name="tarif"
                                                    class="form-control"
                                             >
                                         </div>
                                     </div>
                                     <div class="icheck-success col-md-4">
-                                        <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="tarif" id="tarif">
+                                        <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="isOtherTarif" id="tarif">
                                         <label class="form-check-label" for="tarif">Указать другой тариф в процентах</label>
                                     </div>
                                     <!-- TODO: Блок должен находится в скрытом состоянии
@@ -384,7 +385,7 @@
                                     -->
                                     <div class="form-group" data-tarif-descr style="display: none">
                                         <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                        <input class="form-control" id="descrTarif" name="descrTarif" type="number">
+                                        <input class="form-control" id="descrTarif" name="otherTarif" type="number">
                                     </div>
                                 </div>
                             </div>
