@@ -35,7 +35,7 @@
                     <a
                             href="{{url('/storage/'.$requestModel->file)}}">
                         <img
-                                src="{{asset('temp/img/')}}/{{ explode('.', $requestModel->file)[1] }}.png" width="50" height="50">
+                                src="{{asset('temp/img/docx.png')}}" width="50" height="50">
                     </a>
                     <input id="file" name="file" value="{{old('file')}}"
                            type="file" @if($errors->has('file'))
