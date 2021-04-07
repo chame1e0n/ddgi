@@ -133,7 +133,7 @@
                                             страхования</label>
                                         <select id="pretensii-insurance-type" class="form-control"
                                                 name="insurence_type">
-                                            <option selected="selected">kasko</option>
+                                            <option selected="selected">Таможенный платеж</option>
                                         </select>
                                     </div>
                                 </div>
@@ -622,7 +622,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right" id="form-save-button">Найти
+                            <button type="submit" class="btn btn-primary float-right" id="form-save-button">Создать
                             </button>
                         </div>
                     </form>

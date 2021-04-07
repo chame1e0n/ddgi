@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Spravochniki\Branch;
+use App\Models\Spravochniki\PolicySeries;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,5 +35,9 @@ class PolicyRetransfer extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function policySeries() {
+        return $this->hasOne(PolicySeries::class, 'id', 'policy_series_id');
     }
 }

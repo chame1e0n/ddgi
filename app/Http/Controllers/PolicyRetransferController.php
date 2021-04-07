@@ -84,7 +84,7 @@ class PolicyRetransferController extends Controller
      */
     public function show(PolicyRetransfer $policyRetransfer)
     {
-        //
+        return view('policy_retransfer.show', compact('policyRetransfer'));
     }
 
     /**

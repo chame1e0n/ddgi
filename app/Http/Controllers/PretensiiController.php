@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Policy;
 use App\Models\Pretensii;
 use App\Models\PretensiiOverview;
-use App\Models\Product\Kasko;
+use App\Models\Product\TamozhnyaAddLegal;
 use App\Models\Region;
 use App\User;
 use Illuminate\Http\Request;
@@ -39,12 +39,12 @@ class PretensiiController extends Controller
 
     public function search($uniqueNumber, $fromDate)
     {
-        $dogovor = Kasko::where('unique_number', $uniqueNumber)
+        $dogovor = TamozhnyaAddLegal::where('unique_number', $uniqueNumber)
             ->where('from_date', $fromDate)
             ->first();
 
         if (!empty($dogovor)) {
-            return $dogovor->policyInformations->pluck('policy_id')->toArray();
+            return $dogovor->pluck('policy_id')->toArray();
         }
 
         return [];

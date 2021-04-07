@@ -58,8 +58,8 @@
                   <td>
 
 
-                    <a class="btn btn-info disabled" disabled="disabled"
-                       href="{{ route('policy_registration.show',$policy->id) }}"><i class="fas fa-eye"></i></a>
+                    <a class="btn btn-info" disabled="disabled"
+                       href="{{ route('policy_retransfer.show',$policy->id) }}"><i class="fas fa-eye"></i></a>
 
                   </td>
                 </tr>

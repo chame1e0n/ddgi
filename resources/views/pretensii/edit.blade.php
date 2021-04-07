@@ -530,7 +530,7 @@
           </div>
 
           <div class="card-footer">
-            <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
+            <button type="submit" class="btn btn-primary float-right" id="form-save-button">Изменить</button>
           </div>
         </form>
 

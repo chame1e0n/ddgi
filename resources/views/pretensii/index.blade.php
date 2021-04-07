@@ -17,6 +17,9 @@
                         </ol>
                     </div>
                 </div>
+                <div class="row mb-4">
+                    <a class="btn btn-success" href="{{ route('pretensii.create') }}">Создать</a>
+                </div>
             </div><!-- /.container-fluid -->
         </section>
 
@@ -50,7 +53,7 @@
                                     <label class="col-form-label" for="numberContractpretensii">№ договора</label>
                                     <input required type="text" name="unique_number"
                                            class=" form-control client-type-text" id="numberContractpretensii"
-                                           value="0202/0103/1/2100002">
+                                           value="0100/0505/1/2100001">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -61,7 +64,7 @@
                                             <span class="input-group-text">Дата</span>
                                         </div>
                                         <input required id="pretensiiLastContractDate" name="from_date" type="date"
-                                               value="2021-02-16" class="form-control">
+                                               value="2021-03-05" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +76,6 @@
                     </div>
                 </form>
             </div>
-
 
             @if(count($pretensiis))
                 <div class="container-fluid">
@@ -88,9 +90,6 @@
                                             <p>{{ $message }}</p>
                                         </div>
                                     @endif
-                                    <div class=" mb-4">
-                                        <a class="btn btn-success" href="{{ route('pretensii.create') }}">Создать</a>
-                                    </div>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>

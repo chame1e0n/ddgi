@@ -361,7 +361,7 @@ DELETE FROM `branches`;
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
 INSERT INTO `branches` (`id`, `parent_id`, `name`, `is_center`, `series`, `founded_date`, `user_id`, `region_id`, `address`, `phone_number`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, NULL, 'Головной офис', 0, 'серия', '2021-02-15', 9, 1, 'Ташкент', '23452352345', '2021-02-15', '2021-02-15', NULL),
-	(2, NULL, 'name', 0, 'series', '2021-01-08', 9, 1, 'dfvsdv', '45235325', '2021-01-08', '2021-01-10', NULL),
+	(2, NULL, 'Ферганский филиал', 0, 'series', '2021-01-08', 9, 1, 'dfvsdv', '45235325', '2021-01-08', '2021-01-10', NULL),
 	(3, 3, 'FotTestOnly', 0, 'vfdv', '2021-02-18', 17, 1, 'PO Box F', '5555551234', '2021-02-18', '2021-02-18', NULL),
 	(4, 4, 'rgwergewrg', 0, 'xcv', '2021-02-19', 20, 1, 'PO Box F', '5555551234', '2021-02-18', '2021-02-18', NULL);
 /*!40000 ALTER TABLE `branches` ENABLE KEYS */;
@@ -521,6 +521,75 @@ DELETE FROM `cmp`;
 INSERT INTO `cmp` (`id`, `type`, `product_id`, `policy_id`, `policy_series_id`, `policy_holder_id`, `object_info_dogov_stoy`, `holder_from_date`, `holder_to_date`, `object_stroy_mont`, `object_location`, `object_insurance_sum`, `object_from_date`, `object_to_date`, `object_tel_povr`, `object_material`, `stroy_mont_sum`, `stroy_sum`, `obor_sum`, `stroy_mash_sum`, `rasx_sum`, `insurance_prem_sum`, `franchise_sum`, `insurence_currency`, `insurence_currency_rate`, `insurance_premium_payment_type`, `unique_number`, `polic_given_date`, `payment_term`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(5, 0, 3, 6, 1, 37, 'Сведения о договоре строительного порядка', NULL, NULL, 'Объект стриотельно-монтажных работ', 'Расположение объекта', '100000', '2021-03-26', '2021-03-24', 'Телесные повреждения', 'Материальный ущерб', '234242', '33333', '444444', '555555', '222222', '44444', '23', 'UZS', NULL, 1, '0100/0303/1/2100001', '2021-03-11', '1', 4, '2021-03-07 07:35:00', '2021-03-07 07:54:59', NULL);
 /*!40000 ALTER TABLE `cmp` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.covids
+CREATE TABLE IF NOT EXISTS `covids` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `insurance_from` date NOT NULL,
+  `insurance_to` date NOT NULL,
+  `strahovaya_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `strahovaya_purpose` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `franshiza` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `currencies` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `poryadok_oplaty_premii` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sposob_rascheta` int(11) NOT NULL,
+  `serial_number_policy` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_issue_policy` date NOT NULL,
+  `otvet_litso` int(11) NOT NULL,
+  `anketa_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dogovor_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `polis_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `policy_holder_id` int(11) NOT NULL,
+  `policy_beneficiary_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.covids: ~0 rows (approximately)
+DELETE FROM `covids`;
+/*!40000 ALTER TABLE `covids` DISABLE KEYS */;
+/*!40000 ALTER TABLE `covids` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.covid_policy_information
+CREATE TABLE IF NOT EXISTS `covid_policy_information` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `covid_id` int(11) NOT NULL,
+  `person_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `person_surname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `person_lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `series_and_number_passport` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `place_of_issue_passport` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_of_issue_passport` date NOT NULL,
+  `policy_series_id` int(11) NOT NULL,
+  `insurance_cost` int(11) NOT NULL,
+  `insurance_sum` int(11) NOT NULL,
+  `insurance_premium` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.covid_policy_information: ~0 rows (approximately)
+DELETE FROM `covid_policy_information`;
+/*!40000 ALTER TABLE `covid_policy_information` DISABLE KEYS */;
+/*!40000 ALTER TABLE `covid_policy_information` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.covid_strah_premiyas
+CREATE TABLE IF NOT EXISTS `covid_strah_premiyas` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `prem_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prem_from` date NOT NULL,
+  `covid_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.covid_strah_premiyas: ~0 rows (approximately)
+DELETE FROM `covid_strah_premiyas`;
+/*!40000 ALTER TABLE `covid_strah_premiyas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `covid_strah_premiyas` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.credit_fin_risk_nepogashen_avtocredits
 CREATE TABLE IF NOT EXISTS `credit_fin_risk_nepogashen_avtocredits` (
@@ -1211,9 +1280,9 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.migrations: ~55 rows (approximately)
+-- Dumping data for table ddgi_test.migrations: ~63 rows (approximately)
 DELETE FROM `migrations`;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -1271,7 +1340,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(52, '2021_03_29_154948_create_kasco_strah_premiya_table', 8),
 	(53, '2021_04_01_091645_create_neshchastka_borrowers_table', 8),
 	(54, '2021_04_01_104753_create_currency_terms_transhes_table', 8),
-	(55, '2021_04_03_180636_create_request_overviews_table', 8);
+	(55, '2021_04_03_180636_create_request_overviews_table', 8),
+	(56, '2021_03_22_194857_create_otvetsvennost_audits_table', 9),
+	(57, '2021_04_01_164849_create_covids_table', 10),
+	(58, '2021_04_01_180721_add_column_policy_holder', 10),
+	(59, '2021_04_03_121950_create_covid_policy_information_table', 10),
+	(60, '2021_04_03_161746_create_zalog_imushestvos_table', 10),
+	(61, '2021_04_03_173227_create_zalog_imushestvo_infos_table', 10),
+	(62, '2021_04_04_080037_create_zalog_imushestvo_strah_premiyas_table', 10),
+	(63, '2021_04_04_090607_create_covid_strah_premiyas_table', 10);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.model_has_permissions
@@ -2524,75 +2601,77 @@ CREATE TABLE IF NOT EXISTS `policy_holders` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `oked` varchar(255) DEFAULT NULL,
   `vid_deyatelnosti` varchar(255) DEFAULT NULL,
+  `passport_series` varchar(255) DEFAULT NULL,
+  `passport_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='страхователи';
 
 -- Dumping data for table ddgi_test.policy_holders: ~62 rows (approximately)
 DELETE FROM `policy_holders`;
 /*!40000 ALTER TABLE `policy_holders` DISABLE KEYS */;
-INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`, `oked`, `vid_deyatelnosti`) VALUES
-	(1, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL),
-	(2, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL),
-	(3, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL),
-	(4, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL),
-	(5, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL),
-	(6, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL),
-	(7, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL),
-	(8, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL),
-	(9, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL),
-	(10, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL),
-	(11, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL),
-	(12, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL),
-	(13, 'ФИО страхователя', 'PO Box F', '5555551234', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-02-15 00:00:00', '2021-02-15 00:00:00', NULL, NULL, NULL),
-	(14, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:46:16', '2021-03-03 02:46:16', NULL, NULL, NULL),
-	(15, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:48:37', '2021-03-03 02:48:37', NULL, NULL, NULL),
-	(16, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:52:20', '2021-03-03 02:52:20', NULL, NULL, NULL),
-	(17, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:53:44', '2021-03-03 02:53:44', NULL, NULL, NULL),
-	(18, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:55:29', '2021-03-03 02:55:29', NULL, NULL, NULL),
-	(19, 'rtgetr', 'ertgertgertgg', 'fsdfgsd', 'fgsdfgsd', 'gsdgsd', 'sdgsdg', 'gsdfgsdgf', 2, '2021-03-03 02:58:28', '2021-03-03 02:58:28', NULL, NULL, NULL),
-	(20, 'rtgetr', 'ertgertgertgg', 'fsdfgsd', 'fgsdfgsd', 'gsdgsd', 'sdgsdg', 'gsdfgsdgf', 2, '2021-03-03 02:59:46', '2021-03-03 02:59:46', NULL, NULL, NULL),
-	(21, 'sdfvsdvf', 'sdfvsdfvsd', 'sdfvdsfv', 'sdfvdsfv', 'fvsdfvsdfv', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL, NULL, NULL),
-	(22, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:03', '2021-03-03 06:13:03', NULL, NULL, NULL),
-	(23, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:29', '2021-03-03 06:13:29', NULL, NULL, NULL),
-	(24, 'vdfvsdfv', 'sdvsdvfds', 'vsdvdfv', 'sdfvsdvf', 'sdvfsdfv', 'sdvfsdfvdsf', 'sdfvsdfv', 2, '2021-03-03 08:45:31', '2021-03-03 08:45:31', NULL, NULL, NULL),
-	(25, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-06 09:14:42', '2021-03-06 09:14:42', NULL, NULL, NULL),
-	(26, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:05:34', '2021-03-07 07:05:34', NULL, NULL, NULL),
-	(27, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:06:12', '2021-03-07 07:06:12', NULL, NULL, NULL),
-	(28, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:07:13', '2021-03-07 07:07:13', NULL, NULL, NULL),
-	(29, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:07:46', '2021-03-07 07:07:46', NULL, NULL, NULL),
-	(30, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:08:38', '2021-03-07 07:08:38', NULL, NULL, NULL),
-	(31, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:09:54', '2021-03-07 07:09:54', NULL, NULL, NULL),
-	(32, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:10:58', '2021-03-07 07:10:58', NULL, NULL, NULL),
-	(33, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:11:32', '2021-03-07 07:11:32', NULL, NULL, NULL),
-	(34, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-07 07:23:11', '2021-03-07 07:23:11', NULL, NULL, NULL),
-	(35, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-07 07:23:43', '2021-03-07 07:23:43', NULL, NULL, NULL),
-	(36, 'sdvfvsvdf', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'fdgbdf', 'sfvsdfv', 2, '2021-03-07 07:27:38', '2021-03-07 07:27:38', NULL, NULL, NULL),
-	(37, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:35:00', '2021-03-07 07:35:00', NULL, NULL, NULL),
-	(38, 'ФИО страхователя', 'Юр адрес страхователя', '23423432', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-22 19:34:57', '2021-03-22 19:34:57', NULL, 'dvdsvf', NULL),
-	(39, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-03-23 15:20:25', '2021-03-23 15:20:25', NULL, 'dvdsvf', NULL),
-	(40, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', '345235235', '234232', '2342', 'okonx', 2, '2021-03-24 03:20:16', '2021-03-24 03:20:16', NULL, 'oked', 'Вид деятельности'),
-	(41, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', '3113132', 'sdgsdg', 'okonx', 4, '2021-03-24 03:51:44', '2021-03-24 03:51:44', NULL, 'oked', 'sdfvdsfv'),
-	(42, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', '345235235', '234232', '2342', 'okonx', 2, '2021-03-24 03:57:26', '2021-03-24 03:57:26', NULL, 'oked', 'Вид деятельности'),
-	(43, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:10:43', '2021-03-24 06:10:43', NULL, 'dvdsvf', NULL),
-	(44, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:11:27', '2021-03-24 06:11:27', NULL, 'dvdsvf', NULL),
-	(45, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:13:42', '2021-03-24 06:13:42', NULL, 'dvdsvf', NULL),
-	(46, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:19:48', '2021-04-01 01:19:48', NULL, 'dsfvsdfv', NULL),
-	(47, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:22:50', '2021-04-01 01:22:50', NULL, 'dsfvsdfv', NULL),
-	(48, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:26:23', '2021-04-01 01:26:23', NULL, 'dsfvsdfv', NULL),
-	(49, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:01', '2021-04-01 01:31:01', NULL, 'dsfvsdfv', NULL),
-	(50, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:13', '2021-04-01 01:31:13', NULL, 'dsfvsdfv', NULL),
-	(51, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:32', '2021-04-01 01:31:32', NULL, 'dsfvsdfv', NULL),
-	(52, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:33:03', '2021-04-01 01:33:03', NULL, 'dsfvsdfv', NULL),
-	(53, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:33:22', '2021-04-01 01:33:22', NULL, 'dsfvsdfv', NULL),
-	(54, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:35:14', '2021-04-01 01:35:14', NULL, 'dsfvsdfv', NULL),
-	(55, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:36:01', '2021-04-01 01:36:01', NULL, 'dsfvsdfv', NULL),
-	(56, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:36:19', '2021-04-01 01:36:19', NULL, 'dsfvsdfv', NULL),
-	(57, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:39:01', '2021-04-01 01:39:01', NULL, 'dsfvsdfv', NULL),
-	(58, 'ФИО страхователя', 'Юр адрес страхователя', '34235243235', '25235235', '235425', '234525', NULL, 2, '2021-04-05 03:16:33', '2021-04-05 03:16:33', NULL, '245234525', NULL),
-	(59, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'dfgbdfgb', 'dfvsdvsdfv', NULL, 2, '2021-04-05 03:19:22', '2021-04-05 03:19:22', NULL, 'dvdsvf', NULL),
-	(60, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:02', '2021-04-05 03:26:02', NULL, 'dvdsvf', NULL),
-	(61, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:36', '2021-04-05 03:26:36', NULL, 'dvdsvf', NULL),
-	(62, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:43', '2021-04-05 03:26:43', NULL, 'dvdsvf', NULL);
+INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`, `oked`, `vid_deyatelnosti`, `passport_series`, `passport_number`) VALUES
+	(1, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(2, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(3, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(4, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(5, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(6, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(7, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(8, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(9, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(10, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(11, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(12, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-01-11 00:00:00', '2021-01-11 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(13, 'ФИО страхователя', 'PO Box F', '5555551234', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 1, '2021-02-15 00:00:00', '2021-02-15 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(14, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:46:16', '2021-03-03 02:46:16', NULL, NULL, NULL, NULL, NULL),
+	(15, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:48:37', '2021-03-03 02:48:37', NULL, NULL, NULL, NULL, NULL),
+	(16, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:52:20', '2021-03-03 02:52:20', NULL, NULL, NULL, NULL, NULL),
+	(17, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:53:44', '2021-03-03 02:53:44', NULL, NULL, NULL, NULL, NULL),
+	(18, 'sdvfvsvdf', 'sdfvsdvsdfv', 'sdfvsdvf', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-03 02:55:29', '2021-03-03 02:55:29', NULL, NULL, NULL, NULL, NULL),
+	(19, 'rtgetr', 'ertgertgertgg', 'fsdfgsd', 'fgsdfgsd', 'gsdgsd', 'sdgsdg', 'gsdfgsdgf', 2, '2021-03-03 02:58:28', '2021-03-03 02:58:28', NULL, NULL, NULL, NULL, NULL),
+	(20, 'rtgetr', 'ertgertgertgg', 'fsdfgsd', 'fgsdfgsd', 'gsdgsd', 'sdgsdg', 'gsdfgsdgf', 2, '2021-03-03 02:59:46', '2021-03-03 02:59:46', NULL, NULL, NULL, NULL, NULL),
+	(21, 'sdfvsdvf', 'sdfvsdfvsd', 'sdfvdsfv', 'sdfvdsfv', 'fvsdfvsdfv', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-03 05:13:10', '2021-03-03 05:13:10', NULL, NULL, NULL, NULL, NULL),
+	(22, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:03', '2021-03-03 06:13:03', NULL, NULL, NULL, NULL, NULL),
+	(23, 'dfgbg', 'dfgbdfgbdgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgb', 'fdgbdf', 'dfgbdfgb', 2, '2021-03-03 06:13:29', '2021-03-03 06:13:29', NULL, NULL, NULL, NULL, NULL),
+	(24, 'vdfvsdfv', 'sdvsdvfds', 'vsdvdfv', 'sdfvsdvf', 'sdvfsdfv', 'sdvfsdfvdsf', 'sdfvsdfv', 2, '2021-03-03 08:45:31', '2021-03-03 08:45:31', NULL, NULL, NULL, NULL, NULL),
+	(25, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-06 09:14:42', '2021-03-06 09:14:42', NULL, NULL, NULL, NULL, NULL),
+	(26, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:05:34', '2021-03-07 07:05:34', NULL, NULL, NULL, NULL, NULL),
+	(27, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:06:12', '2021-03-07 07:06:12', NULL, NULL, NULL, NULL, NULL),
+	(28, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:07:13', '2021-03-07 07:07:13', NULL, NULL, NULL, NULL, NULL),
+	(29, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:07:46', '2021-03-07 07:07:46', NULL, NULL, NULL, NULL, NULL),
+	(30, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:08:38', '2021-03-07 07:08:38', NULL, NULL, NULL, NULL, NULL),
+	(31, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:09:54', '2021-03-07 07:09:54', NULL, NULL, NULL, NULL, NULL),
+	(32, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:10:58', '2021-03-07 07:10:58', NULL, NULL, NULL, NULL, NULL),
+	(33, 'sdsdfvfdsv', 'sdfvsdfv', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:11:32', '2021-03-07 07:11:32', NULL, NULL, NULL, NULL, NULL),
+	(34, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-07 07:23:11', '2021-03-07 07:23:11', NULL, NULL, NULL, NULL, NULL),
+	(35, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'sdfvdsfv', 'sdfvsdv', 2, '2021-03-07 07:23:43', '2021-03-07 07:23:43', NULL, NULL, NULL, NULL, NULL),
+	(36, 'sdvfvsvdf', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'fdgbdf', 'sfvsdfv', 2, '2021-03-07 07:27:38', '2021-03-07 07:27:38', NULL, NULL, NULL, NULL, NULL),
+	(37, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'sdfvsdvf', 2, '2021-03-07 07:35:00', '2021-03-07 07:35:00', NULL, NULL, NULL, NULL, NULL),
+	(38, 'ФИО страхователя', 'Юр адрес страхователя', '23423432', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-22 19:34:57', '2021-03-22 19:34:57', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(39, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-03-23 15:20:25', '2021-03-23 15:20:25', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(40, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', '345235235', '234232', '2342', 'okonx', 2, '2021-03-24 03:20:16', '2021-03-24 03:20:16', NULL, 'oked', 'Вид деятельности', NULL, NULL),
+	(41, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', '3113132', 'sdgsdg', 'okonx', 4, '2021-03-24 03:51:44', '2021-03-24 03:51:44', NULL, 'oked', 'sdfvdsfv', NULL, NULL),
+	(42, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', '345235235', '234232', '2342', 'okonx', 2, '2021-03-24 03:57:26', '2021-03-24 03:57:26', NULL, 'oked', 'Вид деятельности', NULL, NULL),
+	(43, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:10:43', '2021-03-24 06:10:43', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(44, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:11:27', '2021-03-24 06:11:27', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(45, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-03-24 06:13:42', '2021-03-24 06:13:42', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(46, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:19:48', '2021-04-01 01:19:48', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(47, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:22:50', '2021-04-01 01:22:50', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(48, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:26:23', '2021-04-01 01:26:23', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(49, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:01', '2021-04-01 01:31:01', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(50, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:13', '2021-04-01 01:31:13', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(51, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:31:32', '2021-04-01 01:31:32', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(52, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:33:03', '2021-04-01 01:33:03', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(53, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:33:22', '2021-04-01 01:33:22', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(54, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:35:14', '2021-04-01 01:35:14', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(55, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:36:01', '2021-04-01 01:36:01', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(56, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:36:19', '2021-04-01 01:36:19', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(57, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-01 01:39:01', '2021-04-01 01:39:01', NULL, 'dsfvsdfv', NULL, NULL, NULL),
+	(58, 'ФИО страхователя', 'Юр адрес страхователя', '34235243235', '25235235', '235425', '234525', NULL, 2, '2021-04-05 03:16:33', '2021-04-05 03:16:33', NULL, '245234525', NULL, NULL, NULL),
+	(59, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'dfgbdfgb', 'dfvsdvsdfv', NULL, 2, '2021-04-05 03:19:22', '2021-04-05 03:19:22', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(60, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:02', '2021-04-05 03:26:02', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(61, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:36', '2021-04-05 03:26:36', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(62, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:43', '2021-04-05 03:26:43', NULL, 'dvdsvf', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `policy_holders` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policy_registrations
@@ -2643,7 +2722,7 @@ CREATE TABLE IF NOT EXISTS `policy_retransfer` (
 DELETE FROM `policy_retransfer`;
 /*!40000 ALTER TABLE `policy_retransfer` DISABLE KEYS */;
 INSERT INTO `policy_retransfer` (`id`, `act_number`, `act_date`, `branch_id`, `user_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(3, 'asdvvd', '2021-02-23', 1, 4, 1, '141', '142', '2021-02-23', NULL, 'wefwef', '2021-02-23', '2021-02-23', NULL);
+	(3, 'BB44321', '2021-02-23', 1, 4, 1, '141', '142', '2021-02-23', NULL, 'admin', '2021-02-23', '2021-02-23', NULL);
 /*!40000 ALTER TABLE `policy_retransfer` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policy_series
@@ -2688,7 +2767,7 @@ CREATE TABLE IF NOT EXISTS `policy_transfer` (
 DELETE FROM `policy_transfer`;
 /*!40000 ALTER TABLE `policy_transfer` DISABLE KEYS */;
 INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `user_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(2, 'asdvvd', '2021-01-11', 2, NULL, 1, '141', '146', '2021-01-11', 'C:\\Users\\User\\AppData\\Local\\Temp\\php40F.tmp', 'sdfvdsfv', '2021-01-11', '2021-01-11', NULL);
+	(2, 'AA4432', '2021-01-11', 2, NULL, 1, '141', '146', '2021-01-11', 'C:\\Users\\User\\AppData\\Local\\Temp\\php40F.tmp', 'admin', '2021-01-11', '2021-01-11', NULL);
 /*!40000 ALTER TABLE `policy_transfer` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.pretensii
@@ -2727,13 +2806,14 @@ CREATE TABLE IF NOT EXISTS `pretensii` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.pretensii: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.pretensii: ~2 rows (approximately)
 DELETE FROM `pretensii`;
 /*!40000 ALTER TABLE `pretensii` DISABLE KEYS */;
 INSERT INTO `pretensii` (`id`, `pretensii_status_id`, `case_number`, `policy_id`, `insurer`, `branch_id`, `insurance_contract`, `client_type`, `insurence_type`, `insurence_period`, `insured_sum`, `payable_by_agreement`, `actually_paid`, `last_payment_date`, `franchise_type_id`, `deductible_amount`, `franchise_percentage`, `reinsurance`, `date_applications`, `date_of_the_insured_event`, `event_description`, `object_description`, `region`, `district`, `claimed_loss_sum`, `refund_paid_sum`, `currency_exchange_rate`, `total_amount_in_sums`, `date_of_payment_compensation`, `final_settlement_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 2, 1, 7, 'insured', 1, 'insurance-contract', 1, 'kasko', NULL, '5000', '5000', '3000', NULL, '1', '3000', '50', 'vsdvsdvf', NULL, NULL, 'description-of-the-insured-event', 'description-of-the-insurance-object', 'pretensii-region 2', 'pretensii-district 2', '5000', '5000', '5000', '5000', NULL, NULL, '2021-01-29 08:42:22', '2021-02-01 06:26:57', NULL);
+	(1, 2, 1, 7, 'insured', 1, 'insurance-contract', 1, 'kasko', NULL, '5000', '5000', '3000', NULL, '1', '3000', '50', 'vsdvsdvf', NULL, NULL, 'description-of-the-insured-event', 'description-of-the-insurance-object', 'pretensii-region 2', 'pretensii-district 2', '5000', '5000', '5000', '5000', NULL, NULL, '2021-01-29 08:42:22', '2021-02-01 06:26:57', NULL),
+	(2, 2, 1, 10, 'ФИО страхователя', 1, '0100/0505/1/2100001', 0, 'Таможенный платеж	', '2021-04-07', '234234', '234234', '234234', '2021-04-06', '2', '3433', '10', 'fdbgdfb', '2021-03-31', '2021-04-08', 'Описание страхового события', 'Описание страхового объекта', 'pretensii-region 1', 'pretensii-district 2', '5000', '6000', '1', '6000', '2021-04-07', '2022-04-09', '2021-04-07 16:02:20', '2021-04-07 16:02:20', NULL);
 /*!40000 ALTER TABLE `pretensii` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.pretensii_overview
@@ -3189,6 +3269,93 @@ CREATE TABLE IF NOT EXISTS `zaemshiks` (
 DELETE FROM `zaemshiks`;
 /*!40000 ALTER TABLE `zaemshiks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `zaemshiks` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.zalog_imushestvos
+CREATE TABLE IF NOT EXISTS `zalog_imushestvos` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `dogovor_lizing_num` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `insurance_from` date NOT NULL,
+  `insurance_to` date NOT NULL,
+  `plans` tinyint(1) NOT NULL DEFAULT '0',
+  `plans_percent` int(11) DEFAULT NULL,
+  `total_insurance_cost` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Общая страховая стоимость',
+  `zalog_otvet_litso` int(11) NOT NULL COMMENT 'Ответственное лицо',
+  `date_of_issue_police` date NOT NULL COMMENT 'Дата выдачи страхового полиса (клиенту)',
+  `policy_series_id` int(11) NOT NULL COMMENT 'Серийный номер полиса страхования (Верх)',
+  `place_of_insurance` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Место страхования',
+  `currency_of_mutual` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Валюта взаиморасчетов',
+  `insurance_amount_for_closed` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Страховая сумма для закрытого склада с общим объемом',
+  `insurance_amount_for_open` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Страховая сумма для открытого склада с общим объемом',
+  `strahovaya_purpose_1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Страховая премия (Верх)',
+  `poryadok_oplaty_premii_1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Условия оплаты страховой премии (Верх)',
+  `franshiza_1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '% от страховой суммы по риску землетрясения и пожара по каждому убытку и/или по всем убыткам в результате каждого страхового случая',
+  `franshiza_2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '% от страховой суммы по риску противоправные действия третьих лиц по каждому убытку и/или по всем убыткам в результате каждого страхового случая',
+  `franshiza_3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '% от страховой суммы по другим рискам по каждому убытку и/или по всем убыткам в результате каждого страхового случая',
+  `strahovaya_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `strahovaya_purpose` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `franshiza` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `currencies` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `poryadok_oplaty_premii` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sposob_rascheta` int(11) NOT NULL,
+  `serial_number_policy` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_issue_policy` date NOT NULL,
+  `otvet_litso` int(11) NOT NULL,
+  `anketa_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dogovor_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `polis_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `policy_holder_id` int(11) NOT NULL,
+  `policy_beneficiary_id` int(11) NOT NULL,
+  `copy_passport` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `copy_dogovor` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `copy_spravki` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `copy_drugie` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.zalog_imushestvos: ~0 rows (approximately)
+DELETE FROM `zalog_imushestvos`;
+/*!40000 ALTER TABLE `zalog_imushestvos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zalog_imushestvos` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.zalog_imushestvo_infos
+CREATE TABLE IF NOT EXISTS `zalog_imushestvo_infos` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name_property` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Наименование Имущества',
+  `place_property` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Местонахождения имущества',
+  `date_of_issue_property` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Дата выдачи',
+  `count_property` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Кол-во шт.',
+  `units_property` int(11) NOT NULL COMMENT 'Единицы измерения',
+  `insurance_cost` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Страховая стоимость',
+  `insurance_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Страховая сумма',
+  `insurance_premium` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Страховая премия',
+  `zalog_imushestvo_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.zalog_imushestvo_infos: ~0 rows (approximately)
+DELETE FROM `zalog_imushestvo_infos`;
+/*!40000 ALTER TABLE `zalog_imushestvo_infos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zalog_imushestvo_infos` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.zalog_imushestvo_strah_premiyas
+CREATE TABLE IF NOT EXISTS `zalog_imushestvo_strah_premiyas` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `prem_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prem_from` date NOT NULL,
+  `zalog_imushestvo_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.zalog_imushestvo_strah_premiyas: ~0 rows (approximately)
+DELETE FROM `zalog_imushestvo_strah_premiyas`;
+/*!40000 ALTER TABLE `zalog_imushestvo_strah_premiyas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zalog_imushestvo_strah_premiyas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

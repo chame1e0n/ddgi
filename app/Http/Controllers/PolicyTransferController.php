@@ -79,7 +79,7 @@ class PolicyTransferController extends Controller
      */
     public function show(PolicyTransfer $policyTransfer)
     {
-        //
+        return view('policy_transfer.show', compact('policyTransfer'));
     }
 
     /**
