@@ -84,20 +84,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="min_acceptable_amount" class="col-form-label">Минимально
-                                                    допустимая сумма</label>
-                                                <input id="min_acceptable_amount" type="number"
-                                                       @if($errors->has('min_acceptable_amount'))
-                                                       class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                       @endif
-                                                       name="min_acceptable_amount" value="{{ old('min_acceptable_amount') }}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="max_acceptable_amount" class="col-form-label">Максимально
                                                     допустимая сумма</label>
@@ -108,18 +95,6 @@
                                                        class="form-control"
                                                        @endif
                                                        name="max_acceptable_amount" value="{{ old('max_acceptable_amount') }}" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="franshiza" class="col-form-label">Франшиза</label>
-                                                <input id="franshiza" type="number"
-                                                       @if($errors->has('franshiza'))
-                                                       class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                       @endif
-                                                       name="franshiza" value="{{ old('franshiza') }}" required>
                                             </div>
                                         </div>
                                     </div>

@@ -45,9 +45,7 @@ class ProductController extends Controller
             'name' => 'required',
             'klass_id' => 'required',
             'tarif' => 'required',
-            'min_acceptable_amount' => 'required',
             'max_acceptable_amount' => 'required',
-            'franshiza' => 'required',
         ]);
         Product::create($request->all());
 

@@ -47,13 +47,6 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="series" class="col-form-label">Серии</label>
-                                                <input id="series" class="form-control" value="{{$branch->series}}"
-                                                       name="series" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
                                                 <label for="founded_at" class="col-form-label">Основан</label>
                                                 <input type="date" id="founded_at" value="{{$branch->founded_date}}"
                                                        class="form-control"
@@ -70,7 +63,7 @@
                                                     <option selected="selected"></option>
                                                     @if(isset($branches))
                                                         @foreach($branches as $parent_branch)
-                                                            @if($branch->id == $parent_branch->id)
+                                                            @if($branch->parent_id == $parent_branch->id)
                                                                 <option value="{{$parent_branch->id}}"
                                                                         selected>{{$parent_branch->name}}</option>
                                                             @else

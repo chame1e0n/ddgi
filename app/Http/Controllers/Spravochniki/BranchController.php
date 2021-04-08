@@ -49,14 +49,9 @@ class BranchController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'series' => 'required',
-            'founded_at' => 'required',
-            'is_center' => 'required',
+            'founded_date' => 'required',
             'address' => 'required',
             'phone_number' => 'required',
-            'code_by_office' => 'required',
-            'code_by_type' => 'required',
-            'hierarchy' => 'required',
         ]);
         $request->merge([
             'is_center' => isset($request->is_center) ? 1 : 0,
@@ -92,7 +87,7 @@ class BranchController extends Controller
         $alreadyExistDirectorsUserId = Branch::select('user_id')->where('user_id', '<>', $branch->user_id)->distinct()->get()->pluck('user_id')->toArray();
         $regions = Region::all();
         $directors = Director::whereNotIn('user_id', $alreadyExistDirectorsUserId)->get();
-        $branches = Branch::all();
+        $branches = Branch::where('id', '<>', $branch->id)->get();
 
         return view('spravochniki.branch.edit',compact('branch','directors', 'branches', 'regions'));
     }

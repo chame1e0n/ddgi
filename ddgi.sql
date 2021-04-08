@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `agents` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.agents: ~2 rows (approximately)
+-- Dumping data for table ddgi_test.agents: ~3 rows (approximately)
 DELETE FROM `agents`;
 /*!40000 ALTER TABLE `agents` DISABLE KEYS */;
 INSERT INTO `agents` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `job`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `agent_agreement_img`, `labor_contract`, `firm_contract`, `license`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -344,7 +344,6 @@ CREATE TABLE IF NOT EXISTS `branches` (
   `parent_id` int(11) unsigned DEFAULT '0',
   `name` varchar(150) NOT NULL,
   `is_center` tinyint(3) unsigned DEFAULT '0',
-  `series` varchar(150) NOT NULL,
   `founded_date` date NOT NULL,
   `user_id` int(11) unsigned DEFAULT NULL,
   `region_id` int(11) unsigned NOT NULL,
@@ -354,16 +353,17 @@ CREATE TABLE IF NOT EXISTS `branches` (
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.branches: ~4 rows (approximately)
+-- Dumping data for table ddgi_test.branches: ~5 rows (approximately)
 DELETE FROM `branches`;
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
-INSERT INTO `branches` (`id`, `parent_id`, `name`, `is_center`, `series`, `founded_date`, `user_id`, `region_id`, `address`, `phone_number`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, NULL, 'Головной офис', 0, 'серия', '2021-02-15', 9, 1, 'Ташкент', '23452352345', '2021-02-15', '2021-02-15', NULL),
-	(2, NULL, 'Ферганский филиал', 0, 'series', '2021-01-08', 9, 1, 'dfvsdv', '45235325', '2021-01-08', '2021-01-10', NULL),
-	(3, 3, 'FotTestOnly', 0, 'vfdv', '2021-02-18', 17, 1, 'PO Box F', '5555551234', '2021-02-18', '2021-02-18', NULL),
-	(4, 4, 'rgwergewrg', 0, 'xcv', '2021-02-19', 20, 1, 'PO Box F', '5555551234', '2021-02-18', '2021-02-18', NULL);
+INSERT INTO `branches` (`id`, `parent_id`, `name`, `is_center`, `founded_date`, `user_id`, `region_id`, `address`, `phone_number`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, NULL, 'Головной офис', 0, '2021-02-15', 9, 1, 'Ташкент', '23452352345', '2021-02-15', '2021-02-15', NULL),
+	(2, NULL, 'Ферганский филиал', 0, '2021-01-08', 9, 1, 'dfvsdv', '45235325', '2021-01-08', '2021-01-10', NULL),
+	(3, NULL, 'FotTestOnly', 0, '2021-02-18', 17, 1, 'PO Box F', '5555551234', '2021-02-18', '2021-02-18', NULL),
+	(4, NULL, 'rgwergewrg', 0, '2021-02-19', 20, 1, 'PO Box F', '5555551234', '2021-02-18', '2021-02-18', NULL),
+	(5, NULL, 'Андижанский филиал', 0, '2000-03-29', 21, 5, 'Андижан', '5555551234', '2021-04-08', '2021-04-08', NULL);
 /*!40000 ALTER TABLE `branches` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.cargo_infos
@@ -515,7 +515,7 @@ CREATE TABLE IF NOT EXISTS `cmp` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.cmp: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.cmp: ~0 rows (approximately)
 DELETE FROM `cmp`;
 /*!40000 ALTER TABLE `cmp` DISABLE KEYS */;
 INSERT INTO `cmp` (`id`, `type`, `product_id`, `policy_id`, `policy_series_id`, `policy_holder_id`, `object_info_dogov_stoy`, `holder_from_date`, `holder_to_date`, `object_stroy_mont`, `object_location`, `object_insurance_sum`, `object_from_date`, `object_to_date`, `object_tel_povr`, `object_material`, `stroy_mont_sum`, `stroy_sum`, `obor_sum`, `stroy_mash_sum`, `rasx_sum`, `insurance_prem_sum`, `franchise_sum`, `insurence_currency`, `insurence_currency_rate`, `insurance_premium_payment_type`, `unique_number`, `polic_given_date`, `payment_term`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1136,7 +1136,7 @@ CREATE TABLE IF NOT EXISTS `klass` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.klass: ~5 rows (approximately)
+-- Dumping data for table ddgi_test.klass: ~3 rows (approximately)
 DELETE FROM `klass`;
 /*!40000 ALTER TABLE `klass` DISABLE KEYS */;
 INSERT INTO `klass` (`id`, `group_id`, `code`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -1361,7 +1361,7 @@ CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.model_has_permissions: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.model_has_permissions: ~0 rows (approximately)
 DELETE FROM `model_has_permissions`;
 /*!40000 ALTER TABLE `model_has_permissions` DISABLE KEYS */;
 INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
@@ -1518,7 +1518,7 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.oauth_personal_access_clients: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.oauth_personal_access_clients: ~0 rows (approximately)
 DELETE FROM `oauth_personal_access_clients`;
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
@@ -1970,7 +1970,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.permissions: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.permissions: ~0 rows (approximately)
 DELETE FROM `permissions`;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -2530,7 +2530,7 @@ CREATE TABLE IF NOT EXISTS `policy_beneficiaries` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='страхователи';
 
--- Dumping data for table ddgi_test.policy_beneficiaries: ~21 rows (approximately)
+-- Dumping data for table ddgi_test.policy_beneficiaries: ~20 rows (approximately)
 DELETE FROM `policy_beneficiaries`;
 /*!40000 ALTER TABLE `policy_beneficiaries` DISABLE KEYS */;
 INSERT INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`, `seria_passport`, `nomer_passport`, `oked`) VALUES
@@ -2577,7 +2577,7 @@ CREATE TABLE IF NOT EXISTS `policy_flows` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table ddgi_test.policy_flows: ~2 rows (approximately)
+-- Dumping data for table ddgi_test.policy_flows: ~0 rows (approximately)
 DELETE FROM `policy_flows`;
 /*!40000 ALTER TABLE `policy_flows` DISABLE KEYS */;
 INSERT INTO `policy_flows` (`id`, `act_number`, `act_date`, `status`, `branch_id`, `to_user_id`, `from_user_id`, `policy_series_id`, `policy_from`, `policy_to`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2689,7 +2689,7 @@ CREATE TABLE IF NOT EXISTS `policy_registrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.policy_registrations: ~4 rows (approximately)
+-- Dumping data for table ddgi_test.policy_registrations: ~3 rows (approximately)
 DELETE FROM `policy_registrations`;
 /*!40000 ALTER TABLE `policy_registrations` DISABLE KEYS */;
 INSERT INTO `policy_registrations` (`id`, `act_number`, `act_date`, `from_number`, `to_number`, `policy_series_id`, `document`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2718,7 +2718,7 @@ CREATE TABLE IF NOT EXISTS `policy_retransfer` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table ddgi_test.policy_retransfer: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.policy_retransfer: ~0 rows (approximately)
 DELETE FROM `policy_retransfer`;
 /*!40000 ALTER TABLE `policy_retransfer` DISABLE KEYS */;
 INSERT INTO `policy_retransfer` (`id`, `act_number`, `act_date`, `branch_id`, `user_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2763,7 +2763,7 @@ CREATE TABLE IF NOT EXISTS `policy_transfer` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.policy_transfer: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.policy_transfer: ~0 rows (approximately)
 DELETE FROM `policy_transfer`;
 /*!40000 ALTER TABLE `policy_transfer` DISABLE KEYS */;
 INSERT INTO `policy_transfer` (`id`, `act_number`, `act_date`, `branch_id`, `user_id`, `policy_series_id`, `policy_from`, `policy_to`, `retransfer_distribution`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2808,7 +2808,7 @@ CREATE TABLE IF NOT EXISTS `pretensii` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.pretensii: ~2 rows (approximately)
+-- Dumping data for table ddgi_test.pretensii: ~1 rows (approximately)
 DELETE FROM `pretensii`;
 /*!40000 ALTER TABLE `pretensii` DISABLE KEYS */;
 INSERT INTO `pretensii` (`id`, `pretensii_status_id`, `case_number`, `policy_id`, `insurer`, `branch_id`, `insurance_contract`, `client_type`, `insurence_type`, `insurence_period`, `insured_sum`, `payable_by_agreement`, `actually_paid`, `last_payment_date`, `franchise_type_id`, `deductible_amount`, `franchise_percentage`, `reinsurance`, `date_applications`, `date_of_the_insured_event`, `event_description`, `object_description`, `region`, `district`, `claimed_loss_sum`, `refund_paid_sum`, `currency_exchange_rate`, `total_amount_in_sums`, `date_of_payment_compensation`, `final_settlement_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2904,8 +2904,6 @@ CREATE TABLE IF NOT EXISTS `products` (
   `tarif` varchar(50) DEFAULT NULL,
   `agency` varchar(50) DEFAULT NULL,
   `max_acceptable_amount` varchar(50) DEFAULT NULL,
-  `min_acceptable_amount` varchar(50) DEFAULT NULL,
-  `franshiza` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -2915,12 +2913,12 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping data for table ddgi_test.products: ~5 rows (approximately)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` (`id`, `klass_id`, `name`, `code`, `tarif`, `agency`, `max_acceptable_amount`, `min_acceptable_amount`, `franshiza`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 'Каско', '03', '10', NULL, '3463456', '34563465', '43', '2021-02-12 02:51:21', '2021-02-12 02:51:21', NULL),
-	(2, 2, 'Таможенный склад', '01', '8', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(3, 3, 'СМР', '03', '4', NULL, '5434543', '3453', '4', NULL, NULL, NULL),
-	(4, 4, 'Ответственность подрядчик', '04', '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(5, 5, 'Таможенный платеж', '05', '10', NULL, '100000', '50000', '4500', NULL, '2021-04-01 01:54:37', NULL);
+INSERT INTO `products` (`id`, `klass_id`, `name`, `code`, `tarif`, `agency`, `max_acceptable_amount`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 1, 'Каско', '03', '10', NULL, '3463456', '2021-02-12 02:51:21', '2021-02-12 02:51:21', NULL),
+	(2, 2, 'Таможенный склад', '01', '8', NULL, NULL, NULL, NULL, NULL),
+	(3, 3, 'СМР', '03', '4', NULL, '5434543', NULL, NULL, NULL),
+	(4, 4, 'Ответственность подрядчик', '04', '12', NULL, NULL, NULL, NULL, NULL),
+	(5, 5, 'Таможенный платеж', '05', '10', NULL, '100000', NULL, '2021-04-01 01:54:37', NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.property_lising_zalog
@@ -3116,7 +3114,7 @@ CREATE TABLE IF NOT EXISTS `tamozhnya_adds` (
   KEY `tamozhnya_adds_policy_beneficiary_id_index` (`policy_beneficiary_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.tamozhnya_adds: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.tamozhnya_adds: ~0 rows (approximately)
 DELETE FROM `tamozhnya_adds`;
 /*!40000 ALTER TABLE `tamozhnya_adds` DISABLE KEYS */;
 INSERT INTO `tamozhnya_adds` (`id`, `from_date`, `to_date`, `warehouse_volume`, `product_volume`, `product_volume_unit`, `total_sum`, `na_sklade_from_date`, `na_sklade_to_date`, `payment_term`, `currencies`, `sposob_rascheta`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `policy_holder_id`, `policy_beneficiary_id`, `anketa_img`, `dogovor_img`, `polis_img`, `created_at`, `updated_at`) VALUES

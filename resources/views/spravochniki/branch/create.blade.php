@@ -52,22 +52,9 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="series" class="col-form-label">Серии</label>
-                                                <input id="series"
-                                                       @if($errors->has('series'))
-                                                       class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                       @endif
-                                                       value="{{old('series')}}"
-                                                       name="series" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label for="founded_at" class="col-form-label">Основан</label>
-                                                <input type="date" id="founded_at" value="{{old('founded_at')}}"
-                                                       @if($errors->has('founded_at'))
+                                                <label for="founded_date" class="col-form-label">Основан</label>
+                                                <input type="date" id="founded_date" value="{{old('founded_date')}}"
+                                                       @if($errors->has('founded_date'))
                                                        class="form-control is-invalid"
                                                        @else
                                                        class="form-control"

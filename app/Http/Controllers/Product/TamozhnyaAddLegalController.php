@@ -172,6 +172,10 @@ class TamozhnyaAddLegalController extends Controller
         if (isset($_GET['download']) && $_GET['download'] == 'dogovor'){
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/dogovor.docx'));
             $document->setValues([
+                'y' => $tamozhnya->created_at->year,
+                'month' => $tamozhnya->created_at->month,
+                'day' => $tamozhnya->created_at->day,
+                'unique_number' => $tamozhnya->unique_number,
                 'litso' => $tamozhnya->agent->getFio(),
                 'fio_insurer' => $tamozhnya->policyHolders->FIO,
                 'strahovaya_sum' =>  $tamozhnya->strahovaya_sum,
