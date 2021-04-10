@@ -290,14 +290,16 @@
                                                 @if($errors->has('from_date_polis.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="from_date_polis[]" required>
+                                                    form-control" name="from_date_polis[]" required
+                                                value="{{old('from_date_polis.0')}}">
                                             </td>
                                             <td>
                                                 <input type="date" class="
                                                 @if($errors->has('to_date_polis.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="to_date_polis[]" required>
+                                                    form-control" name="to_date_polis[]" required
+                                                       value="{{old('to_date_polis.0')}}">
                                             </td>
                                             <td>
                                                 <select class="form-control
@@ -306,7 +308,7 @@
                                                 @endif
                                                     polises" id="polises" name="agent_id[]" style="width: 100%;" required>
                                                     @foreach($agents as $agent)
-                                                        <option @if(old('agent_id[]') == $agent->user_id) selected
+                                                        <option @if(old('agent_id.0') == $agent->user_id) selected
                                                                 @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
                                                     @endforeach
                                                 </select>
@@ -316,56 +318,64 @@
                                                 @if($errors->has('insurer_fio.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="insurer_fio[]" required>
+                                                    form-control" name="insurer_fio[]" required
+                                                       value="{{old('insurer_fio.0')}}">
                                             </td>
                                             <td>
                                                 <input type="text" class="
                                                 @if($errors->has('specialty.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="specialty[]" value="Specialty" required>
+                                                    form-control" name="specialty[]" value="Specialty" required
+                                                       value="{{old('specialty.0')}}">
                                             </td>
                                             <td>
                                                 <input type="text" class="
                                                 @if($errors->has('experience.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="experience[]" value="work experience" required>
+                                                    form-control" name="experience[]" value="work experience" required
+                                                       value="{{old('experience.0')}}">
                                             </td>
                                             <td>
                                                 <input type="text" class="
                                                 @if($errors->has('position.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="position[]" required>
+                                                    form-control" name="position[]" required
+                                                       value="{{old('position.0')}}">
                                             </td>
                                             <td>
                                                 <input type="text" class="
                                                 @if($errors->has('time_stay.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="time_stay[]" required>
+                                                    form-control" name="time_stay[]" required
+                                                       value="{{old('time_stay.0')}}">
                                             </td>
                                             <td>
                                                 <input type="text" data-field="value" class="
                                                 @if($errors->has('insurer_price.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="insurer_price[]" required>
+                                                    form-control" name="insurer_price[]" required
+                                                       value="{{old('insurer_price.0')}}">
                                             </td>
                                             <td>
                                                 <input type="text" data-field="sum" class="
                                                 @if($errors->has('insurer_sum.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="insurer_sum[]" required>
+                                                    form-control" name="insurer_sum[]" required
+                                                       value="{{old('insurer_sum.0')}}">
                                             </td>
                                             <td>
                                                 <input type="text" data-field="premiya" class="
                                                 @if($errors->has('insurer_premium.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="insurer_premium[]"  required>
+                                                    form-control" name="insurer_premium[]"  required
+                                                       value="{{old('insurer_premium.0')}}">
                                             </td>
                                             <td><input type="button" value="Удалить" data-action="delete" class="btn btn-warning"></td>
                                         </tr>
@@ -521,11 +531,13 @@
                                 <div class="row">
                                     <div class="col-sm-1">
                                         <div class="checkbox icheck-success">
-                                            <input type="radio" class="other_insurance-0" name="acted" data-acted-radio id="success-action-1" value="1">
+                                            <input type="radio" class="other_insurance-0" name="acted" data-acted-radio id="success-action-1" value="1"
+                                            @if(old('acted') == 1) checked @endif>
                                             <label for="success-action-1">Да</label>
                                         </div>
                                         <div class="checkbox icheck-success">
-                                            <input type="radio" class="other_insurance-0" name="acted" data-acted-radio id="success-action-2" value="0">
+                                            <input type="radio" class="other_insurance-0" name="acted" data-acted-radio id="success-action-2" value="0"
+                                                   @if(old('acted') == 0) checked @endif>
                                             <label for="success-action-2">Нет</label>
                                         </div>
                                     </div>
@@ -577,11 +589,13 @@
                             <div class="row">
                                 <div class="col-sm-1">
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases" id="case-true" value="1">
+                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases" id="case-true" value="1"
+                                               @if(old('cases') == 1) checked @endif>
                                         <label for="case-true">Да</label>
                                     </div>
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases" id="case-false" value="0">
+                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases" id="case-false" value="0"
+                                               @if(old('cases') == 0) checked @endif>
                                         <label for="case-false">Нет</label>
                                     </div>
                                 </div>
@@ -608,11 +622,13 @@
                             <div class="row">
                                 <div class="col-sm-1">
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-administr-radio name="administrative_case" id="case-administrative-1" value="1">
+                                        <input type="radio" class="other_insurance-0" data-administr-radio name="administrative_case" id="case-administrative-1" value="1"
+                                               @if(old('administrative_case') == 1) checked @endif>
                                         <label for="case-administrative-1">Да</label>
                                     </div>
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-administr-radio name="administrative_case" id="case-administrative-2" value="0">
+                                        <input type="radio" class="other_insurance-0" data-administr-radio name="administrative_case" id="case-administrative-2" value="0"
+                                               @if(old('administrative_case') == 0) checked @endif>
                                         <label for="case-administrative-2">Нет</label>
                                     </div>
                                 </div>
