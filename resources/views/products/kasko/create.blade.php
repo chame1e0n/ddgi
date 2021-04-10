@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('kasco-add.store')}}" method="POST" id="mainFormKasko">
+    <form action="{{route('kasco-add.store')}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
         @csrf
         <div class="content-wrapper">
 
@@ -301,7 +301,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">с</span>
                                                 </div>
-                                                <input id="insurance_from" name="insurance_from" type="date" value="{{old('insurance_from')}}" @if($errors->has('insurance_from'))
+                                                <input required id="insurance_from" name="insurance_from" type="date" value="{{old('insurance_from')}}" @if($errors->has('insurance_from'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -315,7 +315,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">до</span>
                                                 </div>
-                                                <input id="insurance_to" name="insurance_to" type="date" value="{{old('insurance_to')}}" @if($errors->has('insurance_to'))
+                                                <input required id="insurance_to" name="insurance_to" type="date" value="{{old('insurance_to')}}" @if($errors->has('insurance_to'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -386,10 +386,10 @@
                                     <tbody>
                                     <tr id="0">
                                         <td>
-                                            <input type="text" class="form-control" name="polis_number[]">
+                                            <input type="text" class="form-control">
                                         </td>
                                         <td>
-                                            <select   @if($errors->has('policy_series_id.*'))
+                                            <select required   @if($errors->has('policy_series_id.*'))
                                                      class="form-control is-invalid polises"
                                                      @else
                                                      class="form-control polises"
@@ -401,28 +401,28 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" value="{{old('polis_god_vupyska.0')}}" @if($errors->has('polis_god_vupyska.*'))
+                                            <input type="text" required value="{{old('polis_god_vupyska.0')}}" @if($errors->has('polis_god_vupyska.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_god_vupyska[]">
                                         </td>
                                         <td>
-                                            <input type="date" value="{{old('polis_date_from.0')}}" @if($errors->has('polis_date_from.*'))
+                                            <input type="date" required value="{{old('polis_date_from.0')}}" @if($errors->has('polis_date_from.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_date_from[]">
                                         </td>
                                         <td>
-                                            <input type="date" value="{{old('polis_date_to.0')}}" @if($errors->has('polis_date_to.*'))
+                                            <input type="date" required value="{{old('polis_date_to.0')}}" @if($errors->has('polis_date_to.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_date_to[]">
                                         </td>
                                         <td>
-                                            <select @if($errors->has('agent_id.*'))
+                                            <select required @if($errors->has('agent_id.*'))
                                                     class="form-control is-invalid polises"
                                                     @else
                                                     class="form-control polises"
@@ -434,56 +434,56 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" value="{{old('polis_marka.0')}}" @if($errors->has('polis_marka.*'))
+                                            <input required type="text" value="{{old('polis_marka.0')}}" @if($errors->has('polis_marka.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_marka[]">
                                         </td>
                                         <td>
-                                            <input type="text"  value="{{old('polis_model.0')}}" @if($errors->has('polis_model.*'))
+                                            <input required type="text"  value="{{old('polis_model.0')}}" @if($errors->has('polis_model.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_model[]">
                                         </td>
                                         <td>
-                                            <input type="text"  value="{{old('polis_gos_nomer.0')}}" @if($errors->has('polis_gos_nomer.*'))
+                                            <input type="text" required  value="{{old('polis_gos_nomer.0')}}" @if($errors->has('polis_gos_nomer.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_gos_nomer[]">
                                         </td>
                                         <td>
-                                            <input type="text"  value="{{old('polis_nomer_tex_passporta.0')}}" @if($errors->has('fio_insurer'))
+                                            <input type="text" required  value="{{old('polis_nomer_tex_passporta.0')}}" @if($errors->has('fio_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_nomer_tex_passporta[]">
                                         </td>
                                         <td>
-                                            <input type="text"  value="{{old('polis_nomer_dvigatelya.0')}}" @if($errors->has('polis_nomer_dvigatelya.*'))
+                                            <input type="text" required  value="{{old('polis_nomer_dvigatelya.0')}}" @if($errors->has('polis_nomer_dvigatelya.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_nomer_dvigatelya[]">
                                         </td>
                                         <td>
-                                            <input type="text"  value="{{old('polis_nomer_kuzova.0')}}" @if($errors->has('polis_nomer_kuzova.*'))
+                                            <input type="text" required  value="{{old('polis_nomer_kuzova.0')}}" @if($errors->has('polis_nomer_kuzova.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_nomer_kuzova[]">
                                         </td>
                                         <td>
-                                            <input type="text"  value="{{old('polis_gruzopodoemnost.0')}}" @if($errors->has('polis_gruzopodoemnost.*'))
+                                            <input type="text" required  value="{{old('polis_gruzopodoemnost.0')}}" @if($errors->has('polis_gruzopodoemnost.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_gruzopodoemnost[]">
                                         </td>
                                         <td>
-                                            <input type="text" data-field="value" value="{{old('polis_strah_value.0')}}" @if($errors->has('polis_strah_value.*'))
+                                            <input type="text" required data-field="value" value="{{old('polis_strah_value.0')}}" @if($errors->has('polis_strah_value.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -893,7 +893,7 @@
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">от</span>
                                                                 </div>
-                                                                <input type="date" value="{{old('from_date.0')}}" @if($errors->has('from_date.*'))
+                                                                <input required type="date" value="{{old('from_date.0')}}" @if($errors->has('from_date.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"

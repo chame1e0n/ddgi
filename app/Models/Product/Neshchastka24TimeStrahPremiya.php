@@ -12,14 +12,13 @@ class Neshchastka24TimeStrahPremiya extends Model
 
 
         $data = $request->all();
-
+//dd($data['payment_sum']);
         $count = isset($data['payment_sum']) ? count($data['payment_sum']) : -1;
 
         for ($i=0; $i<$count; $i++) {
 
             if($data['payment_sum'][$i] && $data['payment_sum'][$i]){
                 $create = new self();
-
                 $create->neshchastka24_time_id = $t_id->id;
                 $create->payment_sum = $data['payment_sum'][$i];
                 $create->payment_from = $data['payment_from'][$i];

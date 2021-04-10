@@ -75,6 +75,7 @@ class Neshchastka24TimeController extends Controller
     public function edit($id)
     {
         $page = Neshchastka24Time::with('StrahPremiya', 'policyHolders', 'PolicyBeneficiaries', 'policyInformations')->find($id);
+//        dd($page);
         $banks = Bank::getBanks();
         $agents = Agent::getActiveAgent();
         $polis_series = PolicySeries::get();

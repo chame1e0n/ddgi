@@ -1,7 +1,7 @@
 @extends('layouts.index')
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('neshchastka-time.update', $page->id )}}" method="POST" id="mainFormKasko">
+    <form action="{{route('neshchastka-time.update', $page->id )}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="content-wrapper">
@@ -533,18 +533,21 @@
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
                                         <input type="file" id="geographic-zone" name="anketa" class="form-control">
+                                        <embed src="/storage/{{$page->anketa}}" width="100px" height="100px">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Договор</label>
                                         <input type="file" id="geographic-zone" name="dogovor" class="form-control">
+                                        <embed src="/storage/{{$page->dogovor}}" width="100px" height="100px">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Полис</label>
                                         <input type="file" id="geographic-zone" name="polis" class="form-control">
+                                        <embed src="/storage/{{$page->polis}}" width="100px" height="100px">
                                     </div>
                                 </div>
                             </div>

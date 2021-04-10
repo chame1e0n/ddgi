@@ -108,11 +108,12 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="bank_insurer" class="col-form-label">Банк</label>
+                                        <label for="insurer-bank" class="col-form-label">Банк</label>
                                         <select @if($errors->has('bank_insurer'))
                                                 class="form-control is-invalid"
                                                 @else
-                                                @endif id="bank_insurer" name="bank_insurer"
+                                                    class="form-control"
+                                                @endif id="insurer-bank" name="bank_insurer"
                                                 style="width: 100%;" required>
                                             <option>Выберите банк</option>
                                             @foreach($banks as $bank)
@@ -123,8 +124,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-okonh" name="inn_insurer" @if($errors->has('inn_insurer'))
+                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
+                                        <input type="text" id="insurer-inn" name="inn_insurer" @if($errors->has('inn_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"

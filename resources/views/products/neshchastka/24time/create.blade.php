@@ -1,7 +1,7 @@
 @extends('layouts.index')
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('neshchastka-time.store')}}" method="POST" id="mainFormKasko">
+    <form action="{{route('neshchastka-time.store')}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
         @csrf
         <div class="content-wrapper">
 

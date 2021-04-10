@@ -831,7 +831,7 @@ function addProductFields(fieldNumber) {
                                 </div>
                             </div>
                             <div data-radioSuccess5-${fieldNumber} class="col-md-6 r-2-show-${fieldNumber}" style="display: none;">
-                                
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -1148,7 +1148,7 @@ const addProductFieldRow = (fieldNumber) => {
         <td>
             <input type="text"  class="form-control" name="polis_places[]">
         </td>
-       
+
         <td>
             <input type="text" data-field="value" class="form-control" name="polis_places[]">
         </td>
@@ -1278,7 +1278,7 @@ const toggleBlockRadio = (id, dataAttr, open = true) => {
 const addInsurer = () => {
     const id = Math.random();
     const ln = document.querySelectorAll('#clone-insurance').length + 1
-    const html = ` 
+    const html = `
         <div id="${id}" class="card-body">
           <div class="card card-info" id="clone-insurance">
               <div class="card-header">

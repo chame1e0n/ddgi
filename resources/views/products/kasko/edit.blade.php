@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('kasco-add.update', $page->id)}}" method="POST" id="mainFormKasko">
+    <form action="{{route('kasco-add.update', $page->id)}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
         <div class="content-wrapper">
@@ -388,7 +388,7 @@
                                     @foreach($page->policyInformations as $info)
                                     <tr id="{{$loop->iteration}}">
                                         <td>
-                                            <input type="text" class="form-control" value="" name="polis_number[]" disabled>
+                                            <input type="text" class="form-control"  disabled>
                                         </td>
                                         <td>
                                             <select  @if($errors->has('policy_series_id.*'))
@@ -557,7 +557,7 @@
                                                                @else
                                                                class="form-control"
                                                                @endif value="{{$info->series_number}}" name="series_number[]"></td>
-                                                    <td><input type="text" class="form-control forsum5" value="" name="insurance_sum[]" id="insurance_sum-1"></td>
+                                                    <td><input type="text" class="form-control forsum5" value="{{$info->insurance_sum}}" name="insurance_sum[]" id="insurance_sum-1"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -579,7 +579,7 @@
                                         <div class="form-group">
                                             <label>Покрытие террористических актов с ТС </label>
                                             <div class="input-group mb-4">
-                                                <input type="text" class="form-control terror-tc-1" value="" name="cover_terror_attacks_sum[]">
+                                                <input type="text" class="form-control terror-tc-1" name="cover_terror_attacks_sum[]" value="{{$info->cover_terror_attacks_sum}}">
                                                 <div class="input-group-append">
                                                     <select class="form-control success"  name="cover_terror_attacks_currency" style="width: 100%;">
                                                         <option value="{{$info->cover_terror_attacks_currency}}">{{$info->cover_terror_attacks_currency}}</option>
@@ -592,7 +592,7 @@
                                         <div class="form-group">
                                             <label>Покрытие террористических актов с застрахованными лицами </label>
                                             <div class="input-group mb-4">
-                                                <input type="text" class="form-control terror-zl-1" value="" name="cover_terror_attacks_insured_sum[]">
+                                                <input type="text" class="form-control terror-zl-1" value="{{$info->cover_terror_attacks_insured_sum}}" name="cover_terror_attacks_insured_sum[]">
                                                 <div class="input-group-append">
                                                     <select class="form-control success"  name="cover_terror_attacks_insured_currency" style="width: 100%;">
                                                         <option value="{{$info->cover_terror_attacks_insured_currency}}">{{$info->cover_terror_attacks_insured_currency}}</option>
@@ -605,7 +605,7 @@
                                         <div class="form-group">
                                             <label>Покрытие расходы по эвакуации</label>
                                             <div class="input-group mb-4">
-                                                <input type="text" class="form-control evocuation-1" value="" name="coverage_evacuation_cost[]">
+                                                <input type="text" class="form-control evocuation-1" value="{{$info->coverage_evacuation_cost}}" name="coverage_evacuation_cost[]">
                                                 <div class="input-group-append">
                                                     <select class="form-control success" name="coverage_evacuation_currency" style="width: 100%;">
                                                         <option value="{{$info->coverage_evacuation_currency}}">{{$info->coverage_evacuation_currency}}</option>
@@ -1028,7 +1028,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition" class="form-control payment-schedule" value="" name="payment_term" style="width: 100%; text-align: center">
+                                        <select id="condition" class="form-control payment-schedule" name="payment_term" style="width: 100%; text-align: center">
                                             <option value="1" @if($page->payment_term == 'Единовременно') selected @endif>Единовременно</option>
                                             <option value="transh" @if($page->payment_term == 'transh') selected @endif>Транш</option>
                                         </select>
@@ -1037,7 +1037,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Способ расчета</label>
-                                        <select class="form-control payment-schedule" value="" name="sposob_rascheta" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
+                                        <select class="form-control payment-schedule"  name="sposob_rascheta" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
                                             <option value="1" @if($page->sposob_rascheta == 1) selected @endif>Сумах</option>
                                             <option value="2" @if($page->sposob_rascheta == 2) selected @endif>Сумах В ин. валюте</option>
                                             <option value="3" @if($page->sposob_rascheta == 3) selected @endif>В ин. валюте по курсу ЦБ на день заключение
@@ -1164,6 +1164,8 @@
                                                @else
                                                class="form-control"
                                             @endif>
+
+                                        <embed src="/storage/{{$page->anketa}}" width="100px" height="100px">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -1174,6 +1176,7 @@
                                                @else
                                                class="form-control"
                                             @endif>
+                                        <embed src="/storage/{{$page->dogovor}}" width="100px" height="100px">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -1184,6 +1187,7 @@
                                                @else
                                                class="form-control"
                                             @endif>
+                                        <embed src="/storage/{{$page->polis}}" width="100px" height="100px">
                                     </div>
                                 </div>
                             </div>
