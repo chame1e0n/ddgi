@@ -187,4 +187,12 @@ class AgentController extends Controller
         return redirect()->route('agent.index')
             ->with('success', sprintf('Дынные об агенте \'%s\' были успешно удалены', $agent->name));
     }
+
+    public function agent_list()
+    {
+        $list = Agent::query()->get();
+        return response()->json([
+            'data' => $list
+        ]);
+    }
 }

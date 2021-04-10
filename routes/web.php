@@ -82,6 +82,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('request_overview', 'RequestOverviewController');
 
+
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     Route::resource('spravochniki/bank','Spravochniki\BankController');
@@ -139,3 +140,5 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Auth::routes();
+
+Route::get('agent_list', 'Spravochniki\AgentController@agent_list');
