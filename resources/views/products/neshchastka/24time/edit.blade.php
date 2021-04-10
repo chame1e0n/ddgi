@@ -274,6 +274,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        {{--TODO серия полиса--}}
+                                        {{--                                            <select name="polis_series" id="polis_series">--}}
+                                        {{--                                                @foreach($polis_series as $seriya)--}}
+                                        {{--                                                    <option value="{{$seriya->id}}">{{$seriya->code}}</option>--}}
+                                        {{--                                                @endforeach--}}
+                                        {{--                                            </select>--}}
+                                        {{--TODO пример агента--}}
+                                        {{--                                            <label class="col-form-label" for="otvet-litso">Ответственное лицо</label>--}}
+                                        {{--                                            <select class="form-control polises" required id="otvet-litso" name="otvet_litso" style="width: 100%;">--}}
+                                        {{--                                                @foreach($agents as $agent)--}}
+                                        {{--                                                    <option @if(old('otvet_litso') == $agent->user_id) selected--}}
+                                        {{--                                                            @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>--}}
+                                        {{--                                                @endforeach--}}
+                                        {{--                                            </select>--}}
+
                                         @foreach($page->policyInformations as $info)
                                         <tr id="0.7842109002522502">
                                             <td>
@@ -469,7 +484,11 @@
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Серийный номер полиса
                                                 страхования</label>
-                                            <input type="text" id="polis-series" name="polis_series" value="{{$page->polis_series}}" required class="form-control">
+                                            <select name="polis_series" id="polis_series" class="form-control">
+                                                @foreach($polis_series as $seriya)
+                                                    <option value="{{$seriya->id}}" @if($page->polis_series == $seriya->id) selected @endif>{{$seriya->code}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">

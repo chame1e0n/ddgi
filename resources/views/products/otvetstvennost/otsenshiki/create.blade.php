@@ -252,7 +252,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr data-cloned="true">
 
                                             <td>
                                                 <input type="text" class="form-control" readonly>

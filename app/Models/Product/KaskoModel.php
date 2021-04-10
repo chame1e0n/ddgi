@@ -42,6 +42,18 @@ class KaskoModel extends Model
         $kasko->policy_holder_id = $policy_holder_id;
         $kasko->policy_beneficiary_id = $policy_beneficiary_id;
         $kasko->fill($data);
+        if($request->hasFile('dogovor')){
+            $dogovor = $request->file('dogovor')->store('/kasko', 'public');
+            $kasko->dogovor = $dogovor;
+        }
+        if($request->hasFile('anketa')){
+            $anketa = $request->file('anketa')->store('/kasko', 'public');
+            $kasko->anketa = $anketa;
+        }
+        if($request->hasFile('polis')){
+            $polis = $request->file('polis')->store('/kasko', 'public');
+            $kasko->polis = $polis;
+        }
         $kasko->save();
 
         return $kasko;
@@ -53,6 +65,18 @@ class KaskoModel extends Model
         $kasko->policy_holder_id = $policy_holder_id;
         $kasko->policy_beneficiary_id = $policy_beneficiary_id;
         $kasko->fill($data);
+        if($request->hasFile('dogovor')){
+            $dogovor = $request->file('dogovor')->store('/kasko', 'public');
+            $kasko->dogovor = $dogovor;
+        }
+        if($request->hasFile('anketa')){
+            $anketa = $request->file('anketa')->store('/kasko', 'public');
+            $kasko->anketa = $anketa;
+        }
+        if($request->hasFile('polis')){
+            $polis = $request->file('polis')->store('/kasko', 'public');
+            $kasko->polis = $polis;
+        }
         $kasko->save();
 
         return $kasko;

@@ -108,9 +108,6 @@ class KascoRequest extends FormRequest
           "polis_series" => "required",
           "insurance_from_date" => "required",
           "otvet_litso" => "required|integer",
-          "anketa" => 'file|nullable',
-          "dogovor" => 'file|nullable',
-          "polis" => 'file|nullable',
         ];
     }
 }

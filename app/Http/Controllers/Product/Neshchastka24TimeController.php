@@ -10,6 +10,7 @@ use App\Models\Product\Neshchastka24timeInformation;
 use App\Models\Product\Neshchastka24TimeStrahPremiya;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
+use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -29,7 +30,8 @@ class Neshchastka24TimeController extends Controller
     {
         $banks = Bank::getBanks();
         $agents = Agent::getActiveAgent();
-        return view('products.neshchastka.24time.create', compact('banks', 'agents'));
+        $polis_series = PolicySeries::get();
+        return view('products.neshchastka.24time.create', compact('banks', 'agents' , 'polis_series'));
     }
 
     /**
@@ -75,8 +77,8 @@ class Neshchastka24TimeController extends Controller
         $page = Neshchastka24Time::with('StrahPremiya', 'policyHolders', 'PolicyBeneficiaries', 'policyInformations')->find($id);
         $banks = Bank::getBanks();
         $agents = Agent::getActiveAgent();
-
-        return view('products.neshchastka.24time.edit', compact('banks', 'agents', 'page'));
+        $polis_series = PolicySeries::get();
+        return view('products.neshchastka.24time.edit', compact('banks', 'agents', 'page', 'polis_series'));
     }
     /**
      * Update the specified resource in storage.

@@ -723,7 +723,7 @@
                                                         <input @if($info->tho_sum) checked @endif onchange="toggleBlockRadio('radioSuccess5-1', 'data-radioSuccess5-1')" type="radio" value="" name="civil_liability_1" class="r-2-1" id="radioSuccess5-1" value="1">
                                                         <label for="radioSuccess5-1">Да</label>
                                                     </div>
-                                                    <div onchange="toggleBlockRadio('radioSuccess6-1', 'data-radioSuccess5-1', false)" class="checkbox icheck-success">
+                                                    <div onchange="toggleBlockRadio('radioSuccess6-1', 'data-radioSuccess6-1', false)" class="checkbox icheck-success">
                                                         <input @if(!$info->tho_sum) checked @endif type="radio" value="" name="civil_liability[]" class="r-2-1" id="radioSuccess6-1" value="0">
                                                         <label for="radioSuccess6-1">Нет</label>
                                                     </div>
@@ -1107,11 +1107,11 @@
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Серийный номер полиса
                                                 страхования</label>
-                                            <input type="text" id="polis-series" value="{{$page->polis_series}}" name="polis_series" @if($errors->has('polis_series'))
-                                            class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                @endif>
+                                            <select name="polis_series" id="polis_series" class="form-control">
+                                                @foreach($policySeries as $seriya)
+                                                    <option value="{{$seriya->id}}" @if($page->polis_series == $seriya->id) selected @endif>{{$seriya->code}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">

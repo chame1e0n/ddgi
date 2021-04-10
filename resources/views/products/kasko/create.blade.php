@@ -88,7 +88,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
-                                            <input type="text" id="insurer-name" name="fio_insurer" @if($errors->has('fio_insurer'))
+                                            <input type="text" id="insurer-name" name="fio_insurer" value="{{old('fio_insurer')}}" @if($errors->has('fio_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -99,7 +99,7 @@
                                         <div class="form-group">
                                             <label for="insurer-address" class="col-form-label">Юр адрес
                                                 страхователя</label>
-                                            <input type="text" id="insurer-address" name="address_insurer" @if($errors->has('address_insurer'))
+                                            <input type="text" id="insurer-address" name="address_insurer" value="{{old('address_insurer')}}"  @if($errors->has('address_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -109,7 +109,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="insurer-tel" name="tel_insurer" @if($errors->has('tel_insurer'))
+                                            <input type="text" id="insurer-tel" name="tel_insurer" value="{{old('tel_insurer')}}" @if($errors->has('tel_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -119,7 +119,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                            <input type="text" id="insurer-schet" name="address_schet" @if($errors->has('address_schet'))
+                                            <input type="text" id="insurer-schet" name="address_schet" value="{{old('address_schet')}}" @if($errors->has('address_schet'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -129,7 +129,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                            <input type="text" id="insurer-inn" name="inn_insurer" @if($errors->has('inn_insurer'))
+                                            <input type="text" id="insurer-inn" name="inn_insurer" value="{{old('inn_insurer')}}" @if($errors->has('inn_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -139,7 +139,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                            <input type="text" id="insurer-mfo" name="mfo_insurer" @if($errors->has('mfo_insurer'))
+                                            <input type="text" id="insurer-mfo" name="mfo_insurer" value="{{old('mfo_insurer')}}" @if($errors->has('mfo_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -149,7 +149,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="bank_insurer" class="col-form-label">Банк</label>
-                                            <select @if($errors->has('bank_insurer'))
+                                            <select  @if($errors->has('bank_insurer'))
                                                     class="form-control is-invalid"
                                                     @else
                                                class="form-control"
@@ -157,7 +157,7 @@
                                                     style="width: 100%;" required>
                                                 <option>Выберите банк</option>
                                                 @foreach($banks as $bank)
-                                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                    <option @if(old('bank_insurer') == $bank->id) selected @endif value="{{ $bank->id }}">{{ $bank->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -165,7 +165,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                            <input type="text" id="insurer-okonh"  name="okonx" @if($errors->has('okonh'))
+                                            <input type="text" id="insurer-okonh"  name="okonx" value="{{old('okonx')}}" @if($errors->has('okonh'))
                                             class="form-control is-invalid"
                                                    @else
                                                    class="form-control"
@@ -196,7 +196,7 @@
                                             <div class="form-group">
                                                 <label for="beneficiary-name" class="col-form-label">ФИО
                                                     выгодоприобретателя</label>
-                                                <input type="text" id="beneficiary-name" name="fio_beneficiary" @if($errors->has('fio_beneficiary'))
+                                                <input type="text" id="beneficiary-name" name="fio_beneficiary" value="{{old('fio_beneficiary')}}" @if($errors->has('fio_beneficiary'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -207,7 +207,7 @@
                                             <div class="form-group">
                                                 <label for="beneficiary-address" class="col-form-label">Юр адрес
                                                     выгодоприобретателя</label>
-                                                <input type="text" id="beneficiary-address" name="address_beneficiary" @if($errors->has('address_beneficiary'))
+                                                <input type="text" id="beneficiary-address" name="address_beneficiary" value="{{old('address_beneficiary')}}" @if($errors->has('address_beneficiary'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -217,7 +217,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                <input type="text" id="beneficiary-tel" name="tel_beneficiary" @if($errors->has('tel_beneficiary'))
+                                                <input type="text" id="beneficiary-tel" name="tel_beneficiary" value="{{old('tel_beneficiary')}}" @if($errors->has('tel_beneficiary'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -227,7 +227,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                                <input type="text" id="beneficiary-schet" name="beneficiary_schet" @if($errors->has('beneficiary_schet'))
+                                                <input type="text" id="beneficiary-schet" name="beneficiary_schet" value="{{old('beneficiary_schet')}}" @if($errors->has('beneficiary_schet'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -237,7 +237,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                <input type="text" id="beneficiary-inn" name="inn_beneficiary" @if($errors->has('inn_beneficiary'))
+                                                <input type="text" id="beneficiary-inn" name="inn_beneficiary" value="{{old('inn_beneficiary')}}" @if($errors->has('inn_beneficiary'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -247,7 +247,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" @if($errors->has('mfo_beneficiary'))
+                                                <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" value="{{old('mfo_beneficiary')}}" @if($errors->has('mfo_beneficiary'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -257,7 +257,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="bank_beneficiary" class="col-form-label">Банк</label>
-                                                <select @if($errors->has('bank_beneficiary'))
+                                                <select  @if($errors->has('bank_beneficiary'))
                                                         class="form-control is-invalid"
                                                         @else
                                                class="form-control"
@@ -265,7 +265,7 @@
                                                         style="width: 100%;" required>
                                                     <option>Выберите банк</option>
                                                     @foreach($banks as $bank)
-                                                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                        <option @if(old('bank_beneficiary') == $bank->id) selected @endif value="{{ $bank->id }}">{{ $bank->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -273,7 +273,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
-                                                <input type="text" id="beneficiary-okonh"  name="okonx_beneficiary" @if($errors->has('okonx_beneficiary'))
+                                                <input type="text" id="beneficiary-okonh"  name="okonx_beneficiary" value="{{old('okonx_beneficiary')}}" @if($errors->has('okonx_beneficiary'))
                                                 class="form-control is-invalid"
                                                        @else
                                                        class="form-control"
@@ -301,7 +301,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">с</span>
                                                 </div>
-                                                <input id="insurance_from" name="insurance_from" type="date" @if($errors->has('insurance_from'))
+                                                <input id="insurance_from" name="insurance_from" type="date" value="{{old('insurance_from')}}" @if($errors->has('insurance_from'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -315,7 +315,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">до</span>
                                                 </div>
-                                                <input id="insurance_to" name="insurance_to" type="date" @if($errors->has('insurance_to'))
+                                                <input id="insurance_to" name="insurance_to" type="date" value="{{old('insurance_to')}}" @if($errors->has('insurance_to'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -327,7 +327,7 @@
 
                                 <div class="form-group">
                                     <label for="reason">Использование транспортного средства на основании:</label>
-                                    <input type="text" id="reason" name="reason" @if($errors->has('reason'))
+                                    <input type="text" id="reason" name="reason" value="{{old('reason')}}" @if($errors->has('reason'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -336,7 +336,7 @@
 
                                 <div class="form-group">
                                     <label for="geographic-zone">Географическая зона:</label>
-                                    <input type="text" id="geographic-zone" name="geo_zone" @if($errors->has('geo_zone'))
+                                    <input type="text" id="geographic-zone" name="geo_zone" value="{{old('geo_zone')}}" @if($errors->has('geo_zone'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -389,7 +389,7 @@
                                             <input type="text" class="form-control" name="polis_number[]">
                                         </td>
                                         <td>
-                                            <select  @if($errors->has('policy_series_id.*'))
+                                            <select   @if($errors->has('policy_series_id.*'))
                                                      class="form-control is-invalid polises"
                                                      @else
                                                      class="form-control polises"
@@ -401,21 +401,21 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" @if($errors->has('polis_god_vupyska.*'))
+                                            <input type="text" value="{{old('polis_god_vupyska.0')}}" @if($errors->has('polis_god_vupyska.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_god_vupyska[]">
                                         </td>
                                         <td>
-                                            <input type="date" @if($errors->has('polis_date_from.*'))
+                                            <input type="date" value="{{old('polis_date_from.0')}}" @if($errors->has('polis_date_from.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_date_from[]">
                                         </td>
                                         <td>
-                                            <input type="date" @if($errors->has('polis_date_to.*'))
+                                            <input type="date" value="{{old('polis_date_to.0')}}" @if($errors->has('polis_date_to.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -434,56 +434,56 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" @if($errors->has('polis_marka.*'))
+                                            <input type="text" value="{{old('polis_marka.0')}}" @if($errors->has('polis_marka.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_marka[]">
                                         </td>
                                         <td>
-                                            <input type="text"  @if($errors->has('polis_model.*'))
+                                            <input type="text"  value="{{old('polis_model.0')}}" @if($errors->has('polis_model.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_model[]">
                                         </td>
                                         <td>
-                                            <input type="text"  @if($errors->has('polis_gos_nomer.*'))
+                                            <input type="text"  value="{{old('polis_gos_nomer.0')}}" @if($errors->has('polis_gos_nomer.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_gos_nomer[]">
                                         </td>
                                         <td>
-                                            <input type="text"  @if($errors->has('fio_insurer'))
+                                            <input type="text"  value="{{old('polis_nomer_tex_passporta.0')}}" @if($errors->has('fio_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_nomer_tex_passporta[]">
                                         </td>
                                         <td>
-                                            <input type="text"  @if($errors->has('polis_nomer_dvigatelya.*'))
+                                            <input type="text"  value="{{old('polis_nomer_dvigatelya.0')}}" @if($errors->has('polis_nomer_dvigatelya.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_nomer_dvigatelya[]">
                                         </td>
                                         <td>
-                                            <input type="text"  @if($errors->has('polis_nomer_kuzova.*'))
+                                            <input type="text"  value="{{old('polis_nomer_kuzova.0')}}" @if($errors->has('polis_nomer_kuzova.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_nomer_kuzova[]">
                                         </td>
                                         <td>
-                                            <input type="text"  @if($errors->has('polis_gruzopodoemnost.*'))
+                                            <input type="text"  value="{{old('polis_gruzopodoemnost.0')}}" @if($errors->has('polis_gruzopodoemnost.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="polis_gruzopodoemnost[]">
                                         </td>
                                         <td>
-                                            <input type="text" data-field="value" @if($errors->has('polis_strah_value.*'))
+                                            <input type="text" data-field="value" value="{{old('polis_strah_value.0')}}" @if($errors->has('polis_strah_value.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -539,17 +539,17 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><input type="text" @if($errors->has('mark_model.*'))
+                                                        <td><input type="text" value="{{old('mark_model.0')}}" @if($errors->has('mark_model.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="mark_model[]"></td>
-                                                        <td><input type="text" @if($errors->has('name.*'))
+                                                        <td><input type="text" value="{{old('name.0')}}" @if($errors->has('name.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="name[]"></td>
-                                                        <td><input type="text" @if($errors->has('series_number.*'))
+                                                        <td><input type="text" value="{{old('series_number.0')}}" @if($errors->has('series_number.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -633,7 +633,7 @@
                                                             <label for="radioSuccess1-1">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success">
-                                                            <input onchange="toggleBlockRadio('radioSuccess1-1', 'data-radioSuccess1-1', false)" type="radio" class="other_insurance-1" name="strtahovka[]" id="radioSuccess2-1" value="0">
+                                                            <input onchange="toggleBlockRadio('radioSuccess2-1', 'data-radioSuccess2-1', false)" type="radio" class="other_insurance-1" name="strtahovka[]" id="radioSuccess2-1" value="0">
                                                             <label for="radioSuccess2-1">Нет</label>
                                                         </div>
                                                     </div>
@@ -641,7 +641,7 @@
                                             </div>
                                             <div data-radioSuccess1-1 class="form-group other_insurance_info-1" style="display:none">
                                                 <label>Укажите название и адрес страховой организации и номер Полиса</label>
-                                                <input @if($errors->has('other_insurance_info.*'))
+                                                <input value="{{old('other_insurance_info.0')}}" @if($errors->has('other_insurance_info.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -720,7 +720,7 @@
                                                             <input onchange="toggleBlockRadio('radioSuccess5-1', 'data-radioSuccess5-1')" type="radio" name="civil_liability_1" class="r-2-1" id="radioSuccess5-1" value="1">
                                                             <label for="radioSuccess5-1">Да</label>
                                                         </div>
-                                                        <div onchange="toggleBlockRadio('radioSuccess6-1', 'data-radioSuccess5-1', false)" class="checkbox icheck-success">
+                                                        <div onchange="toggleBlockRadio('radioSuccess6-1', 'data-radioSuccess6-1', false)" class="checkbox icheck-success">
                                                             <input type="radio" name="civil_liability[]" class="r-2-1" id="radioSuccess6-1" value="0">
                                                             <label for="radioSuccess6-1">Нет</label>
                                                         </div>
@@ -843,7 +843,7 @@
                                             <div class="form-group col-sm-8">
                                                 <label>Общий лимит ответственности </label>
                                                 <div class="input-group mb-4">
-                                                    <input type="text" @if($errors->has('total_liability_limit.*'))
+                                                    <input type="text" value="{{old('total_liability_limit.0')}}" @if($errors->has('total_liability_limit.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -877,7 +877,8 @@
                                                             <label for="polises">Полис</label>
                                                             <select class="form-control polises" id="polises" name="policy_id[]" style="width: 100%;">
                                                                 @foreach($policySeries as $polic)
-                                                                <option selected="selected" value="{{$polic->id}}">{{$polic->code}}</option>
+                                                                <option @if(old('policy_id[]') == $agent->user_id) selected
+                                                                        @endif selected="selected" value="{{$polic->id}}">{{$polic->code}}</option>
                                                                     @endforeach
                                                             </select>
                                                             <div class="input-group mb-3">
@@ -892,7 +893,7 @@
                                                                 <div class="input-group-prepend">
                                                                     <span class="input-group-text">от</span>
                                                                 </div>
-                                                                <input type="date" @if($errors->has('from_date.*'))
+                                                                <input type="date" value="{{old('from_date.0')}}" @if($errors->has('from_date.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -952,7 +953,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">Общая страховая сумма</span>
                                                     </div>
-                                                    <input type="text" data-overall @if($errors->has('overall_sum.*'))
+                                                    <input type="text" data-overall value="{{old('overall_sum.0')}}" @if($errors->has('overall_sum.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -981,7 +982,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="strahovaya_sum" @if($errors->has('strahovaya_sum'))
+                                        <input type="text" id="all-summ" name="strahovaya_sum" value="{{old('strahovaya_sum.0')}}" @if($errors->has('strahovaya_sum'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -991,7 +992,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая премия</label>
-                                        <input type="text" id="all-summ" name="strahovaya_purpose" @if($errors->has('strahovaya_purpose'))
+                                        <input type="text" id="all-summ" name="strahovaya_purpose" value="{{old('strahovaya_purpose.0')}}" @if($errors->has('strahovaya_purpose'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -1001,7 +1002,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-summ" name="franshiza" @if($errors->has('franshiza'))
+                                        <input type="text" id="all-summ" name="franshiza" value="{{old('franshiza.0')}}" @if($errors->has('franshiza'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -1011,7 +1012,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Валюта взаиморасчетов</label>
-                                        <select name="insurance_premium_currency" @if($errors->has('insurance_premium_currency'))
+                                        <select name="insurance_premium_currency"  @if($errors->has('insurance_premium_currency'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -1025,8 +1026,8 @@
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
                                         <select id="condition" class="form-control payment-schedule" name="payment_term" style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="transh">Транш</option>
+                                            <option value="1" @if(old('payment_term') == 1) selected @endif>Единовременно</option>
+                                            <option value="transh" @if(old('payment_term') == 'transh') selected @endif>>Транш</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1034,13 +1035,13 @@
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Способ расчета</label>
                                         <select class="form-control payment-schedule" name="sposob_rascheta" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            <option value="1">Сумах</option>
-                                            <option value="2">Сумах В ин. валюте</option>
-                                            <option value="3">В ин. валюте по курсу ЦБ на день заключение
+                                            <option value="1" @if(old('sposob_rascheta') == 1) selected @endif>>Сумах</option>
+                                            <option value="2" @if(old('sposob_rascheta') == 2) selected @endif>>Сумах В ин. валюте</option>
+                                            <option value="3" @if(old('sposob_rascheta') == 3) selected @endif>>В ин. валюте по курсу ЦБ на день заключение
                                                 договора
                                             </option>
-                                            <option value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option value="5">В ин. валюте по фиксированному ЦБ на день оплаты
+                                            <option value="4" @if(old('sposob_rascheta') == 4) selected @endif>>В ин. валюте по курсу ЦБ на день оплаты</option>
+                                            <option value="5" @if(old('sposob_rascheta') == 5) selected @endif>>В ин. валюте по фиксированному ЦБ на день оплаты
                                                 премии/первого транша
                                             </option>
                                         </select>
@@ -1064,12 +1065,12 @@
                                         </thead>
                                         <tbody>
                                         <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" @if($errors->has('payment_sum.*'))
+                                            <td><input type="text" value="{{old('payment_sum.0')}}" @if($errors->has('payment_sum.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif name="payment_sum[]"></td>
-                                            <td><input type="date" @if($errors->has('payment_from.*'))
+                                            <td><input type="date" value="{{old('payment_from.0')}}" @if($errors->has('payment_from.*'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -1098,15 +1099,13 @@
                             <div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Серийный номер полиса
-                                                страхования</label>
-                                            <input type="text" id="polis-series" name="polis_series" @if($errors->has('polis_series'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif>
-                                        </div>
+                                        <label for="polis-series" class="col-form-label">Серийный номер полиса
+                                            страхования</label>
+                                        <select name="polis_series" id="polis_series" class="form-control">
+                                            @foreach($policySeries as $seriya)
+                                                <option value="{{$seriya->id}}">{{$seriya->code}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-sm-4">
                                         <label class="col-form-label">Дата выдачи страхового полиса </label>
@@ -1114,7 +1113,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"></span>
                                             </div>
-                                            <input id="insurance_from" name="insurance_from_date" type="date" @if($errors->has('insurance_from_date'))
+                                            <input id="insurance_from" name="insurance_from_date" type="date" value="{{old('insurance_from_date')}}" @if($errors->has('insurance_from_date'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -1153,7 +1152,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
-                                        <input type="file" id="geographic-zone" name="anketa" @if($errors->has('anketa'))
+                                        <input type="file" id="geographic-zone" name="anketa" value="{{old('anketa')}}" @if($errors->has('anketa'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -1163,7 +1162,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Договор</label>
-                                        <input type="file" id="geographic-zone" name="dogovor" @if($errors->has('dogovor'))
+                                        <input type="file" id="geographic-zone" name="dogovor" value="{{old('dogovor')}}" @if($errors->has('dogovor'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -1173,7 +1172,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Полис</label>
-                                        <input type="file" id="geographic-zone" name="polis" @if($errors->has('polis'))
+                                        <input type="file" id="geographic-zone" name="polis" value="{{old('polis')}}" @if($errors->has('polis'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"

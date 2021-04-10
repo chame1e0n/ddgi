@@ -31,7 +31,18 @@ class Neshchastka24Time extends Model
         $create->fill($data);
         $create->policy_holder_id = $p->id;
         $create->policy_beneficiary_id = $b->id;
-
+        if($request->hasFile('dogovor')){
+            $dogovor = $request->file('dogovor')->store('/time', 'public');
+            $create->dogovor = $dogovor;
+        }
+        if($request->hasFile('anketa')){
+            $anketa = $request->file('anketa')->store('/time', 'public');
+            $create->anketa = $anketa;
+        }
+        if($request->hasFile('polis')){
+            $polis = $request->file('polis')->store('/time', 'public');
+            $create->polis = $polis;
+        }
         $create->save();
         return $create;
 
@@ -42,6 +53,18 @@ class Neshchastka24Time extends Model
 
         $create = self::findorFail($id);
         $create->fill($data);
+        if($request->hasFile('dogovor')){
+            $dogovor = $request->file('dogovor')->store('/time', 'public');
+            $create->dogovor = $dogovor;
+        }
+        if($request->hasFile('anketa')){
+            $anketa = $request->file('anketa')->store('/time', 'public');
+            $create->anketa = $anketa;
+        }
+        if($request->hasFile('polis')){
+            $polis = $request->file('polis')->store('/time', 'public');
+            $create->polis = $polis;
+        }
         $create->save();
         return $create;
 
