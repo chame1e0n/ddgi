@@ -62,6 +62,8 @@
                         </div>
                     </div>
                 </div>
+                @include('errors.errors')
+
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -72,9 +74,7 @@
                                 </button>
                             </div>
                         </div>
-
                         <div class="card-body">
-                            @include('errors.errors')
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -713,11 +713,11 @@
                                         @if($page->strahPremiya->count() > 0)
                                         @foreach($page->strahPremiya as $prem)
                                             <tr id="{{$prem->id}}" data-field-number="0">
-                                                <td><input type="text" class="@if($errors->has('payment_sum.*'))
+                                                <td><input type="text" class="@if($errors->has('payment_sum.'.$loop->index))
                                                         is-invalid
                                                         @endif form-control" name="payment_sum[]" value="{{$prem->prem_sum}}">
                                                 </td>
-                                                <td><input type="date" class="@if($errors->has('payment_from.*'))
+                                                <td><input type="date" class="@if($errors->has('payment_from.'.$loop->index))
                                                         is-invalid
                                                         @endif form-control" name="payment_from[]" value="{{$prem->prem_from}}">
                                                 </td>
@@ -823,7 +823,9 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->anketa_img}}" alt="Анкета" width="250" height="250">
+                                        @if($page->anketa_img != null)
+                                            <embed src="/storage/{{$page->anketa_img}}" width="250" height="250" />
+                                        @endif
                                         <label for="polis-series" class="col-form-label">Анкета</label>
                                         <input  id="anketa_img" name="anketa_img" value="{{old('anketa_img')}}"
                                                type="file" @if($errors->has('anketa_img'))
@@ -835,7 +837,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->dogovor_img}}" alt="Договор" width="250" height="250">
+                                        @if($page->dogovor_img != null)
+                                        <embed src="/storage/{{$page->dogovor_img}}" width="250" height="250" />
+                                        @endif
                                         <label for="polis-series" class="col-form-label">Договор</label>
                                         <input  id="dogovor_img" name="dogovor_img" value="{{old('dogovor_img')}}"
                                                type="file" @if($errors->has('dogovor_img'))
@@ -847,7 +851,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->polis_img}}" alt="Полис" width="250" height="250">
+                                        @if($page->polis_img != null)
+                                            <embed src="/storage/{{$page->polis_img}}" width="250" height="250" />
+                                        @endif
                                         <label for="polis-series" class="col-form-label">Полис</label>
                                         <input  id="polis_img" name="polis_img" value="{{old('polis_img')}}"
                                                type="file" @if($errors->has('polis_img'))
@@ -878,7 +884,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Паспорт</label>
-                                            <img src="/storage/{{$page->copy_passport}}" alt="Паспорт" width="250" height="250">
+                                            @if($page->copy_passport != null)
+                                            <embed src="/storage/{{$page->copy_passport}}" alt="Паспорт" width="250" height="250">
+                                            @endif
                                             <input  id="copy_passport" name="copy_passport" value="{{old('copy_passport')}}"
                                                    type="file" @if($errors->has('copy_passport'))
                                                    class="form-control is-invalid"
@@ -890,7 +898,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Договор</label>
-                                            <img src="/storage/{{$page->copy_dogovor}}" alt="Договор" width="250" height="250">
+                                            @if($page->copy_dogovor != null)
+                                            <embed src="/storage/{{$page->copy_dogovor}}" alt="Договор" width="250" height="250">
+                                            @endif
                                             <input  id="copy_dogovor" name="copy_dogovor" value="{{old('copy_dogovor')}}"
                                                    type="file" @if($errors->has('copy_dogovor'))
                                                    class="form-control is-invalid"
@@ -902,7 +912,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Справки</label>
-                                            <img src="/storage/{{$page->copy_spravki}}" alt="Справки" width="250" height="250">
+                                            @if($page->copy_spravki != null)
+                                            <embed src="/storage/{{$page->copy_spravki}}" alt="Справки" width="250" height="250">
+                                            @endif
                                             <input  id="copy_spravki" name="copy_spravki" value="{{old('copy_spravki')}}"
                                                    type="file" @if($errors->has('copy_spravki'))
                                                    class="form-control is-invalid"
@@ -914,7 +926,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Другие</label>
-                                            <img src="/storage/{{$page->copy_drugie}}" alt="Другие" width="250" height="250">
+                                            @if($page->copy_drugie != null)
+                                            <embed src="/storage/{{$page->copy_drugie}}" alt="Другие" width="250" height="250">
+                                            @endif
                                             <input id="copy_drugie" name="copy_drugie" value="{{old('copy_drugie')}}"
                                                    type="file" @if($errors->has('copy_drugie'))
                                                    class="form-control is-invalid"

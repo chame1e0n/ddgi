@@ -772,7 +772,9 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <img src="/storage/{{$page->anketa}}" alt="Анкета">
+                                            @if($page->anketa != null)
+                                            <embed src="/storage/{{$page->anketa}}" alt="Анкета" width="250" height="250" />
+                                            @endif
                                             <label for="polis-series" class="col-form-label">Анкета</label>
                                             <input id="anketa" name="anketa" value="{{old('anketa')}}"
                                                    type="file" @if($errors->has('anketa'))
@@ -784,7 +786,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <img src="/storage/{{$page->dogovor}}" alt="Договор">
+                                            @if($page->dogovor != null)
+                                                <embed src="/storage/{{$page->dogovor}}" width="250" height="250" />
+                                            @endif
                                             <label for="polis-series" class="col-form-label">Договор</label>
                                             <input id="dogovor" name="dogovor" value="{{old('dogovor')}}"
                                                    type="file" @if($errors->has('dogovor'))
@@ -796,7 +800,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <img src="/storage/{{$page->polis}}" alt="Полис">
+                                            @if($page->polis != null)
+                                                <embed src="/storage/{{$page->polis}}" width="250" height="250" />
+                                            @endif
                                             <label for="polis-series" class="col-form-label">Полис</label>
                                             <input id="polis" name="polis" value="{{old('polis')}}"
                                                    type="file" @if($errors->has('polis'))

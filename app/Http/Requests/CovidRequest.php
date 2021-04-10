@@ -61,6 +61,13 @@ class CovidRequest extends FormRequest
             'payment_sum.*'=> 'required_if:poryadok_oplaty_premii,transh',
             'payment_from' => 'array|required_if:poryadok_oplaty_premii,transh',
             'payment_from.*'=> 'required_if:poryadok_oplaty_premii,transh',
+
+            'strahovaya_sum' => 'required',
+            'strahovaya_purpose' => 'required',
+            'serial_number_policy' => 'required',
+            'date_issue_policy' => 'required',
+            'litso' => 'required|integer',
+            'franshiza' => 'required',
         ];
     }
 }

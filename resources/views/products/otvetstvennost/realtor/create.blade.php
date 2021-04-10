@@ -220,7 +220,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="geographic-zone">Географическая зона:</label>
-                                        <input value="{{old('geo_zone')}}" type="text" id="geo_zone" name="geo_zone"
+                                        <input value="{{old('geo_zone')}}" type="text" id="geograph-zone" name="geo_zone"
                                                @if($errors->has('geo_zone'))
                                                class="form-control is-invalid"
                                                @else
@@ -278,7 +278,7 @@
                                                  @if($errors->has('policy_series_id.*'))
                                                     is-invalid
                                                 @endif
-                                                    polises" id="polises" name="policy_series_id[]" style="width: 100%;">
+                                                    polises" id="polises" name="policy_series_id[]" style="width: 100%;" required>
                                                     @foreach($policySeries as $policy)
                                                         <option @if(old('policy_series_id[]') == $policy->id) selected
                                                                 @endif value="{{ $policy->id }}">{{$policy->code}}</option>
@@ -290,21 +290,21 @@
                                                 @if($errors->has('from_date_polis.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="from_date_polis[]">
+                                                    form-control" name="from_date_polis[]" required>
                                             </td>
                                             <td>
                                                 <input type="date" class="
                                                 @if($errors->has('to_date_polis.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="to_date_polis[]">
+                                                    form-control" name="to_date_polis[]" required>
                                             </td>
                                             <td>
                                                 <select class="form-control
                                                  @if($errors->has('agent_id.*'))
                                                     is-invalid
                                                 @endif
-                                                    polises" id="polises" name="agent_id[]" style="width: 100%;">
+                                                    polises" id="polises" name="agent_id[]" style="width: 100%;" required>
                                                     @foreach($agents as $agent)
                                                         <option @if(old('agent_id[]') == $agent->user_id) selected
                                                                 @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
@@ -316,56 +316,56 @@
                                                 @if($errors->has('insurer_fio.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="insurer_fio[]">
+                                                    form-control" name="insurer_fio[]" required>
                                             </td>
                                             <td>
                                                 <input type="text" class="
                                                 @if($errors->has('specialty.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="specialty[]" value="Specialty">
+                                                    form-control" name="specialty[]" value="Specialty" required>
                                             </td>
                                             <td>
                                                 <input type="text" class="
                                                 @if($errors->has('experience.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="experience[]" value="work experience">
+                                                    form-control" name="experience[]" value="work experience" required>
                                             </td>
                                             <td>
                                                 <input type="text" class="
                                                 @if($errors->has('position.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="position[]">
+                                                    form-control" name="position[]" required>
                                             </td>
                                             <td>
                                                 <input type="text" class="
                                                 @if($errors->has('time_stay.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="time_stay[]">
+                                                    form-control" name="time_stay[]" required>
                                             </td>
                                             <td>
                                                 <input type="text" data-field="value" class="
                                                 @if($errors->has('insurer_price.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="insurer_price[]">
+                                                    form-control" name="insurer_price[]" required>
                                             </td>
                                             <td>
                                                 <input type="text" data-field="sum" class="
                                                 @if($errors->has('insurer_sum.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="insurer_sum[]">
+                                                    form-control" name="insurer_sum[]" required>
                                             </td>
                                             <td>
                                                 <input type="text" data-field="premiya" class="
                                                 @if($errors->has('insurer_premium.*'))
                                                     is-invalid
                                                 @endif
-                                                    form-control" name="insurer_premium[]">
+                                                    form-control" name="insurer_premium[]"  required>
                                             </td>
                                             <td><input type="button" value="Удалить" data-action="delete" class="btn btn-warning"></td>
                                         </tr>
@@ -479,7 +479,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">с</span>
                                                 </div>
-                                                <input data-activity-period="from" name="activity_period_from" type="date" class="
+                                                <input data-activity-period="from" name="activity_period_from" type="date" id="insurance-from" class="
                                                 @if($errors->has('activity_period_from'))
                                                     is-invalid
                                                 @endif
@@ -493,7 +493,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">до</span>
                                                 </div>
-                                                <input data-activity-period="to" name="activity_period_to" type="date" class="
+                                                <input data-activity-period="to" name="activity_period_to" type="date" id="insurance-to" class="
                                                  @if($errors->has('activity_period_to'))
                                                     is-invalid
                                                 @endif

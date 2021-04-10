@@ -274,7 +274,7 @@ if (formOtsenshiki) {
 
 if (formRealtors) {
     formRealtors.addEventListener('submit', event => {
-        event.preventDefault();
+        // event.preventDefault();
 
         // Данные из формы audit
         const generalInformation = {
@@ -426,50 +426,47 @@ if (buttonAddRowInfo) {
         const rowInfo = `
       <tr id="${id}">
         <td>
-            <input type="text" class="form-control" name="period_polis[]">
+            <input type="text" class="form-control">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_id[]">
+            <input type="text" class="form-control" name="policy_series_id[]" required>
         </td>
         <td>
-            <input disabled type="date" class="form-control">
+            <input  type="date" name="from_date_polis[]" class="form-control" required>
         </td>
         <td>
-            <input type="date" class="form-control" name="validity_period_from[]">
+            <input type="date" class="form-control" name="to_date_polis[]" required>
         </td>
+
         <td>
-            <input type="date" class="form-control" name="validity_period_to[]">
-        </td>
-        <td>
-            <select class="form-control polises" id="polises" name="polis_agent[]" style="width: 100%;">
-                <option selected="selected"></option>
-                <option value="1">Да</option>
-                <option value="2">Нет</option>
+            <select class="form-control polises" id="polises" name="agent_id[]" style="width: 100%;" required>
+                <option value="4">Surname1 Name1 middlasdc</option>
+                <option value="3">FotTestOnly ahahah asdcsdac</option>
             </select>
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_mark[]">
+            <input type="text" class="form-control" name="insurer_fio[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" name="specialty[]" value="Specialty">
+            <input type="text" class="form-control" name="specialty[]" value="Specialty" required>
         </td>
         <td>
-            <input type="text" class="form-control" name="workExp[]" value="work experience">
+            <input type="text" class="form-control" name="experience[]" value="work experience" required>
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_model[]">
+            <input type="text" class="form-control" name="position[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_modification[]">
+            <input type="text" class="form-control" name="time_stay[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" data-field="value" name="polis_modification[]">
+            <input type="text" class="form-control" data-field="value" name="insurer_price[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" data-field="sum" name="polis_gos_num[]">
+            <input type="text" class="form-control" data-field="sum" name="insurer_sum[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" data-field="premiya" name="polis_teh_passport[]">
+            <input type="text" class="form-control" data-field="premiya" name="insurer_premium[]" required>
         </td>
         <td>
             <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">

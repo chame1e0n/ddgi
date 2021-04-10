@@ -438,28 +438,28 @@
                                         @foreach($page->infos as $info)
                                             <tr id="{{$info->id}}">
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('person_number.*')) is-invalid @endif form-control" name="person_number[]" value="{{$info->person_number}}">
+                                                    <input type="text" class="@if($errors->has('person_number.'.$loop->index)) is-invalid @endif form-control" name="person_number[]" value="{{$info->person_number}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('person_surname.*')) is-invalid @endif form-control" name="person_surname[]" value="{{$info->person_surname}}">
+                                                    <input type="text" class="@if($errors->has('person_surname.'.$loop->index)) is-invalid @endif form-control" name="person_surname[]" value="{{$info->person_surname}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('person_name.*')) is-invalid @endif form-control" name="person_name[]" value="{{$info->person_name}}">
+                                                    <input type="text" class="@if($errors->has('person_name.'.$loop->index)) is-invalid @endif form-control" name="person_name[]" value="{{$info->person_name}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('person_lastname.*')) is-invalid @endif form-control" name="person_lastname[]" value="{{$info->person_lastname}}">
+                                                    <input type="text" class="@if($errors->has('person_lastname.'.$loop->index)) is-invalid @endif form-control" name="person_lastname[]" value="{{$info->person_lastname}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('series_and_number_passport.*')) is-invalid @endif form-control" name="series_and_number_passport[]" value="{{$info->series_and_number_passport}}">
+                                                    <input type="text" class="@if($errors->has('series_and_number_passport.'.$loop->index)) is-invalid @endif form-control" name="series_and_number_passport[]" value="{{$info->series_and_number_passport}}">
                                                 </td>
                                                 <td>
-                                                    <input type="date" class="@if($errors->has('date_of_issue_passport.*')) is-invalid @endif form-control" name="date_of_issue_passport[]" value="{{$info->date_of_issue_passport}}">
+                                                    <input type="date" class="@if($errors->has('date_of_issue_passport.'.$loop->index)) is-invalid @endif form-control" name="date_of_issue_passport[]" value="{{$info->date_of_issue_passport}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('place_of_issue_passport.*')) is-invalid @endif form-control" name="place_of_issue_passport[]" value="{{$info->place_of_issue_passport}}">
+                                                    <input type="text" class="@if($errors->has('place_of_issue_passport.'.$loop->index)) is-invalid @endif form-control" name="place_of_issue_passport[]" value="{{$info->place_of_issue_passport}}">
                                                 </td>
                                                 <td>
-                                                    <select class="@if($errors->has('policy_series_id.*')) is-invalid @endif form-control polises" id="polis-series"
+                                                    <select class="@if($errors->has('policy_series_id.'.$loop->index)) is-invalid @endif form-control polises" id="polis-series"
                                                             name="policy_series_id[]"
                                                             style="width: 100%;" required>
                                                         <option value="0"></option>
@@ -470,13 +470,13 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('insurance_cost.*')) is-invalid @endif form-control" name="insurance_cost[]" value="{{$info->insurance_cost}}">
+                                                    <input type="text" class="@if($errors->has('insurance_cost.'.$loop->index)) is-invalid @endif form-control" name="insurance_cost[]" value="{{$info->insurance_cost}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('insurance_sum.*')) is-invalid @endif form-control" name="insurance_sum[]" value="{{$info->insurance_sum}}">
+                                                    <input type="text" class="@if($errors->has('insurance_sum.'.$loop->index)) is-invalid @endif form-control" name="insurance_sum[]" value="{{$info->insurance_sum}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="@if($errors->has('insurance_premium.*')) is-invalid @endif form-control" name="insurance_premium[]" value="{{$info->insurance_premium}}">
+                                                    <input type="text" class="@if($errors->has('insurance_premium.'.$loop->index)) is-invalid @endif form-control" name="insurance_premium[]" value="{{$info->insurance_premium}}">
                                                 </td>
                                                 <td>
                                                     <input onclick="removeAndCalc({{$info->id}})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
@@ -645,11 +645,11 @@
                                                 @foreach($page->strahPremiya as $prem)
                                                     <tr id="{{$prem->id}}" data-field-number="0">
                                                         <td><input type="text" class="
-                                                        @if($errors->has('payment_sum.*'))
+                                                        @if($errors->has('payment_sum.'.$loop->index))
                                                                 is-invalid
                                                                 @endif form-control" name="payment_sum[]" value="{{$prem->prem_sum}}">
                                                         </td>
-                                                        <td><input type="date" class="@if($errors->has('payment_from.*'))
+                                                        <td><input type="date" class="@if($errors->has('payment_from.'.$loop->index))
                                                                 is-invalid
                                                                 @endif form-control" name="payment_from[]" value="{{$prem->prem_from}}">
                                                         </td>
@@ -754,37 +754,43 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->anketa_img}}" alt="Анкета" width="250" height="250">
+                                        @if($page->anketa_img != null)
+                                            <embed src="/storage/{{$page->anketa_img}}" width="250" height="250" />
+                                        @endif
                                         <label for="polis-series" class="col-form-label">Анкета</label>
-                                        <input id="anketa_img" name="anketa_img" value="{{old('anketa_img')}}"
-                                               type="file" @if($errors->has('anketa_img'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
+                                        <input  id="anketa_img" name="anketa_img" value="{{old('anketa_img')}}"
+                                                type="file" @if($errors->has('anketa_img'))
+                                                class="form-control is-invalid"
+                                                @else
+                                                class="form-control"
                                             @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->dogovor_img}}" alt="Договор" width="250" height="250">
+                                        @if($page->dogovor_img != null)
+                                            <embed src="/storage/{{$page->dogovor_img}}" width="250" height="250" />
+                                        @endif
                                         <label for="polis-series" class="col-form-label">Договор</label>
-                                        <input id="dogovor_img" name="dogovor_img" value="{{old('dogovor_img')}}"
-                                               type="file" @if($errors->has('dogovor_img'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
+                                        <input  id="dogovor_img" name="dogovor_img" value="{{old('dogovor_img')}}"
+                                                type="file" @if($errors->has('dogovor_img'))
+                                                class="form-control is-invalid"
+                                                @else
+                                                class="form-control"
                                             @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <img src="/storage/{{$page->polis_img}}" alt="Полис" width="250" height="250">
+                                        @if($page->polis_img != null)
+                                            <embed src="/storage/{{$page->polis_img}}" width="250" height="250" />
+                                        @endif
                                         <label for="polis-series" class="col-form-label">Полис</label>
-                                        <input id="polis_img" name="polis_img" value="{{old('polis_img')}}"
-                                               type="file" @if($errors->has('polis_img'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
+                                        <input  id="polis_img" name="polis_img" value="{{old('polis_img')}}"
+                                                type="file" @if($errors->has('polis_img'))
+                                                class="form-control is-invalid"
+                                                @else
+                                                class="form-control"
                                             @endif>
                                     </div>
                                 </div>
