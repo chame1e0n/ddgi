@@ -322,11 +322,11 @@
                                         @endforeach
                                         <tr>
                                             <td colspan="10" style="text-align: right"><label class="text-bold">Итого</label></td>
-                                            <td><input readonly type="text" data-insurance-stoimost class="form-control overall-sum2" />
+                                            <td><input readonly type="text" data-insurance-stoimost class="form-control overall-sum2" style="cursor: pointer"/>
                                             </td>
-                                            <td><input readonly type="text" data-insurance-sum class="form-control overall-sum4" />
+                                            <td><input readonly type="text" data-insurance-sum class="form-control overall-sum4" style="cursor: pointer"/>
                                             </td>
-                                            <td><input readonly type="text" data-insurance-award class="form-control overall-sum3" />
+                                            <td><input readonly type="text" data-insurance-award class="form-control overall-sum3" style="cursor: pointer"/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -406,9 +406,9 @@
                                     </tr>
                                     <tr>
                                         <td colspan="1" style="text-align: right"><label class="text-bold">Итого</label></td>
-                                        <td><input readonly type="text" data-total-turnover class="form-control overall-sum4" value="{{$page->total_turnover}}" />
+                                        <td><input readonly type="text" data-total-turnover class="form-control overall-sum4" value="{{$page->total_turnover}}" style="cursor: pointer"/>
                                         </td>
-                                        <td><input readonly type="text" data-earnings class="form-control overall-sum3" value="{{$page->total_profit}}" />
+                                        <td><input readonly type="text" data-earnings class="form-control overall-sum3" value="{{$page->total_profit}}" style="cursor: pointer"/>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -772,10 +772,12 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            @if($page->anketa != null)
-                                            <embed src="/storage/{{$page->anketa}}" alt="Анкета" width="250" height="250" />
-                                            @endif
                                             <label for="polis-series" class="col-form-label">Анкета</label>
+                                            @if($page->anketa != null)
+                                                <a target="_blank" href="/storage/{{$page->anketa}}" alt="Анкета">
+                                                    Открыть
+                                                </a>
+                                            @endif
                                             <input id="anketa" name="anketa" value="{{old('anketa')}}"
                                                    type="file" @if($errors->has('anketa'))
                                                    class="form-control is-invalid"
@@ -786,10 +788,12 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            @if($page->dogovor != null)
-                                                <embed src="/storage/{{$page->dogovor}}" width="250" height="250" />
-                                            @endif
                                             <label for="polis-series" class="col-form-label">Договор</label>
+                                            @if($page->dogovor != null)
+                                                <a target="_blank" href="/storage/{{$page->dogovor}}">
+                                                    Открыть
+                                                </a>
+                                            @endif
                                             <input id="dogovor" name="dogovor" value="{{old('dogovor')}}"
                                                    type="file" @if($errors->has('dogovor'))
                                                    class="form-control is-invalid"
@@ -799,11 +803,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
+
                                         <div class="form-group">
-                                            @if($page->polis != null)
-                                                <embed src="/storage/{{$page->polis}}" width="250" height="250" />
-                                            @endif
+
                                             <label for="polis-series" class="col-form-label">Полис</label>
+                                            @if($page->polis != null)
+                                                <a target="_blank" href="/storage/{{$page->polis}}">
+                                                    Открыть
+                                                </a>
+                                            @endif
                                             <input id="polis" name="polis" value="{{old('polis')}}"
                                                    type="file" @if($errors->has('polis'))
                                                    class="form-control is-invalid"
