@@ -20,7 +20,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
         "laravelcollective/html": "^6.2",
-        "phpoffice/phpword": "^0.18.1",
+        "phpoffice/phpword": "^0.17",
         "mnvx/eloquent-print-form": "^0.5.5",
         "spatie/laravel-permission": "^3.18"
     },

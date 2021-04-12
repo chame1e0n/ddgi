@@ -31,3 +31,5 @@ Route::middleware('auth:api')->group( function () {
     Route::post('agent', 'Api\AgentController@index');
     Route::get('agent/{id}', 'Api\AgentController@show');
 });
+
+Route::get('agent_list', 'Spravochniki\AgentController@agent_list');
