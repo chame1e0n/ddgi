@@ -102,7 +102,11 @@ class ZalogImushestvoController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = ZalogImushestvo::getInfoZalogImushestvo($id);
+        $banks = Bank::all();
+        $agents = Agent::all();
+        $policySeries = PolicySeries::all();
+        return view('products.zalog.imushestvo.show', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**
