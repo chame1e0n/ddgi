@@ -169,9 +169,15 @@ class TamozhnyaAddLegalController extends Controller
                 'insurer_oked'     => $tamozhnya->policyHolders->oked,
             ]);
             $document->saveAs('dogovor.docx');
-            $API = new Convertio(config('app.convertioKey'));
-            $API->start('dogovor.docx', 'pdf')->wait()->download('dogovor.pdf')->delete();
-            echo "<script>window.open('".config('app.url')."/dogovor.pdf', '_blank').print()</script>";
+            try {
+                $API = new Convertio(config('app.convertioKey'));
+                $API->start('dogovor.docx', 'pdf')->wait()->download('dogovor.pdf')->delete();
+                echo "<script>window.open('".config('app.url')."/dogovor.pdf', '_blank').print()</script>";
+            }
+            catch (\Exception $e)
+            {
+                return redirect('/dogovor.docx');
+            }
         }
         if (isset($_GET['download']) && $_GET['download'] == 'za'){
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/za.docx'));
@@ -186,9 +192,15 @@ class TamozhnyaAddLegalController extends Controller
                 'fio_insurer' => $tamozhnya->policyHolders->FIO,
             ]);
             $document->saveAs('za.docx');
-            $API = new Convertio(config('app.convertioKey'));
-            $API->start('za.docx', 'pdf')->wait()->download('za.pdf')->delete();
-            echo "<script>window.open('".config('app.url')."/za.pdf', '_blank').print()</script>";
+            try {
+                $API = new Convertio(config('app.convertioKey'));
+                $API->start('za.docx', 'pdf')->wait()->download('za.pdf')->delete();
+                echo "<script>window.open('".config('app.url')."/za.pdf', '_blank').print()</script>";
+            }
+            catch (\Exception $e)
+            {
+                return redirect('/za.docx');
+            }
         }
         if (isset($_GET['download']) && $_GET['download'] == 'polis'){
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/polis.docx'));
@@ -202,9 +214,15 @@ class TamozhnyaAddLegalController extends Controller
                 'director'     => $tamozhnya->agent->user->branch->director->getFIO(),
             ]);
             $document->saveAs('polis.docx');
-            $API = new Convertio(config('app.convertioKey'));
-            $API->start('polis.docx', 'pdf')->wait()->download('polis.pdf')->delete();
-            echo "<script>window.open('".config('app.url')."/polis.pdf', '_blank').print()</script>";
+            try {
+                $API = new Convertio(config('app.convertioKey'));
+                $API->start('polis.docx', 'pdf')->wait()->download('polis.pdf')->delete();
+                echo "<script>window.open('".config('app.url')."/polis.pdf', '_blank').print()</script>";
+            }
+            catch (\Exception $e)
+            {
+                return redirect('/polis.docx');
+            }
         }
         return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya', 'policySeries'));
 
