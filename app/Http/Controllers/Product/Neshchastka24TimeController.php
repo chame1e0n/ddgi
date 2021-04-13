@@ -63,7 +63,11 @@ class Neshchastka24TimeController extends Controller
      */
     public function show($id)
     {
-
+        $page = Neshchastka24Time::with('StrahPremiya', 'policyHolders', 'PolicyBeneficiaries', 'policyInformations')->find($id);
+        $banks = Bank::getBanks();
+        $agents = Agent::getActiveAgent();
+        $polis_series = PolicySeries::get();
+        return view('products.neshchastka.24time.show', compact('page', 'banks', 'agents', 'polis_series'));
     }
 
     /**

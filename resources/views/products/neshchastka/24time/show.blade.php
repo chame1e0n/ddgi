@@ -248,7 +248,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <button type="button" id="addTc" class="btn btn-primary ">Добавить</button>
+{{--                                <button type="button" id="addTc" class="btn btn-primary">Добавить</button>--}}
                             </div>
                             <div class="table-responsive p-0 " style="max-height: 300px;">
                                 <div id="product-fields" class="product-fields" data-field-number="0">
@@ -419,9 +419,9 @@
                             </div>
                             <div id="transh-payment-schedule" @if(!$page->StrahPremiya)class="d-none" @endif>
                                 <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
+{{--                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">--}}
+{{--                                        Добавить--}}
+{{--                                    </button>--}}
                                 </div>
                                 <div class="table-responsive p-0 " style="max-height: 300px;">
                                     <table class="table table-hover table-head-fixed" id="empTable3">
@@ -509,19 +509,31 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
-                                        <input type="file" id="geographic-zone" name="geo_zone" value="" required readonly class="form-control">
+                                        @if($page->anketa != null)
+                                            <a target="_blank" href="/storage/{{$page->anketa}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Договор</label>
-                                        <input type="file" id="geographic-zone" name="geo_zone" value="" required readonly class="form-control">
+                                        @if($page->dogovor != null)
+                                            <a target="_blank" href="/storage/{{$page->dogovor}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Полис</label>
-                                        <input type="file" id="geographic-zone" name="geo_zone" value="" required readonly class="form-control">
+                                        @if($page->polis != null)
+                                            <a target="_blank" href="/storage/{{$page->polis}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

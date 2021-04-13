@@ -541,21 +541,33 @@
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
                                         <input type="file" id="geographic-zone" name="anketa" class="form-control">
-                                        <embed src="/storage/{{$page->anketa}}" width="100px" height="100px">
+                                        @if($page->anketa != null)
+                                            <a target="_blank" href="/storage/{{$page->anketa}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Договор</label>
                                         <input type="file" id="geographic-zone" name="dogovor" class="form-control">
-                                        <embed src="/storage/{{$page->dogovor}}" width="100px" height="100px">
+                                        @if($page->dogovor != null)
+                                            <a target="_blank" href="/storage/{{$page->dogovor}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Полис</label>
                                         <input type="file" id="geographic-zone" name="polis" class="form-control">
-                                        <embed src="/storage/{{$page->polis}}" width="100px" height="100px">
+                                        @if($page->polis != null)
+                                            <a target="_blank" href="/storage/{{$page->polis}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

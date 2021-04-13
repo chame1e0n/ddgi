@@ -68,7 +68,11 @@ class KaskoController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = KaskoModel::with('PolicyBeneficiaries','policyHolders', 'policyInformations', 'KascoStrahPremiya')->find($id);
+        $agents = Agent::getActiveAgent();
+        $banks = Bank::getBanks();
+        $policySeries =  PolicySeries::get();
+        return view('products.kasko.show', compact('page', 'agents', 'banks', 'policySeries'));
     }
 
     /**
