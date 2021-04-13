@@ -10,7 +10,8 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            <a href="{{url()->current()}}?download=polis">Скачать Полис</a>
+                            <a href="{{url()->current()}}?download=dogovor">Скачать Договор</a>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -595,6 +596,13 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label" for="pretensii-final-settlement-date">Загрузка необходимых документов</label>
+                            @foreach(unserialize($page->documents) as $doc)
+                                <br>
+                                <a target="_blank" href="/storage/{{$doc}}">
+                                    Открыть
+                                </a>
+
+                                @endforeach
                             <input class="form-control" data-file="file" type="file" multiple name="documents[]">
                         </div>
                     </div>
