@@ -36,7 +36,7 @@ class Neshchastka24timeInformation extends Model
         $data = $request->all();
         $time->policyInformations()->forceDelete();
         if (isset($data['period_polis'])) {
-            $countIteration = count($data['policy_series_id']);
+            $countIteration = count($data['period_polis']);
             for ($i = 0; $i < $countIteration; $i++) {
                 $create = new self();
                 $create->neshchastka24_time_id = $time->id;
