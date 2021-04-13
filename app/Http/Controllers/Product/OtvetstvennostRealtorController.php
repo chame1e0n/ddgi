@@ -62,7 +62,12 @@ class OtvetstvennostRealtorController extends Controller
      */
     public function show($id)
     {
-        //
+        $agents = Agent::getActiveAgent();
+        $banks = Bank::getBanks();
+        $policySeries =  PolicySeries::get();
+        $page = OtvetstvennostRealtor::with('strahPremiya','policyHolders','infos')->find($id);
+//        dd($page);
+        return view('products.otvetstvennost.realtor.show', compact('banks', 'agents', 'policySeries', 'page'));
     }
 
     /**

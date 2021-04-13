@@ -60,7 +60,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
-
+    'convertioKey' => 'c4790335ec17bab88e39f8a34121243c',
     'asset_url' => env('ASSET_URL', null),
 
     /*

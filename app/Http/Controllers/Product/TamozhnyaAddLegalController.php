@@ -19,6 +19,7 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpWord\Settings;
 use Dompdf\Dompdf;
+use App\Helpers\Convertio\Convertio;
 
 class TamozhnyaAddLegalController extends Controller
 {
@@ -166,27 +167,17 @@ class TamozhnyaAddLegalController extends Controller
                 'insurer_mfo'     => $tamozhnya->policyHolders->inn,
                 'insurer_inn'     => $tamozhnya->policyHolders->mfo,
                 'insurer_oked'     => $tamozhnya->policyHolders->oked,
-
             ]);
             $document->saveAs('dogovor.docx');
-            return response()->download('dogovor.docx');
-//            Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
-//            Settings::setPdfRendererPath('.');
-//            $phpWord = IOFactory::load('dogovor.docx', 'Word2007');
-//            $phpWord->save('document.docx', 'Word2007');
-//            $phpWord = IOFactory::load('/tamozhnya_add_legal/document.docx', 'Word2007');
-//            $phpWord->save('document.pdf', 'PDF');
-//            $phpWord = \PhpOffice\PhpWord\IOFactory::load('dogovor.docx');
-//            $random = rand(1000, 3000);
-//            // add a window.print() section @ end of HTML
-//            $section = $phpWord->addSection();
-//            $section->addText('<script>window.print();</script>');
-//            // save HTML with a random number on filename
-//            $fileLink = 'tamozhnya_add_legal/' . $random . '.html';
-//            $phpWord->save($fileLink, 'PDF');
-//            unlink('dogovor.docx');
-//            return redirect($fileLink);
-//            return response()->download('document.pdf');
+            try {
+                $API = new Convertio(config('app.convertioKey'));
+                $API->start('dogovor.docx', 'pdf')->wait()->download('dogovor.pdf')->delete();
+                echo "<script>window.open('".config('app.url')."/dogovor.pdf', '_blank').print()</script>";
+            }
+            catch (\Exception $e)
+            {
+                return redirect('/dogovor.docx');
+            }
         }
         if (isset($_GET['download']) && $_GET['download'] == 'za'){
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/za.docx'));
@@ -201,7 +192,15 @@ class TamozhnyaAddLegalController extends Controller
                 'fio_insurer' => $tamozhnya->policyHolders->FIO,
             ]);
             $document->saveAs('za.docx');
-            return response()->download('za.docx');
+            try {
+                $API = new Convertio(config('app.convertioKey'));
+                $API->start('za.docx', 'pdf')->wait()->download('za.pdf')->delete();
+                echo "<script>window.open('".config('app.url')."/za.pdf', '_blank').print()</script>";
+            }
+            catch (\Exception $e)
+            {
+                return redirect('/za.docx');
+            }
         }
         if (isset($_GET['download']) && $_GET['download'] == 'polis'){
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/polis.docx'));
@@ -215,7 +214,15 @@ class TamozhnyaAddLegalController extends Controller
                 'director'     => $tamozhnya->agent->user->branch->director->getFIO(),
             ]);
             $document->saveAs('polis.docx');
-            return response()->download('polis.docx');
+            try {
+                $API = new Convertio(config('app.convertioKey'));
+                $API->start('polis.docx', 'pdf')->wait()->download('polis.pdf')->delete();
+                echo "<script>window.open('".config('app.url')."/polis.pdf', '_blank').print()</script>";
+            }
+            catch (\Exception $e)
+            {
+                return redirect('/polis.docx');
+            }
         }
         return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya', 'policySeries'));
 
