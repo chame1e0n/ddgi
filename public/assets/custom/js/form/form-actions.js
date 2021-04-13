@@ -258,7 +258,7 @@ if (formOtsenshiki) {
             insurerTypeActive: getField('#insurer-type-activity').value,
             insurerTypeMFO: getField('#insurer-mfo').value,
             insurerBank: getField('#insurer-bank').value,
-            insurerInn: getField('#insurer-inn').value,
+            insurerInn: getField('#insurer-innformAudit').value,
             insurerOkonh: getField('#insurer-okonh').value,
             insurerOked: getField('#insurer-oked').value,
             personalInfo: getField('#personal-info').value,
