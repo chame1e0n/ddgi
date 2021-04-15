@@ -3,6 +3,7 @@
 namespace App\Models\Product;
 
 use App\Models\Spravochniki\Agent;
+use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Database\Eloquent\Model;
 
 class Covid extends Model
@@ -33,6 +34,10 @@ class Covid extends Model
     {
         $covid = Covid::where('id', $id)->with(['strahPremiya', 'policyHolders', 'policyBeneficiaries', 'infos'])->first();
         return $covid;
+    }
+    public function policySeries()
+    {
+        return $this->hasOne(PolicySeries::class, 'id', 'serial_number_policy');
     }
     static function createCovid($request)
     {
