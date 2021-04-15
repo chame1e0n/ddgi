@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Helpers\Convertio\Convertio;
 use App\Http\Requests\CovidRequest;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
@@ -13,6 +14,7 @@ use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class CovidController extends Controller
 {
@@ -103,6 +105,52 @@ class CovidController extends Controller
         $banks = Bank::all();
         $agents = Agent::all();
         $policySeries = PolicySeries::all();
+        if (isset($_GET['download']) && $_GET['download'] == 'polis'){
+            $document = new TemplateProcessor(public_path('covid/polis.docx'));
+            $document->setValues([
+                'fio_insurer' => $page->policyHolders->FIO,
+                'ins_passport' => $page->policyHolders->passport_series.' '.$page->policyHolders->passport_number,
+                'ben_passport' => $page->policyBeneficiaries->seria_passport.' '.$page->policyBeneficiaries->nomer_passport,
+                'ins_phone'    => $page->policyHolders->phone_number,
+                'ben_phone'    => $page->policyBeneficiaries->phone_number,
+                'from_dd' =>  date('d', strtotime($page->insurance_from)),
+                'from_mm' =>  date('m', strtotime($page->insurance_from)),
+                'from_year' =>  date('Y', strtotime($page->insurance_from)),
+                'insurance_to' => date('d-m-Y', strtotime($page->insurance_to)),
+                'insurance_sum' => $page->infos->sum('insurance_sum'),
+                'insurance_premium' => $page->strahPremiya->sum('prem_sum'),
+                'litso' => $page->agent->getFio(),
+                'branch' => $page->agent->user->brnach->address,
+            ]);
+            $last = 0;
+            foreach ($page->infos as $key => $info)
+            {
+                $document->setValues([
+                    'person_fio'.$key => $info->person_name.' '.$info->person_surname.' '.$info->person_lastname,
+                    'person_passport'.$key   => $info->series_and_number_passport,
+                    'person_sum'.$key => $info->insurance_sum,
+                ]);
+                $last = $key;
+            }
+            for($i = $last; $i<5; $i++)
+            {
+                $document->setValues([
+                    'person_fio'.$i => null,
+                    'person_passport'.$i   => null,
+                    'person_sum'.$i => null,
+                ]);
+            }
+            $document->saveAs('polis.docx');
+            try {
+                $API = new Convertio(config('app.convertioKey'));
+                $API->start('polis.docx', 'pdf')->wait()->download('polis.pdf')->delete();
+                echo "<script>window.open('".config('app.url')."/polis.pdf', '_blank').print()</script>";
+            }
+            catch (\Exception $e)
+            {
+                return redirect('/polis.docx');
+            }
+        }
         return view('products.covid.fiz-litso.edit', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
