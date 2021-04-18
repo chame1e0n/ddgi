@@ -73,8 +73,8 @@ class OtvetstvennostRealtorRequest extends FormRequest
             'private_sector_comment' => 'required_if:acted,true',
 
             'prof_riski' => 'required',
-            'reason_case' => 'required_if:cases,true',
-            'reason_administrative_case' => 'required_if:administrative-case,true',
+            'reason_case' => 'required_if:cases,1',
+            'reason_administrative_case' => 'required_if:administrative_case,1',
             'sfera_deyatelnosti' => 'required',
             'limit_otvetstvennosti' => 'required|integer',
             'strahovaya_sum'    => 'required',
