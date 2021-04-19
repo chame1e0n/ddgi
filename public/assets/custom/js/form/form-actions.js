@@ -336,21 +336,21 @@ if (fieldsChanged) {
 
         // Скрытие и отображение блока acted
         if (target.hasAttribute('data-acted-radio')) {
-            if (target.value === 'true') {
+            if (target.value === '1') {
                 actedBoxDescription.style.display = 'flex'
                 dataSelectAndRadioFields.acted = {
-                    isActed: true
+                    isActed: 1
                 }
             } else {
                 actedBoxDescription.style.display = 'none'
                 dataSelectAndRadioFields.acted = {
-                    isActed: false
+                    isActed: 0
                 }
             }
         }
 
         if (target.hasAttribute('data-cases-radio')) {
-            if (target.value === 'true') {
+            if (target.value === '1') {
                 casesReasonBox.style.display = 'flex'
             } else {
                 casesReasonBox.style.display = 'none'
@@ -358,7 +358,7 @@ if (fieldsChanged) {
         }
 
         if (target.hasAttribute('data-administr-radio')) {
-            if (target.value === 'true') {
+            if (target.value === '1') {
                 administrCaseBox.style.display = 'flex'
             } else {
                 administrCaseBox.style.display = 'none'
