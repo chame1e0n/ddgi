@@ -41,8 +41,8 @@ class Neshchastka24TimeStrahPremiya extends Model
                 $create = new self();
 
                 $create->neshchastka24_time_id = $t_id->id;
-                $create->prem_sum = $data['payment_sum'][$i];
-                $create->prem_from = $data['payment_from'][$i];
+                $create->payment_sum = $data['payment_sum'][$i];
+                $create->payment_from = $data['payment_from'][$i];
 
                 $create->save();
             }

@@ -10,6 +10,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
+
+                                <a href="{{route('neshchastka-time.edit', $page->id)}}?download=dogovor">Скачать Договор</a>
+                                <a href="{{route('neshchastka-time.edit', $page->id)}}?download=anketa">Скачать Анкету</a>
+                                <a href="{{route('neshchastka-time.edit', $page->id)}}?download=polis">Скачать Полис</a>
+
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -303,7 +308,7 @@
                                                 <input type="text" class="form-control" value="{{$info->period_polis}}" name="period_polis[]">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" value="{{$info->period_polis}}" name="polis_id[]">
+                                                <input type="text" class="form-control" value="{{$info->polis_id}}" name="polis_id[]">
                                             </td>
                                             <td>
                                                 <input disabled="" type="date" class="form-control">

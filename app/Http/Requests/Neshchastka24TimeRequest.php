@@ -44,7 +44,7 @@ class Neshchastka24TimeRequest extends FormRequest
           "geo_zone" => "required",
           "period_polis" => 'array',
           "polis_id" => 'array',
-          'polis_id.*'=> 'required',
+          'polis_id.*'=> 'required|integer',
           "polis_agent" => 'array',
             'polis_agent.*' => 'required',
           "agents" => 'array',

@@ -25,6 +25,7 @@ class Neshchastka24timeInformation extends Model
                 $create->polis_num_engine = $data['polis_num_engine'][$i];
                 $create->polis_num_body = $data['polis_num_body'][$i];
                 $create->polis_payload = $data['polis_payload'][$i];
+                $create->polis_gos_num = $data['polis_gos_num'][$i];
                 $create->save();
             }
         }
@@ -50,6 +51,7 @@ class Neshchastka24timeInformation extends Model
                 $create->polis_num_engine = $data['polis_num_engine'][$i];
                 $create->polis_num_body = $data['polis_num_body'][$i];
                 $create->polis_payload = $data['polis_payload'][$i];
+                $create->polis_gos_num = $data['polis_gos_num'][$i];
                 $create->save();
             }
         }

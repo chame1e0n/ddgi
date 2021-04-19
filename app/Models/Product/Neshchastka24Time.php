@@ -4,6 +4,7 @@ namespace App\Models\Product;
 
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
+use App\Models\Spravochniki\Agent;
 use Illuminate\Database\Eloquent\Model;
 
 class Neshchastka24Time extends Model
@@ -22,6 +23,9 @@ class Neshchastka24Time extends Model
     }
     public function policyInformations() {
         return $this->hasMany( Neshchastka24timeInformation::class, 'neshchastka24_time_id', 'id' );
+    }
+    public function agent() {
+        return $this->hasOne(Agent::class, 'user_id', 'otvet_litso');
     }
     protected $guarded = [''];
     static function createTime($p,$b,$request){
