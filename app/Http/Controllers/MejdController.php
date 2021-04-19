@@ -244,11 +244,13 @@ class MejdController extends Controller
             'policy_file' => $policy_file_path,
         ]);
 
-        $currencyTerms ->update([
-        'all_products_id' => $all_product->id,
-        'payment_sum' => $request->get('payment_sum'),
-        'payment_from' => $request->get('payment_from')
-    ]);
+        if ($currencyTerms->payment_sum){
+            $currencyTerms ->update([
+                'all_products_id' => $all_product->id,
+                'payment_sum' => $request->get('payment_sum'),
+                'payment_from' => $request->get('payment_from')
+            ]);
+        }
 
         $all_product_info->update([
             'all_products_id' => $all_product->id,

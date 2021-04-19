@@ -301,7 +301,7 @@
                                             <td><input value="{{$all_product->payment_from_main}}" type="date" class="form-control" name="payment_from_main">
                                             </td>
                                         </tr>
-                                        @if(!empty($all_product->currencyTerms[0]))
+                                        @if(!empty($all_product->currencyTerms[0]->payment_sum))
                                             @foreach($all_product->currencyTerms[0]->payment_sum as $key=>$item)
                                                 <tr id="${id}" data-field-number="0">
                                                     <td>
