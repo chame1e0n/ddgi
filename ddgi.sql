@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `banks` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.banks: ~6 rows (approximately)
+-- Dumping data for table ddgi_test.banks: ~7 rows (approximately)
 DELETE FROM `banks`;
 /*!40000 ALTER TABLE `banks` DISABLE KEYS */;
 INSERT INTO `banks` (`id`, `code`, `name`, `filial`, `address`, `inn`, `raschetniy_schet`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2237,7 +2237,7 @@ CREATE TABLE IF NOT EXISTS `policies` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=567 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.policies: ~470 rows (approximately)
+-- Dumping data for table ddgi_test.policies: ~486 rows (approximately)
 DELETE FROM `policies`;
 /*!40000 ALTER TABLE `policies` DISABLE KEYS */;
 INSERT INTO `policies` (`id`, `number`, `act_number`, `policy_series_id`, `price`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -2890,23 +2890,23 @@ CREATE TABLE IF NOT EXISTS `policy_flows` (
   `polis_name` varchar(100) DEFAULT NULL,
   `price_per_policy` varchar(100) DEFAULT NULL,
   `polis_given_by_user_id` int(11) unsigned DEFAULT NULL,
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table ddgi_test.policy_flows: ~5 rows (approximately)
+-- Dumping data for table ddgi_test.policy_flows: ~7 rows (approximately)
 DELETE FROM `policy_flows`;
 /*!40000 ALTER TABLE `policy_flows` DISABLE KEYS */;
 INSERT INTO `policy_flows` (`id`, `act_number`, `act_date`, `a_reg`, `status`, `branch_id`, `to_user_id`, `from_user_id`, `policy_from`, `policy_to`, `polis_name`, `price_per_policy`, `polis_given_by_user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(6, 'asdvvd', '2021-04-15', 'on', 'registered', NULL, 3, NULL, '1', '30', NULL, NULL, NULL, '2021-04-20', '2021-04-20', NULL),
-	(7, 'asdvvd', '2021-04-01', 'on', 'registered', NULL, 3, NULL, '100', '101', NULL, NULL, NULL, '2021-04-20', '2021-04-20', NULL),
-	(8, 'asdvvd', '2021-04-15', 'a4', 'registered', NULL, 3, NULL, '141', '142', 'Some name', '5444', NULL, '2021-04-20', '2021-04-20', NULL),
-	(9, 'gdfff', '2021-04-16', 'a5', 'registered', NULL, 3, NULL, '1000', '1005', 'Наименование', '4000', NULL, '2021-04-21', '2021-04-21', NULL),
-	(11, 'vsdvfdfsv', '2021-04-21', 'a4', 'transferred', NULL, 3, NULL, '1000', '1001', 'Наименование', '4000', NULL, '2021-04-22', '2021-04-22', NULL),
-	(12, 'asdvvd', '2021-04-16', 'a4', 'transferred', 1, 9, 3, '1002', '1003', 'dfgbdfbg', '4000', NULL, '2021-04-22', '2021-04-22', NULL),
-	(13, 'asdvvd', '2021-04-22', 'a4', 'retransferred', 1, 4, 9, '1000', '1001', 'dfgbdfbg', '4000', NULL, '2021-04-22', '2021-04-22', NULL);
+	(6, 'asdvvd', '2021-04-15', 'on', 'registered', NULL, 3, NULL, '1', '30', NULL, NULL, NULL, '2021-04-20 00:00:00', '2021-04-20 00:00:00', NULL),
+	(7, 'asdvvd', '2021-04-01', 'on', 'registered', NULL, 3, NULL, '100', '101', NULL, NULL, NULL, '2021-04-20 00:00:00', '2021-04-20 00:00:00', NULL),
+	(8, 'asdvvd', '2021-04-15', 'a4', 'registered', NULL, 3, NULL, '141', '142', 'Some name', '5444', NULL, '2021-04-20 00:00:00', '2021-04-20 00:00:00', NULL),
+	(9, 'gdfff', '2021-04-16', 'a5', 'registered', NULL, 3, NULL, '1000', '1005', 'Наименование', '4000', NULL, '2021-04-21 00:00:00', '2021-04-21 00:00:00', NULL),
+	(11, 'vsdvfdfsv', '2021-04-21', 'a4', 'transferred', NULL, 3, NULL, '1000', '1001', 'Наименование', '4000', NULL, '2021-04-22 00:00:00', '2021-04-22 00:00:00', NULL),
+	(12, 'asdvvd', '2021-04-16', 'a4', 'transferred', 1, 9, 3, '1002', '1003', 'dfgbdfbg', '4000', NULL, '2021-04-22 00:00:00', '2021-04-22 00:00:00', NULL),
+	(13, 'asdvvd', '2021-04-22', 'a4', 'retransferred', 1, 4, 9, '1000', '1001', 'dfgbdfbg', '4000', NULL, '2021-04-22 00:00:00', '2021-04-22 00:00:00', NULL);
 /*!40000 ALTER TABLE `policy_flows` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policy_flow_files
@@ -3593,7 +3593,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.users: ~7 rows (approximately)
+-- Dumping data for table ddgi_test.users: ~8 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `branch_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
