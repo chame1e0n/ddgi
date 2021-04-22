@@ -568,7 +568,6 @@ kbd kbd {
     box-shadow: none;
 }
 
-
 pre {
     display: block;
     font-size: 87.5%;
@@ -2806,6 +2805,8 @@ fieldset:disabled a.btn {
 
 .btn-success {
     color: #ffffff;
+    width: 100px !important;
+    font-size: 14px;
     background-color: #28a745;
     border-color: #28a745;
     box-shadow: none;

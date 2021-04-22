@@ -45,17 +45,15 @@
                                     <div class="col-md-2">
                                         <a class="btn btn-success" href="{{ route('policy_retransfer.create') }}">Перераспределить</a>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <a class="btn btn-success" href="#">Обновить</a>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <a class="btn btn-success" href="#">Export</a>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <a class="btn btn-success" href="#">Import</a>
                                     </div>
-                                </div>
-                                <div class="row">
                                 </div>
                             </div>
                             <!-- /.card-body -->
