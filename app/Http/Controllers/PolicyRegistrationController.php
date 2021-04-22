@@ -59,7 +59,7 @@ class PolicyRegistrationController extends Controller
         PolicyFlow::createNewPolicies($policyFrom, $policyTo, $request->act_number, $request->polis_price);
         PolicyFlow::createPolicyFlow($request, 'registered', 3); //Todo::change admin id to better solution
 
-        return redirect()->route('policy_registration.index')
+        return redirect()->route('policy_flow.index')
             ->with('success', 'Успешно добавлены новые полисы');
     }
 
