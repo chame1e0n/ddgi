@@ -12,9 +12,9 @@ class PolicyFlowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $policyFlow = PolicyFlow::latest()->paginate(15);
+        $policyFlow = PolicyFlow::filter()->paginate(15);
 
         return view('policy_flow.index',compact('policyFlow'));
     }

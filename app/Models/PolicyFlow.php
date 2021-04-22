@@ -12,9 +12,16 @@ class PolicyFlow extends Model
 {
     use SoftDeletes;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
-    public function policies() {
+    const STATUS_NAME = [
+        'registered' => 'Зарегистрирован',
+        'transferred' => 'Распределен',
+        'retransferred' => 'Перераспределен'
+    ];
+
+    public function policies()
+    {
         return $this->belongsToMany(
             Policy::class,
             'policies_policy_transfer',
@@ -45,7 +52,37 @@ class PolicyFlow extends Model
         return $this->hasMany(PolicyFlowFile::class);
     }
 
-    static function createNewPolicies($policyFrom, $policyTo, $actNumber, $polisPrice) {
+    public function scopeFilter($q)
+    {
+        if (request('status')) {
+            $q->where('status', request('status'));
+        }
+
+        if (request('act_date')) {
+            $q->where('act_date', request('act_date'));
+        }
+
+        if (request('policy_from')) {
+            $q->where('policy_from', request('policy_from_sign'), request('policy_from'));
+        }
+
+        if (request('policy_to')) {
+            $q->where('policy_to', request('policy_to_sign'), request('policy_to'));
+        }
+
+        if (request('from_user_id')) {
+            $q->where('from_user_id', request('from_user_id'));
+        }
+
+        if (request('to_user_id')) {
+            $q->where('to_user_id', request('to_user_id'));
+        }
+
+        return $q;
+    }
+
+    static function createNewPolicies($policyFrom, $policyTo, $actNumber, $polisPrice)
+    {
         for ($i = $policyFrom; $i <= $policyTo; $i++) {
             $policy = new Policy;
             $policy->number = $i;
@@ -57,7 +94,8 @@ class PolicyFlow extends Model
         }
     }
 
-    static function createPolicyFlow(Request $request, $status, $toUserId) {
+    static function createPolicyFlow(Request $request, $status, $toUserId)
+    {
         $newPolicyFlow = PolicyFlow::create([
             'act_number' => $request->act_number,
             'act_date' => $request->act_date,
@@ -84,7 +122,8 @@ class PolicyFlow extends Model
         }
     }
 
-    static function updatePolicyFlow(Request $request, $id, $status) {
+    static function updatePolicyFlow(Request $request, $id, $status)
+    {
         $newPolicyFlow = PolicyFlow::find($id)->update([
             'act_number' => $request->act_number,
             'act_date' => $request->act_date,

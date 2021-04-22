@@ -3,7 +3,7 @@
         <div class="form-group">
             <label class="col-form-label" for="akt_ot_kogo">От кого</label>
             <select class="form-control polises" id="akt_ot_kogo" name="from_user_id" style="width: 100%;">
-                <option>Имя Фамилия</option>
+                <option></option>
             </select>
         </div>
     </div>
