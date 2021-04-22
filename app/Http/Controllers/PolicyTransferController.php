@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Policy;
+use App\Models\PolicyFlow;
 use App\Models\PolicyInformation;
 use App\Models\PolicyTransfer;
 use App\Models\Spravochniki\Agent;
@@ -12,18 +13,6 @@ use Illuminate\Http\Request;
 
 class PolicyTransferController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $policyTransfer = PolicyTransfer::all();
-
-        return view('policy_transfer.index',compact('policyTransfer'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -32,10 +21,7 @@ class PolicyTransferController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-        $branches = Branch::all();
-        $agents = Agent::all();
-        return view('policy_transfer.create', compact('policySeries', 'branches', 'agents'));
+        return view('policy_flow.policy_transfer.create');
     }
 
     /**
@@ -46,27 +32,45 @@ class PolicyTransferController extends Controller
      */
     public function store(Request $request)
     {
-        $policies = Policy::where('policy_series_id', $request->policy_series_id)
+        $request->validate([
+            'act_number' => 'required',
+            'act_date' => 'required',
+            'policy_from' => 'required',
+            'policy_to' => 'required',
+        ]);
+
+        $policyFrom = $request->policy_from;
+        $policyTo = $request->policy_to;
+
+        $policies = Policy::where('policy_series_id', 0)
             ->where('status', 'new')
-            ->whereBetween('number', [$request->policy_from, $request->policy_to])
+            ->where('user_id', $request->from_user_id)
+            ->whereBetween('number', [$policyFrom, $policyTo])
             ->get();
 
-        if (($request->policy_to - $request->policy_from + 1) != $policies->count()) {
+        if (($policyTo - $policyFrom + 1) != $policies->count()) {
             return back()->withErrors([
-                'В базе отсутсвуют необходимое количество полюсов'
+                'В базе отсутсвуют необходимое количество полюсов '
             ]);
+        }
+
+        $toUserId = $request->to_user_id ?? null;
+
+        if(!$toUserId) {
+            // Branch director
+            $toUserId = Branch::find($request->branch_id)->user_id;
         }
 
         foreach ($policies as $policy) {
             $policy->status = 'transferred';
+            $policy->user_id = $toUserId;
+            $policy->branch_id = $request->branch_id;
             $policy->save();
         }
 
-        $policyTransfer = PolicyTransfer::create($request->all());
+        PolicyFlow::createPolicyFlow($request, 'transferred', $toUserId);
 
-        $policyTransfer->policies()->attach($policies);
-
-        return redirect()->route('policy_transfer.index')
+        return redirect()->route('policy_flow.index')
             ->with('success','Успешно распределены полюсы');
 
     }
@@ -77,9 +81,9 @@ class PolicyTransferController extends Controller
      * @param  \App\Models\PolicyTransfer $policyTransfer
      * @return \Illuminate\Http\Response
      */
-    public function show(PolicyTransfer $policyTransfer)
+    public function show($id)
     {
-        return view('policy_transfer.show', compact('policyTransfer'));
+        return $this->edit($id);
     }
 
     /**
@@ -88,9 +92,11 @@ class PolicyTransferController extends Controller
      * @param  \App\Models\PolicyTransfer $policyTransfer
      * @return \Illuminate\Http\Response
      */
-    public function edit(PolicyTransfer $policyTransfer)
+    public function edit($id)
     {
-        //
+        $policy = PolicyFlow::findOrFail($id);
+
+        return view('policy_flow.policy_transfer.edit', compact('policy'));
     }
 
     /**

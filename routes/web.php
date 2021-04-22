@@ -112,13 +112,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');
     Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('rassrochka','Product\RassrochkaController');
+    Route::resource('policy_flow','PolicyFlowController');
     Route::resource('policy_transfer','PolicyTransferController');
     Route::resource('policy_retransfer','PolicyRetransferController');
     Route::resource('pretensii_overview','PretensiiOverviewController');
     Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
     Route::resource('spravochniki/request', 'Spravochniki\RequestController');
     Route::get('get/policies', 'Spravochniki\RequestController@getPolicyByPolicySeries')->name('getPolicies');
+    Route::get('get/branch_agent_managers', 'EmployeeController@getBranchAgentManagers')->name('getBranchAgentManagers');
+    Route::get('get/branch_employees', 'EmployeeController@getBranchEmployees')->name('getBranchEmployees');
     Route::get('get/employees', 'EmployeeController@getEmployees')->name('getEmployees');
+    Route::get('branches', 'Api\BranchController@index')->name('branches');
 
     Route::get('spravochniki/request/upload/{file}', 'Spravochniki\RequestController@upload')->name('request.upload');
 

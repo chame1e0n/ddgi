@@ -325,26 +325,10 @@
             <!--Полисы-->
                 <li class="nav-header">Полисы</li>
                 <li class="nav-item">
-                    <a href="{{route('policy_registration.create')}}" class="nav-link">
+                    <a href="{{route('policy_flow.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-file-signature"></i>
                         <p>
-                            Регистрация
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('policy_transfer.index')}}" class="nav-link">
-                        <i class="nav-icon fab fa-hubspot"></i>
-                        <p>
-                            Распределения
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('policy_retransfer.index')}}" class="nav-link">
-                        <i class="nav-icon fab fa-hubspot"></i>
-                        <p>
-                            Перераспределения
+                            Движение полисов
                         </p>
                     </a>
                 </li>

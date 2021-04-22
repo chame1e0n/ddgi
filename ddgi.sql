@@ -62,8 +62,65 @@ DELETE FROM `agents`;
 /*!40000 ALTER TABLE `agents` DISABLE KEYS */;
 INSERT INTO `agents` (`id`, `user_id`, `surname`, `name`, `middle_name`, `dob`, `passport_number`, `passport_series`, `job`, `work_start_date`, `work_end_date`, `phone_number`, `address`, `profile_img`, `agent_agreement_img`, `labor_contract`, `firm_contract`, `license`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 4, 'Surname1', 'Name1', 'middlasdc', '2021-01-08', '1231321', 'asas', '2sdfvdsfv', '2020-12-31', '2021-01-07', '4234234234', 'ddfzvdsfvdsfv', NULL, NULL, NULL, NULL, NULL, 0, '2021-01-08 00:00:00', '2021-01-10 00:00:00', NULL),
-	(2, 3, 'FotTestOnly', 'ahahah', 'asdcsdac', '2021-01-29', 'sdvfdvf', 'adscsadc', 'dascdd3', '2021-01-29', '2021-02-05', '5555551234', 'PO Box F', NULL, NULL, NULL, NULL, NULL, 1, '2021-01-29 00:00:00', '2021-02-16 14:34:49', NULL);
+	(2, 2, 'FotTestOnly', 'ahahah', 'asdcsdac', '2021-01-29', 'sdvfdvf', 'adscsadc', 'dascdd3', '2021-01-29', '2021-02-05', '5555551234', 'PO Box F', NULL, NULL, NULL, NULL, NULL, 0, '2021-01-29 00:00:00', '2021-02-16 14:34:49', NULL);
 /*!40000 ALTER TABLE `agents` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.all_products
+CREATE TABLE IF NOT EXISTS `all_products` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `policy_holder_id` bigint(20) unsigned NOT NULL,
+  `fio_insured` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sum_of_insurance` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bonus` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tariff` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `percent_of_tariff` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `insurance_sum` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `insurance_bonus` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `franchise` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `insurance_premium_currency` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_term` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_sum_main` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_from_main` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `way_of_calculation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `application_form_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contract_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `policy_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.all_products: ~2 rows (approximately)
+DELETE FROM `all_products`;
+/*!40000 ALTER TABLE `all_products` DISABLE KEYS */;
+INSERT INTO `all_products` (`id`, `policy_holder_id`, `fio_insured`, `sum_of_insurance`, `bonus`, `tariff`, `percent_of_tariff`, `insurance_sum`, `insurance_bonus`, `franchise`, `insurance_premium_currency`, `payment_term`, `payment_sum_main`, `payment_from_main`, `way_of_calculation`, `application_form_file`, `contract_file`, `policy_file`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 100, 'sadvasdv', '234', '2342', NULL, NULL, '234234', '234234', '23423', NULL, 'transh', '234234', '2021-04-13', '1', 'documents_mejd/mMe0KjLZNxNpeldzWoJdWrLvnjs0uJLP92nHPTn4.docx', NULL, NULL, '2021-04-19 08:12:27', '2021-04-19 08:12:27', NULL),
+	(2, 101, 'sadvasdv', '234', '2342', NULL, NULL, '234234', '234234', '23423', NULL, 'transh', '234234', '2021-04-13', '1', 'documents_mejd/y5hujIbJXC4HCjSrnvyEsOREpNqptUGE75gP2Lp8.docx', NULL, NULL, '2021-04-19 08:13:24', '2021-04-19 08:13:24', NULL);
+/*!40000 ALTER TABLE `all_products` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.all_product_information
+CREATE TABLE IF NOT EXISTS `all_product_information` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `all_products_id` bigint(20) unsigned NOT NULL,
+  `policy_series` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `policy_insurance_from` date NOT NULL,
+  `person` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `all_product_information_all_products_id_foreign` (`all_products_id`),
+  CONSTRAINT `all_product_information_all_products_id_foreign` FOREIGN KEY (`all_products_id`) REFERENCES `all_products` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.all_product_information: ~2 rows (approximately)
+DELETE FROM `all_product_information`;
+/*!40000 ALTER TABLE `all_product_information` DISABLE KEYS */;
+INSERT INTO `all_product_information` (`id`, `all_products_id`, `policy_series`, `policy_insurance_from`, `person`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 1, '2342342', '2021-04-01', 'Имя Фамилия', '2021-04-19 08:12:27', '2021-04-19 08:12:27', NULL),
+	(2, 2, '2342342', '2021-04-01', 'Имя Фамилия', '2021-04-19 08:13:24', '2021-04-19 08:13:24', NULL);
+/*!40000 ALTER TABLE `all_product_information` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.audit_infos
 CREATE TABLE IF NOT EXISTS `audit_infos` (
@@ -129,18 +186,19 @@ CREATE TABLE IF NOT EXISTS `banks` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table ddgi_test.banks: ~6 rows (approximately)
 DELETE FROM `banks`;
 /*!40000 ALTER TABLE `banks` DISABLE KEYS */;
 INSERT INTO `banks` (`id`, `code`, `name`, `filial`, `address`, `inn`, `raschetniy_schet`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'sdfvdsvf', 'sdvfdsvf', 'sdfvdsvf', 'dsfvvdf', 'dsfvdsfv', 'sdfvdv', 1, '2021-01-06 14:54:01', '2021-01-08 01:34:20', '2021-01-08 01:34:20'),
-	(2, 'sdfvdsvf', 'sdvfdsvf', 'sdfvdsvf', 'dsfvvdf', 'dsfvdsfv', 'sdfvdv', 0, '2021-01-06 14:54:48', '2021-01-06 14:54:48', NULL),
+	(2, 'sdfvdsvf', 'sdvfdsvf', 'sdfvdsvf', 'dsfvvdf', 'dsfvdsfv', 'sdfvdv', 1, '2021-01-06 14:54:48', '2021-04-22 06:18:09', NULL),
 	(3, '53543', 'afgsdfg', 'sdgsd', 'sdfgvdsf', 'sdfgsdf', 'sdfgsd', 0, '2021-01-06 15:27:14', '2021-01-08 01:34:04', '2021-01-08 01:34:04'),
-	(4, 'dfsvsdfv', 'sdvdsvf', 'sdvfdv', 'sdfv', 'sdfv', 'sdfv', 0, '2021-01-06 15:30:15', '2021-01-06 15:30:15', NULL),
+	(4, 'dfsvsdfv', 'sdvdsvf', 'sdvfdv', 'sdfv', 'sdfv', 'sdfv', 1, '2021-01-06 15:30:15', '2021-04-22 06:18:04', NULL),
 	(5, 'sdfvdsfv', 'sdfv', 'sdvf', 'sdvf', 'sdvf', 'sdvf', 1, '2021-01-06 15:30:39', '2021-01-08 01:33:21', '2021-01-08 01:33:21'),
-	(6, 'dsfv', 'vsdf', 'sdfv', 'svfvfd', 'sdfv', 'sdvf', 0, '2021-01-06 15:44:45', '2021-01-08 01:32:56', '2021-01-08 01:32:56');
+	(6, 'dsfv', 'vsdf', 'sdfv', 'svfvfd', 'sdfv', 'sdvf', 0, '2021-01-06 15:44:45', '2021-01-08 01:32:56', '2021-01-08 01:32:56'),
+	(7, 'en', 'Новый Банк', 'asdcsdc', 'PO Box F', 'sdfv', 'sdvf', 1, '2021-04-22 06:17:56', '2021-04-22 06:18:11', '2021-04-22 06:18:11');
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.beneficiaries
@@ -355,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `branches` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.branches: ~5 rows (approximately)
+-- Dumping data for table ddgi_test.branches: ~4 rows (approximately)
 DELETE FROM `branches`;
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
 INSERT INTO `branches` (`id`, `parent_id`, `name`, `is_center`, `founded_date`, `user_id`, `region_id`, `address`, `phone_number`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -544,11 +602,14 @@ CREATE TABLE IF NOT EXISTS `covids` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.covids: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.covids: ~2 rows (approximately)
 DELETE FROM `covids`;
 /*!40000 ALTER TABLE `covids` DISABLE KEYS */;
+INSERT INTO `covids` (`id`, `insurance_from`, `insurance_to`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `currencies`, `poryadok_oplaty_premii`, `sposob_rascheta`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `anketa_img`, `dogovor_img`, `polis_img`, `policy_holder_id`, `policy_beneficiary_id`, `created_at`, `updated_at`) VALUES
+	(1, '2021-04-10', '2021-04-24', '234234', '23423', '234', 'UZS', 'transh', 1, '234234', '2021-04-10', 1, 'img/PolicyHolder/eLkc2zGKlxtyoPfCoBAYhrcVqJNy344OmnZkuWjT.pdf', NULL, NULL, 66, 25, '2021-04-09 16:19:25', '2021-04-09 16:34:44'),
+	(2, '2021-04-06', '2021-04-15', '234234', '4234234', '23424', 'UZS', '1', 1, '234234', '2021-04-09', 1, 'img/PolicyHolder/A0NL6kviJjWHfgMWwlfyzsy09aD8elkdFAOWnHoV.png', NULL, NULL, 73, 30, '2021-04-10 11:38:53', '2021-04-10 11:40:08');
 /*!40000 ALTER TABLE `covids` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.covid_policy_information
@@ -568,11 +629,14 @@ CREATE TABLE IF NOT EXISTS `covid_policy_information` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.covid_policy_information: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.covid_policy_information: ~2 rows (approximately)
 DELETE FROM `covid_policy_information`;
 /*!40000 ALTER TABLE `covid_policy_information` DISABLE KEYS */;
+INSERT INTO `covid_policy_information` (`id`, `covid_id`, `person_name`, `person_surname`, `person_lastname`, `series_and_number_passport`, `place_of_issue_passport`, `date_of_issue_passport`, `policy_series_id`, `insurance_cost`, `insurance_sum`, `insurance_premium`, `created_at`, `updated_at`) VALUES
+	(2, 1, 'sdc', 'sdc', 'sdc', 'sdc', 'sdc', '2021-04-29', 1, 23, 4, 5, '2021-04-09 16:34:44', '2021-04-09 16:34:44'),
+	(5, 2, 'sdc', 'sdc', 'sdc', 'sdc', 'sdc', '2021-04-08', 1, 23, 4, 5, '2021-04-10 11:40:08', '2021-04-10 11:40:08');
 /*!40000 ALTER TABLE `covid_policy_information` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.covid_strah_premiyas
@@ -584,11 +648,14 @@ CREATE TABLE IF NOT EXISTS `covid_strah_premiyas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.covid_strah_premiyas: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.covid_strah_premiyas: ~2 rows (approximately)
 DELETE FROM `covid_strah_premiyas`;
 /*!40000 ALTER TABLE `covid_strah_premiyas` DISABLE KEYS */;
+INSERT INTO `covid_strah_premiyas` (`id`, `prem_sum`, `prem_from`, `covid_id`, `created_at`, `updated_at`) VALUES
+	(3, '234242', '2021-04-03', 1, '2021-04-09 16:34:44', '2021-04-09 16:34:44'),
+	(4, '34', '2021-04-08', 1, '2021-04-09 16:34:44', '2021-04-09 16:34:44');
 /*!40000 ALTER TABLE `covid_strah_premiyas` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.credit_fin_risk_nepogashen_avtocredits
@@ -1002,12 +1069,27 @@ CREATE TABLE IF NOT EXISTS `kasko` (
   `otvet_litso` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `anketa` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dogovor` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.kasko: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.kasko: ~11 rows (approximately)
 DELETE FROM `kasko`;
 /*!40000 ALTER TABLE `kasko` DISABLE KEYS */;
+INSERT INTO `kasko` (`id`, `insurance_from`, `insurance_to`, `reason`, `geo_zone`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `insurance_premium_currency`, `payment_term`, `sposob_rascheta`, `polis_series`, `insurance_from_date`, `policy_holder_id`, `policy_beneficiary_id`, `otvet_litso`, `created_at`, `updated_at`, `anketa`, `dogovor`, `polis`) VALUES
+	(1, '2021-04-08', '2021-04-18', 'dfgbdfbg', 'dfgbdfgb', '234234', '4234234', '23423', 'UZS', '1', '1', '234234', '2021-04-02', 71, 28, 3, '2021-04-09 19:00:08', '2021-04-09 19:00:08', '', '', ''),
+	(2, '2021-04-08', '2021-04-18', 'dfgbdfbg', 'dfgbdfgb', '234234', '4234234', '23423', 'UZS', '1', '1', '234234', '2021-04-02', 72, 29, 3, '2021-04-09 19:00:42', '2021-04-09 19:00:42', '', '', ''),
+	(3, '2021-04-23', '2021-04-29', 'dfgbdfbg', 'dsfvdfsv', '234234', '3', '23424', 'UZS', '1', '1', '1', '2021-04-09', 79, 34, 4, '2021-04-10 12:03:26', '2021-04-10 12:03:26', '', '', ''),
+	(4, '2021-04-23', '2021-04-29', 'dfgbdfbg', 'dsfvdfsv', '234234', '3', '23424', 'UZS', '1', '1', '1', '2021-04-09', 80, 35, 4, '2021-04-10 12:04:16', '2021-04-10 12:04:16', '', '', ''),
+	(5, '2021-04-23', '2021-04-29', 'dfgbdfbg', 'dsfvdfsv', '234234', '3', '23424', 'UZS', '1', '1', '1', '2021-04-13', 81, 36, 4, '2021-04-10 12:06:05', '2021-04-10 12:06:05', '', '', ''),
+	(6, '2021-04-23', '2021-04-29', 'dfgbdfbg', 'dsfvdfsv', '234234', '3', '23424', 'UZS', '1', '1', '1', '2021-04-13', 82, 37, 4, '2021-04-10 12:06:20', '2021-04-10 12:06:20', '', '', ''),
+	(7, '2021-04-16', '2021-04-29', 'dfgbdfbg', 'dfgbdfgb', '234234', '23424', '23434', 'UZS', '1', '1', '1', '2021-04-01', 88, 40, 4, '2021-04-11 16:01:38', '2021-04-11 16:01:38', '', '', ''),
+	(8, '2021-04-16', '2021-04-29', 'dfgbdfbg', 'dfgbdfgb', '234234', '23424', '23434', 'UZS', '1', '1', '1', '2021-04-01', 89, 41, 4, '2021-04-11 16:02:27', '2021-04-11 16:02:27', '', '', ''),
+	(9, '2021-04-09', '2021-04-28', 'dfgbdfbg', 'dfgbdfgb', '234234', '3', '23424', 'UZS', '1', '2', '1', '2021-04-02', 95, 46, 4, '2021-04-18 10:53:40', '2021-04-18 10:53:40', 'kasko/PtX1NMCYsZf23ZAIE0tD2nyEibNbHkZzFReQI8e5.docx', 'kasko/qNOLBIyhrdCATZfCDylT5QmBgHOUiGoaLpHWgGsJ.docx', 'kasko/zrj6gGKDQmGEgyJG6uMcEY1iH5ILpFIvgYVsgLIp.docx'),
+	(10, '2021-04-09', '2021-04-28', 'dfgbdfbg', 'dfgbdfgb', '234234', '3', '23424', 'UZS', '1', '2', '1', '2021-04-02', 96, 47, 4, '2021-04-18 10:54:52', '2021-04-18 10:54:52', 'kasko/BDG1yXfqOlpZTO12zy3REZgMINfA9j9NLTXuBLvQ.docx', 'kasko/bWf5zwi40SIjlqZu9ZOVSoCX73nnSZSxOom8OUOY.docx', 'kasko/R2G60clsB5IwuyMrvtGYWAOdQ22uWk6wNAoMHtfq.docx'),
+	(11, '2021-04-09', '2021-04-28', 'dfgbdfbg', 'dfgbdfgb', '234234', '3', '23424', 'UZS', '1', '2', '1', '2021-04-02', 97, 48, 4, '2021-04-18 10:56:32', '2021-04-18 10:56:32', 'kasko/ON7FOvbunFsKMCMaZnsEOaE3lceXJfA7UAX6wJjI.docx', 'kasko/OaJvP2PBk2rSAOB8bMPfc57Lh6mvbTnrRPiCqQFY.docx', 'kasko/3iKuFlXEfdLhb15SSooSqNPQtTqeGSWunRtKF3hy.docx');
 /*!40000 ALTER TABLE `kasko` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.kasko_policy_beneficiaries
@@ -1058,7 +1140,6 @@ INSERT INTO `kasko_policy_holders` (`id`, `policy_holders_id`, `kasko_id`, `crea
 -- Dumping structure for table ddgi_test.kasko_policy_informations
 CREATE TABLE IF NOT EXISTS `kasko_policy_informations` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `polis_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `polis_god_vupyska` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `polis_date_from` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `polis_date_to` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1075,7 +1156,7 @@ CREATE TABLE IF NOT EXISTS `kasko_policy_informations` (
   `mark_model` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `series_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `insurance_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `insurance_sum` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cover_terror_attacks_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cover_terror_attacks_currency` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cover_terror_attacks_insured_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1116,11 +1197,13 @@ CREATE TABLE IF NOT EXISTS `kasko_policy_informations` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table ddgi_test.kasko_policy_informations: ~0 rows (approximately)
 DELETE FROM `kasko_policy_informations`;
 /*!40000 ALTER TABLE `kasko_policy_informations` DISABLE KEYS */;
+INSERT INTO `kasko_policy_informations` (`id`, `polis_god_vupyska`, `polis_date_from`, `polis_date_to`, `polis_marka`, `polis_model`, `polis_gos_nomer`, `polis_nomer_tex_passporta`, `polis_nomer_dvigatelya`, `polis_nomer_kuzova`, `polis_gruzopodoemnost`, `polis_strah_value`, `polis_strah_sum`, `polis_strah_premia`, `mark_model`, `name`, `series_number`, `insurance_sum`, `cover_terror_attacks_sum`, `cover_terror_attacks_currency`, `cover_terror_attacks_insured_sum`, `cover_terror_attacks_insured_currency`, `coverage_evacuation_cost`, `coverage_evacuation_currency`, `other_insurance_info`, `one_sum`, `one_premia`, `one_franshiza`, `tho_sum`, `two_preim`, `driver_quantity`, `driver_one_sum`, `driver_currency`, `driver_total_sum`, `driver_preim_sum`, `passenger_quantity`, `passenger_one_sum`, `passenger_currency`, `passenger_total_sum`, `limit_quantity`, `limit_one_sum`, `limit_currency`, `limit_total_sum`, `limit_preim_sum`, `total_liability_limit`, `total_liability_limit_currency`, `from_date`, `policy_id`, `agent_id`, `payment`, `payment_order`, `overall_sum`, `policy_series_id`, `policy_agent_id`, `kasko_id`, `created_at`, `updated_at`) VALUES
+	(1, '2423', '2021-04-21', '2021-04-27', 'вмвыам', 'grtg', 'выма', 'ывамвыа', '3245', '23424', '23', '32', '34', '44', 'амвымаыва', 'ывамыв', 'маывам', 'FotTestOnly', '2345', 'U', '23453254', 'U', '32452', 'U', 'PO Box F', NULL, NULL, NULL, '2345235', '2345235', '1', NULL, 'UZS', NULL, NULL, NULL, NULL, 'UZS', NULL, NULL, NULL, 'UZS', NULL, NULL, '234234', 'UZS', '2021-04-14', 2, 4, 'Сум', 'Сум', NULL, 2, 3, 11, '2021-04-18 10:56:32', '2021-04-18 10:56:32');
 /*!40000 ALTER TABLE `kasko_policy_informations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.klass
@@ -1274,13 +1357,32 @@ DELETE FROM `managers`;
 /*!40000 ALTER TABLE `managers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `managers` ENABLE KEYS */;
 
+-- Dumping structure for table ddgi_test.mejd_currency_terms_transhes
+CREATE TABLE IF NOT EXISTS `mejd_currency_terms_transhes` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `all_products_id` bigint(20) unsigned NOT NULL,
+  `payment_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_from` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mejd_currency_terms_transhes_all_products_id_foreign` (`all_products_id`),
+  CONSTRAINT `mejd_currency_terms_transhes_all_products_id_foreign` FOREIGN KEY (`all_products_id`) REFERENCES `all_products` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.mejd_currency_terms_transhes: ~0 rows (approximately)
+DELETE FROM `mejd_currency_terms_transhes`;
+/*!40000 ALTER TABLE `mejd_currency_terms_transhes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mejd_currency_terms_transhes` ENABLE KEYS */;
+
 -- Dumping structure for table ddgi_test.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table ddgi_test.migrations: ~63 rows (approximately)
 DELETE FROM `migrations`;
@@ -1348,7 +1450,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(60, '2021_04_03_161746_create_zalog_imushestvos_table', 10),
 	(61, '2021_04_03_173227_create_zalog_imushestvo_infos_table', 10),
 	(62, '2021_04_04_080037_create_zalog_imushestvo_strah_premiyas_table', 10),
-	(63, '2021_04_04_090607_create_covid_strah_premiyas_table', 10);
+	(63, '2021_04_04_090607_create_covid_strah_premiyas_table', 10),
+	(64, '2021_04_03_080451_create_neshchastka24_times_table', 11),
+	(65, '2021_04_03_090336_create_neshchastka24time_information_table', 11),
+	(66, '2021_04_04_212642_create_perestrahovaniyas_table', 12),
+	(67, '2021_04_04_232831_create_perestrahovaniya_overviews_table', 12),
+	(68, '2021_04_10_151242_add_geo_zone_24time', 13),
+	(69, '2021_04_17_101150_create_all_products_table', 14),
+	(70, '2021_04_17_103320_create_mejd_currency_terms_transhes_table', 14),
+	(71, '2021_04_17_103641_create_all_product_information_table', 14);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.model_has_permissions
@@ -1382,6 +1492,91 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
 DELETE FROM `model_has_roles`;
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.neshchastka24time_information
+CREATE TABLE IF NOT EXISTS `neshchastka24time_information` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `neshchastka24_time_id` int(11) NOT NULL,
+  `polis_id` int(11) NOT NULL,
+  `agents` int(11) NOT NULL,
+  `period_polis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis_agent` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis_model` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis_modification` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis_teh_passport` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis_num_engine` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis_num_body` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis_payload` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.neshchastka24time_information: ~2 rows (approximately)
+DELETE FROM `neshchastka24time_information`;
+/*!40000 ALTER TABLE `neshchastka24time_information` DISABLE KEYS */;
+INSERT INTO `neshchastka24time_information` (`id`, `neshchastka24_time_id`, `polis_id`, `agents`, `period_polis`, `polis_agent`, `polis_model`, `polis_modification`, `polis_teh_passport`, `polis_num_engine`, `polis_num_body`, `polis_payload`, `created_at`, `updated_at`) VALUES
+	(1, 2, 76, 1, '76', '1', 'grtg', 'ertgrt', 'tgtertger', 'ertgretg', '66', '77', '2021-04-09 18:43:47', '2021-04-09 18:43:47'),
+	(2, 4, 2, 1, '76', '1', '47', '23', 'tgtertger', 'ertgretg', '4', '5', '2021-04-10 11:58:02', '2021-04-10 11:58:02'),
+	(3, 6, 3, 1, '76', '1', '4', '43', 'rthy', 'ertgretg', '33', '44', '2021-04-18 10:36:53', '2021-04-18 10:36:53');
+/*!40000 ALTER TABLE `neshchastka24time_information` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.neshchastka24_times
+CREATE TABLE IF NOT EXISTS `neshchastka24_times` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `insurance_from` date NOT NULL,
+  `insurance_to` date NOT NULL,
+  `strah_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `strah_prem` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `franshiza` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `insurance_premium_currency` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_term` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sposob_rascheta` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `polis_series` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `geo_zone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data_vidachi_polisa` date NOT NULL,
+  `otvet_litso` int(11) NOT NULL,
+  `anketa` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dogovor` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `polis` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `policy_holder_id` int(11) NOT NULL,
+  `policy_beneficiary_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.neshchastka24_times: ~4 rows (approximately)
+DELETE FROM `neshchastka24_times`;
+/*!40000 ALTER TABLE `neshchastka24_times` DISABLE KEYS */;
+INSERT INTO `neshchastka24_times` (`id`, `insurance_from`, `insurance_to`, `strah_sum`, `strah_prem`, `franshiza`, `insurance_premium_currency`, `payment_term`, `sposob_rascheta`, `polis_series`, `geo_zone`, `data_vidachi_polisa`, `otvet_litso`, `anketa`, `dogovor`, `polis`, `policy_holder_id`, `policy_beneficiary_id`, `created_at`, `updated_at`) VALUES
+	(1, '2021-04-08', '2021-04-18', '34232234', '234234', '2342342', 'UZS', 'transh', '1', '234234', 'dfgbdfgb', '2021-04-03', 4, 'payment (10).pdf', NULL, NULL, 69, 26, '2021-04-09 18:43:08', '2021-04-09 18:43:08'),
+	(2, '2021-04-08', '2021-04-18', '34232234', '234234', '2342342', 'UZS', 'transh', '1', '234234', 'dfgbdfgb', '2021-04-03', 4, NULL, NULL, NULL, 70, 27, '2021-04-09 18:43:47', '2021-04-09 18:46:58'),
+	(3, '2021-04-04', '2021-04-15', '34232234', '234234', '23424', 'UZS', 'transh', '1', '2', 'dfgbdfgb', '2021-04-14', 3, '240_screenshots_20200919205313_1.jpg', NULL, NULL, 77, 32, '2021-04-10 11:56:44', '2021-04-10 11:56:44'),
+	(4, '2021-04-04', '2021-04-15', '34232234', '234234', '23424', 'UZS', 'transh', '1', '3', 'dfgbdfgb', '2021-04-14', 3, NULL, NULL, NULL, 78, 33, '2021-04-10 11:58:02', '2021-04-10 11:58:43'),
+	(5, '2021-04-16', '2021-04-22', '34232234', '234234', '23423', 'UZS', '1', '1', '1', 'dfgbdfgb', '2021-04-10', 4, 'time/YNIznpbCEAWYazbkvT4uF85dIoMJD0N3o6zu5HV7.docx', NULL, NULL, 86, 38, '2021-04-11 15:40:04', '2021-04-11 15:40:04'),
+	(6, '2021-04-14', '2021-04-29', '34232234', '234234', '23424', 'UZS', '1', '1', '2', 'dfgbdfgb', '2021-04-09', 3, 'time/TdOf7DgcmBLagItjol8toiAoFFgTWIWEeBkI3Ssq.docx', 'time/e67yO0tWIOwuCJZnFzeOXtIQIhgQDKi768Pqa3tm.docx', 'time/2AdktyCD2R3MCFhPtGFSNwAnAAr7GgMDmHZHdaFB.docx', 91, 42, '2021-04-18 10:36:53', '2021-04-18 10:36:53');
+/*!40000 ALTER TABLE `neshchastka24_times` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.neshchastka24_times_strah_premiya
+CREATE TABLE IF NOT EXISTS `neshchastka24_times_strah_premiya` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `neshchastka24_time_id` int(11) NOT NULL,
+  `payment_sum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_from` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.neshchastka24_times_strah_premiya: ~4 rows (approximately)
+DELETE FROM `neshchastka24_times_strah_premiya`;
+/*!40000 ALTER TABLE `neshchastka24_times_strah_premiya` DISABLE KEYS */;
+INSERT INTO `neshchastka24_times_strah_premiya` (`id`, `neshchastka24_time_id`, `payment_sum`, `payment_from`, `created_at`, `updated_at`) VALUES
+	(1, 1, '343224', '2021-04-08', '2021-04-09 18:43:08', '2021-04-09 18:43:08'),
+	(2, 1, '24234234', '2021-05-08', '2021-04-09 18:43:08', '2021-04-09 18:43:08'),
+	(4, 3, '234242', '2021-04-20', '2021-04-10 11:56:44', '2021-04-10 11:56:44');
+/*!40000 ALTER TABLE `neshchastka24_times_strah_premiya` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.neshchastka_borrowers
 CREATE TABLE IF NOT EXISTS `neshchastka_borrowers` (
@@ -1690,11 +1885,13 @@ CREATE TABLE IF NOT EXISTS `otvetstvennost_otsenshiki` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table ddgi_test.otvetstvennost_otsenshiki: ~0 rows (approximately)
 DELETE FROM `otvetstvennost_otsenshiki`;
 /*!40000 ALTER TABLE `otvetstvennost_otsenshiki` DISABLE KEYS */;
+INSERT INTO `otvetstvennost_otsenshiki` (`id`, `info_personal`, `insurance_from`, `insurance_to`, `geo_zone`, `first_year`, `second_year`, `first_turnover`, `second_turnover`, `total_turnover`, `first_profit`, `second_profit`, `total_profit`, `sfera_deyatelnosti`, `limit_otvetstvennosti`, `documents`, `insurance_premium_currency`, `poryadok_oplaty_premii`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `anketa`, `dogovor`, `polis`, `public_sector_comment`, `private_sector_comment`, `reason_case`, `reason_administrative_case`, `policy_holder_id`, `prof_riski`, `created_at`, `updated_at`) VALUES
+	(1, 'авмавымва', '2021-04-02', '2021-04-23', '23asdf', '2323', '34', '34', '34', '68', '23', '23', '46', '3', '1', 'a:1:{i:0;s:71:"otvetstvennost_otsenshiki/EYc7kwXV0yvKuDHATOWCe0fqYbOfcFfA4gQPwBu2.docx";}', 'UZS', '1', '234234', '777', '234234', '234', '2021-03-31', 4, 'otvetstvennost_otsenshiki/cv64fDB5KsmRYC7szENSEWeaz5G8KRz7JtDvN6CP.png', 'otvetstvennost_otsenshiki/gP7AFHBl6zhE6ZI1PCNSm0jlYJHU6En271H6cDRx.png', 'otvetstvennost_otsenshiki/z9b2YWbdPem3F649MYAH52fpLU0Qpf8CBLtGBiFH.png', '23141234', '1234214', '1234214', '1234214', 1, '12341242', '2021-04-10 12:19:46', '2021-04-18 11:05:26');
 /*!40000 ALTER TABLE `otvetstvennost_otsenshiki` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.otvetstvennost_otsenshiki_info
@@ -1716,11 +1913,13 @@ CREATE TABLE IF NOT EXISTS `otvetstvennost_otsenshiki_info` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.otvetstvennost_otsenshiki_info: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.otvetstvennost_otsenshiki_info: ~1 rows (approximately)
 DELETE FROM `otvetstvennost_otsenshiki_info`;
 /*!40000 ALTER TABLE `otvetstvennost_otsenshiki_info` DISABLE KEYS */;
+INSERT INTO `otvetstvennost_otsenshiki_info` (`id`, `insurer_price`, `insurer_sum`, `insurer_premium`, `time_stay`, `position`, `experience`, `specialty`, `insurer_fio`, `from_date_polis`, `to_date_polis`, `otvetstvennost_otsenshiki_id`, `agent_id`, `policy_series_id`, `created_at`, `updated_at`) VALUES
+	(2, '23', '6', '5', 'выап', 'ывап', 'work experience', 'Specialty', 'выапвып', '2021-04-01', '2021-04-22', 1, 3, 1, '2021-04-18 11:05:26', '2021-04-18 11:05:26');
 /*!40000 ALTER TABLE `otvetstvennost_otsenshiki_info` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.otvetstvennost_otsenshiki_strah_premiyas
@@ -1818,7 +2017,6 @@ CREATE TABLE IF NOT EXISTS `otvetstvennost_realtors` (
   `serial_number_policy` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_issue_policy` date NOT NULL,
   `otvet_litso` int(11) NOT NULL,
-  `bank_id` int(11) NOT NULL,
   `activity_period_from` date DEFAULT NULL,
   `activity_period_to` date DEFAULT NULL,
   `activity_period_all` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1837,11 +2035,14 @@ CREATE TABLE IF NOT EXISTS `otvetstvennost_realtors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.otvetstvennost_realtors: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.otvetstvennost_realtors: ~2 rows (approximately)
 DELETE FROM `otvetstvennost_realtors`;
 /*!40000 ALTER TABLE `otvetstvennost_realtors` DISABLE KEYS */;
+INSERT INTO `otvetstvennost_realtors` (`id`, `info_personal`, `insurance_from`, `insurance_to`, `geo_zone`, `first_year`, `second_year`, `first_turnover`, `second_turnover`, `total_turnover`, `first_profit`, `second_profit`, `total_profit`, `sfera_deyatelnosti`, `limit_otvetstvennosti`, `documents`, `insurance_premium_currency`, `poryadok_oplaty_premii`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `activity_period_from`, `activity_period_to`, `activity_period_all`, `acted`, `public_sector_comment`, `private_sector_comment`, `cases`, `reason_case`, `administrative_case`, `reason_administrative_case`, `prof_riski`, `anketa`, `dogovor`, `polis`, `policy_holder_id`, `created_at`, `updated_at`) VALUES
+	(1, 'sdfgsdg', '2021-04-23', '2021-04-22', 'dsfv', '2323', '34', '34', '34', '68', '23', '23', '46', '1', '1', 'a:1:{i:0;s:68:"otvetstvennost_realtor/kArcOY3ZjEhbisTylzUZFvTZ1LBk7mItktJnMsii.docx";}', 'UZS', '1', '234234', '3', '23424', '1', '2021-04-21', 1, '2021-04-03', '2021-04-13', '10 дней', 1, 'some data', 'some data', 1, 'some data', 0, NULL, '2322423', 'otvetstvennost_realtor/7CoOeLjR33go2i4tBpVDHaSh499QAg4dIAqq08Tb.docx', NULL, NULL, 85, '2021-04-11 15:16:54', '2021-04-19 11:17:40'),
+	(2, 'fghjkl,', '2021-04-07', '2021-04-22', 'dfgbdfgb', '2323', '23452345', '34', '3223', '3257', '23', '3452345', '3452368', '1', '1', 'a:1:{i:0;s:67:"otvetstvennost_realtor/R8EudnvAwU4zFXeuyOiwCHHe9OiMTLmCfCy9oGZu.png";}', 'UZS', '1', '555', '777', '23424', '1', '2021-04-07', 1, '2021-04-09', '2021-05-01', '22 дней', 0, NULL, NULL, 0, NULL, 0, NULL, '2322423', 'otvetstvennost_realtor/MV3MbdgI8nVJqkBVsRClLp2vKx3svj0TxDhGFF2K.docx', NULL, NULL, 90, '2021-04-13 07:42:26', '2021-04-13 07:57:35');
 /*!40000 ALTER TABLE `otvetstvennost_realtors` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.otvetstvennost_realtor_infos
@@ -1863,11 +2064,14 @@ CREATE TABLE IF NOT EXISTS `otvetstvennost_realtor_infos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.otvetstvennost_realtor_infos: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.otvetstvennost_realtor_infos: ~2 rows (approximately)
 DELETE FROM `otvetstvennost_realtor_infos`;
 /*!40000 ALTER TABLE `otvetstvennost_realtor_infos` DISABLE KEYS */;
+INSERT INTO `otvetstvennost_realtor_infos` (`id`, `insurer_price`, `insurer_sum`, `insurer_premium`, `time_stay`, `position`, `experience`, `specialty`, `insurer_fio`, `from_date_polis`, `to_date_polis`, `otvetstvennost_realtor_id`, `agent_id`, `policy_series_id`, `created_at`, `updated_at`) VALUES
+	(5, '4', '5', '6', 'выап', 'ывап', 'work experience', 'Specialty', 'выапвып', '2021-04-22', '2021-04-29', 2, 3, 1, '2021-04-13 07:57:35', '2021-04-13 07:57:35'),
+	(10, '23', '6', '5', 'выап', 'ывап', 'work experience', 'Specialty', 'выапвып', '2021-04-22', '2021-04-14', 1, 3, 1, '2021-04-19 11:17:40', '2021-04-19 11:17:40');
 /*!40000 ALTER TABLE `otvetstvennost_realtor_infos` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.otvetstvennost_realtor_strah_premiyas
@@ -1960,6 +2164,46 @@ DELETE FROM `password_resets`;
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
+-- Dumping structure for table ddgi_test.perestrahovaniyas
+CREATE TABLE IF NOT EXISTS `perestrahovaniyas` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `comments` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `policy_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `policy_series_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `perestrahovaniyas_user_id_foreign` (`user_id`),
+  CONSTRAINT `perestrahovaniyas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.perestrahovaniyas: ~0 rows (approximately)
+DELETE FROM `perestrahovaniyas`;
+/*!40000 ALTER TABLE `perestrahovaniyas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `perestrahovaniyas` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.perestrahovaniya_overviews
+CREATE TABLE IF NOT EXISTS `perestrahovaniya_overviews` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `perestrahivaniya_id` bigint(20) unsigned NOT NULL,
+  `passed` tinyint(1) NOT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table ddgi_test.perestrahovaniya_overviews: ~0 rows (approximately)
+DELETE FROM `perestrahovaniya_overviews`;
+/*!40000 ALTER TABLE `perestrahovaniya_overviews` DISABLE KEYS */;
+/*!40000 ALTER TABLE `perestrahovaniya_overviews` ENABLE KEYS */;
+
 -- Dumping structure for table ddgi_test.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -1983,489 +2227,536 @@ CREATE TABLE IF NOT EXISTS `policies` (
   `number` int(11) unsigned NOT NULL,
   `act_number` varchar(50) NOT NULL,
   `policy_series_id` int(11) unsigned DEFAULT NULL,
+  `price` varchar(100) DEFAULT NULL,
   `status` varchar(50) NOT NULL,
-  `branch_id` int(11) unsigned DEFAULT '1',
+  `branch_id` int(11) unsigned DEFAULT '0',
   `user_id` int(11) unsigned DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=521 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=567 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table ddgi_test.policies: ~470 rows (approximately)
 DELETE FROM `policies`;
 /*!40000 ALTER TABLE `policies` DISABLE KEYS */;
-INSERT INTO `policies` (`id`, `number`, `act_number`, `policy_series_id`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 141, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-24 06:13:42', NULL),
-	(2, 142, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 05:13:10', NULL),
-	(3, 143, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:03', NULL),
-	(4, 144, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:29', NULL),
-	(5, 145, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:27:38', NULL),
-	(6, 146, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:35:00', NULL),
-	(7, 147, 'asdvvd', 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 03:51:44', NULL),
-	(8, 148, 'asdvvd', 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 03:57:26', NULL),
-	(9, 149, 'asdvvd', 1, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 06:11:27', NULL),
-	(10, 150, 'asdvvd', 1, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(11, 141, 'asdvvd', 0, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-03 08:45:31', NULL),
-	(12, 142, 'asdvvd', 0, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-06 09:14:43', NULL),
-	(13, 143, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(14, 144, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(15, 145, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(16, 146, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(17, 147, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(18, 148, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(19, 149, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
-	(20, 150, 'asdvvd', 0, 'new', 0, 0, '2021-01-09 00:00:00', '2021-03-29 03:12:54', '2021-03-29 03:12:54'),
-	(71, 200, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:26:23', NULL),
-	(72, 201, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:33:22', NULL),
-	(73, 202, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:35:15', NULL),
-	(74, 203, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:36:01', NULL),
-	(75, 204, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:36:19', NULL),
-	(76, 205, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:39:01', NULL),
-	(77, 206, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-05 03:16:33', NULL),
-	(78, 207, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-05 03:19:22', NULL),
-	(79, 208, 'asdvvd', 1, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-05 03:26:43', NULL),
-	(80, 209, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(81, 210, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(82, 211, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(83, 212, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(84, 213, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(85, 214, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(86, 215, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(87, 216, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(88, 217, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(89, 218, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(90, 219, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(91, 220, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(92, 221, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(93, 222, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(94, 223, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(95, 224, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(96, 225, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(97, 226, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(98, 227, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(99, 228, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(100, 229, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(101, 230, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(102, 231, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(103, 232, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(104, 233, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(105, 234, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(106, 235, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(107, 236, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(108, 237, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(109, 238, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(110, 239, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(111, 240, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(112, 241, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(113, 242, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(114, 243, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(115, 244, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(116, 245, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(117, 246, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(118, 247, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(119, 248, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(120, 249, 'asdvvd', 1, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
-	(121, 800, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
-	(122, 801, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
-	(123, 802, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
-	(124, 803, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
-	(125, 804, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
-	(126, 805, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
-	(127, 806, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(128, 807, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(129, 808, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(130, 809, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(131, 810, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(132, 811, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(133, 812, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(134, 813, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(135, 814, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(136, 815, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(137, 816, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(138, 817, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(139, 818, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(140, 819, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(141, 820, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(142, 821, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(143, 822, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(144, 823, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(145, 824, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(146, 825, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(147, 826, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(148, 827, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(149, 828, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(150, 829, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(151, 830, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(152, 831, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(153, 832, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(154, 833, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(155, 834, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(156, 835, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(157, 836, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(158, 837, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(159, 838, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(160, 839, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(161, 840, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(162, 841, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(163, 842, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(164, 843, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(165, 844, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(166, 845, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(167, 846, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(168, 847, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(169, 848, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(170, 849, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(171, 850, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(172, 851, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(173, 852, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(174, 853, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(175, 854, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(176, 855, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(177, 856, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(178, 857, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(179, 858, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(180, 859, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(181, 860, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(182, 861, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(183, 862, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(184, 863, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(185, 864, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(186, 865, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(187, 866, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(188, 867, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(189, 868, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(190, 869, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(191, 870, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(192, 871, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(193, 872, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(194, 873, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(195, 874, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(196, 875, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(197, 876, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(198, 877, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(199, 878, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(200, 879, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(201, 880, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(202, 881, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(203, 882, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(204, 883, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(205, 884, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(206, 885, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(207, 886, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(208, 887, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(209, 888, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(210, 889, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(211, 890, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(212, 891, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(213, 892, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(214, 893, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(215, 894, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(216, 895, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(217, 896, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(218, 897, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(219, 898, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(220, 899, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
-	(221, 800, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(222, 801, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(223, 802, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(224, 803, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(225, 804, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(226, 805, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(227, 806, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(228, 807, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(229, 808, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(230, 809, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(231, 810, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(232, 811, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(233, 812, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(234, 813, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(235, 814, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(236, 815, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(237, 816, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(238, 817, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(239, 818, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(240, 819, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(241, 820, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(242, 821, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(243, 822, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(244, 823, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(245, 824, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(246, 825, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(247, 826, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(248, 827, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(249, 828, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(250, 829, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(251, 830, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(252, 831, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(253, 832, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(254, 833, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(255, 834, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(256, 835, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(257, 836, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(258, 837, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(259, 838, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(260, 839, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(261, 840, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(262, 841, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(263, 842, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(264, 843, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(265, 844, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(266, 845, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(267, 846, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(268, 847, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(269, 848, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(270, 849, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(271, 850, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(272, 851, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(273, 852, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(274, 853, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(275, 854, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(276, 855, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(277, 856, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(278, 857, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(279, 858, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(280, 859, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(281, 860, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(282, 861, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(283, 862, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(284, 863, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(285, 864, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(286, 865, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(287, 866, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(288, 867, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(289, 868, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(290, 869, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(291, 870, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(292, 871, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(293, 872, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(294, 873, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(295, 874, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(296, 875, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(297, 876, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(298, 877, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(299, 878, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(300, 879, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(301, 880, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(302, 881, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(303, 882, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(304, 883, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(305, 884, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(306, 885, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(307, 886, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(308, 887, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(309, 888, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(310, 889, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(311, 890, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(312, 891, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(313, 892, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(314, 893, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(315, 894, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(316, 895, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(317, 896, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(318, 897, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(319, 898, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(320, 899, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
-	(321, 900, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(322, 901, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(323, 902, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(324, 903, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(325, 904, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(326, 905, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(327, 906, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(328, 907, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(329, 908, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(330, 909, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(331, 910, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(332, 911, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(333, 912, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(334, 913, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(335, 914, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(336, 915, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(337, 916, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(338, 917, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(339, 918, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(340, 919, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(341, 920, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(342, 921, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(343, 922, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(344, 923, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(345, 924, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(346, 925, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(347, 926, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(348, 927, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(349, 928, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(350, 929, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(351, 930, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(352, 931, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(353, 932, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(354, 933, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(355, 934, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(356, 935, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(357, 936, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(358, 937, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(359, 938, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(360, 939, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(361, 940, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
-	(362, 941, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(363, 942, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(364, 943, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(365, 944, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(366, 945, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(367, 946, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(368, 947, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(369, 948, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(370, 949, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(371, 950, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(372, 951, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(373, 952, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(374, 953, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(375, 954, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(376, 955, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(377, 956, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(378, 957, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(379, 958, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(380, 959, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(381, 960, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(382, 961, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(383, 962, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(384, 963, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(385, 964, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(386, 965, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(387, 966, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(388, 967, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(389, 968, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(390, 969, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(391, 970, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(392, 971, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(393, 972, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(394, 973, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(395, 974, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(396, 975, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(397, 976, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(398, 977, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(399, 978, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(400, 979, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(401, 980, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(402, 981, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(403, 982, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(404, 983, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(405, 984, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(406, 985, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(407, 986, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(408, 987, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(409, 988, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(410, 989, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(411, 990, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(412, 991, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(413, 992, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(414, 993, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(415, 994, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(416, 995, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(417, 996, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(418, 997, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(419, 998, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(420, 999, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
-	(421, 900, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(422, 901, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(423, 902, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(424, 903, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(425, 904, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(426, 905, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(427, 906, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(428, 907, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(429, 908, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(430, 909, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(431, 910, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(432, 911, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(433, 912, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(434, 913, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(435, 914, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(436, 915, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(437, 916, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(438, 917, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(439, 918, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(440, 919, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(441, 920, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(442, 921, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(443, 922, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(444, 923, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(445, 924, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(446, 925, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(447, 926, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(448, 927, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(449, 928, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(450, 929, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(451, 930, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(452, 931, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(453, 932, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(454, 933, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(455, 934, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(456, 935, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(457, 936, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(458, 937, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(459, 938, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(460, 939, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(461, 940, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(462, 941, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(463, 942, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(464, 943, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(465, 944, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(466, 945, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(467, 946, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(468, 947, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(469, 948, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(470, 949, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(471, 950, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(472, 951, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(473, 952, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(474, 953, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(475, 954, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(476, 955, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(477, 956, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(478, 957, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(479, 958, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(480, 959, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(481, 960, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(482, 961, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(483, 962, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(484, 963, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(485, 964, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(486, 965, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(487, 966, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(488, 967, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(489, 968, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(490, 969, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(491, 970, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(492, 971, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(493, 972, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(494, 973, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(495, 974, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(496, 975, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(497, 976, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(498, 977, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(499, 978, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(500, 979, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(501, 980, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(502, 981, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(503, 982, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(504, 983, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(505, 984, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(506, 985, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(507, 986, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(508, 987, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(509, 988, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(510, 989, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(511, 990, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(512, 991, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(513, 992, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(514, 993, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(515, 994, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(516, 995, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(517, 996, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(518, 997, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(519, 998, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
-	(520, 999, 'asdvvd', 1, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL);
+INSERT INTO `policies` (`id`, `number`, `act_number`, `policy_series_id`, `price`, `status`, `branch_id`, `user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 141, 'asdvvd', 1, NULL, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-24 06:13:42', NULL),
+	(2, 142, 'asdvvd', 1, NULL, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 05:13:10', NULL),
+	(3, 143, 'asdvvd', 1, NULL, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:03', NULL),
+	(4, 144, 'asdvvd', 1, NULL, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-03 06:13:29', NULL),
+	(5, 145, 'asdvvd', 1, NULL, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:27:38', NULL),
+	(6, 146, 'asdvvd', 1, NULL, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-03-07 07:35:00', NULL),
+	(7, 147, 'asdvvd', 1, NULL, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 03:51:44', NULL),
+	(8, 148, 'asdvvd', 1, NULL, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 03:57:26', NULL),
+	(9, 149, 'asdvvd', 1, NULL, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-24 06:11:27', NULL),
+	(10, 150, 'asdvvd', 1, NULL, 'in_use', 2, 9, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(11, 141, 'asdvvd', 0, NULL, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-03 08:45:31', NULL),
+	(12, 142, 'asdvvd', 0, NULL, 'in_use', 0, 0, '2021-01-09 00:00:00', '2021-03-06 09:14:43', NULL),
+	(13, 143, 'asdvvd', 0, NULL, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(14, 144, 'asdvvd', 0, NULL, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(15, 145, 'asdvvd', 0, NULL, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(16, 146, 'asdvvd', 0, NULL, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(17, 147, 'asdvvd', 0, NULL, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(18, 148, 'asdvvd', 0, NULL, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(19, 149, 'asdvvd', 0, NULL, 'new', 0, 0, '2021-01-09 00:00:00', '2021-01-09 00:00:00', NULL),
+	(20, 150, 'asdvvd', 0, NULL, 'new', 0, 0, '2021-01-09 00:00:00', '2021-03-29 03:12:54', '2021-03-29 03:12:54'),
+	(71, 200, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:26:23', NULL),
+	(72, 201, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:33:22', NULL),
+	(73, 202, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:35:15', NULL),
+	(74, 203, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:36:01', NULL),
+	(75, 204, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:36:19', NULL),
+	(76, 205, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:39:01', NULL),
+	(77, 206, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-05 03:16:33', NULL),
+	(78, 207, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-05 03:19:22', NULL),
+	(79, 208, 'asdvvd', 1, NULL, 'in_use', 1, 0, '2021-04-01 01:18:27', '2021-04-05 03:26:43', NULL),
+	(80, 209, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(81, 210, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(82, 211, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(83, 212, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(84, 213, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(85, 214, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(86, 215, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(87, 216, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(88, 217, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(89, 218, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(90, 219, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(91, 220, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(92, 221, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(93, 222, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(94, 223, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(95, 224, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(96, 225, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(97, 226, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(98, 227, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(99, 228, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(100, 229, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(101, 230, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(102, 231, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(103, 232, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(104, 233, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(105, 234, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(106, 235, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(107, 236, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(108, 237, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(109, 238, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(110, 239, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(111, 240, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(112, 241, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(113, 242, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(114, 243, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(115, 244, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(116, 245, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(117, 246, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(118, 247, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(119, 248, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(120, 249, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-01 01:18:27', '2021-04-01 01:18:27', NULL),
+	(121, 800, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
+	(122, 801, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
+	(123, 802, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
+	(124, 803, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
+	(125, 804, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
+	(126, 805, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:39', '2021-04-04 00:37:39', NULL),
+	(127, 806, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(128, 807, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(129, 808, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(130, 809, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(131, 810, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(132, 811, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(133, 812, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(134, 813, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(135, 814, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(136, 815, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(137, 816, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(138, 817, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(139, 818, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(140, 819, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(141, 820, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(142, 821, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(143, 822, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(144, 823, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(145, 824, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(146, 825, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(147, 826, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(148, 827, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(149, 828, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(150, 829, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(151, 830, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(152, 831, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(153, 832, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(154, 833, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(155, 834, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(156, 835, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(157, 836, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(158, 837, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(159, 838, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(160, 839, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(161, 840, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(162, 841, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(163, 842, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(164, 843, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(165, 844, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(166, 845, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(167, 846, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(168, 847, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(169, 848, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(170, 849, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(171, 850, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(172, 851, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(173, 852, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(174, 853, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(175, 854, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(176, 855, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(177, 856, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(178, 857, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(179, 858, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(180, 859, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(181, 860, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(182, 861, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(183, 862, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(184, 863, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(185, 864, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(186, 865, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(187, 866, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(188, 867, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(189, 868, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(190, 869, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(191, 870, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(192, 871, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(193, 872, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(194, 873, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(195, 874, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(196, 875, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(197, 876, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(198, 877, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(199, 878, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(200, 879, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(201, 880, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(202, 881, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(203, 882, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(204, 883, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(205, 884, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(206, 885, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(207, 886, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(208, 887, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(209, 888, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(210, 889, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(211, 890, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(212, 891, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(213, 892, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(214, 893, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(215, 894, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(216, 895, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(217, 896, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(218, 897, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(219, 898, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(220, 899, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:37:40', '2021-04-04 00:37:40', NULL),
+	(221, 800, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(222, 801, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(223, 802, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(224, 803, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(225, 804, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(226, 805, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(227, 806, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(228, 807, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(229, 808, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(230, 809, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(231, 810, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(232, 811, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(233, 812, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(234, 813, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(235, 814, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(236, 815, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(237, 816, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(238, 817, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(239, 818, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(240, 819, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(241, 820, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(242, 821, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(243, 822, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(244, 823, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(245, 824, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(246, 825, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(247, 826, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(248, 827, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(249, 828, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(250, 829, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(251, 830, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(252, 831, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(253, 832, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(254, 833, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(255, 834, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(256, 835, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(257, 836, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(258, 837, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(259, 838, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(260, 839, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(261, 840, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(262, 841, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(263, 842, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(264, 843, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(265, 844, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(266, 845, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(267, 846, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(268, 847, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(269, 848, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(270, 849, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(271, 850, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(272, 851, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(273, 852, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(274, 853, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(275, 854, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(276, 855, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(277, 856, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(278, 857, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(279, 858, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(280, 859, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(281, 860, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(282, 861, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(283, 862, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(284, 863, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(285, 864, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(286, 865, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(287, 866, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(288, 867, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(289, 868, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(290, 869, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(291, 870, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(292, 871, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(293, 872, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(294, 873, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(295, 874, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(296, 875, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(297, 876, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(298, 877, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(299, 878, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(300, 879, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(301, 880, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(302, 881, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(303, 882, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(304, 883, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(305, 884, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(306, 885, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(307, 886, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(308, 887, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(309, 888, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(310, 889, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(311, 890, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(312, 891, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(313, 892, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(314, 893, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(315, 894, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(316, 895, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(317, 896, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(318, 897, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(319, 898, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(320, 899, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:38:06', '2021-04-04 00:38:06', NULL),
+	(321, 900, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(322, 901, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(323, 902, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(324, 903, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(325, 904, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(326, 905, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(327, 906, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(328, 907, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(329, 908, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(330, 909, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(331, 910, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(332, 911, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(333, 912, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(334, 913, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(335, 914, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(336, 915, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(337, 916, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(338, 917, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(339, 918, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(340, 919, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(341, 920, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(342, 921, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(343, 922, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(344, 923, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(345, 924, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(346, 925, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(347, 926, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(348, 927, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(349, 928, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(350, 929, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(351, 930, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(352, 931, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(353, 932, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(354, 933, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(355, 934, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(356, 935, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(357, 936, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(358, 937, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(359, 938, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(360, 939, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(361, 940, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:56', '2021-04-04 00:41:56', NULL),
+	(362, 941, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(363, 942, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(364, 943, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(365, 944, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(366, 945, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(367, 946, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(368, 947, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(369, 948, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(370, 949, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(371, 950, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(372, 951, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(373, 952, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(374, 953, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(375, 954, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(376, 955, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(377, 956, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(378, 957, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(379, 958, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(380, 959, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(381, 960, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(382, 961, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(383, 962, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(384, 963, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(385, 964, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(386, 965, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(387, 966, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(388, 967, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(389, 968, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(390, 969, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(391, 970, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(392, 971, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(393, 972, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(394, 973, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(395, 974, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(396, 975, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(397, 976, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(398, 977, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(399, 978, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(400, 979, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(401, 980, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(402, 981, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(403, 982, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(404, 983, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(405, 984, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(406, 985, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(407, 986, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(408, 987, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(409, 988, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(410, 989, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(411, 990, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(412, 991, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(413, 992, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(414, 993, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(415, 994, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(416, 995, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(417, 996, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(418, 997, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(419, 998, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(420, 999, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:41:57', '2021-04-04 00:41:57', NULL),
+	(421, 900, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(422, 901, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(423, 902, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(424, 903, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(425, 904, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(426, 905, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(427, 906, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(428, 907, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(429, 908, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(430, 909, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(431, 910, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(432, 911, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(433, 912, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(434, 913, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(435, 914, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(436, 915, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(437, 916, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(438, 917, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(439, 918, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(440, 919, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(441, 920, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(442, 921, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(443, 922, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(444, 923, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(445, 924, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(446, 925, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(447, 926, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(448, 927, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(449, 928, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(450, 929, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(451, 930, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(452, 931, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(453, 932, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(454, 933, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(455, 934, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(456, 935, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(457, 936, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(458, 937, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(459, 938, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(460, 939, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(461, 940, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(462, 941, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(463, 942, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(464, 943, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(465, 944, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(466, 945, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(467, 946, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(468, 947, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(469, 948, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(470, 949, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(471, 950, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(472, 951, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(473, 952, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(474, 953, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(475, 954, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(476, 955, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(477, 956, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(478, 957, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(479, 958, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(480, 959, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(481, 960, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(482, 961, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(483, 962, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(484, 963, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(485, 964, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(486, 965, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(487, 966, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(488, 967, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(489, 968, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(490, 969, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(491, 970, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(492, 971, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(493, 972, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(494, 973, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(495, 974, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(496, 975, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(497, 976, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(498, 977, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(499, 978, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(500, 979, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(501, 980, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(502, 981, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(503, 982, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(504, 983, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(505, 984, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(506, 985, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(507, 986, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(508, 987, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(509, 988, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(510, 989, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(511, 990, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(512, 991, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(513, 992, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(514, 993, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(515, 994, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(516, 995, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(517, 996, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(518, 997, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(519, 998, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(520, 999, 'asdvvd', 1, NULL, 'new', 1, 0, '2021-04-04 00:42:36', '2021-04-04 00:42:36', NULL),
+	(521, 1, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(522, 2, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(523, 3, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(524, 4, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(525, 5, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(526, 6, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(527, 7, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(528, 8, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(529, 9, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(530, 10, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(531, 11, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(532, 12, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(533, 13, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(534, 14, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(535, 15, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(536, 16, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(537, 17, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(538, 18, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(539, 19, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(540, 20, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(541, 21, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(542, 22, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(543, 23, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(544, 24, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(545, 25, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(546, 26, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(547, 27, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(548, 28, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(549, 29, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(550, 30, 'asdvvd', 0, NULL, 'new', 1, 0, '2021-04-20 19:20:02', '2021-04-20 19:20:02', NULL),
+	(551, 1000, 'gggg', 0, NULL, 'new', 0, 0, '2021-04-21 09:37:52', '2021-04-21 09:41:38', '2021-04-21 09:41:38'),
+	(552, 1001, 'gggg', 0, NULL, 'new', 0, 0, '2021-04-21 09:37:52', '2021-04-21 09:41:38', '2021-04-21 09:41:38'),
+	(553, 1000, 'ggg31', 0, NULL, 'new', 0, 0, '2021-04-21 09:41:38', '2021-04-21 09:44:49', '2021-04-21 09:44:49'),
+	(554, 1001, 'ggg31', 0, NULL, 'new', 0, 0, '2021-04-21 09:41:38', '2021-04-21 09:44:49', '2021-04-21 09:44:49'),
+	(555, 1000, 'gdfff', 0, NULL, 'new', 0, 3, '2021-04-21 09:44:49', '2021-04-21 09:45:08', '2021-04-21 09:45:08'),
+	(556, 1001, 'gdfff', 0, NULL, 'new', 0, 0, '2021-04-21 09:44:49', '2021-04-21 09:45:08', '2021-04-21 09:45:08'),
+	(557, 1000, 'gdfff', 0, NULL, 'new', 0, 3, '2021-04-21 09:45:08', '2021-04-21 09:46:19', '2021-04-21 09:46:19'),
+	(558, 1001, 'gdfff', 0, NULL, 'new', 0, 3, '2021-04-21 09:45:08', '2021-04-21 09:46:19', '2021-04-21 09:46:19'),
+	(559, 1000, 'gdfff', 0, NULL, 'retransferred', 1, 4, '2021-04-21 09:46:19', '2021-04-22 06:11:14', NULL),
+	(560, 1001, 'gdfff', 0, NULL, 'retransferred', 1, 4, '2021-04-21 09:46:19', '2021-04-22 06:11:14', NULL),
+	(561, 1002, 'gdfff', 0, NULL, 'transferred', 1, 9, '2021-04-21 09:46:19', '2021-04-22 05:59:15', NULL),
+	(562, 1003, 'gdfff', 0, NULL, 'transferred', 1, 9, '2021-04-21 09:46:19', '2021-04-22 05:59:15', NULL),
+	(563, 1004, 'gdfff', 0, NULL, 'new', 0, 3, '2021-04-21 09:46:19', '2021-04-21 09:46:19', NULL),
+	(564, 1005, 'gdfff', 0, NULL, 'new', 0, 3, '2021-04-21 09:46:19', '2021-04-21 09:46:19', NULL),
+	(565, 1000, 'dfgbdfgbdfb', 0, NULL, 'new', 0, 0, '2021-04-22 05:30:26', '2021-04-22 05:30:26', NULL),
+	(566, 1001, 'dfgbdfgbdfb', 0, NULL, 'new', 0, 0, '2021-04-22 05:30:26', '2021-04-22 05:30:26', NULL);
 /*!40000 ALTER TABLE `policies` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policies_policy_retransfer
@@ -2528,9 +2819,9 @@ CREATE TABLE IF NOT EXISTS `policy_beneficiaries` (
   `nomer_passport` varchar(255) DEFAULT NULL,
   `oked` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='страхователи';
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='страхователи';
 
--- Dumping data for table ddgi_test.policy_beneficiaries: ~20 rows (approximately)
+-- Dumping data for table ddgi_test.policy_beneficiaries: ~47 rows (approximately)
 DELETE FROM `policy_beneficiaries`;
 /*!40000 ALTER TABLE `policy_beneficiaries` DISABLE KEYS */;
 INSERT INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`, `seria_passport`, `nomer_passport`, `oked`) VALUES
@@ -2554,7 +2845,34 @@ INSERT INTO `policy_beneficiaries` (`id`, `FIO`, `address`, `phone_number`, `che
 	(18, 'ФИО выгодоприобретателя', 'bgdfgb', 'dfgbdg', 'bdfgb', 'dfgbdf', 'gbdfgb', 'dfgbdfgbdfgb', 2, '2021-03-03 06:16:20', '2021-03-03 06:13:29', NULL, NULL, NULL, NULL),
 	(19, 'sdfvsdfvds', 'vfsdfvdsfv', 'vsdfvds', 'fvsdvfsd', 'sdfvsdfvsdfv', 'sdvsdfvsdfv', 'sdfvsdfvsdvf', 2, '2021-03-03 08:45:31', '2021-03-03 08:45:31', NULL, NULL, NULL, NULL),
 	(20, 'sdfvsdfvdsfv', 'PO Box F', '5555551234', 'vsdfvsdf', 'vsdfvsdf', 'vsdfvsdf', 'sdfvsdfv', 2, '2021-03-06 09:14:42', '2021-03-06 09:14:42', NULL, NULL, NULL, NULL),
-	(21, 'sdfvsdfvdsfv', 'PO Box F', '5555551234', 'vsdfvsdf', '23', '234', NULL, 2, '2021-03-23 15:20:25', '2021-03-23 15:20:25', NULL, NULL, NULL, '234234');
+	(21, 'sdfvsdfvdsfv', 'PO Box F', '5555551234', 'vsdfvsdf', '23', '234', NULL, 2, '2021-03-23 15:20:25', '2021-03-23 15:20:25', NULL, NULL, NULL, '234234'),
+	(22, 'ssdvfsdfv', 'sdfvsdfv', '2342424', 'dsfvdsfv', '234234', 'sdvfdsvf', NULL, 2, '2021-04-09 16:10:55', '2021-04-09 16:08:18', NULL, NULL, NULL, 'ewrgwegr'),
+	(23, 'ФИО выгодоприобретателя 2', 'Адрес выгодоприобретателя 2', 'Телефон 2', 'Расчетный счет 2', '2342424', 'МФО 2', NULL, 2, '2021-04-09 16:14:21', '2021-04-09 16:14:21', NULL, 'Серия паспорта 2', 'Номер паспорта 2', 'dsdvsdv232323'),
+	(24, 'ФИО выгодоприобретателя 2', 'Адрес выгодоприобретателя 2', 'Телефон 2', 'Расчетный счет 2', '343434', 'МФО 2', NULL, 2, '2021-04-09 16:15:12', '2021-04-09 16:15:12', NULL, 'Серия паспорта 2', 'Номер паспорта 2', 'dsdvsdv232323'),
+	(25, 'ФИО выгодоприобретателя 2', 'Адрес выгодоприобретателя 2', 'Телефон 2', 'Расчетный счет 2', '343434', 'МФО 2', NULL, 2, '2021-04-09 16:34:44', '2021-04-09 16:19:25', NULL, 'Серия паспорта 2', 'Номер паспорта 2', 'ОКЭД'),
+	(26, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', '555555123443', 'Расчетный счет 2', 'dfgbdf', 'vsdfvsdf', 'egverv', 2, '2021-04-09 18:43:08', '2021-04-09 18:43:08', NULL, NULL, NULL, 'ОКЭД 3'),
+	(27, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', '555555123443', 'Расчетный счет 2', 'dfgbdf', 'vsdfvsdf', 'egverv', 2, '2021-04-09 18:46:58', '2021-04-09 18:43:47', NULL, NULL, NULL, 'ОКЭД'),
+	(28, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-09 19:00:08', '2021-04-09 19:00:08', NULL, NULL, NULL, NULL),
+	(29, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-09 19:00:42', '2021-04-09 19:00:42', NULL, NULL, NULL, NULL),
+	(30, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', '234234234234', 'vsdfvsdf', NULL, 2, '2021-04-10 11:40:00', '2021-04-10 11:38:52', NULL, 'Серия паспорта 2', 'Номер паспорта 2', 'dsfvsdfv'),
+	(31, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', '353535', 'vsdfvsdf', NULL, 2, '2021-04-10 11:52:29', '2021-04-10 11:51:20', NULL, NULL, NULL, 'ОКЭД'),
+	(32, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'sdfvsdfvsd', 'vsdfvdfsvsd', 'vsdfvsdf', 'egverv', 2, '2021-04-10 11:56:44', '2021-04-10 11:56:44', NULL, NULL, NULL, 'dsdvsdv232323'),
+	(33, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'sdfvsdfvsd', 'vsdfvdfsvsd', 'vsdfvsdf', 'egverv', 2, '2021-04-10 11:58:43', '2021-04-10 11:58:02', NULL, NULL, NULL, 'ОКЭД'),
+	(34, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-10 12:03:26', '2021-04-10 12:03:26', NULL, NULL, NULL, NULL),
+	(35, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-10 12:04:16', '2021-04-10 12:04:16', NULL, NULL, NULL, NULL),
+	(36, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-10 12:06:05', '2021-04-10 12:06:05', NULL, NULL, NULL, NULL),
+	(37, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-10 12:06:20', '2021-04-10 12:06:20', NULL, NULL, NULL, NULL),
+	(38, 'ФИО выгодоприобретателя', 'Юр адрес выгодоприобретателя', '5555551234', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 2, '2021-04-11 15:40:04', '2021-04-11 15:40:04', NULL, NULL, NULL, 'ОКЭД'),
+	(39, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'gbdfgb', 'ОКОНХ', 2, '2021-04-11 15:54:31', '2021-04-11 15:54:31', NULL, NULL, NULL, NULL),
+	(40, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'gbdfgb', 'ОКОНХ', 2, '2021-04-11 16:01:38', '2021-04-11 16:01:38', NULL, NULL, NULL, NULL),
+	(41, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'gbdfgb', 'ОКОНХ', 2, '2021-04-11 16:02:27', '2021-04-11 16:02:27', NULL, NULL, NULL, NULL),
+	(42, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-18 10:42:03', '2021-04-18 10:36:53', NULL, NULL, NULL, 'ОКЭД'),
+	(43, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-18 10:48:45', '2021-04-18 10:48:45', NULL, NULL, NULL, NULL),
+	(44, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-18 10:52:41', '2021-04-18 10:52:41', NULL, NULL, NULL, NULL),
+	(45, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-18 10:53:23', '2021-04-18 10:53:23', NULL, NULL, NULL, NULL),
+	(46, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-18 10:53:40', '2021-04-18 10:53:40', NULL, NULL, NULL, NULL),
+	(47, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-18 10:54:52', '2021-04-18 10:54:52', NULL, NULL, NULL, NULL),
+	(48, 'ФИО выгодоприобретателя', 'PO Box F', '5555551234', 'Расчетный счет 2', 'vsdfvsdf', 'vsdfvsdf', 'egverv', 2, '2021-04-18 10:56:32', '2021-04-18 10:56:32', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `policy_beneficiaries` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policy_flows
@@ -2562,28 +2880,50 @@ CREATE TABLE IF NOT EXISTS `policy_flows` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `act_number` varchar(50) DEFAULT NULL,
   `act_date` date DEFAULT NULL,
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `a_reg` varchar(50) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
   `branch_id` int(11) DEFAULT NULL,
   `to_user_id` int(11) DEFAULT NULL,
   `from_user_id` int(11) DEFAULT NULL,
-  `policy_series_id` int(11) DEFAULT NULL,
-  `policy_from` varchar(50) DEFAULT NULL,
-  `policy_to` varchar(50) DEFAULT NULL,
-  `act_file` varchar(250) DEFAULT NULL,
-  `transfer_given` varchar(150) DEFAULT NULL,
+  `policy_from` varchar(100) DEFAULT NULL,
+  `policy_to` varchar(100) DEFAULT NULL,
+  `polis_name` varchar(100) DEFAULT NULL,
+  `price_per_policy` varchar(100) DEFAULT NULL,
+  `polis_given_by_user_id` int(11) unsigned DEFAULT NULL,
   `created_at` date DEFAULT NULL,
   `updated_at` date DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table ddgi_test.policy_flows: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.policy_flows: ~5 rows (approximately)
 DELETE FROM `policy_flows`;
 /*!40000 ALTER TABLE `policy_flows` DISABLE KEYS */;
-INSERT INTO `policy_flows` (`id`, `act_number`, `act_date`, `status`, `branch_id`, `to_user_id`, `from_user_id`, `policy_series_id`, `policy_from`, `policy_to`, `act_file`, `transfer_given`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(4, 'asdvvd', '2021-04-16', 0, NULL, NULL, NULL, NULL, '800', '899', 'C:\\Users\\User\\AppData\\Local\\Temp\\php889E.tmp', NULL, '2021-04-04', '2021-04-04', NULL),
-	(5, 'asdvvd', '2021-04-02', 0, NULL, 3, NULL, 1, '900', '999', 'document/PolicyFlow/7AGuQf9sR3LZ6wBKC2YmEDPOPVJlUt2JydMO43Kz.docx', NULL, '2021-04-04', '2021-04-04', NULL);
+INSERT INTO `policy_flows` (`id`, `act_number`, `act_date`, `a_reg`, `status`, `branch_id`, `to_user_id`, `from_user_id`, `policy_from`, `policy_to`, `polis_name`, `price_per_policy`, `polis_given_by_user_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(6, 'asdvvd', '2021-04-15', 'on', 'registered', NULL, 3, NULL, '1', '30', NULL, NULL, NULL, '2021-04-20', '2021-04-20', NULL),
+	(7, 'asdvvd', '2021-04-01', 'on', 'registered', NULL, 3, NULL, '100', '101', NULL, NULL, NULL, '2021-04-20', '2021-04-20', NULL),
+	(8, 'asdvvd', '2021-04-15', 'a4', 'registered', NULL, 3, NULL, '141', '142', 'Some name', '5444', NULL, '2021-04-20', '2021-04-20', NULL),
+	(9, 'gdfff', '2021-04-16', 'a5', 'registered', NULL, 3, NULL, '1000', '1005', 'Наименование', '4000', NULL, '2021-04-21', '2021-04-21', NULL),
+	(11, 'vsdvfdfsv', '2021-04-21', 'a4', 'transferred', NULL, 3, NULL, '1000', '1001', 'Наименование', '4000', NULL, '2021-04-22', '2021-04-22', NULL),
+	(12, 'asdvvd', '2021-04-16', 'a4', 'transferred', 1, 9, 3, '1002', '1003', 'dfgbdfbg', '4000', NULL, '2021-04-22', '2021-04-22', NULL),
+	(13, 'asdvvd', '2021-04-22', 'a4', 'retransferred', 1, 4, 9, '1000', '1001', 'dfgbdfbg', '4000', NULL, '2021-04-22', '2021-04-22', NULL);
 /*!40000 ALTER TABLE `policy_flows` ENABLE KEYS */;
+
+-- Dumping structure for table ddgi_test.policy_flow_files
+CREATE TABLE IF NOT EXISTS `policy_flow_files` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `policy_flow_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(150) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table ddgi_test.policy_flow_files: ~0 rows (approximately)
+DELETE FROM `policy_flow_files`;
+/*!40000 ALTER TABLE `policy_flow_files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `policy_flow_files` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policy_holders
 CREATE TABLE IF NOT EXISTS `policy_holders` (
@@ -2604,13 +2944,13 @@ CREATE TABLE IF NOT EXISTS `policy_holders` (
   `passport_series` varchar(255) DEFAULT NULL,
   `passport_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='страхователи';
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 COMMENT='страхователи';
 
--- Dumping data for table ddgi_test.policy_holders: ~62 rows (approximately)
+-- Dumping data for table ddgi_test.policy_holders: ~101 rows (approximately)
 DELETE FROM `policy_holders`;
 /*!40000 ALTER TABLE `policy_holders` DISABLE KEYS */;
 INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_account`, `inn`, `mfo`, `okonx`, `bank_id`, `updated_at`, `created_at`, `deleted_at`, `oked`, `vid_deyatelnosti`, `passport_series`, `passport_number`) VALUES
-	(1, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
+	(1, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'ОКОНХ', 4, '2021-04-18 11:05:26', '2021-01-10 00:00:00', NULL, 'werfwerf', 'sdfvdsfv', NULL, NULL),
 	(2, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
 	(3, 'gbebfgb', 'dfgbfdb', 'fdgbdfgb', 'gbdfgbdf', 'gbdfgb', 'dfgbdf', 'gbdfbg', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
 	(4, 'dfgbdf', 'gbdfgbdf', 'gbdfgbf', 'dgbgdfb', 'dfgbdfbfdgb', 'dfgbdf', 'dfgb', 1, '2021-01-10 00:00:00', '2021-01-10 00:00:00', NULL, NULL, NULL, NULL, NULL),
@@ -2671,7 +3011,46 @@ INSERT INTO `policy_holders` (`id`, `FIO`, `address`, `phone_number`, `checking_
 	(59, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'dfgbdfgb', 'dfvsdvsdfv', NULL, 2, '2021-04-05 03:19:22', '2021-04-05 03:19:22', NULL, 'dvdsvf', NULL, NULL, NULL),
 	(60, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:02', '2021-04-05 03:26:02', NULL, 'dvdsvf', NULL, NULL, NULL),
 	(61, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:36', '2021-04-05 03:26:36', NULL, 'dvdsvf', NULL, NULL, NULL),
-	(62, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:43', '2021-04-05 03:26:43', NULL, 'dvdsvf', NULL, NULL, NULL);
+	(62, 'sdvfvsvdf', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 4, '2021-04-05 03:26:43', '2021-04-05 03:26:43', NULL, 'dvdsvf', NULL, NULL, NULL),
+	(63, 'ФИО страхователя', 'Юр адрес страхователя', 'Телефон', 'Расчетный счет', 'ИНН', '3ewrgwerg', NULL, 2, '2021-04-09 16:08:18', '2021-04-09 16:08:18', NULL, 'ewrgwegr', NULL, NULL, NULL),
+	(64, 'ФИО страхователя', 'Юр адрес страхователя', '234234234', 'Расчетный счет', 'ИНН', 'МФО', NULL, 2, '2021-04-09 16:14:21', '2021-04-09 16:14:21', NULL, 'ОКЭД', NULL, 'Серия паспорта', 'Номер паспорта'),
+	(65, 'ФИО страхователя', 'Юр адрес страхователя', '234234234', 'Расчетный счет', 'ИНН', 'МФО', NULL, 2, '2021-04-09 16:15:12', '2021-04-09 16:15:12', NULL, 'ОКЭД', NULL, 'Серия паспорта', 'Номер паспорта'),
+	(66, 'ФИО страхователя', 'Юр адрес страхователя', '234234234', 'Расчетный счет', 'ИНН', 'МФО', NULL, 2, '2021-04-09 16:19:25', '2021-04-09 16:19:25', NULL, 'ОКЭД', NULL, 'Серия паспорта', 'Номер паспорта'),
+	(67, 'Наименования', 'Юр адрес страхователя', '23423432', 'sdfvsdfv', 'ИНН', 'МФО', 'ОКОНХ', 2, '2021-04-09 18:14:32', '2021-04-09 18:14:32', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(68, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'okonx', 4, '2021-04-09 18:16:21', '2021-04-09 18:16:21', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(69, 'ФИО страхователя', 'Адрес страхователя', '5555551234', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 2, '2021-04-09 18:43:08', '2021-04-09 18:43:08', NULL, 'ОКЭД', 'Вид деятельности', NULL, NULL),
+	(70, '4534355', 'Адрес страхователя', '5555551234', 'Расчетный счет', 'ИНН', 'МФО', 'ОКОНХ', 2, '2021-04-09 18:46:58', '2021-04-09 18:43:47', NULL, 'ОКЭД', 'Вид деятельности', NULL, NULL),
+	(71, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'ОКОНХ', 2, '2021-04-09 19:00:08', '2021-04-09 19:00:08', NULL, NULL, NULL, NULL, NULL),
+	(72, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'ОКОНХ', 2, '2021-04-09 19:00:42', '2021-04-09 19:00:42', NULL, NULL, NULL, NULL, NULL),
+	(73, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'gsdgsd', 'dfvsdvsdfv', NULL, 2, '2021-04-10 11:38:52', '2021-04-10 11:38:52', NULL, 'dsfvsdfv', NULL, '5555551234', '12341234'),
+	(74, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'dsfvsdfv', 'sdfvdsfv', 'ОКОНХ', 2, '2021-04-10 11:45:03', '2021-04-10 11:45:03', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(75, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'dsfvsdfv', 'sdfvdsfv', 'ОКОНХ', 2, '2021-04-10 11:45:51', '2021-04-10 11:45:51', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(76, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', NULL, 2, '2021-04-10 11:51:20', '2021-04-10 11:51:20', NULL, 'ОКЭД', NULL, NULL, NULL),
+	(77, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'gsdgsd', 'sdgsdg', 'ОКОНХ', 4, '2021-04-10 11:56:44', '2021-04-10 11:56:44', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(78, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'gsdgsd', 'sdgsdg', 'ОКОНХ', 4, '2021-04-10 11:58:02', '2021-04-10 11:58:02', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(79, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'ОКОНХ', 2, '2021-04-10 12:03:26', '2021-04-10 12:03:26', NULL, NULL, NULL, NULL, NULL),
+	(80, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'ОКОНХ', 2, '2021-04-10 12:04:16', '2021-04-10 12:04:16', NULL, NULL, NULL, NULL, NULL),
+	(81, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'ОКОНХ', 2, '2021-04-10 12:06:05', '2021-04-10 12:06:05', NULL, NULL, NULL, NULL, NULL),
+	(82, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'ОКОНХ', 2, '2021-04-10 12:06:20', '2021-04-10 12:06:20', NULL, NULL, NULL, NULL, NULL),
+	(83, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'ОКОНХ', 4, '2021-04-10 12:19:46', '2021-04-10 12:19:46', NULL, 'werfwerf', 'sdfvdsfv', NULL, NULL),
+	(84, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'Расчетный счет', 'dfgbdfgb', 'fdgbdf', 'dfgh', 2, '2021-04-11 15:13:04', '2021-04-11 15:13:04', NULL, 'sdfvdsfv', 'sdfvdsfv', NULL, NULL),
+	(85, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'Расчетный счет', 'dfgbdfgb', 'fdgbdf', 'dfgh', 2, '2021-04-11 15:16:54', '2021-04-11 15:16:54', NULL, 'sdfvdsfv', 'sdfvdsfv', NULL, NULL),
+	(86, 'ФИО страхователя', 'Адрес страхователя', '5555551234', 'sdfvsdfv', 'ИНН', 'МФО', 'ОКОНХ', 2, '2021-04-11 15:40:04', '2021-04-11 15:40:04', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(87, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'fdgbdf', 'ОКОНХ', 2, '2021-04-11 15:54:31', '2021-04-11 15:54:31', NULL, NULL, NULL, NULL, NULL),
+	(88, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'fdgbdf', 'ОКОНХ', 2, '2021-04-11 16:01:38', '2021-04-11 16:01:38', NULL, NULL, NULL, NULL, NULL),
+	(89, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'fdgbdf', 'ОКОНХ', 2, '2021-04-11 16:02:27', '2021-04-11 16:02:27', NULL, NULL, NULL, NULL, NULL),
+	(90, 'Наименования', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'gsdgsd', 'sdgsdg', 'dfgh', 2, '2021-04-13 07:42:26', '2021-04-13 07:42:26', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(91, 'ФИО страхователя', 'PO Box F', '5555551234', 'sdfvsdfv', 'dsfvsdfv', 'sd23', 'okonx', 2, '2021-04-18 10:36:53', '2021-04-18 10:36:53', NULL, 'ОКЭД', 'sdfvdsfv', NULL, NULL),
+	(92, 'ФИО страхователя', 'PO Box F', '5555551234', 'gbdfgb', 'dfgbdfgb', 'dfvsdvsdfv', 'ОКОНХ', 4, '2021-04-18 10:48:45', '2021-04-18 10:48:45', NULL, NULL, NULL, NULL, NULL),
+	(93, 'ФИО страхователя', 'PO Box F', '5555551234', 'gbdfgb', 'dfgbdfgb', 'dfvsdvsdfv', 'ОКОНХ', 4, '2021-04-18 10:52:41', '2021-04-18 10:52:41', NULL, NULL, NULL, NULL, NULL),
+	(94, 'ФИО страхователя', 'PO Box F', '5555551234', 'gbdfgb', 'dfgbdfgb', 'dfvsdvsdfv', 'ОКОНХ', 4, '2021-04-18 10:53:23', '2021-04-18 10:53:23', NULL, NULL, NULL, NULL, NULL),
+	(95, 'ФИО страхователя', 'PO Box F', '5555551234', 'gbdfgb', 'dfgbdfgb', 'dfvsdvsdfv', 'ОКОНХ', 4, '2021-04-18 10:53:40', '2021-04-18 10:53:40', NULL, NULL, NULL, NULL, NULL),
+	(96, 'ФИО страхователя', 'PO Box F', '5555551234', 'gbdfgb', 'dfgbdfgb', 'dfvsdvsdfv', 'ОКОНХ', 4, '2021-04-18 10:54:52', '2021-04-18 10:54:52', NULL, NULL, NULL, NULL, NULL),
+	(97, 'ФИО страхователя', 'PO Box F', '5555551234', 'gbdfgb', 'dfgbdfgb', 'dfvsdvsdfv', 'ОКОНХ', 4, '2021-04-18 10:56:32', '2021-04-18 10:56:32', NULL, NULL, NULL, NULL, NULL),
+	(98, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'asdvasdv', 1, '2021-04-19 08:08:35', '2021-04-19 08:08:35', NULL, 'asdvasdv', NULL, NULL, NULL),
+	(99, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'asdvasdv', 1, '2021-04-19 08:10:56', '2021-04-19 08:10:56', NULL, 'asdvasdv', NULL, NULL, NULL),
+	(100, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'asdvasdv', 1, '2021-04-19 08:12:26', '2021-04-19 08:12:26', NULL, 'asdvasdv', NULL, NULL, NULL),
+	(101, 'ФИО страхователя', 'Юр адрес страхователя', '5555551234', 'sdfvsdfv', 'sdvfsdfvs', 'dfvsdvsdfv', 'asdvasdv', 1, '2021-04-19 08:13:24', '2021-04-19 08:13:24', NULL, 'asdvasdv', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `policy_holders` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.policy_registrations
@@ -2808,7 +3187,7 @@ CREATE TABLE IF NOT EXISTS `pretensii` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table ddgi_test.pretensii: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.pretensii: ~0 rows (approximately)
 DELETE FROM `pretensii`;
 /*!40000 ALTER TABLE `pretensii` DISABLE KEYS */;
 INSERT INTO `pretensii` (`id`, `pretensii_status_id`, `case_number`, `policy_id`, `insurer`, `branch_id`, `insurance_contract`, `client_type`, `insurence_type`, `insurence_period`, `insured_sum`, `payable_by_agreement`, `actually_paid`, `last_payment_date`, `franchise_type_id`, `deductible_amount`, `franchise_percentage`, `reinsurance`, `date_applications`, `date_of_the_insured_event`, `event_description`, `object_description`, `region`, `district`, `claimed_loss_sum`, `refund_paid_sum`, `currency_exchange_rate`, `total_amount_in_sums`, `date_of_payment_compensation`, `final_settlement_date`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -3042,7 +3421,7 @@ CREATE TABLE IF NOT EXISTS `request_overviews` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.request_overviews: ~3 rows (approximately)
+-- Dumping data for table ddgi_test.request_overviews: ~2 rows (approximately)
 DELETE FROM `request_overviews`;
 /*!40000 ALTER TABLE `request_overviews` DISABLE KEYS */;
 INSERT INTO `request_overviews` (`id`, `user_id`, `request_id`, `passed`, `comment`, `created_at`, `updated_at`, `deleted_at`) VALUES
@@ -3153,9 +3532,9 @@ CREATE TABLE IF NOT EXISTS `tamozhnya_add_legals` (
   PRIMARY KEY (`id`),
   KEY `tamozhnya_add_legals_otvet_litso_index` (`otvet_litso`),
   KEY `tamozhnya_add_legals_policy_holder_id_index` (`policy_holder_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.tamozhnya_add_legals: ~3 rows (approximately)
+-- Dumping data for table ddgi_test.tamozhnya_add_legals: ~4 rows (approximately)
 DELETE FROM `tamozhnya_add_legals`;
 /*!40000 ALTER TABLE `tamozhnya_add_legals` DISABLE KEYS */;
 INSERT INTO `tamozhnya_add_legals` (`id`, `description`, `from_date`, `to_date`, `prof_riski`, `pretenzii_in_ruz`, `prichina_pretenzii`, `tarif`, `payment_term`, `currencies`, `unique_number`, `sposob_rascheta`, `product_id`, `policy_id`, `type`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `policy_holder_id`, `anketa_img`, `dogovor_img`, `polis_img`, `created_at`, `updated_at`) VALUES
@@ -3175,7 +3554,7 @@ CREATE TABLE IF NOT EXISTS `tamozhnya_add_legal_strah_premiyas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.tamozhnya_add_legal_strah_premiyas: ~1 rows (approximately)
+-- Dumping data for table ddgi_test.tamozhnya_add_legal_strah_premiyas: ~0 rows (approximately)
 DELETE FROM `tamozhnya_add_legal_strah_premiyas`;
 /*!40000 ALTER TABLE `tamozhnya_add_legal_strah_premiyas` DISABLE KEYS */;
 INSERT INTO `tamozhnya_add_legal_strah_premiyas` (`id`, `prem_sum`, `prem_from`, `tamozhnya_add_legal_id`, `created_at`, `updated_at`) VALUES
@@ -3218,6 +3597,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `branch_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(2, 1, 'ahaha', 'user@user.com', NULL, '$2y$10$a7pUCw5TuXkwkDZ7Z8TgJubAwqkH60RD8s8gDTU2O8EdRrwRnf1La', NULL, '2021-01-29 06:24:33', '2021-02-18 02:49:00', NULL),
 	(3, 1, 'Admin', 'admin@admin.com', NULL, '$2y$10$a7pUCw5TuXkwkDZ7Z8TgJubAwqkH60RD8s8gDTU2O8EdRrwRnf1La', NULL, '2021-01-29 06:24:33', '2021-02-18 02:49:00', NULL),
 	(4, 1, 'Name1', 'agent@agent.com', NULL, '$2y$10$S6bTdfHW7SAS8A3OU1cCDeWOS7E8TmsyI2QYb8qG41nkqqO9C/Pr2', NULL, '2021-01-08 04:47:43', '2021-04-04 01:02:21', NULL),
 	(9, 1, 'sdfv', 'directo3r@director.com', NULL, '$2y$10$gct4miLEu4b7s6XOK9deXeGg1X.hWUokcoeTqnKxxFgDSpIVUk.6W', NULL, '2021-01-08 13:10:10', '2021-03-29 01:34:48', NULL),
@@ -3310,11 +3690,14 @@ CREATE TABLE IF NOT EXISTS `zalog_imushestvos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.zalog_imushestvos: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.zalog_imushestvos: ~2 rows (approximately)
 DELETE FROM `zalog_imushestvos`;
 /*!40000 ALTER TABLE `zalog_imushestvos` DISABLE KEYS */;
+INSERT INTO `zalog_imushestvos` (`id`, `dogovor_lizing_num`, `insurance_from`, `insurance_to`, `plans`, `plans_percent`, `total_insurance_cost`, `zalog_otvet_litso`, `date_of_issue_police`, `policy_series_id`, `place_of_insurance`, `currency_of_mutual`, `insurance_amount_for_closed`, `insurance_amount_for_open`, `strahovaya_purpose_1`, `poryadok_oplaty_premii_1`, `franshiza_1`, `franshiza_2`, `franshiza_3`, `strahovaya_sum`, `strahovaya_purpose`, `franshiza`, `currencies`, `poryadok_oplaty_premii`, `sposob_rascheta`, `serial_number_policy`, `date_issue_policy`, `otvet_litso`, `anketa_img`, `dogovor_img`, `polis_img`, `policy_holder_id`, `policy_beneficiary_id`, `copy_passport`, `copy_dogovor`, `copy_spravki`, `copy_drugie`, `created_at`, `updated_at`) VALUES
+	(1, 'sdvdfvdsvf', '2021-04-06', '2021-04-15', 0, NULL, 'fvsdvdsfv', 1, '2021-04-10', 1, 'sdfvsdvf', 'UZS', 'dsfvsdvfdsfv', 'sdfvdsvf', 'sdfvdfv', '1', '434', '34', '234', '234234234', '234243', '234234', 'UZS', 'transh', 1, '1', '2021-04-10', 1, NULL, NULL, NULL, 63, 22, 'img/ZalogImushestvo/1di0QWAgODRmtFoK9RE35rIrdyxyNtxLqQjnyQo2.pdf', NULL, NULL, NULL, '2021-04-09 16:08:18', '2021-04-09 16:10:55'),
+	(2, 'sdvdfvdsvf', '2021-04-08', '2021-04-22', 0, NULL, 'fvsdvdsfv', 2, '2021-04-15', 2, 'sdfvsdvf', 'UZS', '345345', '34534', '345345', '1', '54', '14', '45', '55544544', '324234', '234', 'UZS', 'transh', 1, '1', '2021-04-07', 1, 'img/PolicyHolder/i8AduSZAiZCTUreKa0oxW0OWmUrwsFGFUN1JPs9W.png', 'img/PolicyHolder/bDPyuCeLKjeZ9MMBUyueBjUFLj9SYJl8405KYPIu.jpg', 'img/PolicyHolder/3UD3zbdQNFp8UtFDfeodgb5hGk29qwFKcWFvgkeV.png', 76, 31, 'img/ZalogImushestvo/sFwUtbIUb31UT8MA4jp5msqI0zHSpRpyehSXKsVy.png', 'img/ZalogImushestvo/KzWYBQFlFQoIAjiSj0GqOdQjiL2Hdg5QcscpTuS7.png', 'img/ZalogImushestvo/HIpyEHUe9XYJjEO4Vm5R0puibqoyxuDp2AbbUyVQ.png', 'img/ZalogImushestvo/FVaf9ncwAMLT0Ai0LSijt65Y8TXKkVUiMoqyUcgy.png', '2021-04-10 11:51:20', '2021-04-10 11:52:29');
 /*!40000 ALTER TABLE `zalog_imushestvos` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.zalog_imushestvo_infos
@@ -3332,11 +3715,14 @@ CREATE TABLE IF NOT EXISTS `zalog_imushestvo_infos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.zalog_imushestvo_infos: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.zalog_imushestvo_infos: ~2 rows (approximately)
 DELETE FROM `zalog_imushestvo_infos`;
 /*!40000 ALTER TABLE `zalog_imushestvo_infos` DISABLE KEYS */;
+INSERT INTO `zalog_imushestvo_infos` (`id`, `name_property`, `place_property`, `date_of_issue_property`, `count_property`, `units_property`, `insurance_cost`, `insurance_sum`, `insurance_premium`, `zalog_imushestvo_id`, `created_at`, `updated_at`) VALUES
+	(3, 'werfrwe', 'fwerfwerfewf', '2021-04-08', '2', 1, '3', '5', '7', 1, '2021-04-09 16:10:55', '2021-04-09 16:10:55'),
+	(5, 'werfrwe', 'fwerfwerfewf', '2021-04-09', 'FotTestOnly', 1, '23', '4', '5', 2, '2021-04-10 11:52:29', '2021-04-10 11:52:29');
 /*!40000 ALTER TABLE `zalog_imushestvo_infos` ENABLE KEYS */;
 
 -- Dumping structure for table ddgi_test.zalog_imushestvo_strah_premiyas
@@ -3348,11 +3734,15 @@ CREATE TABLE IF NOT EXISTS `zalog_imushestvo_strah_premiyas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ddgi_test.zalog_imushestvo_strah_premiyas: ~0 rows (approximately)
+-- Dumping data for table ddgi_test.zalog_imushestvo_strah_premiyas: ~2 rows (approximately)
 DELETE FROM `zalog_imushestvo_strah_premiyas`;
 /*!40000 ALTER TABLE `zalog_imushestvo_strah_premiyas` DISABLE KEYS */;
+INSERT INTO `zalog_imushestvo_strah_premiyas` (`id`, `prem_sum`, `prem_from`, `zalog_imushestvo_id`, `created_at`, `updated_at`) VALUES
+	(3, '234234', '2021-04-07', 1, '2021-04-09 16:10:55', '2021-04-09 16:10:55'),
+	(4, '5555', '2021-04-22', 1, '2021-04-09 16:10:55', '2021-04-09 16:10:55'),
+	(6, '234242', '2021-04-23', 2, '2021-04-10 11:52:29', '2021-04-10 11:52:29');
 /*!40000 ALTER TABLE `zalog_imushestvo_strah_premiyas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

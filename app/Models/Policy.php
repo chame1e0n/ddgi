@@ -13,6 +13,15 @@ class Policy extends Model
 
     protected $guarded=[];
 
+    const STATUS = [
+        "new" => "Новый",
+        "cancelling" => "Испорчен",
+        "lost" => "Утерян",
+        "terminated" => "Расторгнут",
+        "policy_transfer" => "Прием-передача полисов",
+        "underwritting" =>"Андеррайтинг"
+    ];
+
     /**
      * Get the policy series.
      */

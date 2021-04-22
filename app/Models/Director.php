@@ -21,6 +21,13 @@ class Director extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+    /**
+     * Get the directors profiles who have been already assigned to the branch.
+     */
+    public function branchUsers() {
+        return $this->user()->where('branch_id','!=', null);
+    }
+
     public function delete(){
         $this->user()->delete();
         return parent::delete();

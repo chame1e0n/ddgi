@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Policy;
+use App\Models\PolicyFlow;
 use App\Models\PolicyRetransfer;
 use App\Models\Spravochniki\Branch;
 use App\Models\Spravochniki\PolicySeries;
@@ -11,29 +12,13 @@ use Illuminate\Http\Request;
 class PolicyRetransferController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $policyRetransfer = PolicyRetransfer::latest()->paginate(5);
-
-        return view('policy_retransfer.index',compact('policyRetransfer'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-        $branches = Branch::all();
-
-        return view('policy_retransfer.create', compact('policySeries', 'branches'));
+        return view('policy_flow.policy_retransfer.create');
     }
 
     /**
@@ -49,31 +34,42 @@ class PolicyRetransferController extends Controller
             'act_date' => 'required',
             'policy_from' => 'required',
             'policy_to' => 'required',
-            'retransfer_distribution' => 'required',
-            'transfer_given' => 'required',
         ]);
-        $policies = Policy::where('policy_series_id', $request->policy_series_id)
+
+        $policyFrom = $request->policy_from;
+        $policyTo = $request->policy_to;
+
+        $policies = Policy::where('policy_series_id', 0)
             ->where('status', 'transferred')
-            ->whereBetween('number', [$request->policy_from, $request->policy_to])
+            ->where('user_id', $request->from_user_id)
+            ->whereBetween('number', [$policyFrom, $policyTo])
             ->get();
 
-        if (($request->policy_to - $request->policy_from + 1) != $policies->count()) {
+        if (($policyTo - $policyFrom + 1) != $policies->count()) {
             return back()->withErrors([
-                'В базе отсутсвуют необходимое количество полюсов'
+                'В базе отсутсвуют необходимое количество полюсов'.($policyTo - $policyFrom + 1). '!='. $policies->count()
             ]);
+        }
+
+        $toUserId = $request->to_user_id ?? null;
+
+        if(!$toUserId) {
+            // Branch director
+            $toUserId = Branch::find($request->branch_id)->user_id;
         }
 
         foreach ($policies as $policy) {
             $policy->status = 'retransferred';
+            $policy->user_id = $toUserId;
+            $policy->branch_id = $request->branch_id;
             $policy->save();
         }
 
-        $policyRetransfer = PolicyRetransfer::create($request->all());
+        PolicyFlow::createPolicyFlow($request, 'retransferred', $toUserId);
 
-        $policyRetransfer->policies()->attach($policies);
+        return redirect()->route('policy_flow.index')
+            ->with('success','Полисы успешно перерапределены');
 
-        return redirect()->route('policy_retransfer.index')
-            ->with('success','Успешно перераспределены полюсы');
     }
 
     /**
@@ -82,9 +78,9 @@ class PolicyRetransferController extends Controller
      * @param  \App\Models\PolicyRetransfer  $policyRetransfer
      * @return \Illuminate\Http\Response
      */
-    public function show(PolicyRetransfer $policyRetransfer)
+    public function show($id)
     {
-        return view('policy_retransfer.show', compact('policyRetransfer'));
+        return $this->edit($id);
     }
 
     /**
@@ -93,9 +89,11 @@ class PolicyRetransferController extends Controller
      * @param  \App\Models\PolicyRetransfer  $policyRetransfer
      * @return \Illuminate\Http\Response
      */
-    public function edit(PolicyRetransfer $policyRetransfer)
+    public function edit($id)
     {
-        //
+        $policy = PolicyFlow::findOrFail($id);
+
+        return view('policy_flow.policy_transfer.edit', compact('policy'));
     }
 
     /**

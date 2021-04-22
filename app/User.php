@@ -51,7 +51,7 @@ class User extends Authenticatable
     /**
      * Get the branch(офис) profile.
      */
-    public function brnach()
+    public function branch()
     {
         return $this->hasOne(Branch::class, 'id', 'branch_id');
     }
@@ -73,6 +73,37 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the director profile.
+     */
+    public function director()
+    {
+        return $this->hasOne(Director::class);
+    }
+
+    public function getFullNameAndPosition() {
+        if ($this->agent()->count()) {
+            return $this->getFullNameOfModel($this->agent) . ' - Агент';
+        }
+
+        if ($this->manager()->count()) {
+            return $this->getFullNameOfModel($this->manager) . ' - Менеджер';
+        }
+
+        if ($this->director()->count()) {
+            return $this->getFullNameOfModel($this->director) . ' - Директор';
+        }
+
+        //ToDo :: change to appropriate way of taking admin from db
+        if($this->id == 3) {
+            return 'Администратор';
+        }
+    }
+
+    public function getFullNameOfModel($model) {
+        return $model->surname .' '. $model->name .' '. $model->middle_name;
+    }
+
+    /**
      * Get the agent profile.
      */
     public function agents()
@@ -89,11 +120,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the director profile.
+     * Get the directors profiles.
      */
-    public function director()
+    public function directors()
     {
-        return $this->hasOne(Director::class);
+        return $this->hasMany(Director::class);
     }
 
 
