@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AllProduct;
 use App\CurrencyTermsTransh;
+use App\MejdCurrencyTermsTransh;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Bank;
@@ -74,8 +76,6 @@ class NeshchastkaBorrowerController extends Controller
 //            'payment_term'=> 'required',
 //            'way_of_calculation'=> 'required',
 
-//            'payment_sum_main'=>'required',
-//            'payment_from_main'=>'required',
 
 //            'policy_series'=> 'required',
 //            'policy_insurance_from'=> 'required',
@@ -109,8 +109,8 @@ class NeshchastkaBorrowerController extends Controller
 //
 //        if ($request->get('payment_term') === "transh"){
 //            $request->validate([
-//                "payment_bonus_sum" => "required",
-//                "payment_bonus_from" => "required"
+//                "payment_sum_main" => "required",
+//                "payment_from_main" => "required"
 //            ]);
 //        }
 
@@ -154,7 +154,7 @@ class NeshchastkaBorrowerController extends Controller
         } else {
             $policy_file_path = null;
         }
-        $borrower = NeshchastkaBorrower::create([
+        $borrower = AllProduct::create([
             'policy_holder_id' => $policyHolder->id,
             'policy_beneficiaries_id' => $policy_beneficiaries->id,
             'fio_insured' => $request->fio_insured,
@@ -184,8 +184,8 @@ class NeshchastkaBorrowerController extends Controller
             'policy_file' => $policy_file_path,
         ]);
 
-        $currencyTermsTransh = CurrencyTermsTransh::create([
-            'borrower_id' => $borrower->id,
+        $currencyTermsTransh = MejdCurrencyTermsTransh::create([
+            'all_products_id' => $borrower->id,
             'payment_sum' => $request->get('payment_sum'),
             'payment_from' => $request->get('payment_from')
         ]);
@@ -214,7 +214,7 @@ class NeshchastkaBorrowerController extends Controller
      */
     public function edit($id)
     {
-        $borrower = NeshchastkaBorrower::query()->with('policyHolder', 'policyBeneficiaries', 'currencyTerms')->findOrFail($id);
+        $borrower = AllProduct::query()->with('policyHolder', 'policyBeneficiaries', 'currencyTerms')->findOrFail($id);
         $banks = Bank::query()->get();
         return view('neshchastka_borrower.edit', compact('borrower', 'banks'));
     }
@@ -228,10 +228,10 @@ class NeshchastkaBorrowerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $borrower = NeshchastkaBorrower::query()->find($id);
+        $borrower = AllProduct::query()->find($id);
         $policyHolder = PolicyHolder::query()->find($borrower->policy_holder_id);
         $policyBeneficiaries = PolicyBeneficiaries::query()->find($borrower->policy_beneficiaries_id);
-        $currencyTerms = CurrencyTermsTransh::query()->where('borrower_id', $borrower->id)->first();
+        $currencyTerms = MejdCurrencyTermsTransh::query()->where('all_products_id', $borrower->id)->first();
 
 
 
@@ -308,7 +308,7 @@ class NeshchastkaBorrowerController extends Controller
             'policy_file' => $policy_file_path,
         ]);
         $currencyTerms ->update([
-            'borrower_id' => $borrower->id,
+            'all_products_id' => $borrower->id,
             'payment_sum' => $request->get('payment_sum'),
             'payment_from' => $request->get('payment_from')
         ]);
@@ -324,8 +324,9 @@ class NeshchastkaBorrowerController extends Controller
      */
     public function destroy($id)
     {
-        $borrower = NeshchastkaBorrower::query()->findOrFail($id);
-        $currencyTerms = CurrencyTermsTransh::query()->where('borrower_id', $borrower->id)->get();
+        $borrower = AllProduct::query()->findOrFail($id);
+
+        $currencyTerms = MejdCurrencyTermsTransh::query()->where('all_products_id', $borrower->id)->get();
         $policyHolder = PolicyHolder::query()->findOrFail($borrower->policy_holder_id);
         $policyBeneficiaries = PolicyBeneficiaries::query()->findOrFail($borrower->policy_beneficiaries_id);
         $policyHolder->delete();

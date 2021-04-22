@@ -277,7 +277,7 @@
                                         <div class="form-group">
                                             <div class="form-group">
                                                 <label for="dogovor-lizing-num" class="col-form-label">Франшиза</label>
-                                                <input type="text" id="dogovor-lizing-num" name="franshiza"
+                                                <input type="text" id="dogovor-lizing-num" name="franchise"
                                                        class="form-control">
                                             </div>
                                         </div>
