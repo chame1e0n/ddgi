@@ -17,9 +17,9 @@ class AllProduct extends Model
     {
         return $this->hasOne(PolicyHolder::class, 'id', 'policy_holder_id')->with('bank');
     }
-    public function currencyTerms()
+    public function allProductCurrencyTerms()
     {
-        return $this->hasMany(MejdCurrencyTermsTransh::class, 'all_products_id', 'id');
+        return $this->hasMany(AllProductsTermsTransh::class, 'all_products_id', 'id');
     }
     public function policyBeneficiaries()
     {

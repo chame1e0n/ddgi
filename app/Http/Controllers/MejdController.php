@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AllProduct;
 use App\AllProductInformation;
+use App\AllProductsTermsTransh;
 use App\MejdCurrencyTermsTransh;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Bank;
@@ -84,12 +85,12 @@ class MejdController extends Controller
 //        }
 
 
-//        if ($request->get('payment_term') === "transh"){
-//            $request->validate([
-//                "payment_sum_main" => "required",
-//                "payment_from_main" => "required"
-//            ]);
-//        }
+        if ($request->get('payment_term') === "transh"){
+          $request->validate([
+                "payment_sum_main" => "required",
+                "payment_from_main" => "required"
+            ]);
+       }
 
         $policyHolder = PolicyHolder::create([
             'FIO' => $request->fio_insurer,
@@ -146,7 +147,7 @@ class MejdController extends Controller
             'person' => $request->person
         ]);
 
-        $currency_terms_mejd = MejdCurrencyTermsTransh::create([
+        $currency_terms_mejd = AllProductsTermsTransh::create([
             'all_products_id' => $all_product->id,
             'payment_sum'=>$request->payment_sum,
             'payment_from'=>$request->payment_from
@@ -173,7 +174,7 @@ class MejdController extends Controller
     public function edit($id)
     {
         $banks = Bank::query()->get();
-        $all_product = AllProduct::query()->with('policyHolder', 'currencyTerms', 'allProductInfo')->findOrFail($id);
+        $all_product = AllProduct::query()->with('policyHolder', 'allProductCurrencyTerms','allProductInfo')->findOrFail($id);
         return view('products.neshchastka.edit',compact('all_product', 'banks'));
     }
 
@@ -190,7 +191,7 @@ class MejdController extends Controller
         $banks = Bank::query()->get();
         $all_product = AllProduct::query()->find($id);
         $policyHolder = PolicyHolder::query()->find($all_product->policy_holder_id);
-        $currencyTerms = MejdCurrencyTermsTransh::query()->where('all_products_id', $all_product->id)->first();
+        $currencyTerms = AllProductsTermsTransh::query()->where('all_products_id', $all_product->id)->first();
         $all_product_info = AllProductInformation::query()->where('all_products_id', $all_product->id)->first();
 
         $policyHolder->update([
@@ -244,13 +245,13 @@ class MejdController extends Controller
             'policy_file' => $policy_file_path,
         ]);
 
-        if ($currencyTerms->payment_sum){
-            $currencyTerms ->update([
-                'all_products_id' => $all_product->id,
-                'payment_sum' => $request->get('payment_sum'),
-                'payment_from' => $request->get('payment_from')
-            ]);
-        }
+
+                $currencyTerms->update([
+                    'all_products_id' => $all_product->id,
+                    'payment_sum' => $request->get('payment_sum'),
+                    'payment_from' => $request->get('payment_from')
+                ]);
+
 
         $all_product_info->update([
             'all_products_id' => $all_product->id,
@@ -271,7 +272,7 @@ class MejdController extends Controller
     {
         $all_product = AllProduct::query()->findOrFail($id);
 
-        $currencyTerms = MejdCurrencyTermsTransh::query()->where('all_products_id', $all_product->id)->get();
+        $currencyTerms = AllProductsTermsTransh::query()->where('all_products_id', $all_product->id)->get();
         $all_product_info = AllProductInformation::query()->where('all_products_id', $all_product->id)->first();
         $policyHolder = PolicyHolder::query()->findOrFail($all_product->policy_holder_id);
         $policyHolder->delete();

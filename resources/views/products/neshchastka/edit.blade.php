@@ -301,17 +301,17 @@
                                             <td><input value="{{$all_product->payment_from_main}}" type="date" class="form-control" name="payment_from_main">
                                             </td>
                                         </tr>
-                                        @if(!empty($all_product->currencyTerms[0]->payment_sum))
-                                            @foreach($all_product->currencyTerms[0]->payment_sum as $key=>$item)
+                                        @if($all_product->allProductCurrencyTerms[0]->payment_sum !== null)
+                                            @foreach($all_product->allProductCurrencyTerms[0]->payment_sum as $key=>$item)
                                                 <tr id="${id}" data-field-number="0">
                                                     <td>
                                                         <input type="text" class="form-control"
-                                                               value="{{$all_product->currencyTerms[0]->payment_sum[$key]}}"
+                                                               value="{{$all_product->allProductCurrencyTerms[0]->payment_sum[$key]}}"
                                                                name="payment_sum[]">
                                                     </td>
                                                     <td>
                                                         <input type="date" class="form-control"
-                                                               value="{{$all_product->currencyTerms[0]->payment_from[$key]}}"
+                                                               value="{{$all_product->allProductCurrencyTerms[0]->payment_from[$key]}}"
                                                                name="payment_from[]">
                                                     </td>
                                                     <td>
