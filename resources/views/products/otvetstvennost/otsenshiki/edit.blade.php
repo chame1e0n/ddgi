@@ -11,6 +11,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
+                            <a href="{{route('otvetstvennost-otsenshiki.edit', $page->id)}}?download=dogovor">Скачать Договор</a>
+                            <a href="{{route('otvetstvennost-otsenshiki.edit', $page->id)}}?download=anketa">Скачать Анкету</a>
+                            @foreach($page->infos as $key => $inform)
+                                <a href="{{route('otvetstvennost-otsenshiki.edit', $page->id)}}?download=polis&count={{$key}}">Скачать Полис {{$key + 1}}</a>
+                            @endforeach
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>

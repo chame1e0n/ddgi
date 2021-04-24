@@ -278,41 +278,24 @@ class Neshchastka24TimeController extends Controller
         }
         if (isset($_GET['download']) && $_GET['download'] == 'polis'){
             $document = new TemplateProcessor(public_path('time/polis.docx'));
-
+       $inform = $page->policyInformations[$_GET['count']];
             $document->setValues([
-                'fio_agent' => $page->agent->getFio(),
                 'fio_insurer' => $page->policyHolders->FIO,
-                'fio_vigoda'  => $page->PolicyBeneficiaries->FIO,
-                'address' => $page->agent->address,
-                'tel'     => $page->agent->phone_numner,
                 'vid_deyatelnosti' => $page->policyHolders->vid_deyatelnosti,
-                'insurer_address' => $page->policyHolders->address,
-                'insurer_tel'     => $page->policyHolders->phone_number,
-                'insurer_schet'     => $page->policyHolders->checking_account,
-                'insurer_mfo'     => $page->policyHolders->inn,
-                'insurer_inn'     => $page->policyHolders->mfo,
-                'insurer_okonx'     => $page->policyHolders->okonx,
+                'strah_litso'      => $inform->polis_model,
+                'd_from' =>date('d',strtotime($page->insurance_from)),
+                'm_from' =>date('m',strtotime($page->insurance_from)),
+                'Y_from' =>date('Y',strtotime($page->insurance_from)),
+                'd_to' =>date('d',strtotime($page->insurance_to)),
+                'm_to' =>date('m',strtotime($page->insurance_to)),
+                'Y_to' =>date('Y',strtotime($page->insurance_to)),
+                'geo_zone' => $page->geo_zone,
+                'strah_sum' => $page->policyInformations->sum('polis_num_body'),
+                'strah_prem' => $page->policyInformations->sum('polis_payload'),
+                'one_strah_sum' => $inform->polis_num_body,
+                'fio_agent' => $page->agent->getFio(),
             ]);
 
-                ;
-                $document->setValues([
-                    'd_from' =>date('d',strtotime($page->insurance_from)),
-                    'm_from' =>date('m',strtotime($page->insurance_from)),
-                    'Y_from' =>date('Y',strtotime($page->insurance_from)),
-                    'd_to' =>date('d',strtotime($page->insurance_to)),
-                    'm_to' =>date('m',strtotime($page->insurance_to)),
-                    'Y_to' =>date('Y',strtotime($page->insurance_to)),
-                    'one_polis_model' => $page->policyInformations->first()->polis_model,
-                    'one_polis_modification' => $page->policyInformations->first()->polis_modification,
-                    'one_polis_gos_num' => $page->policyInformations->first()->polis_gos_num,
-                    'one_polis_num_engine' => $page->policyInformations->first()->polis_num_engine,
-                    'count_lic' => $page->policyInformations->count(),
-                    'one_from_to' => $page->insurance_from.' - '.$page->insurance_to,
-                    'geo_zone' => $page->geo_zone,
-                    'valuta' => $page->insurance_premium_currency,
-                    'strah_sum' => $page->policyInformations->first()->polis_num_body,
-                    'strah_prem' => $page->policyInformations->first()->polis_payload,
-                ]);
 
 
             $document->saveAs('polis.docx');

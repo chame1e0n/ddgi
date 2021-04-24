@@ -60,9 +60,9 @@ class OtvetstvennostOtsenshikiRequest extends FormRequest
             'insurer_price' => 'array|required',
             'insurer_price.*'=> 'required',
             'insurer_sum' => 'array|required',
-            'insurer_sum.*'=> 'required',
+            'insurer_sum.*'=> 'required|integer',
             'insurer_premium' => 'array|required',
-            'insurer_premium.*'=> 'required',
+            'insurer_premium.*'=> 'required|integer',
             'prem_sum'=> 'array|required_if:poryadok_oplaty_premii,other',
             'prem_sum.*'=> 'required_if:poryadok_oplaty_premii,other',
             'prem_from' => 'array|required_if:poryadok_oplaty_premii,other',
@@ -71,6 +71,7 @@ class OtvetstvennostOtsenshikiRequest extends FormRequest
             'private_sector_comment' => 'required_if:acted,true',
             'prof_riski' => 'required',
             'reason_case' => 'required_if:cases,true',
+            'administrative_case' => 'required',
             'reason_administrative_case' => 'required_if:administrative-case,true',
             'sfera_deyatelnosti' => 'required',
             'limit_otvetstvennosti' => 'required|integer',
@@ -79,7 +80,13 @@ class OtvetstvennostOtsenshikiRequest extends FormRequest
             'strahovaya_purpose' => 'required',
             'serial_number_policy' => 'required',
             'date_issue_policy' => 'required',
-            'otvet_litso' => 'required|integer'
+            'otvet_litso' => 'required|integer',
+            'first_year' => 'integer',
+            'second_year' => 'integer',
+            'first_turnover' => 'integer',
+            'second_turnover' => 'integer',
+            'first_profit' => 'integer',
+            'second_profit' => 'integer'
         ];
     }
 }

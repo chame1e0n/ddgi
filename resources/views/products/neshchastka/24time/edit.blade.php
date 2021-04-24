@@ -13,8 +13,9 @@
 
                                 <a href="{{route('neshchastka-time.edit', $page->id)}}?download=dogovor">Скачать Договор</a>
                                 <a href="{{route('neshchastka-time.edit', $page->id)}}?download=anketa">Скачать Анкету</a>
-                                <a href="{{route('neshchastka-time.edit', $page->id)}}?download=polis">Скачать Полис</a>
-
+                            @foreach($page->policyInformations as $key => $inform)
+                                <a href="{{route('neshchastka-time.edit', $page->id)}}?download=polis&count={{$key}}">Скачать Полис {{$key + 1}}</a>
+                            @endforeach
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
