@@ -16,11 +16,9 @@ class CreateAllProductInformationTable extends Migration
         Schema::create('all_product_information', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("all_products_id");
-            $table->foreign('all_products_id')
-                ->references('id')->on('all_products');
-            $table->string('policy_series');
-            $table->date('policy_insurance_from');
-            $table->string('person');
+            $table->string("policy_series")->nullable(); // Серийный номер полиса
+            $table->date("policy_insurance_from")->nullable(); // Дата выдачи страхового полиса
+            $table->integer("otvet_litso")->nullable(); // Ответственное лицо
             $table->timestamps();
             $table->softDeletes();
         });
