@@ -101,21 +101,21 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-okonh" name="inn_insurer"required class="form-control">
+                                        <input type="text" id="insurer-okonh" name="inn_insurer" required class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" name="okonx"required class="form-control">
+                                        <input type="text" id="insurer-okonh" name="okonx" required class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="oked"required class="form-control">
+                                        <input type="text" id="insurer-okonh" name="oked" required class="form-control">
                                     </div>
                                 </div>
                             </div>

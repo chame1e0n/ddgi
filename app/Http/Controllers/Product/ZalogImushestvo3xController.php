@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\AllProductImushestvoInfo;
+
 use App\Http\Controllers\Controller;
 use App\Models\Allproduct;
+use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductInformation;
+use App\Models\AllProductsTermsTranshes;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
@@ -80,13 +82,14 @@ class ZalogImushestvo3xController extends Controller
             $request->copy_drugie   = $image;
         }
 
-        $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request);
-        $newZalogImushestvoInfo = AllProductImushestvoInfo::create($newZalogImushestvo->id, $request);
-        ZalogImushestvoStrahPremiya::createZalogImushestvo3xStrahPremiya($request, $newZalogImushestvo->id);
+        $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request,$newPolicyHolders, $newPolicyBeneficiaries);
+
+        AllProductImushestvoInfo::create($newZalogImushestvo->id, $request);
+        AllProductsTermsTranshes::create($newZalogImushestvo->id, $request);
         if(!$newZalogImushestvo)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newZalogImushestvo')]);
 
-        return redirect()->route('zalog-imushestvo.edit', $newZalogImushestvo->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('zalog-imushestvo3x.edit', $newZalogImushestvo->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -101,7 +104,7 @@ class ZalogImushestvo3xController extends Controller
         $banks = Bank::all();
         $agents = Agent::all();
         $policySeries = PolicySeries::all();
-        return view('products.zalog.imushestvo.show', compact('banks', 'agents', 'page', 'policySeries'));
+        return view('products.zalog.imushestvo3x.show', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**
@@ -112,11 +115,12 @@ class ZalogImushestvo3xController extends Controller
      */
     public function edit($id)
     {
-        $page = ZalogImushestvo::getInfoZalogImushestvo($id);
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries')->find($id);
+
         $banks = Bank::all();
         $agents = Agent::all();
         $policySeries = PolicySeries::all();
-        return view('products.zalog.imushestvo.edit', compact('banks', 'agents', 'page', 'policySeries'));
+        return view('products.zalog.imushestvo3x.edit', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**

@@ -2,8 +2,9 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('zalog-imushestvo3x.store')}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
+    <form action="{{route('zalog-imushestvo3x.update', $page->id)}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="content-wrapper">
 
             <div class="content-header">
@@ -79,7 +80,7 @@
                                     <div class="form-group">
                                         <label for="insurer-name" class="col-form-label">Наименование страхователя</label>
                                         <input required type="text" id="insurer-name" name="fio_insurer"
-                                               value="{{old('fio_insurer')}}" @if($errors->has('fio_insurer'))
+                                               value="{{$page->policyHolders->FIO}}" @if($errors->has('fio_insurer'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -91,7 +92,7 @@
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Юр адрес
                                             страхователя</label>
-                                        <input required value="{{old('address_insurer')}}" type="text" id="insurer-address"
+                                        <input required value="{{$page->policyHolders->address}}" type="text" id="insurer-address"
                                                name="address_insurer"
                                                @if($errors->has('address_insurer'))
                                                class="form-control is-invalid"
@@ -103,7 +104,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input required value="{{old('tel_insurer')}}" type="text" id="insurer-tel"
+                                        <input required value="{{$page->policyHolders->phone_number}}" type="text" id="insurer-tel"
                                                name="tel_insurer"
                                                @if($errors->has('tel_insurer'))
                                                class="form-control is-invalid"
@@ -115,7 +116,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input required value="{{old('address_schet')}}" type="text" id="insurer-schet"
+                                        <input required value="{{$page->policyHolders->checking_acount}}" type="text" id="insurer-schet"
                                                name="address_schet"
                                                @if($errors->has('address_schet'))
                                                class="form-control is-invalid"
@@ -127,7 +128,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input required value="{{old('inn_insurer')}}" type="text" id="insurer-inn"
+                                        <input required value="{{$page->policyHolders->inn}}" type="text" id="insurer-inn"
                                                name="inn_insurer"
                                                @if($errors->has('inn_insurer'))
                                                class="form-control is-invalid"
@@ -140,7 +141,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input required value="{{old('mfo_insurer')}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
+                                        <input required value="{{$page->policyHolders->mfo}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
                                         class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -158,7 +159,7 @@
                                                 style="width: 100%;" required>
                                             <option>Выберите банк</option>
                                             @foreach($banks as $bank)
-                                                @if(old('bank_insurer') == $bank->id)
+                                                @if($page->policyHolders->bank_id == $bank->id)
                                                     <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
                                                 @else
                                                     <option value="{{ $bank->id }}">{{ $bank->name }}</option>
@@ -170,7 +171,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input required value="{{old('oked')}}" type="text" id="oked" name="oked"
+                                        <input required value="{{$page->policyHolders->oked}}" type="text" id="oked" name="oked"
                                                @if($errors->has('oked'))
                                                class="form-control is-invalid"
                                                @else
@@ -181,7 +182,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh"  name="okonx" value="{{old('okonx')}}" @if($errors->has('okonh'))
+                                        <input type="text" id="insurer-okonh"  name="okonx" value="{{$page->policyHolders->okonx}}" @if($errors->has('okonh'))
                                         class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -207,7 +208,7 @@
                                                 <div class="form-group">
                                                     <label for="beneficiary-name" class="col-form-label">ФИО
                                                         выгодоприобретателя</label>
-                                                    <input required value="{{old('fio_beneficiary')}}" type="text"
+                                                    <input required value="{{$page->fio_beneficiary}}" type="text"
                                                            id="beneficiary-name" name="fio_beneficiary"
                                                            @if($errors->has('fio_beneficiary'))
                                                            class="form-control is-invalid"
@@ -220,7 +221,7 @@
                                                 <div class="form-group">
                                                     <label for="beneficiary-address" class="col-form-label">Адрес
                                                         выгодоприобретателя</label>
-                                                    <input required value="{{old('address_beneficiary')}}" type="text"
+                                                    <input required value="{{$page->address_beneficiary}}" type="text"
                                                            id="beneficiary-address"
                                                            name="address_beneficiary"
                                                            @if($errors->has('address_beneficiary'))
@@ -233,7 +234,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input required value="{{old('tel_beneficiary')}}" type="text"
+                                                    <input required value="{{$page->tel_beneficiary}}" type="text"
                                                            id="beneficiary-tel" name="tel_beneficiary"
                                                            @if($errors->has('tel_beneficiary'))
                                                            class="form-control is-invalid"
@@ -245,7 +246,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                                    <input required value="{{old('beneficiary_schet')}}" type="text" id="beneficiary_schet"
+                                                    <input required value="{{$page->beneficiary_schet}}" type="text" id="beneficiary_schet"
                                                            name="beneficiary_schet"
                                                            @if($errors->has('beneficiary_schet'))
                                                            class="form-control is-invalid"
@@ -257,7 +258,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                    <input required value="{{old('inn_beneficiary')}}" type="number" id="inn_beneficiary"
+                                                    <input required value="{{$page->inn_beneficiary}}" type="number" id="inn_beneficiary"
                                                            name="inn_beneficiary"
                                                            @if($errors->has('inn_beneficiary'))
                                                            class="form-control is-invalid"
@@ -269,7 +270,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                    <input required value="{{old('mfo_beneficiary')}}" type="text" id="mfo_beneficiary"
+                                                    <input required value="{{$page->mfo_beneficiary}}" type="text" id="mfo_beneficiary"
                                                            name="mfo_beneficiary"
                                                            @if($errors->has('mfo_beneficiary'))
                                                            class="form-control is-invalid"
@@ -289,7 +290,7 @@
                                                             style="width: 100%;" required>
                                                         <option>Выберите банк</option>
                                                         @foreach($banks as $bank)
-                                                            @if(old('bank_beneficiary') == $bank->id)
+                                                            @if($page->bank_beneficiary == $bank->id)
                                                                 <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
                                                             @else
                                                                 <option value="{{ $bank->id }}">{{ $bank->name }}</option>
@@ -301,7 +302,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                    <input required value="{{old('oked_beneficiary')}}" type="text" id="oked_beneficiary"
+                                                    <input required value="{{$page->oked_beneficiary}}" type="text" id="oked_beneficiary"
                                                            name="oked_beneficiary"
                                                            @if($errors->has('oked_beneficiary'))
                                                            class="form-control is-invalid"
@@ -332,7 +333,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor_num" class="col-form-label">Номер договора</label>
-                                    <input type="text" id="dogovor_num" name="unique_number" value="{{old('unique_number')}}" class="form-control">
+                                    <input type="text" id="dogovor_num" name="unique_number" value="{{$page->unique_number}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -341,19 +342,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">с</span>
                                     </div>
-                                    <input id="dogovor_date" name="insurance_from" value="{{old('insurance_from')}}" type="date" class="form-control">
+                                    <input id="dogovor_date" name="insurance_from" value="{{$page->insurance_from}}" type="date" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor-strah-vigod-num" class="col-form-label">Номер договора между страхователем и выгодоприобритателем</label>
-                                    <input required type="text" id="dogovor-lizing-num" name="nomer_dogovor_strah_vigod" value="{{old('nomer_dogovor_strah_vigod')}}" class="form-control">
+                                    <input required type="text" id="dogovor-lizing-num" name="nomer_dogovor_strah_vigod" value="{{$page->nomer_dogovor_strah_vigod}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor-strah-vigod-date" class="col-form-label">Дата договора между страхователем и выгодоприобритателем</label>
-                                    <input required type="date" id="dogovor-lizing-date" name="date_dogovor_strah_vigod" value="{{old('date_dogovor_strah_vigod')}}" class="form-control">
+                                    <input required type="date" id="dogovor-lizing-date" name="date_dogovor_strah_vigod" value="{{$page->date_dogovor_strah_vigod}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -362,7 +363,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">с</span>
                                     </div>
-                                    <input required id="period_date" name="object_from_date" value="{{old('object_from_date')}}" type="date" class="form-control">
+                                    <input required id="period_date" name="object_from_date" value="{{$page->object_from_date}}" type="date" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -371,19 +372,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">до</span>
                                     </div>
-                                    <input required id="period_date" name="object_to_date" value="{{old('object_to_date')}}" type="date" class="form-control">
+                                    <input required id="period_date" name="object_to_date" value="{{$page->object_to_date}}" type="date" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="osnovanie_otsenki" class="col-form-label">Основание для оценки</label>
-                                    <input required type="text" id="osnovanie_otsenki" name="ocenka_osnovaniya" value="{{old('ocenka_osnovaniya')}}" class="form-control">
+                                    <input required type="text" id="osnovanie_otsenki" name="ocenka_osnovaniya" value="{{$page->ocenka_osnovaniya}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="geo" class="col-form-label">Местонахождение</label>
-                                    <input required type="text" id="geo" name="location" value="{{old('location')}}" class="form-control">
+                                    <input required type="text" id="geo" name="location" value="{{$page->location}}" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -421,16 +422,16 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <input required type="text" class="form-control" name="name_property[]" value="{{old('name_property')}}">
+                                            <input required type="text" class="form-control" name="name_property[]" value="{{$page->name_property}}">
                                         </td>
                                         <td>
-                                            <input required type="text" class="form-control" name="place_property[]" value="{{old('place_property')}}">
+                                            <input required type="text" class="form-control" name="place_property[]" value="{{$page->place_property}}">
                                         </td>
                                         <td>
-                                            <input required type="date" class="form-control" name="date_of_issue_property[]" value="{{old('date_of_issue_property')}}">
+                                            <input required type="date" class="form-control" name="date_of_issue_property[]" value="{{$page->date_of_issue_property}}">
                                         </td>
                                         <td>
-                                            <input required type="text" class="form-control" name="count_property[]" value="{{old('count_property')}}">
+                                            <input required type="text" class="form-control" name="count_property[]" value="{{$page->count_property}}">
                                         </td>
                                         <td>
                                             <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;">
@@ -439,18 +440,18 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input required type="text" data-field="value" class="form-control" name="insurance_cost[]" value="{{old('insurance_cost')}}">
+                                            <input required type="text" data-field="value" class="form-control" name="insurance_cost[]" value="{{$page->insurance_cost}}">
                                         </td>
                                         <td>
-                                            <input required type="text" data-field="sum" class="form-control" name="insurance_sum[]" value="{{old('insurance_sum')}}">
+                                            <input required type="text" data-field="sum" class="form-control" name="insurance_sum[]" value="{{$page->insurance_sum}}">
                                         </td>
                                         <td>
-                                            <input required type="text" data-field="premiya" class="form-control" name="insurance_premium[]" value="{{old('insurance_premium')}}">
+                                            <input required type="text" data-field="premiya" class="form-control" name="insurance_premium[]" value="{{$page->insurance_premium}}">
                                         </td>
                                     </tr>
                                     </tbody>
                                     <tr>
-                                        <td colspan="5" style="text-align: right"><label class="text-bold">Итого</label></td>
+                                        <td colspan="5" style="text-align: right"><label class="text-b$page->Итогоlabel></td>
                                         <td><input required readonly data-insurance-stoimost type="text" class="form-control overall-sum" /></td>
                                         <td><input required readonly data-insurance-sum type="text" class="form-control overall-sum4" /></td>
                                         <td><input required readonly data-insurance-award type="text" class="form-control overall-sum3" /></td>
@@ -465,7 +466,7 @@
                                     <div class="row">
                                         <div class="col-sm-1">
                                             <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')" type="radio" class="other_insurance-0" name="fire_alarm_file"  @if(old('fire_alarm_file')) checked @endif id="radioSuccess1">
+                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')" type="radio" class="other_insurance-0" name="fire_alarm_file"  @if($page->fire_alarm_file) checked @endif id="radioSuccess1">
                                                 <label for="radioSuccess1">Да</label>
                                             </div>
                                             <div class="checkbox icheck-success">
@@ -477,7 +478,7 @@
                                 </div>
                                 <div data-radiosuccess2="" style="display: none;" class="form-group other_insurance_info-0">
                                     <label>Прикрепите сертификат</label>
-                                    <input class="form-control" type="file" name="fire_alarm_file" value="{{old('fire_alarm_file')}}">
+                                    <input class="form-control" type="file" name="fire_alarm_file" value="{{$page->fire_alarm_file}}">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -486,7 +487,7 @@
                                     <div class="row">
                                         <div class="col-sm-1">
                                             <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')" type="radio" class="other_insurance-0" @if(old('security_file')) checked @endif name="security_file" id="radioSuccess1-0" >
+                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')" type="radio" class="other_insurance-0" @if($page->security_file) checked @endif name="security_file" id="radioSuccess1-0" >
                                                 <label for="radioSuccess1-0">Да</label>
                                             </div>
                                             <div class="checkbox icheck-success">
@@ -498,49 +499,49 @@
                                 </div>
                                 <div data-radiosuccess1="" style="display: none;" class="form-group other_insurance_info">
                                     <label>Прикрепите сертификат</label>
-                                    <input class="form-control" type="file" name="security_file" value="{{old('security_file')}}">
+                                    <input class="form-control" type="file" name="security_file" value="{{$page->security_file}}">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
 
 
-                    <div class="card-body">
-                        <div class="card card-info" id="clone-beneficiary">
-                            <div class="card-header">
-                                <h3 class="card-title">Франшиза</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Франшиза</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
                             </div>
-                            <div class="card-body" id="beneficiary-card-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="summ-1">% от страховой суммы по риску землетрясения и пожара по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
-                                            <input required type="text" id="summ-1" name="franshize_percent_1" class="form-control" value="{{old('franshize_percent_1')}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="summ-2">% от страховой суммы по риску противоправные действия третьих лиц по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
-                                            <input required type="text" id="summ-2" name="franshize_percent_2" class="form-control" value="{{old('franshize_percent_2')}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">% от страховой суммы по другим рискам по каждому <br> убытку и/или по всем убыткам в результате каждого <br> страхового случая</label>
-                                            <input required type="text" id="geographic-zone" name="franshize_percent_3" class="form-control" value="{{old('franshize_percent_3')}}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="summ-1">% от страховой суммы по риску землетрясения и пожара по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
+                                        <input required type="text" id="summ-1" name="franshize_percent_1" class="form-control" value="{{$page->franshize_percent_1}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="summ-2">% от страховой суммы по риску противоправные действия третьих лиц по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
+                                        <input required type="text" id="summ-2" name="franshize_percent_2" class="form-control" value="{{$page->franshize_percent_2}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="geographic-zone">% от страховой суммы по другим рискам по каждому <br> убытку и/или по всем убыткам в результате каждого <br> страхового случая</label>
+                                        <input required type="text" id="geographic-zone" name="franshize_percent_3" class="form-control" value="{{$page->franshize_percent_3}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                </div>
 
                 <div class="card card-success">
                     <div class="card-header">
@@ -676,7 +677,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
-                                        <input  id="anketa_img" name="application_form_file" value="{{old('application_form_file')}}"
+                                        <input  id="anketa_img" name="application_form_file" value="{{$page->application_form_file}}"
                                                 type="file" @if($errors->has('application_form_file'))
                                                 class="form-control is-invalid"
                                                 @else
@@ -687,7 +688,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Договор</label>
-                                        <input  id="dogovor_img" name="contract_file" value="{{old('contract_file')}}"
+                                        <input  id="dogovor_img" name="contract_file" value="{{$page->contract_file}}"
                                                 type="file" @if($errors->has('contract_file'))
                                                 class="form-control is-invalid"
                                                 @else
@@ -698,7 +699,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Полис</label>
-                                        <input  id="polis_img" name="policy_file" value="{{old('policy_file')}}"
+                                        <input  id="polis_img" name="policy_file" value="{{$page->policy_file}}"
                                                 type="file" @if($errors->has('policy_file'))
                                                 class="form-control is-invalid"
                                                 @else
@@ -727,7 +728,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Паспорт</label>
-                                            <input  id="copy_passport" name="copy_passport" value="{{old('copy_passport')}}"
+                                            <input  id="copy_passport" name="copy_passport" value="{{$page->copy_passport}}"
                                                     type="file" @if($errors->has('copy_passport'))
                                                     class="form-control is-invalid"
                                                     @else
@@ -738,7 +739,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Договор</label>
-                                            <input  id="copy_dogovor" name="copy_dogovor" value="{{old('copy_dogovor')}}"
+                                            <input  id="copy_dogovor" name="copy_dogovor" value="{{$page->copy_dogovor}}"
                                                     type="file" @if($errors->has('copy_dogovor'))
                                                     class="form-control is-invalid"
                                                     @else
@@ -749,7 +750,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Справки</label>
-                                            <input  id="copy_spravki" name="copy_spravki" value="{{old('copy_spravki')}}"
+                                            <input  id="copy_spravki" name="copy_spravki" value="{{$page->copy_spravki}}"
                                                     type="file" @if($errors->has('copy_spravki'))
                                                     class="form-control is-invalid"
                                                     @else
@@ -760,7 +761,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Другие</label>
-                                            <input  id="copy_drugie" name="copy_drugie" value="{{old('copy_drugie')}}"
+                                            <input  id="copy_drugie" name="copy_drugie" value="{{$page->copy_drugie}}"
                                                     type="file" @if($errors->has('copy_drugie'))
                                                     class="form-control is-invalid"
                                                     @else
