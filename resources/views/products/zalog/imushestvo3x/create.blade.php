@@ -333,7 +333,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor_num" class="col-form-label">Номер договора</label>
-                                    <input type="text" id="dogovor_num" name="dogovor_num" class="form-control">
+                                    <input type="text" id="dogovor_num" name="unique_number" value="{{old('unique_number')}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -342,19 +342,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">с</span>
                                     </div>
-                                    <input id="dogovor_date" name="dogovor_date" type="date" class="form-control">
+                                    <input id="dogovor_date" name="insurance_from" value="{{old('insurance_from')}}" type="date" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor-strah-vigod-num" class="col-form-label">Номер договора между страхователем и выгодоприобритателем</label>
-                                    <input type="text" id="dogovor-lizing-num" name="dogovor_lizing_num" class="form-control">
+                                    <input required type="text" id="dogovor-lizing-num" name="nomer_dogovor_strah_vigod" value="{{old('nomer_dogovor_strah_vigod')}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor-strah-vigod-date" class="col-form-label">Дата договора между страхователем и выгодоприобритателем</label>
-                                    <input type="date" id="dogovor-lizing-date" name="dogovor_lizing_date" class="form-control">
+                                    <input required type="date" id="dogovor-lizing-date" name="date_dogovor_strah_vigod" value="{{old('date_dogovor_strah_vigod')}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -363,7 +363,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">с</span>
                                     </div>
-                                    <input id="period_date" name="period_date" type="date" class="form-control">
+                                    <input required id="period_date" name="object_from_date" value="{{old('object_from_date')}}" type="date" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -372,19 +372,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">до</span>
                                     </div>
-                                    <input id="period_date" name="period_date" type="date" class="form-control">
+                                    <input required id="period_date" name="object_to_date" value="{{old('object_to_date')}}" type="date" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="osnovanie_otsenki" class="col-form-label">Основание для оценки</label>
-                                    <input type="text" id="osnovanie_otsenki" name="osnovanie_otsenki" class="form-control">
+                                    <input required type="text" id="osnovanie_otsenki" name="ocenka_osnovaniya" value="{{old('ocenka_osnovaniya')}}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="geo" class="col-form-label">Местонахождение</label>
-                                    <input type="text" id="geo" name="geo" class="form-control">
+                                    <input required type="text" id="geo" name="location" value="{{old('location')}}" class="form-control">
                                 </div>
                             </div>
                         </div>

@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ZalogImushestvo3xRequest;
 use App\Models\Allproduct;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
-use App\Models\ZalogImushestvo3x;
 use Illuminate\Http\Request;
 
 class ZalogImushestvo3xController extends Controller
