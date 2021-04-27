@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('rassrochka','Product\RassrochkaController');
     Route::resource('policy_flow','PolicyFlowController');
+    Route::post('policy_pending_transfer/{id}', 'PolicyTransferController@confirm')->name('policy_transfer.confirm');
     Route::resource('policy_transfer','PolicyTransferController');
     Route::resource('policy_retransfer','PolicyRetransferController');
     Route::resource('pretensii_overview','PretensiiOverviewController');

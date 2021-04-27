@@ -116,6 +116,8 @@
                                        class="form-control">
                             </div>
                         </div>
+                        @yield('_director_manager_agent_content')
+                        @yield('_from_whom_content')
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="act_date_raspredel" class="col-form-label">Дата распределения</label>
@@ -143,4 +145,9 @@
     <div class="card-footer">
         <button type="submit" id="submit-button" class="btn btn-primary float-right">Изменить</button>
     </div>
+@endsection
+
+@section('form_scripts')
+    @yield('_director_manager_agent_scripts')
+    @yield('_from_whom_scripts')
 @endsection

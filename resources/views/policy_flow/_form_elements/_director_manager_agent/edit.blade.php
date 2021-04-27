@@ -21,6 +21,8 @@
     <script>
         //Get employee by branch id
         $(document).ready(function () {
+            GetToUserList({{$policy->branch_id ?? 0}});
+
             $.ajax({
                 url: '{{route('branches')}}',
                 type: 'get',
@@ -32,7 +34,7 @@
                     let branch = $("#branch");
                     branch.empty();
                     branch.append("<option> </option>");
-                    var selected = {{old('branch_id') ?? 0}};
+                    var selected = {{$policy->branch_id ?? 0}};
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
@@ -44,34 +46,38 @@
 
             $("#branch").change(function () {
                 var id = $(this).val();
+                GetToUserList(id);
+            });
+            
+            function GetToUserList(id) {
+                if (id) {
+                    $.ajax({
+                        url: '{{route('getBranchEmployees')}}',
+                        type: 'get',
+                        data: {branch_id: id},
+                        dataType: 'json',
+                        success: function (response) {
 
-                $.ajax({
-                    url: '{{route('getBranchEmployees')}}',
-                    type: 'get',
-                    data: {branch_id: id},
-                    dataType: 'json',
-                    success: function (response) {
+                            var len = response.length;
+                            let employee = $("#employee");
 
-                        var len = response.length;
-                        let employee = $("#employee");
+                            employee.empty();
+                            employee.append("<option> </option>");
+                            var selected = {{$policy->to_user_id ?? 0}};
+                            for (var i = 0; i < len; i++) {
+                                var id = response[i]['user_id'];
+                                var name = response[i]['name'];
 
-                       employee.empty();
-                        employee.append("<option> </option>");
-                        var selected = {{old('to_user_id') ?? 0}};
-                        for (var i = 0; i < len; i++) {
-                            var id = response[i]['user_id'];
-                            var name = response[i]['name'];
-
-                            if (id === 0) {
-                                employee.append("<option value='" + id + "' disabled='disabled'>" + name + "</option>");
-                            } else {
-                                employee.append("<option value='" + id + "' " + (selected == id ? 'selected' : '')  + ">" + response[i]['surname'] + " " + name + " " + response[i]['middle_name'] + "</option>");
+                                if (id === 0) {
+                                    employee.append("<option value='" + id + "' disabled='disabled'>" + name + "</option>");
+                                } else {
+                                    employee.append("<option value='" + id + "' " + (selected == id ? 'selected' : '') + ">" + response[i]['surname'] + " " + name + " " + response[i]['middle_name'] + "</option>");
+                                }
                             }
                         }
-                    }
-                });
-            });
-
+                    });
+                }
+            }
         });
     </script>
 @endsection

@@ -42,6 +42,7 @@ class PolicyRetransferController extends Controller
         $policies = Policy::where('policy_series_id', 0)
             ->where('status', 'transferred')
             ->where('user_id', $request->from_user_id)
+            ->where('polis_name', $request->polis_name)
             ->whereBetween('number', [$policyFrom, $policyTo])
             ->get();
 
@@ -57,6 +58,9 @@ class PolicyRetransferController extends Controller
             // Branch director
             $toUserId = Branch::find($request->branch_id)->user_id;
         }
+
+        $request->price_per_policy = $policies->first()->price;
+        dd($request->price_per_policy);
 
         foreach ($policies as $policy) {
             $policy->status = 'retransferred';
@@ -114,8 +118,13 @@ class PolicyRetransferController extends Controller
      * @param  \App\Models\PolicyRetransfer  $policyRetransfer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PolicyRetransfer $policyRetransfer)
+    public function destroy($id)
     {
-        //
+        $policy = PolicyFlow::findOrFail($id);
+        $policy->delete();
+
+        return redirect()->route('policy_flow.index')
+            ->with('success', sprintf('Дынные о движении были успешно удалены'));
+
     }
 }

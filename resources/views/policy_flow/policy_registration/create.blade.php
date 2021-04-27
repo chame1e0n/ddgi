@@ -1,5 +1,6 @@
 @extends('layouts.index')
 @php $currentFileName = 'Регистрация полисов' @endphp
+@include('policy_flow._form_elements._price.create')
 @include('policy_flow.create')
 
 @section('content')

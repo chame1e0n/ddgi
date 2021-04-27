@@ -4,6 +4,8 @@
     $statusRoute = [
     'registered' => 'policy_registration',
     'transferred' => 'policy_transfer',
+    'pending_transfer' => 'policy_transfer',
+    'rejected_transfer' => 'policy_transfer',
     'retransferred' => 'policy_retransfer'
     ];
 @endphp
@@ -173,6 +175,47 @@
                     </div>
 
                 </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="filter_ustatok_sklad_a4" class="col-form-label">Остаток на складе A4</label>
+                                            <input type="text" disabled id="filter_ustatok_sklad_a4" name="filter_ustatok_sklad_a4" value="{{@$a4New}}" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="filter_ustatok_sklad_a5" class="col-form-label">Остаток на складе A5</label>
+                                            <input type="text" disabled id="filter_ustatok_sklad_a5" name="filter_ustatok_sklad_a5" value="{{@$a5New}}" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="filter_raspredelen_a4" class="col-form-label">Распределен A4</label>
+                                            <input type="text" disabled id="filter_raspredelen_a4" name="filter_raspredelen_a4" value="{{@$a4Transfered}}" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="filter_raspredelen_a5" class="col-form-label">Распределен A5</label>
+                                            <input type="text" disabled id="filter_raspredelen_a5" name="filter_raspredelen_a5" value="{{@$a5Transfered}}" class="form-control form-control-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
             </div>
             <div class="container-fluid">
                 <div class="row">

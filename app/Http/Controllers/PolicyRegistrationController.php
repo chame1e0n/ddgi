@@ -45,6 +45,7 @@ class PolicyRegistrationController extends Controller
         $existRangeOfSeries = Policy::select('id')
             ->whereBetween('number', [$policyFrom, $policyTo])
             ->where('act_number', $request->act_number)
+            ->where('polis_name', $request->polis_name)
             ->get()->count();
 
         if ($existRangeOfSeries) {
@@ -56,7 +57,7 @@ class PolicyRegistrationController extends Controller
             ]);
         }
 
-        PolicyFlow::createNewPolicies($policyFrom, $policyTo, $request->act_number, $request->polis_price);
+        PolicyFlow::createNewPolicies($request);
         PolicyFlow::createPolicyFlow($request, 'registered', 3); //Todo::change admin id to better solution
 
         return redirect()->route('policy_flow.index')
@@ -103,6 +104,7 @@ class PolicyRegistrationController extends Controller
         $policiesAlreadyInUse = Policy::select('id')
             ->whereBetween('number', [$policyFrom, $policyTo])
             ->where('status', '!=', 'new')
+            ->where('polis_name', $policyFlow->polis_name)
             ->where('policy_series_id','0')
             ->get()->count();
 
@@ -119,12 +121,11 @@ class PolicyRegistrationController extends Controller
             Policy::whereBetween('number', [$policyFrom, $policyTo])->delete();
         }
 
-        PolicyFlow::createNewPolicies($request->policy_from, $request->policy_to, $request->act_number, $request->polis_price);
+        PolicyFlow::createNewPolicies($request);
         PolicyFlow::updatePolicyFlow($request, $id, 'registered');
 
         return redirect()->route('policy_registration.edit')
             ->with('success', sprintf('Дынные о полисах были успешно обновлены'));
-
     }
 
     /**
@@ -133,8 +134,13 @@ class PolicyRegistrationController extends Controller
      * @param  \App\Models\PolicyRegistration $policyRegistration
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PolicyRegistration $policyRegistration)
+    public function destroy($id)
     {
-        //
+        $policy = PolicyFlow::findOrFail($id);
+        $policy->delete();
+
+        return redirect()->route('policy_flow.index')
+            ->with('success', sprintf('Дынные о движении были успешно удалены'));
+
     }
 }

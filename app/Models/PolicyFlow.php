@@ -16,6 +16,8 @@ class PolicyFlow extends Model
 
     const STATUS_NAME = [
         'registered' => 'Зарегистрирован',
+        'pending_transfer' => 'В ожидании распределении',
+        'rejected_transfer' => 'Отказано в распределении',
         'transferred' => 'Распределен',
         'retransferred' => 'Перераспределен'
     ];
@@ -81,14 +83,16 @@ class PolicyFlow extends Model
         return $q;
     }
 
-    static function createNewPolicies($policyFrom, $policyTo, $actNumber, $polisPrice)
+    static function createNewPolicies(Request $request)
     {
-        for ($i = $policyFrom; $i <= $policyTo; $i++) {
+        for ($i = $request->policy_from; $i <= $request->policy_to; $i++) {
             $policy = new Policy;
             $policy->number = $i;
-            $policy->act_number = $actNumber;
-            $policy->policy_series_id = 0;
-            $policy->price = $polisPrice;
+            $policy->act_number = $request->act_number;
+            $policy->a_reg = $request->a_reg;
+            $policy->polis_name = $request->polis_name;
+            $policy->price = $request->price_per_policy;
+            $policy->user_id = $request->from_user_id;
             $policy->status = 'new';
             $policy->save();
         }
@@ -145,5 +149,12 @@ class PolicyFlow extends Model
                 ]);
             }
         }
+    }
+
+    static function updatePolicyFlowStatus($id, $status)
+    {
+        PolicyFlow::find($id)->update([
+            'status' => $status
+        ]);
     }
 }

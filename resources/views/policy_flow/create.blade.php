@@ -63,12 +63,12 @@
                                         <label for="polis_series_from" class="col-form-label">Серия полиса с:</label>
                                         <input id="polis_series_from" type="number"
                                                oninput="countBlanks(true, this.value)"
-                                               @if($errors->has('polis_series_from'))
+                                               @if($errors->has('policy_from'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif
-                                               name="policy_from" required>
+                                               name="policy_from" value="{{old('policy_from')}}"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -76,12 +76,12 @@
                                         <label for="polis_series_to" class="col-form-label">Серия полиса до:</label>
                                         <input id="polis_series_to" type="number"
                                                oninput="countBlanks(false, this.value)"
-                                               @if($errors->has('polis_series_to'))
+                                               @if($errors->has('policy_to'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
                                                @endif
-                                               name="policy_to" required>
+                                               name="policy_to" value="{{old('policy_to')}}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3" id="countBlanks">
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="polis_name" class="col-form-label">Наименование</label>
-                                    <input type="text" id="polis_name" name="polis_name" class="form-control">
+                                    <input type="text" id="polis_name"  value="{{old('polis_name')}}" name="polis_name" class="form-control">
                                 </div>
                             </div>
 
@@ -99,12 +99,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="polis_series" class="col-form-label">Стоимость одного бланка </label>
-                                <input type="text" class="form-control" name="price_per_policy">
-                            </div>
-                        </div>
+                        @yield('_price_content')
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="polis_series" class="col-form-label">Всего стоимость</label>

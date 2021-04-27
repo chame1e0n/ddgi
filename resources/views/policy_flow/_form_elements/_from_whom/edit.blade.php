@@ -23,7 +23,7 @@
                     let employees = $("#akt_ot_kogo");
                     employees.empty();
                     employees.append("<option> </option>");
-                    var selected = {{old('from_user_id') ?? 0}};
+                    var selected = {{$policy->from_user_id ?? 0}};
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['user_id'];
                         var name = response[i]['name'];
