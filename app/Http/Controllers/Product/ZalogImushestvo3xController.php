@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\AllProductImushestvoInfo;
 use App\Http\Controllers\Controller;
 use App\Models\Allproduct;
+use App\Models\AllProductInformation;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
@@ -79,8 +81,8 @@ class ZalogImushestvo3xController extends Controller
         }
 
         $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request);
-        $newZalogImushestvoInfo = ZalogImushestvoInfo::createZalogImushestvoInfo($request, $newZalogImushestvo);
-        ZalogImushestvoStrahPremiya::createImushestvoStrahPremiya($request, $newZalogImushestvo->id);
+        $newZalogImushestvoInfo = AllProductImushestvoInfo::create($newZalogImushestvo->id, $request);
+        ZalogImushestvoStrahPremiya::createZalogImushestvo3xStrahPremiya($request, $newZalogImushestvo->id);
         if(!$newZalogImushestvo)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newZalogImushestvo')]);
 
