@@ -26,7 +26,7 @@ class Allproduct extends Model
     {
         return $this->hasMany(AllProductsTermsTranshes::class, 'all_products_id');
     }
-    static function createZalogImushestvo3x($request, $policy_holder_id, $policy_beneficiaries_id){
+    static function createAllProduct($request, $policy_holder_id, $policy_beneficiaries_id){
 
         $new = new Allproduct();
         $new->policy_holder_id = $policy_holder_id;
@@ -88,13 +88,12 @@ class Allproduct extends Model
         $new->sposob_rascheta     = $request->sposob_rascheta;
         $new->tarif_other     = $request->tarif_other;
         $new->premiya_other     = $request->premiya_other;
-        $new->insurance_sum     = $request->insurance_sum;
+        $new->insurance_sum     = $request->insurance_sum_prod;
         $new->save();
         return $new;
     }
-    static function createZalogIpoteka($request){
-
-        $new = new Allproduct();
+    static function updateAllProduct($id,$request){
+        $new =  Allproduct::where('id', $id)->first();
         $new->unique_number = $request->unique_number;
         $new->insurance_from = $request->insurance_from;
         $new->nomer_dogovor_strah_vigod = $request->nomer_dogovor_strah_vigod;
@@ -123,9 +122,36 @@ class Allproduct extends Model
             $image          = $request->file('application_form_file')->store('/img/ZalogImushestvo3x', 'public');
             $new->application_form_file   = $image;
         }
+
+        if ($request->hasFile('passport_copy')) {
+            $image          = $request->file('passport_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $new->passport_copy   = $image;
+        }
+        if ($request->hasFile('dogovor_copy')) {
+            $image          = $request->file('dogovor_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $new->dogovor_copy   = $image;
+        }
+        if ($request->hasFile('spravka_copy')) {
+            $image          = $request->file('spravka_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $new->spravka_copy   = $image;
+        }
+        if ($request->hasFile('other_copy')) {
+            $image          = $request->file('other_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $new->other_copy   = $image;
+        }
         $new->franshize_percent_1 = $request->franshize_percent_1;
         $new->franshize_percent_2 = $request->franshize_percent_2;
         $new->franshize_percent_3 = $request->franshize_percent_3;
+        $new->insurance_bonus     = $request->insurance_bonus;
+
+
+        $new->franchise     = $request->franchise;
+        $new->insurance_premium_currency     = $request->insurance_premium_currency;
+        $new->payment_term     = $request->payment_term;
+        $new->sposob_rascheta     = $request->sposob_rascheta;
+        $new->tarif_other     = $request->tarif_other;
+        $new->premiya_other     = $request->premiya_other;
+        $new->insurance_sum     = $request->insurance_sum_prod;
         $new->save();
         return $new;
     }

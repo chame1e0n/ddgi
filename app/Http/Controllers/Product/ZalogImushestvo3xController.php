@@ -51,7 +51,7 @@ class ZalogImushestvo3xController extends Controller
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
 
 
-        $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request,$newPolicyHolders->id, $newPolicyBeneficiaries->id);
+        $newZalogImushestvo = Allproduct::createAllProduct($request,$newPolicyHolders->id, $newPolicyBeneficiaries->id);
 
         AllProductImushestvoInfo::create($newZalogImushestvo->id, $request);
         AllProductsTermsTranshes::create($newZalogImushestvo->id, $request);
