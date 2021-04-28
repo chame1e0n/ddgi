@@ -40,13 +40,13 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="icheck-success">
-                                            <input type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-1" value="individual">
+                                            <input type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-1" @if($page->type == 0) checked @endif value="0">
                                             <label for="client-type-radio-1">физ. лицо</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="icheck-success">
-                                            <input type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-2" value="legal">
+                                            <input type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-2" @if($page->type == 1) checked @endif value="1">
                                             <label for="client-type-radio-2">юр. лицо</label>
                                         </div>
                                     </div>
@@ -264,7 +264,7 @@
                                                            class="form-control is-invalid"
                                                            @else
                                                            class="form-control"
-                                                           @endif>
+                                                        @endif>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -276,7 +276,7 @@
                                                            class="form-control is-invalid"
                                                            @else
                                                            class="form-control"
-                                                           @endif>
+                                                        @endif>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -308,7 +308,7 @@
                                                            class="form-control is-invalid"
                                                            @else
                                                            class="form-control"
-                                                           @endif>
+                                                        @endif>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -422,39 +422,42 @@
                                     <tbody>
 
                                     @foreach($page->infos as $info)
-                                    <tr>
-                                        <td>
-                                            <input required type="text" class="form-control" name="name_property[]" value="{{$info->name_property}}">
-                                        </td>
-                                        <td>
-                                            <input required type="text" class="form-control" name="place_property[]" value="{{$info->place_property}}">
-                                        </td>
-                                        <td>
-                                            <input required type="date" class="form-control" name="date_of_issue_property[]" value="{{$info->date_of_issue_property}}">
-                                        </td>
-                                        <td>
-                                            <input required type="text" class="form-control" name="count_property[]" value="{{$info->count_property}}">
-                                        </td>
-                                        <td>
-                                            <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;">
-                                                <option selected="selected" value="1">Кв.м</option>
-                                                <option value="2">Кв.см</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input required type="text" data-field="value" class="form-control" name="insurance_cost[]" value="{{$info->insurance_cost}}">
-                                        </td>
-                                        <td>
-                                            <input required type="text" data-field="sum" class="form-control" name="insurance_sum[]" value="{{$info->insurance_sum}}">
-                                        </td>
-                                        <td>
-                                            <input required type="text" data-field="premiya" class="form-control" name="insurance_premium[]" value="{{$info->insurance_premium}}">
-                                        </td>
-                                    </tr>
-                                        @endforeach
+                                        <tr id="{{$info->id}}">
+                                            <td>
+                                                <input required type="text" class="form-control" name="name_property[]" value="{{$info->name_property}}">
+                                            </td>
+                                            <td>
+                                                <input required type="text" class="form-control" name="place_property[]" value="{{$info->place_property}}">
+                                            </td>
+                                            <td>
+                                                <input required type="date" class="form-control" name="date_of_issue_property[]" value="{{$info->date_of_issue_property}}">
+                                            </td>
+                                            <td>
+                                                <input required type="text" class="form-control" name="count_property[]" value="{{$info->count_property}}">
+                                            </td>
+                                            <td>
+                                                <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;">
+                                                    <option selected="selected" value="1">Кв.м</option>
+                                                    <option value="2">Кв.см</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input required type="text" data-field="value" class="form-control" name="insurance_cost[]" value="{{$info->insurance_cost}}">
+                                            </td>
+                                            <td>
+                                                <input required type="text" data-field="sum" class="form-control" name="insurance_sum[]" value="{{$info->insurance_sum}}">
+                                            </td>
+                                            <td>
+                                                <input required type="text" data-field="premiya" class="form-control" name="insurance_premium[]" value="{{$info->insurance_premium}}">
+                                            </td>
+                                            <td>
+                                                <input onclick="removeAndCalc({{$info->id}})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                     <tr>
-                                        <td colspan="5" style="text-align: right"><label class="text-b$page->Итогоlabel></td>
+                                        <td colspan="5" style="text-align: right"><label class="text-bold">Итого</label></td>
                                         <td><input required readonly data-insurance-stoimost type="text" class="form-control overall-sum" /></td>
                                         <td><input required readonly data-insurance-sum type="text" class="form-control overall-sum4" /></td>
                                         <td><input required readonly data-insurance-award type="text" class="form-control overall-sum3" /></td>
@@ -473,7 +476,7 @@
                                                 <label for="radioSuccess1">Да</label>
                                             </div>
                                             <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)" type="radio" class="other_insurance-0" name="fire_alarm_file"  id="radioSuccess2" value="0">
+                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)" type="radio" class="other_insurance-0" name="fire_alarm_file" @if($page->fire_alarm_file == null) checked @endif id="radioSuccess2" value="0">
                                                 <label for="radioSuccess2">Нет</label>
                                             </div>
                                         </div>
@@ -495,7 +498,7 @@
                                                 <label for="radioSuccess1-0">Да</label>
                                             </div>
                                             <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)" type="radio" class="other_insurance-0"  name="security_file"   id="radioSuccess2-0">
+                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)" type="radio" class="other_insurance-0" @if($page->security_file == null) checked @endif name="security_file"   id="radioSuccess2-0">
                                                 <label for="radioSuccess2-0">Нет</label>
                                             </div>
                                         </div>
@@ -563,7 +566,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="insurance_sum" class="form-control" value="{{$page->insurance_sum}}">
+                                        <input type="text" id="all-summ" name="insurance_sum_prod" class="form-control" value="{{$page->insurance_sum}}">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -630,11 +633,14 @@
                                         </thead>
                                         <tbody>
                                         @foreach($page->strahPremiya as $prem)
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment_sum[]" value="{{$prem->payment_sum}}"></td>
-                                            <td><input type="date" class="form-control" name="payment_from[]" value="{{$prem->payment_from}}">
-                                            </td>
-                                        </tr>
+                                            <tr id="{{$prem->id}}" data-field-number="0">
+                                                <td><input type="text" class="form-control" name="payment_sum[]" value="{{$prem->payment_sum}}"></td>
+                                                <td><input type="date" class="form-control" name="payment_from[]" value="{{$prem->payment_from}}">
+                                                </td>
+                                                <td>
+                                                    <input type="button" onclick="removeEl({{$prem->id}})" value="Удалить" class="btn btn-warning">
+                                                </td>
+                                            </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -650,7 +656,7 @@
                                 -->
                                 <div class="form-group" data-tarif-descr @if(!$page->tarif_other) style="display: none" @endif>
                                     <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input class="form-control" id="descrTarif" type="number" value="{{$page->tarif_other}}">
+                                    <input class="form-control" id="descrTarif" type="number" name="tarif_other" value="{{$page->tarif_other}}">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -663,7 +669,7 @@
                                 -->
                                 <div class="form-group" data-preim-descr @if(!$page->premiya_other) style="display: none" @endif>
                                     <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input class="form-control" id="descrPreim" type="number" value="{{$page->premiya_other}}">
+                                    <input class="form-control" id="descrPreim" type="number" name="premiya_other" value="{{$page->premiya_other}}">
                                 </div>
                             </div>
                         </div>
@@ -682,6 +688,7 @@
                         <div class="card-body" id="beneficiary-card-body">
                             <div class="row">
                                 <div class="col-md-4">
+                                    @if($page->application_form_file)<a href="/storage/{{$page->application_form_file}}" target="_blank">Скачать</a> @endif
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
                                         <input  id="anketa_img" name="application_form_file" value="{{$page->application_form_file}}"
@@ -693,6 +700,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
+                                    @if($page->contract_file)<a href="/storage/{{$page->contract_file}}" target="_blank">Скачать</a> @endif
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Договор</label>
                                         <input  id="dogovor_img" name="contract_file" value="{{$page->contract_file}}"
@@ -704,6 +712,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
+                                    @if($page->policy_file)<a href="/storage/{{$page->policy_file}}" target="_blank">Скачать</a> @endif
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Полис</label>
                                         <input  id="polis_img" name="policy_file" value="{{$page->policy_file}}"
@@ -733,10 +742,11 @@
                             <div>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        @if($page->passport_copy)<a href="/storage/{{$page->passport_copy}}" target="_blank">Скачать</a> @endif
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Паспорт</label>
-                                            <input  id="copy_passport" name="copy_passport" value="{{$page->copy_passport}}"
-                                                    type="file" @if($errors->has('copy_passport'))
+                                            <input  id="copy_passport" name="passport_copy" value="{{$page->passport_copy}}"
+                                                    type="file" @if($errors->has('passport_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -744,10 +754,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        @if($page->dogovor_copy)<a href="/storage/{{$page->dogovor_copy}}" target="_blank">Скачать</a> @endif
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Договор</label>
-                                            <input  id="copy_dogovor" name="copy_dogovor" value="{{$page->copy_dogovor}}"
-                                                    type="file" @if($errors->has('copy_dogovor'))
+                                            <input  id="copy_dogovor" name="dogovor_copy" value="{{$page->dogovor_copy}}"
+                                                    type="file" @if($errors->has('dogovor_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -755,10 +766,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        @if($page->spravka_copy)<a href="/storage/{{$page->spravka_copy}}" target="_blank">Скачать</a> @endif
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Справки</label>
-                                            <input  id="copy_spravki" name="copy_spravki" value="{{$page->copy_spravki}}"
-                                                    type="file" @if($errors->has('copy_spravki'))
+                                            <input  id="copy_spravki" name="spravka_copy" value="{{$page->spravka_copy}}"
+                                                    type="file" @if($errors->has('spravka_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -766,10 +778,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        @if($page->other_copy)<a href="/storage/{{$page->other_copy}}" target="_blank">Скачать</a> @endif
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Другие</label>
-                                            <input  id="copy_drugie" name="copy_drugie" value="{{$page->copy_drugie}}"
-                                                    type="file" @if($errors->has('copy_drugie'))
+                                            <input  id="copy_drugie" name="other_copy" value="{{$page->other_copy}}"
+                                                    type="file" @if($errors->has('other_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"

@@ -72,7 +72,12 @@ class ZalogIpotekaController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya')->find($id);
+
+        $banks = Bank::all();
+        $agents = Agent::all();
+        $policySeries = PolicySeries::all();
+        return view('products.zalog.ipoteka.show', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**
@@ -112,6 +117,8 @@ class ZalogIpotekaController extends Controller
         if (!$product)
             return back()->withInput()->withErrors([sprintf('Ошибка при обновлении $product')]);
 
+        AllProductImushestvoInfo::updateInfo($product, $request);
+        AllProductsTermsTranshes::updateTermsTranshes($product, $request);
         return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 

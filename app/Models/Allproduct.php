@@ -102,6 +102,7 @@ class Allproduct extends Model
         $new->object_to_date = $request->object_to_date;
         $new->ocenka_osnovaniya = $request->ocenka_osnovaniya;
         $new->location = $request->location;
+        $new->type = $request->client_type_radio;
         if ($request->hasFile('fire_alarm_file')) {
             $image          = $request->file('fire_alarm_file')->store('/img/ZalogImushestvo3x', 'public');
             $new->fire_alarm_file   = $image;

@@ -727,8 +727,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Паспорт</label>
-                                            <input  id="copy_passport" name="copy_passport" value="{{old('copy_passport')}}"
-                                                    type="file" @if($errors->has('copy_passport'))
+                                            <input  id="copy_passport" name="passport_copy" value="{{old('passport_copy')}}"
+                                                    type="file" @if($errors->has('passport_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -738,8 +738,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Договор</label>
-                                            <input  id="copy_dogovor" name="copy_dogovor" value="{{old('copy_dogovor')}}"
-                                                    type="file" @if($errors->has('copy_dogovor'))
+                                            <input  id="copy_dogovor" name="dogovor_copy" value="{{old('dogovor_copy')}}"
+                                                    type="file" @if($errors->has('dogovor_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -749,8 +749,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Справки</label>
-                                            <input  id="copy_spravki" name="copy_spravki" value="{{old('copy_spravki')}}"
-                                                    type="file" @if($errors->has('copy_spravki'))
+                                            <input  id="copy_spravki" name="spravka_copy" value="{{old('spravka_copy')}}"
+                                                    type="file" @if($errors->has('spravka_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -760,8 +760,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Другие</label>
-                                            <input  id="copy_drugie" name="copy_drugie" value="{{old('copy_drugie')}}"
-                                                    type="file" @if($errors->has('copy_drugie'))
+                                            <input  id="copy_drugie" name="other_copy" value="{{old('other_copy')}}"
+                                                    type="file" @if($errors->has('other_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"

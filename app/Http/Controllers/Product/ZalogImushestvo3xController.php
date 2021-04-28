@@ -69,7 +69,8 @@ class ZalogImushestvo3xController extends Controller
      */
     public function show($id)
     {
-        $page = ZalogImushestvo::getInfoZalogImushestvo($id);
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya')->find($id);
+
         $banks = Bank::all();
         $agents = Agent::all();
         $policySeries = PolicySeries::all();
@@ -99,65 +100,22 @@ class ZalogImushestvo3xController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ZalogImushestvoRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $zalogImushestvo = ZalogImushestvo::findOrFail($id);
-        $policyHolders = PolicyHolder::updatePolicyHolders($zalogImushestvo->policy_holder_id, $request);
+        $product = Allproduct::findOrFail($id);
+        $policyHolders = PolicyHolder::updatePolicyHolders($product->policy_holder_id, $request);
         if (!$policyHolders)
             return back()->withInput()->withErrors([sprintf('Ошибка при обновлении PolicyHolders')]);
-        $policyBeneficiaries = PolicyBeneficiaries::updatePolicyBeneficiaries($zalogImushestvo->policy_beneficiary_id, $request);
+        $policyBeneficiaries = PolicyBeneficiaries::updatePolicyBeneficiaries($product->policy_beneficiaries_id, $request);
         if (!$policyBeneficiaries)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
 
-        $request->policy_holder_id = $policyHolders->id;
-        $request->policy_beneficiary_id = $policyBeneficiaries->id;
-        if ($request->hasFile('anketa_img')) {
-            $image = $request->file('anketa_img')->store('/img/PolicyHolder', 'public');
-            $request->anketa_img = $image;
-        } else
-            $request->anketa_img = $zalogImushestvo->anketa_img;
+        $product = Allproduct::updateAllProduct($id, $request);
+        if (!$product)
+            return back()->withInput()->withErrors([sprintf('Ошибка при обновлении $product')]);
 
-        if ($request->hasFile('dogovor_img')) {
-            $image = $request->file('dogovor_img')->store('/img/PolicyHolder', 'public');
-            $request->dogovor_img = $image;
-        } else
-            $request->dogovor_img = $zalogImushestvo->dogovor_img;
-
-        if ($request->hasFile('polis_img')) {
-            $image = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
-            $request->polis_img = $image;
-        } else
-            $request->polis_img = $zalogImushestvo->polis_img;
-
-        if ($request->hasFile('copy_passport')) {
-            $image          = $request->file('copy_passport')->store('/img/ZalogImushestvo', 'public');
-            $request->copy_passport   = $image;
-        } else
-            $request->copy_passport = $zalogImushestvo->copy_passport;
-
-        if ($request->hasFile('copy_dogovor')) {
-            $image          = $request->file('copy_dogovor')->store('/img/ZalogImushestvo', 'public');
-            $request->copy_dogovor   = $image;
-        } else
-            $request->copy_dogovor = $zalogImushestvo->copy_dogovor;
-
-        if ($request->hasFile('copy_spravki')) {
-            $image          = $request->file('copy_spravki')->store('/img/ZalogImushestvo', 'public');
-            $request->copy_spravki   = $image;
-        } else
-            $request->copy_spravki = $zalogImushestvo->copy_spravki;
-
-        if ($request->hasFile('copy_drugie')) {
-            $image          = $request->file('copy_drugie')->store('/img/ZalogImushestvo', 'public');
-            $request->copy_drugie   = $image;
-        } else
-            $request->copy_drugie = $zalogImushestvo->copy_drugie;
-        $zalogImushestvo = ZalogImushestvo::updateZalogImushestvo($id, $request);
-        $zalogImushestvoInfo = ZalogImushestvoInfo::updateZalogImushestvoInfo($request, $zalogImushestvo);
-        ZalogImushestvoStrahPremiya::updateImushestvoStrahPremiya($request, $zalogImushestvo);
-        if (!$zalogImushestvo)
-            return back()->withInput()->withErrors([sprintf('Ошибка при обновлении $zalogImushestvo')]);
-
+        AllProductImushestvoInfo::updateInfo($product, $request);
+        AllProductsTermsTranshes::updateTermsTranshes($product, $request);
         return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 

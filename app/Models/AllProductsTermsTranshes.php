@@ -29,4 +29,26 @@ class AllProductsTermsTranshes extends Model
         return $create ?? false;
 
     }
+
+    static function updateTermsTranshes($product, $request){
+        $data = $request->all();
+        $product->strahPremiya()->forceDelete();
+        $count = count($data['payment_sum']);
+
+        for ($i=0; $i<$count; $i++) {
+
+            if($data['payment_sum'][$i] && $data['payment_from'][$i]){
+                $create = new self();
+
+                $create->all_products_id = $product->id;
+                $create->payment_sum = $data['payment_sum'][$i];
+                $create->payment_from = $data['payment_from'][$i];
+
+                $create->save();
+            }
+
+        }
+        return $create ?? false;
+
+    }
 }

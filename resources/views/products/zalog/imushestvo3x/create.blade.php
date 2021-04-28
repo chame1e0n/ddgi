@@ -503,44 +503,44 @@
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
 
 
-                    <div class="card-body">
-                        <div class="card card-info" id="clone-beneficiary">
-                            <div class="card-header">
-                                <h3 class="card-title">Франшиза</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Франшиза</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
                             </div>
-                            <div class="card-body" id="beneficiary-card-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="summ-1">% от страховой суммы по риску землетрясения и пожара по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
-                                            <input required type="text" id="summ-1" name="franshize_percent_1" class="form-control" value="{{old('franshize_percent_1')}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="summ-2">% от страховой суммы по риску противоправные действия третьих лиц по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
-                                            <input required type="text" id="summ-2" name="franshize_percent_2" class="form-control" value="{{old('franshize_percent_2')}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">% от страховой суммы по другим рискам по каждому <br> убытку и/или по всем убыткам в результате каждого <br> страхового случая</label>
-                                            <input required type="text" id="geographic-zone" name="franshize_percent_3" class="form-control" value="{{old('franshize_percent_3')}}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="summ-1">% от страховой суммы по риску землетрясения и пожара по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
+                                        <input required type="text" id="summ-1" name="franshize_percent_1" class="form-control" value="{{old('franshize_percent_1')}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="summ-2">% от страховой суммы по риску противоправные действия третьих лиц по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
+                                        <input required type="text" id="summ-2" name="franshize_percent_2" class="form-control" value="{{old('franshize_percent_2')}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="geographic-zone">% от страховой суммы по другим рискам по каждому <br> убытку и/или по всем убыткам в результате каждого <br> страхового случая</label>
+                                        <input required type="text" id="geographic-zone" name="franshize_percent_3" class="form-control" value="{{old('franshize_percent_3')}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                </div>
 
                 <div class="card card-success">
                     <div class="card-header">
@@ -557,7 +557,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="insurance_sum" value="{{old('insurance_sum')}}" class="form-control">
+                                        <input type="text" id="all-summ" name="insurance_sum_prod" value="{{old('insurance_sum_prod')}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -727,8 +727,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Паспорт</label>
-                                            <input  id="copy_passport" name="copy_passport" value="{{old('copy_passport')}}"
-                                                    type="file" @if($errors->has('copy_passport'))
+                                            <input  id="copy_passport" name="passport_copy" value="{{old('passport_copy')}}"
+                                                    type="file" @if($errors->has('passport_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -738,8 +738,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Договор</label>
-                                            <input  id="copy_dogovor" name="copy_dogovor" value="{{old('copy_dogovor')}}"
-                                                    type="file" @if($errors->has('copy_dogovor'))
+                                            <input  id="copy_dogovor" name="dogovor_copy" value="{{old('dogovor_copy')}}"
+                                                    type="file" @if($errors->has('dogovor_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -749,8 +749,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Справки</label>
-                                            <input  id="copy_spravki" name="copy_spravki" value="{{old('copy_spravki')}}"
-                                                    type="file" @if($errors->has('copy_spravki'))
+                                            <input  id="copy_spravki" name="spravka_copy" value="{{old('spravka_copy')}}"
+                                                    type="file" @if($errors->has('spravka_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
@@ -760,8 +760,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Другие</label>
-                                            <input  id="copy_drugie" name="copy_drugie" value="{{old('copy_drugie')}}"
-                                                    type="file" @if($errors->has('copy_drugie'))
+                                            <input  id="copy_drugie" name="other_copy" value="{{old('other_copy')}}"
+                                                    type="file" @if($errors->has('other_copy'))
                                                     class="form-control is-invalid"
                                                     @else
                                                     class="form-control"
