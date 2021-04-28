@@ -25,7 +25,7 @@ class PolicyHolder extends Model
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
             'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
+            'checking_account' => $request->checking_account,
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
             'oked' => $request->oked,

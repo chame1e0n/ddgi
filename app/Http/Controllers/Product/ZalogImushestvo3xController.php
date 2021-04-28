@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\AllProductImushestvoInfo;
+
 use App\Http\Controllers\Controller;
 use App\Models\Allproduct;
+use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductInformation;
+use App\Models\AllProductsTermsTranshes;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
-use App\Models\Product\ZalogImushestvoStrahPremiya;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
@@ -49,44 +50,15 @@ class ZalogImushestvo3xController extends Controller
         if(!$newPolicyBeneficiaries)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
 
-        $request->policy_holder_id = $newPolicyHolders->id;
-        $request->policy_beneficiary_id = $newPolicyBeneficiaries->id;
-        if ($request->hasFile('anketa_img')) {
-            $image          = $request->file('anketa_img')->store('/img/PolicyHolder', 'public');
-            $request->anketa_img   = $image;
-        }
-        if ($request->hasFile('dogovor_img')) {
-            $image          = $request->file('dogovor_img')->store('/img/PolicyHolder', 'public');
-            $request->dogovor_img   = $image;
-        }
-        if ($request->hasFile('polis_img')) {
-            $image          = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
-            $request->polis_img   = $image;
-        }
 
-        if ($request->hasFile('copy_passport')) {
-            $image          = $request->file('copy_passport')->store('/img/ZalogImushestvo3x', 'public');
-            $request->copy_passport   = $image;
-        }
-        if ($request->hasFile('copy_dogovor')) {
-            $image          = $request->file('copy_dogovor')->store('/img/ZalogImushestvo3x', 'public');
-            $request->copy_dogovor   = $image;
-        }
-        if ($request->hasFile('copy_spravki')) {
-            $image          = $request->file('copy_spravki')->store('/img/ZalogImushestvo3x', 'public');
-            $request->copy_spravki   = $image;
-        }
-        if ($request->hasFile('copy_drugie')) {
-            $image          = $request->file('copy_drugie')->store('/img/ZalogImushestvo3x', 'public');
-            $request->copy_drugie   = $image;
-        }
+        $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request,$newPolicyHolders->id, $newPolicyBeneficiaries->id);
 
-        $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request);
-        $newZalogImushestvoInfo = AllProductImushestvoInfo::create($newZalogImushestvo->id, $request);
+        AllProductImushestvoInfo::create($newZalogImushestvo->id, $request);
+        AllProductsTermsTranshes::create($newZalogImushestvo->id, $request);
         if(!$newZalogImushestvo)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newZalogImushestvo')]);
 
-        return redirect()->route('zalog-imushestvo.edit', $newZalogImushestvo->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('zalog-imushestvo3x.edit', $newZalogImushestvo->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -101,7 +73,7 @@ class ZalogImushestvo3xController extends Controller
         $banks = Bank::all();
         $agents = Agent::all();
         $policySeries = PolicySeries::all();
-        return view('products.zalog.imushestvo.show', compact('banks', 'agents', 'page', 'policySeries'));
+        return view('products.zalog.imushestvo3x.show', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**
@@ -112,11 +84,12 @@ class ZalogImushestvo3xController extends Controller
      */
     public function edit($id)
     {
-        $page = ZalogImushestvo::getInfoZalogImushestvo($id);
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya')->find($id);
+
         $banks = Bank::all();
         $agents = Agent::all();
         $policySeries = PolicySeries::all();
-        return view('products.zalog.imushestvo.edit', compact('banks', 'agents', 'page', 'policySeries'));
+        return view('products.zalog.imushestvo3x.edit', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**

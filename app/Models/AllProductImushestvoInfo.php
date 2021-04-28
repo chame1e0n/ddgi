@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,7 +8,7 @@ class AllProductImushestvoInfo extends Model
 {
     static function create($id, $request){
         $data = $request->all();
-//dd($data);
+
         if (isset($data['name_property'])){
             $countIteration = count($data['name_property']);
             for ($i=0; $i<$countIteration; $i++){
