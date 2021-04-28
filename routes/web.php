@@ -88,6 +88,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('microzaym', 'MicroZaymController');
     ////Potrebkredit
     Route::resource('potrebkredit', 'PotrebKreditController');
+    ////Policy_Filter
+    Route::resource('policy_filter', 'PolicyFilterController');
+    Route::post('policy_filter/filter', 'PolicyFilterController@filter')->name('all_product.filter');
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
