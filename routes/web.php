@@ -84,7 +84,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('perestrahovaniya_overview', 'PerestrahovaniyaOverviewController');
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('request_overview', 'RequestOverviewController');
-
+    ////Microzaym
+    Route::resource('microzaym', 'MicroZaymController');
+    ////Potrebkredit
+    Route::resource('potrebkredit', 'PotrebKreditController');
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

@@ -18,7 +18,7 @@ class CreateAllProductInformationTable extends Migration
             $table->unsignedBigInteger("all_products_id");
             $table->string("policy_series")->nullable(); // Серийный номер полиса
             $table->date("policy_insurance_from")->nullable(); // Дата выдачи страхового полиса
-            $table->integer("otvet_litso")->nullable(); // Ответственное лицо
+            $table->text("otvet_litso")->nullable(); // Ответственное лицо
             $table->timestamps();
             $table->softDeletes();
         });
