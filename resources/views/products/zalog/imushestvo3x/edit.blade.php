@@ -116,9 +116,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input required value="{{$page->policyHolders->checking_acount}}" type="text" id="insurer-schet"
-                                               name="checking_acount"
-                                               @if($errors->has('checking_acount'))
+                                        <input required value="{{$page->policyHolders->checking_account}}" type="text" id="insurer-schet"
+                                               name="checking_account"
+                                               @if($errors->has('checking_account'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -482,7 +482,7 @@
                                 <div data-radiosuccess2="" @if(!$page->fire_alarm_file) style="display: none;" @endif class="form-group other_insurance_info-0">
                                     <label>Прикрепите сертификат</label>
                                     <input class="form-control" type="file" name="fire_alarm_file">
-                                    @if(!$page->fire_alarm_file)  <a href="/storage/{{$page->fire_alarm_file}}">Скачать</a> @endif
+                                    @if($page->fire_alarm_file)  <a href="/storage/{{$page->fire_alarm_file}}">Скачать</a> @endif
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -504,7 +504,7 @@
                                 <div data-radiosuccess1="" @if(!$page->security_file) style="display: none;" @endif class="form-group other_insurance_info">
                                     <label>Прикрепите сертификат</label>
                                     <input class="form-control" type="file" name="security_file">
-                                    @if(!$page->fire_alarm_file)<a href="/storage/{{$page->security_file}}">Скачать</a> @endif
+                                    @if($page->fire_alarm_file)<a href="/storage/{{$page->security_file}}">Скачать</a> @endif
                                 </div>
                             </div>
                         </div>

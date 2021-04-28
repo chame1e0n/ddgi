@@ -50,37 +50,6 @@ class ZalogImushestvo3xController extends Controller
         if(!$newPolicyBeneficiaries)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
 
-        $request->policy_holder_id = $newPolicyHolders->id;
-        $request->policy_beneficiary_id = $newPolicyBeneficiaries->id;
-        if ($request->hasFile('anketa_img')) {
-            $image          = $request->file('anketa_img')->store('/img/PolicyHolder', 'public');
-            $request->anketa_img   = $image;
-        }
-        if ($request->hasFile('dogovor_img')) {
-            $image          = $request->file('dogovor_img')->store('/img/PolicyHolder', 'public');
-            $request->dogovor_img   = $image;
-        }
-        if ($request->hasFile('polis_img')) {
-            $image          = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
-            $request->polis_img   = $image;
-        }
-
-        if ($request->hasFile('copy_passport')) {
-            $image          = $request->file('copy_passport')->store('/img/ZalogImushestvo3x', 'public');
-            $request->copy_passport   = $image;
-        }
-        if ($request->hasFile('copy_dogovor')) {
-            $image          = $request->file('copy_dogovor')->store('/img/ZalogImushestvo3x', 'public');
-            $request->copy_dogovor   = $image;
-        }
-        if ($request->hasFile('copy_spravki')) {
-            $image          = $request->file('copy_spravki')->store('/img/ZalogImushestvo3x', 'public');
-            $request->copy_spravki   = $image;
-        }
-        if ($request->hasFile('copy_drugie')) {
-            $image          = $request->file('copy_drugie')->store('/img/ZalogImushestvo3x', 'public');
-            $request->copy_drugie   = $image;
-        }
 
         $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request,$newPolicyHolders->id, $newPolicyBeneficiaries->id);
 

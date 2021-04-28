@@ -115,9 +115,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input required value="{{old('checking_acount')}}" type="text" id="insurer-schet"
-                                               name="checking_acount"
-                                               @if($errors->has('checking_acount'))
+                                        <input required value="{{old('checking_account')}}" type="text" id="insurer-schet"
+                                               name="checking_account"
+                                               @if($errors->has('checking_account'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -642,7 +642,7 @@
                                 -->
                                 <div class="form-group" data-tarif-descr style="display: none">
                                     <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input class="form-control" id="descrTarif" type="number">
+                                    <input class="form-control" id="descrTarif" type="number" name="tarif_other" value="{{'tarif_other'}}">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -655,7 +655,7 @@
                                 -->
                                 <div class="form-group" data-preim-descr style="display: none">
                                     <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input class="form-control" id="descrPreim" type="number">
+                                    <input class="form-control" id="descrPreim" type="number" name="premiya_other" value="{{old('premiya_other')}}">
                                 </div>
                             </div>
                         </div>
