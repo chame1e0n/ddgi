@@ -82,7 +82,7 @@ class ZalogImushestvo3xController extends Controller
             $request->copy_drugie   = $image;
         }
 
-        $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request,$newPolicyHolders, $newPolicyBeneficiaries);
+        $newZalogImushestvo = Allproduct::createZalogImushestvo3x($request,$newPolicyHolders->id, $newPolicyBeneficiaries->id);
 
         AllProductImushestvoInfo::create($newZalogImushestvo->id, $request);
         AllProductsTermsTranshes::create($newZalogImushestvo->id, $request);
@@ -115,7 +115,7 @@ class ZalogImushestvo3xController extends Controller
      */
     public function edit($id)
     {
-        $page = Allproduct::with('policyHolders', 'policyBeneficiaries')->find($id);
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya')->find($id);
 
         $banks = Bank::all();
         $agents = Agent::all();

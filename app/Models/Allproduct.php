@@ -15,7 +15,16 @@ class Allproduct extends Model
     }
     public function policyBeneficiaries()
     {
-        return $this->belongsTo('App\Models\PolicyBeneficiaries', 'policy_beneficiary_id');
+        return $this->belongsTo('App\Models\PolicyBeneficiaries', 'policy_beneficiaries_id');
+    }
+    public function infos()
+    {
+        return $this->hasMany(AllProductImushestvoInfo::class, 'all_product_id', 'id');
+    }
+
+    public function strahPremiya()
+    {
+        return $this->hasMany(AllProductsTermsTranshes::class, 'all_products_id');
     }
     static function createZalogImushestvo3x($request, $policy_holder_id, $policy_beneficiaries_id){
 
@@ -79,7 +88,7 @@ class Allproduct extends Model
         $new->sposob_rascheta     = $request->sposob_rascheta;
         $new->tarif_other     = $request->tarif_other;
         $new->premiya_other     = $request->premiya_other;
-
+        $new->insurance_sum     = $request->insurance_sum;
         $new->save();
         return $new;
     }

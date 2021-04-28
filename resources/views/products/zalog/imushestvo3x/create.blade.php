@@ -115,9 +115,9 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input required value="{{old('address_schet')}}" type="text" id="insurer-schet"
-                                               name="address_schet"
-                                               @if($errors->has('address_schet'))
+                                        <input required value="{{old('checking_acount')}}" type="text" id="insurer-schet"
+                                               name="checking_acount"
+                                               @if($errors->has('checking_acount'))
                                                class="form-control is-invalid"
                                                @else
                                                class="form-control"
@@ -557,26 +557,26 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="geo_zone" class="form-control">
+                                        <input type="text" id="all-summ" name="insurance_sum" value="{{old('insurance_sum')}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая премия</label>
-                                        <input type="text" id="all-summ" name="geo_zone" class="form-control">
+                                        <input type="text" id="all-summ" name="insurance_bonus" value="{{old('insurance_bonus')}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-summ" name="geo_zone" class="form-control">
+                                        <input type="text" id="all-summ" name="franchise" value="{{old('franchise')}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Валюта взаиморасчетов</label>
                                         <select class="form-control" id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected" name="insurance_premium_currency">UZS
+                                            <option selected="selected" value="{{old('insurance_premium_currency')}}" name="insurance_premium_currency">{{old('insurance_premium_currency', "UZS")}}
                                             </option>
                                         </select>
                                     </div>
