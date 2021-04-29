@@ -89,6 +89,19 @@ class Allproduct extends Model
         $new->tarif_other     = $request->tarif_other;
         $new->premiya_other     = $request->premiya_other;
         $new->insurance_sum     = $request->insurance_sum_prod;
+
+        $new->dogovor_date_from     = $request->dogovor_date_from;
+        $new->dogovor_date_to     = $request->dogovor_date_to;
+        $new->dogovor_zalog_date_from     = $request->dogovor_zalog_date_from;
+        $new->dogovor_zalog_date_to     = $request->dogovor_zalog_date_to;
+        $new->credit_insurance_from     = $request->credit_insurance_from;
+        $new->credit_insurance_to     = $request->credit_insurance_to;
+        $new->defect_comment     = $request->defect_comment;
+        $new->defect_image     = $request->defect_image;
+        $new->strtahovka_comment     = $request->strtahovka_comment;
+        $new->zalog_unique_number     = $request->zalog_unique_number;
+        $new->loan_reason     = $request->loan_reason;
+
         $new->save();
         return $new;
     }
@@ -153,6 +166,19 @@ class Allproduct extends Model
         $new->tarif_other     = $request->tarif_other;
         $new->premiya_other     = $request->premiya_other;
         $new->insurance_sum     = $request->insurance_sum_prod;
+
+        $new->dogovor_date_from     = $request->dogovor_date_from;
+        $new->dogovor_date_to     = $request->dogovor_date_to;
+        $new->dogovor_zalog_date_from     = $request->dogovor_zalog_date_from;
+        $new->dogovor_zalog_date_to     = $request->dogovor_zalog_date_to;
+        $new->credit_insurance_from     = $request->credit_insurance_from;
+        $new->credit_insurance_to     = $request->credit_insurance_to;
+        $new->defect_comment     = $request->defect_comment;
+        $new->defect_image     = $request->defect_image;
+        $new->strtahovka_comment     = $request->strtahovka_comment;
+        $new->zalog_unique_number     = $request->zalog_unique_number;
+        $new->loan_reason     = $request->loan_reason;
+
         $new->save();
         return $new;
     }
