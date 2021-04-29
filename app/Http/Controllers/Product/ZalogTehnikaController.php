@@ -88,7 +88,12 @@ class ZalogTehnikaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya')->find($id);
+
+        $banks = Bank::all();
+        $agents = Agent::all();
+        $policySeries = PolicySeries::all();
+        return view('products.zalog.tehnika.edit', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**
