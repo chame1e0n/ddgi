@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('zalog-ipoteka.store')}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
+    <form action="{{route('zalog-imushestvo3x.store')}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
         @csrf
         <div class="content-wrapper">
 
@@ -915,6 +915,7 @@
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
             </div>
     </form>
+
 @endsection
 @section('scripts')
     <script src="../../assets/custom/js/csrftoken.js"></script>

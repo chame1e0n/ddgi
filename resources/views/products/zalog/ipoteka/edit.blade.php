@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('zalog-ipoteka.update', $page->id)}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
+    <form action="{{route('zalog-imushestvo3x.update', $page->id)}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="content-wrapper">
@@ -63,6 +63,7 @@
                         </div>
                     </div>
                 </div>
+                @include('errors.errors')
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -333,7 +334,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor_num" class="col-form-label">Номер договора</label>
-                                    <input type="text" id="dogovor_num" name="unique_number" value="{{$page->unique_number}}" class="form-control">
+                                    <input type="text" id="dogovor_num" name="unique_number" value="{{$page->unique_number}}" class="form-control @if($errors->has('unique_number')) is-invalid @endif">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -342,19 +343,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">с</span>
                                     </div>
-                                    <input id="dogovor_date" name="insurance_from" value="{{$page->insurance_from}}" type="date" class="form-control">
+                                    <input id="dogovor_date" name="insurance_from" value="{{$page->insurance_from}}" type="date" class="form-control @if($errors->has('insurance_from')) is-invalid @endif">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor-strah-vigod-num" class="col-form-label">Номер договора между страхователем и выгодоприобритателем</label>
-                                    <input required type="text" id="dogovor-lizing-num" name="nomer_dogovor_strah_vigod" value="{{$page->nomer_dogovor_strah_vigod}}" class="form-control">
+                                    <input required type="text" id="dogovor-lizing-num" name="nomer_dogovor_strah_vigod" value="{{$page->nomer_dogovor_strah_vigod}}" class="form-control @if($errors->has('nomer_dogovor_strah_vigod')) is-invalid @endif">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="dogovor-strah-vigod-date" class="col-form-label">Дата договора между страхователем и выгодоприобритателем</label>
-                                    <input required type="date" id="dogovor-lizing-date" name="date_dogovor_strah_vigod" value="{{$page->date_dogovor_strah_vigod}}" class="form-control">
+                                    <input required type="date" id="dogovor-lizing-date" name="date_dogovor_strah_vigod" value="{{$page->date_dogovor_strah_vigod}}" class="form-control @if($errors->has('date_dogovor_strah_vigod')) is-invalid @endif">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -363,7 +364,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">с</span>
                                     </div>
-                                    <input required id="period_date" name="object_from_date" value="{{$page->object_from_date}}" type="date" class="form-control">
+                                    <input required id="period_date" name="object_from_date" value="{{$page->object_from_date}}" type="date" class="form-control @if($errors->has('object_from_date')) is-invalid @endif">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -372,19 +373,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">до</span>
                                     </div>
-                                    <input required id="period_date" name="object_to_date" value="{{$page->object_to_date}}" type="date" class="form-control">
+                                    <input required id="period_date" name="object_to_date" value="{{$page->object_to_date}}" type="date" class="form-control @if($errors->has('object_to_date')) is-invalid @endif">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="osnovanie_otsenki" class="col-form-label">Основание для оценки</label>
-                                    <input required type="text" id="osnovanie_otsenki" name="ocenka_osnovaniya" value="{{$page->ocenka_osnovaniya}}" class="form-control">
+                                    <input required type="text" id="osnovanie_otsenki" name="ocenka_osnovaniya" value="{{$page->ocenka_osnovaniya}}" class="form-control @if($errors->has('ocenka_osnovaniya')) is-invalid @endif">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="geo" class="col-form-label">Местонахождение</label>
-                                    <input required type="text" id="geo" name="location" value="{{$page->location}}" class="form-control">
+                                    <input required type="text" id="geo" name="location" value="{{$page->location}}" class="form-control @if($errors->has('location')) is-invalid @endif">
                                 </div>
                             </div>
                         </div>
@@ -424,34 +425,44 @@
                                     @foreach($page->infos as $info)
                                         <tr id="{{$info->id}}">
                                             <td>
-                                                <input required type="text" class="form-control" name="name_property[]" value="{{$info->name_property}}">
+                                                <input required type="text" class="@if($errors->has('name_property.'.$loop->index)) is-invalid @endif form-control" name="name_property[]"
+                                                       value="{{$info->name_property}}">
                                             </td>
                                             <td>
-                                                <input required type="text" class="form-control" name="place_property[]" value="{{$info->place_property}}">
+                                                <input required type="text" class="@if($errors->has('place_property.'.$loop->index)) is-invalid @endif form-control" name="place_property[]"
+                                                       value="{{$info->place_property}}">
                                             </td>
                                             <td>
-                                                <input required type="date" class="form-control" name="date_of_issue_property[]" value="{{$info->date_of_issue_property}}">
+                                                <input required type="date" class="form-control @if($errors->has('date_of_issue_property.'.$loop->index)) is-invalid @endif "
+                                                       name="date_of_issue_property[]"
+                                                       value="{{$info->date_of_issue_property}}">
                                             </td>
                                             <td>
-                                                <input required type="text" class="form-control" name="count_property[]" value="{{$info->count_property}}">
+                                                <input required type="text" class="form-control @if($errors->has('count_property.'.$loop->index)) is-invalid @endif " name="count_property[]"
+                                                       value="{{$info->count_property}}">
                                             </td>
                                             <td>
-                                                <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;">
+                                                <select class="form-control polises @if($errors->has('units_property.'.$loop->index)) is-invalid @endif " id="polises"
+                                                        name="units_property[]" style="width: 100%;">
                                                     <option selected="selected" value="1">Кв.м</option>
                                                     <option value="2">Кв.см</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <input required type="text" data-field="value" class="form-control" name="insurance_cost[]" value="{{$info->insurance_cost}}">
+                                                <input required type="text" data-field="value" class="form-control @if($errors->has('insurance_cost.'.$loop->index)) is-invalid @endif "
+                                                       name="insurance_cost[]" value="{{$info->insurance_cost}}">
                                             </td>
                                             <td>
-                                                <input required type="text" data-field="sum" class="form-control" name="insurance_sum[]" value="{{$info->insurance_sum}}">
+                                                <input required type="text" data-field="sum" class="form-control @if($errors->has('insurance_sum.'.$loop->index)) is-invalid @endif "
+                                                       name="insurance_sum[]" value="{{$info->insurance_sum}}">
                                             </td>
                                             <td>
-                                                <input required type="text" data-field="premiya" class="form-control" name="insurance_premium[]" value="{{$info->insurance_premium}}">
+                                                <input required type="text" data-field="premiya" class="form-control @if($errors->has('insurance_premium.'.$loop->index)) is-invalid @endif "
+                                                       name="insurance_premium[]" value="{{$info->insurance_premium}}">
                                             </td>
                                             <td>
-                                                <input onclick="removeAndCalc({{$info->id}})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
+                                                <input onclick="removeAndCalc({{$info->id}})" type="button"
+                                                       value="Удалить" data-action="delete" class="btn btn-warning">
                                             </td>
                                         </tr>
                                     @endforeach
@@ -530,19 +541,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="summ-1">% от страховой суммы по риску землетрясения и пожара по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
-                                        <input required type="text" id="summ-1" name="franshize_percent_1" class="form-control" value="{{$page->franshize_percent_1}}">
+                                        <input required type="text" id="summ-1" name="franshize_percent_1" class="form-control @if($errors->has('franshize_percent_1')) is-invalid @endif" value="{{$page->franshize_percent_1}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="summ-2">% от страховой суммы по риску противоправные действия третьих лиц по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
-                                        <input required type="text" id="summ-2" name="franshize_percent_2" class="form-control" value="{{$page->franshize_percent_2}}">
+                                        <input required type="text" id="summ-2" name="franshize_percent_2" class="form-control @if($errors->has('franshize_percent_2')) is-invalid @endif" value="{{$page->franshize_percent_2}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="geographic-zone">% от страховой суммы по другим рискам по каждому <br> убытку и/или по всем убыткам в результате каждого <br> страхового случая</label>
-                                        <input required type="text" id="geographic-zone" name="franshize_percent_3" class="form-control" value="{{$page->franshize_percent_3}}">
+                                        <input required type="text" id="geographic-zone" name="franshize_percent_3" class="form-control @if($errors->has('franshize_percent_3')) is-invalid @endif" value="{{$page->franshize_percent_3}}">
                                     </div>
                                 </div>
                             </div>
@@ -616,7 +627,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="transh-payment-schedule" @if(!$page->payment_term === 'transh')class="d-none" @endif>
+                            <div id="transh-payment-schedule"
+                                 @if($page->payment_term == '1') class="d-none" @endif>
                                 <div class="form-group">
                                     <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
                                         Добавить
@@ -632,44 +644,74 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($page->strahPremiya as $prem)
-                                            <tr id="{{$prem->id}}" data-field-number="0">
-                                                <td><input type="text" class="form-control" name="payment_sum[]" value="{{$prem->payment_sum}}"></td>
-                                                <td><input type="date" class="form-control" name="payment_from[]" value="{{$prem->payment_from}}">
+                                        @if($page->strahPremiya->count() > 0)
+                                            @foreach($page->strahPremiya as $prem)
+                                                <tr id="{{$prem->id}}" data-field-number="0">
+                                                    <td><input type="text" class="
+                                                        @if($errors->has('payment_sum.'.$loop->index))
+                                                            is-invalid
+                                                        @endif form-control" name="payment_sum[]" value="{{$prem->payment_sum}}">
+                                                    </td>
+                                                    <td><input type="date"
+                                                               class="@if($errors->has('payment_from.'.$loop->index))
+                                                                   is-invalid
+                                                    @endif form-control" name="payment_from[]" value="{{$prem->payment_from}}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="button" value="Удалить" data-action="delete"
+                                                               class="btn btn-warning"
+                                                               onclick="removeEl({{$prem->id}})">
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr id="payment-term-tr-0" data-field-number="0">
+                                                <td><input type="text" class="@if($errors->has('payment_sum.*'))
+                                                        is-invalid
+                                            @endif form-control" name="payment_sum[]" value="">
                                                 </td>
-                                                <td>
-                                                    <input type="button" onclick="removeEl({{$prem->id}})" value="Удалить" class="btn btn-warning">
+                                                <td><input type="date" class="@if($errors->has('payment_from.*'))
+                                                        is-invalid
+                                                @endif form-control" name="payment_from[]" value="">
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="icheck-success ">
-                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="tarif" id="tarif" @if($page->tarif_other) checked @endif>
+                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')"
+                                           class="form-check-input client-type-radio" type="checkbox" name="tarif"
+                                           id="tarif" @if($page->tarif_other) checked @endif @if(!empty(old('tarif'))) checked @endif>
                                     <label class="form-check-label" for="tarif">Тариф</label>
                                 </div>
                                 <!-- TODO: Блок должен находится в скрытом состоянии
                                 отображаться только тогда, когда выбран checkbox "Тариф"
                                 -->
-                                <div class="form-group" data-tarif-descr @if(!$page->tarif_other) style="display: none" @endif>
+                                <div class="form-group" data-tarif-descr
+                                     @if(!$page->tarif_other && empty(old('tarif'))) style="display: none" @endif>
                                     <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input class="form-control" id="descrTarif" type="number" name="tarif_other" value="{{$page->tarif_other}}">
+                                    <input class="form-control" id="descrTarif" type="number" name="tarif_other"
+                                           value="{{$page->tarif_other}}">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="icheck-success ">
-                                    <input onchange="toggleBlock('preim', 'data-preim-descr')" class="form-check-input client-type-radio" type="checkbox" name="preim" id="preim" @if($page->premiya_other) checked @endif>
+                                    <input onchange="toggleBlock('preim', 'data-preim-descr')"
+                                           class="form-check-input client-type-radio" type="checkbox" name="preim"
+                                           id="preim" @if($page->premiya_other) checked @endif  @if(!empty(old('preim'))) checked @endif>
                                     <label class="form-check-label" for="preim">Премия</label>
                                 </div>
                                 <!-- TODO: Блок должен находится в скрытом состоянии
                                 отображаться только тогда, когда выбран checkbox "Тариф"
                                 -->
-                                <div class="form-group" data-preim-descr @if(!$page->premiya_other) style="display: none" @endif>
+                                <div class="form-group" data-preim-descr
+                                     @if(!$page->premiya_other && empty(old('preim'))) style="display: none" @endif>
                                     <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input class="form-control" id="descrPreim" type="number" name="premiya_other" value="{{$page->premiya_other}}">
+                                    <input class="form-control" id="descrPreim" type="number" name="premiya_other"
+                                           value="{{$page->premiya_other}}">
                                 </div>
                             </div>
                         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ZalogTehnikaRequest;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductsTermsTranshes;
@@ -45,7 +46,7 @@ class ZalogTehnikaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ZalogTehnikaRequest $request)
     {
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
@@ -77,7 +78,12 @@ class ZalogTehnikaController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya', 'zalogodatel')->find($id);
+
+        $banks = Bank::all();
+        $agents = Agent::all();
+        $policySeries = PolicySeries::all();
+        return view('products.zalog.tehnika.show', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**
@@ -88,7 +94,7 @@ class ZalogTehnikaController extends Controller
      */
     public function edit($id)
     {
-        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya')->find($id);
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya', 'zalogodatel')->find($id);
 
         $banks = Bank::all();
         $agents = Agent::all();
@@ -103,9 +109,27 @@ class ZalogTehnikaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ZalogTehnikaRequest $request, $id)
     {
-        //
+        $product = Allproduct::findOrFail($id);
+        $policyHolders = PolicyHolder::updatePolicyHolders($product->policy_holder_id, $request);
+        if (!$policyHolders)
+            return back()->withInput()->withErrors([sprintf('Ошибка при обновлении PolicyHolders')]);
+        $policyBeneficiaries = PolicyBeneficiaries::updatePolicyBeneficiaries($product->policy_beneficiaries_id, $request);
+        if (!$policyBeneficiaries)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
+
+        $zalogodatel = Zalogodatel::updateZalogodatel($product->zalogodatel_id, $request);
+        if (!$zalogodatel)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $zalogodatel')]);
+
+        $product = Allproduct::updateAllProduct($id, $request);
+        if (!$product)
+            return back()->withInput()->withErrors([sprintf('Ошибка при обновлении $product')]);
+
+        AllProductImushestvoInfo::updateInfo($product, $request);
+        AllProductsTermsTranshes::updateTermsTranshes($product, $request);
+        return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 
     /**

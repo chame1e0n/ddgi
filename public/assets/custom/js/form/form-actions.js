@@ -629,11 +629,11 @@ const addPaymentSchedule = () => {
          <tr id="${id}" data-field-number="0">
             <td>
                 <input type="text" class="form-control"
-                       name="payment_sum[]">
+                       name="payment_sum[]" required>
             </td>
             <td>
                 <input type="date" class="form-control"
-                       name="payment_from[]">
+                       name="payment_from[]" required>
             </td>
             <td>
                 <input type="button" onclick="removeEl(${id})" value="Удалить" class="btn btn-warning">
