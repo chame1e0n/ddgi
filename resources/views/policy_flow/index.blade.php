@@ -48,7 +48,7 @@
                                         <a class="btn btn-success" href="{{ route('policy_retransfer.create') }}">Перераспределить</a>
                                     </div>
                                     <div class="col-md-2">
-                                        <a class="btn btn-success" href="#">Обновить</a>
+                                        <a class="btn btn-success" href="{{Illuminate\Support\Facades\URL::current()}}">Обновить</a>
                                     </div>
                                     <div class="col-md-2">
                                         <a class="btn btn-success" href="#">Export</a>
@@ -295,7 +295,6 @@
 @endsection
 @section('scripts')
     <script>
-        //Get employee by branch id
         $(document).ready(function () {
             $.ajax({
                 url: '{{route('getEmployees')}}',
@@ -307,6 +306,7 @@
                     let employees = $("#from_user");
                     employees.empty();
                     employees.append("<option> </option>");
+                    var selected = {{request('from_user_id') ?? 0}};
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['user_id'];
                         var name = response[i]['name'];
@@ -316,7 +316,7 @@
                         if (id === 0) {
                             employees.append("<option value='" + id + "' disabled='disabled'>" + name + "</option>");
                         } else {
-                            employees.append("<option value='" + id + "' @if(request('from_user_id')) selected @endif>" + surname + " " + name + " " + middle_name + "</option>");
+                            employees.append("<option value='" + id + "' " + (selected == id ? 'selected' : '')  + ">" + surname + " " + name + " " + middle_name + "</option>");
                         }
                     }
                 }
@@ -325,7 +325,6 @@
     </script>
 
     <script>
-        //Get employee by branch id
         $(document).ready(function () {
             $.ajax({
                 url: '{{route('getEmployees')}}',
@@ -337,6 +336,7 @@
                     let employees = $("#to_user");
                     employees.empty();
                     employees.append("<option> </option>");
+                    var selected = {{request('to_user_id') ?? 0}};
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['user_id'];
                         var name = response[i]['name'];
@@ -346,7 +346,7 @@
                         if (id === 0) {
                             employees.append("<option value='" + id + "' disabled='disabled'>" + name + "</option>");
                         } else {
-                            employees.append("<option value='" + id + "' @if(request('to_user_id')) selected @endif>" + surname + " " + name + " " + middle_name + "</option>");
+                            employees.append("<option value='" + id + "' " + (selected == id ? 'selected' : '')  + ">" + surname + " " + name + " " + middle_name + "</option>");
                         }
                     }
                 }

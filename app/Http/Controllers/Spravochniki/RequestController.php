@@ -37,7 +37,6 @@ class RequestController extends Controller
         $status = RequestModel::STATUS;
 
         $policySeries = PolicySeries::all();
-        $policySeries = PolicySeries::all();
 
         return view("spravochniki.request.create", compact('status', 'policySeries'));
     }
@@ -102,19 +101,13 @@ class RequestController extends Controller
      */
     public function show($id)
     {
-        $file_type = ["jpg", "jpeg", "bmp", "png"];
         $requestModel = RequestModel::findOrFail($id);
-
-        $filename = false;
-
-        if (empty($requestModel->file) != true && in_array(explode(".", $requestModel->file)[1], $file_type) == true) {
-            $filename = true;
-        }
+        $policySeries = PolicySeries::all();
 
         $status = RequestModel::STATUS[$requestModel->status];
 
 
-        return view('spravochniki.request.show', compact('requestModel', 'status', 'filename'));
+        return view('spravochniki.request.show', compact('requestModel', 'status', 'policySeries'));
     }
 
     /**

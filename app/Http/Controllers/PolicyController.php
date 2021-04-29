@@ -14,7 +14,7 @@ class PolicyController extends Controller
      */
     public function index()
     {
-        $policies = Policy::all();
+        $policies = Policy::filter()->get();
 
         return view('policy.index',compact('policies'));
     }
