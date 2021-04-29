@@ -26,11 +26,12 @@ class Allproduct extends Model
     {
         return $this->hasMany(AllProductsTermsTranshes::class, 'all_products_id');
     }
-    static function createAllProduct($request, $policy_holder_id, $policy_beneficiaries_id){
+    static function createAllProduct($request, $policy_holder_id, $policy_beneficiaries_id, $zalogodatel_id = null){
 
         $new = new Allproduct();
         $new->policy_holder_id = $policy_holder_id;
         $new->policy_beneficiaries_id = $policy_beneficiaries_id;
+        $new->zalogodatel_id = $zalogodatel_id;
         $new->unique_number = $request->unique_number;
         $new->insurance_from = $request->insurance_from;
         $new->nomer_dogovor_strah_vigod = $request->nomer_dogovor_strah_vigod;

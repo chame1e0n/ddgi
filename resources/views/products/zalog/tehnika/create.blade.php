@@ -2,7 +2,8 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="GET" id="mainFormKasko">
+    <form action="{{route('zalog-tehnika.store')}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
+        @csrf
         <div class="content-wrapper">
 
             <div class="content-header">
@@ -353,13 +354,13 @@
                                                     <label for="beneficiary-address" class="col-form-label">Адрес
                                                         залогодателя</label>
                                                     <input type="text" id="beneficiary-address"
-                                                           name="address_beneficiary" class="form-control" value="{{old('address_zalog')}}">
+                                                           name="address_zalog" class="form-control" value="{{old('address_zalog')}}">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input type="text" id="beneficiary-tel" name="tel_beneficiary"
+                                                    <input type="text" id="phone_zalog" name="phone_zalog"
                                                            class="form-control" value="{{old('phone_zalog')}}">
                                                 </div>
                                             </div>

@@ -58,7 +58,7 @@ class ZalogTehnikaController extends Controller
         if(!$newZalogodatel)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
 
-        $newProduct = Allproduct::createAllProduct($request,$newPolicyHolders->id, $newPolicyBeneficiaries->id);
+        $newProduct = Allproduct::createAllProduct($request,$newPolicyHolders->id, $newPolicyBeneficiaries->id, $newZalogodatel->id);
 
         AllProductImushestvoInfo::create($newProduct->id, $request);
         AllProductsTermsTranshes::create($newProduct->id, $request);
