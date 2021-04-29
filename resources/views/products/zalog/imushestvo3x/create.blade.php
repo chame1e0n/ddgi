@@ -10,7 +10,15 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -313,7 +321,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
-                                                    <input type="text" id="beneficiary-okonh" name="okonx_beneficiary" required class="form-control">
+                                                    <input type="text" id="beneficiary-okonh" name="okonx_beneficiary" value="{{old('okonx_beneficiary')}}" required class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -421,16 +429,16 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <input required type="text" class="form-control" name="name_property[]" value="{{old('name_property')}}">
+                                            <input required type="text" class="form-control" name="name_property[]" value="{{old('name_property.0')}}">
                                         </td>
                                         <td>
-                                            <input required type="text" class="form-control" name="place_property[]" value="{{old('place_property')}}">
+                                            <input required type="text" class="form-control" name="place_property[]" value="{{old('place_property.0')}}">
                                         </td>
                                         <td>
-                                            <input required type="date" class="form-control" name="date_of_issue_property[]" value="{{old('date_of_issue_property')}}">
+                                            <input required type="date" class="form-control" name="date_of_issue_property[]" value="{{old('date_of_issue_property.0')}}">
                                         </td>
                                         <td>
-                                            <input required type="text" class="form-control" name="count_property[]" value="{{old('count_property')}}">
+                                            <input required type="text" class="form-control" name="count_property[]" value="{{old('count_property.0')}}">
                                         </td>
                                         <td>
                                             <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;">
@@ -439,13 +447,13 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input required type="text" data-field="value" class="form-control" name="insurance_cost[]" value="{{old('insurance_cost')}}">
+                                            <input required type="text" data-field="value" class="form-control" name="insurance_cost[]" value="{{old('insurance_cost.0')}}">
                                         </td>
                                         <td>
-                                            <input required type="text" data-field="sum" class="form-control" name="insurance_sum[]" value="{{old('insurance_sum')}}">
+                                            <input required type="text" data-field="sum" class="form-control" name="insurance_sum[]" value="{{old('insurance_sum.0')}}">
                                         </td>
                                         <td>
-                                            <input required type="text" data-field="premiya" class="form-control" name="insurance_premium[]" value="{{old('insurance_premium')}}">
+                                            <input required type="text" data-field="premiya" class="form-control" name="insurance_premium[]" value="{{old('insurance_premium.0')}}">
                                         </td>
                                     </tr>
                                     </tbody>

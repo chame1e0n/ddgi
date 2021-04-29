@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ZalogIpotekaRequest;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductsTermsTranshes;
@@ -44,7 +45,7 @@ class ZalogIpotekaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ZalogIpotekaRequest $request)
     {
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
@@ -103,7 +104,7 @@ class ZalogIpotekaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ZalogIpotekaRequest $request, $id)
     {
         $product = Allproduct::findOrFail($id);
         $policyHolders = PolicyHolder::updatePolicyHolders($product->policy_holder_id, $request);

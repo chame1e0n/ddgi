@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Product;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ZalogImushestvo3xRequest;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductInformation;
@@ -41,8 +42,9 @@ class ZalogImushestvo3xController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(/*ZalogImushestvo3x*/Request $request)
+    public function store(ZalogImushestvo3xRequest $request)
     {
+
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
@@ -100,7 +102,7 @@ class ZalogImushestvo3xController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ZalogImushestvo3xRequest $request, $id)
     {
         $product = Allproduct::findOrFail($id);
         $policyHolders = PolicyHolder::updatePolicyHolders($product->policy_holder_id, $request);
