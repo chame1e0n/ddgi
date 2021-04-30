@@ -2041,62 +2041,64 @@ if (addAutozalogBtn) {
     addAutozalogBtn.onclick = () => {
         const id = Math.random();
         const field = `<tr id="a${fieldNumber}">
-        <td>
-            <input type="text" class="form-control" name="polis_mark[]">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis_model[]">
-        </td>
-        <td>
-            <input disabled type="date" class="form-control">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis_gos_num[]">
-        </td>
-        <td>
-            <input type="date" class="form-control" name="polis_teh_passport[]">
-        </td>
-        <td>
-            <input type="date" class="form-control" name="polis_num_engine[]">
-        </td>
-        <td>
-           <select class="form-control" id="polise_agents" name="agents[]" style="width: 100%;">
-                <option selected="selected"></option>
-            </select>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis_payload[]">
-        </td>
-        <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-         <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text" data-field="value" class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
-        </td>
-        <td>
-            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="polis_premium[]">
-        </td>
+<td>
+                                            <input type="text" class="form-control" name="policy_number[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="policy_series[]">
+                                        </td>
+                                        <td>
+                                            <input disabled="" type="date" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="god_vipuska[]">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" name="policy_insurance_from[]">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" name="policy_insurance_to[]">
+                                        </td>
+                                        <td>
+                                            <select class="form-control" id="polise_agents" name="otvet_litso[]" style="width: 100%;">
+                                                <option selected="selected"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="marka[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="model[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="modification[]">
+                                        </td>
+
+
+                                        <td>
+                                            <input type="text" class="form-control" name="gos_nomer[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="tex_passport[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="number_engine[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="number_kuzov[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="gryzopodemnost[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="value" class="form-control" name="strah_stoimost[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="strah_sum[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="premiya" class="form-control insurance_premium-0" name="strah_prem[]">
+                                        </td>
          <td>
             <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
         </td>

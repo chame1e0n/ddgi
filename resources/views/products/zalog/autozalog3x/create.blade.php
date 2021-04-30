@@ -341,323 +341,263 @@
                 <div class="card-body">
                     <div id="anketa-fields">
                         <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="dogovor_num" class="col-form-label">Номер договора</label>
-                                    <input type="text" id="dogovor_num" name="unique_number" value="{{old('unique_number')}}" @if($errors->has('unique_number'))
-                                    class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                        @endif>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <label for="dogovor_date" class="col-form-label">Дата договора</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">с</span>
-                                    </div>
-                                    <input id="dogovor_date" name="insurance_from" value="{{old('insurance_from')}}" type="date" @if($errors->has('insurance_from'))
-                                    class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                        @endif>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="dogovor-strah-vigod-num" class="col-form-label">Номер кредитного договора</label>
-                                    <input required type="text" id="dogovor-lizing-num" name="credit_dogovor_number" value="{{old('credit_dogovor_number')}}" @if($errors->has('credit_dogovor_number'))
-                                    class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                        @endif>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="dogovor-strah-vigod-date" class="col-form-label">Период кредитного договора</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">с</span>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="dogovor-num-strah" class="col-form-label">Номер договора
+                                                страхования</label>
+                                            <input type="text" id="unique_number" name="unique_number" class="form-control @if($errors->has('unique_number')) is-invalid @endif" value="{{old('unique_number')}}">
                                         </div>
-                                        <input id="dogovor_date" name="dogovor_date_from" value="{{old('dogovor_date_from')}}" type="date" @if($errors->has('dogovor_date_from'))
-                                        class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="dogovor-strah-vigod-date" class="col-form-label">Период кредитного договора</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">до</span>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="date_dogovor_strah" class="col-form-label">Дата договора
+                                                страхования</label>
+                                            <input id="dogovor_zalog_date_to" name="insurence_from" type="date" value="{{old('insurence_from')}}"
+                                                   class="form-control @if($errors->has('insurence_from')) is-invalid @endif">
                                         </div>
-                                        <input id="dogovor_date" name="dogovor_date_to" value="{{old('dogovor_date_to')}}" type="date" @if($errors->has('dogovor_date_to'))
-                                        class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif>
                                     </div>
-                                </div>
-                            </div>
-{{--                            TODO TYT--}}
-                            <div class="col-md-6">
-                                <label for="period_date" class="col-form-label">Период страхования</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">с</span>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="dogovor-num" class="col-form-label">Номер кредитного
+                                                договора</label>
+                                            <input id="loan_reason" name="credit_dogovor_number" type="text"
+                                                   class="form-control @if($errors->has('credit_dogovor_number')) is-invalid @endif" value="{{old('credit_dogovor_number')}}">
+                                        </div>
                                     </div>
-                                    <input required id="period_date" name="object_from_date" value="{{old('object_from_date')}}" type="date" @if($errors->has('object_from_date'))
-                                    class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                        @endif>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="period_date" class="col-form-label">Период страхования</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">до</span>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="period_kredit_dogovor_from">Период кредитного договора</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">с</span>
+                                                </div>
+                                                <input id="credit_insurance_from" name="credit_insurance_from" type="date" value="{{old('credit_insurance_from')}}"
+                                                       class="form-control @if($errors->has('credit_insurance_from')) is-invalid @endif">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <input required id="period_date" name="object_to_date" value="{{old('object_to_date')}}" type="date" @if($errors->has('object_to_date'))
-                                    class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                        @endif>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="osnovanie_otsenki" class="col-form-label">Основание для оценки</label>
-                                    <input required type="text" id="osnovanie_otsenki" name="ocenka_osnovaniya" value="{{old('ocenka_osnovaniya')}}" @if($errors->has('ocenka_osnovaniya'))
-                                    class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                        @endif>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="geo" class="col-form-label">Местонахождение</label>
-                                    <input required type="text" id="geo" name="location" value="{{old('location')}}" @if($errors->has('location'))
-                                    class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                        @endif>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="period_kredit_dogovor_to">Период кредитного договора</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">до</span>
+                                                </div>
+                                                <input id="credit_insurance_to" name="credit_insurance_to" type="date" value="{{old('credit_insurance_to')}}"
+                                                       class="form-control @if($errors->has('credit_insurance_to')) is-invalid @endif">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="period_strah_from">Период страхования</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">с</span>
+                                                </div>
+                                                <input id="object_from_date" name="object_from_date" type="date"
+                                                       class="form-control @if($errors->has('object_from_date')) is-invalid @endif" value="{{old('object_from_date')}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="period_strah_to">Период страхования</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">до</span>
+                                                </div>
+                                                <input id="object_to_date" name="object_to_date" type="date"
+                                                       class="form-control @if($errors->has('object_to_date')) is-invalid @endif" value="{{old('object_to_date')}}">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Сведения о имуществе</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <button type="button" id="addProperty" class="btn btn-primary ">Добавить</button>
-                        </div>
-                        <div class="table-responsive p-0 " style="max-height: 300px;">
-                            <div id="product-fields" class="product-fields" data-field-number="0">
-                                <table data-info-table="" class="table table-hover table-head-fixed" id="empTable">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-nowrap">Наименование Имущества</th>
-                                        <th class="text-nowrap">Местонахождения имущества</th>
-                                        <th class="text-nowrap">Дата выдачи</th>
-                                        <th class="text-nowrap">Кол-во</th>
-                                        <th class="text-nowrap">Единицы измерения</th>
-                                        <th class="text-nowrap">Страховая стоимость</th>
-                                        <th class="text-nowrap">Страховая сумма</th>
-                                        <th class="text-nowrap">Страховая премия</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <input required type="text" @if($errors->has('name_property.0'))
-                                            class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                   @endif name="name_property[]" value="{{old('name_property.0')}}">
-                                        </td>
-                                        <td>
-                                            <input required type="text" @if($errors->has('place_property.0'))
-                                            class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                   @endif name="place_property[]" value="{{old('place_property.0')}}">
-                                        </td>
-                                        <td>
-                                            <input required type="date" @if($errors->has('date_of_issue_property.0'))
-                                            class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                   @endif name="date_of_issue_property[]" value="{{old('date_of_issue_property.0')}}">
-                                        </td>
-                                        <td>
-                                            <input required type="text" @if($errors->has('count_property.0'))
-                                            class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                   @endif name="count_property[]" value="{{old('count_property.0')}}">
-                                        </td>
-                                        <td>
-                                            <select @if($errors->has('units_property.0'))
-                                                    class="form-control polises is-invalid"
-                                                    @else
-                                                    class="form-control polises"
-                                                    @endif id="polises" name="units_property[]" style="width: 100%;">
-                                                <option selected="selected" value="1">Кв.м</option>
-                                                <option value="2">Кв.см</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input required type="text" data-field="value" @if($errors->has('insurance_cost.0'))
-                                            class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                   @endif name="insurance_cost[]" value="{{old('insurance_cost.0')}}">
-                                        </td>
-                                        <td>
-                                            <input required type="text" data-field="sum" @if($errors->has('insurance_sum.0'))
-                                            class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                   @endif name="insurance_sum[]" value="{{old('insurance_sum.0')}}">
-                                        </td>
-                                        <td>
-                                            <input required type="text" data-field="premiya" @if($errors->has('insurance_premium.0'))
-                                            class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                   @endif name="insurance_premium[]" value="{{old('insurance_premium.0')}}">
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                    <tr>
-                                        <td colspan="5" style="text-align: right"><label class="text-bold">Итого</label></td>
-                                        <td><input required readonly data-insurance-stoimost type="text" class="form-control overall-sum" /></td>
-                                        <td><input required readonly data-insurance-sum type="text" class="form-control overall-sum4" /></td>
-                                        <td><input required readonly data-insurance-award type="text" class="form-control overall-sum3" /></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Наличие пожарной сигнализации и средств пожаротушения</label>
-                                    <div class="row">
-                                        <div class="col-sm-1">
-                                            <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')" type="radio" class="other_insurance-0" name="fire_alarm_file"  @if(old('fire_alarm_file')) checked @endif id="radioSuccess1">
-                                                <label for="radioSuccess1">Да</label>
-                                            </div>
-                                            <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)" type="radio" class="other_insurance-0" name="fire_alarm_file"  id="radioSuccess2" value="0">
-                                                <label for="radioSuccess2">Нет</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div data-radiosuccess2="" style="display: none;" class="form-group other_insurance_info-0">
-                                    <label>Прикрепите сертификат</label>
-                                    <input @if($errors->has('fire_alarm_file'))
-                                           class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                           @endif type="file" name="fire_alarm_file" value="{{old('fire_alarm_file')}}">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Наличие охранной сигнализации и средств защиты/охраны</label>
-                                    <div class="row">
-                                        <div class="col-sm-1">
-                                            <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')" type="radio" class="other_insurance-0" @if(old('security_file')) checked @endif name="security_file" id="radioSuccess1-0" >
-                                                <label for="radioSuccess1-0">Да</label>
-                                            </div>
-                                            <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)" type="radio" class="other_insurance-0"  name="security_file"   id="radioSuccess2-0">
-                                                <label for="radioSuccess2-0">Нет</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div data-radiosuccess1="" style="display: none;" class="form-group other_insurance_info">
-                                    <label>Прикрепите сертификат</label>
-                                    <input @if($errors->has('security_file'))
-                                           class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                           @endif type="file" name="security_file" value="{{old('security_file')}}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
                 <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
+                    <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Франшиза</h3>
+                            <h3 class="card-title">Сведение о тс</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="summ-1">% от страховой суммы по риску землетрясения и пожара по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
-                                        <input required type="text" id="summ-1" name="franshize_percent_1" @if($errors->has('franshize_percent_1'))
-                                        class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif value="{{old('franshize_percent_1')}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="summ-2">% от страховой суммы по риску противоправные действия третьих лиц по каждому убытку и/или по всем убыткам в результате каждого страхового случая</label>
-                                        <input required type="text" id="summ-2" name="franshize_percent_2" @if($errors->has('franshize_percent_2'))
-                                        class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif value="{{old('franshize_percent_2')}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="geographic-zone">% от страховой суммы по другим рискам по каждому <br> убытку и/или по всем убыткам в результате каждого <br> страхового случая</label>
-                                        <input required type="text" id="geographic-zone" name="franshize_percent_3" @if($errors->has('franshize_percent_3'))
-                                        class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif value="{{old('franshize_percent_3')}}">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <button type="button" id="addAutozalogBtn" class="btn btn-primary ">Добавить</button>
+                            </div>
+                        <div class="table-responsive p-0 " style="max-height: 300px;" >
+                            <div id="product-fields" data-info-table class="product-fields" data-field-number="0">
+                                <table class="table table-hover table-head-fixed" id="empTable1">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-nowrap">Номер полиса</th>
+                                        <th class="text-nowrap">Серия полиса</th>
+                                        <th class="text-nowrap">Дата выдачи</th>
+                                        <th class="text-nowrap">Год выпуска</th>
+                                        <th class="text-nowrap">Периуд действия от</th>
+                                        <th class="text-nowrap">Периуд действия до</th>
+                                        <th class="text-nowrap">Выбор агента</th>
+                                        <th class="text-nowrap">Марка</th>
+                                        <th class="text-nowrap">Модель</th>
+                                        <th class="text-nowrap">Модификация</th>
+                                        <th class="text-nowrap">Гос. номер</th>
+                                        <th class="text-nowrap">Номер тех паспорта</th>
+                                        <th class="text-nowrap">Номер двигателя</th>
+                                        <th class="text-nowrap">Номер кузова</th>
+                                        <th class="text-nowrap">Грузоподмность</th>
+                                        <th class="text-nowrap">Страховая стоимость</th>
+                                        <th class="text-nowrap">Страховая сумма</th>
+                                        <th class="text-nowrap">Страховая премия</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr id="a0">
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('object_to_date')) is-invalid @endif" value="{{old('policy_number.0')}}" name="policy_number[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('policy_series.0')) is-invalid @endif" value="{{old('policy_series.0')}}" name="policy_series[]">
+                                        </td>
+                                        <td>
+                                            <input disabled="" type="date" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('god_vipuska.0')) is-invalid @endif" value="{{old('god_vipuska.0')}}" name="god_vipuska[]">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control @if($errors->has('policy_insurance_from.0')) is-invalid @endif" value="{{old('policy_insurance_from.0')}}" name="policy_insurance_from[]">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control @if($errors->has('policy_insurance_to.0')) is-invalid @endif" value="{{old('policy_insurance_to.0')}}" name="policy_insurance_to[]">
+                                        </td>
+                                        <td>
+                                            <select class="form-control @if($errors->has('otvet_litso.0')) is-invalid @endif"  id="polise_agents" name="otvet_litso[]" style="width: 100%;">
+                                                <option selected="selected"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('marka.0')) is-invalid @endif" value="{{old('marka.0')}}" name="marka[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('model.0')) is-invalid @endif" value="{{old('model.0')}}" name="model[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('modification.0')) is-invalid @endif" value="{{old('modification.0')}}" name="modification[]">
+                                        </td>
+
+
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('gos_nomer.0')) is-invalid @endif" value="{{old('gos_nomer.0')}}" name="gos_nomer[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('tex_passport.0')) is-invalid @endif" value="{{old('tex_passport.0')}}" name="tex_passport[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('number_engine.0')) is-invalid @endif" value="{{old('number_engine.0')}}" name="number_engine[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('number_kuzov.0')) is-invalid @endif" value="{{old('number_kuzov.0')}}" name="number_kuzov[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control @if($errors->has('gryzopodemnost.0')) is-invalid @endif" value="{{old('gryzopodemnost.0')}}" name="gryzopodemnost[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="value" class="form-control @if($errors->has('strah_stoimost.0')) is-invalid @endif" value="{{old('strah_stoimost.0')}}" name="strah_stoimost[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0 @if($errors->has('strah_sum.0')) is-invalid @endif" value="{{old('strah_sum.0')}}" name="strah_sum[]">
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="premiya" class="form-control insurance_premium-0 @if($errors->has('strah_prem.0')) is-invalid @endif" value="{{old('strah_prem.0')}}" name="strah_prem[]">
+                                        </td>
+                                        <td>
+                                            <input type="button" onclick="removeProductsFieldRow(0)" value="Удалить" class="btn btn-warning">
+                                        </td>
+                                    </tr></tbody>
+                                    <tbody>
+                                    <tr></tr>
+                                    <tr>
+                                        <td colspan="15" style="text-align: right"><label class="text-bold">Итого</label></td>
+                                        <td><input readonly data-insurance-stoimost type="text" class="form-control overall-sum" /></td>
+                                        <td><input readonly data-insurance-sum type="text" class="form-control overall-sum4" /></td>
+                                        <td><input readonly data-insurance-award type="text" class="form-control overall-sum3" /></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>При наружном осмотре ТС дефекты и повреждения? </label>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <div class="checkbox icheck-success">
+                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')" type="radio" class="other_insurance-0" name="deffects" id="radioSuccess1" value="1">
+                                                <label for="radioSuccess1">Да</label>
+                                            </div>
+                                            <div class="checkbox icheck-success">
+                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)" type="radio" class="other_insurance-0" name="deffects" id="radioSuccess2" value="0">
+                                                <label for="radioSuccess2">Нет</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div data-radiosuccess2="" class="col-md-12" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group other_insurance_info-0">
+                                            <label>Комментарий</label>
+                                            <input class="form-control" type="text" name="deffects_comment">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group other_insurance_info-0">
+                                            <label>Прикрепите фотографии</label>
+                                            <input class="form-control" type="file" name="deffects_photo">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Застрахованы ли автотранспортные средства на момент заполнения настоящей анкеты? </label>
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <div class="checkbox icheck-success">
+                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')" type="radio" class="other_insurance-0" name="strtahovka" id="radioSuccess1-0" value="1">
+                                                <label for="radioSuccess1-0">Да</label>
+                                            </div>
+                                            <div class="checkbox icheck-success">
+                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)" type="radio" class="other_insurance-0" name="strtahovka" id="radioSuccess2-0" value="0">
+                                                <label for="radioSuccess2-0">Нет</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-radiosuccess1="" class="form-group other_insurance_info" style="display: none;">
+                                    <label for="strtahovka_info">Комментарий</label>
+                                    <input id="strtahovka_info" class="form-control" type="text" name="strtahovka_info">
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
+
+                    </div>
+
 
                 <div class="card card-success">
                     <div class="card-header">
