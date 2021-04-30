@@ -66,7 +66,7 @@ class ZalogAutozalogMnogostoronniyController extends Controller
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newProduct')]);
 
 
-        return redirect()->route('zalog-tehnika.edit', $newProduct->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('zalog-autozalog-mnogostoronniy.edit', $newProduct->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -88,7 +88,12 @@ class ZalogAutozalogMnogostoronniyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya', 'zalogodatel')->find($id);
+
+        $banks = Bank::all();
+        $agents = Agent::all();
+        $policySeries = PolicySeries::all();
+        return view('products.zalog.autozalog-mnogostoronniy.edit', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**

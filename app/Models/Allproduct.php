@@ -108,6 +108,9 @@ class Allproduct extends Model
         $new->zalog_unique_number     = $request->zalog_unique_number;
         $new->loan_reason     = $request->loan_reason;
 
+        $new->insurance_from     = $request->insurance_from;
+        $new->credit_dogovor_number     = $request->credit_dogovor_number;
+        $new->geo_zone     = $request->geo_zone;
         $new->save();
         return $new;
     }
@@ -185,6 +188,10 @@ class Allproduct extends Model
         $new->strtahovka_comment     = $request->strtahovka_comment;
         $new->zalog_unique_number     = $request->zalog_unique_number;
         $new->loan_reason     = $request->loan_reason;
+
+        $new->insurance_from     = $request->insurance_from;
+        $new->credit_dogovor_number     = $request->credit_dogovor_number;
+        $new->geo_zone     = $request->geo_zone;
 
         if(empty($request->tarif))
         {
