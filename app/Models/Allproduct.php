@@ -195,6 +195,16 @@ class Allproduct extends Model
             $new->premiya_other = null;
         }
 
+        if($request->fire_alarm_file_check == 0)
+        {
+            $new->fire_alarm_file = null;
+        }
+
+        if($request->security_file_check == 0)
+        {
+            $new->security_file = null;
+        }
+
         $new->save();
         return $new;
     }

@@ -95,6 +95,9 @@ class ZalogTehnikaRequest extends FormRequest
             'object_from_date' => 'required',
             'object_to_date' => 'required',
             'loan_reason' => 'required',
+
+            'security_file' => 'required_if:security_file_check,1',
+            'fire_alarm_file' => 'required_if:fire_alarm_file_check,1',
         ];
     }
 }

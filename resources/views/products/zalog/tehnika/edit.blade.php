@@ -665,14 +665,15 @@
                                             <div class="checkbox icheck-success">
                                                 <input
                                                     onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')"
-                                                    type="radio" class="other_insurance-0" name="fire_alarm_file"
-                                                    @if($page->fire_alarm_file) checked @endif id="radioSuccess1">
+                                                    type="radio" class="other_insurance-0" name="fire_alarm_file_check"
+                                                    @if($page->fire_alarm_file) checked @endif id="radioSuccess1" @if($page->fire_alarm_file == null)  value="1"
+                                                    @else   value="2" @endif>
                                                 <label for="radioSuccess1">Да</label>
                                             </div>
                                             <div class="checkbox icheck-success">
                                                 <input
                                                     onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)"
-                                                    type="radio" class="other_insurance-0" name="fire_alarm_file"
+                                                    type="radio" class="other_insurance-0" name="fire_alarm_file_check"
                                                     @if($page->fire_alarm_file == null) checked
                                                     @endif id="radioSuccess2" value="0">
                                                 <label for="radioSuccess2">Нет</label>
@@ -683,7 +684,7 @@
                                 <div data-radiosuccess2="" @if(!$page->fire_alarm_file) style="display: none;"
                                      @endif class="form-group other_insurance_info-0">
                                     <label>Прикрепите сертификат</label>
-                                    <input class="form-control" type="file" name="fire_alarm_file">
+                                    <input class="form-control" type="file" name="fire_alarm_file" value="{{$page->fire_alarm_file}}">
                                     @if($page->fire_alarm_file)  <a
                                         href="/storage/{{$page->fire_alarm_file}}">Скачать</a> @endif
                                 </div>
@@ -697,8 +698,9 @@
                                                 <input
                                                     onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')"
                                                     type="radio" class="other_insurance-0"
-                                                    @if($page->security_file) checked @endif name="security_file"
-                                                    id="radioSuccess1-0">
+                                                    @if($page->security_file) checked @endif name="security_file_check"
+                                                    id="radioSuccess1-0" @if($page->security_file == null) value="1"
+                                                    @else   value="2" @endif>
                                                 <label for="radioSuccess1-0">Да</label>
                                             </div>
                                             <div class="checkbox icheck-success">
@@ -706,7 +708,7 @@
                                                     onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)"
                                                     type="radio" class="other_insurance-0"
                                                     @if($page->security_file == null) checked
-                                                    @endif name="security_file" id="radioSuccess2-0">
+                                                    @endif name="security_file_check" id="radioSuccess2-0" value="0">
                                                 <label for="radioSuccess2-0">Нет</label>
                                             </div>
                                         </div>
@@ -715,7 +717,7 @@
                                 <div data-radiosuccess1="" @if(!$page->security_file) style="display: none;"
                                      @endif class="form-group other_insurance_info">
                                     <label>Прикрепите сертификат</label>
-                                    <input class="form-control" type="file" name="security_file">
+                                    <input class="form-control" type="file" name="security_file" value="{{$page->security_file}}">
                                     @if($page->fire_alarm_file)<a
                                         href="/storage/{{$page->security_file}}">Скачать</a> @endif
                                 </div>
