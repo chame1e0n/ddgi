@@ -26,6 +26,11 @@ class Allproduct extends Model
     {
         return $this->hasMany(AllProductsTermsTranshes::class, 'all_products_id');
     }
+
+    public function zalogodatel()
+    {
+        return $this->belongsTo(Zalogodatel::class, 'zalogodatel_id');
+    }
     static function createAllProduct($request, $policy_holder_id, $policy_beneficiaries_id, $zalogodatel_id = null){
 
         $new = new Allproduct();
@@ -154,6 +159,7 @@ class Allproduct extends Model
             $image          = $request->file('other_copy')->store('/img/ZalogImushestvo3x', 'public');
             $new->other_copy   = $image;
         }
+
         $new->franshize_percent_1 = $request->franshize_percent_1;
         $new->franshize_percent_2 = $request->franshize_percent_2;
         $new->franshize_percent_3 = $request->franshize_percent_3;
@@ -179,6 +185,15 @@ class Allproduct extends Model
         $new->strtahovka_comment     = $request->strtahovka_comment;
         $new->zalog_unique_number     = $request->zalog_unique_number;
         $new->loan_reason     = $request->loan_reason;
+
+        if(empty($request->tarif))
+        {
+            $new->tarif_other = null;
+        }
+        if(empty($request->preim))
+        {
+            $new->premiya_other = null;
+        }
 
         $new->save();
         return $new;
