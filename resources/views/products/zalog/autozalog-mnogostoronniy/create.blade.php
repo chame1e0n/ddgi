@@ -460,8 +460,8 @@
                                         <div class="form-group">
                                             <label for="date_dogovor_strah" class="col-form-label">Дата договора
                                                 страхования</label>
-                                            <input id="dogovor_zalog_date_to" name="insurence_from" type="date" value="{{old('insurence_from')}}"
-                                                   class="form-control @if($errors->has('insurence_from')) is-invalid @endif">
+                                            <input id="dogovor_zalog_date_to" name="insurance_from" type="date" value="{{old('insurance_from')}}"
+                                                   class="form-control @if($errors->has('insurance_from')) is-invalid @endif">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
