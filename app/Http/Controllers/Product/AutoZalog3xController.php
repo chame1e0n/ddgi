@@ -74,7 +74,13 @@ class AutoZalog3xController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya', 'zalogodatel')->find($id);
+
+        $banks = Bank::all();
+        $agents = Agent::all();
+        $policySeries = PolicySeries::all();
+        return view('products.zalog.autozalog3x.show', compact('banks', 'agents', 'page', 'policySeries'));
+
     }
 
     /**

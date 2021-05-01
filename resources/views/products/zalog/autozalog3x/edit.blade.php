@@ -473,52 +473,82 @@
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 <div class="checkbox icheck-success">
-                                                    <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')" type="radio" class="other_insurance-0" name="deffects" id="radioSuccess1" value="1">
+                                                    <input @if($page->defect_image && $page->defect_comment) checked @endif
+                                                    onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')"
+                                                           type="radio" class="other_insurance-0" name="deffects"
+                                                           id="radioSuccess1" @if($page->defect_image == null && $page->defect_comment == null) value="1"
+                                                           @else   value="2" @endif>
                                                     <label for="radioSuccess1">Да</label>
                                                 </div>
                                                 <div class="checkbox icheck-success">
-                                                    <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)" type="radio" class="other_insurance-0" name="deffects" id="radioSuccess2" value="0">
+                                                    <input
+                                                        onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)"
+                                                        type="radio" class="other_insurance-0" name="deffects"
+                                                        id="radioSuccess2" value="0" @if($page->defect_image == null || $page->defect_comment == null) checked
+                                                        @endif >
                                                     <label for="radioSuccess2">Нет</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div data-radiosuccess2="" class="col-md-12" style="display: none;">
+                                <div data-radiosuccess2="" class="col-md-12" @if(!$page->defect_comment || !$page->defect_image) style="display: none;"
+                                    @endif >
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group other_insurance_info-0">
                                                 <label>Комментарий</label>
-                                                <input class="form-control" type="text" name="deffects_comment">
+                                                <input class="form-control @if($errors->has('defect_comment')) is-invalid @endif" type="text" name="defect_comment"
+                                                       value="{{$page->defect_comment}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group other_insurance_info-0">
                                                 <label>Прикрепите фотографии</label>
-                                                <input class="form-control" type="file" name="deffects_photo">
+                                                <input id="defect_image" name="defect_image"
+                                                       value="{{$page->defect_image}}"
+                                                       type="file" @if($errors->has('defect_image'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
+                                                @if($page->defect_image)  <a
+                                                    href="/storage/{{$page->defect_image}}">Скачать</a> @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Застрахованы ли автотранспортные средства на момент заполнения настоящей анкеты? </label>
+                                        <label>Застрахованы ли автотранспортные средства на момент заполнения настоящей
+                                            анкеты? </label>
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 <div class="checkbox icheck-success">
-                                                    <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')" type="radio" class="other_insurance-0" name="strtahovka" id="radioSuccess1-0" value="1">
+                                                    <input @if($page->strtahovka_comment || !empty(old('strtahovka_comment'))) checked @endif
+                                                    onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')"
+                                                           type="radio" class="other_insurance-0" name="strtahovka"
+                                                           id="radioSuccess1-0" @if($page->strtahovka_comment == null) value="1"
+                                                           @else   value="2" @endif>
                                                     <label for="radioSuccess1-0">Да</label>
                                                 </div>
                                                 <div class="checkbox icheck-success">
-                                                    <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)" type="radio" class="other_insurance-0" name="strtahovka" id="radioSuccess2-0" value="0">
+                                                    <input
+                                                        onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)"
+                                                        type="radio" class="other_insurance-0" name="strtahovka"
+                                                        id="radioSuccess2-0" value="0" @if($page->strtahovka_comment == null) checked
+                                                        @endif>
                                                     <label for="radioSuccess2-0">Нет</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div data-radiosuccess1="" class="form-group other_insurance_info" style="display: none;">
+                                    <div data-radiosuccess1="" class="form-group other_insurance_info"
+                                         @if(!$page->strtahovka_comment) style="display: none;"
+                                        @endif>
                                         <label for="strtahovka_info">Комментарий</label>
-                                        <input id="strtahovka_info" class="form-control" type="text" name="strtahovka_info">
+                                        <input id="strtahovka_info" class="form-control @if($errors->has('strtahovka_comment')) is-invalid @endif" type="text"
+                                               name="strtahovka_comment" value="{{$page->strtahovka_comment}}">
                                     </div>
                                 </div>
                             </div>

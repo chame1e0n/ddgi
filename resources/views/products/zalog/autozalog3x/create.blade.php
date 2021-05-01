@@ -546,11 +546,17 @@
                                     <div class="row">
                                         <div class="col-sm-1">
                                             <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')" type="radio" class="other_insurance-0" name="deffects" id="radioSuccess1" value="1">
+                                                <input
+                                                    onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')"
+                                                    type="radio" class="other_insurance-0" name="deffects"
+                                                    id="radioSuccess1" value="1">
                                                 <label for="radioSuccess1">Да</label>
                                             </div>
                                             <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)" type="radio" class="other_insurance-0" name="deffects" id="radioSuccess2" value="0">
+                                                <input
+                                                    onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)"
+                                                    type="radio" class="other_insurance-0" name="deffects"
+                                                    id="radioSuccess2" value="0">
                                                 <label for="radioSuccess2">Нет</label>
                                             </div>
                                         </div>
@@ -575,23 +581,32 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Застрахованы ли автотранспортные средства на момент заполнения настоящей анкеты? </label>
+                                    <label>Застрахованы ли автотранспортные средства на момент заполнения настоящей
+                                        анкеты? </label>
                                     <div class="row">
                                         <div class="col-sm-1">
                                             <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')" type="radio" class="other_insurance-0" name="strtahovka" id="radioSuccess1-0" value="1">
+                                                <input
+                                                    onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')"
+                                                    type="radio" class="other_insurance-0" name="strtahovka"
+                                                    id="radioSuccess1-0" value="1">
                                                 <label for="radioSuccess1-0">Да</label>
                                             </div>
                                             <div class="checkbox icheck-success">
-                                                <input onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)" type="radio" class="other_insurance-0" name="strtahovka" id="radioSuccess2-0" value="0">
+                                                <input
+                                                    onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)"
+                                                    type="radio" class="other_insurance-0" name="strtahovka"
+                                                    id="radioSuccess2-0" value="0">
                                                 <label for="radioSuccess2-0">Нет</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div data-radiosuccess1="" class="form-group other_insurance_info" style="display: none;">
+                                <div data-radiosuccess1="" class="form-group other_insurance_info"
+                                     style="display: none;">
                                     <label for="strtahovka_info">Комментарий</label>
-                                    <input id="strtahovka_info" class="form-control" type="text" name="strtahovka_info">
+                                    <input id="strtahovka_info" class="form-control" type="text"
+                                           name="strtahovka_info">
                                 </div>
                             </div>
                         </div>
