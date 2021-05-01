@@ -131,6 +131,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('zalog/ipoteka', 'Product\ZalogIpotekaController')->names('zalog-ipoteka');
     Route::resource('zalog/tehnika', 'Product\ZalogTehnikaController')->names('zalog-tehnika');
     Route::resource('zalog/autozalog-mnogostoronniy', 'Product\ZalogAutozalogMnogostoronniyController')->names('zalog-autozalog-mnogostoronniy');
+    Route::resource('zalog/autozalog3x', 'Product\AutoZalog3xController')->names('zalog-autozalog3x');
+
 });
 
 Auth::routes();
