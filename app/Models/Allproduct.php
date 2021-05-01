@@ -46,41 +46,45 @@ class Allproduct extends Model
         $new->ocenka_osnovaniya = $request->ocenka_osnovaniya;
         $new->location = $request->location;
         if ($request->hasFile('fire_alarm_file')) {
-            $image          = $request->file('fire_alarm_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('fire_alarm_file')->store('/img/newProducts', 'public');
             $new->fire_alarm_file   = $image;
         }
         if ($request->hasFile('security_file')) {
-            $image          = $request->file('security_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('security_file')->store('/img/newProducts', 'public');
             $new->security_file   = $image;
         }
         if ($request->hasFile('contract_file')) {
-            $image          = $request->file('contract_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('contract_file')->store('/img/newProducts', 'public');
             $new->contract_file   = $image;
         }
         if ($request->hasFile('policy_file')) {
-            $image          = $request->file('policy_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('policy_file')->store('/img/newProducts', 'public');
             $new->policy_file   = $image;
         }
         if ($request->hasFile('application_form_file')) {
-            $image          = $request->file('application_form_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('application_form_file')->store('/img/newProducts', 'public');
             $new->application_form_file   = $image;
         }
 
         if ($request->hasFile('passport_copy')) {
-            $image          = $request->file('passport_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('passport_copy')->store('/img/newProducts', 'public');
             $new->passport_copy   = $image;
         }
         if ($request->hasFile('dogovor_copy')) {
-            $image          = $request->file('dogovor_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('dogovor_copy')->store('/img/newProducts', 'public');
             $new->dogovor_copy   = $image;
         }
         if ($request->hasFile('spravka_copy')) {
-            $image          = $request->file('spravka_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('spravka_copy')->store('/img/newProducts', 'public');
             $new->spravka_copy   = $image;
         }
         if ($request->hasFile('other_copy')) {
-            $image          = $request->file('other_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('other_copy')->store('/img/newProducts', 'public');
             $new->other_copy   = $image;
+        }
+        if ($request->hasFile('defect_image')) {
+            $image          = $request->file('defect_image')->store('/img/newProducts', 'public');
+            $new->defect_image   = $image;
         }
         $new->franshize_percent_1 = $request->franshize_percent_1;
         $new->franshize_percent_2 = $request->franshize_percent_2;
@@ -103,7 +107,6 @@ class Allproduct extends Model
         $new->credit_insurance_from     = $request->credit_insurance_from;
         $new->credit_insurance_to     = $request->credit_insurance_to;
         $new->defect_comment     = $request->defect_comment;
-        $new->defect_image     = $request->defect_image;
         $new->strtahovka_comment     = $request->strtahovka_comment;
         $new->zalog_unique_number     = $request->zalog_unique_number;
         $new->loan_reason     = $request->loan_reason;
@@ -111,6 +114,10 @@ class Allproduct extends Model
         $new->insurance_from     = $request->insurance_from;
         $new->credit_dogovor_number     = $request->credit_dogovor_number;
         $new->geo_zone     = $request->geo_zone;
+
+        $new->defect_comment     = $request->defect_comment;
+        $new->strtahovka_comment     = $request->defect_comment;
+
         $new->save();
         return $new;
     }
@@ -126,41 +133,45 @@ class Allproduct extends Model
         $new->location = $request->location;
         $new->type = $request->client_type_radio;
         if ($request->hasFile('fire_alarm_file')) {
-            $image          = $request->file('fire_alarm_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('fire_alarm_file')->store('/img/newProducts', 'public');
             $new->fire_alarm_file   = $image;
         }
         if ($request->hasFile('security_file')) {
-            $image          = $request->file('security_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('security_file')->store('/img/newProducts', 'public');
             $new->security_file   = $image;
         }
         if ($request->hasFile('contract_file')) {
-            $image          = $request->file('contract_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('contract_file')->store('/img/newProducts', 'public');
             $new->contract_file   = $image;
         }
         if ($request->hasFile('policy_file')) {
-            $image          = $request->file('policy_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('policy_file')->store('/img/newProducts', 'public');
             $new->policy_file   = $image;
         }
         if ($request->hasFile('application_form_file')) {
-            $image          = $request->file('application_form_file')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('application_form_file')->store('/img/newProducts', 'public');
             $new->application_form_file   = $image;
         }
 
         if ($request->hasFile('passport_copy')) {
-            $image          = $request->file('passport_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('passport_copy')->store('/img/newProducts', 'public');
             $new->passport_copy   = $image;
         }
         if ($request->hasFile('dogovor_copy')) {
-            $image          = $request->file('dogovor_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('dogovor_copy')->store('/img/newProducts', 'public');
             $new->dogovor_copy   = $image;
         }
         if ($request->hasFile('spravka_copy')) {
-            $image          = $request->file('spravka_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('spravka_copy')->store('/img/newProducts', 'public');
             $new->spravka_copy   = $image;
         }
         if ($request->hasFile('other_copy')) {
-            $image          = $request->file('other_copy')->store('/img/ZalogImushestvo3x', 'public');
+            $image          = $request->file('other_copy')->store('/img/newProducts', 'public');
             $new->other_copy   = $image;
+        }
+        if ($request->hasFile('defect_image')) {
+            $image          = $request->file('defect_image')->store('/img/newProducts', 'public');
+            $new->defect_image   = $image;
         }
 
         $new->franshize_percent_1 = $request->franshize_percent_1;
@@ -184,7 +195,6 @@ class Allproduct extends Model
         $new->credit_insurance_from     = $request->credit_insurance_from;
         $new->credit_insurance_to     = $request->credit_insurance_to;
         $new->defect_comment     = $request->defect_comment;
-        $new->defect_image     = $request->defect_image;
         $new->strtahovka_comment     = $request->strtahovka_comment;
         $new->zalog_unique_number     = $request->zalog_unique_number;
         $new->loan_reason     = $request->loan_reason;
@@ -192,6 +202,8 @@ class Allproduct extends Model
         $new->insurance_from     = $request->insurance_from;
         $new->credit_dogovor_number     = $request->credit_dogovor_number;
         $new->geo_zone     = $request->geo_zone;
+        $new->defect_comment     = $request->defect_comment;
+        $new->strtahovka_comment     = $request->defect_comment;
 
         if(empty($request->tarif))
         {
@@ -200,6 +212,16 @@ class Allproduct extends Model
         if(empty($request->preim))
         {
             $new->premiya_other = null;
+        }
+
+        if($request->strtahovka == 0)
+        {
+            $new->strtahovka_comment = null;
+        }
+        if($request->deffects == 0)
+        {
+            $new->defect_comment = null;
+            $new->defect_image = null;
         }
 
         if($request->fire_alarm_file_check == 0)

@@ -67,6 +67,7 @@
                         </div>
                     </div>
                 </div>
+                @include('errors.errors')
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -624,35 +625,47 @@
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 <div class="checkbox icheck-success">
-                                                    <input
+                                                    <input @if($page->defect_image && $page->defect_comment) checked @endif
                                                         onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2')"
                                                         type="radio" class="other_insurance-0" name="deffects"
-                                                        id="radioSuccess1" value="1">
+                                                        id="radioSuccess1" @if($page->defect_image == null && $page->defect_comment == null) value="1"
+                                                           @else   value="2" @endif>
                                                     <label for="radioSuccess1">Да</label>
                                                 </div>
                                                 <div class="checkbox icheck-success">
                                                     <input
                                                         onchange="toggleBlockRadio('radioSuccess1', 'data-radioSuccess2', false)"
                                                         type="radio" class="other_insurance-0" name="deffects"
-                                                        id="radioSuccess2" value="0">
+                                                        id="radioSuccess2" value="0" @if($page->defect_image == null || $page->defect_comment == null) checked
+                                                        @endif >
                                                     <label for="radioSuccess2">Нет</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div data-radiosuccess2="" class="col-md-12" style="display: none;">
+                                <div data-radiosuccess2="" class="col-md-12" @if(!$page->defect_comment || !$page->defect_image) style="display: none;"
+                                     @endif >
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group other_insurance_info-0">
                                                 <label>Комментарий</label>
-                                                <input class="form-control" type="text" name="deffects_comment">
+                                                <input class="form-control @if($errors->has('defect_comment')) is-invalid @endif" type="text" name="defect_comment"
+                                                value="{{$page->defect_comment}}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group other_insurance_info-0">
                                                 <label>Прикрепите фотографии</label>
-                                                <input class="form-control" type="file" name="deffects_photo">
+                                                <input id="defect_image" name="defect_image"
+                                                       value="{{$page->defect_image}}"
+                                                       type="file" @if($errors->has('defect_image'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                    @endif>
+                                                @if($page->defect_image)  <a
+                                                    href="/storage/{{$page->defect_image}}">Скачать</a> @endif
                                             </div>
                                         </div>
                                     </div>
@@ -664,27 +677,30 @@
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 <div class="checkbox icheck-success">
-                                                    <input
+                                                    <input @if($page->strtahovka_comment || !empty(old('strtahovka_comment'))) checked @endif
                                                         onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1')"
                                                         type="radio" class="other_insurance-0" name="strtahovka"
-                                                        id="radioSuccess1-0" value="1">
+                                                        id="radioSuccess1-0" @if($page->strtahovka_comment == null) value="1"
+                                                           @else   value="2" @endif>
                                                     <label for="radioSuccess1-0">Да</label>
                                                 </div>
                                                 <div class="checkbox icheck-success">
                                                     <input
                                                         onchange="toggleBlockRadio('radioSuccess1-0', 'data-radioSuccess1', false)"
                                                         type="radio" class="other_insurance-0" name="strtahovka"
-                                                        id="radioSuccess2-0" value="0">
+                                                        id="radioSuccess2-0" value="0" @if($page->strtahovka_comment == null) checked
+                                                        @endif>
                                                     <label for="radioSuccess2-0">Нет</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div data-radiosuccess1="" class="form-group other_insurance_info"
-                                         style="display: none;">
+                                         @if(!$page->strtahovka_comment) style="display: none;"
+                                        @endif>
                                         <label for="strtahovka_info">Комментарий</label>
-                                        <input id="strtahovka_info" class="form-control" type="text"
-                                               name="strtahovka_info">
+                                        <input id="strtahovka_info" class="form-control @if($errors->has('strtahovka_comment')) is-invalid @endif" type="text"
+                                               name="strtahovka_comment" value="{{$page->strtahovka_comment}}">
                                     </div>
                                 </div>
                             </div>
@@ -709,21 +725,21 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="insurance_sum_prod" class="form-control"
+                                        <input type="text" id="all-summ" name="insurance_sum_prod" class="form-control @if($errors->has('insurance_sum_prod')) is-invalid @endif"
                                                value="{{$page->insurance_sum}}">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая премия</label>
-                                        <input type="text" id="all-summ" name="insurance_bonus" class="form-control"
+                                        <input type="text" id="all-summ" name="insurance_bonus" class="form-control @if($errors->has('insurance_bonus')) is-invalid @endif"
                                                value="{{$page->insurance_bonus}}">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-summ" name="franchise" class="form-control"
+                                        <input type="text" id="all-summ" name="franchise" class="form-control @if($errors->has('franchise')) is-invalid @endif"
                                                value="{{$page->franchise}}">
                                     </div>
                                 </div>
@@ -742,7 +758,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition" class="form-control payment-schedule" name="payment_term"
+                                        <select id="condition" class="form-control payment-schedule @if($errors->has('payment_term')) is-invalid @endif" name="payment_term"
                                                 style="width: 100%; text-align: center">
                                             <option value="1" @if($page->payment_term === '1') selected @endif>
                                                 Единовременно
@@ -847,7 +863,7 @@
                                 <div class="form-group" data-tarif-descr
                                      @if(!$page->tarif_other && empty(old('tarif'))) style="display: none" @endif>
                                     <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input class="form-control" id="descrTarif" type="number" name="tarif_other"
+                                    <input class="form-control @if($errors->has('tarif_other'))@endif" id="descrTarif" type="number" name="tarif_other"
                                            value="{{$page->tarif_other}}">
                                 </div>
                             </div>
@@ -864,7 +880,7 @@
                                 <div class="form-group" data-preim-descr
                                      @if(!$page->premiya_other && empty(old('preim'))) style="display: none" @endif>
                                     <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input class="form-control" id="descrPreim" type="number" name="premiya_other"
+                                    <input class="form-control  @if($errors->has('premiya_other'))@endif" id="descrPreim" type="number" name="premiya_other"
                                            value="{{$page->premiya_other}}">
                                 </div>
                             </div>
