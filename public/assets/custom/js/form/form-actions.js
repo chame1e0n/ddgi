@@ -2042,65 +2042,65 @@ if (addAutozalogBtn) {
         const id = Math.random();
         const field = `<tr id="a${fieldNumber}">
 <td>
-                                            <input type="text" class="form-control" name="policy_number[]">
+                                            <input type="text" class="form-control" name="policy_number[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="policy_series[]">
+                                            <input type="text" class="form-control" name="policy_series[]" required>
                                         </td>
                                         <td>
                                             <input disabled="" type="date" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="god_vipuska[]">
+                                            <input type="text" class="form-control" name="god_vipuska[]" required>
                                         </td>
                                         <td>
-                                            <input type="date" class="form-control" name="policy_insurance_from[]">
+                                            <input type="date" class="form-control" name="policy_insurance_from[]" required>
                                         </td>
                                         <td>
-                                            <input type="date" class="form-control" name="policy_insurance_to[]">
+                                            <input type="date" class="form-control" name="policy_insurance_to[]" required>
                                         </td>
                                         <td>
-                                            <select class="form-control" id="polise_agents" name="otvet_litso[]" style="width: 100%;">
+                                            <select class="form-control" id="polise_agents" name="otvet_litso[]" style="width: 100%;" required>
                                                 <option selected="selected"></option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="marka[]">
+                                            <input type="text" class="form-control" name="marka[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="model[]">
+                                            <input type="text" class="form-control" name="model[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="modification[]">
+                                            <input type="text" class="form-control" name="modification[]" required>
                                         </td>
 
 
                                         <td>
-                                            <input type="text" class="form-control" name="gos_nomer[]">
+                                            <input type="text" class="form-control" name="gos_nomer[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="tex_passport[]">
+                                            <input type="text" class="form-control" name="tex_passport[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="number_engine[]">
+                                            <input type="text" class="form-control" name="number_engine[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="number_kuzov[]">
+                                            <input type="text" class="form-control" name="number_kuzov[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" name="gryzopodemnost[]">
+                                            <input type="text" class="form-control" name="gryzopodemnost[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" data-field="value" class="form-control" name="strah_stoimost[]">
+                                            <input type="text" data-field="value" class="form-control" name="strah_stoimost[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="strah_sum[]">
+                                            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="strah_sum[]" required>
                                         </td>
                                         <td>
-                                            <input type="text" data-field="premiya" class="form-control insurance_premium-0" name="strah_prem[]">
+                                            <input type="text" data-field="premiya" class="form-control insurance_premium-0" name="strah_prem[]" required>
                                         </td>
          <td>
-            <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
+            <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning" required>
         </td>
     </tr>`
         infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', field);

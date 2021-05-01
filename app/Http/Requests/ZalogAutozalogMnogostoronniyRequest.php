@@ -84,6 +84,42 @@ class ZalogAutozalogMnogostoronniyRequest extends FormRequest
             'credit_insurance_from' => 'required',
             'credit_insurance_to' => 'required',
             'geo_zone' => 'required',
+
+            ///////////
+            'policy_number' => 'required|array',
+            'policy_series' => 'required|array',
+            'god_vipuska' => 'required|array',
+            'policy_insurance_from' => 'required|array',
+            'policy_insurance_to' => 'required|array',
+            'otvet_litso' => 'required|array',
+            'marka' => 'required|array',
+            'model' => 'required|array',
+            'modification' => 'required|array',
+            'gos_nomer' => 'required|array',
+            'tex_passport' => 'required|array',
+            'number_engine' => 'required|array',
+            'gryzopodemnost' => 'required|array',
+            'strah_stoimost' => 'required|array',
+            'strah_sum' => 'required|array',
+            'strah_prem' => 'required|array',
+
+            'policy_number.*' => 'required',
+            'policy_series.*' => 'required',
+            'god_vipuska.*' => 'required',
+            'policy_insurance_from.*' => 'required',
+            'policy_insurance_to.*' => 'required',
+            'otvet_litso.*' => 'required|integer',
+            'marka.*' => 'required',
+            'model.*' => 'required',
+            'modification.*' => 'required',
+            'gos_nomer.*' => 'required',
+            'tex_passport.*' => 'required',
+            'number_engine.*' => 'required',
+            'gryzopodemnost.*' => 'required',
+            'strah_stoimost.*' => 'required',
+            'strah_sum.*' => 'required',
+            'strah_prem.*' => 'required',
+
         ];
     }
 }

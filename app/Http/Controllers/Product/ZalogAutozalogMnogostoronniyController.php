@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ZalogAutozalogMnogostoronniyRequest;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
+use App\Models\AllProductInformation;
 use App\Models\AllProductsTermsTranshes;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
@@ -62,7 +63,7 @@ class ZalogAutozalogMnogostoronniyController extends Controller
         $newProduct = Allproduct::createAllProduct($request,$newPolicyHolders->id, $newPolicyBeneficiaries->id, $newZalogodatel->id);
 
         AllProductsTermsTranshes::create($newProduct->id, $request);
-
+        AllProductInformation::create($newProduct->id, $request);
         if(!$newProduct)
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newProduct')]);
 
@@ -78,7 +79,12 @@ class ZalogAutozalogMnogostoronniyController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'informations', 'strahPremiya', 'zalogodatel')->find($id);
+
+        $banks = Bank::all();
+        $agents = Agent::all();
+        $policySeries = PolicySeries::all();
+        return view('products.zalog.autozalog-mnogostoronniy.show', compact('banks', 'agents', 'page', 'policySeries'));
     }
 
     /**
@@ -89,7 +95,7 @@ class ZalogAutozalogMnogostoronniyController extends Controller
      */
     public function edit($id)
     {
-        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'infos', 'strahPremiya', 'zalogodatel')->find($id);
+        $page = Allproduct::with('policyHolders', 'policyBeneficiaries', 'informations', 'strahPremiya', 'zalogodatel')->find($id);
 
         $banks = Bank::all();
         $agents = Agent::all();
@@ -119,10 +125,13 @@ class ZalogAutozalogMnogostoronniyController extends Controller
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $zalogodatel')]);
 
         $product = Allproduct::updateAllProduct($id, $request);
+
         if (!$product)
             return back()->withInput()->withErrors([sprintf('Ошибка при обновлении $product')]);
 
         AllProductsTermsTranshes::updateTermsTranshes($product, $request);
+        AllProductInformation::updateInfo($product, $request);
+
         return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 

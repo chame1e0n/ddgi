@@ -42,14 +42,14 @@
                                     <div class="col-sm-4">
                                         <div class="icheck-success">
                                             <input type="radio" name="client_type_radio" class="client-type-radio"
-                                                   id="client-type-radio-1" value="individual">
+                                                   id="client-type-radio-1" value="0" @if($page->type == 0) checked @endif>
                                             <label for="client-type-radio-1">физ. лицо</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="icheck-success">
                                             <input type="radio" name="client_type_radio" class="client-type-radio"
-                                                   id="client-type-radio-2" value="legal">
+                                                   id="client-type-radio-2" value="1"@if($page->type == 1) checked @endif>
                                             <label for="client-type-radio-2">юр. лицо</label>
                                         </div>
                                     </div>
@@ -577,47 +577,117 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <button type="button" data-btn-add-row-info class="btn btn-primary ">Добавить</button>
+                                <button type="button" id="addAutozalogBtn" class="btn btn-primary ">Добавить</button>
                             </div>
-                            <div class="table-responsive p-0 " style="max-height: 300px;">
+                            <div class="table-responsive p-0 " style="max-height: 300px;" >
                                 <div id="product-fields" data-info-table class="product-fields" data-field-number="0">
-                                    <table class="table table-hover table-head-fixed" id="empTable">
+                                    <table class="table table-hover table-head-fixed" id="empTable1">
                                         <thead>
                                         <tr>
                                             <th class="text-nowrap">Номер полиса</th>
                                             <th class="text-nowrap">Серия полиса</th>
+                                            <th class="text-nowrap">Дата выдачи</th>
                                             <th class="text-nowrap">Год выпуска</th>
-                                            <th class="text-nowrap">Период действия полиса от</th>
-                                            <th class="text-nowrap">Период действия полиса до</th>
+                                            <th class="text-nowrap">Периуд действия от</th>
+                                            <th class="text-nowrap">Периуд действия до</th>
                                             <th class="text-nowrap">Выбор агента</th>
-                                            <th class="text-nowrap">Марка, модель, модификация</th>
-                                            <th class="text-nowrap">№ двигателя</th>
-                                            <th class="text-nowrap">№ кузова</th>
-                                            <th class="text-nowrap">Гос номер</th>
-                                            <th class="text-nowrap">№ тех паспорта</th>
+                                            <th class="text-nowrap">Марка</th>
+                                            <th class="text-nowrap">Модель</th>
+                                            <th class="text-nowrap">Модификация</th>
+                                            <th class="text-nowrap">Гос. номер</th>
+                                            <th class="text-nowrap">Номер тех паспорта</th>
+                                            <th class="text-nowrap">Номер двигателя</th>
+                                            <th class="text-nowrap">Номер кузова</th>
+                                            <th class="text-nowrap">Грузоподмность</th>
                                             <th class="text-nowrap">Страховая стоимость</th>
                                             <th class="text-nowrap">Страховая сумма</th>
                                             <th class="text-nowrap">Страховая премия</th>
                                         </tr>
                                         </thead>
                                         <tbody>
+
+                                        @foreach($page->informations as $info)
+                                            <tr id="a0">
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('object_to_date')) is-invalid @endif" value="{{$info->policy_number}}" name="policy_number[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('policy_series.0')) is-invalid @endif" value="{{$info->policy_series}}" name="policy_series[]" required >
+                                                </td>
+                                                <td>
+                                                    <input disabled="" type="date" class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('god_vipuska.0')) is-invalid @endif" value="{{$info->god_vipuska}}" name="god_vipuska[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control @if($errors->has('policy_insurance_from.0')) is-invalid @endif" value="{{$info->policy_insurance_from}}" name="policy_insurance_from[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control @if($errors->has('policy_insurance_to.0')) is-invalid @endif" value="{{$info->policy_insurance_to}}" name="policy_insurance_to[]" required>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control @if($errors->has('otvet_litso.0')) is-invalid @endif"  id="polise_agents" name="otvet_litso[]" style="width: 100%;" required>
+                                                        @foreach($agents as $agent)
+                                                            <option value="{{$agent->user_id}}" @if($agent->user_id === $info->otvet_litso)  selected="selected" @endif> {{$agent->name}} {{$agent->surname}} {{$agent->middle_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('marka.0')) is-invalid @endif" value="{{$info->marka}}" name="marka[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('model.0')) is-invalid @endif" value="{{$info->model}}" name="model[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('modification.0')) is-invalid @endif" value="{{$info->modification}}" name="modification[]" required>
+                                                </td>
+
+
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('gos_nomer.0')) is-invalid @endif" value="{{$info->gos_nomer}}" name="gos_nomer[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('tex_passport.0')) is-invalid @endif" value="{{$info->tex_passport}}" name="tex_passport[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('number_engine.0')) is-invalid @endif" value="{{$info->number_engine}}" name="number_engine[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('number_kuzov.0')) is-invalid @endif" value="{{$info->number_kuzov}}" name="number_kuzov[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control @if($errors->has('gryzopodemnost.0')) is-invalid @endif" value="{{$info->gryzopodemnost}}" name="gryzopodemnost[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" data-field="value" class="form-control @if($errors->has('strah_stoimost.0')) is-invalid @endif" value="{{$info->strah_stoimost}}" name="strah_stoimost[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0 @if($errors->has('strah_sum.0')) is-invalid @endif" value="{{$info->strah_sum}}" name="strah_sum[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" data-field="premiya" class="form-control insurance_premium-0 @if($errors->has('strah_prem.0')) is-invalid @endif" value="{{$info->strah_prem}}" name="strah_prem[]" required>
+                                                </td>
+                                                <td>
+                                                    <input type="button" onclick="removeProductsFieldRow(0)" value="Удалить" class="btn btn-warning">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                        <tbody>
+                                        <tr></tr>
                                         <tr>
-                                            <td colspan="11" style="text-align: right"><label
-                                                    class="text-bold">Итого</label></td>
-                                            <td><input readonly type="text" data-insurance-stoimost
-                                                       class="form-control overall-sum2"/>
-                                            </td>
-                                            <td><input readonly type="text" data-insurance-sum
-                                                       class="form-control overall-sum4"/>
-                                            </td>
-                                            <td><input readonly type="text" data-insurance-award
-                                                       class="form-control overall-sum3"/>
-                                            </td>
+                                            <td colspan="15" style="text-align: right"><label class="text-bold">Итого</label></td>
+                                            <td><input readonly data-insurance-stoimost type="text" class="form-control overall-sum" /></td>
+                                            <td><input readonly data-insurance-sum type="text" class="form-control overall-sum4" /></td>
+                                            <td><input readonly data-insurance-award type="text" class="form-control overall-sum3" /></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
