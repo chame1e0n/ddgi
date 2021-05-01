@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AutoZalog3xRequest;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductInformation;
@@ -46,7 +47,7 @@ class AutoZalog3xController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AutoZalog3xRequest $request)
     {
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
@@ -106,7 +107,7 @@ class AutoZalog3xController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AutoZalog3xRequest $request, $id)
     {
         $product = Allproduct::findOrFail($id);
         $policyHolders = PolicyHolder::updatePolicyHolders($product->policy_holder_id, $request);
