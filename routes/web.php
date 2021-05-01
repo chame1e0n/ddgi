@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth']], function () {
     ///Cargo
     Route::resource('cargo', 'CargoController');
 
+    ///Mejd
+    Route::resource('mejd', 'MejdController');
+
     /////////////////////////////////////////////////////////////////////////////////
 
     Route::resource('all_products', 'AllProductController');
@@ -81,7 +84,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('perestrahovaniya_overview', 'PerestrahovaniyaOverviewController');
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('request_overview', 'RequestOverviewController');
-
+    ////Microzaym
+    Route::resource('microzaym', 'MicroZaymController');
+    ////Potrebkredit
+    Route::resource('potrebkredit', 'PotrebKreditController');
+    ////Policy_Filter
+    Route::resource('policy_filter', 'PolicyFilterController');
+    Route::post('policy_filter/filter', 'PolicyFilterController@filter')->name('all_product.filter');
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

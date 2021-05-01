@@ -1,8 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('neshchastka_borrower.update', $borrower->id)}}" method="post" enctype="multipart/form-data"
+    <form action="{{route('microzaym.update', $all_product->id)}}" method="post" enctype="multipart/form-data"
           id="mainFormKasko">
         @csrf
         @method('put')
@@ -34,6 +33,49 @@
                 </div>
             </div>
             <section class="content">
+                <div class="card card-success product-type">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="client-product-form">
+                            <div class="form-group clearfix">
+                                <label>Типы клиента</label>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icheck-success">
+                                            <input type="radio" name="client_type_radio" class="client-type-radio"
+                                                   id="client-type-radio-1" value="individual">
+                                            <label for="client-type-radio-1">физ. лицо</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icheck-success">
+                                            <input type="radio" name="client_type_radio" class="client-type-radio"
+                                                   id="client-type-radio-2" value="legal">
+                                            <label for="client-type-radio-2">юр. лицо</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-id">Вид продукта</label>
+                                <select id="product-id" class="form-control select2" name="product_id"
+                                        style="width: 100%;">
+                                    <option selected="selected">говно</option>
+                                    <option selected="selected">говно 2</option>
+                                    <option value="1">asdc</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -49,26 +91,27 @@
                         <div class="card-body">
 
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">Наименования</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer"
-                                               value="{{$borrower->policyHolder->FIO}}" class="form-control">
+                                        <label for="insurer-name" class="col-form-label">Наименования
+                                            страхователя</label>
+                                        <input type="text" id="insurer-name" value="{{$all_product->policyHolder->FIO}}"
+                                               name="fio_insurer" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Адрес страхователя</label>
                                         <input type="text" id="insurer-address"
-                                               value="{{$borrower->policyHolder->address}}" name="address_insurer"
+                                               value="{{$all_product->policyHolder->address}}" name="address_insurer"
                                                class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Телефонный номер</label>
+                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
                                         <input type="text" id="insurer-tel"
-                                               value="{{$borrower->policyHolder->phone_number}}" name="tel_insurer"
+                                               value="{{$all_product->policyHolder->phone_number}}" name="tel_insurer"
                                                class="form-control">
                                     </div>
                                 </div>
@@ -76,21 +119,21 @@
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
                                         <input type="text" id="insurer-schet"
-                                               value="{{$borrower->policyHolder->checking_account}}"
+                                               value="{{$all_product->policyHolder->checking_account}}"
                                                name="address_schet" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-inn" value="{{$borrower->policyHolder->inn}}"
+                                        <input type="text" id="insurer-inn" value="{{$all_product->policyHolder->inn}}"
                                                name="inn_insurer" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" value="{{$borrower->policyHolder->mfo}}"
+                                        <input type="text" id="insurer-mfo" value="{{$all_product->policyHolder->mfo}}"
                                                name="mfo_insurer" class="form-control">
                                     </div>
                                 </div>
@@ -98,23 +141,16 @@
                                     <div class="form-group">
                                         <label for="insurer-bank" class="col-form-label">Банк</label>
                                         <input type="text" id="insurer-bank"
-                                               value="{{$borrower->policyHolder->bank_id}}" name="bank_insurer"
+                                               value="{{$all_product->policyHolder->bank_id}}" name="bank_insurer"
                                                class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" value="{{$borrower->policyHolder->oked}}"
-                                               name="oked_insurer" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" value="{{$borrower->policyHolder->okonx}}"
-                                               name="okonh_insurer" class="form-control">
+                                        <input type="text" id="insurer-okonh"
+                                               value="{{$all_product->policyHolder->oked}}" name="oked_insurer"
+                                               class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -122,72 +158,7 @@
                         <div class="card-body">
                             <div class="card card-info" id="clone-beneficiary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Застрахованное лицо</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-name" class="col-form-label">ФИО
-                                                        заемщика</label>
-                                                    <input type="text" id="beneficiary-name"
-                                                           value="{{$borrower->fio_insured}}" name="fio_insured"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-address" class="col-form-label">Юр адрес
-                                                        заемщика</label>
-                                                    <input type="text" id="beneficiary-address"
-                                                           value="{{$borrower->address_insured}}" name="address_insured"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input type="text" id="beneficiary-tel"
-                                                           value="{{$borrower->tel_insured}}" name="tel_insured"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Серия
-                                                        паспорта</label>
-                                                    <input type="text" id="beneficiary-tel"
-                                                           value="{{$borrower->passport_series_insured}}"
-                                                           name="passport_series_insured" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Номер
-                                                        паспорта</label>
-                                                    <input type="text" id="beneficiary-tel"
-                                                           value="{{$borrower->passport_num_insured}}"
-                                                           name="passport_num_insured" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Выгодоприобретатель</h3>
+                                    <h3 class="card-title">Заемщик</h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                                 data-toggle="tooltip" title="Collapse">
@@ -200,19 +171,19 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="beneficiary-name"
-                                                           class="col-form-label">Наименования</label>
-                                                    <input type="text" id="beneficiary-name"
-                                                           value="{{$borrower->policyBeneficiaries->FIO}}"
-                                                           name="fio_beneficiary" class="form-control">
+                                                    <label for="insurer-name" class="col-form-label">Наименования
+                                                        заемщика</label>
+                                                    <input type="text" id="insurer-name"
+                                                           value="{{$all_product->zaemshik->z_fio}}"
+                                                           name="fio_insured" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="beneficiary-address" class="col-form-label">Адрес
-                                                        страхователя</label>
+                                                        заемщика</label>
                                                     <input type="text" id="beneficiary-address"
-                                                           value="{{$borrower->policyBeneficiaries->address}}"
+                                                           value="{{$all_product->zaemshik->z_address}}"
                                                            name="address_beneficiary" class="form-control">
                                                 </div>
                                             </div>
@@ -220,7 +191,7 @@
                                                 <div class="form-group">
                                                     <label for="beneficiary-tel" class="col-form-label">Телефон</label>
                                                     <input type="text" id="beneficiary-tel"
-                                                           value="{{$borrower->policyBeneficiaries->phone_number}}"
+                                                           value="{{$all_product->zaemshik->z_phone}}"
                                                            name="tel_beneficiary" class="form-control">
                                                 </div>
                                             </div>
@@ -229,7 +200,7 @@
                                                     <label for="beneficiary-schet" class="col-form-label">Расчетный
                                                         счет</label>
                                                     <input type="text" id="beneficiary-schet"
-                                                           value="{{$borrower->policyBeneficiaries->checking_account}}"
+                                                           value="{{$all_product->zaemshik->z_checking_account}}"
                                                            name="beneficiary_schet" class="form-control">
                                                 </div>
                                             </div>
@@ -237,7 +208,7 @@
                                                 <div class="form-group">
                                                     <label for="beneficiary-inn" class="col-form-label">ИНН</label>
                                                     <input type="text" id="beneficiary-inn"
-                                                           value="{{$borrower->policyBeneficiaries->inn}}"
+                                                           value="{{$all_product->zaemshik->z_inn}}"
                                                            name="inn_beneficiary" class="form-control">
                                                 </div>
                                             </div>
@@ -245,126 +216,148 @@
                                                 <div class="form-group">
                                                     <label for="beneficiary-mfo" class="col-form-label">МФО</label>
                                                     <input type="text" id="beneficiary-mfo"
-                                                           value="{{$borrower->policyBeneficiaries->mfo}}"
+                                                           value="{{$all_product->zaemshik->z_mfo}}"
                                                            name="mfo_beneficiary" class="form-control">
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-mfo" class="col-form-label">ОКЭД</label>
-                                                    <input type="text" id="beneficiary-mfo"
-                                                           value="{{$borrower->policyBeneficiaries->oked}}"
-                                                           name="oked_beneficiary" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="beneficiary-bank" class="col-form-label">Банк</label>
                                                     <input type="text" id="beneficiary-bank"
-                                                           value="{{$borrower->policyBeneficiaries->bank_id}}"
+                                                           value="{{$all_product->zaemshik->bank_id}}"
                                                            name="bank_beneficiary" class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
+                                                    <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
                                                     <input type="text" id="beneficiary-okonh"
-                                                           value="{{$borrower->policyBeneficiaries->okonx}}"
-                                                           name="okonh_beneficiary" class="form-control">
+                                                           value="{{$all_product->zaemshik->z_oked}}"
+                                                           name="oked_beneficiary" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="card-body">
-                                    <div id="anketa-fields">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label for="insurance_from">Кредитный договор</label>
-                                                            <div class="input-group mb-3">
-
-                                                                <input type="text" id="insurer-tel"
-                                                                       value="{{$borrower->credit_contract}}"
-                                                                       name="credit_contract" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="input-group mb-3" style="margin-top: 33px">
-                                                                <input id="insurance_to"
-                                                                       value="{{$borrower->credit_contract_to}}"
-                                                                       name="credit_contract_to" type="date"
-                                                                       class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label for="insurance_from">Период страхования</label>
-                                                            <div class="input-group mb-3">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">с</span>
-                                                                </div>
-                                                                <input id="insurance_from"
-                                                                       value="{{$borrower->insurance_from}}"
-                                                                       name="insurance_from" type="date"
-                                                                       class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="input-group mb-3" style="margin-top: 33px">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">до</span>
-                                                                </div>
-                                                                <input id="insurance_to"
-                                                                       value="{{$borrower->insurance_to}}"
-                                                                       name="insurance_to" type="date"
-                                                                       class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="icheck-success ">
-                                                            <input onchange="toggleBlock('tarif', 'data-tarif-descr')"
-                                                                   class="form-check-input client-type-radio"
-                                                                   @if($borrower->tariff === "on") checked @endif
-                                                                   type="checkbox" name="tarif" id="tarif">
-                                                            <label class="form-check-label" for="tarif">Тариф</label>
-                                                        </div>
-                                                        <!-- TODO: Блок должен находится в скрытом состоянии
-                                                        отображаться только тогда, когда выбран checkbox "Тариф"
-                                                        -->
-                                                        <div class="form-group" data-tarif-descr
-                                                             @if(!$borrower->tariff === "on") style="display: none" @endif>
-                                                            <label for="descrTarif" class="col-form-label">Укажите
-                                                                процент тарифа</label>
-                                                            <input class="form-control" id="descrTarif"
-                                                                   @if(!empty($borrower->percent_of_tariff)) value="{{$borrower->percent_of_tariff}}"
-                                                                   @endif name="percent_of_tariff" type="number">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
 
 
+                <div class="card-body">
+                    <div id="anketa-fields">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="dogovor_num" class="col-form-label">Номер договора
+                                                    страхования</label>
+                                                <input type="text" id="dogovor_num"
+                                                       value="{{$all_product->dogovor_num}}" name="dogovor_num"
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="date_dogovor_strah" class="col-form-label">Дата договора
+                                                страхования </label>
+                                            <input id="date_dogovor_strah" value="{{$all_product->date_dogovor_strah}}"
+                                                   name="date_dogovor_strah" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dogovor_num" class="col-form-label">Номер договора
+                                                страхования</label>
+                                            <input type="text" id="dogovor_num"
+                                                   value="{{$all_product->credit_dogovor_num}}"
+                                                   name="credit_dogovor_num" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="date_kredit_dogovor" class="col-form-label">Дата кредитного
+                                                договора</label>
+                                            <input id="date_kredit_dogovor"
+                                                   value="{{$all_product->date_kredit_dogovor}}"
+                                                   name="date_kredit_dogovor" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="date_mycrozaim_from" class="col-form-label">Срок микрозайма
+                                                от</label>
+                                            <input id="date_mycrozaim_from" value="{{$all_product->term_from}}"
+                                                   name="term_from" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="date_mycrozaim_to" class="col-form-label">Срок микрозайма
+                                                до</label>
+                                            <input id="date_mycrozaim_to" value="{{$all_product->term_from}}"
+                                                   name="term_to" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="period_expect_from" class="col-form-label">Период ожидания
+                                                от</label>
+                                            <input id="period_expect_from" value="{{$all_product->period_expect_from}}"
+                                                   name="period_expect_from" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="period_expect_to" class="col-form-label">Период ожидания
+                                                до</label>
+                                            <input id="period_expect_to" value="{{$all_product->period_expect_to}}"
+                                                   name="period_expect_to" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="mycrozaim_summ" class="col-form-label">Сумма микрозайма</label>
+                                            <input type="text" id="mycrozaim_summ" value="{{$all_product->loan_sum}}"
+                                                   name="loan_sum" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="mycrozaim_summ" class="col-form-label">Цель получения
+                                                микрозайма</label>
+                                            <input type="text" id="mycrozaim_summ" value="{{$all_product->loan_reason}}"
+                                                   name="loan_reason" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="period_expect_from" class="col-form-label">Срок действия
+                                                договора страхования</label>
+                                            <input id="period_expect_from" value="{{$all_product->period_action_from}}"
+                                                   name="period_action_from" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-form-label">Срок действия договора страхования</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">до</span>
+                                            </div>
+                                            <input id="insurance_from" value="{{$all_product->insurance_from}}"
+                                                   name="insurance_from" type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>
@@ -381,30 +374,32 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" value="{{$borrower->insurance_sum}}"
+                                        <input type="text" id="all-summ" value="{{$all_product->insurance_sum}}"
                                                name="insurance_sum" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая премия</label>
-                                        <input type="text" id="all-summ" value="{{$borrower->insurance_bonus}}"
+                                        <input type="text" id="all-summ" value="{{$all_product->insurance_bonus}}"
                                                name="insurance_bonus" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-summ" value="{{$borrower->franchise}}"
+                                        <input type="text" id="all-summ" value="{{$all_product->franchise}}"
                                                name="franchise" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" id="walletNames" name="insurance_premium_currency"
+                                        <select class="form-control" id="walletNames"
                                                 style="width: 100%; text-align: center">
-                                            <option selected="selected">{{$borrower->insurance_premium_currency}}
+                                            <option selected="selected"
+                                                    value="{{$all_product->insurance_premium_currency}}"
+                                                    name="insurance_premium_currency">UZS
                                             </option>
                                         </select>
                                     </div>
@@ -414,10 +409,10 @@
                                         <label>Порядок оплаты страховой премии</label>
                                         <select id="condition" class="form-control payment-schedule" name="payment_term"
                                                 style="width: 100%; text-align: center">
-                                            <option @if($borrower->payment_term === "1") selected @endif value="1">
+                                            <option @if($all_product->payment_term === "1") selected @endif value="1">
                                                 Единовременно
                                             </option>
-                                            <option @if($borrower->payment_term === "transh") selected
+                                            <option @if($all_product->payment_term === "transh") selected
                                                     @endif value="transh">Транш
                                             </option>
                                         </select>
@@ -429,20 +424,20 @@
                                         <select class="form-control payment-schedule" name="way_of_calculation"
                                                 onchange="showDiv('other-payment-schedule', this)"
                                                 style="width: 100%; text-align: center">
-                                            <option @if($borrower->way_of_calculation === "1") selected
+                                            <option @if($all_product->way_of_calculation === "1") selected
                                                     @endif value="1">Сумах
                                             </option>
-                                            <option @if($borrower->way_of_calculation === "2") selected
+                                            <option @if($all_product->way_of_calculation === "2") selected
                                                     @endif value="2">Сумах В ин. валюте
                                             </option>
-                                            <option @if($borrower->way_of_calculation === "3") selected
+                                            <option @if($all_product->way_of_calculation === "3") selected
                                                     @endif value="3">В ин. валюте по курсу ЦБ на день заключение
                                                 договора
                                             </option>
-                                            <option @if($borrower->way_of_calculation === "4") selected
+                                            <option @if($all_product->way_of_calculation === "4") selected
                                                     @endif value="4">В ин. валюте по курсу ЦБ на день оплаты
                                             </option>
-                                            <option @if($borrower->way_of_calculation === "5") selected
+                                            <option @if($all_product->way_of_calculation === "5") selected
                                                     @endif value="5">В ин. валюте по фиксированному ЦБ на день оплаты
                                                 премии/первого транша
                                             </option>
@@ -450,7 +445,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="transh-payment-schedule" @if($borrower->payment_term == "1") class="d-none" @endif>
+                            <div id="transh-payment-schedule"
+                                 @if($all_product->payment_term == "1") class="d-none" @endif>
                                 <div class="form-group">
                                     <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
                                         Добавить
@@ -467,25 +463,24 @@
                                         </thead>
                                         <tbody>
                                         <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control"
-                                                       value="{{$borrower->payment_sum_main}}" name="payment_sum_main">
-                                            </td>
-                                            <td><input type="date" class="form-control"
-                                                       value="{{$borrower->payment_from_main}}"
-                                                       name="payment_from_main">
+                                            <td><input value="{{$all_product->payment_sum_main}}" type="text"
+                                                       class="form-control" name="payment_sum_main"></td>
+                                            <td><input value="{{$all_product->payment_from_main}}" type="date"
+                                                       class="form-control" name="payment_from_main">
                                             </td>
                                         </tr>
-                                        @if(!empty($borrower->currencyTerms[0]))
-                                            @foreach($borrower->currencyTerms[0]->payment_sum as $key=>$item)
+{{--                                        @dd($all_product->allProductCurrencyTerms[0]->payment_sum)--}}
+                                        @if($all_product->allProductCurrencyTerms[0]->payment_sum !== null)
+                                            @foreach($all_product->allProductCurrencyTerms[0]->payment_sum as $key=>$item)
                                                 <tr id="${id}" data-field-number="0">
                                                     <td>
                                                         <input type="text" class="form-control"
-                                                               value="{{$borrower->currencyTerms[0]->payment_sum[$key]}}"
+                                                               value="{{$all_product->allProductCurrencyTerms[0]->payment_sum[$key]}}"
                                                                name="payment_sum[]">
                                                     </td>
                                                     <td>
                                                         <input type="date" class="form-control"
-                                                               value="{{$borrower->currencyTerms[0]->payment_from[$key]}}"
+                                                               value="{{$all_product->allProductCurrencyTerms[0]->payment_from[$key]}}"
                                                                name="payment_from[]">
                                                     </td>
                                                     <td>
@@ -499,8 +494,43 @@
                                     </table>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="icheck-success ">
+                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')"
+                                           class="form-check-input client-type-radio"
+                                           @if($all_product->tariff === "tariff") checked @endif value="tariff"
+                                           type="checkbox" name="tariff" id="tarif">
+                                    <label class="form-check-label" for="tarif">Тариф</label>
+                                </div>
+                                <!-- TODO: Блок должен находится в скрытом состоянии
+                                отображаться только тогда, когда выбран checkbox "Тариф"
+                                -->
+                                <div class="form-group" data-tarif-descr
+                                     @if($all_product->tariff !== "tariff") style="display: none" @endif>
+                                    <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
+                                    <input class="form-control" value="{{$all_product->tariff_other}}"
+                                           name="tariff_other" id="descrTarif" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="icheck-success ">
+                                    <input onchange="toggleBlock('preim', 'data-preim-descr')"
+                                           class="form-check-input client-type-radio"
+                                           @if($all_product->preim === "preim") checked @endif value="preim"
+                                           type="checkbox" name="preim" id="preim">
+                                    <label class="form-check-label" for="preim">Премия</label>
+                                </div>
+                                <!-- TODO: Блок должен находится в скрытом состоянии
+                                отображаться только тогда, когда выбран checkbox "Тариф"
+                                -->
+                                <div class="form-group" data-preim-descr
+                                     @if($all_product->preim !== "preim") style="display: none" @endif>
+                                    <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
+                                    <input class="form-control" value="{{$all_product->premiya_other}}"
+                                           name="premiya_other" id="descrPreim" type="number">
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="card-body">
@@ -521,8 +551,8 @@
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Серийный номер полиса
                                                 страхования</label>
-                                            <input type="text" id="polis-series" value="{{$borrower->policy_series}}"
-                                                   name="policy_series" class="form-control">
+                                            <input type="text" value="{{$all_product->allProductInfo->policy_series}}"
+                                                   id="polis-series" name="policy_series" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -531,16 +561,20 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"></span>
                                             </div>
-                                            <input id="insurance_from" value="{{$borrower->policy_insurance_from}}"
+                                            <input id="insurance_from"
+                                                   value="{{$all_product->allProductInfo->policy_insurance_from}}"
                                                    name="policy_insurance_from" type="date" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-form-label" for="otvet-litso">Ответственное лицо</label>
-                                            <select class="form-control polises" id="otvet-litso"
-                                                    value="{{$borrower->person}}" name="person" style="width: 100%;">
-                                                <option selected="selected">Имя Фамилия</option>
+                                            <select class="form-control polises" id="otvet-litso" name="otvet_litso"
+                                                    style="width: 100%;">
+
+                                                @foreach($agents as $agent)
+                                                    <option value="{{$agent->id}}" @if($all_product->allProductInfo->otvet_litso ==  $agent->id) selected @endif>{{$agent->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -588,16 +622,15 @@
 
                     </div>
                 </div>
-
             </section>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
             </div>
         </div>
     </form>
-    <form action="{{route('neshchastka_borrower.destroy', $borrower->id)}}" method="post">
+    <form action="{{route('microzaym.destroy', $all_product->id)}}" method="post">
         @csrf
-        @method("delete")
+        @method('delete')
         <div class="card-footer">
             <button type="submit" class="btn btn-danger float-right">Удалить</button>
         </div>
