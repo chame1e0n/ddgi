@@ -21,6 +21,10 @@ class Allproduct extends Model
     {
         return $this->hasMany(AllProductImushestvoInfo::class, 'all_product_id', 'id');
     }
+    public function informations(){
+        return $this->hasMany(AllProductInformation::class, 'all_products_id', 'id');
+
+    }
 
     public function strahPremiya()
     {

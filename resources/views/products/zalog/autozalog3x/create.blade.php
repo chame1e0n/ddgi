@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('zalog-imushestvo3x.store')}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
+    <form action="{{route('zalog-autozalog3x.store')}}" method="POST" id="mainFormKasko" enctype="multipart/form-data">
         @csrf
         <div class="content-wrapper">
 
@@ -481,7 +481,9 @@
                                         </td>
                                         <td>
                                             <select class="form-control @if($errors->has('otvet_litso.0')) is-invalid @endif"  id="polise_agents" name="otvet_litso[]" style="width: 100%;">
-                                                <option selected="selected"></option>
+                                                @foreach($agents as $agent)
+                                                <option value="{{$agent->user_id}}" selected="selected"> {{$agent->name}} {{$agent->surname}} {{$agent->middle_name}}</option>
+                                                    @endforeach
                                             </select>
                                         </td>
                                         <td>
@@ -806,68 +808,6 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Копии документов</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Паспорт</label>
-                                            <input  id="copy_passport" name="passport_copy" value="{{old('passport_copy')}}"
-                                                    type="file" @if($errors->has('passport_copy'))
-                                                    class="form-control is-invalid"
-                                                    @else
-                                                    class="form-control"
-                                                @endif>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Договор</label>
-                                            <input  id="copy_dogovor" name="dogovor_copy" value="{{old('dogovor_copy')}}"
-                                                    type="file" @if($errors->has('dogovor_copy'))
-                                                    class="form-control is-invalid"
-                                                    @else
-                                                    class="form-control"
-                                                @endif>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Справки</label>
-                                            <input  id="copy_spravki" name="spravka_copy" value="{{old('spravka_copy')}}"
-                                                    type="file" @if($errors->has('spravka_copy'))
-                                                    class="form-control is-invalid"
-                                                    @else
-                                                    class="form-control"
-                                                @endif>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Другие</label>
-                                            <input  id="copy_drugie" name="other_copy" value="{{old('other_copy')}}"
-                                                    type="file" @if($errors->has('other_copy'))
-                                                    class="form-control is-invalid"
-                                                    @else
-                                                    class="form-control"
-                                                @endif>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
