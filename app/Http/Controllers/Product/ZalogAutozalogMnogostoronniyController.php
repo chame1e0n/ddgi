@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ZalogAutozalogMnogostoronniyRequest;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductsTermsTranshes;
@@ -45,7 +46,7 @@ class ZalogAutozalogMnogostoronniyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ZalogAutozalogMnogostoronniyRequest $request)
     {
         $newPolicyHolders           = PolicyHolder::createPolicyHolders($request);
         if(!$newPolicyHolders)
@@ -103,9 +104,26 @@ class ZalogAutozalogMnogostoronniyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ZalogAutozalogMnogostoronniyRequest $request, $id)
     {
-        //
+        $product = Allproduct::findOrFail($id);
+        $policyHolders = PolicyHolder::updatePolicyHolders($product->policy_holder_id, $request);
+        if (!$policyHolders)
+            return back()->withInput()->withErrors([sprintf('Ошибка при обновлении PolicyHolders')]);
+        $policyBeneficiaries = PolicyBeneficiaries::updatePolicyBeneficiaries($product->policy_beneficiaries_id, $request);
+        if (!$policyBeneficiaries)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $newPolicyBeneficiaries')]);
+
+        $zalogodatel = Zalogodatel::updateZalogodatel($product->zalogodatel_id, $request);
+        if (!$zalogodatel)
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $zalogodatel')]);
+
+        $product = Allproduct::updateAllProduct($id, $request);
+        if (!$product)
+            return back()->withInput()->withErrors([sprintf('Ошибка при обновлении $product')]);
+
+        AllProductsTermsTranshes::updateTermsTranshes($product, $request);
+        return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 
     /**
