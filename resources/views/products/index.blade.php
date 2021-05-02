@@ -49,14 +49,47 @@
                                 </div>
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
-                                    <tr>
-                                        <th>Наименование продукта</th>
-                                        <th>Номер договора</th>
-                                        <th>Серия полиса</th>
-                                        <th>Номер полиса</th>
-                                        <th>Имя агента</th>
-                                        <th>Действия</th>
-                                    </tr>
+                                    <form action="{{ route('product.search') }}" method="get">
+                                        @csrf
+                                        <tr>
+                                            <th>
+                                                Наименование продукта
+                                                <div class="form-group">
+                                                    <input type="text" name="name" class="form-control">
+                                                </div>
+                                            </th>
+                                            <th>
+                                                Номер договора
+                                                <div class="form-group">
+                                                    <input name="unique_number" type="text" class="form-control">
+                                                </div>
+                                            </th>
+                                            <th>
+                                                Серия полиса
+                                                <div class="form-group">
+                                                    <input name="code" type="text" class="form-control">
+                                                </div>
+                                            </th>
+                                            <th>
+                                                Номер полиса
+                                                <div class="form-group">
+                                                    <input name="number" type="text" class="form-control">
+                                                </div>
+                                            </th>
+                                            <th>
+                                                Имя агента
+                                                <div class="form-group">
+                                                    <input name="surname" type="text" class="form-control">
+                                                </div>
+                                            </th>
+                                            <th>
+                                                Действия
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary">Найти</button>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </form>
                                     </thead>
                                     <tbody>
                                     @foreach ($allProducts as $product)
@@ -88,7 +121,7 @@
                                     </tbody>
 
                                 </table>
-{{--                                {!! $allProducts->links() !!}--}}
+                                {!! $allProducts->links() !!}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -105,31 +138,6 @@
     <!-- /.content-wrapper -->
 @endsection
 @section('scripts')
-
     <script src="/assets/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-
-            $('#example1').DataTable( {
-                orderCellsTop: true,
-                fixedHeader: true,
-                "language": {
-                    "info": "Показано с _START_ по _END_ из _TOTAL_ записей",
-                    "search":"Поиск",
-                    "lengthMenu":"Показать _MENU_ записи",
-                    "paginate": {
-                        "sFirst": "Первая:с", // This is the link to the first page
-                        "sPrevious": "Предыдущая:с", // This is the link to the previous page
-                        "sNext": "Следующая:с", // This is the link to the next page
-                        "sLast": "Предыдущая:с" // This is the link to the last page
-                    },
-                },
-
-                "pagingType": "full_numbers",
-                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]]
-            } );
-        } );
-    </script>
 @endsection
