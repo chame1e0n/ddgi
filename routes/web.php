@@ -77,6 +77,8 @@ Route::group(['middleware' => ['auth']], function () {
     })->name('currencies');
 
     //////////////////////////////////// Ulugbek \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    /// Search
+    Route::get('/product-search', 'AllProductController@search')->name('product.search');
     Route::get('/export-database', 'ZaemshikController@download_db')->name('db_download');
     ////Neshchastka Zaemshik
     Route::resource('borrower', 'NeshchastkZaemshikController');
@@ -91,6 +93,9 @@ Route::group(['middleware' => ['auth']], function () {
     ////Policy_Filter
     Route::resource('policy_filter', 'PolicyFilterController');
     Route::post('policy_filter/filter', 'PolicyFilterController@filter')->name('all_product.filter');
+
+    ////Gruz Export
+    Route::resource('export', 'ExportController');
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

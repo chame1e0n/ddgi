@@ -21,6 +21,20 @@ class Bonded extends Model
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
 
+    public function scopeSearch($q)
+    {
+        $name = request('name');
+        $unique_number = request('unique_number');
+        $code = request('code');
+        $number = request('number');
+        $surname = request('surname');
+        $q->where('name', $name);
+//        $r = $this->product()->when($name, function ($query, $name) {
+//            return $query->where('name', $name);
+//        });
+//        return $r;
+    }
+
     public function policyHolder() {
         return $this->hasOne(PolicyHolder::class, 'id', 'policy_holder_id');
     }
