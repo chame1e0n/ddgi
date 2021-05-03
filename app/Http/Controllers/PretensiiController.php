@@ -19,6 +19,16 @@ class PretensiiController extends Controller
      */
     public function index(Request $request)
     {
+//        $pretensiis = Pretensii::whereHas('allProductInformation', function($q)
+//        {
+//            $q->whereHas('allProducts', function($r)
+//            {
+//                $r->where('policy_holder_id', '=', 102 );
+//
+//            });
+//
+//        })->get();
+//        dd($pretensiis->first()->allProductInformation);
         $pretensiis = [];
 
         if (isset($request->unique_number) && !empty($request->unique_number)) {

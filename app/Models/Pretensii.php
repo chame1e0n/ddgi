@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\AllProductInformation;
 use App\Models\Spravochniki\Branch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -41,5 +42,13 @@ class Pretensii extends Model
     public function policy()
     {
         return $this->hasOne(Policy::class, 'id', 'policy_id');
+    }
+
+    /**
+     * Get the policy series.
+     */
+    public function allProductInformation()
+    {
+        return $this->hasOne(AllProductInformation::class, 'id', 'all_product_information_id');
     }
 }

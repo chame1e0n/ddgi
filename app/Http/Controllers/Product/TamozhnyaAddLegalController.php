@@ -43,7 +43,8 @@ class TamozhnyaAddLegalController extends Controller
     public function create()
     {
         $product = Product::where('name', 'Таможенный платеж')->first();
-        $policySeries = PolicySeries::all();
+        // need to make a limitations for user and status
+        $policies = Policy::all();
         $banks = Bank::all();
         $agents = Agent::all();
         return view('products.tamozhnya.add-legal.create', compact('banks', 'agents', 'policySeries', 'product'));
