@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Policy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PolicyController extends Controller
 {
@@ -87,5 +88,19 @@ class PolicyController extends Controller
         return redirect()->route('policy.index')
             ->with('success', sprintf('Дынные о полисе \'%s\' были успешно удалены', $policy->number));
 
+    }
+
+    public function getPolisNames(Request $request)
+    {
+        $polisNames = Policy::validPolicies()->select('polis_name')->groupBy('polis_name')->get();
+
+        return $polisNames->toJson();
+    }
+
+    public function getPolicySeries(Request $request)
+    {
+        $policySeries = Policy::validPolicies()->where('polis_name', $request->polis_name)->get();
+
+        return $policySeries->toJson();
     }
 }

@@ -17,7 +17,7 @@ class BankController extends Controller
     {
         $banks = Bank::all();
 
-        return view('spravochniki.bank.index',compact('banks'));
+        return view('spravochniki.bank.index', compact('banks'));
     }
 
     /**
@@ -33,7 +33,7 @@ class BankController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -51,7 +51,7 @@ class BankController extends Controller
         Bank::create($request->all());
 
         return redirect()->route('bank.index')
-            ->with('success','Успешно добавлен новый банк');
+            ->with('success', 'Успешно добавлен новый банк');
     }
 
     /**
@@ -62,25 +62,25 @@ class BankController extends Controller
      */
     public function show(Bank $bank)
     {
-        return view('spravochniki.bank.edit',compact('bank'));
+        return view('spravochniki.bank.edit', compact('bank'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Bank  $bank
+     * @param  Bank $bank
      * @return \Illuminate\Http\Response
      */
     public function edit(Bank $bank)
     {
-        return view('spravochniki.bank.edit',compact('bank'));
+        return view('spravochniki.bank.edit', compact('bank'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Bank  $bank
+     * @param  \Illuminate\Http\Request $request
+     * @param  Bank $bank
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Bank $bank)
@@ -107,5 +107,10 @@ class BankController extends Controller
 
         return redirect()->route('bank.index')
             ->with('success', sprintf('Дынные о банке \'%s\' были успешно удалены', $bank->name));
+    }
+
+    public function getAllBanks(Request $request)
+    {
+        return Bank::select('id', 'code as mfo', 'name')->get()->toJson();
     }
 }

@@ -32,6 +32,11 @@ class Policy extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+    public function scopeValidPolicies($q)
+    {
+           return $q->whereNotIn('status', ['lost', 'cancelling', 'terminated', 'underwritting']);
+    }
+
     public function scopeFilter($q)
     {
         if (request('status')) {

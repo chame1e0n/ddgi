@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form method="POST" action="{{ route('cmp.update', $cmp->id) }}" id="mainFormKasko">
+    <form method="POST" action="{{ route('cmp.update', $product->id) }}" id="mainFormKasko">
         <div class="content-wrapper">
             @csrf
             @method('PUT')
@@ -48,7 +48,7 @@
                             <div class="form-group clearfix">
                                 <label>Типы клиента</label>
                                 <div class="row">
-                                    @if($cmp->type == 0)
+                                    @if($product->type == 0)
                                         <div class="col-sm-4">
                                             <div class="icheck-success">
                                                 <input type="radio" class="client-type-radio"
@@ -71,7 +71,7 @@
                                 <label for="product-id">Вид продукта</label>
                                 <select id="product-id" class="form-control select2"
                                         style="width: 100%;" readonly="true">
-                                    <option value="1">{{ $cmp->product->name }}</option>
+                                    <option value="1">{{ $product->product->name }}</option>
                                 </select>
                             </div>
                         </div>
@@ -93,70 +93,7 @@
                         <div class="card-body">
 
                             <div class="row">
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer" value="{{ $cmp->policyHolder->FIO }}" class="form-control"
-                                               required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Юр адрес
-                                            страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer" value="{{ $cmp->policyHolder->address }}"
-                                               class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-tel" name="tel_insurer" class="form-control" value="{{ $cmp->policyHolder->phone_number }}"
-                                               required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-schet" name="address_schet" class="form-control" value="{{ $cmp->policyHolder->checking_account }}"
-                                               required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-inn" name="inn_insurer" class="form-control" value="{{ $cmp->policyHolder->inn }}"
-                                               required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer" class="form-control" value="{{ $cmp->policyHolder->mfo }}"
-                                               required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <select class="form-control bank" id="insurer_bank" name="bank_insurer"
-                                                style="width: 100%;" required>
-                                            @foreach($banks as $bank)
-                                                <option value="{{ $bank->id }}" @if($bank->id == $cmp->policyHolder->bank_id) selected @endif>{{ $bank->name }}</option>
-                                            @endforeach
-                                        </select>
-
-
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="okonh_insurer" class="form-control" value="{{ $cmp->policyHolder->okonx }}"
-                                               required>
-                                    </div>
-                                </div>
+                                @yield()
                                 <div class="col-md-6">
                                     <label class="col-form-label">Период страхования</label>
                                     <div class="input-group">
@@ -164,7 +101,7 @@
                                             <span class="input-group-text">с</span>
                                         </div>
                                         <input   id="insurance_from" name="insurance_from" type="date"
-                                                 value="{{$cmp->insurance_from}}"
+                                                 value="{{$product->insurance_from}}"
                                                 class="form-control">
                                     </div>
                                 </div>
@@ -176,8 +113,22 @@
                                                 <span class="input-group-text">до</span>
                                             </div>
                                             <input id="insurance_to" name="insurance_to" type="date"
-                                                   value="{{$cmp->insurance_to}}"
+                                                   value="{{$product->insurance_to}}"
                                                    class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <label class="col-form-label">Участники строительства</label>
+                                        <div class="form-group mb-20">
+                                            <button type="button" id="add-costruct-participant" class="btn btn-primary ">Добавить
+                                            </button>
+                                        </div>
+                                        <div id="builders">
+                                            <div class="form-group mb-20">
+                                                <input type="text" name="сonstruct_participants" class="form-control">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +154,7 @@
                                                         договоре строительного порядка</label>
                                                     <input type="text" id="beneficiary-name"
                                                            name="object_info_dogov_stoy"
-                                                           value="{{$cmp->object_info_dogov_stoy}}"
+                                                           value="{{$product->object_info_dogov_stoy}}"
                                                            class="form-control">
                                                 </div>
                                             </div>
@@ -212,7 +163,7 @@
                                                     <label for="beneficiary-address" class="col-form-label">Объект
                                                         стриотельно-монтажных работ</label>
                                                     <input type="text" id="beneficiary-address" name="object_stroy_mont"
-                                                           value="{{$cmp->object_stroy_mont}}"
+                                                           value="{{$product->object_stroy_mont}}"
                                                            class="form-control" >
                                                 </div>
                                             </div>
@@ -221,7 +172,7 @@
                                                     <label for="beneficiary-tel" class="col-form-label">Расположение
                                                         объекта</label>
                                                     <input type="text" id="beneficiary-tel" name="object_location"
-                                                           value="{{$cmp->object_location}}"
+                                                           value="{{$product->object_location}}"
                                                            class="form-control">
                                                 </div>
                                             </div>
@@ -231,7 +182,7 @@
                                                         стоимость</label>
                                                     <input type="text" id="beneficiary-schet"
                                                            name="object_insurance_sum"
-                                                           value="{{$cmp->object_insurance_sum}}"
+                                                           value="{{$product->object_insurance_sum}}"
                                                            class="form-control">
                                                 </div>
                                             </div>
@@ -242,7 +193,7 @@
                                                         <span class="input-group-text">с</span>
                                                     </div>
                                                     <input id="insurance_from" name="object_from_date" type="date"
-                                                           value="{{$cmp->object_from_date}}"
+                                                           value="{{$product->object_from_date}}"
                                                            class="form-control" >
                                                 </div>
                                             </div>
@@ -254,7 +205,7 @@
                                                             <span class="input-group-text">до</span>
                                                         </div>
                                                         <input id="insurance_to" name="object_to_date" type="date"
-                                                               value="{{$cmp->object_to_date}}"
+                                                               value="{{$product->object_to_date}}"
                                                                class="form-control"  >
                                                     </div>
                                                 </div>
@@ -268,7 +219,7 @@
                                                     <label for="beneficiary-mfo" class="col-form-label">Телесные
                                                         повреждения</label>
                                                     <input type="text" id="beneficiary-mfo" name="object_tel_povr"
-                                                           value="{{$cmp->object_tel_povr}}"
+                                                           value="{{$product->object_tel_povr}}"
                                                            class="form-control"  >
                                                 </div>
                                             </div>
@@ -277,7 +228,7 @@
                                                     <label for="beneficiary-bank" class="col-form-label">Материальный
                                                         ущерб</label>
                                                     <input type="text" id="beneficiary-bank" name="object_material"
-                                                           value="{{$cmp->object_material}}"
+                                                           value="{{$product->object_material}}"
                                                            class="form-control" >
                                                 </div>
                                             </div>
@@ -304,7 +255,7 @@
                                             <label for="beneficiary-mfo" class="col-form-label ">Строительно
                                                 монтажные</label>
                                             <input type="text" id="beneficiary-mfo" name="stroy_mont_sum"
-                                                   value="{{$cmp->stroy_mont_sum}}"
+                                                   value="{{$product->stroy_mont_sum}}"
                                                    class="form-control" >
                                         </div>
                                     </div>
@@ -312,7 +263,7 @@
                                         <div class="form-group">
                                             <label for="beneficiary-bank" class="col-form-label">Строительные</label>
                                             <input type="text" id="beneficiary-bank" name="stroy_sum"
-                                                   value="{{$cmp->stroy_sum}}"
+                                                   value="{{$product->stroy_sum}}"
                                                    class="form-control" >
                                         </div>
                                     </div>
@@ -320,7 +271,7 @@
                                         <div class="form-group">
                                             <label for="beneficiary-bank" class="col-form-label">Оборудование</label>
                                             <input type="text" id="beneficiary-bank" name="obor_sum"
-                                                   value="{{$cmp->obor_sum}}"
+                                                   value="{{$product->obor_sum}}"
                                                    class="form-control" >
                                         </div>
                                     </div>
@@ -329,7 +280,7 @@
                                             <label for="beneficiary-bank" class="col-form-label">Стрительные машины и
                                                 механизмы</label>
                                             <input type="text" id="beneficiary-bank" name="stroy_mash_sum"
-                                                   value="{{$cmp->stroy_mash_sum}}"
+                                                   value="{{$product->stroy_mash_sum}}"
                                                    class="form-control" >
                                         </div>
                                     </div>
@@ -338,7 +289,7 @@
                                             <label for="beneficiary-bank" class="col-form-label">Расходы по расчистке
                                                 территории</label>
                                             <input type="text" id="beneficiary-bank" name="rasx_sum"
-                                                   value="{{$cmp->rasx_sum}}"
+                                                   value="{{$product->rasx_sum}}"
                                                    class="form-control" >
                                         </div>
                                     </div>
@@ -348,7 +299,7 @@
                                         <div class="form-group">
                                             <label for="geographic-zone">Страховая премия</label>
                                             <input type="text" id="geographic-zone" name="insurance_prem_sum"
-                                                   value="{{$cmp->insurance_prem_sum}}"
+                                                   value="{{$product->insurance_prem_sum}}"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -356,7 +307,7 @@
                                         <div class="form-group">
                                             <label for="geographic-zone">Франшиза</label>
                                             <input type="text" id="geographic-zone" name="franchise_sum"
-                                                   value="{{$cmp->franchise_sum}}"
+                                                   value="{{$product->franchise_sum}}"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -383,11 +334,11 @@
                                             <label>Способ расчета</label>
                                             <select name="insurance_premium_payment_type" class="form-control"
                                                     style="width: 100%; text-align: center">
-                                                <option @if($cmp->insurance_premium_payment_type == 1)selected @endif value="1">Сумах</option>
-                                                <option @if($cmp->insurance_premium_payment_type == 2)selected @endif value="2">В ин. валюте</option>
-                                                <option @if($cmp->insurance_premium_payment_type == 3)selected @endif value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
-                                                <option @if($cmp->insurance_premium_payment_type == 4)selected @endif value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                                <option @if($cmp->insurance_premium_payment_type == 5)selected @endif value="5">В ин. валюте по фикс курсу ЦБ на день оплаты премии/первого транша </option>
+                                                <option @if($product->insurance_premium_payment_type == 1)selected @endif value="1">Сумах</option>
+                                                <option @if($product->insurance_premium_payment_type == 2)selected @endif value="2">В ин. валюте</option>
+                                                <option @if($product->insurance_premium_payment_type == 3)selected @endif value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
+                                                <option @if($product->insurance_premium_payment_type == 4)selected @endif value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
+                                                <option @if($product->insurance_premium_payment_type == 5)selected @endif value="5">В ин. валюте по фикс курсу ЦБ на день оплаты премии/первого транша </option>
                                             </select>
                                         </div>
                                     </div>
@@ -446,7 +397,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Номер договора</label>
-                                        <input value="{{$cmp->unique_number}}" readonly>
+                                        <input value="{{$product->unique_number}}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -454,13 +405,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Серия полиса</label>
-                                        <input value="{{$cmp->policySeries->code ?? '-'}}" readonly>
+                                        <input value="{{$product->policySeries->code ?? '-'}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Номер полиса</label>
-                                        <input value="{{$cmp->policy->number}}" readonly>
+                                        <input value="{{$product->policy->number}}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -491,7 +442,7 @@
                                                     style="width: 100%;" required>
                                                 <option value="0"></option>
                                                 @foreach($policySeries as $series)
-                                                    <option value="{{ $series->id }}" @if($series->id == $cmp->policy_series_id) selected @endif>{{ $series->code }}</option>
+                                                    <option value="{{ $series->id }}" @if($series->id == $product->policy_series_id) selected @endif>{{ $series->code }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -503,7 +454,7 @@
                                                 <span class="input-group-text"></span>
                                             </div>
                                             <input id="insurance_from" name="polic_given_date" type="date"
-                                                   value="{{ $cmp->polic_given_date }}"
+                                                   value="{{ $product->polic_given_date }}"
                                                    class="form-control" >
                                         </div>
                                     </div>
@@ -515,7 +466,7 @@
                                                 <option></option>
                                                 @foreach($agents as $agent)
                                                     <option
-                                                            value="{{ $agent->user_id }}" @if($agent->user_id == $cmp->user_id) selected @endif>{{ $agent->surname }}{{ $agent->name }}{{ $agent->middle_name }}</option>
+                                                            value="{{ $agent->user_id }}" @if($agent->user_id == $product->user_id) selected @endif>{{ $agent->surname }}{{ $agent->name }}{{ $agent->middle_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

@@ -33,6 +33,12 @@ class EmployeeController extends Controller
         return $agents->merge($managers)->merge($director)->toJson();
     }
 
+    public function getAgents() {
+        $agents = Agent::all();
+
+        return $agents->toJson();
+    }
+
     public function getEmployees() {
         $agents = Agent::all();
         $managers = Manager::all();
