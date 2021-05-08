@@ -535,5 +535,6 @@
 @endsection
 
 @section('scripts')
+    @yield('_obshie_svedeniya_scripts')
     @yield('_svediniya_o_polise_scripts')
 @endsection
