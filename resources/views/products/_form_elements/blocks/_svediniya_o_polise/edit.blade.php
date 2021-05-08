@@ -1,5 +1,5 @@
 @include('products._form_elements.elements._policySeries_by_policyName.create')
-@include('products._form_elements.elements._agentList.create')
+@include('products._form_elements.elements._agentList.edit')
 @section('_svediniya_o_polise_content')
     <div class="card-body">
         <div class="card card-info" id="clone-beneficiary">
@@ -23,7 +23,7 @@
                                     <span class="input-group-text"></span>
                                 </div>
                                 <input id="insurance_from" name="polic_given_date" type="date"
-                                       value="{{old('polic_given_date')}}"
+                                       value="{{$product->polic_given_date}}"
                                        @if($errors->has('polic_given_date'))
                                        class="form-control is-invalid"
                                        @else

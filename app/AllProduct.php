@@ -14,11 +14,18 @@ class AllProduct extends Model
     protected $table = 'all_products';
     protected $guarded = [];
 
+    const TS_OSNOVANII = [
+        1 => "Тех пасспорт",
+        "Доверенность",
+        "Договор аренды",
+        "Путевой лист"
+    ];
+
     public function policyHolder()
     {
         return $this->hasOne(PolicyHolder::class, 'id', 'policy_holder_id')->with('bank');
     }
-    public function allProductCurrencyTerms()
+    public function allProductTermTransh()
     {
         return $this->hasMany(AllProductsTermsTransh::class, 'all_products_id', 'id');
     }

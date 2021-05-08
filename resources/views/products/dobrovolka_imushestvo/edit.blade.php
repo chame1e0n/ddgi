@@ -1,11 +1,11 @@
 @extends('layouts.index')
-@include('products._form_elements.elements._period_strahovaniya.create')
-@include('products._form_elements.elements._geograficheskaya_zona.create')
-@include('products._form_elements.elements._ispolzovaniye_ts_na_osnovanii.create')
-@include('products._form_elements.blocks._obshie_svedeniya.create')
-@include('products._form_elements.blocks._vigodopriopredatel.create')
-@include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create')
-@include('products._form_elements.blocks._zagruzka_dokumentov.create')
+@include('products._form_elements.elements._period_strahovaniya.edit')
+@include('products._form_elements.elements._geograficheskaya_zona.edit')
+@include('products._form_elements.elements._ispolzovaniye_ts_na_osnovanii.edit')
+@include('products._form_elements.blocks._obshie_svedeniya.edit')
+@include('products._form_elements.blocks._vigodopriopredatel.edit')
+@include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.edit')
+@include('products._form_elements.blocks._zagruzka_dokumentov.edit')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -13,6 +13,7 @@
           enctype="multipart/form-data">
         <div class="content-wrapper">
             @csrf
+            @method('PUT')
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -79,9 +80,9 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                           @yield('_period_strahovaniya_content')
-                                           @yield('_ispolzovaniye_ts_na_osnovanii_content')
-                                           @yield('_geograficheskaya_zona_content')
+                                            @yield('_period_strahovaniya_content')
+                                            @yield('_ispolzovaniye_ts_na_osnovanii_content')
+                                            @yield('_geograficheskaya_zona_content')
                                         </div>
                                     </div>
                                 </div>
@@ -122,47 +123,63 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr id="${id}">
-                                        <td>
-                                            <select class="form-control polis_name_id" onchange="getPolicySeries(this, ${id})" name="polis_name_id[]" style="width: 100%;">
-                                                <option selected="selected"></option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select class="form-control polis_series_id" id="polis_series_${id}" name="polis_series_id[]" style="width: 100%;">
-                                                <option selected="selected"></option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control" name="data_vidachi[]">
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control" name="period_deystviya_ot[]">
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control" name="period_deystviya_do[]">
-                                        </td>
-                                        <td>
-                                            <select class="form-control" id="polise_agents" name="otvet_litso[]" style="width: 100%;">
-                                                <option selected="selected"></option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control forsum2" name="kolichestvo[]">
-                                        </td>
-                                        <td>
-                                            <input data-field="value" type="text" class="form-control" name="strah_stoimost[]">
-                                        </td>
-                                        <td>
-                                            <input data-field="sum" type="text" class="form-control" name="strah_summa[]">
-                                        </td>
-                                        <td>
-                                            <input data-field="premiya" type="text" class="form-control" name="strah_premiya[]">
-                                        </td>
-                                        <td>
-                                            <input type="button" onclick="removeAndCalc(${id})" value="Удалить" class="btn btn-warning">
-                                        </td>
-                                    </tr>
+                                    {{--ToDo::change the logic of this table--}}
+                                    @if($product->has('allProductInfo'))
+                                        @foreach($product->allProductInfo as $policyInformation)
+                                            {{--<tr id="${id}">--}}
+                                                {{--<td>--}}
+                                                    {{--<select class="form-control polis_name_id"--}}
+                                                            {{--onchange="getPolicySeries(this, ${id})"--}}
+                                                            {{--name="polis_name_id[]" style="width: 100%;">--}}
+                                                        {{--<option selected="selected"></option>--}}
+                                                    {{--</select>--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<select class="form-control polis_series_id" id="polis_series_${id}"--}}
+                                                            {{--name="polis_series_id[]" style="width: 100%;">--}}
+                                                        {{--<option selected="selected"></option>--}}
+                                                    {{--</select>--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<input type="date" class="form-control" name="data_vidachi[]">--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<input type="date" class="form-control"--}}
+                                                           {{--name="period_deystviya_ot[]">--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<input type="date" class="form-control"--}}
+                                                           {{--name="period_deystviya_do[]">--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<select class="form-control" id="polise_agents" name="otvet_litso[]"--}}
+                                                            {{--style="width: 100%;">--}}
+                                                        {{--<option selected="selected"></option>--}}
+                                                    {{--</select>--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<input type="text" class="form-control forsum2"--}}
+                                                           {{--name="kolichestvo[]">--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<input data-field="value" type="text" class="form-control"--}}
+                                                           {{--name="strah_stoimost[]">--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<input data-field="sum" type="text" class="form-control"--}}
+                                                           {{--name="strah_summa[]">--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<input data-field="premiya" type="text" class="form-control"--}}
+                                                           {{--name="strah_premiya[]">--}}
+                                                {{--</td>--}}
+                                                {{--<td>--}}
+                                                    {{--<input type="button" onclick="removeAndCalc(${id})" value="Удалить"--}}
+                                                           {{--class="btn btn-warning">--}}
+                                                {{--</td>--}}
+                                            {{--</tr>--}}
+                                        @endforeach
+                                    @endif
                                     <tr>
                                         <td colspan="7" style="text-align: right"><label class="text-bold">Итого</label>
                                         </td>

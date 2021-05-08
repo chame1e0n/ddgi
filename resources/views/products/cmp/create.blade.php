@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form method="POST" action="{{ route('cmp.store') }}" id="mainFormKasko">
+    <form method="POST" action="{{ route('cmp.store') }}" id="mainFormKasko" enctype="multipart/form-data">
         <div class="content-wrapper">
             @csrf
             <div class="content-header">

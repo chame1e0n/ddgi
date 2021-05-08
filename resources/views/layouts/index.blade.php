@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/assets/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/assets/dist/css/adminlte.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
@@ -34,7 +35,9 @@
     <link rel="stylesheet" href="/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="/assets/plugins/datatables-scroller/css/scroller.bootstrap4.min.css">
     <link rel="stylesheet" href="/assets/plugins/datatables-select/css/select.bootstrap4.min.css">
+    <!-- Select2 -->
     <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <link rel="stylesheet" href="/assets/plugins/glyphicon/css/glyphicon.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -46,13 +49,13 @@
 <div class="wrapper">
 
     <!-- Navbar -->
-    @include('layouts._navbar')
-    <!-- /.navbar -->
+@include('layouts._navbar')
+<!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    @include('layouts._main_sidebar')
+@include('layouts._main_sidebar')
 
-    <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
     <div id="ajaxData">
         @yield('content')
     </div>
@@ -127,14 +130,14 @@
     // });
 </script>
 <script>
-    $("input[data-bootstrap-switch]").each(function(){
+    $("input[data-bootstrap-switch]").each(function () {
         $(this).bootstrapSwitch();
     });
 
 
 </script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $.ajax({
             url: '{{route('currencies')}}',
             method: "GET",
@@ -142,7 +145,7 @@
             // beforeSend: function(xhr) {
             //     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
             // },
-            success: function(data) {
+            success: function (data) {
                 // $('#walletNames').append('<option selected="selected"></option>');
                 const products = data;
                 const length = products.length;
@@ -150,15 +153,12 @@
                     $('#walletNames').append(`<option value="${products[i].Ccy}">${products[i].Ccy}</option>`);
                 }
             },
-            error: function() {
+            error: function () {
                 console.log('error');
             }
-        })
+        });
     });
-    // fetch('https://cbu.uz/ru/arkhiv-kursov-valyut/json/')
-    //     .then(function(data) {
-    //         console.log(data)
-    //     });
+
 </script>
 @yield('scripts')
 </html>

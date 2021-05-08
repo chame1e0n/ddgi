@@ -80,6 +80,7 @@ let totalTurnover = 0
 let earnings = 0
 
 let agentsList = [];
+let polisNamesList = [];
 
 let domainPath = location.protocol + '//' + location.host;
 
@@ -104,55 +105,51 @@ function loadAgents() {
     xmlhttp.send();
 }
 
-    function getPolicyName(rowId) {
+$.ajax({
+    url: domainPath + '/get/polis_name',
+    type: 'get',
+    dataType: 'json',
+    success: function (response) {
+        polisNamesList = response;
+    }
+});
+
+function getPolicyName(rowId) {
+    var polisNameField = document.getElementById(rowId).querySelector('.polis_name_id');
+    var str = "<option selected></option>";
+
+    for (var i = 0; i < polisNamesList.length; i++) {
+        var name = polisNamesList[i].polis_name;
+        str += "<option value='" + name + "'>" + name + "</option>";
+    }
+
+    polisNameField.innerHTML = str;
+}
+
+function getPolicySeries(polisNameElement, rowId) {
+    if (polisNameElement.value) {
         $.ajax({
-            url: domainPath + '/get/polis_name',
+            url: domainPath + '/get/polis_series_by_polis_name',
             type: 'get',
+            data: {polis_name: polisNameElement.value},
             dataType: 'json',
             success: function (response) {
                 var len = response.length;
-                var polisNameField = $('#'+rowId).find(".polis_name_id");
-
-                polisNameField.empty();
+                var polisSeriesField = document.getElementById('polis_series_'+rowId);
+                var str = "";
 
                 for (var i = 0; i < len; i++) {
-                    var name = response[i]['polis_name'];
+                    var id = response[i]['id'];
+                    var name = response[i]['number'];
 
-                    polisNameField.append("<option value='" + name + "' selected>" + name + "</option>");
+                    str += "<option value='" + id + "'>" + name + "</option>";
                 }
 
-                getPolicySeries(polisName);
+                polisSeriesField.innerHTML = str;
             }
         });
     }
-
-    $(".polis_name_id").change(function () {
-        getPolicySeries($(this));
-    });
-
-    function getPolicySeries(polisNameElement) {
-        if(polisNameElement.value) {
-            $.ajax({
-                url: domainPath + '/get/polis_series_by_polis_name',
-                type: 'get',
-                data: {polis_name: polisNameElement.value},
-                dataType: 'json',
-                success: function (response) {
-
-                    var len = response.length;
-                    var polisSeriesField = polisNameElement.next(".polis_series_id");
-
-                    polisSeriesField.empty();
-                    for (var i = 0; i < len; i++) {
-                        var id = response[i]['id'];
-                        var name = response[i]['number'];
-
-                        polisSeriesField.append("<option value='" + id + "'>" + name + "</option>");
-                    }
-                }
-            });
-        }
-    }
+}
 
 /**
  * @param selector - селектор элемента
@@ -1980,12 +1977,12 @@ if (addImushestvoBtn) {
         const id = Math.random();
         const field = `<tr id="${id}">
             <td>
-                <select class="form-control polis_name_id" name="polis_name_id[]" style="width: 100%;">
+                <select class="form-control polis_name_id" onchange="getPolicySeries(this, ${id})" name="polis_name_id[]" style="width: 100%;">
                     <option selected="selected"></option>
                 </select>
             </td>
             <td>
-                <select class="form-control polis_series_id" name="polis_series_id[]" style="width: 100%;">
+                <select class="form-control polis_series_id" id="polis_series_${id}" name="polis_series_id[]" style="width: 100%;">
                     <option selected="selected"></option>
                 </select>
             </td>

@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form method="POST" action="{{ route('cmp.update', $product->id) }}" id="mainFormKasko">
+    <form method="POST" action="{{ route('cmp.update', $product->id) }}" id="mainFormKasko" enctype="multipart/form-data">
         <div class="content-wrapper">
             @csrf
             @method('PUT')
