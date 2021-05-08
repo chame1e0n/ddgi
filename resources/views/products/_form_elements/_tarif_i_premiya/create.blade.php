@@ -10,7 +10,7 @@
         -->
         <div class="form-group" data-tarif-descr style="display: none">
             <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-            <input class="form-control" id="descrTarif" type="number">
+            <input class="form-control" id="descrTarif" name="tarif_other" type="number">
         </div>
     </div>
     <div class="col-md-12">
@@ -24,7 +24,7 @@
         -->
         <div class="form-group" data-preim-descr style="display: none">
             <label for="descrPreim" class="col-form-label">Укажите процент тарифа</label>
-            <input class="form-control" id="descrPreim" type="number">
+            <input class="form-control" id="descrPreim" name="premiya_other" type="number">
         </div>
     </div>
 @endsection

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\AllProductController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TamozhnyaAddLegalRequest;
 use App\Models\Dogovor;
@@ -10,25 +9,20 @@ use App\Models\Policy;
 use App\Models\PolicyHolder;
 use App\Models\Product;
 use App\Models\Product\TamozhnyaAddLegal;
+use App\Models\Product\TamozhnyaAddLegalStrahPremiya;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
-use App\Models\Product\TamozhnyaAddLegalStrahPremiya;
 use App\Models\Spravochniki\PolicySeries;
-use App\Models\Spravochniki\RequestModel;
-use App\User;
 use Illuminate\Http\Request;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\PhpWord;
+use Illuminate\Http\Response;
 use PhpOffice\PhpWord\TemplateProcessor;
-use PhpOffice\PhpWord\Settings;
-use Dompdf\Dompdf;
 
 class TamozhnyaAddLegalController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -38,7 +32,7 @@ class TamozhnyaAddLegalController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -50,21 +44,22 @@ class TamozhnyaAddLegalController extends Controller
         return view('products.tamozhnya.add-legal.create', compact('banks', 'agents', 'policySeries', 'product'));
     }
 
-    public function countStrahovayaPremiya($strahovayaSumma, $isCustomTarif, $customTarif, $productId) {
-        if($isCustomTarif == 'on') {
-            return ($customTarif/100 * $strahovayaSumma);
+    public function countStrahovayaPremiya($strahovayaSumma, $isCustomTarif, $customTarif, $productId)
+    {
+        if ($isCustomTarif == 'on') {
+            return ($customTarif / 100 * $strahovayaSumma);
         }
 
         $productTarif = Product::find($productId)->tarif;
 
-        return ($productTarif/100 * $strahovayaSumma);
+        return ($productTarif / 100 * $strahovayaSumma);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(TamozhnyaAddLegalRequest $request)
     {
@@ -146,8 +141,8 @@ class TamozhnyaAddLegalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -161,8 +156,8 @@ class TamozhnyaAddLegalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -170,7 +165,7 @@ class TamozhnyaAddLegalController extends Controller
         $policySeries = PolicySeries::all();
         $banks = Bank::all();
         $agents = Agent::all();
-        if (isset($_GET['download']) && $_GET['download'] == 'dogovor'){
+        if (isset($_GET['download']) && $_GET['download'] == 'dogovor') {
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/dogovor.docx'));
             $document->setValues([
                 'y' => $tamozhnya->created_at->year,
@@ -179,17 +174,17 @@ class TamozhnyaAddLegalController extends Controller
                 'unique_number' => $tamozhnya->unique_number,
                 'litso' => $tamozhnya->agent->getFio(),
                 'fio_insurer' => $tamozhnya->policyHolders->FIO,
-                'strahovaya_sum' =>  $tamozhnya->strahovaya_sum,
+                'strahovaya_sum' => $tamozhnya->strahovaya_sum,
                 'strahovaya_purpose' => $tamozhnya->strahovaya_purpose,
                 'address' => $tamozhnya->agent->user->brnach->address,
-                'tel'     => $tamozhnya->agent->user->brnach->phone_numner,
+                'tel' => $tamozhnya->agent->user->brnach->phone_numner,
                 'insurer_address' => $tamozhnya->policyHolders->address,
-                'insurer_tel'     => $tamozhnya->policyHolders->phone_number,
+                'insurer_tel' => $tamozhnya->policyHolders->phone_number,
 
-                'insurer_schet'     => $tamozhnya->policyHolders->checking_account,
-                'insurer_mfo'     => $tamozhnya->policyHolders->inn,
-                'insurer_inn'     => $tamozhnya->policyHolders->mfo,
-                'insurer_oked'     => $tamozhnya->policyHolders->oked,
+                'insurer_schet' => $tamozhnya->policyHolders->checking_account,
+                'insurer_mfo' => $tamozhnya->policyHolders->inn,
+                'insurer_inn' => $tamozhnya->policyHolders->mfo,
+                'insurer_oked' => $tamozhnya->policyHolders->oked,
 
             ]);
             $document->saveAs('dogovor.docx');
@@ -212,31 +207,31 @@ class TamozhnyaAddLegalController extends Controller
 //            return redirect($fileLink);
 //            return response()->download('document.pdf');
         }
-        if (isset($_GET['download']) && $_GET['download'] == 'za'){
+        if (isset($_GET['download']) && $_GET['download'] == 'za') {
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/za.docx'));
             $document->setValues([
                 'description' => $tamozhnya->description,
                 'prichina_pretenzii' => $tamozhnya->prichina_pretenzii,
-                'insurer_tel'     => $tamozhnya->policyHolders->phone_number,
-                'insurer_schet'     => $tamozhnya->policyHolders->checking_account,
-                'insurer_mfo'     => $tamozhnya->policyHolders->inn,
-                'insurer_inn'     => $tamozhnya->policyHolders->mfo,
+                'insurer_tel' => $tamozhnya->policyHolders->phone_number,
+                'insurer_schet' => $tamozhnya->policyHolders->checking_account,
+                'insurer_mfo' => $tamozhnya->policyHolders->inn,
+                'insurer_inn' => $tamozhnya->policyHolders->mfo,
                 'litso' => $tamozhnya->agent->getFio(),
                 'fio_insurer' => $tamozhnya->policyHolders->FIO,
             ]);
             $document->saveAs('za.docx');
             return response()->download('za.docx');
         }
-        if (isset($_GET['download']) && $_GET['download'] == 'polis'){
+        if (isset($_GET['download']) && $_GET['download'] == 'polis') {
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/polis.docx'));
             $document->setValues([
                 'date_issue_policy' => $tamozhnya->date_issue_policy,
                 'fio_insurer' => $tamozhnya->policyHolders->FIO,
                 'from_date' => $tamozhnya->from_date,
-                'to_date'   => $tamozhnya->to_date,
-                'strahovaya_sum' =>  $tamozhnya->strahovaya_sum,
+                'to_date' => $tamozhnya->to_date,
+                'strahovaya_sum' => $tamozhnya->strahovaya_sum,
                 'strahovaya_purpose' => $tamozhnya->strahovaya_purpose,
-                'director'     => $tamozhnya->agent->user->branch->director->getFIO(),
+                'director' => $tamozhnya->agent->user->branch->director->getFIO(),
             ]);
             $document->saveAs('polis.docx');
             return response()->download('polis.docx');
@@ -244,8 +239,8 @@ class TamozhnyaAddLegalController extends Controller
 
         $requestUnderwrittingProblem = false;
 
-        if($tamozhnya->product->max_acceptable_amount < $tamozhnya->strahovaya_sum) {
-            if($tamozhnya->requests()->exists()) {
+        if ($tamozhnya->product->max_acceptable_amount < $tamozhnya->strahovaya_sum) {
+            if ($tamozhnya->requests()->exists()) {
                 foreach ($tamozhnya->requests as $req) {
                     if ($req->status != 'underwritting' or $req->state != 2) {
                         $requestUnderwrittingProblem = true;
@@ -263,9 +258,9 @@ class TamozhnyaAddLegalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(TamozhnyaAddLegalRequest $request, $id)
     {
@@ -324,12 +319,12 @@ class TamozhnyaAddLegalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {
-        $tamozhnyaAddLegal= TamozhnyaAddLegal::find($id);
+        $tamozhnyaAddLegal = TamozhnyaAddLegal::find($id);
         $tamozhnyaAddLegal->delete();
 
         return redirect()->route('all_products.index')

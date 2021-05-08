@@ -1,13 +1,13 @@
 @extends('layouts.index')
 @include('products._form_elements.blocks._obshie_svedeniya.create')
 @include('products._form_elements.blocks._vigodopriopredatel.create')
-@include('products._form_elements._usloviya_oplati_strahovoy_premii.create')
-@include('products._form_elements._tarif_i_premiya.create')
+@include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create')
 @include('products._form_elements.blocks._zagruzka_dokumentov.create')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form method="POST" action="{{ route('dobrovolka_imushestvo.store') }}" id="mainFormKasko">
+    <form method="POST" action="{{ route('dobrovolka_imushestvo.store') }}" id="mainFormKasko"
+          enctype="multipart/form-data">
         <div class="content-wrapper">
             @csrf
             <div class="content-header">
@@ -78,13 +78,18 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="insurance_from">Период страхования</label>
+                                                    <label for="period_insurance_from">Период страхования</label>
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">с</span>
                                                         </div>
-                                                        <input id="insurance_from" name="insurance_from" type="date"
-                                                               class="form-control">
+                                                        <input id="period_insurance_from" name="period_insurance_from" type="date"
+                                                               value="{{old('period_insurance_from')}}"
+                                                               @if($errors->has('period_insurance_from'))
+                                                               class="form-control is-invalid"
+                                                               @else
+                                                               class="form-control"
+                                                            @endif>
                                                     </div>
                                                 </div>
                                             </div>
@@ -94,15 +99,24 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">до</span>
                                                         </div>
-                                                        <input id="insurance_to" name="insurance_to" type="date"
-                                                               class="form-control">
+                                                        <input id="period_insurance_to" name="period_insurance_to" type="date"
+                                                               value="{{old('period_insurance_to')}}"
+                                                               @if($errors->has('period_insurance_to'))
+                                                               class="form-control is-invalid"
+                                                               @else
+                                                               class="form-control"
+                                                            @endif>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group ">
                                                     <label>Использования ТС на основании</label>
-                                                    <select class="form-control payment-schedule" name="payment_term"
+                                                    <select @if($errors->has('ts_osnovanii'))
+                                                            class="form-control is-invalid"
+                                                            @else
+                                                            class="form-control"
+                                                            @endif name="ts_osnovanii"
                                                             onchange="showDiv('other-payment-schedule', this)"
                                                             style="width: 100%; text-align: center">
                                                         <option value="selected"></option>
@@ -115,9 +129,17 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="geographic-zone">Географическая зона:</label>
-                                                    <input type="text" id="geographic-zone" name="geo_zone"
-                                                           class="form-control">
+                                                    <label for="geographic-zone" class="col-form-label">Географическая
+                                                        зона</label>
+                                                    <input type="text" id="geographic-zone"
+                                                           name="geo_zone"
+                                                           value="{{old('geo_zone')}}"
+                                                           @if($errors->has('geo_zone'))
+                                                           class="form-control is-invalid"
+                                                           @else
+                                                           class="form-control"
+                                                           @endif
+                                                           required>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,34 +211,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="geo_zone" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="all-summ">Cтраховая премия</label>
-                                        <input type="text" id="all-summ" name="geo_zone" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-summ" name="geo_zone" class="form-control">
-                                    </div>
-                                </div>
-
-                                @yield('_usloviya_oplati_strahovoy_premii_content')
-                            </div>
-
-                            @yield('_tarif_i_premiya')
-                        </div>
-                    </div>
+                    @yield('_usloviya_oplati_strahovoy_premii_content')
                 </div>
 
                 @yield('_zagruzka_dokumentov_content')

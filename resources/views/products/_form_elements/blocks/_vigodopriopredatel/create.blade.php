@@ -79,11 +79,24 @@
         </div>
     </div>
 
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="beneficiary-seria_passport" class="col-form-label">Серия паспорта</label>
+            <input type="text" id="seria_passport" name="seria_passport"
+                   value="{{old('seria_passport')}}" @if($errors->has('seria_passport'))
+                   class="form-control is-invalid"
+                   @else
+                   class="form-control"
+                   @endif
+                   required>
+        </div>
+    </div>
+
     <div class="col-md-4">
         <div class="form-group">
-            <label for="beneficiary-passport" class="col-form-label">Номер паспорта</label>
-            <input type="text" id="beneficiary-passport" name="passport_beneficiary"
-                   value="{{old('passport_beneficiary')}}" @if($errors->has('passport_beneficiary'))
+            <label for="nomer_passport" class="col-form-label">Номер паспорта</label>
+            <input type="text" id="nomer_passport" name="nomer_passport"
+                   value="{{old('nomer_passport')}}" @if($errors->has('nomer_passport'))
                    class="form-control is-invalid"
                    @else
                    class="form-control"
@@ -111,19 +124,6 @@
             <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
             <input type="text" id="beneficiary-okonh" name="okonh_beneficiary"
                    value="{{old('okonh_beneficiary')}}" @if($errors->has('okonh_beneficiary'))
-                   class="form-control is-invalid"
-                   @else
-                   class="form-control"
-                   @endif
-                   required>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="beneficiary-seriya" class="col-form-label">Серия</label>
-            <input type="text" id="beneficiary-seriya" name="seriya_beneficiary"
-                   value="{{old('seriya_beneficiary')}}" @if($errors->has('seriya_beneficiary'))
                    class="form-control is-invalid"
                    @else
                    class="form-control"

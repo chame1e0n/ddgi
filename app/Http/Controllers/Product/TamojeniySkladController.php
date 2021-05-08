@@ -8,15 +8,14 @@ use App\Models\Dogovor;
 use App\Models\Policy;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
-use App\Models\Product;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
 use App\User;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
-use Symfony\Component\Console\Input\Input;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 /**
  * Class TamojeniySkladController
@@ -27,7 +26,7 @@ class TamojeniySkladController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -37,7 +36,7 @@ class TamojeniySkladController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -50,8 +49,8 @@ class TamojeniySkladController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -94,7 +93,7 @@ class TamojeniySkladController extends Controller
         $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
 
         if (empty($policy)) {
-            $policySeries = PolicySeries::find( $request->policy_series_id);
+            $policySeries = PolicySeries::find($request->policy_series_id);
 
             return back()->withInput()->withErrors([
                 sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
@@ -166,7 +165,7 @@ class TamojeniySkladController extends Controller
         $policy->update([
             'status' => 'in_use',
             'client_type' => $request->client_type_radio,
-            ]);
+        ]);
 
         $brancId = User::find($request->litso)->branch_id;
         $uniqueNumber = new Dogovor;
@@ -183,7 +182,7 @@ class TamojeniySkladController extends Controller
         ]);
 
         return redirect()->route('all_products.index')
-            ->with('success','Успешно заполнен продукт');
+            ->with('success', 'Успешно заполнен продукт');
     }
 
     /**
@@ -200,7 +199,7 @@ class TamojeniySkladController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Bonded $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($id)
     {
@@ -214,9 +213,9 @@ class TamojeniySkladController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -267,7 +266,7 @@ class TamojeniySkladController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

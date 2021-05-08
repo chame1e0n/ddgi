@@ -2,7 +2,7 @@
 @include('products._form_elements.blocks._svediniya_o_polise.create')
 @include('products._form_elements.blocks._zagruzka_dokumentov.create')
 @include('products._form_elements.blocks._obshie_svedeniya.create')
-@include('products._form_elements._usloviya_oplati_strahovoy_premii.create')
+@include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->

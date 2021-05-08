@@ -2,22 +2,9 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Bonded;
-use App\BondedPolicyInformation;
 use App\Http\Controllers\Controller;
-use App\Models\Dogovor;
-use App\Models\Policy;
-use App\Models\PolicyBeneficiaries;
-use App\Models\PolicyHolder;
-use App\Models\Product;
-use App\Models\Spravochniki\Agent;
-use App\Models\Spravochniki\Bank;
-use App\Models\Spravochniki\PolicySeries;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
-use Symfony\Component\Console\Input\Input;
+use Illuminate\Http\Response;
 
 /**
  * Class RassrochkaController
@@ -28,7 +15,7 @@ class RassrochkaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -38,7 +25,7 @@ class RassrochkaController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -48,8 +35,8 @@ class RassrochkaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -216,9 +203,9 @@ class RassrochkaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -273,7 +260,7 @@ class RassrochkaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

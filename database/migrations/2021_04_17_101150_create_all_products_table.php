@@ -28,7 +28,6 @@ class CreateAllProductsTable extends Migration
             $table->text('product_id')->nullable();
             $table->text('steamer_point')->nullable();
             $table->text('appointment_point')->nullable();
-            $table->text('geo_zone')->nullable();
             $table->text('overloads_place')->nullable();
             $table->text('country_of_insurance')->nullable();
             $table->text('location_of_cargo')->nullable();
@@ -129,6 +128,12 @@ class CreateAllProductsTable extends Migration
             $table->text('policy_id')->nullable();
             $table->text('policy_series_id')->nullable();
             $table->text('state')->nullable();
+
+            $table->text('geo_zone')->nullable(); // Географическая зона
+            $table->date('period_insurance_from')->nullable(); // Период страхования c
+            $table->date('period_insurance_to')->nullable(); // Период страхования до
+            $table->bigInteger('ts_osnovanii')->nullable(); // Использования ТС на основании
+
             $table->timestamps();
             $table->softDeletes();
         });

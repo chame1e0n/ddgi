@@ -12,12 +12,14 @@ use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class NotaryController extends Controller
 {
     /**
-     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -61,23 +63,23 @@ class NotaryController extends Controller
         $earnings = json_encode($request->earnings);
 
         if ($request->hasFile('anketaFile')) {
-            $image          = $request->file('anketaFile')->store('/img/Notaries', 'public');
-            $request->anketaFile   = $image;
+            $image = $request->file('anketaFile')->store('/img/Notaries', 'public');
+            $request->anketaFile = $image;
         }
 
         if ($request->hasFile('dogovorFile')) {
-            $image          = $request->file('dogovorFile')->store('/img/Notaries', 'public');
-            $request->dogovorFile   = $image;
+            $image = $request->file('dogovorFile')->store('/img/Notaries', 'public');
+            $request->dogovorFile = $image;
         }
 
         if ($request->hasFile('polisFile')) {
-            $image          = $request->file('polisFile')->store('/img/Notaries', 'public');
-            $request->polisFile   = $image;
+            $image = $request->file('polisFile')->store('/img/Notaries', 'public');
+            $request->polisFile = $image;
         }
 
         if ($request->hasFile('retransferAktFile')) {
-            $image          = $request->file('retransferAktFile')->store('/img/Notaries', 'public');
-            $request->retransferAktFile   = $image;
+            $image = $request->file('retransferAktFile')->store('/img/Notaries', 'public');
+            $request->retransferAktFile = $image;
         }
         $notary = Notary::create([
             'info_personal' => $request->info_personal,
@@ -113,7 +115,7 @@ class NotaryController extends Controller
             'payment_term' => $request->payment_term,
         ]);
 
-        if ($request->payment_term == 'other'){
+        if ($request->payment_term == 'other') {
 //            dd($request->payment_term);
             for ($i = 0; $i < count($request->payment_sum); $i++) {
                 NotaryPaymentTerm::create([
