@@ -27,4 +27,4 @@
             <input class="form-control" id="descrPreim" type="number">
         </div>
     </div>
-@section
+@endsection

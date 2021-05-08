@@ -67,6 +67,10 @@ Route::group(['middleware' => ['auth']], function () {
     ///Mejd
     Route::resource('mejd', 'MejdController');
 
+    // Iskan
+    Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');
+
+
     /////////////////////////////////////////////////////////////////////////////////
 
     Route::resource('all_products', 'AllProductController');
