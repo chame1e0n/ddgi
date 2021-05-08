@@ -169,13 +169,12 @@
                                 <table data-info-table class="table table-hover table-head-fixed" id="empTable">
                                     <thead>
                                     <tr>
-                                        <th class="text-nowrap">Номер полиса</th>
+                                        <th class="text-nowrap">Наименование полиса</th>
                                         <th class="text-nowrap">Серия полиса</th>
                                         <th class="text-nowrap">Дата выдачи</th>
                                         <th class="text-nowrap">Период действия полиса от</th>
                                         <th class="text-nowrap">Период действия полиса до</th>
                                         <th class="text-nowrap">Выбор агента</th>
-                                        <th class="text-nowrap">Наименование</th>
                                         <th class="text-nowrap">Количество</th>
                                         <th class="text-nowrap">Страховая стоимость</th>
                                         <th class="text-nowrap">Страховая сумма</th>
@@ -184,7 +183,7 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td colspan="8" style="text-align: right"><label class="text-bold">Итого</label>
+                                        <td colspan="7" style="text-align: right"><label class="text-bold">Итого</label>
                                         </td>
                                         <td><input readonly data-insurance-stoimost type="text"
                                                    class="form-control overall-sum"/></td>
