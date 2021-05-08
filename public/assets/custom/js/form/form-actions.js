@@ -1,18 +1,17 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // number mask
-    $('[name=tel_beneficiary],[name=tel_insurer],[name=amount_of_cargo_place],[name=amount_of_cargo],[name=weight_of_cargo],[name=percent_of_tariff],[name=franshiza],[name=insurance_premium],[name=insured_sum],[name=mfo_beneficiary], [name=mfo],[name=quantity], [name=inn], [name=inn_insurer], [name=inn_beneficiary], [name=oked]').bind("change keyup input click", function() {
-            if (this.value.match(/[^0-9]/g)) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            }
-        })
-        // только буквы
-    $('[name=fio_insurer]').bind("change keyup input click", function() {
+    $('[name=tel_beneficiary],[name=tel_insurer],[name=amount_of_cargo_place],[name=amount_of_cargo],[name=weight_of_cargo],[name=percent_of_tariff],[name=franshiza],[name=insurance_premium],[name=insured_sum],[name=mfo_beneficiary], [name=mfo],[name=quantity], [name=inn], [name=inn_insurer], [name=inn_beneficiary], [name=oked]').bind("change keyup input click", function () {
+        if (this.value.match(/[^0-9]/g)) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        }
+    })
+    // только буквы
+    $('[name=fio_insurer]').bind("change keyup input click", function () {
         if (this.value.match(/[^a-z]/g)) {
             this.value = this.value.replace(/[^a-z]/g, '');
         }
     })
 });
-
 
 
 // #form-audit - форма аудита
@@ -44,9 +43,9 @@ const formRealtors = document.querySelector('#formRealtors')
 
 // Блок "Период деятельности оганизации"
 const periodActiveOrg = document.querySelector('#period-active-org')
-    // Блок с элементами "radio" и "select" форм
+// Блок с элементами "radio" и "select" форм
 const fieldsChanged = document.querySelector('#fields-changed')
-    // Форма "Условия оплаты страховой премии"
+// Форма "Условия оплаты страховой премии"
 const paymentsForm = document.querySelector('#payment-terms-form')
 
 const actedBoxDescription = document.querySelector('[data-acted]')
@@ -82,12 +81,14 @@ let earnings = 0
 
 let agentsList = [];
 
+let domainPath = location.protocol + '//' + location.host;
+
 loadAgents();
 
 function loadAgents() {
     var xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
             if (xmlhttp.status == 200) {
                 agentsList = JSON.parse(xmlhttp.response);
@@ -99,9 +100,59 @@ function loadAgents() {
         }
     };
 
-    xmlhttp.open("GET", "http://wecloud.rocks/api/agent_list", true);
+    xmlhttp.open("GET", domainPath + '/api/agent_list', true);
     xmlhttp.send();
 }
+
+    function getPolicyName(rowId) {
+        $.ajax({
+            url: domainPath + '/get/polis_name',
+            type: 'get',
+            dataType: 'json',
+            success: function (response) {
+                var len = response.length;
+                var polisNameField = $('#'+rowId).find(".polis_name_id");
+
+                polisNameField.empty();
+
+                for (var i = 0; i < len; i++) {
+                    var name = response[i]['polis_name'];
+
+                    polisNameField.append("<option value='" + name + "' selected>" + name + "</option>");
+                }
+
+                getPolicySeries(polisName);
+            }
+        });
+    }
+
+    $(".polis_name_id").change(function () {
+        getPolicySeries($(this));
+    });
+
+    function getPolicySeries(polisNameElement) {
+        if(polisNameElement.value) {
+            $.ajax({
+                url: domainPath + '/get/polis_series_by_polis_name',
+                type: 'get',
+                data: {polis_name: polisNameElement.value},
+                dataType: 'json',
+                success: function (response) {
+
+                    var len = response.length;
+                    var polisSeriesField = polisNameElement.next(".polis_series_id");
+
+                    polisSeriesField.empty();
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['number'];
+
+                        polisSeriesField.append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                }
+            });
+        }
+    }
 
 /**
  * @param selector - селектор элемента
@@ -1105,7 +1156,7 @@ function addProductFields(fieldNumber) {
 </div>`;
     generalProductFields.insertAdjacentHTML('beforeend', fields);
     const $ = (className) => document.querySelector(className)
-    document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function() {
+    document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function () {
         let overallSum =
             parseFloat($('#insurance_sum-' + fieldNumber).value || 0) +
             parseFloat($('.terror-tc-' + fieldNumber).value || 0) +
@@ -1128,32 +1179,32 @@ function addProductFields(fieldNumber) {
         $('.r-summ-' + fieldNumber).value = modalTableSum2;
         $('.r-summ-premia-' + fieldNumber).value = modalTableSum3;
 
-        $('#totalLimit-' + fieldNumber).addEventListener('keyup', function() {
+        $('#totalLimit-' + fieldNumber).addEventListener('keyup', function () {
             if ($('.r-summ-' + fieldNumber).value >= $('#totalLimit-' + fieldNumber).value) {
                 $('#form-save-button').setAttribute('disabled', true)
-                    // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
+                // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
             } else {
                 $('#form-save-button').removeAttribute('disabled');
             }
         });
 
-        $('.r-3-one-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-one-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-pass-${fieldNumber}`).value;
             $(`.r-3-sum-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-pass-1-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-pass-1-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-one-1-${fieldNumber}`).value;
             $(`.r-3-sum-1-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-one-1-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-one-1-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-pass-1-${fieldNumber}`).value;
             $(`.r-3-sum-1-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-pass-2-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-pass-2-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-one-2-${fieldNumber}`).value;
             $(`.r-3-sum-2-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-one-2-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-one-2-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-pass-2-${fieldNumber}`).value;
             $(`.r-3-sum-2-${fieldNumber}`).value = numOne;
         });
@@ -1919,7 +1970,8 @@ if (addLitso) {
 
         document.getElementById('friends').insertAdjacentHTML('beforeend', fields);
     }
-};
+}
+;
 
 const addImushestvoBtn = document.getElementById('addImushestvoBtn');
 
@@ -1928,45 +1980,48 @@ if (addImushestvoBtn) {
         const id = Math.random();
         const field = `<tr id="${id}">
             <td>
-                <select class="form-control polises" id="polises" name="polis_series[]" style="width: 100%;">
+                <select class="form-control polis_name_id" name="polis_name_id[]" style="width: 100%;">
                     <option selected="selected"></option>
                 </select>
             </td>
             <td>
-                <input type="text" class="form-control" name="period_polis[]">
+                <select class="form-control polis_series_id" name="polis_series_id[]" style="width: 100%;">
+                    <option selected="selected"></option>
+                </select>
             </td>
             <td>
-                <input disabled type="date" class="form-control">
+                <input type="date" class="form-control" name="data_vidachi[]">
             </td>
             <td>
-                <input type="date" class="form-control" name="polis_id[]">
+                <input type="date" class="form-control" name="period_deystviya_ot[]">
             </td>
             <td>
-                <input type="date" class="form-control" name="polis_mark[]">
+                <input type="date" class="form-control" name="period_deystviya_do[]">
             </td>
             <td>
-                <input type="text" class="form-control" name="polis_model[]">
+                 <select class="form-control" id="polise_agents" name="otvet_litso[]" style="width: 100%;">
+                    <option selected="selected"></option>
+                </select>
             </td>
             <td>
-                <input type="text" class="form-control" name="polis_modification[]">
+                <input type="text" class="form-control forsum2" name="kolichestvo[]">
             </td>
             <td>
-                <input type="text" class="form-control forsum2" name="polis_places[]">
-            </td>
-            <td>
-            <input data-field="value" type="text" class="form-control" name="polis_num_body[]">
+            <input data-field="value" type="text" class="form-control" name="strah_stoimost[]">
         </td>
         <td>
-            <input data-field="sum" type="text" class="form-control" name="polis_payload[]">
+            <input data-field="sum" type="text" class="form-control" name="strah_summa[]">
         </td>
          <td>
-            <input data-field="premiya" type="text" class="form-control" name="polis_payload[]">
+            <input data-field="premiya" type="text" class="form-control" name="strah_premiya[]">
         </td>
             <td>
                 <input type="button" onclick="removeAndCalc(${id})" value="Удалить" class="btn btn-warning">
              </td>
         </tr>`
         infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', field);
+        getPolicyName(id);
+        renderSelect();
     }
 }
 
@@ -2130,8 +2185,6 @@ if (cascoAddButton1) {
 }
 
 
-
-
 const addAutozalogBtn = document.getElementById('addAutozalogBtn');
 
 if (addAutozalogBtn) {
@@ -2204,7 +2257,7 @@ if (addAutozalogBtn) {
     }
 }
 
-$(document).on('click', function() {
+$(document).on('click', function () {
     $('#notmod input[value="Заполнить"]').hide();
     $('#notmod + #general-product-fields').hide();
 })
