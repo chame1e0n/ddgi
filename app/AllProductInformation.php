@@ -11,6 +11,7 @@ class AllProductInformation extends Model
     protected $table = 'all_product_information';
     protected $guarded = [];
 
+
     /**
      * Get the policy series.
      */

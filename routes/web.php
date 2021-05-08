@@ -97,6 +97,10 @@ Route::group(['middleware' => ['auth']], function () {
     ////Gruz Export
     Route::resource('export', 'ExportController');
 
+    ////Teztools
+    Route::resource('teztools', 'TeztoolsController');
+
+
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     Route::resource('spravochniki/bank','Spravochniki\BankController');

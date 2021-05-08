@@ -1,3 +1,20 @@
+$(document).ready(function() {
+    // number mask
+    $('[name=tel_beneficiary],[name=tel_insurer],[name=amount_of_cargo_place],[name=amount_of_cargo],[name=weight_of_cargo],[name=percent_of_tariff],[name=franshiza],[name=insurance_premium],[name=insured_sum],[name=mfo_beneficiary], [name=mfo],[name=quantity], [name=inn], [name=inn_insurer], [name=inn_beneficiary], [name=oked]').bind("change keyup input click", function() {
+            if (this.value.match(/[^0-9]/g)) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            }
+        })
+        // только буквы
+    $('[name=fio_insurer]').bind("change keyup input click", function() {
+        if (this.value.match(/[^a-z]/g)) {
+            this.value = this.value.replace(/[^a-z]/g, '');
+        }
+    })
+});
+
+
+
 // #form-audit - форма аудита
 
 // Общие сведения
@@ -27,9 +44,9 @@ const formRealtors = document.querySelector('#formRealtors')
 
 // Блок "Период деятельности оганизации"
 const periodActiveOrg = document.querySelector('#period-active-org')
-// Блок с элементами "radio" и "select" форм
+    // Блок с элементами "radio" и "select" форм
 const fieldsChanged = document.querySelector('#fields-changed')
-// Форма "Условия оплаты страховой премии"
+    // Форма "Условия оплаты страховой премии"
 const paymentsForm = document.querySelector('#payment-terms-form')
 
 const actedBoxDescription = document.querySelector('[data-acted]')
@@ -63,6 +80,28 @@ let insuranceTotalAward = 0
 let totalTurnover = 0
 let earnings = 0
 
+let agentsList = [];
+
+loadAgents();
+
+function loadAgents() {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
+            if (xmlhttp.status == 200) {
+                agentsList = JSON.parse(xmlhttp.response);
+            } else if (xmlhttp.status == 400) {
+                alert('There was an error 400');
+            } else {
+                alert('something else other than 200 was returned');
+            }
+        }
+    };
+
+    xmlhttp.open("GET", "http://wecloud.rocks/api/agent_list", true);
+    xmlhttp.send();
+}
 
 /**
  * @param selector - селектор элемента
@@ -168,6 +207,7 @@ if (tablePaymentSchedule) {
 
 if (formAudit) {
     formAudit.addEventListener('submit', event => {
+        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -194,6 +234,7 @@ if (formAudit) {
 
 if (formBrokers) {
     formBrokers.addEventListener('submit', event => {
+        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -219,6 +260,7 @@ if (formBrokers) {
 
 if (formNatarius) {
     formNatarius.addEventListener('submit', event => {
+        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -243,7 +285,8 @@ if (formNatarius) {
 }
 
 if (formOtsenshiki) {
-    formOtsenshёiki.addEventListener('submit', event => {
+    formOtsenshiki.addEventListener('submit', event => {
+        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -270,6 +313,7 @@ if (formOtsenshiki) {
 
 if (formRealtors) {
     formRealtors.addEventListener('submit', event => {
+        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -293,6 +337,7 @@ if (formRealtors) {
     })
 }
 
+
 // Расчет количества дней между датами "Период деятельности организации"
 if (periodActiveOrg) {
     periodActiveOrg.addEventListener('change', event => {
@@ -308,21 +353,21 @@ if (fieldsChanged) {
 
         // Скрытие и отображение блока acted
         if (target.hasAttribute('data-acted-radio')) {
-            if (target.value === 'true') {
+            if (target.value === '1') {
                 actedBoxDescription.style.display = 'flex'
                 dataSelectAndRadioFields.acted = {
-                    isActed: true
+                    isActed: 1
                 }
             } else {
                 actedBoxDescription.style.display = 'none'
                 dataSelectAndRadioFields.acted = {
-                    isActed: false
+                    isActed: 0
                 }
             }
         }
 
         if (target.hasAttribute('data-cases-radio')) {
-            if (target.value === 'true') {
+            if (target.value === '1') {
                 casesReasonBox.style.display = 'flex'
             } else {
                 casesReasonBox.style.display = 'none'
@@ -330,7 +375,7 @@ if (fieldsChanged) {
         }
 
         if (target.hasAttribute('data-administr-radio')) {
-            if (target.value === 'true') {
+            if (target.value === '1') {
                 administrCaseBox.style.display = 'flex'
             } else {
                 administrCaseBox.style.display = 'none'
@@ -413,6 +458,13 @@ const removeAndCalc = (id) => {
     calcPrice();
 }
 
+const renderSelect = () => {
+    agentsList.data.forEach(agentItem => {
+        console.log(agentItem)
+        const option = `<option value="${agentItem.id}">${agentItem.name}</option>`
+        document.getElementById('polise_agents').insertAdjacentHTML('afterbegin', option)
+    })
+}
 
 if (buttonAddRowInfo) {
     buttonAddRowInfo.addEventListener('click', event => {
@@ -420,53 +472,56 @@ if (buttonAddRowInfo) {
         const rowInfo = `
       <tr id="${id}">
         <td>
-            <input type="text" class="form-control" name="period_polis[]">
+            <input type="text" class="form-control">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_id[]">
+            <input type="text" class="form-control" name="policy_series_id[]" required>
         </td>
         <td>
-            <input type="date" class="form-control" name="validity_period_from[]">
+            <input  type="date" name="from_date_polis[]" class="form-control" required>
         </td>
         <td>
-            <input type="date" class="form-control" name="validity_period_to[]">
+            <input type="date" class="form-control" name="to_date_polis[]" required>
         </td>
         <td>
-            <select class="form-control polises" id="polises" name="polis_agent[]" style="width: 100%;">
-                <option selected="selected"></option>
-                <option value="1">Да</option>
-                <option value="2">Нет</option>
+            <input type="date" class="form-control" name="to_date_polis[]" required>
+        </td>
+        <td>
+            <select class="form-control polises" id="polise_agents" name="agent_id[]" style="width: 100%;" required>
+                <option value="4">aa Name1 middlasdc</option>
+                <option value="3">FotTestOnly ahahah asdcsdac</option>
             </select>
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_mark[]">
+            <input type="text" class="form-control" name="insurer_fio[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" name="specialty[]" value="Specialty">
+            <input type="text" class="form-control" name="specialty[]" value="Specialty" required>
         </td>
         <td>
-            <input type="text" class="form-control" name="workExp[]" value="work experience">
+            <input type="text" class="form-control" name="experience[]" value="work experience" required>
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_model[]">
+            <input type="text" class="form-control" name="position[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_modification[]">
+            <input type="text" class="form-control" name="time_stay[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" data-field="value" name="polis_modification[]">
+            <input type="text" class="form-control" data-field="value" name="insurer_price[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" data-field="sum" name="polis_gos_num[]">
+            <input type="text" class="form-control" data-field="sum" name="insurer_sum[]" required>
         </td>
         <td>
-            <input type="text" class="form-control" data-field="premiya" name="polis_teh_passport[]">
+            <input type="text" class="form-control" data-field="premiya" name="insurer_premium[]" required>
         </td>
         <td>
             <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
         </td>
       </tr>`
-        infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo)
+        infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo);
+        renderSelect();
     })
 }
 
@@ -478,6 +533,9 @@ if (buttonAddRowInfo2) {
       <tr id="${id}">
         <td>
             <input type="text" class="form-control forsum3 insurance_premium-0" data-field="number" name="number[]">
+        </td>
+        <td>
+            <input disabled type="date" class="form-control">
         </td>
         <td>
             <input type="text" class="form-control forsum4 insurance_premium-0" data-field="director" name="director[]">
@@ -614,7 +672,7 @@ if (condition) {
 
 }
 
-const generalProductsFields = document.getElementById('general-product-fields');
+const generalProductFields = document.getElementById('general-product-fields');
 
 function addProductFields(fieldNumber) {
     let fields = `<div id="product-field-modal-${fieldNumber}" class="modal" data-field-number="${fieldNumber}">
@@ -837,7 +895,7 @@ function addProductFields(fieldNumber) {
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Страховая премия</span>
                                                 </div>
-                                                <input type="text" class="form-control r-2-premia-${fieldNumber}" name="two_preim[]" id="vehicle_damage_sum-${fieldNumber}">
+                                                <input type="text" class="form-control r-2-premia-${fieldNumber}" name="two_preim${fieldNumber}" id="vehicle_damage_sum-${fieldNumber}">
                                             </div>
                                         </div>
                                     </div>
@@ -907,17 +965,17 @@ function addProductFields(fieldNumber) {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><input type="number" class="form-control r-3-sum-1-${fieldNumber}" name="passenger_total_sum[]" id="passenger_total_sum[]"></td>
+                                        <td><input type="number" class="form-control r-3-sum-1-${fieldNumber}" name="passenger_total_sum${fieldNumber}" id="passenger_total_sum-${fieldNumber}"></td>
                                         <td><input type="number" class="form-control r-3-premia-1-${fieldNumber}" name="passenger_preim_sum${fieldNumber}" id="passenger_total_sum-${fieldNumber}"></td>
                                     </tr>
                                     <tr>
                                         <td><label class="text-bold">Общий Лимит</label></td>
-                                        <td><input type="number" class="form-control r-3-pass-2-${fieldNumber}" name="limit_quantity[]"></td>
+                                        <td><input type="number" class="form-control r-3-pass-2-${fieldNumber}" name="limit_quantity${fieldNumber}"></td>
                                         <td>
                                             <div class="input-group mb-4">
-                                                <input type="text" class="form-control r-3-one-2-${fieldNumber}" name="limit_one_sum[]">
+                                                <input type="text" class="form-control r-3-one-2-${fieldNumber}" name="limit_one_sum${fieldNumber}">
                                                 <div class="input-group-append">
-                                                    <select class="form-control success" name="limit_currency[]" style="width: 100%;">
+                                                    <select class="form-control success" name="limit_currency" style="width: 100%;">
                                                         <option selected="selected">UZS</option>
                                                         <option>USD</option>
                                                     </select>
@@ -1045,9 +1103,9 @@ function addProductFields(fieldNumber) {
         </div>
     </div>
 </div>`;
-    generalProductsFields.insertAdjacentHTML('beforeend', fields);
+    generalProductFields.insertAdjacentHTML('beforeend', fields);
     const $ = (className) => document.querySelector(className)
-    document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function () {
+    document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function() {
         let overallSum =
             parseFloat($('#insurance_sum-' + fieldNumber).value || 0) +
             parseFloat($('.terror-tc-' + fieldNumber).value || 0) +
@@ -1070,32 +1128,32 @@ function addProductFields(fieldNumber) {
         $('.r-summ-' + fieldNumber).value = modalTableSum2;
         $('.r-summ-premia-' + fieldNumber).value = modalTableSum3;
 
-        $('#totalLimit-' + fieldNumber).addEventListener('keyup', function () {
+        $('#totalLimit-' + fieldNumber).addEventListener('keyup', function() {
             if ($('.r-summ-' + fieldNumber).value >= $('#totalLimit-' + fieldNumber).value) {
                 $('#form-save-button').setAttribute('disabled', true)
-                // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
+                    // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
             } else {
                 $('#form-save-button').removeAttribute('disabled');
             }
         });
 
-        $('.r-3-one-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-one-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-pass-${fieldNumber}`).value;
             $(`.r-3-sum-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-pass-1-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-pass-1-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-one-1-${fieldNumber}`).value;
             $(`.r-3-sum-1-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-one-1-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-one-1-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-pass-1-${fieldNumber}`).value;
             $(`.r-3-sum-1-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-pass-2-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-pass-2-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-one-2-${fieldNumber}`).value;
             $(`.r-3-sum-2-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-one-2-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-one-2-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-pass-2-${fieldNumber}`).value;
             $(`.r-3-sum-2-${fieldNumber}`).value = numOne;
         });
@@ -1114,6 +1172,9 @@ const addProductFieldRow = (fieldNumber) => {
         </td>
         <td>
             <input type="text" class="form-control" name="polis_model[]">
+        </td>
+        <td>
+            <input disabled type="date" class="form-control">
         </td>
         <td>
             <input type="text" class="form-control" name="polis_gos_num[]">
@@ -1191,44 +1252,44 @@ if (covidFizAddBtn) {
     covidFizAddBtn.addEventListener('click', event => {
         const id = Math.random();
         const rowInfo = `
-      <tr id="${id}">
-           <td>
-                <input type="text" class="form-control" name="polis_mark[]">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="polis_mark[]">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="polis_model[]">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <input type="date" class="form-control" name="from_date[]">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <input type="text" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <input type="text" data-field="value" class="form-control" name="polis_modification[]">
-            </td>
-            <td>
-                <input type="text" data-field="sum" class="form-control" name="polis_gos_num[]">
-            </td>
-            <td>
-                <input type="text" data-field="premiya" class="form-control" name="polis_teh_passport[]">
-            </td>
+        <tr id="${id}">
         <td>
-            <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
-        </td>
-      </tr>`
+             <input type="text" class="form-control" name="person_number[]">
+         </td>
+         <td>
+             <input type="text" class="form-control" name="person_surname[]" required>
+         </td>
+         <td>
+         <input type="text" class="form-control" name="person_name[]" required>
+         </td>
+         <td>
+         <input type="text" class="form-control" name="person_lastname[]" required>
+         </td>
+         <td>
+         <input type="text" class="form-control" name="series_and_number_passport[]" required>
+         </td>
+         <td>
+             <input type="date" class="form-control" name="date_of_issue_passport[]" required>
+         </td>
+         <td>
+             <input type="text" class="form-control" name="place_of_issue_passport[]" required>
+         </td>
+         <td>
+                 <input type="text" class="form-control" name="policy_series_id[]" required>
+         </td>
+         <td>
+             <input type="text" data-field="value" class="form-control" name="insurance_cost[]" required>
+         </td>
+         <td>
+             <input type="text" data-field="sum" class="form-control" name="insurance_sum[]" required>
+         </td>
+         <td>
+             <input type="text" data-field="premiya" class="form-control" name="insurance_premium[]" required>
+         </td>
+     <td>
+         <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning" required>
+     </td>
+   </tr>`
         infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo)
     })
 }
@@ -1276,7 +1337,7 @@ const addInsurer = () => {
                   <div class="row">
                       <div class="col-md-6">
                           <div class="form-group">
-                              <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
+                              <label for="insurer-name" class="col-form-label">Наименования страхователя</label>
                               <input type="text" id="insurer-name" name="fio_insurer[]" class="form-control">
                           </div>
                       </div>
@@ -1426,12 +1487,60 @@ const propertyAdd = () => {
     const id = Math.random();
     const builders = document.getElementById('empTable').querySelector('tbody');
     builders.insertAdjacentHTML('beforeend', `
+        <tr id="${id}">
+            <td>
+                <input type="text" class="form-control" name="name_property[]" required>
+            </td>
+            <td>
+                <input type="text" class="form-control" name="place_property[]" required>
+            </td>
+            <td>
+                <input type="date" class="form-control" name="date_of_issue_property[]" required>
+            </td>
+            <td>
+                <input type="text" class="form-control" name="count_property[]" required>
+            </td>
+            <td>
+                <select class="form-control polises" id="polises" name="units_property[]" style="width: 100%;" required>
+                    <option selected="selected" value="1">Кв.м</option>
+                    <option value="2">Кв.см</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" data-field="value" class="form-control" name="insurance_cost[]" required>
+            </td>
+            <td>
+                <input type="text" data-field="sum" class="form-control" name="insurance_sum[]" required>
+            </td>
+            <td>
+                <input type="text" data-field="premiya" class="form-control" name="insurance_premium[]" required>
+            </td>
+            <td class="form-group">
+                <input onclick="removeAndCalc(${id})" id="insurer-modal-button" type="button" class="btn btn-warning" value="Удалить">
+            </td>
+        </tr>
+    `)
+}
+
+const propertyAddButton1 = document.getElementById('addProperty1');
+
+
+const propertyAdd1 = () => {
+    const id = Math.random();
+    const builders = document.getElementById('empTable1').querySelector('tbody');
+    builders.insertAdjacentHTML('beforeend', `
          <tr id="${id}">
             <td>
                 <input type="text" class="form-control" name="polis_mark[]">
             </td>
             <td>
                 <input type="text" class="form-control" name="polis_model[]">
+            </td>
+            <td>
+                <input type="text" class="form-control" name="zalogodatel[]">
+            </td>
+            <td>
+                <input disabled type="date" class="form-control">
             </td>
             <td>
                 <input type="text" class="form-control" name="polis_modification[]">
@@ -1442,20 +1551,23 @@ const propertyAdd = () => {
                     <option>Кв.см</option>
                 </select>
             </td>
-            <td>
-                <input type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum[]">
+              <td>
+                <input type="text" data-field="value" class="form-control" name="polis_modification[]">
             </td>
             <td>
-                <input type="text" class="form-control forsum3 insurance_premium-0" readonly name="polis_premium[]">
+                <input type="text" data-field="sum" class="form-control" name="polis_gos_num[]">
             </td>
             <td>
-                <input type="text" class="form-control forsum3 insurance_premium-0" readonly name="polis_premium[]">
+                <input type="text" data-field="premiya" class="form-control" name="polis_teh_passport[]">
             </td>
             <td class="form-group">
-              <input onclick="removeEl(${id})" id="insurer-modal-button" type="button" class="btn btn-warning" value="Удалить">
+              <input onclick="removeAndCalc(${id})" id="insurer-modal-button" type="button" class="btn btn-warning" value="Удалить">
           </td>
         </tr>
     `)
+}
+if (propertyAddButton1) {
+    propertyAddButton1.onclick = propertyAdd1
 }
 
 if (propertyAddButton) {
@@ -1474,6 +1586,9 @@ const addOtsenshik = () => {
             <input type="text" class="form-control" name="period_polis[]">
         </td>
         <td>
+            <input disabled type="date" class="form-control">
+        </td>
+        <td>
             <input type="text" class="form-control" name="polis_id[]">
         </td>
         <td>
@@ -1483,10 +1598,8 @@ const addOtsenshik = () => {
             <input type="date" class="form-control" name="validity_period_to[]">
         </td>
         <td>
-            <select class="form-control polises" id="polises" name="polis_agent[]" style="width: 100%;">
+            <select class="form-control" id="polise_agents" name="agents[]" style="width: 100%;">
                 <option selected="selected"></option>
-                <option value="1">Да</option>
-                <option value="2">Нет</option>
             </select>
         </td>
         <td>
@@ -1519,6 +1632,7 @@ const addOtsenshik = () => {
     </tr>`
 
     infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', fields);
+    renderSelect();
 
 }
 
@@ -1538,6 +1652,9 @@ const addTcRow = () => {
             <input type="text" class="form-control" name="polis_id[]">
         </td>
         <td>
+            <input disabled type="date" class="form-control">
+        </td>
+        <td>
             <select class="form-control polises" id="polises" name="polis_agent[]" style="width: 100%;">
                 <option selected="selected"></option>
                 <option value="1">Да</option>
@@ -1545,10 +1662,8 @@ const addTcRow = () => {
             </select>
         </td>
         <td>
-            <select class="form-control" id="agents" name="agents[]" style="width: 100%;">
+            <select class="form-control" id="polise_agents" name="agents[]" style="width: 100%;">
                 <option selected="selected"></option>
-                <option value="1">Да</option>
-                <option value="2">Нет</option>
             </select>
         </td>
         <td>
@@ -1577,6 +1692,7 @@ const addTcRow = () => {
           </td>
     </tr>`
     infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', fields);
+    renderSelect();
 
 }
 
@@ -1678,6 +1794,9 @@ const addSportmanRow = (fieldNumber) => {
             <input type="text" class="form-control" name="polis_id[]">
         </td>
         <td>
+            <input disabled type="date" class="form-control">
+        </td>
+        <td>
             <input type="text" class="form-control" name="polis_mark[]">
         </td>
         <td>
@@ -1689,20 +1808,21 @@ const addSportmanRow = (fieldNumber) => {
         <td>
             <input type="text" class="form-control" name="polis_num_engine[]">
         </td>
-         <td>
+        <td>
             <input data-field="value" type="text" class="form-control" name="polis_num_body[]">
         </td>
         <td>
             <input data-field="sum" type="text" class="form-control" name="polis_payload[]">
         </td>
-         <td>
+        <td>
             <input type="button" onclick="openModal(${fieldNumber})" value="Заполнить" class="btn btn-success product-fields-button" id="product-fields-button" data-field-number="${fieldNumber}">
         </td>
-         <td>
+        <td>
             <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
         </td>
     </tr>`
     infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', field);
+    renderSelect();
 }
 
 const addSportmanBtn = document.getElementById('addSportmanBtn');
@@ -1727,6 +1847,9 @@ const addTcTableRow = () => {
         </td>
         <td>
             <input type="text" class="form-control" name="polis_id[]">
+        </td>
+        <td>
+            <input disabled type="date" class="form-control">
         </td>
         <td>
             <input type="text" class="form-control" name="polis_mark[]">
@@ -1796,8 +1919,7 @@ if (addLitso) {
 
         document.getElementById('friends').insertAdjacentHTML('beforeend', fields);
     }
-}
-;
+};
 
 const addImushestvoBtn = document.getElementById('addImushestvoBtn');
 
@@ -1812,6 +1934,9 @@ if (addImushestvoBtn) {
             </td>
             <td>
                 <input type="text" class="form-control" name="period_polis[]">
+            </td>
+            <td>
+                <input disabled type="date" class="form-control">
             </td>
             <td>
                 <input type="date" class="form-control" name="polis_id[]">
@@ -1850,62 +1975,68 @@ const addCascoFieldRow = (fieldNumber) => {
     const fields = `
     <tr id="a${fieldNumber}">
         <td>
-            <input type="text" class="form-control" name="polis_number[]">
+            <input type="text" class="form-control" name="polis_mark[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="policy_series_id[]">
+            <input type="text" class="form-control" name="polis_model[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_god_vupyska[]">
+            <input disabled type="date" class="form-control">
         </td>
         <td>
-            <input type="date" class="form-control" name="polis_date_from[]">
+            <input type="text" class="form-control" name="polis_gos_num[]">
         </td>
         <td>
-            <input type="date" class="form-control" name="polis_date_to[]">
+            <input type="date" class="form-control" name="polis_teh_passport[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_agents[]">
+            <input type="date" class="form-control" name="polis_num_engine[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_marka[]">
+           <select class="form-control" id="polise_agents" name="agents[]" style="width: 100%;">
+                <option selected="selected"></option>
+            </select>
         </td>
         <td>
-            <input type="text"  class="form-control" name="polis_model[]">
+            <input type="text" class="form-control" name="polis_payload[]">
         </td>
         <td>
-            <input type="text"  class="form-control" name="polis_gos_nomer[]">
+            <input type="text"  class="form-control" name="modification[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="state_num[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="num_tech_passport[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="num_engine[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="num_carcase[]">
+        </td>
+         <td>
+            <input type="text"  class="form-control" name="carrying_capacity[]">
         </td>
         <td>
-            <input type="text"  class="form-control" name="polis_nomer_tex_passporta[]">
+            <input type="text" data-field="value" class="form-control" name="insurance_cost[]">
         </td>
         <td>
-            <input type="text"  class="form-control" name="polis_nomer_dvigatelya[]">
+            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
         </td>
         <td>
-            <input type="text"  class="form-control" name="polis_nomer_kuzova[]">
+            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="polis_premium[]">
         </td>
-        <td>
-            <input type="text"  class="form-control" name="polis_gruzopodoemnost[]">
-        </td>
-        <td>
-            <input type="text" data-field="value" class="form-control" name="strah_value[]">
-        </td>
-        <td>
-            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="strah_sum[]">
-        </td>
-        <td>
-            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="strah_premia[]">
-        </td>
-        <td>
+         <td>
             <input type="button" onclick="openModal(${fieldNumber})" value="Заполнить" class="btn btn-success product-fields-button" id="product-fields-button" data-field-number="${fieldNumber}">
         </td>
-        <td>
+         <td>
             <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
         </td>
     </tr>
 `
     productFieldsTable.querySelector('tbody').querySelector('tr').insertAdjacentHTML('afterend', fields);
+    renderSelect();
 };
 
 const cascoAddButton = document.getElementById('cascoAddButton');
@@ -1916,6 +2047,164 @@ const addCascoField = () => {
     addCascoFieldRow(fieldNumber);
 };
 
-if(cascoAddButton) {
-    cascoAddButton.onclick =addCascoField
+if (cascoAddButton) {
+    cascoAddButton.onclick = addCascoField
 }
+
+const addCascoFieldRow1 = (fieldNumber) => {
+    const fields = `
+    <tr id="a${fieldNumber}">
+        <td>
+            <input type="text" class="form-control" name="polis_mark[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis_model[]">
+        </td>
+        <td>
+            <input disabled type="date" class="form-control">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis_gos_num[]">
+        </td>
+        <td>
+            <input type="date" class="form-control" name="polis_teh_passport[]">
+        </td>
+        <td>
+            <input type="date" class="form-control" name="polis_num_engine[]">
+        </td>
+        <td>
+           <select class="form-control" id="polise_agents" name="agents[]" style="width: 100%;">
+                <option selected="selected"></option>
+            </select>
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis_payload[]">
+        </td>
+        <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+         <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+        <td>
+            <input type="text" data-field="value" class="form-control" name="polis_places[]">
+        </td>
+        <td>
+            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
+        </td>
+        <td>
+            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="polis_premium[]">
+        </td>
+         <td>
+            <input type="button" onclick="openModal(${fieldNumber})" value="Заполнить" class="btn btn-success product-fields-button" id="product-fields-button" data-field-number="${fieldNumber}">
+        </td>
+         <td>
+            <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
+        </td>
+    </tr>
+`
+    productFieldsTable.querySelector('tbody').querySelector('tr').insertAdjacentHTML('afterend', fields);
+    renderSelect();
+};
+
+const cascoAddButton1 = document.getElementById('cascoAddButton1');
+
+const addCascoField1 = () => {
+    addCascoFieldRow1(fieldNumber);
+};
+
+if (cascoAddButton1) {
+    cascoAddButton1.onclick = addCascoField
+}
+
+
+
+
+const addAutozalogBtn = document.getElementById('addAutozalogBtn');
+
+if (addAutozalogBtn) {
+    addAutozalogBtn.onclick = () => {
+        const id = Math.random();
+        const field = `<tr id="a${fieldNumber}">
+        <td>
+            <input type="text" class="form-control" name="polis_mark[]">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis_model[]">
+        </td>
+        <td>
+            <input disabled type="date" class="form-control">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis_gos_num[]">
+        </td>
+        <td>
+            <input type="date" class="form-control" name="polis_teh_passport[]">
+        </td>
+        <td>
+            <input type="date" class="form-control" name="polis_num_engine[]">
+        </td>
+        <td>
+           <select class="form-control" id="polise_agents" name="agents[]" style="width: 100%;">
+                <option selected="selected"></option>
+            </select>
+        </td>
+        <td>
+            <input type="text" class="form-control" name="polis_payload[]">
+        </td>
+        <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+        <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+        <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+          <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+         <td>
+            <input type="text"  class="form-control" name="polis_places[]">
+        </td>
+        <td>
+            <input type="text" data-field="value" class="form-control" name="polis_places[]">
+        </td>
+        <td>
+            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
+        </td>
+        <td>
+            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="polis_premium[]">
+        </td>
+         <td>
+            <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
+        </td>
+    </tr>`
+        infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', field);
+        renderSelect();
+
+    }
+}
+
+$(document).on('click', function() {
+    $('#notmod input[value="Заполнить"]').hide();
+    $('#notmod + #general-product-fields').hide();
+})

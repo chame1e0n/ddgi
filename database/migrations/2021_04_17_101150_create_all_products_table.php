@@ -112,6 +112,7 @@ class CreateAllProductsTable extends Migration
             $table->text('vid_zalog_obespech')->nullable(); // Вид залогового обеспечения
             $table->text('product_desc')->nullable(); // Описание товара
             $table->text('sum_zalog_obespech')->nullable(); // Сумма залогового обеспечения
+            $table->text('using_tc')->nullable();  //Использования ТС на основании
             $table->text('other_info')->nullable();
             $table->text('insurance_total_sum')->nullable();
             $table->text('insurance_gift')->nullable();
