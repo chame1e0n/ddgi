@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\AllProduct;
+use App\AllProductInformation;
 use App\AllProductsTermsTransh;
 use App\Http\Controllers\Controller;
 use App\Models\PolicyBeneficiaries;
@@ -71,16 +72,16 @@ class DobrovolkaImushestvoController extends Controller
             'geo_zone' => 'required|string',
 
             // Полис
-//            'polis_series', // Номер полиса
-//            'period_polis', // Серия полиса
-//            'polis_id', // Дата выдачи
-//            'polis_mark', // Период действия полиса от
-//            'polis_model', // Период действия полиса до
-//            'polis_modification', // Выбор агента
-//            'polis_places', // Наименование
-//            'polis_num_body', // Количество
-//            'polis_payload', // Страховая стоимость
-//            'polis_payload', // Страховая сумма
+            'polis_name_id' => 'required|array', // Наименование полиса
+            'polis_series_id' => 'required|array', // Серия полиса
+            'data_vidachi' => 'required|array', // Дата выдачи
+            'period_deystviya_ot' => 'required|array', // Период действия полиса от
+            'period_deystviya_do' => 'required|array', // Период действия полиса до
+            'otvet_litso' => 'required|array', // Выбор агента
+            'kolichestvo' => 'required|array', // Количество
+            'strah_stoimost' => 'required|array', // Страховая стоимость
+            'strah_summa' => 'required|array', // Страховая сумма
+            'strah_premiya' => 'required|array', // Страховая премия
 
             //Условия оплаты страховой премии
             'insurance_sum' => 'required|integer',
@@ -91,14 +92,12 @@ class DobrovolkaImushestvoController extends Controller
 
             'payment_term' => 'required|in:transh,1', // транш
             'payment_sum' => 'required_if:payment_term,transh|array', // транш
-            'payment_sum.*' => 'required|integer', // транш
             'payment_from' => 'required_if:payment_term,transh|array', // транш
-            'payment_from.*' => 'required|date', // транш
 
             'tarif' => 'nullable', // can be 'on' or nullable
-            'tarif_other' => 'required_if:tarif,on|integer',
+            'tarif_other' => 'required_with:tarif',
             'preim' => 'nullable', // can be 'on' or nullable
-            'premiya_other' => 'required_if:preim,on|integer',
+            'premiya_other' => 'required_with:preim',
 
             'application_form_file' => 'nullable|file',
             'contract_file' => 'nullable|file',
@@ -118,7 +117,7 @@ class DobrovolkaImushestvoController extends Controller
             $request->policy_file = $file;
         }
 
-        DB::transaction(function () use ($request) {
+        $allProduct = DB::transaction(function () use ($request) {
             $ph = PolicyHolder::createPolicyHolders($request);
             $pb = PolicyBeneficiaries::createPolicyBeneficiaries($request);
 
@@ -150,7 +149,26 @@ class DobrovolkaImushestvoController extends Controller
                     ]);
                 }
             }
+
+            foreach ($request->input('polis_name_id') as $key => $item) {
+                AllProductInformation::create([
+                    'policy_id' => 1,
+                    'data_vidachi' => $request->input('data_vidachi')[$key],
+                    'period_deystviya_ot' => $request->input('period_deystviya_ot')[$key],
+                    'period_deystviya_do' => $request->input('period_deystviya_do')[$key],
+                    'otvet_litso' => $request->input('otvet_litso')[$key],
+                    'kolichestvo' => $request->input('kolichestvo')[$key],
+                    'strah_stoimost' => $request->input('strah_stoimost')[$key],
+                    'strah_summa' => $request->input('strah_summa')[$key],
+                    'strah_premiya' => $request->input('strah_premiya')[$key],
+                    'all_products_id' => $allP->id
+                ]);
+            }
+
+            return $allP;
         });
+
+        return redirect()->route('dobrovolka_imushestvo.edit', $allProduct->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**

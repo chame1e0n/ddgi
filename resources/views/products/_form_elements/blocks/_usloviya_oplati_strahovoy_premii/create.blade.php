@@ -7,7 +7,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="insurance_sum">Cтраховая сумма</label>
-                        <input type="text" id="insurance_sum" name="insurance_sum" @if($errors->has('insurance_sum'))
+                        <input type="text" value="{{old('insurance_sum')}}" id="insurance_sum" name="insurance_sum" @if($errors->has('insurance_sum'))
                         class="form-control is-invalid"
                                @else
                                class="form-control"
@@ -17,7 +17,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="insurance_bonus">Cтраховая премия</label>
-                        <input type="text" id="insurance_bonus" name="insurance_bonus" @if($errors->has('insurance_bonus'))
+                        <input type="text" value="{{old('insurance_bonus')}}" id="insurance_bonus" name="insurance_bonus" @if($errors->has('insurance_bonus'))
                         class="form-control is-invalid"
                                @else
                                class="form-control"
@@ -27,7 +27,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="franchise">Франшиза</label>
-                        <input type="text" id="franchise" name="franchise" @if($errors->has('franchise'))
+                        <input type="text" value="{{old('franchise')}}" id="franchise" name="franchise" @if($errors->has('franchise'))
                         class="form-control is-invalid"
                                @else
                                class="form-control"
