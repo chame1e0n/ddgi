@@ -134,6 +134,10 @@ class CreateAllProductsTable extends Migration
             $table->date('period_insurance_to')->nullable(); // Период страхования до
             $table->bigInteger('ts_osnovanii')->nullable(); // Использования ТС на основании
 
+            $table->text('dogovor_lizing_number')->nullable();
+            $table->date('dogovor_period_from')->nullable();
+            $table->date('dogovor_period_to')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

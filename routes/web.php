@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Iskan
     Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');
+    Route::resource('lizing_ts','Product\LizingTsController');
 
 
     /////////////////////////////////////////////////////////////////////////////////
