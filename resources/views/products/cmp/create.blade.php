@@ -1,4 +1,21 @@
 @extends('layouts.index')
+@include('products._form_elements.elements._period_strahovaniya.create')
+@include('products._form_elements.elements._svedenija_o_dogovore_stroitelnogo_porjadka.create')
+@include('products._form_elements.elements._obekt_striotelno_montaj.create')
+@include('products._form_elements.elements._raspolojenie_obekta.create')
+@include('products._form_elements.elements._strahovaya_stoimost.create')
+@include('products._form_elements.elements._period_strahovaniya.create')
+@include('products._form_elements.elements._uchastniki_stroitelstva.create')
+@include('products._form_elements.elements._telesnye_povrejdenija.create')
+@include('products._form_elements.elements._materialnij_usherb.create')
+@include('products._form_elements.elements._obekti_nahodashiesja_na_ploshadke.create')
+@include('products._form_elements.elements._kratkoe_opisaniye_po_vibrannomu_obektu.create')
+@include('products._form_elements.elements._stroitelno_montajnie.create')
+@include('products._form_elements.elements._stroitelnie.create')
+@include('products._form_elements.elements._oborudovanie.create')
+@include('products._form_elements.elements._stroitelnie_mashini_i_mehanizmi.create')
+@include('products._form_elements.elements._rasxodi_po_raschistke_territorii.create')
+@include('products._form_elements.elements._obshaya_strahovaya_summa.create')
 @include('products._form_elements.blocks._svediniya_o_polise.create')
 @include('products._form_elements.blocks._zagruzka_dokumentov.create')
 @include('products._form_elements.blocks._obshie_svedeniya.create')
@@ -45,52 +62,9 @@
 
                             <div class="row">
                                 @yield('_obshie_svedeniya_content')
-                                <div class="col-md-6">
-                                    <label class="col-form-label">Период страхования</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">с</span>
-                                        </div>
-                                        <input id="insurance_from" name="insurance_from" type="date"
-                                               value="{{old('insurance_from')}}"
-                                               @if($errors->has('insurance_from'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                                @endif >
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="col-form-label">Период страхования</label>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">до</span>
-                                            </div>
-                                            <input id="insurance_to" name="insurance_to" type="date"
-                                                   value="{{old('insurance_to')}}"
-                                                   @if($errors->has('insurance_to'))
-                                                   class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                    @endif >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex flex-column">
-                                        <label class="col-form-label">Участники строительства</label>
-                                        <div class="form-group mb-20">
-                                            <button type="button" id="add-costruct-participant" class="btn btn-primary ">Добавить
-                                            </button>
-                                        </div>
-                                        <div id="builders">
-                                            <div class="form-group mb-20">
-                                                <input type="text" name="сonstruct_participants" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @yield('_period_strahovaniya_content')
+                                @yield('_uchastniki_stroitelstva_content')
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -107,212 +81,21 @@
                                 <div class="card-body" id="beneficiary-card-body">
                                     <div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-name" class="col-form-label">Сведения о
-                                                        договоре строительного порядка</label>
-                                                    <input type="text" id="beneficiary-name"
-                                                           name="object_info_dogov_stoy"
-                                                           value="{{old('object_info_dogov_stoy')}}"
-                                                           @if($errors->has('object_info_dogov_stoy'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-address" class="col-form-label">Объект
-                                                        стриотельно-монтажных работ</label>
-                                                    <input type="text" id="beneficiary-address" name="object_stroy_mont"
-                                                           value="{{old('object_stroy_mont')}}"
-                                                           @if($errors->has('object_stroy_mont'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Расположение
-                                                        объекта</label>
-                                                    <input type="text" id="beneficiary-tel" name="object_location"
-                                                           value="{{old('object_location')}}"
-                                                           @if($errors->has('object_location'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-schet" class="col-form-label">Страховая
-                                                        стоимость</label>
-                                                    <input type="text" id="beneficiary-schet"
-                                                           name="object_insurance_sum"
-                                                           value="{{old('object_insurance_sum')}}"
-                                                           @if($errors->has('object_insurance_sum'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="col-form-label">Период страхования</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">с</span>
-                                                    </div>
-                                                    <input id="insurance_from" name="object_from_date" type="date"
-                                                           value="{{old('object_from_date')}}"
-                                                           @if($errors->has('object_from_date'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="col-form-label">Период страхования</label>
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">до</span>
-                                                        </div>
-                                                        <input id="insurance_to" name="object_to_date" type="date"
-                                                               value="{{old('object_to_date')}}"
-                                                               @if($errors->has('object_to_date'))
-                                                               class="form-control is-invalid"
-                                                               @else
-                                                               class="form-control"
-                                                                @endif >
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @yield('_svedenija_o_dogovore_stroitelnogo_porjadka_content')
+                                            @yield('_obekt_striotelno_montaj_content')
+                                            @yield('_raspolojenie_obekta_content')
+                                            @yield('_strahovaya_stoimost_content')
+                                            @yield('_period_strahovaniya_content')
+
                                             <div class="col-12">
                                                 <h3 class="card-title">Страхование ответственности</h3>
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-mfo" class="col-form-label">Телесные
-                                                        повреждения</label>
-                                                    <input type="text" id="beneficiary-mfo" name="object_tel_povr"
-                                                           value="{{old('object_tel_povr')}}"
-                                                           @if($errors->has('object_tel_povr'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-bank" class="col-form-label">Материальный
-                                                        ущерб</label>
-                                                    <input type="text" id="beneficiary-bank" name="object_material"
-                                                           value="{{old('object_material')}}"
-                                                           @if($errors->has('object_material'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif >
-                                                </div>
-                                            </div>
+                                            @yield('_telesnye_povrejdenija_content')
+                                            @yield('_materialnij_usherb_content')
+                                            @yield('_obekti_nahodashiesja_na_ploshadke_content')
+                                            @yield('_kratkoe_opisaniye_po_vibrannomu_obektu_content')
 
-                                            <div class="col-12">
-                                                <h3 class="card-title">Объекты находящиеся на площадке строительства
-                                                </h3>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" name="highways" value="highways" id="highways">
-                                                    <label class="form-check-label" for="highways">
-                                                        Автомагистрали
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" name="bridgesAndOverpasses" value="bridgesAndOverpasses" id="bridgesAndOverpasses">
-                                                    <label class="form-check-label" for="bridgesAndOverpasses">
-                                                        Мосты, путепроводы
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="pipelines" name="pipelines" id="pipelines">
-                                                    <label class="form-check-label" for="pipelines">
-                                                        Трубопроводы
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="railways" name="railways" id="railways">
-                                                    <label class="form-check-label" for="railways">
-                                                        Железные дороги
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="damsAndEmbankments" name="damsAndEmbankments" id="damsAndEmbankments">
-                                                    <label class="form-check-label" for="damsAndEmbankments">
-                                                        Дамбы, набережные
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="groundWays" name="groundWays" id="groundWays">
-                                                    <label class="form-check-label" for="groundWays">
-                                                        Наземные пути
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="waterways" name="waterways" id="waterways">
-                                                    <label class="form-check-label" for="waterways">
-                                                        Водные пути
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="carParks" name="carParks" id="carParks">
-                                                    <label class="form-check-label" for="carParks">
-                                                        Автопарковки
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="lep" name="lep" id="lep">
-                                                    <label class="form-check-label" for="lep">
-                                                        ЛЭП
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="groundLines" name="groundLines" id="groundLines">
-                                                    <label class="form-check-label" for="groundLines">
-                                                        Наземные линии
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="undergroundLines" name="undergroundLines" id="undergroundLines">
-                                                    <label class="form-check-label" for="undergroundLines">
-                                                        Подземные линии
-                                                    </label>
-                                                </div>
-                                                <div class="form-check icheck-success ">
-                                                    <input class="form-check-input" type="checkbox" value="undergroundCables" name="undergroundCables" id="undergroundCables">
-                                                    <label class="form-check-label" for="undergroundCables">
-                                                        Подземные кабели
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="briefDescriptionObj" class="col-form-label">Краткое
-                                                        описание по выбранному объекту</label>
-                                                    <textarea class="form-control" id="briefDescriptionObj"></textarea>
-                                                </div>
-                                            </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="distanceToObect" class="col-form-label">Расстояние до
@@ -420,106 +203,16 @@
                                     <div class="col-12">
                                         <h3 class="card-title">Страховая сумма</h3>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-mfo" class="col-form-label ">Строительно
-                                                монтажные</label>
-                                            <input type="text" id="beneficiary-mfo" name="stroy_mont_sum"
-                                                   value="{{old('stroy_mont_sum')}}"
-                                                   @if($errors->has('stroy_mont_sum'))
-                                                   class="form-control calc2 is-invalid"
-                                                   @else
-                                                   class="form-control calc2"
-                                                    @endif >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Строительные</label>
-                                            <input type="text" id="beneficiary-bank" name="stroy_sum"
-                                                   value="{{old('stroy_sum')}}"
-                                                   @if($errors->has('stroy_sum'))
-                                                   class="form-control calc3 is-invalid"
-                                                   @else
-                                                   class="form-control calc3"
-                                                    @endif >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Оборудование</label>
-                                            <input type="text" id="beneficiary-bank" name="obor_sum"
-                                                   value="{{old('obor_sum')}}"
-                                                   @if($errors->has('obor_sum'))
-                                                   class="form-control calc4 is-invalid"
-                                                   @else
-                                                   class="form-control calc4"
-                                                    @endif >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Стрительные машины и
-                                                механизмы</label>
-                                            <input type="text" id="beneficiary-bank" name="stroy_mash_sum"
-                                                   value="{{old('stroy_mash_sum')}}"
-                                                   @if($errors->has('stroy_mash_sum'))
-                                                   class="form-control calc5 is-invalid"
-                                                   @else
-                                                   class="form-control calc5"
-                                                    @endif >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Расходы по расчистке
-                                                территории</label>
-                                            <input type="text" id="beneficiary-bank" name="rasx_sum"
-                                                   value="{{old('rasx_sum')}}"
-                                                   @if($errors->has('rasx_sum'))
-                                                   class="form-control calc6 is-invalid"
-                                                   @else
-                                                   class="form-control calc6"
-                                                    @endif >
-                                        </div>
-                                    </div>
+                                    @yield('_stroitelno_montajnie_content')
+                                    @yield('_stroitelnie_content')
+                                    @yield('_oborudovanie_content')
+                                    @yield('_stroitelnie_mashini_i_mehanizmi_content')
+                                    @yield('_rasxodi_po_raschistke_territorii_content')
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Страховая премия</label>
-                                            <input type="text" id="geographic-zone" name="insurance_prem_sum"
-                                                   value="{{old('insurance_prem_sum')}}"
-                                                   @if($errors->has('insurance_prem_sum'))
-                                                   class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                    @endif >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Франшиза</label>
-                                            <input type="text" id="geographic-zone" name="franchise_sum"
-                                                   value="{{old('franchise_sum')}}"
-                                                   @if($errors->has('franchise_sum'))
-                                                   class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                    @endif >
-                                        </div>
-                                    </div>
-                                    @yield('_usloviya_oplati_strahovoy_premii_content')
+                                    @yield('_obshaya_strahovaya_summa_content')
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Общая страховая сумма</label>
-                                            <input type="text" readonly id="geographic-zone" name="geo_zone" class="form-control calcSumm">
-                                        </div>
-                                    </div>
-                                </div>
+                                @yield('_usloviya_oplati_strahovoy_premii_content')
                             </div>
                         </div>
                     </div>
@@ -537,4 +230,5 @@
 @section('scripts')
     @yield('_obshie_svedeniya_scripts')
     @yield('_svediniya_o_polise_scripts')
+    @yield('_obshaya_strahovaya_summa_scripts')
 @endsection

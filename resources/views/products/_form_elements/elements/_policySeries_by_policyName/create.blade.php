@@ -39,7 +39,7 @@
                 dataType: 'json',
                 success: function (response) {
                     var len = response.length;
-                    var polisName = {{ old('polis_name') ?? 0}};
+                    var polisName = "{{ old('polis_name') ?? 0}}";
                     var polisNameField = $("#polis_name");
 
                     polisNameField.empty();
