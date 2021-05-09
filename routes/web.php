@@ -100,6 +100,9 @@ Route::group(['middleware' => ['auth']], function () {
     ////Teztools
     Route::resource('teztools', 'TeztoolsController');
 
+    ////Broker
+    Route::resource('broker', 'BrokerController');
+
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

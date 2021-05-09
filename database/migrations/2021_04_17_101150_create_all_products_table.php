@@ -130,6 +130,30 @@ class CreateAllProductsTable extends Migration
             $table->text('policy_id')->nullable();
             $table->text('policy_series_id')->nullable();
             $table->text('state')->nullable();
+
+            ////broker
+            $table->text('year_one')->nullable();
+            $table->text('annual_turnover_one')->nullable();
+            $table->text('net_profit_one')->nullable();
+            $table->text('year_two')->nullable();
+            $table->text('annual_turnover_two')->nullable();
+            $table->text('net_profit_two')->nullable();
+            $table->text('activity_period_from')->nullable();
+            $table->text('activity_period_to')->nullable();
+            $table->text('acted')->nullable();
+            $table->text('public_sector_comment')->nullable();
+            $table->text('private_sector_comment')->nullable();
+            $table->text('professional_risks')->nullable();
+            $table->text('cases')->nullable();
+            $table->text('reason_case')->nullable();
+            $table->text('administrative_case')->nullable();
+            $table->text('reason_administrative_case')->nullable();
+            $table->text('sphereOfActivity')->nullable();
+            $table->text('profInsuranceServices')->nullable();
+            $table->text('liabilityLimit')->nullable();
+            $table->text('retransferAktFile')->nullable();
+
+
             $table->timestamps();
             $table->softDeletes();
         });

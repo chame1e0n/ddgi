@@ -27,5 +27,18 @@ class AllProductInformationTransport extends Model
         'insurance_cost'=>'array',
         'overall_polis_sum'=>'array',
         'polis_premium'=>'array',
+        'policy_num'=>'array',
+        'policy_series_id'=>'array',
+        'from_date_polis'=>'array',
+        'date_polis_from'=>'array',
+        'date_polis_to'=>'array',
+        'insurer_fio'=>'array',
+        'specialty'=>'array',
+        'experience'=>'array',
+        'position'=>'array',
+        'time_stay'=>'array',
+        'insurer_price'=>'array',
+        'insurer_sum'=>'array',
+        'insurer_premium'=>'array',
     ];
 }

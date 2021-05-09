@@ -32,6 +32,20 @@ class CreateAllProductInformationTransportsTable extends Migration
             $table->text("insurance_cost")->nullable();
             $table->text("overall_polis_sum")->nullable();
             $table->text("polis_premium")->nullable();
+
+            $table->text("policy_num")->nullable();
+            $table->text("policy_series_id")->nullable();
+            $table->text("from_date_polis")->nullable();
+            $table->text("date_polis_from")->nullable();
+            $table->text("date_polis_to")->nullable();
+            $table->text("insurer_fio")->nullable();
+            $table->text("specialty")->nullable();
+            $table->text("experience")->nullable();
+            $table->text("position")->nullable();
+            $table->text("time_stay")->nullable();
+            $table->text("insurer_price")->nullable();
+            $table->text("insurer_sum")->nullable();
+            $table->text("insurer_premium")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
