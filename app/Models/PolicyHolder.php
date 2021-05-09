@@ -28,8 +28,8 @@ class PolicyHolder extends Model
             'checking_account' => $request->address_schet,
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
-            'oked' => $request->oked,
-            'okonx' => $request->okonx,
+            'oked' => $request->oked_insurer,
+            'okonx' => $request->okonx_insurer,
             'vid_deyatelnosti' => $request->vid_deyatelnosti,
             'bank_id' => $request->bank_insurer,
 
@@ -50,8 +50,8 @@ class PolicyHolder extends Model
             'checking_account' => $request->address_schet,
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
-            'okonx' => $request->okonx,
-            'oked' => $request->oked,
+            'okonx' => $request->okonx_insurer,
+            'oked' => $request->oked_insurer,
             'vid_deyatelnosti' => $request->vid_deyatelnosti,
             'bank_id' => $request->bank_insurer,
         ]);

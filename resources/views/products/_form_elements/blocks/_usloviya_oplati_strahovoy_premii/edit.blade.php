@@ -12,7 +12,7 @@
                                class="form-control is-invalid"
                                @else
                                class="form-control"
-                                @endif>
+                            @endif>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -23,7 +23,7 @@
                                class="form-control is-invalid"
                                @else
                                class="form-control"
-                                @endif>
+                            @endif>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -34,7 +34,7 @@
                                class="form-control is-invalid"
                                @else
                                class="form-control"
-                                @endif>
+                            @endif>
                     </div>
                 </div>
 
@@ -69,15 +69,14 @@
                         <select id="condition" class="form-control payment-schedule" name="payment_term"
                                 style="width: 100%; text-align: center">
                             <option value="1">Единовременно</option>
-                            <option @if($product->has('allProductTermTransh')) selected @endif value="transh">Транш
+                            <option @if($product->allProductTermTransh()->exists()) selected @endif value="transh">Транш
                             </option>
                         </select>
                     </div>
                 </div>
 
                 <!-- TODO: Блок должен находится в скрытом состоянии и отображаться только тогда, когда выбран пункт "Транш" в условиях оплаты -->
-                <div class="col-md-12 @if(!$product->has('allProductTermTransh')) d-none"
-                     @endif id="transh-payment-schedule">
+                <div class="col-md-12 @if(!$product->allProductTermTransh()->exists()) d-none @endif" id="transh-payment-schedule">
                     <div class="pt-3 pb-3">
                         <div class="form-group">
                             <!-- TODO: Вынести код обработчика в отдельный файл -->
@@ -95,7 +94,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(!$product->has('allProductTermTransh'))
+                                @if(!$product->allProductTermTransh()->exists())
                                     <tr id="payment-term-tr-0" data-field-number="0">
                                         <td>
                                             <input type="text" class="form-control" name="payment_sum[]">
@@ -108,10 +107,14 @@
                                     @foreach($product->allProductTermTransh as $key => $termtransh)
                                         <tr id="payment-term-tr-{{$key}}" data-field-number="{{$key}}">
                                             <td>
-                                                <input type="text" class="form-control" name="payment_sum[{{$termtransh->id}}]" value="{{$termtransh->payment_sum}}">
+                                                <input type="text" class="form-control"
+                                                       name="payment_sum[{{$termtransh->id}}]"
+                                                       value="{{$termtransh->payment_sum}}">
                                             </td>
                                             <td>
-                                                <input type="date" class="form-control" name="payment_from[{{$termtransh->id}}]" value="{{$termtransh->payment_from}}">
+                                                <input type="date" class="form-control"
+                                                       name="payment_from[{{$termtransh->id}}]"
+                                                       value="{{$termtransh->payment_from}}">
                                             </td>
                                         </tr>
                                     @endforeach

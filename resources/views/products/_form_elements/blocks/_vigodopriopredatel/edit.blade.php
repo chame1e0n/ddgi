@@ -124,9 +124,9 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
-            <input type="text" id="beneficiary-okonh" name="okonh_beneficiary"
-                   value="{{old('okonh_beneficiary') ?? $product->policyBeneficiaries->okonx}}"
-                   @if($errors->has('okonh_beneficiary'))
+            <input type="text" id="beneficiary-okonh" name="okonx_beneficiary"
+                   value="{{old('okonx_beneficiary') ?? $product->policyBeneficiaries->okonx}}"
+                   @if($errors->has('okonx_beneficiary'))
                    class="form-control is-invalid"
                    @else
                    class="form-control"

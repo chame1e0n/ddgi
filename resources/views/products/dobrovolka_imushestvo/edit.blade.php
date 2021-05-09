@@ -141,7 +141,8 @@
                                                             name="polis_series_id[{{$policyInformation->id}}]"
                                                             style="width: 100%;">
                                                         <option
-                                                            selected="selected">{{$policyInformation->policy->number}}</option>
+                                                            selected="selected"
+                                                            value="{{$policyInformation->policy->id}}">{{$policyInformation->policy->number}}</option>
                                                     </select>
                                                 </td>
                                                 <td>
@@ -164,7 +165,8 @@
                                                             name="otvet_litso[{{$policyInformation->id}}]"
                                                             style="width: 100%;">
                                                         <option
-                                                            selected="selected">{{$policyInformation->agent->getFIO()}}</option>
+                                                            selected="selected"
+                                                            value="{{$policyInformation->agent->id}}">{{$policyInformation->agent->getFIO()}}</option>
                                                     </select>
                                                 </td>
                                                 <td>
