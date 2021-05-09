@@ -1891,40 +1891,40 @@ const addTcTableRow = () => {
     const id = Math.random();
     const field = `<tr id="${id}">
         <td>
-            <input type="text" class="form-control" name="period_polis[]">
+            <input type="date" class="form-control" name="god_vipuska[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_id[]">
+            <input type="text" class="form-control" name="marka[]">
         </td>
         <td>
-            <input disabled type="date" class="form-control">
+            <input type="date" class="form-control" name="data_vidachi[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_mark[]">
+            <input type="text" class="form-control" name="model[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_model[]">
+            <input type="text" class="form-control" name="gos_nomer[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_teh_passport[]">
+            <input type="text" class="form-control" name="nomer_tex_pasporta[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_num_engine[]">
+            <input type="text" class="form-control" name="nomer_dvigatelya[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_num_engine[]">
+            <input type="text" class="form-control" name="nomer_kuzova[]">
         </td>
          <td>
-            <input data-field="value" type="text" class="form-control" name="polis_num_body[]">
+            <input data-field="value" type="text" class="form-control" name="strah_stoimost[]">
         </td>
         <td>
-            <input data-field="sum" type="text" class="form-control" name="polis_payload[]">
+            <input data-field="sum" type="text" class="form-control" name="strah_summa[]">
         </td>
          <td>
-            <input data-field="premiya" type="text" class="form-control" name="polis_payload[]">
+            <input data-field="premiya" type="text" class="form-control" name="strah_premiya[]">
         </td>
          <td>
-            <input data-field="franchise" type="text" class="form-control" name="polis_payload[]">
+            <input data-field="franchise" type="text" class="form-control" name="strah_franshiza[]">
         </td>
          <td>
             <input type="button" onclick="removeAndCalc(${id})" value="Удалить" class="btn btn-warning">

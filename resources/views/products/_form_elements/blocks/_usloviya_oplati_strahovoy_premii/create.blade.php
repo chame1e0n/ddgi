@@ -4,7 +4,8 @@
     <div class="card-body">
         <div id="payment-terms-form">
             <div class="row">
-                <div class="col-sm-4">
+                @if(!isset($withoutInsuranceSum))
+                    <div class="col-sm-4">
                     <div class="form-group">
                         <label for="insurance_sum">Cтраховая сумма</label>
                         <input type="text" value="{{old('insurance_sum')}}" id="insurance_sum" name="insurance_sum"
@@ -15,6 +16,7 @@
                                 @endif>
                     </div>
                 </div>
+                @endif
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="insurance_bonus">Cтраховая премия</label>
@@ -75,7 +77,7 @@
                 </div>
 
                 <!-- TODO: Блок должен находится в скрытом состоянии и отображаться только тогда, когда выбран пункт "Транш" в условиях оплаты -->
-                <div class="col-md-12 @if(old('payment_term') && old('payment_term') == 1)d-none @endif" id="transh-payment-schedule">
+                <div class="col-md-12 @if(!old('payment_term') || old('payment_term') == 1)d-none @endif" id="transh-payment-schedule">
                     <div class="pt-3 pb-3">
                         <div class="form-group">
                             <!-- TODO: Вынести код обработчика в отдельный файл -->

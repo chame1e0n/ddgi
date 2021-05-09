@@ -21,6 +21,22 @@ class AllProduct extends Model
         "Путевой лист"
     ];
 
+    // Объекты находящиеся на площадке строительства
+    const OBJECTS_ON_CONSTRUCTION_SITE = [
+        'highways' => 'Автомагистрали',
+        'bridgesAndOverpasses' => 'Мосты, путепроводы',
+        'pipelines' => 'Трубопроводы',
+        'railways' => 'Железные дороги',
+        'damsAndEmbankments' => 'Дамбы, набережные',
+        'groundWays' => 'Наземные пути',
+        'waterways' => 'Водные пути',
+        'carParks' => 'Автопарковки',
+        'lep' => 'ЛЭП',
+        'groundLines' => 'Наземные линии',
+        'undergroundLines' => 'Подземные линии',
+        'undergroundCables' => 'Подземные кабели'
+    ];
+
     public function policyHolder()
     {
         return $this->hasOne(PolicyHolder::class, 'id', 'policy_holder_id')->with('bank');

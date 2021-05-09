@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\AllProduct;
 use App\Http\Controllers\Controller;
 use App\Models\Dogovor;
 use App\Models\Policy;
@@ -191,11 +192,8 @@ class CmpController extends Controller
      */
     public function edit($id)
     {
-        $cmp = Cmp::find($id);
-        $agents = Agent::all();
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        return view('products.cmp.edit', compact('cmp', 'agents', 'policySeries', 'banks'));
+        $product = AllProduct::find($id);
+        return view('products.cmp.edit', compact('product'));
     }
 
     /**

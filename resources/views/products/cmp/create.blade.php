@@ -19,7 +19,7 @@
 @include('products._form_elements.blocks._svediniya_o_polise.create')
 @include('products._form_elements.blocks._zagruzka_dokumentov.create')
 @include('products._form_elements.blocks._obshie_svedeniya.create')
-@include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create')
+@include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create', ['withoutInsuranceSum'=>1])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -224,6 +224,7 @@
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
             </div>
+        </div>
     </form>
 @endsection
 
