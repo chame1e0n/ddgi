@@ -61,7 +61,7 @@ class DobrovolkaImushestvoController extends Controller
             'inn_beneficiary' => 'required|integer',
             'mfo_beneficiary' => 'required|integer',
             'bank_beneficiary' => 'required|integer',
-            'okonh_beneficiary' => 'required|integer',
+            'okonx_beneficiary' => 'required|integer',
             'seria_passport' => 'required|string|max:255',
             'nomer_passport' => 'required|integer',
 
@@ -152,7 +152,7 @@ class DobrovolkaImushestvoController extends Controller
 
             foreach ($request->input('polis_name_id') as $key => $item) {
                 AllProductInformation::create([
-                    'policy_id' => 1,
+                    'policy_id' => $request->input('polis_series_id')[$key],
                     'data_vidachi' => $request->input('data_vidachi')[$key],
                     'period_deystviya_ot' => $request->input('period_deystviya_ot')[$key],
                     'period_deystviya_do' => $request->input('period_deystviya_do')[$key],
@@ -190,7 +190,8 @@ class DobrovolkaImushestvoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = AllProduct::with('policyHolder', 'policyBeneficiaries')->find($id);
+        return view('products.dobrovolka_imushestvo.edit', compact('product'));
     }
 
     /**
@@ -202,7 +203,7 @@ class DobrovolkaImushestvoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request->all());
     }
 
     /**

@@ -35,7 +35,7 @@ class AllProduct extends Model
     }
     public function allProductInfo()
     {
-        return $this->hasOne(AllProductInformation::class, 'all_products_id', 'id');
+        return $this->hasMany(AllProductInformation::class, 'all_products_id', 'id');
     }
     public function zaemshik()
     {

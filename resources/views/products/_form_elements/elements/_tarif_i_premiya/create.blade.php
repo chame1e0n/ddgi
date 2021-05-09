@@ -8,7 +8,7 @@
         <!-- TODO: Блок должен находится в скрытом состоянии
         отображаться только тогда, когда выбран checkbox "Тариф"
         -->
-        <div class="form-group" data-tarif-descr @if(!old('geo_zone')) style="display: none" @endif>
+        <div class="form-group" data-tarif-descr @if(!old('tarif_other')) style="display: none" @endif>
             <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
             <input class="form-control" id="descrTarif" name="tarif_other" value="{{old('tarif_other')}}" type="number">
         </div>

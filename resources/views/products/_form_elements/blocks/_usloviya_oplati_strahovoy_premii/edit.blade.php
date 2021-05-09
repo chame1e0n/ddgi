@@ -1,4 +1,4 @@
-@include('products._form_elements.elements._tarif_i_premiya.create')
+@include('products._form_elements.elements._tarif_i_premiya.edit')
 
 @section('_usloviya_oplati_strahovoy_premii_content')
     <div class="card-body">

@@ -9,7 +9,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form method="POST" action="{{ route('dobrovolka_imushestvo.store') }}" id="mainFormKasko"
+    <form method="POST" action="{{ route('dobrovolka_imushestvo.update', $product->id) }}" id="mainFormKasko"
           enctype="multipart/form-data">
         <div class="content-wrapper">
             @csrf
@@ -126,58 +126,74 @@
                                     {{--ToDo::change the logic of this table--}}
                                     @if($product->has('allProductInfo'))
                                         @foreach($product->allProductInfo as $policyInformation)
-                                            {{--<tr id="${id}">--}}
-                                                {{--<td>--}}
-                                                    {{--<select class="form-control polis_name_id"--}}
-                                                            {{--onchange="getPolicySeries(this, ${id})"--}}
-                                                            {{--name="polis_name_id[]" style="width: 100%;">--}}
-                                                        {{--<option selected="selected"></option>--}}
-                                                    {{--</select>--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<select class="form-control polis_series_id" id="polis_series_${id}"--}}
-                                                            {{--name="polis_series_id[]" style="width: 100%;">--}}
-                                                        {{--<option selected="selected"></option>--}}
-                                                    {{--</select>--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<input type="date" class="form-control" name="data_vidachi[]">--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<input type="date" class="form-control"--}}
-                                                           {{--name="period_deystviya_ot[]">--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<input type="date" class="form-control"--}}
-                                                           {{--name="period_deystviya_do[]">--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<select class="form-control" id="polise_agents" name="otvet_litso[]"--}}
-                                                            {{--style="width: 100%;">--}}
-                                                        {{--<option selected="selected"></option>--}}
-                                                    {{--</select>--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<input type="text" class="form-control forsum2"--}}
-                                                           {{--name="kolichestvo[]">--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<input data-field="value" type="text" class="form-control"--}}
-                                                           {{--name="strah_stoimost[]">--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<input data-field="sum" type="text" class="form-control"--}}
-                                                           {{--name="strah_summa[]">--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<input data-field="premiya" type="text" class="form-control"--}}
-                                                           {{--name="strah_premiya[]">--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<input type="button" onclick="removeAndCalc(${id})" value="Удалить"--}}
-                                                           {{--class="btn btn-warning">--}}
-                                                {{--</td>--}}
-                                            {{--</tr>--}}
+                                            <tr id="policy_information-{{$policyInformation->id}}">
+                                                <td>
+                                                    <select class="form-control polis_name_id"
+                                                            onchange="getPolicySeries(this, 'policy_information-{{$policyInformation->id}}')"
+                                                            name="polis_name_id[{{$policyInformation->id}}]"
+                                                            style="width: 100%;">
+                                                        <option
+                                                            selected="selected">{{$policyInformation->policy->polis_name}}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control polis_series_id" id="polis_series_${id}"
+                                                            name="polis_series_id[{{$policyInformation->id}}]"
+                                                            style="width: 100%;">
+                                                        <option
+                                                            selected="selected">{{$policyInformation->policy->number}}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control"
+                                                           name="data_vidachi[{{$policyInformation->id}}]"
+                                                           value="{{$policyInformation->data_vidachi}}">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control"
+                                                           name="period_deystviya_ot[{{$policyInformation->id}}]"
+                                                           value="{{$policyInformation->period_deystviya_ot}}">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control"
+                                                           name="period_deystviya_do[{{$policyInformation->id}}]"
+                                                           value="{{$policyInformation->period_deystviya_do}}">
+                                                </td>
+                                                <td>
+                                                    <select class="form-control" id="polise_agents"
+                                                            name="otvet_litso[{{$policyInformation->id}}]"
+                                                            style="width: 100%;">
+                                                        <option
+                                                            selected="selected">{{$policyInformation->agent->getFIO()}}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control forsum2"
+                                                           name="kolichestvo[{{$policyInformation->id}}]"
+                                                           value="{{$policyInformation->kolichestvo}}">
+                                                </td>
+                                                <td>
+                                                    <input data-field="value" type="text" class="form-control"
+                                                           name="strah_stoimost[{{$policyInformation->id}}]"
+                                                           value="{{$policyInformation->strah_stoimost}}">
+                                                </td>
+                                                <td>
+                                                    <input data-field="sum" type="text" class="form-control"
+                                                           name="strah_summa[{{$policyInformation->id}}]"
+                                                           value="{{$policyInformation->strah_summa}}">
+                                                </td>
+                                                <td>
+                                                    <input data-field="premiya" type="text" class="form-control"
+                                                           name="strah_premiya[{{$policyInformation->id}}]"
+                                                           value="{{$policyInformation->strah_premiya}}">
+                                                </td>
+                                                <td>
+                                                    <input type="button"
+                                                           onclick="removeAndCalc('policy_information-{{$policyInformation->id}}')"
+                                                           value="Удалить"
+                                                           class="btn btn-warning">
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     @endif
                                     <tr>
