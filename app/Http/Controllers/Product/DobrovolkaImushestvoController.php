@@ -351,6 +351,7 @@ class DobrovolkaImushestvoController extends Controller
             foreach ($request->input('polis_name_id') as $key => $item) {
                 AllProductInformation::query()->updateOrCreate([
                     'policy_id' => $request->input('polis_series_id')[$key],
+                    'all_products_id' => $allP->id
                 ], [
                     'data_vidachi' => $request->input('data_vidachi')[$key],
                     'period_deystviya_ot' => $request->input('period_deystviya_ot')[$key],
@@ -360,7 +361,6 @@ class DobrovolkaImushestvoController extends Controller
                     'strah_stoimost' => $request->input('strah_stoimost')[$key],
                     'strah_summa' => $request->input('strah_summa')[$key],
                     'strah_premiya' => $request->input('strah_premiya')[$key],
-                    'all_products_id' => $allP->id
                 ]);
             }
 
