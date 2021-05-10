@@ -153,12 +153,18 @@ class CreateAllProductsTable extends Migration
             $table->text('liabilityLimit')->nullable();
             $table->text('retransferAktFile')->nullable();
 
+            ///AvtoCredit
+            $table->text('credit_from')->nullable();
+            $table->text('credit_to')->nullable();
+            $table->text('sum_of_credit')->nullable();
+            $table->text('insurance_until')->nullable();
+            $table->text('credit_franchise')->nullable();
+            $table->text('currency_of_settlement')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
         });
     }
-
 
     /**
      * Reverse the migrations.

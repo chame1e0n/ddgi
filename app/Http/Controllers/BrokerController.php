@@ -388,15 +388,15 @@ class BrokerController extends Controller
 
 
 
-        if (!empty($request->payment_sum)){
-            $currency_terms_transh = AllProductsTermsTransh::create(
-                [
-                    'all_products_id' => $all_product->id,
-                    'payment_sum' => $request->payment_sum,
-                    'payment_from' => $request->payment_from
-                ]
-            );
-        }else{
+//        if (!empty($request->payment_sum)){
+//            $currency_terms_transh = AllProductsTermsTransh::create(
+//                [
+//                    'all_products_id' => $all_product->id,
+//                    'payment_sum' => $request->payment_sum,
+//                    'payment_from' => $request->payment_from
+//                ]
+//            );
+//        }
             $currency_terms_transh->update(
                 [
                     'all_products_id' => $all_product->id,
@@ -404,7 +404,6 @@ class BrokerController extends Controller
                     'payment_from' => $request->payment_from
                 ]
             );
-        }
 
         return 'successfully edit';
 

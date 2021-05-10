@@ -745,7 +745,7 @@
                                 <td><label>Пассажиры</label></td>
                                 <td><input type="number" class="form-control r-3-pass-1-0" name="passenger_quantity">
                                 </td>
-                                <td>a
+                                <td>
                                     <div class="input-group mb-4">
                                         <input type="text" class="form-control r-3-one-1-0" name="passenger_one_sum">
                                         <div class="input-group-append">

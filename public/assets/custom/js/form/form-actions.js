@@ -234,7 +234,7 @@ if (formAudit) {
 
 if (formBrokers) {
     formBrokers.addEventListener('submit', event => {
-        // event.preventDefault()
+        event.preventDefault()
 
         // Данные из формы audit
         const generalInformation = {
@@ -472,7 +472,7 @@ if (buttonAddRowInfo) {
         const rowInfo = `
       <tr id="${id}">
         <td>
-            <input type="text" class="form-control" name="policy_num[]">
+            <input type="text" class="form-control">
         </td>
         <td>
             <input type="text" class="form-control" name="policy_series_id[]" required>
@@ -481,10 +481,10 @@ if (buttonAddRowInfo) {
             <input  type="date" name="from_date_polis[]" class="form-control" required>
         </td>
         <td>
-            <input type="date" class="form-control" name="date_polis_from[]" required>
+            <input type="date" class="form-control" name="to_date_polis[]" required>
         </td>
         <td>
-            <input type="date" class="form-control" name="date_polis_to[]" required>
+            <input type="date" class="form-control" name="to_date_polis[]" required>
         </td>
         <td>
             <select class="form-control polises" id="polise_agents" name="agent_id[]" style="width: 100%;" required>
@@ -877,7 +877,7 @@ function addProductFields(fieldNumber) {
                                 </div>
                             </div>
                             <div data-radioSuccess5-${fieldNumber} class="col-md-6 r-2-show-${fieldNumber}" style="display: none;">
-
+                                
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -1194,7 +1194,7 @@ const addProductFieldRow = (fieldNumber) => {
         <td>
             <input type="text"  class="form-control" name="polis_places[]">
         </td>
-
+       
         <td>
             <input type="text" data-field="value" class="form-control" name="polis_places[]">
         </td>
@@ -1321,7 +1321,7 @@ const toggleBlockRadio = (id, dataAttr, open = true) => {
 const addInsurer = () => {
     const id = Math.random();
     const ln = document.querySelectorAll('#clone-insurance').length + 1
-    const html = `
+    const html = ` 
         <div id="${id}" class="card-body">
           <div class="card card-info" id="clone-insurance">
               <div class="card-header">
@@ -2001,25 +2001,25 @@ const addCascoFieldRow = (fieldNumber) => {
             <input type="text" class="form-control" name="polis_payload[]">
         </td>
         <td>
-            <input type="text"  class="form-control" name="modification[]">
+            <input type="text"  class="form-control" name="polis_places[]">
         </td>
           <td>
-            <input type="text"  class="form-control" name="state_num[]">
+            <input type="text"  class="form-control" name="polis_places[]">
         </td>
           <td>
-            <input type="text"  class="form-control" name="num_tech_passport[]">
+            <input type="text"  class="form-control" name="polis_places[]">
         </td>
           <td>
-            <input type="text"  class="form-control" name="num_engine[]">
+            <input type="text"  class="form-control" name="polis_places[]">
         </td>
           <td>
-            <input type="text"  class="form-control" name="num_carcase[]">
+            <input type="text"  class="form-control" name="polis_places[]">
         </td>
          <td>
-            <input type="text"  class="form-control" name="carrying_capacity[]">
+            <input type="text"  class="form-control" name="polis_places[]">
         </td>
         <td>
-            <input type="text" data-field="value" class="form-control" name="insurance_cost[]">
+            <input type="text" data-field="value" class="form-control" name="polis_places[]">
         </td>
         <td>
             <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">

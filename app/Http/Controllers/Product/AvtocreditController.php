@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\AllProduct;
+use App\AllProductInformation;
+use App\AllProductInformationTransport;
+use App\AllProductsTermsTransh;
 use App\Bonded;
 use App\BondedPolicyInformation;
 use App\Http\Controllers\Controller;
@@ -14,8 +18,10 @@ use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
 use App\User;
+use App\Zaemshik;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\Console\Input\Input;
 
@@ -42,7 +48,8 @@ class AvtocreditController extends Controller
      */
     public function create()
     {
-        return view('products.credit.avtocredit.create');
+        $agents = Agent::query()->get();
+        return view('products.credit.avtocredit.create', compact('agents'));
     }
 
     /**
@@ -53,164 +60,211 @@ class AvtocreditController extends Controller
      */
     public function store(Request $request)
     {
-//        $request->validate([
+        $request->validate(
+            [
+                // policy_holders
 //            'fio_insurer' => 'required',
 //            'address_insurer' => 'required',
 //            'tel_insurer' => 'required',
 //            'address_schet' => 'required',
 //            'inn_insurer' => 'required',
 //            'mfo_insurer' => 'required',
-//            'okonh_insurer' => 'required',
 //            'bank_insurer' => 'required',
-//            'fio_beneficiary' => 'required',
-//            'address_beneficiary' => 'required',
-//            'tel_beneficiary' => 'required',
-//            'beneficiary_schet' => 'required',
-//            'inn_beneficiary' => 'required',
-//            'mfo_beneficiary' => 'required',
-//            'okonh_beneficiary' => 'required',
-//            'bank_beneficiary' => 'required',
-//            'client_type_radio' => 'required',
-//            'product_id' => 'required',
-//            'insurance_premium_payment_type' => 'required',
-//            'insurance_premium_currency' => 'required',
+//            'oked_insurer' => 'required',
+
+                // zaemshik
+//              'fio_insured'=> 'required',
+//              'address_beneficiary'=> 'required',
+//              'tel_beneficiary'=> 'required',
+//              'passport_series'=> 'required',
+//              'passport_number'=> 'required',
+//              'beneficiary_schet'=> 'required',
+//              'inn_beneficiary'=> 'required',
+//              'mfo_beneficiary'=> 'required',
+//              'bank_beneficiary'=> 'required',
+//              'oked_beneficiary'=> 'required',
+
+                // all_product_information
+//            'policy_series' => 'required',
+//            'policy_insurance_from' => 'required',
+//            'otvet_litso' => 'required',
+
+
+                // all_products
+//            'dogovor_lizing_num' => 'required',
+//            'credit_from' => 'required',
+//            'credit_to' => 'required',
+//            'sum_of_credit' => 'required',
 //            'insurance_from' => 'required',
 //            'insurance_to' => 'required',
-//            'volume' => 'required',
-//            'volume_measure' => 'required',
-//            'total_price' => 'required',
-//            'stock_date' => 'required',
-//            'total_insured_price' => 'required',
-//            'total_insured_closed_stock_price' => 'required',
-//            'total_insured_open_stock_price' => 'required',
-//            'insurance_premium' => 'required',
-//            'settlement_currency' => 'required',
-//            'litso' => 'required',
-//            'from_date_info' => 'required',
-//        ]);
-//
-//        $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
-//
-//        if (empty($policy)) {
-//            $policySeries = PolicySeries::find( $request->policy_series_id);
-//
-//            return back()->withInput()->withErrors([
-//                sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
+//            'credit_franchise' => 'required',
+//            'currency_of_settlement' => 'required',
+
+//            'insurance_sum' => 'required',
+//            'insurance_bonus'=> 'required',
+//            'franchise'=> 'required',
+//            'insurance_premium_currency'=> 'required',
+//            'payment_term'=> 'required',
+//            'way_of_calculation'=> 'required',
+//            'application_form_file'=> 'required',
+//            'contract_file'=> 'required',
+//            'policy_file'=> 'required',
+            ]
+        );
+
+//        if ($request->get('payment_term') === "transh") {
+//            $request->validate([
+//                "payment_sum_main" => "required",
+//                "payment_from_main" => "required"
+//            ]);
+//        }
+
+//        if ($request->tariff === 'tariff') {
+//            $request->validate([
+//                'tariff_other' => 'required'
 //            ]);
 //        }
 //
-//        $policyHolder = PolicyHolder::create([
-//            'FIO' => $request->fio_insurer,
-//            'address' => $request->address_insurer,
-//            'phone_number' => $request->tel_insurer,
-//            'checking_account' => $request->address_schet,
-//            'inn' => $request->inn_insurer,
-//            'mfo' => $request->mfo_insurer,
-//            'okonx' => $request->okonh_insurer,
-//            'bank_id' => $request->bank_insurer,
-//        ]);
-//
-//        $policyBeneficiaries = PolicyBeneficiaries::create([
-//            'FIO' => $request->fio_beneficiary,
-//            'address' => $request->address_beneficiary,
-//            'phone_number' => $request->tel_beneficiary,
-//            'checking_account' => $request->beneficiary_schet,
-//            'inn' => $request->inn_beneficiary,
-//            'mfo' => $request->mfo_beneficiary,
-//            'okonx' => $request->okonh_beneficiary,
-//            'bank_id' => $request->bank_beneficiary,
-//        ]);
-//
-//        $insurance_premium_currency_rate = null;
-//
-//        if ($request->insurance_premium_currency != 'UZS') {
-//            $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
-//            $json = file_get_contents($jsonurl);
-//            $json = json_decode($json);
-//
-//            foreach ($json as $data) {
-//                if ($data->Ccy == $request->insurance_premium_currency) {
-//                    $insurance_premium_currency_rate = $data->Rate;
-//                }
-//            }
-//        }
-//
-//        $bonded = Bonded::create([
-//            'type' => $request->client_type_radio,
-//            'product_id' => (int)$request->product_id,
-//            'insurance_premium_payment_type' => (int)$request->insurance_premium_payment_type,
-//            'insurance_premium_currency_rate' => $insurance_premium_currency_rate,
-//            'insurance_premium_currency' => $request->insurance_premium_currency,
-//            'policy_beneficiary_id' => $policyBeneficiaries->id,
-//            'policy_holder_id' => $policyHolder->id,
-//            'from_date' => $request->insurance_from,
-//            'to_date' => $request->insurance_to,
-//            'volume' => $request->volume,
-//            'volume_measure' => $request->volume_measure,
-//            'total_price' => $request->total_price,
-//            'stock_date' => $request->stock_date,
-//            'total_insured_price' => $request->total_insured_price,
-//            'total_insured_closed_stock_price' => $request->total_insured_closed_stock_price,
-//            'total_insured_open_stock_price' => $request->total_insured_open_stock_price,
-//            'insurance_premium' => $request->insurance_premium,
-//            'settlement_currency' => $request->settlement_currency,
-//            'premium_terms' => $request->premium_terms,
-//        ]);
-//
-//        $policy->update([
-//            'status' => 'in_use',
-//            'client_type' => $request->client_type_radio,
+//        if ($request->preim === 'preim') {
+//            $request->validate([
+//                'premiya_other' => 'required'
 //            ]);
-//
-//        $brancId = User::find($request->litso)->branch_id;
-//        $uniqueNumber = new Dogovor;
-//        $uniqueNumber = $uniqueNumber->createUniqueNumber(
-//            $brancId,
-//            $request->insurance_premium_payment_type,
-//            2,
-//            'bonded',
-//            $bonded->id
-//        );
-//
-//        $bonded->update([
-//            'unique_number' => $uniqueNumber
-//        ]);
-//
-//        BondedPolicyInformation::create([
-//            'bonded_id' => $bonded->id,
-//            'policy_series_id' => $request->policy_series_id,
-//            'policy_id' => $policy->id,
-//            'user_id' => $request->litso,
-//            'from_date' => $request->from_date_info,
-//        ]);
-//
-//        return redirect()->route('all_products.index')
-//            ->with('success','Успешно заполнен продукт');
-//    }
-//
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param $id
-//     * @return void
-//     */
-//    public function show($id)
-//    {
-//    }
-//
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param Bonded $product
-//     * @return void
-//     */
-//    public function edit($id)
-//    {
-//        $bonded = Bonded::find($id);
-//        $agents = Agent::all();
-//        $policySeries = PolicySeries::all();
-//        $banks = Bank::all();
-//        return view('products.about-tamojenniy-sklad.edit', compact('bonded', 'agents', 'policySeries', 'banks'));
+//        }
+
+        $policyHolder = PolicyHolder::create(
+            [
+                'FIO' => $request->fio_insurer,
+                'address' => $request->address_insurer,
+                'phone_number' => $request->phone_insurer,
+                'checking_account' => $request->address_schet,
+                'inn' => $request->inn_insurer,
+                'mfo' => $request->mfo_insurer,
+                'bank_id' => $request->bank_insurer,
+                'oked' => $request->oked_insurer,
+            ]
+        );
+
+        $zaemshik = Zaemshik::create(
+            [
+                'z_fio' => $request->fio_beneficiary,
+                'z_address' => $request->address_beneficiary,
+                'z_phone' => $request->tel_beneficiary,
+                'passport_series' => $request->passport_series,
+                'passport_number' => $request->passport_number,
+                'z_checking_account' => $request->beneficiary_schet,
+                'z_inn' => $request->inn_beneficiary,
+                'z_mfo' => $request->mfo_beneficiary,
+                'bank_id' => $request->bank_beneficiary,
+                'z_oked' => $request->oked_beneficiary
+            ]
+        );
+
+        if (!empty($request->application_form_file)) {
+            $application_form_file_path = $request->application_form_file->store("documents_avtocredit");
+        } else {
+            $application_form_file_path = null;
+        }
+        if (!empty($request->contract_file)) {
+            $contract_file_path = $request->contract_file->store("documents_avtocredit");
+        } else {
+            $contract_file_path = null;
+        }
+        if (!empty($request->policy_file)) {
+            $policy_file_path = $request->policy_file->store("documents_avtocredit");
+        } else {
+            $policy_file_path = null;
+        }
+
+        $all_product = AllProduct::create(
+            [
+                'policy_holder_id' => $policyHolder->id,
+                'zaemshik_id' => $zaemshik->id,
+                'dogovor_lizing_num' => $request->dogovor_lizing_num,
+                'credit_from' => $request->credit_from,
+                'credit_to' => $request->credit_to,
+                'sum_of_credit' => $request->sum_of_credit,
+                'insurance_from' => $request->insurance_from,
+                'insurance_until' => $request->insurance_until,
+                'credit_franchise' => $request->credit_franchise,
+                'currency_of_settlement' => $request->currency_of_settlement,
+
+
+                'insurance_sum' => $request->insurance_sum,
+                'insurance_bonus' => $request->insurance_bonus,
+                'franchise' => $request->franchise,
+                'insurance_premium_currency' => $request->insurance_premium_currency,
+                'payment_term' => $request->payment_term,
+                'way_of_calculation' => $request->way_of_calculation,
+                "payment_sum_main" => $request->payment_sum_main,
+                "payment_from_main" => $request->payment_from_main,
+                "tariff" => $request->tarif,
+                "tarif_other" => $request->tariff_other,
+                "preim" => $request->preim,
+                "premiya_other" => $request->premiya_other,
+                'application_form_file' => $application_form_file_path,
+                'contract_file' => $contract_file_path,
+                'policy_file' => $policy_file_path,
+            ]
+        );
+
+        if (!empty($request->policy_num)){
+            $all_product_info_transport = AllProductInformationTransport::create([
+                'all_products_id' => $all_product->id,
+
+            ]);
+        }
+
+        if (!empty($request->policy_series)) {
+            $all_product_info = AllProductInformation::create(
+                [
+                    'all_products_id' => $all_product->id,
+                    'policy_series' => $request->policy_series,
+                    'policy_insurance_from' => $request->policy_insurance_from,
+                    'otvet_litso' => $request->litso,
+                ]
+            );
+        }
+
+        if (!empty($request->payment_sum)){
+            $currency_terms_transh = AllProductsTermsTransh::create(
+                [
+                    'all_products_id' => $all_product->id,
+                    'payment_sum' => $request->payment_sum,
+                    'payment_from' => $request->payment_from
+                ]
+            );
+        }
+
+        return 'successfully created!';
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $agents = Agent::query()->get();
+        $all_product = AllProduct::query()->with(
+            'policyHolder',
+            'zaemshik',
+            'allProductCurrencyTerms',
+            'allProductInfo'
+        )->findOrFail($id);
+        return view('products.credit.avtocredit.edit', compact('agents', 'all_product'));
     }
 
     /**
@@ -222,51 +276,123 @@ class AvtocreditController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        $bonded = Bonded::find($id);
-//        $bonded->policyHolder->update([
-//            'FIO' => $request->fio_insurer,
-//            'address' => $request->address_insurer,
-//            'phone_number' => $request->tel_insurer,
-//            'checking_account' => $request->address_schet,
-//            'inn' => $request->inn_insurer,
-//            'mfo' => $request->mfo_insurer,
-//            'okonx' => $request->okonh_insurer,
-//            'bank_id' => $request->bank_insurer,
-//        ]);
-//
-//        $bonded->policyBeneficiaries->update([
-//            'FIO' => $request->fio_beneficiary,
-//            'address' => $request->address_beneficiary,
-//            'phone_number' => $request->tel_beneficiary,
-//            'checking_account' => $request->beneficiary_schet,
-//            'inn' => $request->inn_beneficiary,
-//            'mfo' => $request->mfo_beneficiary,
-//            'okonx' => $request->okonh_beneficiary,
-//            'bank_id' => $request->bank_beneficiary,
-//        ]);
-//        $bonded->update([
-//            'from_date' => $request->insurance_from,
-//            'to_date' => $request->insurance_to,
-//            'volume' => $request->volume,
-//            'volume_measure' => $request->volume_measure,
-//            'total_price' => $request->total_price,
-//            'stock_date' => $request->stock_date,
-//            'total_insured_price' => $request->total_insured_price,
-//            'total_insured_closed_stock_price' => $request->total_insured_closed_stock_price,
-//            'total_insured_open_stock_price' => $request->total_insured_open_stock_price,
-//            'insurance_premium' => $request->insurance_premium,
-//            'settlement_currency' => $request->settlement_currency,
-//            'premium_terms' => $request->premium_terms,
-//        ]);
-//
-//        $bonded->policyInformations->update([
-//            'bonded_id' => $bonded->id,
-//            'policy_series_id' => $request->policy_series_id,
-//            'user_id' => $request->litso,
-//            'from_date' => $request->from_date_info,
-//        ]);
-//
-//        return redirect()->back()->with('success', 'Успешно распределены полюсы');
+        $banks = Bank::query()->get();
+        $all_product = AllProduct::query()->find($id);
+        $policyHolder = PolicyHolder::query()->find($all_product->policy_holder_id);
+        $zaemshik = Zaemshik::query()->find($all_product->zaemshik_id);
+        $currency_terms_transh = AllProductsTermsTransh::query()->where('all_products_id', $all_product->id)->first();
+        $all_product_info = AllProductInformation::query()->where('all_products_id', $all_product->id)->first();
+
+        $policyHolder->update(
+            [
+                'FIO' => $request->fio_insurer,
+                'address' => $request->address_insurer,
+                'phone_number' => $request->phone_insurer,
+                'checking_account' => $request->address_schet,
+                'inn' => $request->inn_insurer,
+                'mfo' => $request->mfo_insurer,
+                'bank_id' => $request->bank_insurer,
+                'oked' => $request->oked_insurer,
+            ]
+        );
+
+        $zaemshik->update(
+            [
+                'z_fio' => $request->fio_beneficiary,
+                'z_address' => $request->address_beneficiary,
+                'z_phone' => $request->tel_beneficiary,
+                'passport_series' => $request->passport_series,
+                'passport_number' => $request->passport_number,
+                'z_checking_account' => $request->beneficiary_schet,
+                'z_inn' => $request->inn_beneficiary,
+                'z_mfo' => $request->mfo_beneficiary,
+                'bank_id' => $request->bank_beneficiary,
+                'z_oked' => $request->oked_beneficiary
+            ]
+        );
+
+        if (!empty($request->application_form_file)) {
+            Storage::delete($all_product->application_form_file_path);
+            $application_form_file_path = $request->application_form_file->store("documents_avtocredit");
+        } else {
+            $application_form_file_path = $all_product->application_form_file;
+        }
+        if (!empty($request->contract_file)) {
+            Storage::delete($all_product->contract_file_path);
+            $contract_file_path = $request->contract_file->store("documents_avtocredit");
+        } else {
+            $contract_file_path = $all_product->contract_file;
+        }
+        if (!empty($request->policy_file)) {
+            Storage::delete($all_product->policy_file_path);
+            $policy_file_path = $request->policy_file->store("documents_avtocredit");
+        } else {
+            $policy_file_path = $all_product->policy_file;
+        }
+
+        $all_product->update(
+            [
+                'policy_holder_id' => $policyHolder->id,
+                'zaemshik_id' => $zaemshik->id,
+                'dogovor_lizing_num' => $request->dogovor_lizing_num,
+                'credit_from' => $request->credit_from,
+                'credit_to' => $request->credit_to,
+                'sum_of_credit' => $request->sum_of_credit,
+                'insurance_from' => $request->insurance_from,
+                'insurance_until' => $request->insurance_until,
+                'credit_franchise' => $request->credit_franchise,
+                'currency_of_settlement' => $request->currency_of_settlement,
+
+
+                'insurance_sum' => $request->insurance_sum,
+                'insurance_bonus' => $request->insurance_bonus,
+                'franchise' => $request->franchise,
+                'insurance_premium_currency' => $request->insurance_premium_currency,
+                'payment_term' => $request->payment_term,
+                'way_of_calculation' => $request->way_of_calculation,
+                "payment_sum_main" => $request->payment_sum_main,
+                "payment_from_main" => $request->payment_from_main,
+                "tariff" => $request->tarif,
+                "tarif_other" => $request->tariff_other,
+                "preim" => $request->preim,
+                "premiya_other" => $request->premiya_other,
+                'application_form_file' => $application_form_file_path,
+                'contract_file' => $contract_file_path,
+                'policy_file' => $policy_file_path,
+            ]
+        );
+
+        $all_product_info->update(
+            [
+                'all_products_id' => $all_product->id,
+                'policy_series' => $request->policy_series,
+                'policy_insurance_from' => $request->policy_insurance_from,
+                'otvet_litso' => $request->litso,
+            ]
+        );
+
+
+
+//        if (!empty($request->payment_sum)){
+//            $currency_terms_transh = AllProductsTermsTransh::create(
+//                [
+//                    'all_products_id' => $all_product->id,
+//                    'payment_sum' => $request->payment_sum,
+//                    'payment_from' => $request->payment_from
+//                ]
+//            );
+//        }
+            $currency_terms_transh->update(
+                [
+                    'all_products_id' => $all_product->id,
+                    'payment_sum' => $request->payment_sum,
+                    'payment_from' => $request->payment_from
+                ]
+            );
+
+        return 'successfully edit';
+
+
     }
 
     /**
@@ -277,11 +403,19 @@ class AvtocreditController extends Controller
      */
     public function destroy($id)
     {
-//        $bonded = Bonded::find($id);
-//        $bonded->policyInformations->delete();
-//        $bonded->delete();
-//
-//        return redirect()->route('all_products.index')
-//            ->with('success', sprintf('Дынные о продукте были успешно удалены', $bonded->unique_number));
+        $all_product = AllProduct::query()->findOrFail($id);
+
+        $currencyTerms = AllProductsTermsTransh::query()->where('all_products_id', $all_product->id)->get();
+        $all_product_info = AllProductInformation::query()->where('all_products_id', $all_product->id)->first();
+        $policyHolder = PolicyHolder::query()->findOrFail($all_product->policy_holder_id);
+        $zaemshik = Zaemshik::query()->find($all_product->zaemshik_id);
+        $policyHolder->delete();
+        $zaemshik->delete();
+        $all_product_info->delete();
+        foreach ($currencyTerms as $item) {
+            $item->delete();
+        }
+        $all_product->delete();
+        return "success";
     }
 }
