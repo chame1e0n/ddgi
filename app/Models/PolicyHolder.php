@@ -25,13 +25,15 @@ class PolicyHolder extends Model
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
             'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
+            'checking_account' => $request->checking_account,
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
             'oked' => $request->oked_insurer,
             'okonx' => $request->okonx_insurer,
             'vid_deyatelnosti' => $request->vid_deyatelnosti,
             'bank_id' => $request->bank_insurer,
+            'passport_series' => $request->passport_series ?? null,
+            'passport_number' => $request->passport_number ?? null,
 
         ]);
         if ($policyHolder)
@@ -47,7 +49,7 @@ class PolicyHolder extends Model
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
             'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
+            'checking_account' => $request->address_schet ?? $request->checking_account,
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
             'okonx' => $request->okonx_insurer,

@@ -3,6 +3,7 @@
 namespace App\Models\Product;
 
 use App\Models\PolicyHolder;
+use App\Models\Spravochniki\Agent;
 use Illuminate\Database\Eloquent\Model;
 
 class OtvetstvennostRealtor extends Model
@@ -21,7 +22,9 @@ class OtvetstvennostRealtor extends Model
     {
         return $this->hasMany(OtvetstvennostRealtorInfo::class);
     }
-
+    public function agent(){
+        return $this->belongsTo(Agent::class, 'otvet_litso', 'id');
+    }
     static function createRealtor($request, $policyHolder_id){
         $data = $request->all();
         $data['total_turnover'] = $data['first_turnover'] + $data['second_turnover'];

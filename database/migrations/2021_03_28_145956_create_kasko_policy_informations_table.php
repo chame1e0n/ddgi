@@ -16,7 +16,7 @@ class CreateKaskoPolicyInformationsTable extends Migration
         Schema::dropIfExists('kasko_policy_informations');
         Schema::create('kasko_policy_informations', function (Blueprint $table) {
             $table->id();
-            $table->string('polis_number');
+//            $table->string('polis_number');
             $table->string('polis_god_vupyska');
             $table->string('polis_date_from');
             $table->string('polis_date_to');

@@ -67,7 +67,11 @@ class KaskoController extends Controller
      */
     public function show($id)
     {
-        //
+        $page = KaskoModel::with('PolicyBeneficiaries','policyHolders', 'policyInformations', 'KascoStrahPremiya')->find($id);
+        $agents = Agent::getActiveAgent();
+        $banks = Bank::getBanks();
+        $policySeries =  PolicySeries::get();
+        return view('products.kasko.show', compact('page', 'agents', 'banks', 'policySeries'));
     }
 
     /**
@@ -84,7 +88,6 @@ class KaskoController extends Controller
         $page = KaskoModel::with('PolicyBeneficiaries', 'policyHolders', 'policyInformations', 'KascoStrahPremiya')->find($id);
         return view('products.kasko.edit', compact('agents', 'banks', 'policySeries', 'page'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -94,11 +97,13 @@ class KaskoController extends Controller
      */
     public function update(KascoRequest $request, $id)
     {
-        $policyHolder = PolicyHolder::updatePolicyHolders($id, $request);
-        $policyBeneficiaries = PolicyBeneficiaries::updatePolicyBeneficiaries($id, $request);
-        $kasko = KaskoModel::updateKasco($request, $policyHolder->id, $policyBeneficiaries->id, $id);
-        KaskoPolicyInformationModel::updateePolicyInfo($request, $kasko);
-        KascoStrahPremiya::updateStrahPremiya($request, $kasko);
+        $policyHolder        = PolicyHolder::updatePolicyHolders($id, $request);
+        $policyBeneficiaries = PolicyBeneficiaries::updatePolicyBeneficiaries($id,$request);
+        $kasko               = KaskoModel::updateKasco($request, $policyHolder->id,$policyBeneficiaries->id, $id);
+                               KaskoPolicyInformationModel::updateePolicyInfo($request,$kasko);
+                               KascoStrahPremiya::updateStrahPremiya($request,$kasko);
+
+        return redirect()->back();
     }
 
     /**

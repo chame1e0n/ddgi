@@ -127,6 +127,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('otvetstvennost-podryadchik','Product\OtvetstvennostPodryadchikController')->names('otvetstvennost-podryadchik');
     Route::resource('otvetstvennost-broker','Product\OtvetstvennostBrokerController')->names('otvetstvennost-broker');
     Route::resource('otvetstvennost-realtor','Product\OtvetstvennostRealtorController')->names('otvetstvennost-realtor');
+    Route::resource('covid-fiz','Product\CovidController')->names('covid-fiz');
+    Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
     Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');
     Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('rassrochka','Product\RassrochkaController');
@@ -164,6 +166,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
     Route::resource('otvetstvennost/otsenshiki', 'Product\OtvetstvennostOtsenshikiController')->names('otvetstvennost-otsenshiki');
     Route::resource('kasco', 'Product\KaskoController')->names('kasco-add');
+    Route::resource('neshchastka/time', 'Product\Neshchastka24TimeController')->names('neshchastka-time');
+    Route::resource('zalog/imushestvo3x', 'Product\ZalogImushestvo3xController')->names('zalog-imushestvo3x');
+    Route::resource('zalog/ipoteka', 'Product\ZalogIpotekaController')->names('zalog-ipoteka');
+    Route::resource('zalog/tehnika', 'Product\ZalogTehnikaController')->names('zalog-tehnika');
+    Route::resource('zalog/autozalog-mnogostoronniy', 'Product\ZalogAutozalogMnogostoronniyController')->names('zalog-autozalog-mnogostoronniy');
+    Route::resource('zalog/autozalog3x', 'Product\AutoZalog3xController')->names('zalog-autozalog3x');
+
 });
 
 Auth::routes();

@@ -694,11 +694,11 @@ const addPaymentSchedule = () => {
          <tr id="${id}" data-field-number="0">
             <td>
                 <input type="text" class="form-control"
-                       name="payment_sum[]">
+                       name="payment_sum[]" required>
             </td>
             <td>
                 <input type="date" class="form-control"
-                       name="payment_from[]">
+                       name="payment_from[]" required>
             </td>
             <td>
                 <input type="button" onclick="removeEl(${id})" value="Удалить" class="btn btn-warning">
@@ -1153,7 +1153,7 @@ function addProductFields(fieldNumber) {
 </div>`;
     generalProductFields.insertAdjacentHTML('beforeend', fields);
     const $ = (className) => document.querySelector(className)
-    document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function () {
+    document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function() {
         let overallSum =
             parseFloat($('#insurance_sum-' + fieldNumber).value || 0) +
             parseFloat($('.terror-tc-' + fieldNumber).value || 0) +
@@ -1176,7 +1176,7 @@ function addProductFields(fieldNumber) {
         $('.r-summ-' + fieldNumber).value = modalTableSum2;
         $('.r-summ-premia-' + fieldNumber).value = modalTableSum3;
 
-        $('#totalLimit-' + fieldNumber).addEventListener('keyup', function () {
+        $('#totalLimit-' + fieldNumber).addEventListener('keyup', function() {
             if ($('.r-summ-' + fieldNumber).value >= $('#totalLimit-' + fieldNumber).value) {
                 $('#form-save-button').setAttribute('disabled', true)
                 // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
@@ -1185,23 +1185,23 @@ function addProductFields(fieldNumber) {
             }
         });
 
-        $('.r-3-one-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-one-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-pass-${fieldNumber}`).value;
             $(`.r-3-sum-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-pass-1-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-pass-1-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-one-1-${fieldNumber}`).value;
             $(`.r-3-sum-1-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-one-1-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-one-1-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-pass-1-${fieldNumber}`).value;
             $(`.r-3-sum-1-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-pass-2-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-pass-2-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-one-2-${fieldNumber}`).value;
             $(`.r-3-sum-2-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-one-2-' + fieldNumber).addEventListener('keyup', function () {
+        $('.r-3-one-2-' + fieldNumber).addEventListener('keyup', function() {
             let numOne = this.value * $(`.r-3-pass-2-${fieldNumber}`).value;
             $(`.r-3-sum-2-${fieldNumber}`).value = numOne;
         });
@@ -1967,8 +1967,7 @@ if (addLitso) {
 
         document.getElementById('friends').insertAdjacentHTML('beforeend', fields);
     }
-}
-;
+};
 
 const addImushestvoBtn = document.getElementById('addImushestvoBtn');
 
@@ -2188,64 +2187,66 @@ if (addAutozalogBtn) {
     addAutozalogBtn.onclick = () => {
         const id = Math.random();
         const field = `<tr id="a${fieldNumber}">
-        <td>
-            <input type="text" class="form-control" name="polis_mark[]">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis_model[]">
-        </td>
-        <td>
-            <input disabled type="date" class="form-control">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis_gos_num[]">
-        </td>
-        <td>
-            <input type="date" class="form-control" name="polis_teh_passport[]">
-        </td>
-        <td>
-            <input type="date" class="form-control" name="polis_num_engine[]">
-        </td>
-        <td>
-           <select class="form-control" id="polise_agents" name="agents[]" style="width: 100%;">
-                <option selected="selected"></option>
-            </select>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="polis_payload[]">
-        </td>
-        <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
+<td>
+                                            <input type="text" class="form-control" name="policy_number[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="policy_series[]" required>
+                                        </td>
+                                        <td>
+                                            <input disabled="" type="date" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="god_vipuska[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" name="policy_insurance_from[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" name="policy_insurance_to[]" required>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" id="polise_agents" name="otvet_litso[]" style="width: 100%;" required>
+                                                <option selected="selected"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="marka[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="model[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="modification[]" required>
+                                        </td>
+
+
+                                        <td>
+                                            <input type="text" class="form-control" name="gos_nomer[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="tex_passport[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="number_engine[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="number_kuzov[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="gryzopodemnost[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="value" class="form-control" name="strah_stoimost[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="strah_sum[]" required>
+                                        </td>
+                                        <td>
+                                            <input type="text" data-field="premiya" class="form-control insurance_premium-0" name="strah_prem[]" required>
+                                        </td>
          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text" data-field="value" class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
-        </td>
-        <td>
-            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="polis_premium[]">
-        </td>
-         <td>
-            <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
+            <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning" required>
         </td>
     </tr>`
         infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', field);

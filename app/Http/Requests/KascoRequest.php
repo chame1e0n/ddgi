@@ -103,14 +103,11 @@ class KascoRequest extends FormRequest
           "insurance_premium_currency" => "required",
           "payment_term" => "required",
           "sposob_rascheta" => "required",
-          "payment_sum" => 'array|required',
-          "payment_from" => 'array|required',
+          "payment_sum" => 'array',
+          "payment_from" => 'array',
           "polis_series" => "required",
           "insurance_from_date" => "required",
           "otvet_litso" => "required|integer",
-          "anketa" => 'file|nullable',
-          "dogovor" => 'file|nullable',
-          "polis" => 'file|nullable',
         ];
     }
 }

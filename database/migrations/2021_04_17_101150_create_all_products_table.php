@@ -128,7 +128,6 @@ class CreateAllProductsTable extends Migration
             $table->text('policy_id')->nullable();
             $table->text('policy_series_id')->nullable();
             $table->text('state')->nullable();
-
             $table->text('geo_zone')->nullable(); // Географическая зона
             $table->date('period_insurance_from')->nullable(); // Период страхования c
             $table->date('period_insurance_to')->nullable(); // Период страхования до
