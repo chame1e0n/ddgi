@@ -131,6 +131,7 @@ class AvtocreditController extends Controller
 //            ]);
 //        }
 
+//        dd($request);
         $policyHolder = PolicyHolder::create(
             [
                 'FIO' => $request->fio_insurer,
@@ -207,13 +208,6 @@ class AvtocreditController extends Controller
             ]
         );
 
-        if (!empty($request->policy_num)){
-            $all_product_info_transport = AllProductInformationTransport::create([
-                'all_products_id' => $all_product->id,
-
-            ]);
-        }
-
         if (!empty($request->policy_series)) {
             $all_product_info = AllProductInformation::create(
                 [
@@ -224,6 +218,66 @@ class AvtocreditController extends Controller
                 ]
             );
         }
+
+
+
+        for ($x = 0; $x < count($request->mark_model); $x++) {
+            $all_product_info = AllProductInformation::create(
+                [
+                    'all_products_id' => $all_product->id,
+                    'polis_number' => $request->polis_number[$x],
+                    'god_vipuska' => $request->god_vipuska[$x],
+                    'data_vidachi' => $request->data_vidachi[$x],
+                    'mark' => $request->mark[$x],
+                    'model' => $request->model[$x],
+                    'gos_nomer' => $request->gos_nomer[$x],
+                    'nomer_teh_pasporta' => $request->nomer_teh_pasporta[$x],
+                    'nomer_dvigatelya' => $request->nomer_dvigatelya[$x],
+                    'nomer_kuzova' => $request->nomer_kuzova[$x],
+                    'strah_stoimost' => $request->strah_stoimost[$x],
+                    'strah_summa' => $request->strah_summa[$x],
+                    'strah_premiya' => $request->strah_premiya[$x],
+
+
+                    'mark_model' => $request->mark_model[$x],
+                    'name' => $request->name[$x],
+                    'series_number' => $request->series_number[$x],
+                    'insurance_sum' => $request->insurance_sum[$x],
+                    'cover_terror_attacks_sum' => $request->cover_terror_attacks_sum[$x],
+                    'cover_terror_attacks_currency' => $request->cover_terror_attacks_currency[$x],
+                    'cover_terror_attacks_insured_sum' => $request->cover_terror_attacks_insured_sum[$x],
+                    'cover_terror_attacks_insured_currency' => $request->cover_terror_attacks_insured_currency[$x],
+                    'coverage_evacuation_cost' => $request->coverage_evacuation_cost[$x],
+                    'coverage_evacuation_currency' => $request->coverage_evacuation_currency[$x],
+                    'strtahovka' => $request->strtahovka[$x],
+                    'other_insurance_info' => $request->other_insurance_info[$x],
+                    'vehicle_damage' => $request->vehicle_damage[$x],
+                    'one_sum' => $request->one_sum[$x],
+                    'one_premia' => $request->one_premia[$x],
+                    'one_franshiza' => $request->one_franshiza[$x],
+                    'civil_liability' => $request->civil_liability[$x],
+                    'tho_sum' => $request->tho_sum[$x],
+                    'two_preim' => $request->two_preim[$x],
+                    'accidents' => $request->accidents[$x],
+                    'driver_quantity' => $request->driver_quantity[$x],
+                    'driver_one_sum' => $request->driver_one_sum[$x],
+                    'driver_currency' => $request->driver_currency[$x],
+                    'driver_total_sum' => $request->driver_total_sum[$x],
+                    'driver_preim_sum' => $request->driver_preim_sum[$x],
+                    'passenger_quantity' => $request->passenger_quantity[$x],
+                    'passenger_one_sum' => $request->passenger_one_sum[$x],
+                    'passenger_currency' => $request->passenger_currency[$x],
+                    'passenger_total_sum' => $request->passenger_total_sum[$x],
+                    'passenger_preim_sum' => $request->passenger_preim_sum[$x],
+                    'limit_one_sum' => $request->limit_one_sum[$x],
+                    'limit_currency' => $request->limit_currency[$x],
+                    'limit_total_sum' => $request->limit_total_sum[$x],
+                    'limit_preim_sum' => $request->limit_preim_sum[$x],
+                ]
+            );
+        }
+
+
 
         if (!empty($request->payment_sum)){
             $currency_terms_transh = AllProductsTermsTransh::create(

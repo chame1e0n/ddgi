@@ -731,8 +731,8 @@ function addProductFields(fieldNumber) {
                             <input type="text" class="form-control terror-tc-${fieldNumber}" name="cover_terror_attacks_sum[]">
                             <div class="input-group-append">
                                 <select class="form-control success" name="cover_terror_attacks_currency" style="width: 100%;">
-                                    <option selected="selected">UZS</option>
-                                    <option>USD</option>
+                                    <option value="1">UZS</option>
+                                    <option value="2">USD</option>
                                 </select>
                             </div>
                         </div>
@@ -744,8 +744,8 @@ function addProductFields(fieldNumber) {
                             <input type="text" class="form-control terror-zl-${fieldNumber}" name="cover_terror_attacks_insured_sum[]">
                             <div class="input-group-append">
                                 <select class="form-control success" name="cover_terror_attacks_insured_currency" style="width: 100%;">
-                                    <option selected="selected">UZS</option>
-                                    <option>USD</option>
+                                    <option selected="selected" value="1">UZS</option>
+                                    <option value="2">USD</option>
                                 </select>
                             </div>
                         </div>
@@ -757,8 +757,8 @@ function addProductFields(fieldNumber) {
                             <input type="text" class="form-control evocuation-${fieldNumber}" name="coverage_evacuation_cost[]">
                             <div class="input-group-append">
                                 <select class="form-control success" name="coverage_evacuation_currency" style="width: 100%;">
-                                <option selected="selected">UZS</option>
-                                <option>USD</option>
+                                <option selected="selected" value="1">UZS</option>
+                                <option value="2">USD</option>
                             </select>
                             </div>
                         </div>
@@ -868,7 +868,7 @@ function addProductFields(fieldNumber) {
                         <div class="row">
                             <div class="col-md-1">
                                 <div class="checkbox icheck-success">
-                                    <input onchange="toggleBlockRadio('radioSuccess5-${fieldNumber}', 'data-radioSuccess5-${fieldNumber}')" type="radio" name="civil_liability_${fieldNumber}" class="r-2-${fieldNumber}" id="radioSuccess5-${fieldNumber}" value="1">
+                                    <input onchange="toggleBlockRadio('radioSuccess5-${fieldNumber}', 'data-radioSuccess5-${fieldNumber}')" type="radio" name="civil_liability[]" class="r-2-${fieldNumber}" id="radioSuccess5-${fieldNumber}" value="1">
                                     <label for="radioSuccess5-${fieldNumber}">Да</label>
                                 </div>
                                 <div onchange="toggleBlockRadio('radioSuccess6-${fieldNumber}', 'data-radioSuccess5-${fieldNumber}', false)" class="checkbox icheck-success">
@@ -877,7 +877,7 @@ function addProductFields(fieldNumber) {
                                 </div>
                             </div>
                             <div data-radioSuccess5-${fieldNumber} class="col-md-6 r-2-show-${fieldNumber}" style="display: none;">
-                                
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -895,7 +895,7 @@ function addProductFields(fieldNumber) {
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Страховая премия</span>
                                                 </div>
-                                                <input type="text" class="form-control r-2-premia-${fieldNumber}" name="two_preim${fieldNumber}" id="vehicle_damage_sum-${fieldNumber}">
+                                                <input type="text" class="form-control r-2-premia-${fieldNumber}" name="two_preim[]" id="vehicle_damage_sum-${fieldNumber}">
                                             </div>
                                         </div>
                                     </div>
@@ -959,25 +959,25 @@ function addProductFields(fieldNumber) {
                                                 <input type="text" class="form-control r-3-one-1-${fieldNumber}" name="passenger_one_sum[]">
                                                 <div class="input-group-append">
                                                     <select class="form-control success" name="passenger_currency[]" style="width: 100%;">
-                                                        <option selected="selected">UZS</option>
-                                                        <option>USD</option>
+                                                        <option selected="selected" value="1">UZS</option>
+                                                        <option value="2">USD</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><input type="number" class="form-control r-3-sum-1-${fieldNumber}" name="passenger_total_sum${fieldNumber}" id="passenger_total_sum-${fieldNumber}"></td>
-                                        <td><input type="number" class="form-control r-3-premia-1-${fieldNumber}" name="passenger_preim_sum${fieldNumber}" id="passenger_total_sum-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-sum-1-${fieldNumber}" name="passenger_total_sum[]" id="passenger_total_sum-${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-premia-1-${fieldNumber}" name="passenger_preim_sum[]" id="passenger_total_sum-${fieldNumber}"></td>
                                     </tr>
                                     <tr>
                                         <td><label class="text-bold">Общий Лимит</label></td>
-                                        <td><input type="number" class="form-control r-3-pass-2-${fieldNumber}" name="limit_quantity${fieldNumber}"></td>
+                                        <td><input type="number" class="form-control r-3-pass-2-${fieldNumber}" name="limit_quantity[]"></td>
                                         <td>
                                             <div class="input-group mb-4">
-                                                <input type="text" class="form-control r-3-one-2-${fieldNumber}" name="limit_one_sum${fieldNumber}">
+                                                <input type="text" class="form-control r-3-one-2-${fieldNumber}" name="limit_one_sum[]">
                                                 <div class="input-group-append">
-                                                    <select class="form-control success" name="limit_currency" style="width: 100%;">
-                                                        <option selected="selected">UZS</option>
-                                                        <option>USD</option>
+                                                    <select class="form-control success" name="limit_currency[]" style="width: 100%;">
+                                                        <option selected="selected" value="1">UZS</option>
+                                                        <option value="2">USD</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -1168,41 +1168,41 @@ const addProductFieldRow = (fieldNumber) => {
     const fields = `
     <tr id="a${fieldNumber}">
         <td>
-            <input type="text" class="form-control" name="polis_mark[]">
+            <input type="text" class="form-control" name="polis_number[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_model[]">
+            <input type="date" class="form-control" name="god_vipuska[]">
         </td>
         <td>
-            <input disabled type="date" class="form-control">
+            <input type="date" class="form-control" name="data_vidachi[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_gos_num[]">
+            <input type="text" class="form-control" name="mark[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_teh_passport[]">
+            <input type="text" class="form-control" name="model[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_num_engine[]">
+            <input type="text" class="form-control" name="gos_nomer[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_num_body[]">
+            <input type="text" class="form-control" name="nomer_teh_pasporta[]">
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_payload[]">
+            <input type="text" class="form-control" name="nomer_dvigatelya[]">
         </td>
         <td>
-            <input type="text"  class="form-control" name="polis_places[]">
+            <input type="text"  class="form-control" name="nomer_kuzova[]">
         </td>
-       
+
         <td>
-            <input type="text" data-field="value" class="form-control" name="polis_places[]">
-        </td>
-        <td>
-            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
+            <input type="text" data-field="value" class="form-control" name="strah_stoimost[]">
         </td>
         <td>
-            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="polis_premium[]">
+            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="strah_summa[]">
+        </td>
+        <td>
+            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="strah_premiya[]">
         </td>
          <td>
             <input type="button" onclick="openModal(${fieldNumber})" value="Заполнить" class="btn btn-success product-fields-button" id="product-fields-button" data-field-number="${fieldNumber}">
@@ -1321,7 +1321,7 @@ const toggleBlockRadio = (id, dataAttr, open = true) => {
 const addInsurer = () => {
     const id = Math.random();
     const ln = document.querySelectorAll('#clone-insurance').length + 1
-    const html = ` 
+    const html = `
         <div id="${id}" class="card-body">
           <div class="card card-info" id="clone-insurance">
               <div class="card-header">
