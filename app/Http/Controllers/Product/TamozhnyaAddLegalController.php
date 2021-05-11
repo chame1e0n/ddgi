@@ -47,7 +47,7 @@ class TamozhnyaAddLegalController extends Controller
         $policies = Policy::all();
         $banks = Bank::all();
         $agents = Agent::all();
-        return view('products.tamozhnya.add-legal.create', compact('banks', 'agents', 'policySeries', 'product'));
+        return view('products.tamozhnya.add-legal.create', compact('banks', 'agents', 'policies', 'product'));
     }
 
     public function countStrahovayaPremiya($strahovayaSumma, $isCustomTarif, $customTarif, $productId) {

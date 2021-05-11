@@ -316,7 +316,8 @@ class AvtocreditController extends Controller
             'policyHolder',
             'zaemshik',
             'allProductCurrencyTerms',
-            'allProductInfo'
+            'allProductInfo',
+            'allProductInformations'
         )->findOrFail($id);
         return view('products.credit.avtocredit.edit', compact('agents', 'all_product'));
     }

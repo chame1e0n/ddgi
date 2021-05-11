@@ -388,8 +388,69 @@
                                         <th class="text-nowrap">Страховая премия</th>
                                     </tr>
                                     </thead>
+{{--                                    ${fieldNumber} = 'i'+id < --- id All Product Information--}}
                                     <tbody>
-                                    <tr></tr>
+                                    @if($all_product->allProductInformations()->exists())
+                                        @foreach($all_product->allProductInformations as $productInformation)
+                                            <tr id="ai{{$productInformation->id}}">
+                                                <td>
+                                                    <input type="text" class="form-control" name="polis_number[{{$productInformation->id}}]" value="{{$productInformation->polis_number}}">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control" name="god_vipuska[{{$productInformation->id}}]" value="{{$productInformation->god_vipuska}}">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control" name="data_vidachi[]">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="mark[]">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="model[]">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="gos_nomer[]">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="nomer_teh_pasporta[]">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="nomer_dvigatelya[]">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" name="nomer_kuzova[]">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" data-field="value" class="form-control"
+                                                           name="strah_stoimost[]">
+                                                </td>
+                                                <td>
+                                                    <input type="text" data-field="sum"
+                                                           class="form-control calc1 overall_insurance_sum-0"
+                                                           name="strah_summa[]">
+                                                </td>
+                                                <td>
+                                                    <input type="text" data-field="premiya"
+                                                           class="form-control insurance_premium-0"
+                                                           name="strah_premiya[]">
+                                                </td>
+                                                <td>
+                                                    <input type="button"
+                                                           onclick="openModal('i'+'{{$productInformation->id}}')"
+                                                           value="Заполнить"
+                                                           class="btn btn-success product-fields-button"
+                                                           id="product-fields-button"
+                                                           data-field-number="i{{$productInformation->id}}">
+                                                </td>
+                                                <td>
+                                                    <input type="button"
+                                                           onclick="removeProductsFieldRow('i'+'{{$productInformation->id}}')"
+                                                           value="Удалить" class="btn btn-warning">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     <tr>
                                         <td colspan="9" style="text-align: right"><label class="text-bold">Итого</label>
                                         </td>
@@ -407,14 +468,16 @@
                     </div>
 
                     <div id="general-product-fields">
-                        @if($all_product->allProductInfo()->exist())
-                            @foreach($all_product->allProductInfo as $productInformation)
+                        @if($all_product->allProductInformations()->exists())
+                            @foreach($all_product->allProductInformations as $productInformation)
                                 <div id="product-field-modal-i{{$productInformation->id}}" class="modal"
                                      data-field-number="i{{$productInformation->id}}">
-                                    <div class="modal-content" id="product-field-modal-content-${fieldNumber}">
-                                        <span onclick="closeModal(${fieldNumber})" class="close product-fields-close"
-                                              id="product-fields-close-${fieldNumber}"
-                                              data-field-number="${fieldNumber}">&times;</span>
+                                    <div class="modal-content"
+                                         id="product-field-modal-content-i{{$productInformation->id}}">
+                                        <span onclick="closeModal('i'+ '{{$productInformation->id}}')"
+                                              class="close product-fields-close"
+                                              id="product-fields-close-i{{$productInformation->id}}"
+                                              data-field-number="i{{$productInformation->id}}">&times;</span>
                                         <div class="card card-success">
                                             <div class="card-header">
                                                 <h3 class="card-title">Перечень дополнительного оборудования</h3>
@@ -428,7 +491,8 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive p-0 " style="max-height: 300px;">
-                                                    <form method="POST" id="product-fields-${fieldNumber}-1">
+                                                    <form method="POST"
+                                                          id="product-fields-i{{$productInformation->id}}-1">
                                                         <table class="table table-hover table-head-fixed"
                                                                id="empTable2">
                                                             <thead>
@@ -443,14 +507,15 @@
                                                             <tbody>
                                                             <tr>
                                                                 <td><input type="text" class="form-control"
-                                                                           name="mark_model[]"></td>
+                                                                           name="mark_model[{{$productInformation->id}}]" value="{{$productInformation->mark_model}}"></td>
                                                                 <td><input type="text" class="form-control"
                                                                            name="name[]"></td>
                                                                 <td><input type="text" class="form-control"
                                                                            name="series_number[]"></td>
                                                                 <td><input type="text" class="form-control forsum5"
                                                                            name="insurance_sum[]"
-                                                                           id="insurance_sum-${fieldNumber}"></td>
+                                                                           id="insurance_sum-i{{$productInformation->id}}">
+                                                                </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -472,12 +537,12 @@
                                             </div>
 
                                             <div class="card-body">
-                                                <form method="POST" id="product-fields-${fieldNumber}-2">
+                                                <form method="POST" id="product-fields-i{{$productInformation->id}}-2">
                                                     <div class="form-group">
                                                         <label>Покрытие террористических актов с ТС </label>
                                                         <div class="input-group mb-4">
                                                             <input type="text"
-                                                                   class="form-control terror-tc-${fieldNumber}"
+                                                                   class="form-control terror-tc-i{{$productInformation->id}}"
                                                                    name="cover_terror_attacks_sum[]">
                                                             <div class="input-group-append">
                                                                 <select class="form-control success"
@@ -495,7 +560,7 @@
                                                             лицами </label>
                                                         <div class="input-group mb-4">
                                                             <input type="text"
-                                                                   class="form-control terror-zl-${fieldNumber}"
+                                                                   class="form-control terror-zl-i{{$productInformation->id}}"
                                                                    name="cover_terror_attacks_insured_sum[]">
                                                             <div class="input-group-append">
                                                                 <select class="form-control success"
@@ -512,7 +577,7 @@
                                                         <label>Покрытие расходы по эвакуации</label>
                                                         <div class="input-group mb-4">
                                                             <input type="text"
-                                                                   class="form-control evocuation-${fieldNumber}"
+                                                                   class="form-control evocuation-i{{$productInformation->id}}"
                                                                    name="coverage_evacuation_cost[]">
                                                             <div class="input-group-append">
                                                                 <select class="form-control success"
@@ -540,7 +605,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <form method="POST" id="product-fields-${fieldNumber}-3">
+                                                <form method="POST" id="product-fields-i{{$productInformation->id}}-3">
                                                     <div class="form-group">
                                                         <label>Застрахованы ли автотранспортные средства на момент
                                                             заполнения настоящей анкеты? </label>
@@ -548,28 +613,31 @@
                                                             <div class="col-sm-1">
                                                                 <div class="checkbox icheck-success">
                                                                     <input
-                                                                        onchange="toggleBlockRadio('radioSuccess1-${fieldNumber}', 'data-radioSuccess1-${fieldNumber}')"
+                                                                        onchange="toggleBlockRadio('radioSuccess1-i{{$productInformation->id}}', 'data-radioSuccess1-i{{$productInformation->id}}')"
                                                                         type="radio"
-                                                                        class="other_insurance-${fieldNumber}"
+                                                                        class="other_insurance-i{{$productInformation->id}}"
                                                                         name="strtahovka[]"
-                                                                        id="radioSuccess1-${fieldNumber}" value="1">
-                                                                    <label for="radioSuccess1-${fieldNumber}">Да</label>
+                                                                        id="radioSuccess1-i{{$productInformation->id}}"
+                                                                        value="1">
+                                                                    <label
+                                                                        for="radioSuccess1-i{{$productInformation->id}}">Да</label>
                                                                 </div>
                                                                 <div class="checkbox icheck-success">
                                                                     <input
-                                                                        onchange="toggleBlockRadio('radioSuccess1-${fieldNumber}', 'data-radioSuccess1-${fieldNumber}', false)"
+                                                                        onchange="toggleBlockRadio('radioSuccess1-i{{$productInformation->id}}', 'data-radioSuccess1-i{{$productInformation->id}}', false)"
                                                                         type="radio"
-                                                                        class="other_insurance-${fieldNumber}"
+                                                                        class="other_insurance-i{{$productInformation->id}}"
                                                                         name="strtahovka[]"
-                                                                        id="radioSuccess2-${fieldNumber}" value="0">
+                                                                        id="radioSuccess2-i{{$productInformation->id}}"
+                                                                        value="0">
                                                                     <label
-                                                                        for="radioSuccess2-${fieldNumber}">Нет</label>
+                                                                        for="radioSuccess2-i{{$productInformation->id}}">Нет</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div data-radioSuccess1-${fieldNumber}
-                                                         class="form-group other_insurance_info-${fieldNumber}"
+                                                    <div data-radioSuccess1-i{{$productInformation->id}}
+                                                         class="form-group other_insurance_info-i{{$productInformation->id}}"
                                                          style="display:none">
                                                         <label>Укажите название и адрес страховой организации и номер
                                                             Полиса</label>
@@ -592,7 +660,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <form method="POST" id="product-fields-${fieldNumber}-4">
+                                                <form method="POST" id="product-fields-i{{$productInformation->id}}-4">
                                                     <div class="form-group">
                                                         <label>Раздел I. Гибель или повреждение транспортного
                                                             средства</label>
@@ -600,24 +668,27 @@
                                                             <div class="col-md-1">
                                                                 <div class="checkbox icheck-success">
                                                                     <input
-                                                                        onchange="toggleBlockRadio('radioSuccess3-${fieldNumber}', 'data-radioSuccess3-${fieldNumber}')"
+                                                                        onchange="toggleBlockRadio('radioSuccess3-i{{$productInformation->id}}', 'data-radioSuccess3-i{{$productInformation->id}}')"
                                                                         type="radio" name="vehicle_damage[]"
-                                                                        class="r-1-${fieldNumber}"
-                                                                        id="radioSuccess3-${fieldNumber}" value="1">
-                                                                    <label for="radioSuccess3-${fieldNumber}">Да</label>
+                                                                        class="r-1-i{{$productInformation->id}}"
+                                                                        id="radioSuccess3-i{{$productInformation->id}}"
+                                                                        value="1">
+                                                                    <label
+                                                                        for="radioSuccess3-i{{$productInformation->id}}">Да</label>
                                                                 </div>
                                                                 <div class="checkbox icheck-success">
                                                                     <input
-                                                                        onchange="toggleBlockRadio('radioSuccess4-${fieldNumber}', 'data-radioSuccess3-${fieldNumber}', false)"
+                                                                        onchange="toggleBlockRadio('radioSuccess4-i{{$productInformation->id}}', 'data-radioSuccess3-i{{$productInformation->id}}', false)"
                                                                         type="radio" name="vehicle_damage[]"
-                                                                        class="r-1-${fieldNumber}"
-                                                                        id="radioSuccess4-${fieldNumber}" value="0">
+                                                                        class="r-1-i{{$productInformation->id}}"
+                                                                        id="radioSuccess4-i{{$productInformation->id}}"
+                                                                        value="0">
                                                                     <label
-                                                                        for="radioSuccess4-${fieldNumber}">Нет</label>
+                                                                        for="radioSuccess4-i{{$productInformation->id}}">Нет</label>
                                                                 </div>
                                                             </div>
-                                                            <div data-radioSuccess3-${fieldNumber}
-                                                                 class="col-md-6 r-1-show-${fieldNumber}"
+                                                            <div data-radioSuccess3-i{{$productInformation->id}}
+                                                                 class="col-md-6 r-1-show-i{{$productInformation->id}}"
                                                                  style="display: none;">
                                                                 <div class="row">
                                                                     <div class="col-md-4">
@@ -628,9 +699,9 @@
                                                                                         class="input-group-text">Сумма</span>
                                                                                 </div>
                                                                                 <input type="text"
-                                                                                       class="form-control r-1-sum-${fieldNumber}"
+                                                                                       class="form-control r-1-sum-i{{$productInformation->id}}"
                                                                                        name="one_sum[]"
-                                                                                       id="vehicle_damage_sum-${fieldNumber}">
+                                                                                       id="vehicle_damage_sum-i{{$productInformation->id}}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -641,9 +712,9 @@
                                                                                     <span class="input-group-text">Страховая премия</span>
                                                                                 </div>
                                                                                 <input type="text"
-                                                                                       class="form-control r-1-premia-${fieldNumber}"
+                                                                                       class="form-control r-1-premia-i{{$productInformation->id}}"
                                                                                        name="one_premia[]"
-                                                                                       id="vehicle_damage_sum-${fieldNumber}">
+                                                                                       id="vehicle_damage_sum-i{{$productInformation->id}}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -654,9 +725,9 @@
                                                                                     <span class="input-group-text">Франшиза</span>
                                                                                 </div>
                                                                                 <input type="text"
-                                                                                       class="form-control r-1-frnshiza-${fieldNumber}"
+                                                                                       class="form-control r-1-frnshiza-i{{$productInformation->id}}"
                                                                                        name="one_franshiza[]"
-                                                                                       id="vehicle_damage_sum-${fieldNumber}">
+                                                                                       id="vehicle_damage_sum-i{{$productInformation->id}}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -665,32 +736,35 @@
                                                         </div>
                                                     </div>
                                                 </form>
-                                                <form method="POST" id="product-fields-${fieldNumber}-5">
+                                                <form method="POST" id="product-fields-i{{$productInformation->id}}-5">
                                                     <div class="form-group">
                                                         <label class=>Раздел II. Автогражданская ответственность</label>
                                                         <div class="row">
                                                             <div class="col-md-1">
                                                                 <div class="checkbox icheck-success">
                                                                     <input
-                                                                        onchange="toggleBlockRadio('radioSuccess5-${fieldNumber}', 'data-radioSuccess5-${fieldNumber}')"
+                                                                        onchange="toggleBlockRadio('radioSuccess5-i{{$productInformation->id}}', 'data-radioSuccess5-i{{$productInformation->id}}')"
                                                                         type="radio"
-                                                                        name="civil_liability_${fieldNumber}"
-                                                                        class="r-2-${fieldNumber}"
-                                                                        id="radioSuccess5-${fieldNumber}" value="1">
-                                                                    <label for="radioSuccess5-${fieldNumber}">Да</label>
+                                                                        name="civil_liability_i{{$productInformation->id}}"
+                                                                        class="r-2-i{{$productInformation->id}}"
+                                                                        id="radioSuccess5-i{{$productInformation->id}}"
+                                                                        value="1">
+                                                                    <label
+                                                                        for="radioSuccess5-i{{$productInformation->id}}">Да</label>
                                                                 </div>
                                                                 <div
-                                                                    onchange="toggleBlockRadio('radioSuccess6-${fieldNumber}', 'data-radioSuccess5-${fieldNumber}', false)"
+                                                                    onchange="toggleBlockRadio('radioSuccess6-i{{$productInformation->id}}', 'data-radioSuccess5-i{{$productInformation->id}}', false)"
                                                                     class="checkbox icheck-success">
                                                                     <input type="radio" name="civil_liability[]"
-                                                                           class="r-2-${fieldNumber}"
-                                                                           id="radioSuccess6-${fieldNumber}" value="0">
+                                                                           class="r-2-i{{$productInformation->id}}"
+                                                                           id="radioSuccess6-i{{$productInformation->id}}"
+                                                                           value="0">
                                                                     <label
-                                                                        for="radioSuccess6-${fieldNumber}">Нет</label>
+                                                                        for="radioSuccess6-i{{$productInformation->id}}">Нет</label>
                                                                 </div>
                                                             </div>
-                                                            <div data-radioSuccess5-${fieldNumber}
-                                                                 class="col-md-6 r-2-show-${fieldNumber}"
+                                                            <div data-radioSuccess5-i{{$productInformation->id}}
+                                                                 class="col-md-6 r-2-show-i{{$productInformation->id}}"
                                                                  style="display: none;">
 
                                                                 <div class="row">
@@ -702,9 +776,9 @@
                                                                                         class="input-group-text">Сумма</span>
                                                                                 </div>
                                                                                 <input type="text"
-                                                                                       class="form-control r-2-sum-${fieldNumber}"
+                                                                                       class="form-control r-2-sum-i{{$productInformation->id}}"
                                                                                        name="tho_sum[]"
-                                                                                       id="vehicle_damage_sum-${fieldNumber}">
+                                                                                       id="vehicle_damage_sum-i{{$productInformation->id}}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -715,9 +789,9 @@
                                                                                     <span class="input-group-text">Страховая премия</span>
                                                                                 </div>
                                                                                 <input type="text"
-                                                                                       class="form-control r-2-premia-${fieldNumber}"
-                                                                                       name="two_preim${fieldNumber}"
-                                                                                       id="vehicle_damage_sum-${fieldNumber}">
+                                                                                       class="form-control r-2-premia-i{{$productInformation->id}}"
+                                                                                       name="two_preimi{{$productInformation->id}}"
+                                                                                       id="vehicle_damage_sum-i{{$productInformation->id}}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -727,7 +801,7 @@
                                                     </div>
                                                 </form>
 
-                                                <form method="POST" id="product-fields-${fieldNumber}-6">
+                                                <form method="POST" id="product-fields-i{{$productInformation->id}}-6">
                                                     <div class="form-group">
                                                         <label>Раздел III. Несчастные случаи с Застрахованными
                                                             лицами</label>
@@ -735,28 +809,32 @@
                                                             <div class="col-md-1">
                                                                 <div class="checkbox icheck-success">
                                                                     <input
-                                                                        onchange="toggleBlockRadio('radioSuccess7-${fieldNumber}', 'data-radioSuccess7-${fieldNumber}')"
+                                                                        onchange="toggleBlockRadio('radioSuccess7-i{{$productInformation->id}}', 'data-radioSuccess7-i{{$productInformation->id}}')"
                                                                         type="radio" name="accidents[]"
-                                                                        class="r-3-${fieldNumber}"
-                                                                        id="radioSuccess7-${fieldNumber}" value="1">
-                                                                    <label for="radioSuccess7-${fieldNumber}">Да</label>
+                                                                        class="r-3-i{{$productInformation->id}}"
+                                                                        id="radioSuccess7-i{{$productInformation->id}}"
+                                                                        value="1">
+                                                                    <label
+                                                                        for="radioSuccess7-i{{$productInformation->id}}">Да</label>
                                                                 </div>
                                                                 <div class="checkbox icheck-success">
                                                                     <input
-                                                                        onchange="toggleBlockRadio('radioSuccess8-${fieldNumber}', 'data-radioSuccess7-${fieldNumber}', false)"
+                                                                        onchange="toggleBlockRadio('radioSuccess8-i{{$productInformation->id}}', 'data-radioSuccess7-i{{$productInformation->id}}', false)"
                                                                         type="radio" name="accidents[]"
-                                                                        class="r-3-${fieldNumber}"
-                                                                        id="radioSuccess8-${fieldNumber}" value="0">
+                                                                        class="r-3-i{{$productInformation->id}}"
+                                                                        id="radioSuccess8-i{{$productInformation->id}}"
+                                                                        value="0">
                                                                     <label
-                                                                        for="radioSuccess8-${fieldNumber}">Нет</label>
+                                                                        for="radioSuccess8-i{{$productInformation->id}}">Нет</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div data-radioSuccess7-${fieldNumber}
-                                                         class="table-responsive p-0 r-3-show-${fieldNumber}"
+                                                    <div data-radioSuccess7-i{{$productInformation->id}}
+                                                         class="table-responsive p-0 r-3-show-i{{$productInformation->id}}"
                                                          style="display: none;">
-                                                        <form method="POST" id="product-fields-${fieldNumber}-7">
+                                                        <form method="POST"
+                                                              id="product-fields-i{{$productInformation->id}}-7">
                                                             <table class="table table-hover table-head-fixed">
                                                                 <thead>
                                                                 <tr>
@@ -771,13 +849,13 @@
                                                                 <tr>
                                                                     <td><label>Водитель(и)</label></td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-pass-${fieldNumber}"
+                                                                               class="form-control r-3-pass-i{{$productInformation->id}}"
                                                                                value="1" readonly
                                                                                name="driver_quantity[]"></td>
                                                                     <td>
                                                                         <div class="input-group mb-4">
                                                                             <input type="text"
-                                                                                   class="form-control r-3-one-${fieldNumber}"
+                                                                                   class="form-control r-3-one-i{{$productInformation->id}}"
                                                                                    name="driver_one_sum[]">
                                                                             <div class="input-group-append">
                                                                                 <select class="form-control success"
@@ -791,25 +869,25 @@
                                                                         </div>
                                                                     </td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-sum-${fieldNumber}"
+                                                                               class="form-control r-3-sum-i{{$productInformation->id}}"
                                                                                name="driver_total_sum[]"
-                                                                               id="driver_total_sum_${fieldNumber}">
+                                                                               id="driver_total_sum_i{{$productInformation->id}}">
                                                                     </td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-premia-${fieldNumber}"
+                                                                               class="form-control r-3-premia-i{{$productInformation->id}}"
                                                                                name="driver_preim_sum[]"
-                                                                               id="driver_total_sum_${fieldNumber}">
+                                                                               id="driver_total_sum_i{{$productInformation->id}}">
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><label>Пассажиры</label></td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-pass-1-${fieldNumber}"
+                                                                               class="form-control r-3-pass-1-i{{$productInformation->id}}"
                                                                                name="passenger_quantity[]"></td>
                                                                     <td>
                                                                         <div class="input-group mb-4">
                                                                             <input type="text"
-                                                                                   class="form-control r-3-one-1-${fieldNumber}"
+                                                                                   class="form-control r-3-one-1-i{{$productInformation->id}}"
                                                                                    name="passenger_one_sum[]">
                                                                             <div class="input-group-append">
                                                                                 <select class="form-control success"
@@ -823,27 +901,28 @@
                                                                         </div>
                                                                     </td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-sum-1-${fieldNumber}"
-                                                                               name="passenger_total_sum${fieldNumber}"
-                                                                               id="passenger_total_sum-${fieldNumber}">
+                                                                               class="form-control r-3-sum-1-i{{$productInformation->id}}"
+                                                                               name="passenger_total_sumi{{$productInformation->id}}"
+                                                                               id="passenger_total_sum-i{{$productInformation->id}}">
                                                                     </td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-premia-1-${fieldNumber}"
-                                                                               name="passenger_preim_sum${fieldNumber}"
-                                                                               id="passenger_total_sum-${fieldNumber}">
+                                                                               class="form-control r-3-premia-1-i{{$productInformation->id}}"
+                                                                               name="passenger_preim_sumi{{$productInformation->id}}"
+                                                                               id="passenger_total_sum-i{{$productInformation->id}}">
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><label class="text-bold">Общий Лимит</label>
                                                                     </td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-pass-2-${fieldNumber}"
-                                                                               name="limit_quantity${fieldNumber}"></td>
+                                                                               class="form-control r-3-pass-2-i{{$productInformation->id}}"
+                                                                               name="limit_quantityi{{$productInformation->id}}">
+                                                                    </td>
                                                                     <td>
                                                                         <div class="input-group mb-4">
                                                                             <input type="text"
-                                                                                   class="form-control r-3-one-2-${fieldNumber}"
-                                                                                   name="limit_one_sum${fieldNumber}">
+                                                                                   class="form-control r-3-one-2-i{{$productInformation->id}}"
+                                                                                   name="limit_one_sumi{{$productInformation->id}}">
                                                                             <div class="input-group-append">
                                                                                 <select class="form-control success"
                                                                                         name="limit_currency"
@@ -856,20 +935,20 @@
                                                                         </div>
                                                                     </td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-sum-2-${fieldNumber}"
+                                                                               class="form-control r-3-sum-2-i{{$productInformation->id}}"
                                                                                name="limit_total_sum[]"></td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-3-premia-2-${fieldNumber}"
+                                                                               class="form-control r-3-premia-2-i{{$productInformation->id}}"
                                                                                name="limit_preim_sum[]"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td colspan="3"><label
                                                                             class="text-bold">Итого</label></td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-summ-${fieldNumber}">
+                                                                               class="form-control r-summ-i{{$productInformation->id}}">
                                                                     </td>
                                                                     <td><input type="number"
-                                                                               class="form-control r-summ-premia-${fieldNumber}">
+                                                                               class="form-control r-summ-premia-i{{$productInformation->id}}">
                                                                     </td>
                                                                 </tr>
                                                                 </tbody>
@@ -880,7 +959,7 @@
                                                         <label>Общий лимит ответственности </label>
                                                         <div class="input-group mb-4">
                                                             <input type="text" class="form-control"
-                                                                   id="totalLimit-${fieldNumber}"
+                                                                   id="totalLimit-i{{$productInformation->id}}"
                                                                    name="total_liability_limit[]">
                                                             <div class="input-group-append">
                                                                 <select class="form-control success"
@@ -909,7 +988,7 @@
                                             </div>
                                             <div class="card payment">
                                                 <div class="card-body">
-                                                    <form method="POST" id="polis-fields-${fieldNumber}">
+                                                    <form method="POST" id="polis-fields-i{{$productInformation->id}}">
                                                         <div class="row policy">
                                                             <div class="col-sm-4">
                                                                 <div class="form-group">
@@ -994,7 +1073,8 @@
                                                                     class="input-group-text">Общая страховая сумма</span>
                                                             </div>
                                                             <input type="text" data-overall class="form-control"
-                                                                   readonly id="overall_sum_${fieldNumber}">
+                                                                   readonly
+                                                                   id="overall_sum_i{{$productInformation->id}}">
                                                         </div>
                                                     </div>
                                                 </div>
