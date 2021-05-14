@@ -1,4 +1,4 @@
-let insurerModal = $('#insurer-modal');
+// let insurerModal = $('#insurer-modal');
 let beneficiaryModal = $('#beneficiary-modal');
 let pledgerModal = $('#pledger-modal');
 let productFieldModal = $('#product-field-modal-0');

@@ -542,7 +542,7 @@ function addProductFields(fieldNumber) {
                         <div class="input-group mb-4">
                             <input type="text" class="form-control terror-tc-${fieldNumber}" name="cover_terror_attacks_sum">
                             <div class="input-group-append">
-                                <select class="form-control success" name="cover_terror_attacks_currency" style="width: 100%;">
+                                <select class="form-control success" name="cover_terror_attacks_currency[]" style="width: 100%;">
                                     <option selected="selected">UZS</option>
                                     <option>USD</option>
                                 </select>

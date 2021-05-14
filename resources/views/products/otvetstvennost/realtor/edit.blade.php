@@ -10,7 +10,8 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-
+                            <a href="{{url()->current()}}?download=polis">Скачать Полис</a>
+                            <a href="{{url()->current()}}?download=dogovor">Скачать Договор</a>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -322,11 +323,11 @@
                                         @endforeach
                                         <tr>
                                             <td colspan="10" style="text-align: right"><label class="text-bold">Итого</label></td>
-                                            <td><input readonly type="text" data-insurance-stoimost class="form-control overall-sum2" />
+                                            <td><input readonly type="text" data-insurance-stoimost class="form-control overall-sum2" style="cursor: pointer"/>
                                             </td>
-                                            <td><input readonly type="text" data-insurance-sum class="form-control overall-sum4" />
+                                            <td><input readonly type="text" data-insurance-sum class="form-control overall-sum4" style="cursor: pointer"/>
                                             </td>
-                                            <td><input readonly type="text" data-insurance-award class="form-control overall-sum3" />
+                                            <td><input readonly type="text" data-insurance-award class="form-control overall-sum3" style="cursor: pointer"/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -406,9 +407,9 @@
                                     </tr>
                                     <tr>
                                         <td colspan="1" style="text-align: right"><label class="text-bold">Итого</label></td>
-                                        <td><input readonly type="text" data-total-turnover class="form-control overall-sum4" value="{{$page->total_turnover}}" />
+                                        <td><input readonly type="text" data-total-turnover class="form-control overall-sum4" value="{{$page->total_turnover}}" style="cursor: pointer"/>
                                         </td>
-                                        <td><input readonly type="text" data-earnings class="form-control overall-sum3" value="{{$page->total_profit}}" />
+                                        <td><input readonly type="text" data-earnings class="form-control overall-sum3" value="{{$page->total_profit}}" style="cursor: pointer"/>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -480,11 +481,11 @@
                                 <div class="row">
                                     <div class="col-sm-1">
                                         <div class="checkbox icheck-success">
-                                            <input type="radio" class="other_insurance-0" name="acted" data-acted-radio id="success-action-1" value="1" @if($page->public_sector_comment || $page->private_sector_comment) checked @endif>
+                                            <input type="radio" class="other_insurance-0" name="acted" data-acted-radio id="success-action-1" value="1" @if($page->acted) checked @endif>
                                             <label for="success-action-1">Да</label>
                                         </div>
                                         <div class="checkbox icheck-success">
-                                            <input type="radio" class="other_insurance-0" name="acted" data-acted-radio id="success-action-2" value="0" @if(!$page->public_sector_comment || !$page->private_sector_comment) checked @endif>
+                                            <input type="radio" class="other_insurance-0" name="acted" data-acted-radio id="success-action-2" value="0" @if(!$page->acted) checked @endif>
                                             <label for="success-action-2">Нет</label>
                                         </div>
                                     </div>
@@ -524,11 +525,11 @@
                             <div class="row">
                                 <div class="col-sm-1">
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases" id="case-true" value="1" @if($page->reason_case) checked @endif>
+                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases" id="case-true" value="1" @if($page->cases) checked @endif>
                                         <label for="case-true">Да</label>
                                     </div>
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases" id="case-false" value="0" @if(!$page->reason_case) checked @endif>
+                                        <input type="radio" class="other_insurance-0" data-cases-radio name="cases" id="case-false" value="0" @if(!$page->cases) checked @endif>
                                         <label for="case-false">Нет</label>
                                     </div>
                                 </div>
@@ -551,11 +552,11 @@
                             <div class="row">
                                 <div class="col-sm-1">
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-administr-radio name="administrative-case" id="case-administrative-1" value="1" @if($page->reason_administrative_case) checked @endif>
+                                        <input type="radio" class="other_insurance-0" data-administr-radio name="administrative_case" id="case-administrative-1" value="1" @if($page->administrative_case) checked @endif>
                                         <label for="case-administrative-1">Да</label>
                                     </div>
                                     <div class="checkbox icheck-success">
-                                        <input type="radio" class="other_insurance-0" data-administr-radio name="administrative-case" id="case-administrative-2" value="0" @if(!$page->reason_administrative_case) checked @endif>
+                                        <input type="radio" class="other_insurance-0" data-administr-radio name="administrative_case" id="case-administrative-2" value="0" @if(!$page->administrative_case) checked @endif>
                                         <label for="case-administrative-2">Нет</label>
                                     </div>
                                 </div>
@@ -595,6 +596,13 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label" for="pretensii-final-settlement-date">Загрузка необходимых документов</label>
+                            @foreach(unserialize($page->documents) as $doc)
+                                <br>
+                                <a target="_blank" href="/storage/{{$doc}}">
+                                    Открыть
+                                </a>
+
+                                @endforeach
                             <input class="form-control" data-file="file" type="file" multiple name="documents[]">
                         </div>
                     </div>
@@ -772,8 +780,12 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <img src="/storage/{{$page->anketa}}" alt="Анкета">
                                             <label for="polis-series" class="col-form-label">Анкета</label>
+                                            @if($page->anketa != null)
+                                                <a target="_blank" href="/storage/{{$page->anketa}}" alt="Анкета">
+                                                    Открыть
+                                                </a>
+                                            @endif
                                             <input id="anketa" name="anketa" value="{{old('anketa')}}"
                                                    type="file" @if($errors->has('anketa'))
                                                    class="form-control is-invalid"
@@ -784,8 +796,12 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <img src="/storage/{{$page->dogovor}}" alt="Договор">
                                             <label for="polis-series" class="col-form-label">Договор</label>
+                                            @if($page->dogovor != null)
+                                                <a target="_blank" href="/storage/{{$page->dogovor}}">
+                                                    Открыть
+                                                </a>
+                                            @endif
                                             <input id="dogovor" name="dogovor" value="{{old('dogovor')}}"
                                                    type="file" @if($errors->has('dogovor'))
                                                    class="form-control is-invalid"
@@ -795,9 +811,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
+
                                         <div class="form-group">
-                                            <img src="/storage/{{$page->polis}}" alt="Полис">
+
                                             <label for="polis-series" class="col-form-label">Полис</label>
+                                            @if($page->polis != null)
+                                                <a target="_blank" href="/storage/{{$page->polis}}">
+                                                    Открыть
+                                                </a>
+                                            @endif
                                             <input id="polis" name="polis" value="{{old('polis')}}"
                                                    type="file" @if($errors->has('polis'))
                                                    class="form-control is-invalid"

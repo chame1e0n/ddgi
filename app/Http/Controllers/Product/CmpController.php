@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Bonded;
-use App\BondedPolicyInformation;
-use App\Models\Product\Cmp;
+use App\AllProduct;
 use App\Http\Controllers\Controller;
 use App\Models\Dogovor;
 use App\Models\Policy;
-use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
-use App\Models\Product;
+use App\Models\Product\Cmp;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
 use App\User;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
-use Symfony\Component\Console\Input\Input;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 /**
  * Class CmpController
@@ -29,7 +26,7 @@ class CmpController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -39,7 +36,7 @@ class CmpController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -52,8 +49,8 @@ class CmpController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -91,7 +88,7 @@ class CmpController extends Controller
         $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
 
         if (empty($policy)) {
-            $policySeries = PolicySeries::find( $request->policy_series_id);
+            $policySeries = PolicySeries::find($request->policy_series_id);
 
             return back()->withInput()->withErrors([
                 sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
@@ -157,7 +154,7 @@ class CmpController extends Controller
         $policy->update([
             'status' => 'in_use',
             'client_type' => $request->client_type_radio,
-            ]);
+        ]);
 
         $brancId = User::find($request->litso)->branch_id;
         $uniqueNumber = new Dogovor;
@@ -174,7 +171,7 @@ class CmpController extends Controller
         ]);
 //
         return redirect()->route('all_products.index')
-            ->with('success','Успешно заполнен продукт');
+            ->with('success', 'Успешно заполнен продукт');
     }
 //
 //    /**
@@ -191,23 +188,20 @@ class CmpController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Cmp $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($id)
     {
-        $cmp = Cmp::find($id);
-        $agents = Agent::all();
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        return view('products.cmp.edit', compact('cmp', 'agents', 'policySeries', 'banks'));
+        $product = AllProduct::find($id);
+        return view('products.cmp.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -256,7 +250,7 @@ class CmpController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

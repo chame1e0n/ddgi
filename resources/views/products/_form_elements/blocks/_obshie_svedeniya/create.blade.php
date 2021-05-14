@@ -79,16 +79,9 @@
                     class="form-control is-invalid"
                     @else
                     class="form-control"
-                    @endif id="insurer_bank" name="bank_insurer"
+                    @endif id="bank_insurer" name="bank_insurer"
                     style="width: 100%;" required>
                 <option></option>
-                @foreach($banks as $bank)
-                    @if(old('bank_insurer') == $bank->id)
-                        <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
-                    @else
-                        <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                    @endif
-                @endforeach
             </select>
         </div>
     </div>
@@ -104,4 +97,34 @@
                     @endif >
         </div>
     </div>
+@endsection
+
+@section('_obshie_svedeniya_scripts')
+    <script>
+        $.ajax({
+            url: '{{route('getBanks')}}',
+            type: 'get',
+            dataType: 'json',
+            success: function (response) {
+                var len = response.length;
+                let banks = $("#bank_insurer");
+
+                banks.empty();
+                banks.append("<option></option>");
+                var selected = {{old('bank_insurer') ?? 0}};
+                for (var i = 0; i < len; i++) {
+                    var id = response[i]['id'];
+                    var name = response[i]['name'];
+                    var mfo = response[i]['mfo'];
+
+                    banks.append("<option value='" + id + "' " + (selected == id ? 'selected' : '')  + ">" + name + "</option>");
+                }
+            }
+        });
+
+        //Initialize Select2 Elements
+        $('#bank_insurer').select2({
+            theme: 'bootstrap4'
+        });
+    </script>
 @endsection

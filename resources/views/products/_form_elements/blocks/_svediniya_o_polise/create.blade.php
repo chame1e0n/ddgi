@@ -1,5 +1,5 @@
-@include('products._form_elements._policySeries_by_policyName.create')
-@include('products._form_elements._agentList.create')
+@include('products._form_elements.elements._policySeries_by_policyName.create')
+@include('products._form_elements.elements._agentList.create')
 @section('_svediniya_o_polise_content')
     <div class="card-body">
         <div class="card card-info" id="clone-beneficiary">

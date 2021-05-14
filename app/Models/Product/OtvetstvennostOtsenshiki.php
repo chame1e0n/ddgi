@@ -3,6 +3,7 @@
 namespace App\Models\Product;
 
 use App\Models\PolicyHolder;
+use App\Models\Spravochniki\Agent;
 use Illuminate\Database\Eloquent\Model;
 
 class OtvetstvennostOtsenshiki extends Model
@@ -21,6 +22,10 @@ class OtvetstvennostOtsenshiki extends Model
     public function infos()
     {
         return $this->hasMany(OtvetstvennostOtsenshikiInfo::class);
+    }
+    public function agent()
+    {
+        return $this->hasOne(Agent::class, 'user_id', 'otvet_litso');
     }
 
     static function createOtsenshik($request, $policyHolder_id){

@@ -50,12 +50,8 @@
     <div class="col-md-4">
         <div class="form-group">
             <label for="insurer-bank" class="col-form-label">Банк</label>
-            <select class="form-control bank" id="insurer_bank" name="bank_insurer"
+            <select class="form-control bank" id="bank_insurer" name="bank_insurer"
                     style="width: 100%;" required>
-                @foreach($banks as $bank)
-                    <option value="{{ $bank->id }}"
-                            @if($bank->id == $product->policyHolder->bank_id) selected @endif>{{ $bank->name }}</option>
-                @endforeach
             </select>
 
 
@@ -65,8 +61,38 @@
         <div class="form-group">
             <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
             <input type="text" id="insurer-okonh" name="oked_insurer" class="form-control"
-                   value="{{ $product->policyHolder->oked_insurer }}"
+                   value="{{ $product->policyHolder->oked }}"
                    required>
         </div>
     </div>
+@endsection
+
+@section('_obshie_svedeniya_scripts')
+    <script>
+        $.ajax({
+            url: '{{route('getBanks')}}',
+            type: 'get',
+            dataType: 'json',
+            success: function (response) {
+                var len = response.length;
+                let banks = $("#bank_insurer");
+
+                banks.empty();
+                banks.append("<option></option>");
+                var selected = {{$product->policyHolder->bank_id ?? 0}};
+                for (var i = 0; i < len; i++) {
+                    var id = response[i]['id'];
+                    var name = response[i]['name'];
+                    var mfo = response[i]['mfo'];
+
+                    banks.append("<option value='" + id + "' " + (selected == id ? 'selected' : '')  + ">" + name + "</option>");
+                }
+            }
+        });
+
+        //Initialize Select2 Elements
+        $('#bank_insurer').select2({
+            theme: 'bootstrap4'
+        });
+    </script>
 @endsection

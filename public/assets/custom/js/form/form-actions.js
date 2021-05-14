@@ -1,18 +1,17 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // number mask
-    $('[name=tel_beneficiary],[name=tel_insurer],[name=amount_of_cargo_place],[name=amount_of_cargo],[name=weight_of_cargo],[name=percent_of_tariff],[name=franshiza],[name=insurance_premium],[name=insured_sum],[name=mfo_beneficiary], [name=mfo],[name=quantity], [name=inn], [name=inn_insurer], [name=inn_beneficiary], [name=oked]').bind("change keyup input click", function() {
-            if (this.value.match(/[^0-9]/g)) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            }
-        })
-        // только буквы
-    $('[name=fio_insurer]').bind("change keyup input click", function() {
+    $('[name=tel_beneficiary],[name=tel_insurer],[name=amount_of_cargo_place],[name=amount_of_cargo],[name=weight_of_cargo],[name=percent_of_tariff],[name=franshiza],[name=insurance_premium],[name=insured_sum],[name=mfo_beneficiary], [name=mfo],[name=quantity], [name=inn], [name=inn_insurer], [name=inn_beneficiary], [name=oked]').bind("change keyup input click", function () {
+        if (this.value.match(/[^0-9]/g)) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        }
+    })
+    // только буквы
+    $('[name=fio_insurer]').bind("change keyup input click", function () {
         if (this.value.match(/[^a-z]/g)) {
             this.value = this.value.replace(/[^a-z]/g, '');
         }
     })
 });
-
 
 
 // #form-audit - форма аудита
@@ -44,9 +43,9 @@ const formRealtors = document.querySelector('#formRealtors')
 
 // Блок "Период деятельности оганизации"
 const periodActiveOrg = document.querySelector('#period-active-org')
-    // Блок с элементами "radio" и "select" форм
+// Блок с элементами "radio" и "select" форм
 const fieldsChanged = document.querySelector('#fields-changed')
-    // Форма "Условия оплаты страховой премии"
+// Форма "Условия оплаты страховой премии"
 const paymentsForm = document.querySelector('#payment-terms-form')
 
 const actedBoxDescription = document.querySelector('[data-acted]')
@@ -87,7 +86,7 @@ loadAgents();
 function loadAgents() {
     var xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange = function() {
+    xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
             if (xmlhttp.status == 200) {
                 agentsList = JSON.parse(xmlhttp.response);
@@ -689,7 +688,6 @@ function addProductFields(fieldNumber) {
             </div>
             <div class="card-body">
                 <div class="table-responsive p-0 " style="max-height: 300px;">
-                    <form method="POST" id="product-fields-${fieldNumber}-1">
                         <table class="table table-hover table-head-fixed" id="empTable2">
                             <thead>
                                 <tr>
@@ -704,11 +702,10 @@ function addProductFields(fieldNumber) {
                                     <td><input type="text" class="form-control" name="mark_model[]"></td>
                                     <td><input type="text" class="form-control" name="name[]"></td>
                                     <td><input type="text" class="form-control" name="series_number[]"></td>
-                                    <td><input type="text" class="form-control forsum5" name="insurance_sum[]" id="insurance_sum-${fieldNumber}"></td>
+                                    <td><input type="text" class="form-control forsum5" name="insurance_sum_of_transport[]" id="insurance_sum-${fieldNumber}"></td>
                                 </tr>
                             </tbody>
                         </table>
-                    </form>
                 </div>
             </div>
         </div>
@@ -724,13 +721,12 @@ function addProductFields(fieldNumber) {
             </div>
 
             <div class="card-body">
-                <form method="POST" id="product-fields-${fieldNumber}-2">
                     <div class="form-group">
                         <label>Покрытие террористических актов с ТС </label>
                         <div class="input-group mb-4">
                             <input type="text" class="form-control terror-tc-${fieldNumber}" name="cover_terror_attacks_sum[]">
                             <div class="input-group-append">
-                                <select class="form-control success" name="cover_terror_attacks_currency" style="width: 100%;">
+                                <select class="form-control success" name="cover_terror_attacks_currency[]" style="width: 100%;">
                                     <option value="1">UZS</option>
                                     <option value="2">USD</option>
                                 </select>
@@ -743,7 +739,7 @@ function addProductFields(fieldNumber) {
                         <div class="input-group mb-4">
                             <input type="text" class="form-control terror-zl-${fieldNumber}" name="cover_terror_attacks_insured_sum[]">
                             <div class="input-group-append">
-                                <select class="form-control success" name="cover_terror_attacks_insured_currency" style="width: 100%;">
+                                <select class="form-control success" name="cover_terror_attacks_insured_currency[]" style="width: 100%;">
                                     <option selected="selected" value="1">UZS</option>
                                     <option value="2">USD</option>
                                 </select>
@@ -756,14 +752,13 @@ function addProductFields(fieldNumber) {
                         <div class="input-group mb-4">
                             <input type="text" class="form-control evocuation-${fieldNumber}" name="coverage_evacuation_cost[]">
                             <div class="input-group-append">
-                                <select class="form-control success" name="coverage_evacuation_currency" style="width: 100%;">
+                                <select class="form-control success" name="coverage_evacuation_currency[]" style="width: 100%;">
                                 <option selected="selected" value="1">UZS</option>
                                 <option value="2">USD</option>
                             </select>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
 
@@ -777,13 +772,12 @@ function addProductFields(fieldNumber) {
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" id="product-fields-${fieldNumber}-3">
                     <div class="form-group">
                         <label>Застрахованы ли автотранспортные средства на момент заполнения настоящей анкеты? </label>
                         <div class="row">
                             <div class="col-sm-1">
                                 <div class="checkbox icheck-success">
-                                    <input onchange="toggleBlockRadio('radioSuccess1-${fieldNumber}', 'data-radioSuccess1-${fieldNumber}')" type="radio" class="other_insurance-${fieldNumber}" name="strtahovka[]" id="radioSuccess1-${fieldNumber}" value="1">
+                                    <input onchange="toggleBlockRadio('radioSuccess1-${fieldNumber}', 'data-radioSuccess1-${fieldNumber}')" type="radio" class="other_insurance-${fieldNumber}" name="Перечень дополнительного оборудования[]" id="radioSuccess1-${fieldNumber}" value="1">
                                     <label for="radioSuccess1-${fieldNumber}">Да</label>
                                 </div>
                                 <div class="checkbox icheck-success">
@@ -797,7 +791,6 @@ function addProductFields(fieldNumber) {
                         <label>Укажите название и адрес страховой организации и номер Полиса</label>
                         <input class="form-control" type="text" name="other_insurance_info[]">
                     </div>
-                </form>
             </div>
         </div>
 
@@ -811,7 +804,6 @@ function addProductFields(fieldNumber) {
                 </div>
             </div>
             <div class="card-body">
-                <form method="POST" id="product-fields-${fieldNumber}-4">
                     <div class="form-group">
                         <label>Раздел I. Гибель или повреждение транспортного средства</label>
                         <div class="row">
@@ -861,8 +853,6 @@ function addProductFields(fieldNumber) {
                             </div>
                         </div>
                     </div>
-                </form>
-                <form method="POST" id="product-fields-${fieldNumber}-5">
                     <div class="form-group">
                         <label class=>Раздел II. Автогражданская ответственность</label>
                         <div class="row">
@@ -903,9 +893,7 @@ function addProductFields(fieldNumber) {
                             </div>
                         </div>
                     </div>
-                </form>
 
-                <form method="POST" id="product-fields-${fieldNumber}-6">
                     <div class="form-group">
                         <label>Раздел III. Несчастные случаи с Застрахованными лицами</label>
                         <div class="row">
@@ -922,7 +910,6 @@ function addProductFields(fieldNumber) {
                         </div>
                     </div>
                     <div data-radioSuccess7-${fieldNumber} class="table-responsive p-0 r-3-show-${fieldNumber}" style="display: none;">
-                        <form method="POST" id="product-fields-${fieldNumber}-7">
                             <table class="table table-hover table-head-fixed">
                                 <thead>
                                     <tr>
@@ -992,7 +979,6 @@ function addProductFields(fieldNumber) {
                                     </tr>
                                 </tbody>
                             </table>
-                        </form>
                     </div>
                     <div class="form-group col-sm-8">
                         <label>Общий лимит ответственности </label>
@@ -1105,7 +1091,7 @@ function addProductFields(fieldNumber) {
 </div>`;
     generalProductFields.insertAdjacentHTML('beforeend', fields);
     const $ = (className) => document.querySelector(className)
-    document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function() {
+    document.getElementById(`product-field-modal-${fieldNumber}`).addEventListener('keyup', function () {
         let overallSum =
             parseFloat($('#insurance_sum-' + fieldNumber).value || 0) +
             parseFloat($('.terror-tc-' + fieldNumber).value || 0) +
@@ -1128,32 +1114,32 @@ function addProductFields(fieldNumber) {
         $('.r-summ-' + fieldNumber).value = modalTableSum2;
         $('.r-summ-premia-' + fieldNumber).value = modalTableSum3;
 
-        $('#totalLimit-' + fieldNumber).addEventListener('keyup', function() {
+        $('#totalLimit-' + fieldNumber).addEventListener('keyup', function () {
             if ($('.r-summ-' + fieldNumber).value >= $('#totalLimit-' + fieldNumber).value) {
                 $('#form-save-button').setAttribute('disabled', true)
-                    // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
+                // alert('Общий лимит ответственности не может превышать страховую сумму по видам опасностей');
             } else {
                 $('#form-save-button').removeAttribute('disabled');
             }
         });
 
-        $('.r-3-one-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-one-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-pass-${fieldNumber}`).value;
             $(`.r-3-sum-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-pass-1-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-pass-1-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-one-1-${fieldNumber}`).value;
             $(`.r-3-sum-1-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-one-1-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-one-1-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-pass-1-${fieldNumber}`).value;
             $(`.r-3-sum-1-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-pass-2-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-pass-2-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-one-2-${fieldNumber}`).value;
             $(`.r-3-sum-2-${fieldNumber}`).value = numOne;
         });
-        $('.r-3-one-2-' + fieldNumber).addEventListener('keyup', function() {
+        $('.r-3-one-2-' + fieldNumber).addEventListener('keyup', function () {
             let numOne = this.value * $(`.r-3-pass-2-${fieldNumber}`).value;
             $(`.r-3-sum-2-${fieldNumber}`).value = numOne;
         });
@@ -1919,7 +1905,8 @@ if (addLitso) {
 
         document.getElementById('friends').insertAdjacentHTML('beforeend', fields);
     }
-};
+}
+;
 
 const addImushestvoBtn = document.getElementById('addImushestvoBtn');
 
@@ -2130,8 +2117,6 @@ if (cascoAddButton1) {
 }
 
 
-
-
 const addAutozalogBtn = document.getElementById('addAutozalogBtn');
 
 if (addAutozalogBtn) {
@@ -2204,7 +2189,7 @@ if (addAutozalogBtn) {
     }
 }
 
-$(document).on('click', function() {
+$(document).on('click', function () {
     $('#notmod input[value="Заполнить"]').hide();
     $('#notmod + #general-product-fields').hide();
 })

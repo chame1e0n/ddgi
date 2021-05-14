@@ -1,23 +1,34 @@
 @extends('layouts.index')
+@include('products._form_elements.elements._period_strahovaniya.create')
+@include('products._form_elements.elements._svedenija_o_dogovore_stroitelnogo_porjadka.create')
+@include('products._form_elements.elements._obekt_striotelno_montaj.create')
+@include('products._form_elements.elements._raspolojenie_obekta.create')
+@include('products._form_elements.elements._strahovaya_stoimost.create')
+@include('products._form_elements.elements._period_strahovaniya.create')
+@include('products._form_elements.elements._uchastniki_stroitelstva.create')
+@include('products._form_elements.elements._telesnye_povrejdenija.create')
+@include('products._form_elements.elements._materialnij_usherb.create')
+@include('products._form_elements.elements._obekti_nahodashiesja_na_ploshadke.create')
+@include('products._form_elements.elements._kratkoe_opisaniye_po_vibrannomu_obektu.create')
+@include('products._form_elements.elements._stroitelno_montajnie.create')
+@include('products._form_elements.elements._stroitelnie.create')
+@include('products._form_elements.elements._oborudovanie.create')
+@include('products._form_elements.elements._stroitelnie_mashini_i_mehanizmi.create')
+@include('products._form_elements.elements._rasxodi_po_raschistke_territorii.create')
+@include('products._form_elements.elements._obshaya_strahovaya_summa.create')
+@include('products._form_elements.blocks._svediniya_o_polise.create')
+@include('products._form_elements.blocks._zagruzka_dokumentov.create')
+@include('products._form_elements.blocks._obshie_svedeniya.create')
+@include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create', ['withoutInsuranceSum'=>1])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form method="POST" action="{{ route('cmp.update', $product->id) }}" id="mainFormKasko">
+    <form method="POST" action="{{ route('cmp.store') }}" id="mainFormKasko" enctype="multipart/form-data">
         <div class="content-wrapper">
             @csrf
-            @method('PUT')
             <div class="content-header">
                 <div class="container-fluid">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                    @include('layouts._success_or_error')
                     <div class="row mb-2">
                         <div class="col-sm-6">
 
@@ -33,50 +44,7 @@
                 </div>
             </div>
             <section class="content">
-                <div class="card card-success product-type">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="client-product-form">
-                            <div class="form-group clearfix">
-                                <label>Типы клиента</label>
-                                <div class="row">
-                                    @if($product->type == 0)
-                                        <div class="col-sm-4">
-                                            <div class="icheck-success">
-                                                <input type="radio" class="client-type-radio"
-                                                       id="client-type-radio-1" value="individual" checked>
-                                                <label for="client-type-radio-1">физ. лицо</label>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="col-sm-4">
-                                            <div class="icheck-success">
-                                                <input type="radio" class="client-type-radio"
-                                                       id="client-type-radio-2" value="legal" checked>
-                                                <label for="client-type-radio-2" >юр. лицо</label>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="product-id">Вид продукта</label>
-                                <select id="product-id" class="form-control select2"
-                                        style="width: 100%;" readonly="true">
-                                    <option value="1">{{ $product->product->name }}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('products.select')
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -93,45 +61,10 @@
                         <div class="card-body">
 
                             <div class="row">
-                                @yield()
-                                <div class="col-md-6">
-                                    <label class="col-form-label">Период страхования</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">с</span>
-                                        </div>
-                                        <input   id="insurance_from" name="insurance_from" type="date"
-                                                 value="{{$product->insurance_from}}"
-                                                class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="col-form-label">Период страхования</label>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">до</span>
-                                            </div>
-                                            <input id="insurance_to" name="insurance_to" type="date"
-                                                   value="{{$product->insurance_to}}"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex flex-column">
-                                        <label class="col-form-label">Участники строительства</label>
-                                        <div class="form-group mb-20">
-                                            <button type="button" id="add-costruct-participant" class="btn btn-primary ">Добавить
-                                            </button>
-                                        </div>
-                                        <div id="builders">
-                                            <div class="form-group mb-20">
-                                                <input type="text" name="сonstruct_participants" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @yield('_obshie_svedeniya_content')
+                                @yield('_period_strahovaniya_content')
+                                @yield('_uchastniki_stroitelstva_content')
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -148,88 +81,108 @@
                                 <div class="card-body" id="beneficiary-card-body">
                                     <div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-name" class="col-form-label">Сведения о
-                                                        договоре строительного порядка</label>
-                                                    <input type="text" id="beneficiary-name"
-                                                           name="object_info_dogov_stoy"
-                                                           value="{{$product->object_info_dogov_stoy}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-address" class="col-form-label">Объект
-                                                        стриотельно-монтажных работ</label>
-                                                    <input type="text" id="beneficiary-address" name="object_stroy_mont"
-                                                           value="{{$product->object_stroy_mont}}"
-                                                           class="form-control" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Расположение
-                                                        объекта</label>
-                                                    <input type="text" id="beneficiary-tel" name="object_location"
-                                                           value="{{$product->object_location}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-schet" class="col-form-label">Страховая
-                                                        стоимость</label>
-                                                    <input type="text" id="beneficiary-schet"
-                                                           name="object_insurance_sum"
-                                                           value="{{$product->object_insurance_sum}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="col-form-label">Период страхования</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">с</span>
-                                                    </div>
-                                                    <input id="insurance_from" name="object_from_date" type="date"
-                                                           value="{{$product->object_from_date}}"
-                                                           class="form-control" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="col-form-label">Период страхования</label>
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">до</span>
-                                                        </div>
-                                                        <input id="insurance_to" name="object_to_date" type="date"
-                                                               value="{{$product->object_to_date}}"
-                                                               class="form-control"  >
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @yield('_svedenija_o_dogovore_stroitelnogo_porjadka_content')
+                                            @yield('_obekt_striotelno_montaj_content')
+                                            @yield('_raspolojenie_obekta_content')
+                                            @yield('_strahovaya_stoimost_content')
+                                            @yield('_period_strahovaniya_content')
+
                                             <div class="col-12">
                                                 <h3 class="card-title">Страхование ответственности</h3>
                                             </div>
 
+                                            @yield('_telesnye_povrejdenija_content')
+                                            @yield('_materialnij_usherb_content')
+                                            @yield('_obekti_nahodashiesja_na_ploshadke_content')
+                                            @yield('_kratkoe_opisaniye_po_vibrannomu_obektu_content')
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="beneficiary-mfo" class="col-form-label">Телесные
-                                                        повреждения</label>
-                                                    <input type="text" id="beneficiary-mfo" name="object_tel_povr"
-                                                           value="{{$product->object_tel_povr}}"
-                                                           class="form-control"  >
+                                                    <label for="distanceToObect" class="col-form-label">Расстояние до
+                                                        данных объектов</label>
+                                                    <input type="text" id="distanceToObect" name="distanceToObj" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="beneficiary-bank" class="col-form-label">Материальный
-                                                        ущерб</label>
-                                                    <input type="text" id="beneficiary-bank" name="object_material"
-                                                           value="{{$product->object_material}}"
-                                                           class="form-control" >
+                                                    <label for="descСonstructWorks" class="col-form-label">Описание
+                                                        производимых строительных работ</label>
+                                                    <textarea class="form-control" id="descСonstructWorks"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="typeBase" class="col-form-label">Тип основания</label>
+                                                    <input type="text" id="typeBase" name="typeBase" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="maxRecessDepth" class="col-form-label">Максимальная
+                                                        глубина выемки</label>
+                                                    <input type="text" id="maxRecessDepth" name="maxRecessDepth" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="col-md-6">
+                                                    <div class="icheck-success ">
+                                                        <input onchange="toggleBlock('losses', 'data-losses-descr')" class="form-check-input client-type-radio" type="checkbox" name="losses" id="losses">
+                                                        <label class="form-check-label" for="losses">Убытки</label>
+                                                    </div>
+                                                    <!-- TODO: Блок должен находится в скрытом состоянии
+                                                    отображаться только тогда, когда выбран checkbox "Убытки"
+                                                -->
+                                                    <div class="form-group" data-losses-descr style="display: none">
+                                                        <label for="descrLosses" class="col-form-label">Описание</label>
+                                                        <textarea class="form-control" id="descrLosses"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="icheck-success ">
+                                                        <input onchange="toggleBlock('fences', 'data-fence-descr')" class="form-check-input client-type-radio" type="checkbox" name="fences" id="fences">
+                                                        <label class="form-check-label" for="fences">Ограждения</label>
+                                                    </div>
+                                                    <!-- TODO: Блок должен находится в скрытом состоянии
+                                                    отображаться только тогда, когда выбран checkbox "Ограждение"
+                                                -->
+                                                    <div class="form-group" data-fence-descr style="display: none">
+                                                        <label for="descrFences" class="col-form-label">Описание</label>
+                                                        <textarea class="form-control" id="descrFences"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="icheck-success ">
+                                                        <input onchange="toggleBlock('security', 'data-security')" class="form-check-input" type="checkbox" name="security" id="security">
+                                                        <label class="form-check-label" for="security">Охрана</label>
+                                                    </div>
+                                                    <!-- TODO: Блок должен находится в скрытом состоянии
+                                                    отображаться только тогда, когда выбран checkbox "Охрана"
+                                                -->
+                                                    <div data-security style="display: none">
+                                                        <div class="form-group">
+                                                            <label for="securityFio" class="col-form-label">ФИО
+                                                                охранника</label>
+                                                            <input type="text" id="securityFio" name="securityFio" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="workMode" class="col-form-label">Режим</label>
+                                                            <select class="form-control polises" id="workMode" name="workMode" style="width: 100%;">
+                                                                <option selected="selected" value="aroundClock">
+                                                                    Круглосуточно
+                                                                </option>
+                                                                <option value="day">Днем</option>
+                                                                <option value="night">Ночью</option>
+                                                                <option value="weekends">Выходные дни</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label" for="documentForConstructObj">Загрузка
+                                                        необходимых документов</label>
+                                                    <input class="form-control" id="documentForConstructObj" type="file" multiple name="documentsForConstructObj[]">
                                                 </div>
                                             </div>
                                         </div>
@@ -250,236 +203,33 @@
                                     <div class="col-12">
                                         <h3 class="card-title">Страховая сумма</h3>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-mfo" class="col-form-label ">Строительно
-                                                монтажные</label>
-                                            <input type="text" id="beneficiary-mfo" name="stroy_mont_sum"
-                                                   value="{{$product->stroy_mont_sum}}"
-                                                   class="form-control" >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Строительные</label>
-                                            <input type="text" id="beneficiary-bank" name="stroy_sum"
-                                                   value="{{$product->stroy_sum}}"
-                                                   class="form-control" >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Оборудование</label>
-                                            <input type="text" id="beneficiary-bank" name="obor_sum"
-                                                   value="{{$product->obor_sum}}"
-                                                   class="form-control" >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Стрительные машины и
-                                                механизмы</label>
-                                            <input type="text" id="beneficiary-bank" name="stroy_mash_sum"
-                                                   value="{{$product->stroy_mash_sum}}"
-                                                   class="form-control" >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Расходы по расчистке
-                                                территории</label>
-                                            <input type="text" id="beneficiary-bank" name="rasx_sum"
-                                                   value="{{$product->rasx_sum}}"
-                                                   class="form-control" >
-                                        </div>
-                                    </div>
+                                    @yield('_stroitelno_montajnie_content')
+                                    @yield('_stroitelnie_content')
+                                    @yield('_oborudovanie_content')
+                                    @yield('_stroitelnie_mashini_i_mehanizmi_content')
+                                    @yield('_rasxodi_po_raschistke_territorii_content')
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Страховая премия</label>
-                                            <input type="text" id="geographic-zone" name="insurance_prem_sum"
-                                                   value="{{$product->insurance_prem_sum}}"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Франшиза</label>
-                                            <input type="text" id="geographic-zone" name="franchise_sum"
-                                                   value="{{$product->franchise_sum}}"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="polises">Валюта взаиморасчетов</label>
-                                        <select class="form-control" name="insurence_currency" id="walletNames"
-                                                style="width: 100%; text-align: center">
-                                            <option>UZS</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="polises">Условия оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" name="payment_term"
-                                                onchange="showDiv('other-payment-schedule', this)"
-                                                style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="other">Другое</option>
-                                        </select>
-                                    </div>
+                                    @yield('_obshaya_strahovaya_summa_content')
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-inline justify-content-between">
-                                            <label>Способ расчета</label>
-                                            <select name="insurance_premium_payment_type" class="form-control"
-                                                    style="width: 100%; text-align: center">
-                                                <option @if($product->insurance_premium_payment_type == 1)selected @endif value="1">Сумах</option>
-                                                <option @if($product->insurance_premium_payment_type == 2)selected @endif value="2">В ин. валюте</option>
-                                                <option @if($product->insurance_premium_payment_type == 3)selected @endif value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
-                                                <option @if($product->insurance_premium_payment_type == 4)selected @endif value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                                <option @if($product->insurance_premium_payment_type == 5)selected @endif value="5">В ин. валюте по фикс курсу ЦБ на день оплаты премии/первого транша </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="other-payment-schedule" style="display: none;">
-                                    <div class="form-group">
-                                        <button type="button" onclick="addRow3()" class="btn btn-primary ">
-                                            Добавить
-                                        </button>
-                                    </div>
-                                    <div class="table-responsive p-0 " style="max-height: 300px;">
-                                        <table class="table table-hover table-head-fixed" id="empTable3">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-nowrap">Сумма</th>
-                                                <th class="text-nowrap">От</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr id="payment-term-tr-0" data-field-number="0">
-                                                <td><input type="text" class="form-control" name="payment_sum-0-0"></td>
-                                                <td><input type="date" class="form-control" name="payment_from-0-0"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Общая страховая сумма</label>
-                                            <input type="text" readonly id="geographic-zone"
-                                                   class="form-control calcSumm">
-                                        </div>
-                                    </div>
-                                </div>
+                                @yield('_usloviya_oplati_strahovoy_premii_content')
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Уникальные номера</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Номер договора</label>
-                                        <input value="{{$product->unique_number}}" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Серия полиса</label>
-                                        <input value="{{$product->policySeries->code ?? '-'}}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Номер полиса</label>
-                                        <input value="{{$product->policy->number}}" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Сведения о страховом полисе</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Серийный номер полиса
-                                                страхования</label>
-                                            <select class="form-control polises" id="polis-series"
-                                                    name="policy_series_id"
-                                                    style="width: 100%;" required>
-                                                <option value="0"></option>
-                                                @foreach($policySeries as $series)
-                                                    <option value="{{ $series->id }}" @if($series->id == $product->policy_series_id) selected @endif>{{ $series->code }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label class="col-form-label">Дата выдачи страхового полиса </label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"></span>
-                                            </div>
-                                            <input id="insurance_from" name="polic_given_date" type="date"
-                                                   value="{{ $product->polic_given_date }}"
-                                                   class="form-control" >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="otvet-litso">Ответственное лицо</label>
-                                            <select class="form-control polises" id="otvet-litso" name="litso"
-                                                    style="width: 100%;" required>
-                                                <option></option>
-                                                @foreach($agents as $agent)
-                                                    <option
-                                                            value="{{ $agent->user_id }}" @if($agent->user_id == $product->user_id) selected @endif>{{ $agent->surname }}{{ $agent->name }}{{ $agent->middle_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                @yield('_svediniya_o_polise_content')
+                @yield('_zagruzka_dokumentov_content')
             </section>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
             </div>
+        </div>
     </form>
+@endsection
+
+@section('scripts')
+    @yield('_obshie_svedeniya_scripts')
+    @yield('_svediniya_o_polise_scripts')
+    @yield('_obshaya_strahovaya_summa_scripts')
 @endsection

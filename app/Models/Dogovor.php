@@ -7,6 +7,14 @@ use Illuminate\Support\Facades\DB;
 
 class Dogovor
 {
+    const SPOSOB_RASCHETA = [
+        1 => 'Сумах',
+        'В ин. валюте',
+        'В ин. валюте по курсу ЦБ на день заключение договора',
+        'В ин. валюте по ЦБ на день оплаты',
+        'В ин. валюте по фикс курсу ЦБ на день оплаты премии/первого транша',
+    ];
+
     // unique 'dogovor' number (ААВВ/ССDD/E/FFGGGGG)
     public function createUniqueNumber($branchId, $currencyCode, $productId, $filledProductTable = 'kasko', $filledProductId = 20)
     {

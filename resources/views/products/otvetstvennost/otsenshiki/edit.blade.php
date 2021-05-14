@@ -11,6 +11,11 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
+                            <a href="{{route('otvetstvennost-otsenshiki.edit', $page->id)}}?download=dogovor">Скачать Договор</a>
+                            <a href="{{route('otvetstvennost-otsenshiki.edit', $page->id)}}?download=anketa">Скачать Анкету</a>
+                            @foreach($page->infos as $key => $inform)
+                                <a href="{{route('otvetstvennost-otsenshiki.edit', $page->id)}}?download=polis&count={{$key}}">Скачать Полис {{$key + 1}}</a>
+                            @endforeach
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -692,20 +697,35 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="questionnaire" class="col-form-label">Анкета</label>
-                                        <input type="file" id="questionnaire" name="anketa" class="form-control">
+                                        <label for="polis-series" class="col-form-label">Анкета</label>
+                                        <input type="file" id="geographic-zone" name="anketa" class="form-control">
+                                        @if($page->anketa != null)
+                                            <a target="_blank" href="/storage/{{$page->anketa}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="contract" class="col-form-label">Договор</label>
-                                        <input type="file" id="contract" name="dogovor" class="form-control">
+                                        <label for="polis-series" class="col-form-label">Договор</label>
+                                        <input type="file" id="geographic-zone" name="dogovor" class="form-control">
+                                        @if($page->dogovor != null)
+                                            <a target="_blank" href="/storage/{{$page->dogovor}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="polis" class="col-form-label">Полис</label>
-                                        <input type="file" id="polis" name="polis" class="form-control">
+                                        <label for="polis-series" class="col-form-label">Полис</label>
+                                        <input type="file" id="geographic-zone" name="polis" class="form-control">
+                                        @if($page->polis != null)
+                                            <a target="_blank" href="/storage/{{$page->polis}}">
+                                                Открыть
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

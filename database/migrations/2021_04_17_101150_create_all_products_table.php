@@ -161,10 +161,16 @@ class CreateAllProductsTable extends Migration
             $table->text('credit_franchise')->nullable();
             $table->text('currency_of_settlement')->nullable();
 
+            $table->text('geo_zone')->nullable(); // Географическая зона
+            $table->date('period_insurance_from')->nullable(); // Период страхования c
+            $table->date('period_insurance_to')->nullable(); // Период страхования до
+            $table->bigInteger('ts_osnovanii')->nullable(); // Использования ТС на основании
+
             $table->timestamps();
             $table->softDeletes();
         });
     }
+
 
     /**
      * Reverse the migrations.
