@@ -1,31 +1,30 @@
 @extends('layouts.index')
 
 @section('content')
-
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('otvetstvennost-podryadchik.update', $podryadchik->id)}}" method="POST" id="mainFormKasko">
-        @method('PUT')
+    <form action="{{route('otvetstvennost-podryadchik.update', $all_product->id)}}" method="POST" enctype="multipart/form-data"
+          id="mainFormKasko">
         @csrf
+        @method('put')
         <div class="content-wrapper">
-
             <div class="content-header">
                 <div class="container-fluid">
+                    <div class="col-sm-6">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
                     <div class="row mb-2">
-                        <div class="col-sm-6">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                                <li class="breadcrumb-item active"><a href="/allproducts">Продукты</a></li>
+                                <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
                                 <li class="breadcrumb-item active">Создать Анкету</li>
                             </ol>
                         </div>
@@ -33,50 +32,7 @@
                 </div>
             </div>
             <section class="content">
-                <div class="card card-success product-type">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="client-product-form">
-                            <div class="form-group clearfix">
-                                <label>Типы клиента</label>
-                                <div class="row">
-                                    @if($podryadchik->type == 0)
-                                        <div class="col-sm-4">
-                                            <div class="icheck-success">
-                                                <input type="radio" class="client-type-radio"
-                                                       id="client-type-radio-1" value="individual" checked>
-                                                <label for="client-type-radio-1">физ. лицо</label>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="col-sm-4">
-                                            <div class="icheck-success">
-                                                <input type="radio" class="client-type-radio"
-                                                       id="client-type-radio-2" value="legal" checked>
-                                                <label for="client-type-radio-2" >юр. лицо</label>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="product-id">Вид продукта</label>
-                                <select id="product-id" class="form-control select2"
-                                        style="width: 100%;" readonly="true">
-                                    <option value="1">{{ $podryadchik->product->name }}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
@@ -91,138 +47,164 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
+                                        <label for="insurer-name" class="col-form-label">Наименования
+                                            страхователя</label>
                                         <input type="text" id="insurer-name" name="fio_insurer"
-                                               value="{{$podryadchik->policyHolders->FIO}}" @if($errors->has('fio_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif
-                                               required>
+                                               value="{{$all_product->policyHolder->FIO}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Юр адрес
                                             страхователя</label>
-                                        <input value="{{$podryadchik->policyHolders->address}}" type="text" id="insurer-address"
-                                               name="address_insurer"
-                                               @if($errors->has('address_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif required>
+                                        <input type="text" id="insurer-address" name="address_insurer"
+                                               value="{{$all_product->policyHolder->address}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input value="{{$podryadchik->policyHolders->phone_number}}" type="text" id="insurer-tel"
-                                               name="tel_insurer"
-                                               @if($errors->has('tel_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
+                                        <input type="text" id="insurer-tel" name="phone_insurer"
+                                               value="{{$all_product->policyHolder->phone_number}}"
+                                               class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input value="{{$podryadchik->policyHolders->checking_account}}" type="text" id="insurer-schet"
-                                               name="address_schet"
-                                               @if($errors->has('address_schet'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-inn" class="col-form-label">Вид деятельности</label>
-                                        <input type="text" id="vid_deyatelnosti" name="vid_deyatelnosti" value="{{$podryadchik->policyHolders->vid_deyatelnosti}}" class="form-control">
+                                        <input type="text" id="insurer-schet" name="payment_bill"
+                                               value="{{$all_product->policyHolder->checking_account}}"
+                                               class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input value="{{$podryadchik->policyHolders->mfo}}"  type="text" id="insurer-mfo" name="mfo_insurer"@if($errors->has('mfo_insurer'))
-                                        class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
+                                        <input type="text" id="insurer-mfo" name="mfo_insurer"
+                                               value="{{$all_product->policyHolder->mfo}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <select @if($errors->has('bank_insurer'))
-                                                class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                                @endif id="insurer_bank" name="bank_insurer"
-                                                style="width: 100%;" required>
-                                            <option>Выберите банк</option>
-                                            @foreach($banks as $bank)
-                                                @if($podryadchik->policyHolders->bank_id == $bank->id)
-                                                    <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                @else
-                                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
+                                        <input type="text" id="insurer-bank" name="bank_insurer"
+                                               value="{{$all_product->policyHolder->bank_id}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input value="{{$podryadchik->policyHolders->inn}}" type="text" id="insurer-inn"
-                                               name="inn_insurer"
-                                               @if($errors->has('inn_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif
-                                        >
+                                        <input type="text" id="insurer-inn" name="inn_insurer"
+                                               value="{{$all_product->policyHolder->inn}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input value="{{$podryadchik->policyHolders->okonx}}" type="text" id="okonx" name="okonx"
-                                               @if($errors->has('okonx'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
+                                        <input type="text" id="insurer-okonh" name="okonh_insurer"
+                                               value="{{$all_product->policyHolder->okonx}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input value="{{$podryadchik->policyHolders->oked}}" type="text" id="oked" name="oked"
-                                               @if($errors->has('oked'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="description" class="col-form-label">Информация о персонале
-                                        </label>
-                                        <textarea id="informaciya_o_personale" class="form-control" name="informaciya_o_personale" required>
-                                            {{$podryadchik->informaciya_o_personale}}
-                                        </textarea>
+                                        <input type="text" id="insurer-okonh" name="oked_insurer"
+                                               value="{{$all_product->policyHolder->oked}}" class="form-control">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="card-body">
+                            <div class="card card-info" id="clone-beneficiary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Выгодоприобретатель</h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                data-toggle="tooltip" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="beneficiary-card-body">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-name" class="col-form-label">Ниаменование
+                                                        выгодоприобретателя</label>
+                                                    <input type="text" id="beneficiary-name" name="fio_beneficiary"
+                                                           value="{{$all_product->policyBeneficiaries->FIO}}"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-address" class="col-form-label">Адрес
+                                                        выгодоприобретателя</label>
+                                                    <input type="text" id="beneficiary-address"
+                                                           name="address_beneficiary"
+                                                           value="{{$all_product->policyBeneficiaries->address}}"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-tel" class="col-form-label">Телефон</label>
+                                                    <input type="text" id="beneficiary-tel" name="tel_beneficiary"
+                                                           value="{{$all_product->policyBeneficiaries->phone_number}}"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-bill" class="col-form-label">Расчетный
+                                                        счет</label>
+                                                    <input type="text" id="beneficiary-bill" name="beneficiary_bill"
+                                                           value="{{$all_product->policyBeneficiaries->checking_account}}"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-mfo" class="col-form-label">МФО</label>
+                                                    <input type="text" id="beneficiary-mfo" name="mfo_beneficiary"
+                                                           value="{{$all_product->policyBeneficiaries->mfo}}"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-bank" class="col-form-label">Банк</label>
+                                                    <input type="text" id="beneficiary-bank" name="bank_beneficiary"
+                                                           value="{{$all_product->policyBeneficiaries->bank_id}}"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-inn" class="col-form-label">ИНН</label>
+                                                    <input type="text" id="beneficiary-inn" name="inn_beneficiary"
+                                                           value="{{$all_product->policyBeneficiaries->inn}}"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="beneficiary-oked" class="col-form-label">ОКЭД</label>
+                                                    <input type="text" id="beneficiary-oked" name="oked_beneficiary"
+                                                           value="{{$all_product->policyBeneficiaries->oked}}"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div id="anketa-fields">
@@ -231,13 +213,15 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="insurance_from">Период страхования</label>
+                                                <label for="insurance-from">Период страхования</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">с</span>
                                                     </div>
-                                                    <input id="from_date" name="from_date" type="date"
-                                                           class="form-control" value="{{$podryadchik->from_date}}">
+                                                    <input id="insurance-from" name="insurance_date_from"
+                                                           value="{{$all_product->insurance_date_from}}"
+                                                           type="date"
+                                                           class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -247,18 +231,90 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">до</span>
                                                     </div>
-                                                    <input id="to_date" name="to_date" type="date"
-                                                           class="form-control" value="{{$podryadchik->to_date}}">
+                                                    <input id="insurance-to" name="insurance_to"
+                                                           value="{{$all_product->insurance_to}}"
+                                                           type="date"
+                                                           class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="geographic-zone">Географическая зона:</label>
-                                        <input type="text" id="geo_zone" name="geo_zone"
-                                               class="form-control" value="{{$podryadchik->geo_zone}}">
+                                        <label for="geograph-zone">Географическая зона:</label>
+                                        <input type="text" id="geograph-zone" name="geo_zone"
+                                               value="{{$all_product->geo_zone}}"
+                                               class="form-control">
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="anketa-fields">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="сontract-agreement" class="col-form-label">Договор подряда </label>
+                                        <input type="file" id="сontract-agreement" name="contract_agreement"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="beneficiary-geograph-zone">Географическая зона:</label>
+                                        <input type="text" id="beneficiary-geograph-zone"
+                                               name="beneficiary_geo_zone"
+                                               value="{{$all_product->beneficiary_geo_zone}}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="object-construct">Объект строительство</label>
+                                        <input type="text" id="object-construct" name="construct_object"
+                                               value="{{$all_product->construct_object}}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="work-exp">Стаж работы</label>
+                                        <input type="text" id="work-exp" name="work_exp"
+                                               value="{{$all_product->work_exp}}"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="beneficiary-insurance-from">Период страхования</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">с</span>
+                                            </div>
+                                            <input id="beneficiary-insurance-from" name="beneficiary_insurance_from"
+                                                   value="{{$all_product->beneficiary_insurance_from}}"
+                                                   type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="input-group mb-3" style="margin-top: 33px">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">по</span>
+                                            </div>
+                                            <input id="beneficiary-insurance-to" name="beneficiary_insurance_to"
+                                                   value="{{$all_product->beneficiary_insurance_to}}"
+                                                   type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="geographic-zone">Географическая зона:</label>
+                                <input type="text" id="geographic-zone" name="geograph_zone"
+                                       value="{{$all_product->geograph_zone}}"
+                                       class="form-control">
                             </div>
                         </div>
                     </div>
@@ -268,8 +324,8 @@
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                    data-toggle="tooltip" title="Collapse">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
@@ -277,46 +333,84 @@
                     <div class="card-body">
                         <div id="payment-terms-form">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="all-summ">Cтраховая сумма</label>
+                                        <input type="text" id="all-summ" name="insurance_sum"
+                                               value="{{$all_product->insurance_sum}}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="all-summ">Cтраховая премия</label>
+                                        <input type="text" id="all-summ" name="insurance_bonus"
+                                               value="{{$all_product->insurance_bonus}}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="all-summ">Франшиза</label>
+                                        <input type="text" id="all-summ" name="franchise"
+                                               value="{{$all_product->franchise}}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Валюта взаиморасчетов</label>
                                         <select class="form-control" id="walletNames"
-                                                style="width: 100%; text-align: center" name="insurance_premium_currency">
-                                            <option selected="selected" value="{{$podryadchik->currencies}}">{{$podryadchik->currencies}}
+                                                name="insurance_premium_currency"
+                                                style="width: 100%; text-align: center">
+                                            <option @if($all_product->insurance_premium_currency =='1')  selected
+                                                    @endif value="1">UZS
                                             </option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" name="payment_term"
-                                                onchange="showDiv('other-payment-schedule', this)"
+                                        <select id="condition" class="form-control payment-schedule" name="payment_term"
                                                 style="width: 100%; text-align: center">
-                                            <option value="1" @if($podryadchik->payment_term == 1) selected @endif>Единовременно</option>
-                                            <option value="other" @if($podryadchik->payment_term == 'other') selected @endif>Другое</option>
+                                            <option @if($all_product->payment_term == '1') selected @endif value="1">
+                                                Единовременно
+                                            </option>
+                                            <option @if($all_product->payment_term == 'transh') selected
+                                                    @endif value="transh">Транш
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Способ расчета</label>
-                                        <select name="insurance_premium_payment_type" class="form-control"
+                                        <select class="form-control payment-schedule" name="way_of_calculation"
+                                                onchange="showDiv('other-payment-schedule', this)"
                                                 style="width: 100%; text-align: center">
-                                            <option @if($podryadchik->insurance_premium_payment_type == 1)selected @endif value="1">Сумах</option>
-                                            <option @if($podryadchik->insurance_premium_payment_type == 2)selected @endif value="2">В ин. валюте</option>
-                                            <option @if($podryadchik->insurance_premium_payment_type == 3)selected @endif value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
-                                            <option @if($podryadchik->insurance_premium_payment_type == 4)selected @endif value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option @if($podryadchik->insurance_premium_payment_type == 5)selected @endif value="5">В ин. валюте по фикс курсу ЦБ на день оплаты премии/первого транша </option>
+                                            <option @if($all_product->way_of_calculation == '1') selected
+                                                    @endif value="1">Сумах
+                                            </option>
+                                            <option @if($all_product->way_of_calculation == '2') selected
+                                                    @endif value="2">Сумах В ин. валюте
+                                            </option>
+                                            <option @if($all_product->way_of_calculation == '3') selected
+                                                    @endif value="3">В ин. валюте по курсу ЦБ на день заключение
+                                                договора
+                                            </option>
+                                            <option @if($all_product->way_of_calculation == '4') selected
+                                                    @endif value="4">В ин. валюте по курсу ЦБ на день оплаты
+                                            </option>
+                                            <option @if($all_product->way_of_calculation == '5') selected
+                                                    @endif value="5">В ин. валюте по фиксированному ЦБ на день оплаты
+                                                премии/первого транша
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div id="other-payment-schedule" @if($podryadchik->payment_term == 1) style="display: none;" @else style="display: block;" @endif>
+                            <div id="transh-payment-schedule"
+                                 @if($all_product->payment_term !== 'transh') class="d-none" @endif>
                                 <div class="form-group">
-                                    <button type="button" onclick="addRow3()" class="btn btn-primary ">
+                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
                                         Добавить
                                     </button>
                                 </div>
@@ -330,154 +424,183 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @if(!$podryadchik->strahPremiya ?? $podryadchik->payment_term == 'other')
                                         <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment_sum[]">
-                                            </td>
-                                            <td><input type="date" class="form-control" name="payment_from[]">
+                                            <td><input type="text" class="form-control" name="payment_sum_main"
+                                                       value="{{$all_product->payment_sum_main}}"></td>
+                                            <td><input type="date" class="form-control" name="payment_from_main"
+                                                       value="{{$all_product->payment_from_main}}">
                                             </td>
                                         </tr>
-                                            @else
-                                            @foreach($podryadchik->strahPremiya as $premiya)
-                                                <tr id="payment-term-tr-0" data-field-number="0">
-                                                    <td><input type="text" class="form-control" name="payment_sum[{{$premiya->id}}]" value="{{$premiya->prem_sum}}">
+                                        @if(!empty($all_product->allProductCurrencyTerms[0]->payment_sum))
+                                            @foreach($all_product->allProductCurrencyTerms[0]->payment_sum as $key=>$item)
+                                                <tr id="${id}" data-field-number="0">
+                                                    <td>
+                                                        <input type="text" class="form-control"
+                                                               value="{{$all_product->allProductCurrencyTerms[0]->payment_sum[$key]}}"
+                                                               name="payment_sum[]">
                                                     </td>
-                                                    <td><input type="date" class="form-control" name="payment_from[{{$premiya->id}}]" value="{{$premiya->prem_from}}">
+                                                    <td>
+                                                        <input type="date" class="form-control"
+                                                               value="{{$all_product->allProductCurrencyTerms[0]->payment_from[$key]}}"
+                                                               name="payment_from[]">
+                                                    </td>
+                                                    <td>
+                                                        <input type="button" onclick="removeEl(${id})" value="Удалить"
+                                                               class="btn btn-warning">
                                                     </td>
                                                 </tr>
-                                                @endforeach
+                                            @endforeach
                                         @endif
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="icheck-success ">
+                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')"
+                                           class="form-check-input client-type-radio"
+                                           type="checkbox" name="tarif" id="tarif"
+                                           @if($all_product->tariff == 'tariff') checked @endif
+                                           value="tariff">
+                                    <label class="form-check-label" for="tarif">Тариф</label>
+                                </div>
+                                <!-- TODO: Блок должен находится в скрытом состоянии
+                                отображаться только тогда, когда выбран checkbox "Тариф"
+                                -->
+                                <div class="form-group" data-tarif-descr
+                                     @if($all_product->tariff !== 'tariff') style="display: none" @endif>
+                                    <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
+                                    <input class="form-control" id="descrTarif" name="tariff_other"
+                                           value="{{$all_product->tarif_other}}" type="number">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="icheck-success ">
+                                    <input onchange="toggleBlock('preim', 'data-preim-descr')"
+                                           class="form-check-input client-type-radio"
+                                           type="checkbox" name="preim" id="preim"
+                                           @if($all_product->preim == 'preim') checked @endif
+                                           value="preim">
+                                    <label class="form-check-label" for="preim">Премия</label>
+                                </div>
+                                <!-- TODO: Блок должен находится в скрытом состоянии
+                                отображаться только тогда, когда выбран checkbox "Тариф"
+                                -->
+                                <div class="form-group" data-preim-descr
+                                     @if($all_product->preim !== 'preim') style="display: none" @endif>
+                                    <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
+                                    <input class="form-control" id="descrPreim" name="premiya_other"
+                                           value="{{$all_product->premiya_other}}" type="number">
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-
-                    <div class="card card-info">
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Уникальные номера</h3>
+                            <h3 class="card-title">Сведения о страховом полисе</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                        title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div id="payment-terms-form">
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-inline justify-content-between">
-                                            <label>Номер договора</label>
-                                            <input value="{{$podryadchik->unique_number}}" readonly>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="polis-series" class="col-form-label">Серийный номер полиса
+                                                страхования</label>
+                                            <input type="text" id="polis-series" name="policy_series"
+                                                   @if(!empty($all_product->allProductInfo[0]->policy_series))
+                                                   value="{{$all_product->allProductInfo->where('policy_series', '!=', null)->first()->policy_series}}"
+                                                   @endif
+                                                   class="form-control">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-inline justify-content-between">
-                                            <label>Серия полиса</label>
-                                            <input value="{{$podryadchik->policySeries->code ?? '-'}}" readonly>
+                                    <div class="col-sm-4">
+                                        <label class="col-form-label">Дата выдачи страхового полиса </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"></span>
+                                            </div>
+                                            <input id="insurance_from" name="policy_insurance_from" type="date"
+                                                   @if(!empty($all_product->allProductInfo->where('policy_insurance_from', '!=', null)->first()))
+                                                   value="{{$all_product->allProductInfo->where('policy_series', '!=', null)->first()->policy_insurance_from}}"
+                                                   @endif
+                                                   class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-inline justify-content-between">
-                                            <label>Номер полиса</label>
-                                            <input value="{{$podryadchik->policy->number}}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div id="anketa-fields">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="strahovaya_sum" name="strahovaya_sum" class="form-control" value="{{$podryadchik->strahovaya_sum}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="geographic-zone">Страховая премия</label>
-                                        <input type="text" id="strahovaya_purpose" name="strahovaya_purpose"
-                                               class="form-control"  value="{{$podryadchik->strahovaya_purpose}}">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="card-body">
-                        <div class="card card-info" id="clone-beneficiary">
-                            <div class="card-header">
-                                <h3 class="card-title">Сведения о страховом полисе</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body" id="beneficiary-card-body">
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                <select type="text" id="serial_number_policy" name="serial_number_policy" class="form-control">
-                                                <option value="0"></option>
-                                                @foreach($policySeries as $series)
-                                                    <option value="{{ $series->id }}" @if($series->id == $podryadchik->serial_number_policy) selected @endif>{{ $series->code }}</option>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="otvet-litso">Ответственное лицо</label>
+                                            <select class="form-control polises" id="otvet-litso" name="litso"
+                                                    style="width: 100%;">
+                                                @foreach($agents as $agent)
+                                                    <option value="{{$agent->id}}"
+                                                            @if(!empty($all_product->allProductInfo->where('policy_series', '!=', null)->first()->policy_insurance_from) and $all_product->allProductInfo->where('policy_series', '!=', null)->first()->otvet_litso) selected @endif>{{$agent->name}}
+                                                    </option>
                                                 @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label class="col-form-label">Дата выдачи страхового полиса </label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"></span>
-                                                </div>
-                                                <input id="date_issue_policy" name="date_issue_policy" type="date" class="form-control" value="{{$podryadchik->date_issue_policy}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="otvet-litso">Ответственное лицо</label>
-                                                <select @if($errors->has('litso'))
-                                                        class="form-control is-invalid"
-                                                        @else
-                                                        class="form-control"
-                                                        @endif id="otvet-litso" name="litso"
-                                                        style="width: 100%;" required>
-                                                    <option></option>
-                                                    @foreach($agents as $agent)
-                                                        <option @if($podryadchik->otvet_litso == $agent->user_id) selected
-                                                                @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Загрузка документов</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="polis-series" class="col-form-label">Анкета</label>
+                                        <input type="file" id="geographic-zone" name="application_form_file"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="polis-series" class="col-form-label">Договор</label>
+                                        <input type="file" id="geographic-zone" name="contract_file"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="polis-series" class="col-form-label">Полис</label>
+                                        <input type="file" id="geographic-zone" name="policy_file" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
         </div>
-
-        </section>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
+        </div>
+    </form>
+    <form action="{{route('otvetstvennost-podryadchik.destroy', $all_product->id)}}" method="post">
+        @csrf
+        @method('delete')
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger float-right">Удалить</button>
         </div>
     </form>
 @endsection
