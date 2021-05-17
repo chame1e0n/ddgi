@@ -153,6 +153,9 @@ class CreateAllProductsTable extends Migration
             $table->text('profInsuranceServices')->nullable();
             $table->text('liabilityLimit')->nullable();
             $table->text('retransferAktFile')->nullable();
+            $table->text('dogovor_lizing_number')->nullable();
+            $table->date('dogovor_period_from')->nullable();
+            $table->date('dogovor_period_to')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

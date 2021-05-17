@@ -1,4 +1,4 @@
-@include('products._form_elements.elements._policySeries_by_policyName.create')
+@include('products._form_elements.elements._policySeries_by_policyName.edit')
 @include('products._form_elements.elements._agentList.edit')
 @section('_svediniya_o_polise_content')
     <div class="card-body">
@@ -22,13 +22,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"></span>
                                 </div>
-                                <input id="insurance_from" name="polic_given_date" type="date"
-                                       value="{{$product->polic_given_date}}"
-                                       @if($errors->has('polic_given_date'))
+                                <input id="insurance_from" name="data_vidachi" type="date"
+                                       value="{{$productInformation->data_vidachi}}"
+                                       @if($errors->has('data_vidachi'))
                                        class="form-control is-invalid"
                                        @else
                                        class="form-control"
-                                        @endif >
+                                    @endif >
                             </div>
                         </div>
                         @yield('_agentList_content')

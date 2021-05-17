@@ -29,7 +29,7 @@
             employee.append("<option> </option>");
             var selected = {{old('otvet_litso') ?? 0}};
             for (var i = 0; i < len; i++) {
-                var id = response[i]['user_id'];
+                var id = response[i]['id'];
                 var name = response[i]['name'];
 
                 if (id === 0) {

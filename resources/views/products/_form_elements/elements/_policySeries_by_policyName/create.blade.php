@@ -15,13 +15,13 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label for="policy_series" class="col-form-label">Серийный номер</label>
-            <select @if($errors->has('policy_series'))
+            <label for="policy_id" class="col-form-label">Серийный номер</label>
+            <select @if($errors->has('policy_id'))
                     class="form-control is-invalid"
                     @else
                     class="form-control"
-                    @endif id="policy_series"
-                    name="policy_series"
+                    @endif id="policy_id"
+                    name="policy_id"
                     style="width: 100%;" required>
                 <option></option>
             </select>
@@ -74,8 +74,8 @@
                         success: function (response) {
 
                             var len = response.length;
-                            var polisSeries = {{ old('policy_series') ?? 0}};
-                            var polisSeriesField = $("#policy_series")
+                            var polisSeries = {{ old('policy_id') ?? 0}};
+                            var polisSeriesField = $("#policy_id")
 
                             polisSeriesField.empty();
                             for (var i = 0; i < len; i++) {

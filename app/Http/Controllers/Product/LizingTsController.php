@@ -13,7 +13,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class DobrovolkaImushestvoController extends Controller
+class LizingTsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class DobrovolkaImushestvoController extends Controller
      */
     public function create()
     {
-        return view('products.dobrovolka_imushestvo.create');
+        return view('products.lizing_ts.create');
     }
 
     /**
@@ -66,23 +66,15 @@ class DobrovolkaImushestvoController extends Controller
             'seria_passport' => 'required|string|max:255',
             'nomer_passport' => 'required|integer',
 
+            // Договор лизинга
+            'dogovor_lizing_number' => 'required|integer',
+            'dogovor_period_from' => 'required|date',
+            'dogovor_period_to' => 'required|date',
+
             // Период страхования...
-            'ts_osnovanii' => 'required|integer',
             'period_insurance_from' => 'required|date',
             'period_insurance_to' => 'required|date',
             'geo_zone' => 'required|string',
-
-            // Полис
-            'polis_name_id' => 'required|array', // Наименование полиса
-            'polis_series_id' => 'required|array', // Серия полиса
-            'data_vidachi' => 'required|array', // Дата выдачи
-            'period_deystviya_ot' => 'required|array', // Период действия полиса от
-            'period_deystviya_do' => 'required|array', // Период действия полиса до
-            'otvet_litso' => 'required|array', // Выбор агента
-            'kolichestvo' => 'required|array', // Количество
-            'strah_stoimost' => 'required|array', // Страховая стоимость
-            'strah_summa' => 'required|array', // Страховая сумма
-            'strah_premiya' => 'required|array', // Страховая премия
 
             //Условия оплаты страховой премии
             'insurance_sum' => 'required|integer',
@@ -99,6 +91,12 @@ class DobrovolkaImushestvoController extends Controller
             'tarif_other' => 'required_with:tarif',
             'preim' => 'nullable', // can be 'on' or nullable
             'premiya_other' => 'required_with:preim',
+
+            // Сведения о страховом полисе
+            'polis_name' => 'required|string|max:255',
+            'policy_id' => 'required|integer',
+            'data_vidachi' => 'required|date',
+            'otvet_litso' => 'required|integer',
 
             'application_form_file' => 'nullable|file',
             'contract_file' => 'nullable|file',
@@ -123,7 +121,10 @@ class DobrovolkaImushestvoController extends Controller
             $pb = PolicyBeneficiaries::createPolicyBeneficiaries($request);
 
             $allP = AllProduct::query()->create([
-                'ts_osnovanii' => $request->input('ts_osnovanii'),
+                'dogovor_lizing_number' => $request->input('dogovor_lizing_number'),
+                'dogovor_period_from' => $request->input('dogovor_period_from'),
+                'dogovor_period_to' => $request->input('dogovor_period_to'),
+
                 'period_insurance_from' => $request->input('period_insurance_from'),
                 'period_insurance_to' => $request->input('period_insurance_to'),
                 'geo_zone' => $request->input('geo_zone'),
@@ -151,25 +152,17 @@ class DobrovolkaImushestvoController extends Controller
                 }
             }
 
-            foreach ($request->input('polis_name_id') as $key => $item) {
-                AllProductInformation::query()->create([
-                    'policy_id' => $request->input('polis_series_id')[$key],
-                    'data_vidachi' => $request->input('data_vidachi')[$key],
-                    'period_deystviya_ot' => $request->input('period_deystviya_ot')[$key],
-                    'period_deystviya_do' => $request->input('period_deystviya_do')[$key],
-                    'otvet_litso' => $request->input('otvet_litso')[$key],
-                    'kolichestvo' => $request->input('kolichestvo')[$key],
-                    'strah_stoimost' => $request->input('strah_stoimost')[$key],
-                    'strah_summa' => $request->input('strah_summa')[$key],
-                    'strah_premiya' => $request->input('strah_premiya')[$key],
-                    'all_products_id' => $allP->id
-                ]);
-            }
+            AllProductInformation::query()->create([
+                'policy_id' => $request->input('policy_id'),
+                'data_vidachi' => $request->input('data_vidachi'),
+                'otvet_litso' => $request->input('otvet_litso'),
+                'all_products_id' => $allP->id
+            ]);
 
             return $allP;
         });
 
-        return redirect()->route('dobrovolka_imushestvo.edit', $allProduct->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('lizing_ts.edit', $allProduct->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -192,7 +185,7 @@ class DobrovolkaImushestvoController extends Controller
     public function edit($id)
     {
         $product = AllProduct::query()->with('policyHolder', 'policyBeneficiaries')->find($id);
-        return view('products.dobrovolka_imushestvo.edit', compact('product'));
+        return view('products.lizing_ts.edit', compact('product'));
     }
 
     /**
@@ -227,23 +220,15 @@ class DobrovolkaImushestvoController extends Controller
             'seria_passport' => 'required|string|max:255',
             'nomer_passport' => 'required|integer',
 
+            // Договор лизинга
+            'dogovor_lizing_number' => 'required|integer',
+            'dogovor_period_from' => 'required|date',
+            'dogovor_period_to' => 'required|date',
+
             // Период страхования...
-            'ts_osnovanii' => 'required|integer',
             'period_insurance_from' => 'required|date',
             'period_insurance_to' => 'required|date',
             'geo_zone' => 'required|string',
-
-            // Полис
-            'polis_name_id' => 'required|array', // Наименование полиса
-            'polis_series_id' => 'required|array', // Серия полиса
-            'data_vidachi' => 'required|array', // Дата выдачи
-            'period_deystviya_ot' => 'required|array', // Период действия полиса от
-            'period_deystviya_do' => 'required|array', // Период действия полиса до
-            'otvet_litso' => 'required|array', // Выбор агента
-            'kolichestvo' => 'required|array', // Количество
-            'strah_stoimost' => 'required|array', // Страховая стоимость
-            'strah_summa' => 'required|array', // Страховая сумма
-            'strah_premiya' => 'required|array', // Страховая премия
 
             //Условия оплаты страховой премии
             'insurance_sum' => 'required|integer',
@@ -261,6 +246,12 @@ class DobrovolkaImushestvoController extends Controller
             'preim' => 'nullable', // can be 'on' or nullable
             'premiya_other' => 'required_with:preim',
 
+            // Сведения о страховом полисе
+            'polis_name' => 'required|string|max:255',
+            'policy_id' => 'required|integer',
+            'data_vidachi' => 'required|date',
+            'otvet_litso' => 'required|integer',
+
             'application_form_file' => 'nullable|file',
             'contract_file' => 'nullable|file',
             'policy_file' => 'nullable|file',
@@ -271,21 +262,21 @@ class DobrovolkaImushestvoController extends Controller
         $pb = PolicyBeneficiaries::query()->findOrFail($allP->policy_beneficiaries_id);
 
         if ($request->hasFile('application_form_file')) {
-            if($allP->application_form_file){
+            if ($allP->application_form_file) {
                 Storage::disk('public')->delete($allP->application_form_file);
             }
             $file = $request->file('application_form_file')->store('/img/PolicyHolder', 'public');
             $request->application_form_file = $file;
         }
         if ($request->hasFile('contract_file')) {
-            if($allP->contract_file){
+            if ($allP->contract_file) {
                 Storage::disk('public')->delete($allP->contract_file);
             }
             $file = $request->file('contract_file')->store('/img/PolicyHolder', 'public');
             $request->contract_file = $file;
         }
         if ($request->hasFile('policy_file')) {
-            if($allP->policy_file){
+            if ($allP->policy_file) {
                 Storage::disk('public')->delete($allP->policy_file);
             }
             $file = $request->file('policy_file')->store('/img/PolicyHolder', 'public');
@@ -297,7 +288,10 @@ class DobrovolkaImushestvoController extends Controller
             $pb = PolicyBeneficiaries::updatePolicyBeneficiaries($pb->id, $request);
 
             $allP->update([
-                'ts_osnovanii' => $request->input('ts_osnovanii'),
+                'dogovor_lizing_number' => $request->input('dogovor_lizing_number'),
+                'dogovor_period_from' => $request->input('dogovor_period_from'),
+                'dogovor_period_to' => $request->input('dogovor_period_to'),
+
                 'period_insurance_from' => $request->input('period_insurance_from'),
                 'period_insurance_to' => $request->input('period_insurance_to'),
                 'geo_zone' => $request->input('geo_zone'),
@@ -348,21 +342,16 @@ class DobrovolkaImushestvoController extends Controller
             }
 
 
-            foreach ($request->input('polis_name_id') as $key => $item) {
-                AllProductInformation::query()->updateOrCreate([
-                    'policy_id' => $request->input('polis_series_id')[$key],
+            // all product info
+            AllProductInformation::query()
+                ->where([
                     'all_products_id' => $allP->id
-                ], [
-                    'data_vidachi' => $request->input('data_vidachi')[$key],
-                    'period_deystviya_ot' => $request->input('period_deystviya_ot')[$key],
-                    'period_deystviya_do' => $request->input('period_deystviya_do')[$key],
-                    'otvet_litso' => $request->input('otvet_litso')[$key],
-                    'kolichestvo' => $request->input('kolichestvo')[$key],
-                    'strah_stoimost' => $request->input('strah_stoimost')[$key],
-                    'strah_summa' => $request->input('strah_summa')[$key],
-                    'strah_premiya' => $request->input('strah_premiya')[$key],
+                ])
+                ->update([
+                    'policy_id' => $request->input('policy_id'),
+                    'data_vidachi' => $request->input('data_vidachi'),
+                    'otvet_litso' => $request->input('otvet_litso'),
                 ]);
-            }
 
             return $allP;
         });

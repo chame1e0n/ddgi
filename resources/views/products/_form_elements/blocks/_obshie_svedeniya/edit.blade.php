@@ -53,8 +53,6 @@
             <select class="form-control bank" id="bank_insurer" name="bank_insurer"
                     style="width: 100%;" required>
             </select>
-
-
         </div>
     </div>
     <div class="col-md-4">
