@@ -414,7 +414,7 @@
                                                     class="form-control"
                                                     @endif>
                                                 <option value="0"></option>
-                                                @foreach($policySeries as $series)
+                                                @foreach($policies as $series)
                                                     <option @if(old('serial_number_policy') == $series->id) selected
                                                             @endif value="{{ $series->id }}">{{ $series->code }}</option>
                                                 @endforeach

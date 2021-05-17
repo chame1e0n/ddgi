@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
- * Class GrantController
+ * Class GarantController
  * @package App\Http\Controllers\Product
  */
-class GrantController extends Controller
+class GarantController extends Controller
 {
     /**
      * Display a listing of the resource.

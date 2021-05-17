@@ -4,24 +4,14 @@
     <link rel="stylesheet" href="/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 @endsection
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('avto-index.store')}}" id="mainFormKasko" method="POST">
+    <form action="{{route('avto-index.store')}}" id="mainFormKasko" enctype="multipart/form-data" method="POST">
         @csrf
         <div class="content-wrapper">
-
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -39,7 +29,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Общие сведения</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -50,14 +41,16 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">ФИО / Наименование страхователя</label>
+                                        <label for="insurer-name" class="col-form-label">ФИО / Наименование
+                                            страхователя</label>
                                         <input type="text" id="insurer-name" name="fio_insurer" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Адрес страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer" class="form-control">
+                                        <input type="text" id="insurer-address" name="address_insurer"
+                                               class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -86,28 +79,14 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="z_bank_id" class="col-form-label">Банк</label>
-                                        <select @if($errors->has('z_bank_id'))
-                                                class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                                @endif id="bank_id" name="bank_insurer"
-                                                style="width: 100%;" required>
-                                            <option>Выберите банк</option>
-                                            @foreach($banks as $bank)
-                                                {{--     @if($credit->zaemshik->bank_id == $bank->id)
-                                                         <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                     @else--}}
-                                                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                {{--                                                @endif--}}
-                                            @endforeach
-                                        </select>
+                                        <label for="insurer-bank" class="col-form-label">Банк</label>
+                                        <input type="text" id="insurer-bank" name="bank_insurer" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="oked" class="form-control">
+                                        <input type="text" id="insurer-okonh" name="okonh_insurer" class="form-control">
                                     </div>
                                 </div>
 
@@ -128,7 +107,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Выгодоприобретатель</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -138,22 +118,26 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="beneficiary-name" class="col-form-label">ФИО / Наименование выгодоприобретателя</label>
-                                            <input type="text" id="beneficiary-name" name="FIO" class="form-control">
+                                            <label for="beneficiary-name" class="col-form-label">Наименование
+                                                выгодоприобретателя</label>
+                                            <input type="text" id="beneficiary-name" name="fio_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="beneficiary-address" class="col-form-label">Адрес</label>
-                                            <input type="text" id="beneficiary-address" name="address" class="form-control">
+                                            <input type="text" id="beneficiary-address" name="address_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="beneficiary-okonh" class="col-form-label">Серия</label>
-                                            <input type="text" id="beneficiary-okonh" name="seria_passport" class="form-control">
+                                            <input type="text" id="beneficiary-okonh" name="okonh_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
@@ -162,14 +146,16 @@
                                         <div class="form-group">
                                             <label for="beneficiary-okonh" class="col-form-label">Номер
                                                 паспорта</label>
-                                            <input type="text" id="beneficiary-okonh" name="nomer_passport" class="form-control">
+                                            <input type="text" id="beneficiary-okonh" name="okonh_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="beneficiary-tel" name="phone_number" class="form-control">
+                                            <input type="text" id="beneficiary-tel" name="tel_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
@@ -177,56 +163,48 @@
                                         <div class="form-group">
                                             <label for="beneficiary-schet" class="col-form-label">Расчетный
                                                 счет</label>
-                                            <input type="text" id="beneficiary-schet" name="checking_account" class="form-control">
+                                            <input type="text" id="beneficiary-schet" name="beneficiary_schet"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                            <input type="text" id="beneficiary-inn" name="inn" class="form-control">
+                                            <input type="text" id="beneficiary-inn" name="inn_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                            <input type="text" id="beneficiary-mfo" name="mfo" class="form-control">
+                                            <input type="text" id="beneficiary-mfo" name="mfo_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="z_bank_id" class="col-form-label">Банк</label>
-                                            <select @if($errors->has('z_bank_id'))
-                                                    class="form-control is-invalid"
-                                                    @else
-                                                    class="form-control"
-                                                    @endif id="bank_id" name="bank_id"
-                                                    style="width: 100%;" required>
-                                                <option>Выберите банк</option>
-                                                @foreach($banks as $bank)
-                                                    {{--     @if($credit->zaemshik->bank_id == $bank->id)
-                                                             <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                         @else--}}
-                                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                    {{--                                                @endif--}}
-                                                @endforeach
-                                            </select>
+                                            <label for="beneficiary-bank" class="col-form-label">Банк</label>
+                                            <input type="text" id="beneficiary-bank" name="bank_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
-                                            <input type="text" id="beneficiary-okonh" name="okonh" class="form-control">
+                                            <input type="text" id="beneficiary-okonh" name="okonh_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                            <input type="text" id="beneficiary-okonh" name="oked" class="form-control">
+                                            <input type="text" id="beneficiary-okonh" name="oked_beneficiary"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
@@ -245,7 +223,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">с</span>
                                             </div>
-                                            <input id="insurance_from" name="period_insurance_from" type="date" class="form-control">
+                                            <input id="insurance_from" name="insurance_from" type="date"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -256,15 +235,18 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">до</span>
                                             </div>
-                                            <input id="insurance_from" name="period_insurance_to" type="date" class="form-control">
+                                            <input id="insurance_from" name="insurance_from" type="date"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group  justify-content-between">
                                         <label>Использования ТС на основании</label>
-                                        <select class="form-control payment-schedule" name="ispolzovaniya_TS_na_osnovanii" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            <option value="0"></option>
+                                        <select class="form-control payment-schedule" name="payment_term"
+                                                onchange="showDiv('other-payment-schedule', this)"
+                                                style="width: 100%; text-align: center">
+                                            <option value="selected"></option>
                                             <option value="1">Тех пасспорт</option>
                                             <option value="2">Доверенность</option>
                                             <option value="3">Договор аренды</option>
@@ -275,7 +257,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="geographic-zone">Географическая зона:</label>
-                                        <input type="text" id="geograficheskaya_zona" name="geograficheskaya_zona" class="form-control">
+                                        <input type="text" id="geographic-zone" name="geo_zone" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -286,7 +268,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Сведени о трансортных средствах</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -302,6 +285,7 @@
                                         <tr>
                                             <th class="text-nowrap">Номер полиса</th>
                                             <th class="text-nowrap">Серия полиса</th>
+                                            <th class="text-nowrap">Дата выдачи</th>
                                             <th class="text-nowrap">Период действия полиса</th>
                                             <th class="text-nowrap">Выбор агента</th>
                                             <th class="text-nowrap">ИД строки</th>
@@ -309,6 +293,7 @@
                                             <th class="text-nowrap">Модель</th>
                                             <th class="text-nowrap">Модификация</th>
                                             <th class="text-nowrap">Гос. номер</th>
+                                            <th class="text-nowrap">Год выпуска</th>
                                             <th class="text-nowrap">Номер тех паспорта</th>
                                             <th class="text-nowrap">Номер двигателя</th>
                                             <th class="text-nowrap">Номер кузова</th>
@@ -321,75 +306,22 @@
                                         </thead>
                                         <tbody>
                                         <tr>
+                                            <td colspan="16" style="text-align: right"><label
+                                                    class="text-bold">Итого</label></td>
                                             <td>
-                                                <input class="form-control polises" id="polises" name="polis-series-0" readonly style="width: 100%;"/>
+                                                <input readonly type="text"
+                                                       class="form-control forsum4 overall_insurance_sum-0"
+                                                       name="overall_polis_sum[]">
                                             </td>
                                             <td>
-                                                <select type="text" class="form-control" name="period_polis-0">
-                                                    <option selected="selected"></option>
-                                                </select>
+                                                <input readonly type="text"
+                                                       class="form-control forsum4 overall_insurance_sum-0"
+                                                       name="overall_polis_sum[]">
                                             </td>
                                             <td>
-                                                <input class="form-control polises" id="polises" name="polis-agent-0" style="width: 100%;"/>
-                                            </td>
-                                            <td>
-                                                <select type="text" class="form-control" name="polis-id-0">
-                                                    <option selected="selected"></option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="polis-mark-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="polis-model-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="polis-modification-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="polis-gos-num-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="polis-teh-passport-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="polis-num-engine-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="polis-num-body-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control" name="polis-payload-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control forsum2" name="polis-places-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control forsum insurance_sum-0" data-field-number="0" name="polis_sum-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum-0">
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum-0">
-                                            </td>
-                                            <td>
-                                                <input type="button" value="Заполнить" class="btn btn-success product-fields-button" id="product-fields-button" data-field-number="0">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="14" style="text-align: right"><label class="text-bold">Итого</label></td>
-                                            <td>
-                                                <input readonly type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum-0">
-                                            </td>
-                                            <td>
-                                                <input readonly type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum-0">
-                                            </td>
-                                            <td>
-                                                <input readonly type="text" class="form-control forsum4 overall_insurance_sum-0" name="overall_polis_sum-0">
+                                                <input readonly type="text"
+                                                       class="form-control forsum4 overall_insurance_sum-0"
+                                                       name="overall_polis_sum[]">
                                             </td>
 
                                         </tr>
@@ -424,20 +356,22 @@
                         </div>
                         <div class="form-group">
                             <label>Цель использования</label>
-                            <input type="text" class="form-control" name="cel_ispolzovaniya">
+                            <input type="text" class="form-control">
                         </div>
                     </div>
 
                     <div id="general-product-fields">
                         <div id="product-field-modal-0" class="modal" data-field-number="0">
                             <div class="modal-content" id="product-field-modal-content-0">
-                                <span class="close product-fields-close" id="product-fields-close-0" data-field-number="0">&times;</span>
+                                <span class="close product-fields-close" id="product-fields-close-0"
+                                      data-field-number="0">&times;</span>
 
                                 <div class="card card-success">
                                     <div class="card-header">
                                         <h3 class="card-title">Сведени о трансортных средствах</h3>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                    data-toggle="tooltip" title="Collapse">
                                                 <i class="fas fa-minus"></i>
                                             </button>
                                         </div>
@@ -450,11 +384,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-1">
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess1" value="1">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess1" value="1">
                                                             <label for="radioSuccess1">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess2" value="0">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess2" value="0">
                                                             <label for="radioSuccess2">Нет</label>
                                                         </div>
                                                     </div>
@@ -476,11 +412,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-1">
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess3" value="1">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess3" value="1">
                                                             <label for="radioSuccess3">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess4" value="0">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess4" value="0">
                                                             <label for="radioSuccess4">Нет</label>
                                                         </div>
                                                     </div>
@@ -502,11 +440,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-1">
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess5" value="1">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess5" value="1">
                                                             <label for="radioSuccess5">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess6" value="0">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess6" value="0">
                                                             <label for="radioSuccess6">Нет</label>
                                                         </div>
                                                     </div>
@@ -523,16 +463,19 @@
                                     <div class="card-body">
                                         <div id="product-fields-0-3">
                                             <div class="form-group">
-                                                <label>Застрахованы ли автотранспортные средства на момент заполнения настоящей анкеты?
+                                                <label>Застрахованы ли автотранспортные средства на момент заполнения
+                                                    настоящей анкеты?
                                                 </label>
                                                 <div class="row">
                                                     <div class="col-sm-1">
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess7" value="1">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess7" value="1">
                                                             <label for="radioSuccess7">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess8" value="0">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess8" value="0">
                                                             <label for="radioSuccess8">Нет</label>
                                                         </div>
                                                     </div>
@@ -554,11 +497,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-1">
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess9" value="1">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess9" value="1">
                                                             <label for="radioSuccess9">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess0" value="0">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess0" value="0">
                                                             <label for="radioSuccess0">Нет</label>
                                                         </div>
                                                     </div>
@@ -580,11 +525,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-1">
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess10" value="1">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess10" value="1">
                                                             <label for="radioSuccess10">Да</label>
                                                         </div>
                                                         <div class="checkbox icheck-success">
-                                                            <input type="radio" class="other_insurance-0" name="strtahovka-0" id="radioSuccess11" value="0">
+                                                            <input type="radio" class="other_insurance-0"
+                                                                   name="strtahovka[]" id="radioSuccess11" value="0">
                                                             <label for="radioSuccess11">Нет</label>
                                                         </div>
                                                     </div>
@@ -597,6 +544,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="icheck-success ">
+                                            <input onchange="toggleBlock('tarif', 'data-tarif-descr')"
+                                                   class="form-check-input client-type-radio" type="checkbox"
+                                                   name="tarif" id="tarif">
+                                            <label class="form-check-label" for="tarif">Тариф</label>
+                                        </div>
+                                        <!-- TODO: Блок должен находится в скрытом состоянии
+                                        отображаться только тогда, когда выбран checkbox "Тариф"
+                                        -->
+                                        <div class="form-group" data-tarif-descr style="display: none">
+                                            <label for="descrTarif" class="col-form-label">Укажите процент
+                                                тарифа</label>
+                                            <input class="form-control" id="descrTarif" type="number">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -606,7 +569,8 @@
                         <div class="card-header">
                             <h3 class="card-title">Условия оплаты страховой премии</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -615,10 +579,28 @@
                             <div id="payment-terms-form">
                                 <div class="row">
                                     <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="all-summ">Cтраховая сумма</label>
+                                            <input type="text" id="all-summ" name="insurance_sum" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="all-summ">Cтраховая премия</label>
+                                            <input type="text" id="all-summ" name="insurance_bonus" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="all-summ">Франшиза</label>
+                                            <input type="text" id="all-summ" name="franchise" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
                                         <div class="form-group form-inline justify-content-between">
                                             <label>Валюта взаиморасчетов</label>
-                                            <select name="valyuta" class="form-control" id="walletNames" style="width: 100%; text-align: center">
-                                                <option selected="selected">UZS
+                                            <select class="form-control" id="walletNames" style="width: 100%; text-align: center">
+                                                <option selected="selected" name="insurance_premium_currency">UZS
                                                 </option>
                                             </select>
                                         </div>
@@ -626,51 +608,32 @@
                                     <div class="col-sm-4">
                                         <div class="form-group form-inline justify-content-between">
                                             <label>Порядок оплаты страховой премии</label>
-                                            <select class="form-control payment-schedule" name="poryadok_oplaty_premii" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
+                                            <select id="condition" class="form-control payment-schedule" name="payment_term" style="width: 100%; text-align: center">
                                                 <option value="1">Единовременно</option>
-                                                <option value="other">Другое</option>
+                                                <option value="transh">Транш</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group form-inline justify-content-between">
                                             <label>Способ расчета</label>
-                                            <select class="form-control payment-schedule" name="sposob_rascheta" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
+                                            <select class="form-control payment-schedule" name="way_of_calculation" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
                                                 <option value="1">Сумах</option>
                                                 <option value="2">Сумах В ин. валюте</option>
                                                 <option value="3">В ин. валюте по курсу ЦБ на день заключение
-                                                    договора</option>
+                                                    договора
+                                                </option>
                                                 <option value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
+                                                <option value="4">В ин. валюте по фиксированному ЦБ на день оплаты
+                                                    премии/первого транша
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="all-summ">Cтраховая сумма</label>
-                                            <input type="text" id="all-summ" name="strahovaya_summa" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Страховая премия</label>
-                                            <input type="text" id="geographic-zone" name="strahovaya_premiya" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Франшиза</label>
-                                            <input type="text" id="geographic-zone" name="franshiza" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div id="other-payment-schedule" style="display: none;">
+                                <div id="transh-payment-schedule" class="d-none">
                                     <div class="form-group">
-                                        <button type="button" onclick="addRow3()" class="btn btn-primary ">
+                                        <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
                                             Добавить
                                         </button>
                                     </div>
@@ -685,11 +648,40 @@
                                             </thead>
                                             <tbody>
                                             <tr id="payment-term-tr-0" data-field-number="0">
-                                                <td><input type="text" class="form-control" name="payment_sum[]"></td>
-                                                <td><input type="date" class="form-control" name="payment_from[]"></td>
+                                                <td><input type="text" class="form-control" name="payment_sum_main"></td>
+                                                <td><input type="date" class="form-control" name="payment_from_main">
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="icheck-success ">
+                                        <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio"
+                                               type="checkbox" name="tarif" id="tarif">
+                                        <label class="form-check-label" for="tarif">Тариф</label>
+                                    </div>
+                                    <!-- TODO: Блок должен находится в скрытом состоянии
+                                    отображаться только тогда, когда выбран checkbox "Тариф"
+                                    -->
+                                    <div class="form-group" data-tarif-descr style="display: none">
+                                        <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
+                                        <input class="form-control" id="descrTarif" type="number">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="icheck-success ">
+                                        <input onchange="toggleBlock('preim', 'data-preim-descr')" class="form-check-input client-type-radio"
+                                               type="checkbox" name="preim" id="preim">
+                                        <label class="form-check-label" for="preim">Премия</label>
+                                    </div>
+                                    <!-- TODO: Блок должен находится в скрытом состоянии
+                                    отображаться только тогда, когда выбран checkbox "Тариф"
+                                    -->
+                                    <div class="form-group" data-preim-descr style="display: none">
+                                        <label for="descrPreim" class="col-form-label">Укажите процент тарифа</label>
+                                        <input class="form-control" id="descrPreim" type="number">
                                     </div>
                                 </div>
                             </div>
@@ -698,9 +690,58 @@
                     <div class="card-body">
                         <div class="card card-info" id="clone-beneficiary">
                             <div class="card-header">
+                                <h3 class="card-title">Сведения о страховом полисе</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body" id="beneficiary-card-body">
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="polis-series" class="col-form-label">Серийный номер полиса
+                                                    страхования</label>
+                                                <input type="text" id="polis-series" name="polis_series"
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="col-form-label">Дата выдачи страхового полиса </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"></span>
+                                                </div>
+                                                <input id="insurance_from" name="insurance_from" type="date"
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="otvet-litso">Ответственное
+                                                    лицо</label>
+                                                <select class="form-control polises" id="otvet-litso" name="litso"
+                                                        style="width: 100%;">
+                                                    <option selected="selected">Имя Фамилия</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card card-info" id="clone-beneficiary">
+                            <div class="card-header">
                                 <h3 class="card-title">Загрузка документов</h3>
                                 <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
                                         <i class="fas fa-minus"></i>
                                     </button>
                                 </div>
@@ -710,19 +751,22 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Анкета</label>
-                                            <input type="file" id="geographic-zone" name="anketa" class="form-control">
+                                            <input type="file" id="geographic-zone" name="geo_zone"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Договор</label>
-                                            <input type="file" id="geographic-zone" name="dogovor" class="form-control">
+                                            <input type="file" id="geographic-zone" name="geo_zone"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="polis-series" class="col-form-label">Полис</label>
-                                            <input type="file" id="geographic-zone" name="polis" class="form-control">
+                                            <input type="file" id="geographic-zone" name="geo_zone"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -735,5 +779,10 @@
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
             </div>
+        </div>
     </form>
+@endsection
+@section('scripts')
+    <script src="/assets/custom/js/form/product-fields.js"></script>
+    <script src="/assets/custom/js/form/variables.js"></script>
 @endsection

@@ -111,6 +111,7 @@ class CreateAllProductsTable extends Migration
             $table->text('vid_zalog_obespech')->nullable(); // Вид залогового обеспечения
             $table->text('product_desc')->nullable(); // Описание товара
             $table->text('sum_zalog_obespech')->nullable(); // Сумма залогового обеспечения
+            $table->text('using_tc')->nullable();  //Использования ТС на основании
             $table->text('other_info')->nullable();
             $table->text('insurance_total_sum')->nullable();
             $table->text('insurance_gift')->nullable();
@@ -132,7 +133,53 @@ class CreateAllProductsTable extends Migration
             $table->date('period_insurance_from')->nullable(); // Период страхования c
             $table->date('period_insurance_to')->nullable(); // Период страхования до
             $table->bigInteger('ts_osnovanii')->nullable(); // Использования ТС на основании
+            ////broker
+            $table->text('year_one')->nullable();
+            $table->text('annual_turnover_one')->nullable();
+            $table->text('net_profit_one')->nullable();
+            $table->text('year_two')->nullable();
+            $table->text('annual_turnover_two')->nullable();
+            $table->text('net_profit_two')->nullable();
+            $table->text('activity_period_from')->nullable();
+            $table->text('activity_period_to')->nullable();
+            $table->text('acted')->nullable();
+            $table->text('public_sector_comment')->nullable();
+            $table->text('private_sector_comment')->nullable();
+            $table->text('professional_risks')->nullable();
+            $table->text('cases')->nullable();
+            $table->text('reason_case')->nullable();
+            $table->text('administrative_case')->nullable();
+            $table->text('reason_administrative_case')->nullable();
+            $table->text('sphereOfActivity')->nullable();
+            $table->text('profInsuranceServices')->nullable();
+            $table->text('liabilityLimit')->nullable();
+            $table->text('retransferAktFile')->nullable();
+            $table->text('dogovor_lizing_number')->nullable();
+            $table->date('dogovor_period_from')->nullable();
+            $table->date('dogovor_period_to')->nullable();
 
+            ///AvtoCredit
+            $table->text('credit_from')->nullable();
+            $table->text('credit_to')->nullable();
+            $table->text('sum_of_credit')->nullable();
+            $table->text('insurance_until')->nullable();
+            $table->text('credit_franchise')->nullable();
+            $table->text('currency_of_settlement')->nullable();
+
+            $table->text('geo_zone')->nullable(); // Географическая зона
+            $table->date('period_insurance_from')->nullable(); // Период страхования c
+            $table->date('period_insurance_to')->nullable(); // Период страхования до
+            $table->bigInteger('ts_osnovanii')->nullable(); // Использования ТС на основании
+
+            ////Podraydchik
+            $table->text('insurance_date_from')->nullable();
+            $table->text('contract_agreement')->nullable();
+            $table->text('beneficiary_geo_zone')->nullable();
+            $table->text('construct_object')->nullable();
+            $table->text('work_exp')->nullable();
+            $table->text('beneficiary_insurance_from')->nullable();
+            $table->text('beneficiary_insurance_to')->nullable();
+            $table->text('geograph_zone')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

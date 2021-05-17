@@ -22,13 +22,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"></span>
                                 </div>
-                                <input id="insurance_from" name="polic_given_date" type="date"
-                                       value="{{old('polic_given_date')}}"
-                                       @if($errors->has('polic_given_date'))
+                                <input id="data_vidachi" name="data_vidachi" type="date"
+                                       value="{{old('data_vidachi')}}"
+                                       @if($errors->has('data_vidachi'))
                                        class="form-control is-invalid"
                                        @else
                                        class="form-control"
-                                        @endif >
+                                    @endif >
                             </div>
                         </div>
                         @yield('_agentList_content')
