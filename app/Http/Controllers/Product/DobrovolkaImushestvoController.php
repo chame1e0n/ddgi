@@ -361,6 +361,7 @@ class DobrovolkaImushestvoController extends Controller
                     'strah_stoimost' => $request->input('strah_stoimost')[$key],
                     'strah_summa' => $request->input('strah_summa')[$key],
                     'strah_premiya' => $request->input('strah_premiya')[$key],
+                    'all_products_id' => $allP->id
                 ]);
             }
 

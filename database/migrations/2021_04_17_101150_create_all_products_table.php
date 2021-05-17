@@ -133,6 +133,7 @@ class CreateAllProductsTable extends Migration
             $table->date('period_insurance_from')->nullable(); // Период страхования c
             $table->date('period_insurance_to')->nullable(); // Период страхования до
             $table->bigInteger('ts_osnovanii')->nullable(); // Использования ТС на основании
+            ////broker
             $table->text('year_one')->nullable();
             $table->text('annual_turnover_one')->nullable();
             $table->text('net_profit_one')->nullable();
@@ -156,6 +157,29 @@ class CreateAllProductsTable extends Migration
             $table->text('dogovor_lizing_number')->nullable();
             $table->date('dogovor_period_from')->nullable();
             $table->date('dogovor_period_to')->nullable();
+
+            ///AvtoCredit
+            $table->text('credit_from')->nullable();
+            $table->text('credit_to')->nullable();
+            $table->text('sum_of_credit')->nullable();
+            $table->text('insurance_until')->nullable();
+            $table->text('credit_franchise')->nullable();
+            $table->text('currency_of_settlement')->nullable();
+
+            $table->text('geo_zone')->nullable(); // Географическая зона
+            $table->date('period_insurance_from')->nullable(); // Период страхования c
+            $table->date('period_insurance_to')->nullable(); // Период страхования до
+            $table->bigInteger('ts_osnovanii')->nullable(); // Использования ТС на основании
+
+            ////Podraydchik
+            $table->text('insurance_date_from')->nullable();
+            $table->text('contract_agreement')->nullable();
+            $table->text('beneficiary_geo_zone')->nullable();
+            $table->text('construct_object')->nullable();
+            $table->text('work_exp')->nullable();
+            $table->text('beneficiary_insurance_from')->nullable();
+            $table->text('beneficiary_insurance_to')->nullable();
+            $table->text('geograph_zone')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

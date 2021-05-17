@@ -54,6 +54,11 @@ class AllProduct extends Model
         return $this->hasMany(AllProductInformation::class, 'all_products_id', 'id');
     }
 
+    public function allProductInformations()
+    {
+        return $this->hasMany(AllProductInformation::class, 'all_products_id', 'id');
+    }
+
     public function allProductInfoTransport()
     {
         return $this->hasMany(AllProductInformationTransport::class, 'all_products_id', 'id');
