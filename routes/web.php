@@ -101,6 +101,13 @@ Route::group(['middleware' => ['auth']], function () {
     ////Gruz Export
     Route::resource('export', 'ExportController');
 
+    ////Teztools
+    Route::resource('teztools', 'TeztoolsController');
+
+    ////Broker
+    Route::resource('broker', 'BrokerController');
+
+
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     Route::resource('spravochniki/bank','Spravochniki\BankController');
@@ -121,7 +128,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('kasko','Product\KaskoController');
     Route::resource('cmp','Product\CmpController');
     Route::resource('avtocredit','Product\AvtocreditController');
-    Route::resource('grant','Product\GrantController');
+    Route::resource('garant','Product\GarantController');
     Route::resource('nepogashen','Product\NepogashenController');
     Route::resource('credit-nepogashen','Product\CreditNepogashenController')->names('credit-nepogashen');
     Route::resource('otvetstvennost-podryadchik','Product\OtvetstvennostPodryadchikController')->names('otvetstvennost-podryadchik');
