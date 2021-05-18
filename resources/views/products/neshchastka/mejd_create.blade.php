@@ -321,7 +321,9 @@
                                         <div class="form-group">
                                             <label class="col-form-label" for="otvet-litso">Ответственное лицо</label>
                                             <select class="form-control polises" id="otvet-litso" name="person" style="width: 100%;">
-                                                <option selected="selected">Имя Фамилия</option>
+                                                @foreach($agents as $agent)
+                                                    <option value="{{$agent->id}}">{{$agent->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -376,3 +378,4 @@
 @section('scripts')
     <script src="/assets/custom/js/form/form-actions.js"></script>
 @endsection
+

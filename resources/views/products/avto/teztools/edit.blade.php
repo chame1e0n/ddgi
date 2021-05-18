@@ -399,38 +399,44 @@
                                                     <input type="text" class="form-control" name="polis_payload[]" value="{{$all_product->allProductInfoTransport[0]->polis_payload[$key]}}">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="modification[]" value="{{$all_product->allProductInfoTransport[0]->modification[$key]}}">
+                                                    <input type="text" class="form-control" name="modification[]" @if(!empty($all_product->allProductInfoTransport[0]->modification[$key])) value="{{$all_product->allProductInfoTransport[0]->modification[$key]}}" @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="state_num[]" value="{{$all_product->allProductInfoTransport[0]->state_num[$key]}}">
+                                                    <input type="text" class="form-control" name="state_num[]" @if(!empty($all_product->allProductInfoTransport[0]->state_num[$key])) value="{{$all_product->allProductInfoTransport[0]->state_num[$key]}}" @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="num_tech_passport[]" value="{{$all_product->allProductInfoTransport[0]->num_tech_passport[$key]}}">
+                                                    <input type="text" class="form-control" name="num_tech_passport[]" @if(!empty($all_product->allProductInfoTransport[0]->num_tech_passport[$key])) value="{{$all_product->allProductInfoTransport[0]->num_tech_passport[$key]}}" @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="num_engine[]" value="{{$all_product->allProductInfoTransport[0]->num_engine[$key]}}">
+                                                    <input type="text" class="form-control" name="num_engine[]" @if(!empty($all_product->allProductInfoTransport[0]->num_engine[$key])) value="{{$all_product->allProductInfoTransport[0]->num_engine[$key]}}" @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="num_carcase[]" value="{{$all_product->allProductInfoTransport[0]->num_carcase[$key]}}">
+                                                    <input type="text" class="form-control" name="num_carcase[]" @if(!empty($all_product->allProductInfoTransport[0]->num_carcase[$key])) value="{{$all_product->allProductInfoTransport[0]->num_carcase[$key]}}" @endif>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="carrying_capacity[]" value="{{$all_product->allProductInfoTransport[0]->carrying_capacity[$key]}}">
+                                                    <input type="text" class="form-control" name="carrying_capacity[]" @if(!empty($all_product->allProductInfoTransport[0]->carrying_capacity[$key])) value="{{$all_product->allProductInfoTransport[0]->carrying_capacity[$key]}}" @endif>
                                                 </td>
                                                 <td>
                                                     <input type="text" data-field="value" class="form-control"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->insurance_cost[$key]))
                                                            value="{{$all_product->allProductInfoTransport[0]->insurance_cost[$key]}}"
+                                                           @endif
                                                            name="insurance_cost[]">
                                                 </td>
                                                 <td>
                                                     <input type="text" data-field="sum"
                                                            class="form-control calc1 overall_insurance_sum-0"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->overall_polis_sum[$key]))
                                                            value="{{$all_product->allProductInfoTransport[0]->overall_polis_sum[$key]}}"
+                                                           @endif
                                                            name="overall_polis_sum[]">
                                                 </td>
                                                 <td>
                                                     <input type="text" data-field="premiya"
                                                            class="form-control insurance_premium-0"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->polis_premium[$key]))
                                                            value="{{$all_product->allProductInfoTransport[0]->polis_premium[$key]}}"
+                                                           @endif
                                                            name="polis_premium[]">
                                                 </td>
                                                 <td>
@@ -735,7 +741,7 @@
                                             <label for="polis-series" class="col-form-label">Серийный номер полиса
                                                 страхования</label>
                                             <input type="text" id="polis-series"
-                                                   value="{{$all_product->allProductInfo->policy_series}}"
+                                                   value="{{$all_product->allProductInfo->first()->policy_series}}"
                                                    name="policy_series"
                                                    class="form-control">
                                         </div>
@@ -747,7 +753,7 @@
                                                 <span class="input-group-text"></span>
                                             </div>
                                             <input id="insurance_from" name="policy_insurance_from"
-                                                   value="{{$all_product->allProductInfo->policy_insurance_from}}"
+                                                   value="{{$all_product->allProductInfo->first()->policy_insurance_from}}"
                                                    type="date"
                                                    class="form-control">
                                         </div>
@@ -760,7 +766,7 @@
                                                     style="width: 100%;">
                                                 @foreach($agents as $agent)
                                                     <option value="{{$agent->id}}"
-                                                            @if($agent->id == $all_product->allProductInfo->otvet_litso) selected @endif>{{$agent->name}}</option>
+                                                            @if($agent->id == $all_product->allProductInfo->first()->otvet_litso) selected @endif>{{$agent->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

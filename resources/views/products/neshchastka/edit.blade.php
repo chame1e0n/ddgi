@@ -361,8 +361,12 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-form-label" for="otvet-litso">Ответственное лицо</label>
-                                            <select class="form-control polises" id="otvet-litso" value="{{$all_product->allProductInfo->person}}" name="person" style="width: 100%;">
-                                                <option selected="selected">Имя Фамилия</option>
+                                            <select class="form-control polises" id="otvet-litso" name="person" style="width: 100%;">
+                                                @foreach($agents as $agent)
+                                                    <option value="{{$agent->id}}"
+                                                            @if(!empty($all_product->allProductInfo->where('policy_series', '!=', null)->first()->policy_insurance_from) and $all_product->allProductInfo->where('policy_series', '!=', null)->first()->otvet_litso) selected @endif>{{$agent->name}}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

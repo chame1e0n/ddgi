@@ -45,6 +45,10 @@ class AllProduct extends Model
     {
         return $this->hasMany(AllProductsTermsTransh::class, 'all_products_id', 'id');
     }
+    public function allProductCurrencyTerms()
+    {
+        return $this->hasMany(AllProductsTermsTransh::class, 'all_products_id', 'id');
+    }
     public function policyBeneficiaries()
     {
         return $this->hasOne(PolicyBeneficiaries::class, 'id', 'policy_beneficiaries_id');

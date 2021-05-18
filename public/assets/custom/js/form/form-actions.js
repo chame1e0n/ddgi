@@ -280,31 +280,31 @@ if (formAudit) {
 }
 
 
-if (formBrokers) {
-    formBrokers.addEventListener('submit', event => {
-        event.preventDefault()
-
-        // Данные из формы audit
-        const generalInformation = {
-            insurerName: getField('#insurer-name').value,
-            insurerAddress: getField('#insurer-address').value,
-            insurerPhone: getField('#insurer-phone').value,
-            insurerBill: getField('#insurer-bill').value,
-            insurerTypeActive: getField('#insurer-type-activity').value,
-            insurerTypeMFO: getField('#insurer-mfo').value,
-            insurerBank: getField('#insurer-bank').value,
-            insurerInn: getField('#insurer-inn').value,
-            insurerOkonh: getField('#insurer-okonh').value,
-            insurerOked: getField('#insurer-oked').value,
-            personalInfo: getField('#personal-info').value,
-            insurancePeriod: {
-                from: getField('#insurance-from').value,
-                to: getField('#insurance-to').value
-            },
-            geoZone: getField('#geograph-zone').value
-        }
-    })
-}
+// if (formBrokers) {
+//     formBrokers.addEventListener('submit', event => {
+//         event.preventDefault()
+//
+//         // Данные из формы audit
+//         const generalInformation = {
+//             insurerName: getField('#insurer-name').value,
+//             insurerAddress: getField('#insurer-address').value,
+//             insurerPhone: getField('#insurer-phone').value,
+//             insurerBill: getField('#insurer-bill').value,
+//             insurerTypeActive: getField('#insurer-type-activity').value,
+//             insurerTypeMFO: getField('#insurer-mfo').value,
+//             insurerBank: getField('#insurer-bank').value,
+//             insurerInn: getField('#insurer-inn').value,
+//             insurerOkonh: getField('#insurer-okonh').value,
+//             insurerOked: getField('#insurer-oked').value,
+//             personalInfo: getField('#personal-info').value,
+//             insurancePeriod: {
+//                 from: getField('#insurance-from').value,
+//                 to: getField('#insurance-to').value
+//             },
+//             geoZone: getField('#geograph-zone').value
+//         }
+//     })
+// }
 
 if (formNatarius) {
     formNatarius.addEventListener('submit', event => {
@@ -925,7 +925,7 @@ function addProductFields(fieldNumber) {
                                 </div>
                             </div>
                             <div data-radioSuccess5-${fieldNumber} class="col-md-6 r-2-show-${fieldNumber}" style="display: none;">
-                                
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -1242,7 +1242,7 @@ const addProductFieldRow = (fieldNumber) => {
         <td>
             <input type="text"  class="form-control" name="polis_places[]">
         </td>
-       
+
         <td>
             <input type="text" data-field="value" class="form-control" name="polis_places[]">
         </td>
@@ -1369,7 +1369,7 @@ const toggleBlockRadio = (id, dataAttr, open = true) => {
 const addInsurer = () => {
     const id = Math.random();
     const ln = document.querySelectorAll('#clone-insurance').length + 1
-    const html = ` 
+    const html = `
         <div id="${id}" class="card-body">
           <div class="card card-info" id="clone-insurance">
               <div class="card-header">

@@ -7,6 +7,7 @@ use App\AllProductInformation;
 use App\AllProductsTermsTransh;
 use App\MejdCurrencyTermsTransh;
 use App\Models\PolicyHolder;
+use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,8 @@ class MejdController extends Controller
      */
     public function create()
     {
-        return view('products.neshchastka.mejd_create');
+        $agents=Agent::query()->get();
+        return view('products.neshchastka.mejd_create', compact('agents'));
     }
 
     /**
@@ -144,7 +146,7 @@ class MejdController extends Controller
             'all_products_id' => $all_product->id,
             'policy_series' => $request->policy_series,
             'policy_insurance_from' => $request->policy_insurance_from,
-            'person' => $request->person
+            'otvet_litso' => $request->person
         ]);
 
         $currency_terms_mejd = AllProductsTermsTransh::create([
@@ -174,8 +176,9 @@ class MejdController extends Controller
     public function edit($id)
     {
         $banks = Bank::query()->get();
+        $agents=Agent::query()->get();
         $all_product = AllProduct::query()->with('policyHolder', 'allProductCurrencyTerms','allProductInfo')->findOrFail($id);
-        return view('products.neshchastka.edit',compact('all_product', 'banks'));
+        return view('products.neshchastka.edit',compact('all_product', 'banks', 'agents'));
     }
 
     /**
@@ -257,7 +260,7 @@ class MejdController extends Controller
             'all_products_id' => $all_product->id,
             'policy_series' => $request->policy_series,
             'policy_insurance_from' => $request->policy_insurance_from,
-            'person' => $request->person
+            'otvet_litso' => $request->person
         ]);
         return "success";
     }

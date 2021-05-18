@@ -358,7 +358,7 @@ class ExportController extends Controller
             "payment_sum_main" => $request->payment_sum_main,
             "payment_from_main" => $request->payment_from_main,
             "tariff" => $request->tariff,
-            "tariff_other" => $request->tariff_other,
+            "tarif_other" => $request->tariff_other,
             "preim" => $request->preim,
             "premiya_other" => $request->premiya_other,
             'application_form_file' => $application_form_file_path,

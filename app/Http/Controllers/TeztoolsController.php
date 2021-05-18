@@ -287,7 +287,7 @@ class TeztoolsController extends Controller
                 'okonx' => $request->okonh_insurer,
             ]
         );
-
+//dd($request);
         $policyBeneficiaries->update([
             'FIO' => $request->fio_beneficiary,
             'address' => $request->address_beneficiary,
