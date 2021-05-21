@@ -11,6 +11,8 @@
         <div class="form-group" data-tarif-descr @if(!old('tarif_other')) style="display: none" @endif>
             <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
             <input class="form-control" id="descrTarif" name="tarif_other" value="{{old('tarif_other')}}" type="number">
+            <label for="newDescrPreim" class="col-form-label">Новая страховая премия</label>
+            <input class="form-control" readonly id="newDescrPreim" type="number">
         </div>
     </div>
     <div class="col-md-12">
@@ -23,8 +25,10 @@
         отображаться только тогда, когда выбран checkbox "Тариф"
         -->
         <div class="form-group" data-preim-descr @if(!old('premiya_other')) style="display: none" @endif>
-            <label for="descrPreim" class="col-form-label">Укажите процент тарифа</label>
+            <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
             <input class="form-control" id="descrPreim" value="{{old('premiya_other')}}" name="premiya_other" type="number">
+            <label for="newDdescrTarif" class="col-form-label">Новый процент тарифа</label>
+            <input class="form-control" readonly id="newDdescrTarif" type="number">
         </div>
     </div>
 @endsection

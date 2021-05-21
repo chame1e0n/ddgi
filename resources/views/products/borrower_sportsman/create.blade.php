@@ -33,7 +33,7 @@
             </div>
 
             <section class="content">
-
+                @include('products.select')
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">

@@ -131,7 +131,7 @@ class AllProductController extends Controller
 
     public function index()
     {
-        $allProducts = AllProduct::getAllproduct()->get();
+        $allProducts = AllProduct::getAllproduct()->paginate(5);
 
 //        //ToDo:: complete it
 //        $cmp = Cmp::with('product', 'policySeries', 'policy', 'agent')->select('id', 'unique_number', 'product_id', 'policy_id', 'policy_series_id', 'user_id');

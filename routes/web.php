@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('audit', 'OtvetsvennostAuditController');
 
     ///Cargo
-    Route::resource('cargo', 'CargoController');
+  //  Route::resource('cargo', 'CargoController');
 
     ///Mejd
     Route::resource('mejd', 'MejdController');

@@ -8,7 +8,7 @@
                     <div class="col-sm-4">
                     <div class="form-group">
                         <label for="insurance_sum">Cтраховая сумма</label>
-                        <input type="text" value="{{old('insurance_sum')}}" id="insurance_sum" name="insurance_sum"
+                        <input @if(isset($insurance_sum_all)) data-sum-all-one @endif type="text" id="all-summ" value="{{old('insurance_sum')}}"  name="insurance_sum"
                                @if($errors->has('insurance_sum'))
                                class="form-control is-invalid"
                                @else
@@ -20,7 +20,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="insurance_bonus">Cтраховая премия</label>
-                        <input type="text" value="{{old('insurance_bonus')}}" id="insurance_bonus"
+                        <input @if(isset($insurance_bonus_all)) data-sum-two-all @endif type="text" value="{{old('insurance_bonus')}}" id="insurance_bonus"
                                name="insurance_bonus" @if($errors->has('insurance_bonus'))
                                class="form-control is-invalid"
                                @else

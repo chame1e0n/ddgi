@@ -27,6 +27,10 @@ class Allproduct extends Model
         return $this->hasMany(AllProductInformation::class, 'all_products_id', 'id');
 
     }
+    //if one information
+    public function information(){
+        return $this->hasOne(AllProductInformation::class, 'all_products_id', 'id');
+    }
 
     public function strahPremiya()
     {

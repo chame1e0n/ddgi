@@ -203,9 +203,9 @@
                                         </td>
                                         <td><input readonly data-insurance-stoimost type="text"
                                                    class="form-control overall-sum"/></td>
-                                        <td><input readonly data-insurance-sum type="text"
+                                        <td><input readonly data-sum-one data-insurance-sum type="text"
                                                    class="form-control overall-sum4"/></td>
-                                        <td><input readonly data-insurance-award type="text"
+                                        <td><input readonly data-sum-two data-insurance-award type="text"
                                                    class="form-control overall-sum3"/></td>
                                     </tr>
                                     </tbody>

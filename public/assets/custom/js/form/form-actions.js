@@ -11,6 +11,90 @@ $(document).ready(function () {
             this.value = this.value.replace(/[^a-z]/g, '');
         }
     })
+
+    const sumOneFields = document.querySelectorAll('[data-sum-one]');
+    const sumTwoFields = document.querySelectorAll('[data-sum-two]');
+    const sumThreeFields = document.querySelectorAll('[data-sum-three]');
+
+    const totalOneField = document.querySelector('[data-sum-all-one]');
+    const totalTwoField = document.querySelector('[data-sum-two-all]');
+    const totalThreeField = document.querySelector('[data-sum-three-all]');
+
+
+    setInterval(() => {
+        sumOneFields.forEach(field => {
+            let value = 0;
+            sumOneFields.forEach(item => {
+                value += +item.value
+            })
+            totalOneField.value = value;
+        })
+    }, 500)
+    setInterval(() => {
+        sumTwoFields.forEach(field => {
+            let value = 0;
+            sumTwoFields.forEach(item => {
+                value += +item.value
+            })
+            totalTwoField.value = value;
+        })
+    }, 500)
+
+    const newTarifInput = document.getElementById('descrTarif');
+    const newTarifCalc = document.getElementById('newDdescrTarif');
+    const newPreimInput = document.getElementById('descrPreim');
+    const newPreimCalc = document.getElementById('newDescrPreim');
+
+    newTarifInput.addEventListener('input', function() {
+        const dateFromDogovorStrah = document.getElementById('strah_dogovor_ot').value;
+        const dateToDogovorStrah = document.getElementById('strah_dogovor_do').value;
+        const dateFromDogovorStrah1 = new Date(dateFromDogovorStrah);
+        const dateToDogovorStrah1 = new Date(dateToDogovorStrah);
+        const daysAll = Math.ceil(Math.abs(dateToDogovorStrah1.getTime() - dateFromDogovorStrah1.getTime()) / (1000 * 3600 * 24));
+        newPreimCalc.value = (newTarifInput.value / 100 * totalOneField.value * daysAll / 365).toFixed(1);
+    })
+    newPreimInput.addEventListener('input', function() {
+        const dateFromDogovorStrah = document.getElementById('strah_dogovor_ot').value;
+        const dateToDogovorStrah = document.getElementById('strah_dogovor_do').value;
+        const dateFromDogovorStrah1 = new Date(dateFromDogovorStrah);
+        const dateToDogovorStrah1 = new Date(dateToDogovorStrah);
+        const daysAll = Math.ceil(Math.abs(dateToDogovorStrah1.getTime() - dateFromDogovorStrah1.getTime()) / (1000 * 3600 * 24));
+        newTarifCalc.value = (totalOneField.value / newPreimInput.value / daysAll * 365).toFixed(1);
+    })
+
+
+
+    document.addEventListener('input', function() {
+        try {
+            const dateS = document.getElementById('pastorj_period_dogovor_s').value;
+            const dateDo = document.getElementById('pastorj_period_dogovor_do').value;
+            const totalField = document.getElementById('pastorj_period_days');
+            const totalField1 = document.getElementById('pastorj_istek_period');
+            const totalField2 = document.getElementById('pastorj_neistek_period');
+            const rastorj = document.getElementById('pastorj_data_dogovor').value;
+            const dateFrom = new Date(dateS);
+            const dateTo = new Date(dateDo);
+            const dateRastorj = new Date(rastorj);
+            var days = Math.ceil(Math.abs(dateTo.getTime() - dateFrom.getTime()) / (1000 * 3600 * 24));
+            var days1 = Math.ceil(Math.abs(dateFrom.getTime() - dateRastorj.getTime()) / (1000 * 3600 * 24));
+            var days2 = Math.ceil(Math.abs(dateRastorj.getTime() - dateTo.getTime()) / (1000 * 3600 * 24));
+            const preimRastorjTotal = document.getElementById('pastorj_preim');
+            const preimRastorjOneDayTotal = document.getElementById('pastorj_preim_one_days');
+            const preimNezarabot = document.getElementById('preim_nezarabot');
+            const vozmesheniya = document.getElementById('strah_vozozmesh');
+            const rashod = document.getElementById('prochie_rashodi');
+            const vozvrat = document.getElementById('summ_vozvrat');
+            preimRastorjOneDayTotal.value = (preimRastorjTotal.value / days).toFixed(1);
+            preimNezarabot.value = (preimRastorjOneDayTotal.value * days2).toFixed(1);
+            vozvrat.value = (preimNezarabot.value - vozmesheniya.value - rashod.value).toFixed(1);
+            totalField.value = `${days} дней`;
+            totalField1.value = `${days1} дней`;
+            totalField2.value = `${days2} дней`;
+
+        } catch {
+            console.log('hh');
+        }
+    });
 });
 
 
@@ -167,8 +251,7 @@ function calcDifferenceBetweenDates(from, to) {
     const dateFrom = new Date(from);
     const dateTo = new Date(to);
     const days = Math.ceil(Math.abs(dateTo.getTime() - dateFrom.getTime()) / (1000 * 3600 * 24));
-    const totalField = document.querySelector('[data-total="total-active-org"]')
-
+    const totalField = document.querySelector('[data-total="total-active-org"]');
     totalField.value = `${days} дней`
 }
 
@@ -177,19 +260,15 @@ function calcDifferenceBetweenDates(from, to) {
  */
 
 function getActivityDates(element) {
-
     if (element.dataset.activityPeriod === 'from') {
         activityPeriodDates.from = element.value
     }
-
     if (element.dataset.activityPeriod === 'to') {
         activityPeriodDates.to = element.value
     }
-
     if (activityPeriodDates.from && activityPeriodDates.to) {
         return true
     }
-
     return false
 }
 
@@ -1247,7 +1326,7 @@ const addProductFieldRow = (fieldNumber) => {
             <input type="text" data-field="value" class="form-control" name="polis_places[]">
         </td>
         <td>
-            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
+            <input type="text" data-sum-one data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
         </td>
         <td>
             <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="polis_premium[]">
@@ -2004,13 +2083,13 @@ if (addImushestvoBtn) {
                 <input type="text" class="form-control forsum2" name="kolichestvo[]">
             </td>
             <td>
-            <input data-field="value" type="text" class="form-control" name="strah_stoimost[]">
+            <input data-field="value" type="text" data-field="value" class="form-control" name="strah_stoimost[]">
         </td>
         <td>
-            <input data-field="sum" type="text" class="form-control" name="strah_summa[]">
+            <input data-field="sum" type="text" data-field="sum" class="form-control" name="strah_summa[]">
         </td>
          <td>
-            <input data-field="premiya" type="text" class="form-control" name="strah_premiya[]">
+            <input data-field="premiya" type="text" data-field="premiya" class="form-control" name="strah_premiya[]">
         </td>
             <td>
                 <input type="button" onclick="removeAndCalc(${id})" value="Удалить" class="btn btn-warning">

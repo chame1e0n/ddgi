@@ -1,7 +1,7 @@
 @section('_obshie_svedeniya_content')
     <div class="col-md-6">
         <div class="form-group">
-            <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
+            <label for="insurer-name" class="col-form-label fiz-list">ФИО страхователя</label>
             <input type="text" id="insurer-name" name="fio_insurer"
                    value="{{old('fio_insurer')}}" @if($errors->has('fio_insurer'))
                    class="form-control is-invalid"

@@ -101,14 +101,14 @@
                                             <td>{{ @$product->policy->number }}</td>
 {{--                                            <td>{{ @$product->agent->surname }} {{ @$product->agent->name }} {{ @$product->agent->middle_name }}</td>--}}
                                             <td>
-                                                <form action="{{ route($routes[$product->product_id].'.destroy',$product->id)}}"
+                                                <form action="{{ route($routes[$product->product_id ?? 1].'.destroy',$product->id)}}"
                                                       method="POST">
 
                                                     <a class="btn btn-info"
-                                                       href="{{ route($routes[$product->product_id].'.edit',$product->id) }}"><i class="fas fa-eye"></i></a>
+                                                       href="{{ route($routes[$product->product_id ?? 1].'.edit',$product->id) }}"><i class="fas fa-eye"></i></a>
 
                                                     <a class="btn btn-primary"
-                                                       href="{{ route($routes[$product->product_id].'.edit',$product->id) }}"><i class="fas fa-edit"></i></a>
+                                                       href="{{ route($routes[$product->product_id ?? 1].'.edit',$product->id) }}"><i class="fas fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
 
