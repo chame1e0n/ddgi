@@ -1,31 +1,36 @@
 @extends('layouts.index')
+
 {{--@section('css')--}}
 {{--    <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">--}}
 {{--    <link rel="stylesheet" href="/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">--}}
 {{--@endsection--}}
+
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{route('teztools.update', $all_product->id)}}" method="post" enctype="multipart/form-data"
+
+    <form action="{{route('teztools.update', $all_product->id)}}"
+          method="post"
+          enctype="multipart/form-data"
           id="mainFormKasko">
         @csrf
         @method('put')
+
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     @if ($errors->any())
                         <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                            <strong>Whoops!</strong> There were some problems with your input.<br /><br />
                             <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
                             </ul>
                         </div>
                     @endif
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
 
-                        </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-6"></div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Главная</a></li>
@@ -36,106 +41,122 @@
                     </div>
                 </div>
             </div>
+
             <section class="content">
                 <div class="card-body">
                     <div class="card card-info" id="clone-insurance">
                         <div class="card-header">
                             <h3 class="card-title">Общие сведения</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
-
                         <div class="card-body">
-
                             <div class="row">
-
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="beneficiary-name" class="col-form-label">Наименования
-                                            страхователя</label>
-                                        <input type="text" id="beneficiary-name"
-                                               value="{{$all_product->policyHolder->FIO}}" name="fio_insurer"
-                                               class="form-control">
+                                        <label for="beneficiary-name" class="col-form-label">Наименования страхователя</label>
+                                        <input type="text"
+                                               id="beneficiary-name"
+                                               value="{{$all_product->policyHolder->FIO}}"
+                                               name="fio_insurer"
+                                               class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Адрес страхователя</label>
-                                        <input type="text" id="insurer-address"
-                                               value="{{$all_product->policyHolder->address}}" name="address_insurer"
-                                               class="form-control">
+                                        <input type="text"
+                                               id="insurer-address"
+                                               value="{{$all_product->policyHolder->address}}"
+                                               name="address_insurer"
+                                               class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-tel" class="col-form-label">Телефонный номер</label>
-                                        <input type="text" id="insurer-tel"
-                                               value="{{$all_product->policyHolder->phone_number}}" name="tel_insurer"
-                                               class="form-control">
+                                        <input type="text"
+                                               id="insurer-tel"
+                                               value="{{$all_product->policyHolder->phone_number}}"
+                                               name="tel_insurer"
+                                               class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-schet"
+                                        <input type="text"
+                                               id="insurer-schet"
                                                value="{{$all_product->policyHolder->phone_number}}"
-                                               name="address_schet" class="form-control">
+                                               name="address_schet"
+                                               class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-inn" name="inn_insurer"
-                                               value="{{$all_product->policyHolder->inn}}" class="form-control">
+                                        <input type="text"
+                                               id="insurer-inn"
+                                               name="inn_insurer"
+                                               value="{{$all_product->policyHolder->inn}}"
+                                               class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer"
-                                               value="{{$all_product->policyHolder->mfo}}" class="form-control">
+                                        <input type="text"
+                                               id="insurer-mfo"
+                                               name="mfo_insurer"
+                                               value="{{$all_product->policyHolder->mfo}}"
+                                               class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <input type="text" id="insurer-bank" name="bank_insurer"
-                                               value="{{$all_product->policyHolder->bank_id}}" class="form-control">
+                                        <select class="form-control bank"
+                                                id="insurer-bank"
+                                                name="bank_insurer"
+                                                style="width: 100%;"
+                                                required>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="oked_insurer"
-                                               value="{{$all_product->policyHolder->oked}}" class="form-control">
+                                        <input type="text"
+                                               id="insurer-okonh"
+                                               name="oked_insurer"
+                                               value="{{$all_product->policyHolder->oked}}"
+                                               class="form-control" />
                                     </div>
                                 </div>
-
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" name="okonh_insurer"
-                                               value="{{$all_product->policyHolder->okonx}}" class="form-control">
+                                        <input type="text"
+                                               id="insurer-okonh"
+                                               name="okonh_insurer"
+                                               value="{{$all_product->policyHolder->okonx}}"
+                                               class="form-control" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
                 <div class="card-body">
                     <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
                             <h3 class="card-title">Выгодоприобретатель</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -145,121 +166,118 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="beneficiary-name" class="col-form-label">Наименования
-                                                страхователя</label>
-                                            <input type="text" id="beneficiary-name"
+                                            <label for="beneficiary-name" class="col-form-label">Наименования страхователя</label>
+                                            <input type="text"
+                                                   id="beneficiary-name"
                                                    value="{{$all_product->policyBeneficiaries->FIO}}"
                                                    name="fio_beneficiary"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="beneficiary-address" class="col-form-label">Адрес</label>
-                                            <input type="text" id="beneficiary-address"
+                                            <input type="text"
+                                                   id="beneficiary-address"
                                                    value="{{$all_product->policyBeneficiaries->address}}"
                                                    name="address_beneficiary"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="beneficiary-tel"
+                                            <input type="text"
+                                                   id="beneficiary-tel"
                                                    value="{{$all_product->policyBeneficiaries->phone_number}}"
                                                    name="tel_beneficiary"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-schet" class="col-form-label">Расчетный
-                                                счет</label>
-                                            <input type="text" id="beneficiary-schet"
+                                            <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
+                                            <input type="text"
+                                                   id="beneficiary-schet"
                                                    value="{{$all_product->policyBeneficiaries->checking_account}}"
                                                    name="beneficiary_schet"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                            <input type="text" id="beneficiary-inn"
+                                            <input type="text"
+                                                   id="beneficiary-inn"
                                                    value="{{$all_product->policyBeneficiaries->inn}}"
                                                    name="inn_beneficiary"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                            <input type="text" id="beneficiary-mfo"
+                                            <input type="text"
+                                                   id="beneficiary-mfo"
                                                    value="{{$all_product->policyBeneficiaries->mfo}}"
                                                    name="mfo_beneficiary"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                            <input type="text" id="insurer-okonh"
+                                            <input type="text"
+                                                   id="insurer-okonh"
                                                    value="{{$all_product->policyBeneficiaries->oked}}"
                                                    name="oked_beneficiary"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-okonh" class="col-form-label">Номер
-                                                паспорта</label>
-                                            <input type="text" id="beneficiary-okonh"
+                                            <label for="beneficiary-okonh" class="col-form-label">Номер паспорта</label>
+                                            <input type="text"
+                                                   id="beneficiary-okonh"
                                                    value="{{$all_product->policyBeneficiaries->nomer_passport}}"
                                                    name="nomer_passport"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                            <input type="text" id="beneficiary-bank"
-                                                   value="{{$all_product->policyBeneficiaries->bank_id}}"
-                                                   name="bank_beneficiary"
-                                                   class="form-control">
+                                            <select class="form-control bank"
+                                                    id="beneficiary-bank"
+                                                    name="bank_beneficiary"
+                                                    style="width: 100%;"
+                                                    required>
+                                            </select>
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
-                                            <input type="text" id="beneficiary-okonh"
+                                            <input type="text"
+                                                   id="beneficiary-okonh"
                                                    value="{{$all_product->policyBeneficiaries->okonx}}"
                                                    name="okonh_beneficiary"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="beneficiary-okonh" class="col-form-label">Серия</label>
-                                            <input type="text" id="beneficiary-okonh"
+                                            <input type="text"
+                                                   id="beneficiary-okonh"
                                                    value="{{$all_product->policyBeneficiaries->seria_passport}}"
                                                    name="seria_passport"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-body">
                             <div id="anketa-fields">
                                 <div class="row">
@@ -272,21 +290,26 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">с</span>
                                                         </div>
-                                                        <input id="insurance_from" name="insurance_from"
-                                                               value="{{$all_product->insurance_from}}" type="date"
-                                                               class="form-control">
+                                                        <input id="insurance_from"
+                                                               name="insurance_from"
+                                                               value="{{$all_product->insurance_from}}"
+                                                               type="date"
+                                                               class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <div class="input-group mb-3" style="margin-top: 33px">
+                                                    <div class="input-group mb-3"
+                                                         style="margin-top: 33px;">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">до</span>
                                                         </div>
-                                                        <input id="insurance_to" name="insurance_to"
-                                                               value="{{$all_product->insurance_to}}" type="date"
-                                                               class="form-control">
+                                                        <input id="insurance_to"
+                                                               name="insurance_to"
+                                                               value="{{$all_product->insurance_to}}"
+                                                               type="date"
+                                                               class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -294,31 +317,48 @@
                                         <div class="col-sm-4">
                                             <div class="form-group form-inline justify-content-between">
                                                 <label>Использования ТС на основании</label>
-                                                <select class="form-control payment-schedule" name="using_tc"
+                                                <select class="form-control payment-schedule"
+                                                        name="using_tc"
                                                         onchange="showDiv('other-payment-schedule', this)"
-                                                        style="width: 100%; text-align: center">
-                                                    <option
-                                                        @if($all_product->using_tc == 'selected') selected @endif></option>
-                                                    <option @if($all_product->using_tc == '1') selected
-                                                            @endif value="1">Тех пасспорт
+                                                        style="width: 100%; text-align: center;">
+                                                    <option @if($all_product->using_tc == 'selected')
+                                                                selected
+                                                            @endif>
                                                     </option>
-                                                    <option @if($all_product->using_tc == '2') selected
-                                                            @endif value="2">Доверенность
+                                                    <option value="1"
+                                                            @if($all_product->using_tc == '1')
+                                                                selected
+                                                            @endif>
+                                                        Тех пасспорт
                                                     </option>
-                                                    <option @if($all_product->using_tc == '3') selected
-                                                            @endif value="3">Договор аренды
+                                                    <option value="2"
+                                                            @if($all_product->using_tc == '2')
+                                                                selected
+                                                            @endif>
+                                                        Доверенность
                                                     </option>
-                                                    <option @if($all_product->using_tc == '4') selected
-                                                            @endif value="4">Путевой лист
+                                                    <option value="3"
+                                                            @if($all_product->using_tc == '3')
+                                                                selected
+                                                            @endif>
+                                                        Договор аренды
+                                                    </option>
+                                                    <option value="4"
+                                                            @if($all_product->using_tc == '4')
+                                                                selected
+                                                            @endif>
+                                                        Путевой лист
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="geographic-zone">Географическая зона:</label>
-                                            <input type="text" id="geographic-zone" value="{{$all_product->geo_zone}}"
+                                            <input type="text"
+                                                   id="geographic-zone"
+                                                   value="{{$all_product->geo_zone}}"
                                                    name="geo_zone"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -326,13 +366,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Сведени о трансортных средствах</h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
@@ -341,126 +379,193 @@
                         <div class="form-group">
                             <button type="button" id="cascoAddButton" class="btn btn-primary ">Добавить</button>
                         </div>
-                        <div class="table-responsive p-0 " style="max-height: 300px;">
+                        <div class="table-responsive p-0 "
+                             style="max-height: 300px;">
                             <div id="product-fields" data-info-table class="product-fields" data-field-number="0">
                                 <table class="table table-hover table-head-fixed" id="empTable">
                                     <thead>
-                                    <tr>
-                                        <th class="text-nowrap">Номер полиса</th>
-                                        <th class="text-nowrap">Серия полиса</th>
-                                        <th class="text-nowrap">Дата выдачи</th>
-                                        <th class="text-nowrap">Год выпуска</th>
-                                        <th class="text-nowrap">Периуд действия от</th>
-                                        <th class="text-nowrap">Периуд действия до</th>
-                                        <th class="text-nowrap">Выбор агента</th>
-                                        <th class="text-nowrap">Марка и модель</th>
-                                        <th class="text-nowrap">Модификация</th>
-                                        <th class="text-nowrap">Гос. номер</th>
-                                        <th class="text-nowrap">Номер тех паспорта</th>
-                                        <th class="text-nowrap">Номер двигателя</th>
-                                        <th class="text-nowrap">Номер кузова</th>
-                                        <th class="text-nowrap">Грузоподмность</th>
-                                        <th class="text-nowrap">Страховая стоимость</th>
-                                        <th class="text-nowrap">Страховая сумма</th>
-                                        <th class="text-nowrap">Страховая премия</th>
-                                    </tr>
+                                        <tr>
+                                            <th class="text-nowrap">Номер полиса</th>
+                                            <th class="text-nowrap">Серия полиса</th>
+                                            <th class="text-nowrap">Дата выдачи</th>
+                                            <th class="text-nowrap">Год выпуска</th>
+                                            <th class="text-nowrap">Периуд действия от</th>
+                                            <th class="text-nowrap">Периуд действия до</th>
+                                            <th class="text-nowrap">Выбор агента</th>
+                                            <th class="text-nowrap">Марка и модель</th>
+                                            <th class="text-nowrap">Модификация</th>
+                                            <th class="text-nowrap">Гос. номер</th>
+                                            <th class="text-nowrap">Номер тех паспорта</th>
+                                            <th class="text-nowrap">Номер двигателя</th>
+                                            <th class="text-nowrap">Номер кузова</th>
+                                            <th class="text-nowrap">Грузоподмность</th>
+                                            <th class="text-nowrap">Страховая стоимость</th>
+                                            <th class="text-nowrap">Страховая сумма</th>
+                                            <th class="text-nowrap">Страховая премия</th>
+                                        </tr>
                                     </thead>
-                                    @if($all_product->allProductInfoTransport[0]->polis_mark !== null)
-                                        @foreach($all_product->allProductInfoTransport[0]->polis_mark as $key=>$item)
+
+                                    @if($all_product->allProductInfoTransport->count() > 0 && $all_product->allProductInfoTransport[0]->polis_mark !== null)
+                                        @foreach($all_product->allProductInfoTransport[0]->polis_mark as $key => $item)
                                             <tr id="a${fieldNumber}">
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis_mark[]" value="{{$all_product->allProductInfoTransport[0]->polis_mark[$key]}}">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="polis_mark[]"
+                                                           value="{{$all_product->allProductInfoTransport[0]->polis_mark[$key]}}" />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis_model[]" value="{{$all_product->allProductInfoTransport[0]->polis_model[$key]}}">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="polis_model[]"
+                                                           value="{{$all_product->allProductInfoTransport[0]->polis_model[$key]}}" />
                                                 </td>
                                                 <td>
-                                                    <input disabled type="date" class="form-control">
+                                                    <input disabled type="date" class="form-control" />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis_gos_num[]" value="{{$all_product->allProductInfoTransport[0]->polis_gos_num[$key]}}">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="polis_gos_num[]"
+                                                           value="{{$all_product->allProductInfoTransport[0]->polis_gos_num[$key]}}" />
                                                 </td>
                                                 <td>
-                                                    <input type="date" class="form-control" name="polis_teh_passport[]" value="{{$all_product->allProductInfoTransport[0]->polis_teh_passport[$key]}}">
+                                                    <input type="date"
+                                                           class="form-control"
+                                                           name="polis_teh_passport[]"
+                                                           value="{{$all_product->allProductInfoTransport[0]->polis_teh_passport[$key]}}" />
                                                 </td>
                                                 <td>
-                                                    <input type="date" class="form-control" name="polis_num_engine[]" value="{{$all_product->allProductInfoTransport[0]->polis_num_engine[$key]}}">
+                                                    <input type="date"
+                                                           class="form-control"
+                                                           name="polis_num_engine[]"
+                                                           value="{{$all_product->allProductInfoTransport[0]->polis_num_engine[$key]}}" />
                                                 </td>
                                                 <td>
-                                                    <select class="form-control" id="polise_agents" name="agents[]"
+                                                    <select class="form-control"
+                                                            id="polise_agents"
+                                                            name="agents[]"
                                                             style="width: 100%;">
-                                                        @foreach($agents as $agent)
-                                                            <option value="{{$agent->id}}"
-                                                                    @if($agent->id == $all_product->allProductInfoTransport[0]->agents[$key]) selected @endif>{{$agent->name}}</option>
-                                                        @endforeach
+                                                    @foreach($agents as $agent)
+                                                        <option value="{{$agent->id}}"
+                                                                @if($agent->id == $all_product->allProductInfoTransport[0]->agents[$key])
+                                                                    selected
+                                                                @endif>
+                                                            {{$agent->name}}
+                                                        </option>
+                                                    @endforeach
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="polis_payload[]" value="{{$all_product->allProductInfoTransport[0]->polis_payload[$key]}}">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="polis_payload[]"
+                                                           value="{{$all_product->allProductInfoTransport[0]->polis_payload[$key]}}" />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="modification[]" @if(!empty($all_product->allProductInfoTransport[0]->modification[$key])) value="{{$all_product->allProductInfoTransport[0]->modification[$key]}}" @endif>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="modification[]"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->modification[$key]))
+                                                            value="{{$all_product->allProductInfoTransport[0]->modification[$key]}}"
+                                                           @endif />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="state_num[]" @if(!empty($all_product->allProductInfoTransport[0]->state_num[$key])) value="{{$all_product->allProductInfoTransport[0]->state_num[$key]}}" @endif>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="state_num[]"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->state_num[$key]))
+                                                            value="{{$all_product->allProductInfoTransport[0]->state_num[$key]}}"
+                                                           @endif />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="num_tech_passport[]" @if(!empty($all_product->allProductInfoTransport[0]->num_tech_passport[$key])) value="{{$all_product->allProductInfoTransport[0]->num_tech_passport[$key]}}" @endif>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="num_tech_passport[]"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->num_tech_passport[$key]))
+                                                            value="{{$all_product->allProductInfoTransport[0]->num_tech_passport[$key]}}"
+                                                           @endif />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="num_engine[]" @if(!empty($all_product->allProductInfoTransport[0]->num_engine[$key])) value="{{$all_product->allProductInfoTransport[0]->num_engine[$key]}}" @endif>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="num_engine[]"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->num_engine[$key]))
+                                                            value="{{$all_product->allProductInfoTransport[0]->num_engine[$key]}}"
+                                                           @endif />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="num_carcase[]" @if(!empty($all_product->allProductInfoTransport[0]->num_carcase[$key])) value="{{$all_product->allProductInfoTransport[0]->num_carcase[$key]}}" @endif>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="num_carcase[]"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->num_carcase[$key]))
+                                                            value="{{$all_product->allProductInfoTransport[0]->num_carcase[$key]}}"
+                                                           @endif />
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="carrying_capacity[]" @if(!empty($all_product->allProductInfoTransport[0]->carrying_capacity[$key])) value="{{$all_product->allProductInfoTransport[0]->carrying_capacity[$key]}}" @endif>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="carrying_capacity[]"
+                                                           @if(!empty($all_product->allProductInfoTransport[0]->carrying_capacity[$key]))
+                                                            value="{{$all_product->allProductInfoTransport[0]->carrying_capacity[$key]}}"
+                                                           @endif />
                                                 </td>
                                                 <td>
-                                                    <input type="text" data-field="value" class="form-control"
+                                                    <input type="text"
+                                                           data-field="value"
+                                                           class="form-control"
+                                                           name="insurance_cost[]"
                                                            @if(!empty($all_product->allProductInfoTransport[0]->insurance_cost[$key]))
-                                                           value="{{$all_product->allProductInfoTransport[0]->insurance_cost[$key]}}"
-                                                           @endif
-                                                           name="insurance_cost[]">
+                                                            value="{{$all_product->allProductInfoTransport[0]->insurance_cost[$key]}}"
+                                                           @endif />
                                                 </td>
                                                 <td>
-                                                    <input type="text" data-field="sum"
+                                                    <input type="text"
+                                                           data-field="sum"
                                                            class="form-control calc1 overall_insurance_sum-0"
+                                                           name="overall_polis_sum[]"
                                                            @if(!empty($all_product->allProductInfoTransport[0]->overall_polis_sum[$key]))
-                                                           value="{{$all_product->allProductInfoTransport[0]->overall_polis_sum[$key]}}"
-                                                           @endif
-                                                           name="overall_polis_sum[]">
+                                                            value="{{$all_product->allProductInfoTransport[0]->overall_polis_sum[$key]}}"
+                                                           @endif />
                                                 </td>
                                                 <td>
-                                                    <input type="text" data-field="premiya"
+                                                    <input type="text"
+                                                           data-field="premiya"
                                                            class="form-control insurance_premium-0"
+                                                           name="polis_premium[]"
                                                            @if(!empty($all_product->allProductInfoTransport[0]->polis_premium[$key]))
-                                                           value="{{$all_product->allProductInfoTransport[0]->polis_premium[$key]}}"
-                                                           @endif
-                                                           name="polis_premium[]">
+                                                            value="{{$all_product->allProductInfoTransport[0]->polis_premium[$key]}}"
+                                                           @endif />
                                                 </td>
-                                                <td>
-                                                </td>
+                                                <td></td>
                                                 <td>
                                                     <input type="button"
                                                            onclick="removeProductsFieldRow(${fieldNumber})"
-                                                           value="Удалить" class="btn btn-warning">
+                                                           value="Удалить"
+                                                           class="btn btn-warning" />
                                                 </td>
                                             </tr>
                                         @endforeach
                                     @endif
+
                                     <tr></tr>
+
                                     <tbody>
-                                    <tr>
-                                        <td colspan="14" style="text-align: right"><label
-                                                class="text-bold">Итого</label></td>
-                                        <td><input readonly data-insurance-stoimost type="text"
-                                                   class="form-control overall-sum"/></td>
-                                        <td><input readonly data-insurance-sum type="text"
-                                                   class="form-control overall-sum4"/></td>
-                                        <td><input readonly data-insurance-award type="text"
-                                                   class="form-control overall-sum3"/></td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="14"
+                                                style="text-align: right;">
+                                                <label class="text-bold">Итого</label>
+                                            </td>
+                                            <td>
+                                                <input readonly data-insurance-stoimost type="text" class="form-control overall-sum" />
+                                            </td>
+                                            <td>
+                                                <input readonly data-insurance-sum type="text" class="form-control overall-sum4" />
+                                            </td>
+                                            <td>
+                                                <input readonly data-insurance-award type="text" class="form-control overall-sum3" />
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -468,22 +573,29 @@
                     </div>
                     <div id="general-product-fields">
                         <div id="product-field-modal-id1" class="modal" data-field-number="0">
-                            <div class="modal-content" style="min-height: 100%; padding: 20px;"
+                            <div class="modal-content"
+                                 style="min-height: 100%; padding: 20px;"
                                  id="product-field-modal-content[]">
-                                <span onclick="closeModal(id1)" class="close product-fields-close"
-                                      id="product-fields-close[]" data-field-number="0">&times;</span>
+                                <span onclick="closeModal(id1)"
+                                      class="close product-fields-close"
+                                      id="product-fields-close[]"
+                                      data-field-number="0">
+                                    &times;
+                                </span>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Трафматические
-                                                повреждении</label>
+                                            <label for="beneficiary-bank" class="col-form-label">Трафматические повреждении</label>
                                             <div class="form-group">
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">Количество</span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="one_sum[]"
-                                                           id="vehicle_damage_sum-${fieldNumber}" value="value for id1">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="one_sum[]"
+                                                           id="vehicle_damage_sum-${fieldNumber}"
+                                                           value="value for id1" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -491,8 +603,10 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">Страховая сумма</span>
                                                     </div>
-                                                    <input type="text" class="form-control r-${fieldNumber}"
-                                                           name="one_sum[]" id="vehicle_damage_sum-${fieldNumber}">
+                                                    <input type="text"
+                                                           class="form-control r-${fieldNumber}"
+                                                           name="one_sum[]"
+                                                           id="vehicle_damage_sum-${fieldNumber}" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -500,8 +614,10 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">Страховая премия</span>
                                                     </div>
-                                                    <input type="text" class="form-control r-${fieldNumber}"
-                                                           name="one_sum[]" id="vehicle_damage_sum-${fieldNumber}">
+                                                    <input type="text"
+                                                           class="form-control r-${fieldNumber}"
+                                                           name="one_sum[]"
+                                                           id="vehicle_damage_sum-${fieldNumber}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -515,8 +631,10 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">Страховая сумма</span>
                                                     </div>
-                                                    <input type="text" class="form-control r-${fieldNumber}"
-                                                           name="one_sum[]" id="vehicle_damage_sum-${fieldNumber}">
+                                                    <input type="text"
+                                                           class="form-control r-${fieldNumber}"
+                                                           name="one_sum[]"
+                                                           id="vehicle_damage_sum-${fieldNumber}" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -524,19 +642,25 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">Страховая премия</span>
                                                     </div>
-                                                    <input type="text" class="form-control r-${fieldNumber}"
-                                                           name="one_sum[]" id="vehicle_damage_sum-${fieldNumber}">
+                                                    <input type="text"
+                                                           class="form-control r-${fieldNumber}"
+                                                           name="one_sum[]"
+                                                           id="vehicle_damage_sum-${fieldNumber}" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="beneficiary-bank" class="col-form-label">Итого</label>
+
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Общая страховая сумма</span>
                                                 </div>
-                                                <input type="text" class="form-control" name="one_sum[]" data-overall
-                                                       id="total_inp${fieldNumber}">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       name="one_sum[]"
+                                                       data-overall
+                                                       id="total_inp${fieldNumber}" />
                                             </div>
                                         </div>
                                     </div>
@@ -545,13 +669,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
@@ -562,32 +684,43 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая сумма</label>
-                                        <input type="text" id="all-summ" name="insurance_sum"
-                                               value="{{$all_product->insurance_sum}}" class="form-control">
+                                        <input type="text"
+                                               id="all-summ"
+                                               name="insurance_sum"
+                                               value="{{$all_product->insurance_sum}}"
+                                               class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Cтраховая премия</label>
-                                        <input type="text" id="all-summ" name="insurance_bonus"
-                                               value="{{$all_product->insurance_bonus}}" class="form-control">
+                                        <input type="text"
+                                               id="all-summ"
+                                               name="insurance_bonus"
+                                               value="{{$all_product->insurance_bonus}}"
+                                               class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
-                                        <input type="text" id="all-summ" name="franchise"
-                                               value="{{$all_product->franchise}}" class="form-control">
+                                        <input type="text"
+                                               id="all-summ"
+                                               name="franchise"
+                                               value="{{$all_product->franchise}}"
+                                               class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" id="walletNames"
+                                        <select class="form-control"
+                                                id="walletNames"
                                                 name="insurance_premium_currency"
-                                                style="width: 100%; text-align: center">
+                                                style="width: 100%; text-align: center;">
                                             <option value="{{$all_product->insurance_premium_currency}}"
-                                                    selected="selected">UZS
+                                                    selected="selected">
+                                                UZS
                                             </option>
                                         </select>
                                     </div>
@@ -595,13 +728,21 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition" class="form-control payment-schedule" name="payment_term"
-                                                style="width: 100%; text-align: center">
-                                            <option @if($all_product->payment_term === "1") selected @endif value="1">
+                                        <select id="condition"
+                                                class="form-control payment-schedule"
+                                                name="payment_term"
+                                                style="width: 100%; text-align: center;">
+                                            <option value="1"
+                                                    @if($all_product->payment_term === "1")
+                                                        selected
+                                                    @endif>
                                                 Единовременно
                                             </option>
-                                            <option @if($all_product->payment_term === "transh") selected
-                                                    @endif value="transh">Транш
+                                            <option value="transh"
+                                                    @if($all_product->payment_term === "transh")
+                                                        selected
+                                                    @endif>
+                                                Транш
                                             </option>
                                         </select>
                                     </div>
@@ -609,72 +750,99 @@
                                 <div class="col-sm-4">
                                     <div class="form-group form-inline justify-content-between">
                                         <label>Способ расчета</label>
-                                        <select class="form-control payment-schedule" name="way_of_calculation"
+                                        <select class="form-control payment-schedule"
+                                                name="way_of_calculation"
                                                 onchange="showDiv('other-payment-schedule', this)"
-                                                style="width: 100%; text-align: center">
-                                            <option @if($all_product->way_of_calculation === "1") selected
-                                                    @endif value="1">Сумах
+                                                style="width: 100%; text-align: center;">
+                                            <option value="1"
+                                                    @if($all_product->way_of_calculation === "1")
+                                                        selected
+                                                    @endif>
+                                                Сумах
                                             </option>
-                                            <option @if($all_product->way_of_calculation === "2") selected
-                                                    @endif  value="2">Сумах В ин. валюте
+                                            <option value="2"
+                                                    @if($all_product->way_of_calculation === "2")
+                                                        selected
+                                                    @endif>
+                                                Сумах В ин. валюте
                                             </option>
-                                            <option @if($all_product->way_of_calculation === "3") selected
-                                                    @endif  value="3">В ин. валюте по курсу ЦБ на день заключение
-                                                договора
+                                            <option value="3"
+                                                    @if($all_product->way_of_calculation === "3")
+                                                        selected
+                                                    @endif>
+                                                В ин. валюте по курсу ЦБ на день заключение договора
                                             </option>
-                                            <option @if($all_product->way_of_calculation === "4") selected
-                                                    @endif  value="4">В ин. валюте по курсу ЦБ на день оплаты
+                                            <option value="4"
+                                                    @if($all_product->way_of_calculation === "4")
+                                                        selected
+                                                    @endif>
+                                                В ин. валюте по курсу ЦБ на день оплаты
                                             </option>
-                                            <option @if($all_product->way_of_calculation === "5") selected
-                                                    @endif  value="5">В ин. валюте по фиксированному ЦБ на день оплаты
-                                                премии/первого транша
+                                            <option value="5"
+                                                    @if($all_product->way_of_calculation === "5")
+                                                        selected
+                                                    @endif>
+                                                В ин. валюте по фиксированному ЦБ на день оплаты премии/первого транша
                                             </option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div id="transh-payment-schedule"
-                                 @if($all_product->payment_term !== "transh") class="d-none" @endif >
+                                 @if($all_product->payment_term !== "transh")
+                                    class="d-none"
+                                 @endif>
                                 <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
+                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary">
                                         Добавить
                                     </button>
                                 </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
+                                <div class="table-responsive p-0"
+                                     style="max-height: 300px;">
                                     <table class="table table-hover table-head-fixed" id="empTable3">
                                         <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                <th class="text-nowrap">Сумма</th>
+                                                <th class="text-nowrap">От</th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                         <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control"
+                                            <td>
+                                                <input type="text"
+                                                       class="form-control"
                                                        value="{{$all_product->payment_sum_main}}"
-                                                       name="payment_sum_main"></td>
-                                            <td><input type="date" class="form-control"
+                                                       name="payment_sum_main" />
+                                            </td>
+                                            <td>
+                                                <input type="date"
+                                                       class="form-control"
                                                        value="{{$all_product->payment_from_main}}"
-                                                       name="payment_from_main">
+                                                       name="payment_from_main" />
                                             </td>
                                         </tr>
-                                        @if($all_product->allProductCurrencyTerms[0]->payment_sum !== null)
-                                            @foreach($all_product->allProductCurrencyTerms[0]->payment_sum as $key=>$item)
+
+                                        @if($all_product->allProductCurrencyTerms->count() > 0 && $all_product->allProductCurrencyTerms[0]->payment_sum !== null)
+                                            @foreach($all_product->allProductCurrencyTerms[0]->payment_sum as $key => $item)
                                                 <tr id="${id}" data-field-number="0">
                                                     <td>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text"
+                                                               class="form-control"
                                                                value="{{$all_product->allProductCurrencyTerms[0]->payment_sum[$key]}}"
-                                                               name="payment_sum[]">
+                                                               name="payment_sum[]" />
                                                     </td>
                                                     <td>
-                                                        <input type="date" class="form-control"
+                                                        <input type="date"
+                                                               class="form-control"
                                                                value="{{$all_product->allProductCurrencyTerms[0]->payment_from[$key]}}"
-                                                               name="payment_from[]">
+                                                               name="payment_from[]" />
                                                     </td>
                                                     <td>
-                                                        <input type="button" onclick="removeEl(${id})" value="Удалить"
-                                                               class="btn btn-warning">
+                                                        <input type="button"
+                                                               onclick="removeEl(${id})"
+                                                               value="Удалить"
+                                                               class="btn btn-warning" />
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -687,36 +855,58 @@
                                 <div class="icheck-success ">
                                     <input onchange="toggleBlock('tarif', 'data-tarif-descr')"
                                            class="form-check-input client-type-radio"
-                                           @if($all_product->tariff === "tariff") checked @endif value="tariff"
-                                           type="checkbox" name="tariff" id="tarif">
+                                           value="tariff"
+                                           type="checkbox"
+                                           name="tariff"
+                                           id="tarif"
+                                           @if($all_product->tariff === "tariff")
+                                            checked
+                                           @endif />
                                     <label class="form-check-label" for="tarif">Тариф</label>
                                 </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-tarif-descr
-                                     @if($all_product->tariff !== "tariff") style="display: none" @endif>
+
+                                <!-- TODO: Блок должен находится в скрытом состоянии отображаться только тогда, когда выбран checkbox "Тариф" -->
+
+                                <div class="form-group"
+                                     data-tarif-descr
+                                     @if($all_product->tariff !== "tariff")
+                                        style="display: none;"
+                                     @endif>
                                     <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input class="form-control" value="{{$all_product->tarif_other}}"
-                                           name="tariff_other" id="descrTarif" type="number">
+                                    <input class="form-control"
+                                           value="{{$all_product->tarif_other}}"
+                                           name="tariff_other"
+                                           id="descrTarif"
+                                           type="number" />
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="icheck-success ">
                                     <input onchange="toggleBlock('preim', 'data-preim-descr')"
                                            class="form-check-input client-type-radio"
-                                           @if($all_product->preim === "preim") checked @endif value="preim"
-                                           type="checkbox" name="preim" id="preim">
+                                           value="preim"
+                                           type="checkbox"
+                                           name="preim"
+                                           id="preim"
+                                           @if($all_product->preim === "preim")
+                                            checked
+                                           @endif />
                                     <label class="form-check-label" for="preim">Премия</label>
                                 </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-preim-descr
-                                     @if($all_product->preim !== "preim") style="display: none" @endif>
+
+                                <!-- TODO: Блок должен находится в скрытом состоянии отображаться только тогда, когда выбран checkbox "Тариф" -->
+
+                                <div class="form-group"
+                                     data-preim-descr
+                                     @if($all_product->preim !== "preim")
+                                        style="display: none;"
+                                     @endif>
                                     <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input class="form-control" value="{{$all_product->premiya_other}}"
-                                           name="premiya_other" id="descrPreim" type="number">
+                                    <input class="form-control"
+                                           value="{{$all_product->premiya_other}}"
+                                           name="premiya_other"
+                                           id="descrPreim"
+                                           type="number" />
                                 </div>
                             </div>
                         </div>
@@ -727,8 +917,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Сведения о страховом полисе</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -738,12 +927,12 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Серийный номер полиса
-                                                страхования</label>
-                                            <input type="text" id="polis-series"
-                                                   value="{{$all_product->allProductInfo->first()->policy_series}}"
+                                            <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
+                                            <input type="text"
+                                                   id="polis-series"
+                                                   value="{{$first = $all_product->allProductInfo->first() ? $first->policy_series : ''}}"
                                                    name="policy_series"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -752,29 +941,34 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"></span>
                                             </div>
-                                            <input id="insurance_from" name="policy_insurance_from"
-                                                   value="{{$all_product->allProductInfo->first()->policy_insurance_from}}"
+                                            <input id="insurance_from"
+                                                   name="policy_insurance_from"
+                                                   value="{{$first = $all_product->allProductInfo->first() ? $first->policy_insurance_from : ''}}"
                                                    type="date"
-                                                   class="form-control">
+                                                   class="form-control" />
                                         </div>
                                     </div>
-{{--                                    @dd($all_product->allProductInfo->otvet_litso)--}}
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-form-label" for="otvet-litso">Ответственное лицо</label>
-                                            <select class="form-control polises" id="otvet-litso" name="litso"
+                                            <select class="form-control polises"
+                                                    id="otvet-litso"
+                                                    name="litso"
                                                     style="width: 100%;">
-                                                @foreach($agents as $agent)
-                                                    <option value="{{$agent->id}}"
-                                                            @if($agent->id == $all_product->allProductInfo->first()->otvet_litso) selected @endif>{{$agent->name}}</option>
-                                                @endforeach
+                                            @foreach($agents as $agent)
+                                                <option value="{{$agent->id}}"
+                                                        @if($all_product->allProductInfo->first() && $agent->id == $all_product->allProductInfo->first()->otvet_litso)
+                                                            selected
+                                                        @endif>
+                                                    {{$agent->name}}
+                                                </option>
+                                            @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="card-body">
@@ -782,8 +976,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Загрузка документов</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -793,21 +986,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Анкета</label>
-                                        <input type="file" id="geographic-zone" name="application_form_file"
-                                               class="form-control">
+                                        <input type="file" id="geographic-zone" name="application_form_file" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Договор</label>
-                                        <input type="file" id="geographic-zone" name="contract_file"
-                                               class="form-control">
+                                        <input type="file" id="geographic-zone" name="contract_file" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="polis-series" class="col-form-label">Полис</label>
-                                        <input type="file" id="geographic-zone" name="policy_file" class="form-control">
+                                        <input type="file" id="geographic-zone" name="policy_file" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -815,21 +1006,61 @@
                     </div>
                 </div>
             </section>
+
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
             </div>
         </div>
     </form>
-    <form action="{{route('teztools.destroy', $all_product->id)}}" method="post">
+
+    <form action="{{route('teztools.destroy', $all_product->id)}}"
+          method="post">
         @csrf
         @method('delete')
+
         <div class="card-footer">
             <button type="submit" class="btn btn-danger float-right">Удалить</button>
         </div>
     </form>
 @endsection
 
-
 @section('scripts')
+    <script>
+        $.ajax({
+            url: '{{route('getBanks')}}',
+            type: 'get',
+            dataType: 'json',
+            success: function (response) {
+                var len = response.length;
 
+                let insurer_banks = $('#insurer-bank');
+                insurer_banks.empty();
+                insurer_banks.append('<option></option>');
+
+                let beneficiary_banks = $('#beneficiary-bank');
+                beneficiary_banks.empty();
+                beneficiary_banks.append('<option></option>');
+
+                var insurer_selected = {{$all_product->policyHolder->bank_id ?? 0}};
+                var beneficiary_selected = {{$all_product->policyBeneficiaries->bank_id ?? 0}};
+
+                for (var i = 0; i < len; i++) {
+                    var id = response[i]['id'];
+                    var name = response[i]['name'];
+                    var mfo = response[i]['mfo'];
+
+                    insurer_banks.append('<option value="' + id + '" ' + (insurer_selected == id ? 'selected' : '')  + '>' + name + '</option>');
+                    beneficiary_banks.append('<option value="' + id + '" ' + (beneficiary_selected == id ? 'selected' : '')  + '>' + name + '</option>');
+                }
+            }
+        });
+
+        // Initialize Select2 Elements
+        $('#insurer-bank').select2({
+            theme: 'bootstrap4'
+        });
+        $('#beneficiary-bank').select2({
+            theme: 'bootstrap4'
+        });
+    </script>
 @endsection
