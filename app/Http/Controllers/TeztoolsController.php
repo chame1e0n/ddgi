@@ -6,6 +6,7 @@ use App\AllProduct;
 use App\AllProductInformation;
 use App\AllProductInformationTransport;
 use App\AllProductsTermsTransh;
+use App\Models\Policy;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
@@ -45,8 +46,6 @@ class TeztoolsController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request);
-
         $request->validate([
             // policy_holders
 //            'fio_insurer' => 'required',
@@ -152,6 +151,7 @@ class TeztoolsController extends Controller
         $all_product = AllProduct::create([
             'policy_holder_id' => $policy_holder->id,
             'policy_beneficiaries_id' => $policy_beneficiaries->id,
+            'unique_number' => \uniqid(),
             'insurance_from' => $request->insurance_from,
             'insurance_to' => $request->insurance_to,
             'using_tc' => $request->using_tc,
@@ -209,6 +209,14 @@ class TeztoolsController extends Controller
                 'payment_sum' => $request->payment_sum,
                 'payment_from' => $request->payment_from,
             ]);
+        }
+
+        if (!empty($request->polis_model)) {
+            $policies = Policy::find($request->polis_model);
+
+            foreach ($policies as $policy) {
+                $policy->update(['status' => 'in_use']);
+            }
         }
 
         return 'successfully created!';
