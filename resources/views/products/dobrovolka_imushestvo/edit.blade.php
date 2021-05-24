@@ -97,7 +97,7 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <button type="button" id="addImushestvoBtn" class="btn btn-primary ">Добавить</button>
+                            <button type="button" id="addImushestvoBtn" class="btn btn-primary">Добавить</button>
                         </div>
                         <div class="table-responsive p-0"
                              style="max-height: 300px;">

@@ -2106,13 +2106,17 @@ const addCascoFieldRow = (fieldNumber) => {
     const fields = `
     <tr id="a${fieldNumber}">
         <td>
-            <input type="text" class="form-control" name="polis_mark[]">
+            <select class="form-control polis_name_id" onchange="getPolicySeries(this, a${fieldNumber})" name="polis_mark[]" style="width: 100%;">
+                <option selected="selected"></option>
+            </select>
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_model[]">
+            <select class="form-control polis_series_id" id="polis_series_a${fieldNumber}" name="polis_model[]" style="width: 100%;">
+                <option selected="selected"></option>
+            </select>
         </td>
         <td>
-            <input disabled type="date" class="form-control">
+            <input type="date" class="form-control" name="data_vidachi[]">
         </td>
         <td>
             <input type="text" class="form-control" name="polis_gos_num[]">
@@ -2167,6 +2171,7 @@ const addCascoFieldRow = (fieldNumber) => {
     </tr>
 `
     productFieldsTable.querySelector('tbody').querySelector('tr').insertAdjacentHTML('afterend', fields);
+    getPolicyName('a' + fieldNumber);
     renderSelect();
 };
 
