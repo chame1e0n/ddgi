@@ -171,26 +171,22 @@
             function getPolicySeries(name) {
                 if(name) {
                     $.ajax({
-                        url: '{{route('getPolicySeries')}}',
+                        url: '{{route('getPolicyRelations')}}',
                         type: 'get',
                         data: {polis_name: name},
                         dataType: 'json',
                         success: function (response) {
-
                             var len = response.length;
                             var polisSeries = {{ old('policy_id') ?? 0}};
                             polisSeries = {{ app('request')->input('policyId') ?? 0}} ? {{ app('request')->input('policyId') ?? 0}} : polisSeries;
                             var polisSeriesField = $("#policy")
 
                             polisSeriesField.empty();
-                            for (var i = 0; i < len; i++) {
-                                var id = response[i]['id'];
-                                var name = response[i]['number'];
-
-                                if (polisSeries == id) {
-                                    polisSeriesField.append("<option value='" + id + "' selected>" + name + "</option>");
+                            for (var i in response['series']) {
+                                if (polisSeries == i) {
+                                    polisSeriesField.append("<option value='" + i + "' selected>" + response['series'][i] + "</option>");
                                 } else {
-                                    polisSeriesField.append("<option value='" + id + "'>" + name + "</option>");
+                                    polisSeriesField.append("<option value='" + i + "'>" + response['series'][i] + "</option>");
                                 }
 
                             }

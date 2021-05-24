@@ -153,7 +153,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('get/employees', 'EmployeeController@getEmployees')->name('getEmployees');
     Route::get('get/agents', 'EmployeeController@getAgents')->name('getAgents');
     Route::get('get/polis_name', 'PolicyController@getPolisNames')->name('getPolisNames');
-    Route::get('get/polis_series_by_polis_name', 'PolicyController@getPolicySeries')->name('getPolicySeries');
+    Route::get('get/policy_relations', 'PolicyController@getPolicyRelations')->name('getPolicyRelations');
     Route::get('get/banks', 'Spravochniki\BankController@getAllBanks')->name('getBanks');
     Route::get('branches', 'Api\BranchController@index')->name('branches');
 

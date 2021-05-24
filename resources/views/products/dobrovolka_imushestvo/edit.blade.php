@@ -125,7 +125,7 @@
                                                 <tr id="policy_information-{{$policyInformation->id}}">
                                                     <td>
                                                         <select class="form-control polis_name_id"
-                                                                onchange="getPolicySeries(this, 'policy_information-{{$policyInformation->id}}')"
+                                                                onchange="getPolicyRelations(this, 'policy_information-{{$policyInformation->id}}')"
                                                                 name="polis_name_id[{{$policyInformation->id}}]"
                                                                 style="width: 100%;">
                                                             <option selected="selected">

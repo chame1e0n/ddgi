@@ -210,26 +210,27 @@ function getPolicyName(rowId) {
     polisNameField.innerHTML = str;
 }
 
-function getPolicySeries(polisNameElement, rowId) {
+function getPolicyRelations(polisNameElement, rowId) {
     if (polisNameElement.value) {
         $.ajax({
-            url: domainPath + '/get/polis_series_by_polis_name',
+            url: domainPath + '/get/policy_relations',
             type: 'get',
             data: {polis_name: polisNameElement.value},
             dataType: 'json',
             success: function (response) {
-                var len = response.length;
-                var polisSeriesField = document.getElementById('polis_series_' + rowId);
-                var str = "";
-
-                for (var i = 0; i < len; i++) {
-                    var id = response[i]['id'];
-                    var name = response[i]['number'];
-
-                    str += "<option value='" + id + "'>" + name + "</option>";
+                var options = '';
+                for (var i in response['series']) {
+                    options += '<option value="' + i + '">' + response['series'][i] + '</option>';
                 }
 
-                polisSeriesField.innerHTML = str;
+                document.getElementById('policy_series_' + rowId).innerHTML = options;
+
+                var options = '';
+                for (var i in response['agents']) {
+                    options += '<option value="' + i + '">' + response['agents'][i] + '</option>';
+                }
+
+                document.getElementById('policy_agents_' + rowId).innerHTML = options;
             }
         });
     }
@@ -585,14 +586,6 @@ const removeAndCalc = (id) => {
     calcPrice();
 }
 
-const renderSelect = () => {
-    agentsList.data.forEach(agentItem => {
-        console.log(agentItem)
-        const option = `<option value="${agentItem.id}">${agentItem.name}</option>`
-        document.getElementById('polise_agents').insertAdjacentHTML('afterbegin', option)
-    })
-}
-
 if (buttonAddRowInfo) {
     buttonAddRowInfo.addEventListener('click', event => {
         const id = Math.random();
@@ -648,7 +641,6 @@ if (buttonAddRowInfo) {
         </td>
       </tr>`
         infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo);
-        renderSelect();
     })
 }
 
@@ -1759,8 +1751,6 @@ const addOtsenshik = () => {
     </tr>`
 
     infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', fields);
-    renderSelect();
-
 }
 
 if (otsenshikBtn) {
@@ -1819,8 +1809,6 @@ const addTcRow = () => {
           </td>
     </tr>`
     infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', fields);
-    renderSelect();
-
 }
 
 if (tcButton) {
@@ -1949,7 +1937,6 @@ const addSportmanRow = (fieldNumber) => {
         </td>
     </tr>`
     infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', field);
-    renderSelect();
 }
 
 const addSportmanBtn = document.getElementById('addSportmanBtn');
@@ -2056,12 +2043,12 @@ if (addImushestvoBtn) {
         const id = Math.random();
         const field = `<tr id="${id}">
             <td>
-                <select class="form-control polis_name_id" onchange="getPolicySeries(this, ${id})" name="polis_name_id[]" style="width: 100%;">
+                <select class="form-control polis_name_id" onchange="getPolicyRelations(this, ${id})" name="polis_name_id[]" style="width: 100%;">
                     <option selected="selected"></option>
                 </select>
             </td>
             <td>
-                <select class="form-control polis_series_id" id="polis_series_${id}" name="polis_series_id[]" style="width: 100%;">
+                <select class="form-control polis_series_id" id="policy_series_${id}" name="polis_series_id[]" style="width: 100%;">
                     <option selected="selected"></option>
                 </select>
             </td>
@@ -2075,7 +2062,7 @@ if (addImushestvoBtn) {
                 <input type="date" class="form-control" name="period_deystviya_do[]">
             </td>
             <td>
-                 <select class="form-control" id="polise_agents" name="otvet_litso[]" style="width: 100%;">
+                <select class="form-control" id="policy_agents_${id}" name="otvet_litso[]" style="width: 100%;">
                     <option selected="selected"></option>
                 </select>
             </td>
@@ -2097,7 +2084,6 @@ if (addImushestvoBtn) {
         </tr>`
         infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', field);
         getPolicyName(id);
-        renderSelect();
     }
 }
 
@@ -2106,12 +2092,12 @@ const addCascoFieldRow = (fieldNumber) => {
     const fields = `
     <tr id="a${fieldNumber}">
         <td>
-            <select class="form-control polis_name_id" onchange="getPolicySeries(this, a${fieldNumber})" name="polis_mark[]" style="width: 100%;">
+            <select class="form-control polis_name_id" onchange="getPolicyRelations(this, 'a${fieldNumber}')" name="polis_mark[]" style="width: 100%;">
                 <option selected="selected"></option>
             </select>
         </td>
         <td>
-            <select class="form-control polis_series_id" id="polis_series_a${fieldNumber}" name="polis_model[]" style="width: 100%;">
+            <select class="form-control polis_series_id" id="policy_series_a${fieldNumber}" name="polis_model[]" style="width: 100%;">
                 <option selected="selected"></option>
             </select>
         </td>
@@ -2128,7 +2114,7 @@ const addCascoFieldRow = (fieldNumber) => {
             <input type="date" class="form-control" name="polis_num_engine[]">
         </td>
         <td>
-           <select class="form-control" id="polise_agents" name="agents[]" style="width: 100%;">
+           <select class="form-control" id="policy_agents_a${fieldNumber}" name="agents[]" style="width: 100%;">
                 <option selected="selected"></option>
             </select>
         </td>
@@ -2172,7 +2158,6 @@ const addCascoFieldRow = (fieldNumber) => {
 `
     productFieldsTable.querySelector('tbody').querySelector('tr').insertAdjacentHTML('afterend', fields);
     getPolicyName('a' + fieldNumber);
-    renderSelect();
 };
 
 const cascoAddButton = document.getElementById('cascoAddButton');
@@ -2252,7 +2237,6 @@ const addCascoFieldRow1 = (fieldNumber) => {
     </tr>
 `
     productFieldsTable.querySelector('tbody').querySelector('tr').insertAdjacentHTML('afterend', fields);
-    renderSelect();
 };
 
 const cascoAddButton1 = document.getElementById('cascoAddButton1');
@@ -2335,8 +2319,6 @@ if (addAutozalogBtn) {
         </td>
     </tr>`
         infoTable.querySelector('tbody').insertAdjacentHTML('beforebegin', field);
-        renderSelect();
-
     }
 }
 

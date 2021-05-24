@@ -17,7 +17,7 @@ class PolicyController extends Controller
     {
         $policies = Policy::filter()->get();
 
-        return view('policy.index',compact('policies'));
+        return view('policy.index', compact('policies'));
     }
 
     /**
@@ -60,14 +60,14 @@ class PolicyController extends Controller
      */
     public function edit(Policy $policy)
     {
-        return view('policy.edit',compact('policy'));
+        return view('policy.edit', compact('policy'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Policy  $policy
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Policy       $policy
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Policy $policy)
@@ -86,21 +86,31 @@ class PolicyController extends Controller
         $policy->delete();
 
         return redirect()->route('policy.index')
-            ->with('success', sprintf('Дынные о полисе \'%s\' были успешно удалены', $policy->number));
-
+                         ->with('success', sprintf('Данные о полисе \'%s\' были успешно удалены', $policy->number));
     }
 
     public function getPolisNames(Request $request)
     {
-        $polisNames = Policy::validPolicies()->select('polis_name')->groupBy('polis_name')->get();
+        $polis_names = Policy::validPolicies()->select('polis_name')->groupBy('polis_name')->get();
 
-        return $polisNames->toJson();
+        return $polis_names->toJson();
     }
 
-    public function getPolicySeries(Request $request)
+    public function getPolicyRelations(Request $request)
     {
-        $policySeries = Policy::validPolicies()->where('polis_name', $request->polis_name)->get();
+        $policies = Policy::validPolicies()->where('polis_name', $request->polis_name);
 
-        return $policySeries->toJson();
+        $connection = \Illuminate\Support\Facades\DB::connection();
+
+        $query = $connection->table('agents');
+        $query->select('agents.id', 'agents.name');
+        $query->crossJoin('policies', 'policies.user_id', '=', 'agents.user_id');
+        $query->whereNotIn('policies.status', ['lost', 'cancelling', 'terminated', 'underwritting']);
+        $query->where('policies.polis_name', $request->polis_name);
+
+        return [
+            'series' => $policies->pluck('number', 'id'),
+            'agents' => $query->pluck('name', 'id'),
+        ];
     }
 }
