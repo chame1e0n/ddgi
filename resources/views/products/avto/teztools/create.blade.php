@@ -57,48 +57,48 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="beneficiary-name" class="col-form-label">Наименования страхователя</label>
-                                        <input type="text" id="beneficiary-name" name="fio_insurer" class="form-control" />
+                                        <label for="policy-holder-fio" class="col-form-label">Наименования страхователя</label>
+                                        <input type="text" id="policy-holder-fio" name="policy_holder[FIO]" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Адрес страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer" class="form-control" />
+                                        <label for="policy-holder-address" class="col-form-label">Адрес страхователя</label>
+                                        <input type="text" id="policy-holder-address" name="policy_holder[address]" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Телефонный номер</label>
-                                        <input type="text" id="insurer-tel" name="tel_insurer" class="form-control" />
+                                        <label for="policy-holder-phone-number" class="col-form-label">Телефонный номер</label>
+                                        <input type="text" id="policy-holder-phone-number" name="policy_holder[phone_number]" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-schet" name="address_schet" class="form-control" />
+                                        <label for="policy-holder-checking-account" class="col-form-label">Расчетный счет</label>
+                                        <input type="text" id="policy-holder-checking-account" name="policy_holder[checking_account]" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-inn" name="inn_insurer" class="form-control" />
+                                        <label for="policy-holder-inn" class="col-form-label">ИНН</label>
+                                        <input type="text" id="policy-holder-inn" name="policy_holder[inn]" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer" class="form-control" />
+                                        <label for="policy-holder-mfo" class="col-form-label">МФО</label>
+                                        <input type="text" id="policy-holder-mfo" name="policy_holder[mfo]" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <select id="bank_insurer"
-                                                name="bank_insurer"
+                                        <label for="policy-holder-bank-id" class="col-form-label">Банк</label>
+                                        <select id="policy-holder-bank-id"
+                                                name="policy_holder[bank_id]"
                                                 style="width: 100%;"
                                                 required
-                                                @if($errors->has('bank_insurer'))
+                                                @if($errors->has('policy_holder.bank_id'))
                                                     class="form-control is-invalid"
                                                 @else
                                                     class="form-control"
@@ -109,14 +109,14 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="oked_insurer" class="form-control" />
+                                        <label for="policy-holder-oked" class="col-form-label">ОКЭД</label>
+                                        <input type="text" id="policy-holder-oked" name="policy_holder[oked]" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" name="okonh_insurer" class="form-control" />
+                                        <label for="policy-holder-okonx" class="col-form-label">ОКОНХ</label>
+                                        <input type="text" id="policy-holder-okonx" name="policy_holder[okonx]" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -138,60 +138,60 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="beneficiary-name" class="col-form-label">Наименования страхователя</label>
-                                            <input type="text" id="beneficiary-name" name="fio_beneficiary" class="form-control" />
+                                            <label for="policy-beneficiary-fio" class="col-form-label">Наименования страхователя</label>
+                                            <input type="text" id="policy-beneficiary-fio" name="policy_beneficiary[FIO]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="beneficiary-address" class="col-form-label">Адрес</label>
-                                            <input type="text" id="beneficiary-address" name="address_beneficiary" class="form-control" />
+                                            <label for="policy-beneficiary-address" class="col-form-label">Адрес</label>
+                                            <input type="text" id="policy-beneficiary-address" name="policy_beneficiary[address]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="beneficiary-tel" name="tel_beneficiary" class="form-control" />
+                                            <label for="policy-beneficiary-phone-number" class="col-form-label">Телефон</label>
+                                            <input type="text" id="policy-beneficiary-phone-number" name="policy_beneficiary[phone_number]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                            <input type="text" id="beneficiary-schet" name="beneficiary_schet" class="form-control" />
+                                            <label for="policy-beneficiary-checking-account" class="col-form-label">Расчетный счет</label>
+                                            <input type="text" id="policy-beneficiary-checking-account" name="policy_beneficiary[checking_account]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                            <input type="text" id="beneficiary-inn" name="inn_beneficiary" class="form-control" />
+                                            <label for="policy-beneficiary-inn" class="col-form-label">ИНН</label>
+                                            <input type="text" id="policy-beneficiary-inn" name="policy_beneficiary[inn]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                            <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" class="form-control" />
+                                            <label for="policy-beneficiary-mfo" class="col-form-label">МФО</label>
+                                            <input type="text" id="policy-beneficiary-mfo" name="policy_beneficiary[mfo]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                            <input type="text" id="insurer-okonh" name="oked_beneficiary" class="form-control" />
+                                            <label for="policy-beneficiary-oked" class="col-form-label">ОКЭД</label>
+                                            <input type="text" id="policy-beneficiary-oked" name="policy_beneficiary[oked]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-okonh" class="col-form-label">Номер паспорта</label>
-                                            <input type="text" id="beneficiary-okonh" name="nomer_passport" class="form-control" />
+                                            <label for="policy-beneficiary-nomer-passport" class="col-form-label">Номер паспорта</label>
+                                            <input type="text" id="policy-beneficiary-nomer-passport" name="policy_beneficiary[nomer_passport]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                            <select id="beneficiary-bank"
-                                                    name="bank_beneficiary"
+                                            <label for="policy-beneficiary-bank-id" class="col-form-label">Банк</label>
+                                            <select id="policy-beneficiary-bank-id"
+                                                    name="policy_beneficiary[bank_id]"
                                                     style="width: 100%;"
                                                     required
-                                                    @if($errors->has('bank_beneficiary'))
+                                                    @if($errors->has('policy-beneficiary-bank-id'))
                                                         class="form-control is-invalid"
                                                     @else
                                                         class="form-control"
@@ -202,14 +202,14 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
-                                            <input type="text" id="beneficiary-okonh" name="okonh_beneficiary" class="form-control" />
+                                            <label for="policy-beneficiary-okonx" class="col-form-label">ОКОНХ</label>
+                                            <input type="text" id="policy-beneficiary-okonx" name="policy_beneficiary[okonx]" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="beneficiary-okonh" class="col-form-label">Серия</label>
-                                            <input type="text" id="beneficiary-okonh" name="seria_passport" class="form-control" />
+                                            <label for="policy-beneficiary-seria-passport" class="col-form-label">Серия</label>
+                                            <input type="text" id="policy-beneficiary-seria-passport" name="policy_beneficiary[seria_passport]" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -233,12 +233,12 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label for="insurance_from">Период страхования</label>
+                                                    <label for="all-product-insurance-from">Период страхования</label>
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">с</span>
                                                         </div>
-                                                        <input id="insurance_from" name="insurance_from" type="date" class="form-control" />
+                                                        <input id="all-product-insurance-from" name="all_product[insurance_from]" type="date" class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -249,7 +249,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">до</span>
                                                         </div>
-                                                        <input id="insurance_to" name="insurance_to" type="date" class="form-control" />
+                                                        <input id="all-product-insurance-to" name="all_product[insurance_to]" type="date" class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -258,8 +258,7 @@
                                             <div class="form-group form-inline justify-content-between">
                                                 <label>Использования ТС на основании</label>
                                                 <select class="form-control payment-schedule"
-                                                        name="using_tc"
-                                                        onchange="showDiv('other-payment-schedule', this)"
+                                                        name="all_product[using_tc]"
                                                         style="width: 100%; text-align: center;">
                                                     <option value="selected"></option>
                                                     <option value="1">Тех пасспорт</option>
@@ -270,8 +269,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="geographic-zone">Географическая зона:</label>
-                                            <input type="text" id="geographic-zone" name="geo_zone" class="form-control" />
+                                            <label for="all-product-geo-zone">Географическая зона:</label>
+                                            <input type="text" id="all-product-geo-zone" name="all_product[geo_zone]" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +280,7 @@
                 </div>
                 <div class="card card-success">
                     <div class="card-header">
-                        <h3 class="card-title">Сведени о трансортных средствах</h3>
+                        <h3 class="card-title">Сведения о транспортных средствах</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i>
@@ -318,7 +317,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr></tr>
                                         <tr>
                                             <td colspan="14"
                                                 style="text-align: right;">
@@ -405,16 +403,16 @@
             success: function (response) {
                 var len = response.length;
 
-                let insurer_banks = $('#bank_insurer');
+                let insurer_banks = $('#policy-holder-bank-id');
                 insurer_banks.empty();
                 insurer_banks.append('<option></option>');
 
-                let beneficiary_banks = $('#beneficiary-bank');
+                let beneficiary_banks = $('#policy-beneficiary-bank-id');
                 beneficiary_banks.empty();
                 beneficiary_banks.append('<option></option>');
 
-                var insurer_selected = {{old('bank_insurer') ?? 0}};
-                var beneficiary_selected = {{old('beneficiary-bank') ?? 0}};
+                var insurer_selected = {{old('policy-holder-bank-id') ?? 0}};
+                var beneficiary_selected = {{old('policy-beneficiary-bank-id') ?? 0}};
 
                 for (var i = 0; i < len; i++) {
                     var id = response[i]['id'];
@@ -428,10 +426,10 @@
         });
 
         // Initialize Select2 Elements
-        $('#bank_insurer').select2({
+        $('#policy-holder-bank-id').select2({
             theme: 'bootstrap4'
         });
-        $('#beneficiary-bank').select2({
+        $('#policy-beneficiary-bank-id').select2({
             theme: 'bootstrap4'
         });
     </script>

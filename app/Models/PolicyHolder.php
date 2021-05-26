@@ -12,20 +12,16 @@ class PolicyHolder extends Model
 
     public function kasko()
     {
-        return $this->belongsToMany(
-            Kasko::class,
-            'kasko_policy_holders',
-            'policy_holders_id',
-            'kasko_id');
+        return $this->belongsToMany(Kasko::class, 'kasko_policy_holders', 'policy_holders_id', 'kasko_id');
     }
 
     static function createPolicyHolders($request)
     {
-        $policyHolder = PolicyHolder::create([
+        $policy_holder = PolicyHolder::create([
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
             'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->checking_account,
+            'checking_account' => $request->checking_account ?? '',
             'inn' => $request->inn_insurer,
             'mfo' => $request->mfo_insurer,
             'oked' => $request->oked_insurer,
@@ -34,18 +30,15 @@ class PolicyHolder extends Model
             'bank_id' => $request->bank_insurer,
             'passport_series' => $request->passport_series ?? null,
             'passport_number' => $request->passport_number ?? null,
-
         ]);
-        if ($policyHolder)
-            return $policyHolder;
-        else
-            return false;
+
+        return $policy_holder ? $policy_holder : false;
     }
 
     static function updatePolicyHolders($id, $request)
     {
-        $policyHolder = PolicyHolder::find($id);
-        $policyHolder->update([
+        $policy_holder = PolicyHolder::find($id);
+        $policy_holder->update([
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,
             'phone_number' => $request->tel_insurer,
@@ -57,10 +50,8 @@ class PolicyHolder extends Model
             'vid_deyatelnosti' => $request->vid_deyatelnosti,
             'bank_id' => $request->bank_insurer,
         ]);
-        if ($policyHolder)
-            return $policyHolder;
-        else
-            return false;
+
+        return $policy_holder ? $policy_holder : false;
     }
 
     public function bank()

@@ -106,31 +106,8 @@ class TeztoolsController extends Controller
 //            ]);
 //        }
 
-        $policy_holder = PolicyHolder::create([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'bank_id' => $request->bank_insurer,
-            'oked' => $request->oked_insurer,
-            'okonx' => $request->okonh_insurer,
-        ]);
-
-        $policy_beneficiaries = PolicyBeneficiaries::create([
-            'FIO' => $request->fio_beneficiary,
-            'address' => $request->address_beneficiary,
-            'phone_number' => $request->tel_beneficiary,
-            'checking_account' => $request->beneficiary_schet,
-            'inn' => $request->inn_beneficiary,
-            'mfo' => $request->mfo_beneficiary,
-            'oked' => $request->oked_beneficiary,
-            'nomer_passport' => $request->nomer_passport,
-            'bank_id' => $request->bank_beneficiary,
-            'okonx' => $request->okonh_beneficiary,
-            'seria_passport' => $request->seria_passport,
-        ]);
+        $policy_holder = PolicyHolder::create($request->policy_holder);
+        $policy_beneficiaries = PolicyBeneficiaries::create($request->policy_beneficiary);
 
         if (!empty($request->application_form_file)) {
             $application_form_file_path = $request->application_form_file->store('documents_teztools');
@@ -148,73 +125,33 @@ class TeztoolsController extends Controller
             $policy_file_path = null;
         }
 
-        $all_product = AllProduct::create([
+        $all_product_data = array_merge($request->all_product, [
             'policy_holder_id' => $policy_holder->id,
             'policy_beneficiaries_id' => $policy_beneficiaries->id,
             'unique_number' => \uniqid(),
-            'insurance_from' => $request->insurance_from,
-            'insurance_to' => $request->insurance_to,
-            'using_tc' => $request->using_tc,
-            'geo_zone' => $request->geo_zone,
-            'insurance_sum' => $request->insurance_sum,
-            'insurance_bonus' => $request->insurance_bonus,
-            'franchise' => $request->franchise,
-            'insurance_premium_currency' => $request->insurance_premium_currency,
-            'payment_term' => $request->payment_term,
-            'way_of_calculation' => $request->way_of_calculation,
-            'payment_sum_main' => $request->payment_sum_main,
-            'payment_from_main' => $request->payment_from_main,
-            'tariff' => $request->tariff,
-            'tarif_other' => $request->tariff_other,
-            'preim' => $request->preim,
-            'premiya_other' => $request->premiya_other,
             'application_form_file' => $application_form_file_path,
             'contract_file' => $contract_file_path,
             'policy_file' => $policy_file_path,
         ]);
 
-        if (!empty($request->policy_series)) {
-            $all_product_info = AllProductInformation::create([
-                'all_products_id' => $all_product->id,
-                'policy_series' => $request->policy_series,
-                'policy_insurance_from' => $request->policy_insurance_from,
-                'otvet_litso' => $request->litso,
-            ]);
-        }
-        if (!empty($request->polis_mark)) {
-            $all_product_info_transport = AllProductInformationTransport::create([
-                'all_products_id' => $all_product->id,
-                'polis_mark' => $request->polis_mark,
-                'polis_model' => $request->polis_model,
-                'polis_gos_num' => $request->polis_gos_num,
-                'polis_teh_passport' => $request->polis_teh_passport,
-                'polis_num_engine' => $request->polis_num_engine,
-                'agents' => $request->agents,
-                'polis_payload' => $request->polis_payload,
-                'modification' => $request->modification,
-                'state_num' => $request->state_num,
-                'num_tech_passport' => $request->num_tech_passport,
-                'num_engine' => $request->num_engine,
-                'num_carcase' => $request->num_carcase,
-                'carrying_capacity' => $request->carrying_capacity,
-                'insurance_cost' => $request->insurance_cost,
-                'overall_polis_sum' => $request->overall_polis_sum,
-                'polis_premium' => $request->polis_premium,
-            ]);
+        $all_product = AllProduct::create($all_product_data);
+
+        if (!empty($request->all_products_terms_transhes)) {
+            foreach ($request->all_products_terms_transhes as $all_products_terms_transh_data) {
+                $all_products_terms_transh_data['all_products_id'] = $all_product->id;
+
+                AllProductsTermsTransh::create($all_products_terms_transh_data);
+            }
         }
 
-        if (!empty($request->payment_sum)) {
-            $currency_terms_transh = AllProductsTermsTransh::create([
-                'all_products_id' => $all_product->id,
-                'payment_sum' => $request->payment_sum,
-                'payment_from' => $request->payment_from,
-            ]);
-        }
+        if (!empty($request->all_product_information_transports)) {
+            foreach ($request->all_product_information_transports as $all_product_information_transport_data) {
+                $all_product_information_transport_data['all_products_id'] = $all_product->id;
+                unset($all_product_information_transport_data['data_vidachi']);
 
-        if (!empty($request->polis_model)) {
-            $policies = Policy::find($request->polis_model);
+                AllProductInformationTransport::create($all_product_information_transport_data);
 
-            foreach ($policies as $policy) {
+                $policy = Policy::find($all_product_information_transport_data['polis_model']);
                 $policy->update(['status' => 'in_use']);
             }
         }
@@ -267,36 +204,10 @@ class TeztoolsController extends Controller
         $policy_holder = PolicyHolder::query()->find($all_product->policy_holder_id);
         $policy_beneficiaries = PolicyBeneficiaries::query()->find($all_product->policy_beneficiaries_id);
         $currency_terms_transh = AllProductsTermsTransh::query()->where('all_products_id', $all_product->id)->first();
-        $all_product_info = AllProductInformation::query()->where('all_products_id', $all_product->id)->first();
         $all_product_info_transport = AllProductInformationTransport::query()->where('all_products_id', $all_product->id)->first();
 
-        $policy_holder->update([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'bank_id' => $request->bank_insurer,
-            'oked' => $request->oked_insurer,
-            'okonx' => $request->okonh_insurer,
-        ]);
-
-//        dd($request);
-
-        $policy_beneficiaries->update([
-            'FIO' => $request->fio_beneficiary,
-            'address' => $request->address_beneficiary,
-            'phone_number' => $request->tel_beneficiary,
-            'checking_account' => $request->beneficiary_schet,
-            'inn' => $request->inn_beneficiary,
-            'mfo' => $request->mfo_beneficiary,
-            'oked' => $request->oked_beneficiary,
-            'nomer_passport' => $request->nomer_passport,
-            'bank_id' => $request->bank_beneficiary,
-            'okonx' => $request->okonh_beneficiary,
-            'seria_passport' => $request->seria_passport,
-        ]);
+        $policy_holder->update($request->policy_holder);
+        $policy_beneficiaries->update($request->policy_beneficiary);
 
         if (!empty($request->application_form_file)) {
             Storage::delete($all_product->application_form_file_path);
@@ -320,65 +231,34 @@ class TeztoolsController extends Controller
             $policy_file_path = $all_product->policy_file;
         }
 
-        $all_product->update([
+        $all_product_data = array_merge($request->all_product, [
             'policy_holder_id' => $policy_holder->id,
             'policy_beneficiaries_id' => $policy_beneficiaries->id,
-            'insurance_from' => $request->insurance_from,
-            'insurance_to' => $request->insurance_to,
-            'using_tc' => $request->using_tc,
-            'geo_zone' => $request->geo_zone,
-            'insurance_sum' => $request->insurance_sum,
-            'insurance_bonus' => $request->insurance_bonus,
-            'franchise' => $request->franchise,
-            'insurance_premium_currency' => $request->insurance_premium_currency,
-            'payment_term' => $request->payment_term,
-            'way_of_calculation' => $request->way_of_calculation,
-            'payment_sum_main' => $request->payment_sum_main,
-            'payment_from_main' => $request->payment_from_main,
-            'tariff' => $request->tariff,
-            'tarif_other' => $request->tariff_other,
-            'preim' => $request->preim,
-            'premiya_other' => $request->premiya_other,
             'application_form_file' => $application_form_file_path,
             'contract_file' => $contract_file_path,
             'policy_file' => $policy_file_path,
         ]);
 
-        $all_product_info->update([
-            'all_products_id' => $all_product->id,
-            'policy_series' => $request->policy_series,
-            'policy_insurance_from' => $request->policy_insurance_from,
-            'otvet_litso' => $request->litso,
-        ]);
+        $all_product->update($all_product_data);
 
-        if (!empty($request->polis_mark)) {
-            $all_product_info_transport->update([
-                'all_products_id' => $all_product->id,
-                'polis_mark'=>$request->polis_mark,
-                'polis_model'=>$request->polis_model,
-                'polis_gos_num'=>$request->polis_gos_num,
-                'polis_teh_passport'=>$request->polis_teh_passport,
-                'polis_num_engine'=>$request->polis_num_engine,
-                'agents'=>$request->agents,
-                'polis_payload'=>$request->polis_payload,
-                'modification'=>$request->modification,
-                'state_num'=>$request->state_num,
-                'num_tech_passport'=>$request->num_tech_passport,
-                'num_engine'=>$request->num_engine,
-                'num_carcase'=>$request->num_carcase,
-                'carrying_capacity'=>$request->carrying_capacity,
-                'insurance_cost'=>$request->insurance_cost,
-                'overall_polis_sum'=>$request->overall_polis_sum,
-                'polis_premium'=>$request->polis_premium,
-            ]);
+        if (!empty($request->all_product_information_transports)) {
+            foreach ($request->all_product_information_transports as $all_product_information_transport_data) {
+                $all_product_information_transport = AllProductInformationTransport::find($all_product_information_transport_data['id']);
+
+                unset($all_product_information_transport_data['data_vidachi'], $all_product_information_transport_data['id']);
+
+                $all_product_information_transport->update($all_product_information_transport_data);
+            }
         }
 
-        if (!empty($request->payment_sum)) {
-            $currency_terms_transh->update([
-                'all_products_id' => $all_product->id,
-                'payment_sum' => $request->payment_sum,
-                'payment_from' => $request->payment_from,
-            ]);
+        if (!empty($request->all_products_terms_transhes)) {
+            foreach ($request->all_products_terms_transhes as $all_products_terms_transh_data) {
+                $all_products_terms_transh = AllProductsTermsTransh::find($all_products_terms_transh_data['id']);
+
+                unset($all_products_terms_transh_data['id']);
+
+                $all_products_terms_transh->update($all_products_terms_transh_data);
+            }
         }
 
         return 'successfully edit!';

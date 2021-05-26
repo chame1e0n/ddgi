@@ -40,22 +40,24 @@ class TamozhnyaAddLegalController extends Controller
     public function create()
     {
         $product = Product::where('name', 'Таможенный платеж')->first();
+
         // need to make a limitations for user and status
         $policies = Policy::all();
         $banks = Bank::all();
         $agents = Agent::all();
+
         return view('products.tamozhnya.add-legal.create', compact('banks', 'agents', 'policies', 'product'));
     }
 
-    public function countStrahovayaPremiya($strahovayaSumma, $isCustomTarif, $customTarif, $productId)
+    private function countStrahovayaPremiya($strahovaya_summa, $is_custom_tarif, $custom_tarif, $product_id)
     {
-        if ($isCustomTarif == 'on') {
-            return ($customTarif / 100 * $strahovayaSumma);
+        if ($is_custom_tarif == 'on') {
+            return ($custom_tarif / 100 * $strahovaya_summa);
         }
 
-        $productTarif = Product::find($productId)->tarif;
+        $product_tarif = Product::find($product_id)->tarif;
 
-        return ($productTarif / 100 * $strahovayaSumma);
+        return ($product_tarif / 100 * $strahovaya_summa);
     }
 
     /**
@@ -76,20 +78,24 @@ class TamozhnyaAddLegalController extends Controller
             ]);
         }
 
-        $newPolicyHolders = PolicyHolder::createPolicyHolders($request);
-        if (!$newPolicyHolders)
+        $new_policy_holders = PolicyHolder::createPolicyHolders($request);
+        if (!$new_policy_holders) {
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении PolicyHolders')]);
-        $request->policy_holder_id = $newPolicyHolders->id;
+        }
+        $request->policy_holder_id = $new_policy_holders->id;
         if ($request->hasFile('anketa_img')) {
             $image = $request->file('anketa_img')->store('/img/PolicyHolder', 'public');
+
             $request->anketa_img = $image;
         }
         if ($request->hasFile('dogovor_img')) {
             $image = $request->file('dogovor_img')->store('/img/PolicyHolder', 'public');
+
             $request->dogovor_img = $image;
         }
         if ($request->hasFile('polis_img')) {
             $image = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
+
             $request->polis_img = $image;
         }
 
@@ -100,45 +106,48 @@ class TamozhnyaAddLegalController extends Controller
             $request->product_id
         );
 
-        $newTamozhnyaAddLegal = TamozhnyaAddLegal::createTamozhnyaAddLegal($request);
-        if (!$newTamozhnyaAddLegal)
+        $new_tamozhnya_add_legal = TamozhnyaAddLegal::createTamozhnyaAddLegal($request);
+        if (!$new_tamozhnya_add_legal) {
             return back()->withInput()->withErrors([sprintf('Ошибка при добавлении TamozhnyaAddLegal')]);
+        }
 
-        $brancId = Agent::find(1)->user->branch_id;
+        $branc_id = Agent::find(1)->user->branch_id;
 
         $policy->update([
             'status' => 'in_use',
         ]);
 
-        $uniqueNumber = new Dogovor;
-        $uniqueNumber = $uniqueNumber->createUniqueNumber(
-            $brancId,
+        $unique_number = new Dogovor;
+        $unique_number = $unique_number->createUniqueNumber(
+            $branc_id,
             $request->sposob_rascheta,
             5,
             'tamozhnya_add_legals',
-            $newTamozhnyaAddLegal->id
+            $new_tamozhnya_add_legal->id
         );
 
-        $newTamozhnyaAddLegal->update([
-            'unique_number' => $uniqueNumber,
+        $new_tamozhnya_add_legal->update([
+            'unique_number' => $unique_number,
             'policy_id' => $policy->id
         ]);
 
-
         if (!empty($request->post('payment_sum')) && !empty($request->post('payment_sum'))) {
             $i = 0;
+
             foreach ($request->post('payment_sum') as $sum) {
                 if ($sum != null && $request->post('payment_from')[$i] != null) {
-                    $newStrahPremiya = TamozhnyaAddLegalStrahPremiya::create([
+                    TamozhnyaAddLegalStrahPremiya::create([
                         'prem_sum' => $sum,
                         'prem_from' => $request->post('payment_from')[$i],
-                        'tamozhnya_add_legal_id' => $newTamozhnyaAddLegal->id
+                        'tamozhnya_add_legal_id' => $new_tamozhnya_add_legal->id,
                     ]);
                 }
+
                 $i++;
             }
         }
-        return redirect()->route('tamozhnya-add-legal.edit', $newTamozhnyaAddLegal->id)->with([sprintf('Данные успешно добавлены')]);
+
+        return redirect()->route('tamozhnya-add-legal.edit', $new_tamozhnya_add_legal->id)->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
@@ -150,10 +159,10 @@ class TamozhnyaAddLegalController extends Controller
     public function show($id)
     {
         $tamozhnya = TamozhnyaAddLegal::getInfoTamozhnya($id);
-        $policySeries = PolicySeries::all();
         $banks = Bank::all();
         $agents = Agent::all();
-        return view('products.tamozhnya.add-legal.show', compact('banks', 'agents', 'tamozhnya', 'policySeries'));
+
+        return view('products.tamozhnya.add-legal.show', compact('banks', 'agents', 'tamozhnya'));
     }
 
     /**
@@ -165,9 +174,10 @@ class TamozhnyaAddLegalController extends Controller
     public function edit($id)
     {
         $tamozhnya = TamozhnyaAddLegal::getInfoTamozhnya($id);
-        $policySeries = PolicySeries::all();
+        $policy_series = PolicySeries::all();
         $banks = Bank::all();
         $agents = Agent::all();
+
         if (isset($_GET['download']) && $_GET['download'] == 'dogovor') {
             $document = new TemplateProcessor(public_path('tamozhnya_add_legal/dogovor.docx'));
             $document->setValues([
@@ -183,21 +193,19 @@ class TamozhnyaAddLegalController extends Controller
                 'tel' => $tamozhnya->agent->user->brnach->phone_numner,
                 'insurer_address' => $tamozhnya->policyHolders->address,
                 'insurer_tel' => $tamozhnya->policyHolders->phone_number,
-
                 'insurer_schet' => $tamozhnya->policyHolders->checking_account,
                 'insurer_mfo' => $tamozhnya->policyHolders->inn,
                 'insurer_inn' => $tamozhnya->policyHolders->mfo,
                 'insurer_oked' => $tamozhnya->policyHolders->oked,
-
             ]);
             $document->saveAs('dogovor.docx');
+
             try {
                 $API = new Convertio(config('app.convertioKey'));
                 $API->start('dogovor.docx', 'pdf')->wait()->download('dogovor.pdf')->delete();
-                echo "<script>window.open('".config('app.url')."/dogovor.pdf', '_blank').print()</script>";
-            }
-            catch (\Exception $e)
-            {
+
+                echo "<script>window.open('" . config('app.url') . "/dogovor.pdf', '_blank').print();</script>";
+            } catch (\Exception $e) {
                 return redirect('/dogovor.docx');
             }
         }
@@ -214,13 +222,13 @@ class TamozhnyaAddLegalController extends Controller
                 'fio_insurer' => $tamozhnya->policyHolders->FIO,
             ]);
             $document->saveAs('za.docx');
+
             try {
                 $API = new Convertio(config('app.convertioKey'));
                 $API->start('za.docx', 'pdf')->wait()->download('za.pdf')->delete();
-                echo "<script>window.open('".config('app.url')."/za.pdf', '_blank').print()</script>";
-            }
-            catch (\Exception $e)
-            {
+
+                echo "<script>window.open('" . config('app.url') . "/za.pdf', '_blank').print();</script>";
+            } catch (\Exception $e) {
                 return redirect('/za.docx');
             }
         }
@@ -236,33 +244,32 @@ class TamozhnyaAddLegalController extends Controller
                 'director' => $tamozhnya->agent->user->branch->director->getFIO(),
             ]);
             $document->saveAs('polis.docx');
+
             try {
                 $API = new Convertio(config('app.convertioKey'));
                 $API->start('polis.docx', 'pdf')->wait()->download('polis.pdf')->delete();
-                echo "<script>window.open('".config('app.url')."/polis.pdf', '_blank').print()</script>";
-            }
-            catch (\Exception $e)
-            {
+
+                echo "<script>window.open('" . config('app.url') . "/polis.pdf', '_blank').print();</script>";
+            } catch (\Exception $e) {
                 return redirect('/polis.docx');
             }
         }
 
-        $requestUnderwrittingProblem = false;
+        $request_underwritting_problem = false;
 
         if ($tamozhnya->product->max_acceptable_amount < $tamozhnya->strahovaya_sum) {
             if ($tamozhnya->requests()->exists()) {
                 foreach ($tamozhnya->requests as $req) {
                     if ($req->status != 'underwritting' or $req->state != 2) {
-                        $requestUnderwrittingProblem = true;
+                        $request_underwritting_problem = true;
                     }
                 }
             } else {
-                $requestUnderwrittingProblem = true;
+                $request_underwritting_problem = true;
             }
         }
 
-        return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya', 'policySeries', 'requestUnderwrittingProblem'));
-
+        return view('products.tamozhnya.add-legal.edit', compact('banks', 'agents', 'tamozhnya', 'policy_series', 'request_underwritting_problem'));
     }
 
     /**
@@ -274,28 +281,36 @@ class TamozhnyaAddLegalController extends Controller
      */
     public function update(TamozhnyaAddLegalRequest $request, $id)
     {
-        $tamozhnyaAddLegal = TamozhnyaAddLegal::findOrFail($id);
-        $policyHolders = PolicyHolder::updatePolicyHolders($tamozhnyaAddLegal->policy_holder_id, $request);
-        if (!$policyHolders)
+        $tamozhnya_add_legal = TamozhnyaAddLegal::findOrFail($id);
+        $policy_holders = PolicyHolder::updatePolicyHolders($tamozhnya_add_legal->policy_holder_id, $request);
+
+        if (!$policy_holders) {
             return back()->withInput()->withErrors([sprintf('Ошибка при обновлении PolicyHolders')]);
-        $request->policy_holder_id = $policyHolders->id;
+        }
+
+        $request->policy_holder_id = $policy_holders->id;
         if ($request->hasFile('anketa_img')) {
             $image = $request->file('anketa_img')->store('/img/PolicyHolder', 'public');
-            $request->anketa_img = $image;
-        } else
-            $request->anketa_img = $tamozhnyaAddLegal->anketa_img;
 
+            $request->anketa_img = $image;
+        } else {
+            $request->anketa_img = $tamozhnya_add_legal->anketa_img;
+        }
         if ($request->hasFile('dogovor_img')) {
             $image = $request->file('dogovor_img')->store('/img/PolicyHolder', 'public');
+
             $request->dogovor_img = $image;
-        } else
-            $request->dogovor_img = $tamozhnyaAddLegal->dogovor_img;
+        } else {
+            $request->dogovor_img = $tamozhnya_add_legal->dogovor_img;
+        }
 
         if ($request->hasFile('polis_img')) {
             $image = $request->file('polis_img')->store('/img/PolicyHolder', 'public');
+
             $request->polis_img = $image;
-        } else
-            $request->polis_img = $tamozhnyaAddLegal->polis_img;
+        } else {
+            $request->polis_img = $tamozhnya_add_legal->polis_img;
+        }
 
         $request->strahovaya_purpose = $this->countStrahovayaPremiya(
             $request->strahovaya_sum,
@@ -304,17 +319,18 @@ class TamozhnyaAddLegalController extends Controller
             $request->product_id
         );
 
-        $tamozhnyaAddLegal = TamozhnyaAddLegal::updateTamozhnyaAddLegal($id, $request);
-        if (!$tamozhnyaAddLegal)
-            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $tamozhnyaAddLegal')]);
-        if ($tamozhnyaAddLegal->payment_term == '1') {
-            $delStrahPremiya = TamozhnyaAddLegalStrahPremiya::where('tamozhnya_add_legal_id', $tamozhnyaAddLegal->id)->delete();
+        $tamozhnya_add_legal = TamozhnyaAddLegal::updateTamozhnyaAddLegal($id, $request);
+        if (!$tamozhnya_add_legal) {
+            return back()->withInput()->withErrors([sprintf('Ошибка при добавлении $tamozhnya_add_legal')]);
+        }
+        if ($tamozhnya_add_legal->payment_term == '1') {
+            TamozhnyaAddLegalStrahPremiya::where('tamozhnya_add_legal_id', $tamozhnya_add_legal->id)->delete();
         } else {
             if (!empty($request->post('payment_sum')) && !empty($request->post('payment_sum'))) {
                 foreach ($request->post('payment_sum') as $key => $sum) {
-                    $newStrahPremiya = TamozhnyaAddLegalStrahPremiya::updateOrCreate([
+                    TamozhnyaAddLegalStrahPremiya::updateOrCreate([
                         'id' => $key,
-                        'tamozhnya_add_legal_id' => $tamozhnyaAddLegal->id
+                        'tamozhnya_add_legal_id' => $tamozhnya_add_legal->id
                     ], [
                         'prem_sum' => $sum,
                         'prem_from' => $request->post('payment_from')[$key]
@@ -334,10 +350,10 @@ class TamozhnyaAddLegalController extends Controller
      */
     public function destroy($id)
     {
-        $tamozhnyaAddLegal = TamozhnyaAddLegal::find($id);
-        $tamozhnyaAddLegal->delete();
+        $tamozhnya_add_legal = TamozhnyaAddLegal::find($id);
+        $tamozhnya_add_legal->delete();
 
         return redirect()->route('all_products.index')
-            ->with('success', sprintf('Дынные о продукте %s были успешно удалены', $tamozhnyaAddLegal->unique_number));
+                         ->with('success', sprintf('Данные о продукте %s были успешно удалены', $tamozhnya_add_legal->unique_number));
     }
 }

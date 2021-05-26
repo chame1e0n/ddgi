@@ -40,9 +40,9 @@ $(document).ready(function () {
         })
     }, 500)
 
-    const newTarifInput = document.getElementById('descrTarif');
+    const newTarifInput = document.getElementById('all-product-tarif-other');
     const newTarifCalc = document.getElementById('newDdescrTarif');
-    const newPreimInput = document.getElementById('descrPreim');
+    const newPreimInput = document.getElementById('all-product-premiya-other');
     const newPreimCalc = document.getElementById('newDescrPreim');
 
     newTarifInput.addEventListener('input', function() {
@@ -223,14 +223,14 @@ function getPolicyRelations(polisNameElement, rowId) {
                     options += '<option value="' + i + '">' + response['series'][i] + '</option>';
                 }
 
-                document.getElementById('policy_series_' + rowId).innerHTML = options;
+                document.getElementById('model_' + rowId).innerHTML = options;
 
                 var options = '';
                 for (var i in response['agents']) {
                     options += '<option value="' + i + '">' + response['agents'][i] + '</option>';
                 }
 
-                document.getElementById('policy_agents_' + rowId).innerHTML = options;
+                document.getElementById('agents_' + rowId).innerHTML = options;
             }
         });
     }
@@ -279,10 +279,10 @@ function addRowPaymentSchedule() {
     const tableBody = tablePaymentSchedule.querySelector('tbody')
 
     const newTableRow = `
-    <tr id="payment-term-tr-${fieldNumber}" data-field-number="${fieldNumber}">
-      <td><input type="text" class="form-control" data-field="sum" name="payment_sum[]">
+    <tr id="all-products-terms-transh-${fieldNumber}" data-field-number="${fieldNumber}">
+      <td><input type="text" class="form-control" data-field="sum" name="all_products_terms_transhes[${fieldNumber}][payment_sum]">
       </td>
-      <td><input type="date" class="form-control" data-field="from" name="payment_from[]">
+      <td><input type="date" class="form-control" data-field="from" name="all_products_terms_transhes[${fieldNumber}][payment_from]">
       </td>
       <td>
         <input type="button" value="Удалить" data-action="delete" class="btn btn-warning">
@@ -754,22 +754,23 @@ if (addBuilderButton) {
 }
 
 
-const condition = document.getElementById('condition');
+const condition = document.getElementById('all-product-payment-term');
 const transhPaymentSchedule = document.getElementById('transh-payment-schedule');
 const transhPaymentScheduleButton = document.getElementById('transh-payment-schedule-button');
 
 const addPaymentSchedule = () => {
     const id = Math.random();
     const builders = document.getElementById('empTable3').querySelector('tbody');
+    const number = document.getElementById('empTable3').querySelector('tbody').querySelectorAll('tr').length;
     builders.insertAdjacentHTML('beforeend', `
          <tr id="${id}" data-field-number="0">
             <td>
                 <input type="text" class="form-control"
-                       name="payment_sum[]">
+                       name="all_products_terms_transhes[${number}][payment_sum]">
             </td>
             <td>
                 <input type="date" class="form-control"
-                       name="payment_from[]">
+                       name="all_products_terms_transhes[${number}][payment_from]">
             </td>
             <td>
                 <input type="button" onclick="removeEl(${id})" value="Удалить" class="btn btn-warning">
@@ -1335,7 +1336,7 @@ const addProductFieldRow = (fieldNumber) => {
 };
 
 const removeProductsFieldRow = (fieldNumber) => {
-    document.getElementById('a' + fieldNumber).remove(); // buttton -> td -> tr
+    document.getElementById('all_product_information_transport_' + fieldNumber).remove(); // buttton -> td -> tr
     document.getElementById("product-field-modal-" + fieldNumber).remove();
     calcPrice();
 };
@@ -2089,75 +2090,77 @@ if (addImushestvoBtn) {
 
 
 const addCascoFieldRow = (fieldNumber) => {
+    fieldNumber = document.getElementById('empTable').querySelector('tbody').querySelectorAll('tr').length - 1;
+
     const fields = `
-    <tr id="a${fieldNumber}">
+    <tr id="all_product_information_transport_${fieldNumber}">
         <td>
-            <select class="form-control polis_name_id" onchange="getPolicyRelations(this, 'a${fieldNumber}')" name="polis_mark[]" style="width: 100%;">
+            <select class="form-control polis_name_id" onchange="getPolicyRelations(this, ${fieldNumber})" name="all_product_information_transports[${fieldNumber}][polis_mark]" style="width: 100%;">
                 <option selected="selected"></option>
             </select>
         </td>
         <td>
-            <select class="form-control polis_series_id" id="policy_series_a${fieldNumber}" name="polis_model[]" style="width: 100%;">
+            <select class="form-control polis_series_id" id="model_${fieldNumber}" name="all_product_information_transports[${fieldNumber}][polis_model]" style="width: 100%;">
                 <option selected="selected"></option>
             </select>
         </td>
         <td>
-            <input type="date" class="form-control" name="data_vidachi[]">
+            <input type="date" class="form-control" name="all_product_information_transports[${fieldNumber}][data_vidachi]" />
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_gos_num[]">
+            <input type="text" class="form-control" name="all_product_information_transports[${fieldNumber}][polis_gos_num]" />
         </td>
         <td>
-            <input type="date" class="form-control" name="polis_teh_passport[]">
+            <input type="date" class="form-control" name="all_product_information_transports[${fieldNumber}][polis_teh_passport]" />
         </td>
         <td>
-            <input type="date" class="form-control" name="polis_num_engine[]">
+            <input type="date" class="form-control" name="all_product_information_transports[${fieldNumber}][polis_num_engine]" />
         </td>
         <td>
-           <select class="form-control" id="policy_agents_a${fieldNumber}" name="agents[]" style="width: 100%;">
+            <select class="form-control" id="agents_${fieldNumber}" name="all_product_information_transports[${fieldNumber}][agents]" style="width: 100%;">
                 <option selected="selected"></option>
             </select>
         </td>
         <td>
-            <input type="text" class="form-control" name="polis_payload[]">
+            <input type="text" class="form-control" name="all_product_information_transports[${fieldNumber}][polis_payload]" />
         </td>
         <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-          <td>
-            <input type="text"  class="form-control" name="polis_places[]">
-        </td>
-         <td>
-            <input type="text"  class="form-control" name="polis_places[]">
+            <input type="text"  class="form-control" name="all_product_information_transports[${fieldNumber}][modification]" />
         </td>
         <td>
-            <input type="text" data-field="value" class="form-control" name="polis_places[]">
+            <input type="text"  class="form-control" name="all_product_information_transports[${fieldNumber}][state_num]">
         </td>
         <td>
-            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="overall_polis_sum[]">
+            <input type="text"  class="form-control" name="all_product_information_transports[${fieldNumber}][num_tech_passport]">
         </td>
         <td>
-            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="polis_premium[]">
+            <input type="text"  class="form-control" name="all_product_information_transports[${fieldNumber}][num_engine]">
         </td>
-         <td>
+        <td>
+            <input type="text"  class="form-control" name="all_product_information_transports[${fieldNumber}][num_carcase]">
+        </td>
+        <td>
+            <input type="text"  class="form-control" name="all_product_information_transports[${fieldNumber}][carrying_capacity]">
+        </td>
+        <td>
+            <input type="text" data-field="value" class="form-control" name="all_product_information_transports[${fieldNumber}][insurance_cost]">
+        </td>
+        <td>
+            <input type="text" data-field="sum" class="form-control calc1 overall_insurance_sum-0" name="all_product_information_transports[${fieldNumber}][overall_polis_sum]">
+        </td>
+        <td>
+            <input type="text" data-field="premiya"  class="form-control insurance_premium-0" name="all_product_information_transports[${fieldNumber}][polis_premium]">
+        </td>
+        <td>
             <input type="button" onclick="openModal(${fieldNumber})" value="Заполнить" class="btn btn-success product-fields-button" id="product-fields-button" data-field-number="${fieldNumber}">
         </td>
-         <td>
+        <td>
             <input type="button" onclick="removeProductsFieldRow(${fieldNumber})" value="Удалить" class="btn btn-warning">
         </td>
     </tr>
-`
-    productFieldsTable.querySelector('tbody').querySelector('tr').insertAdjacentHTML('afterend', fields);
-    getPolicyName('a' + fieldNumber);
+`;
+    productFieldsTable.querySelector('tbody').insertAdjacentHTML('afterbegin', fields);
+    getPolicyName('all_product_information_transport_' + fieldNumber);
 };
 
 const cascoAddButton = document.getElementById('cascoAddButton');
