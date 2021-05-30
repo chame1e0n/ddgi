@@ -213,18 +213,20 @@ class BrokerController extends Controller
             ]
         );
 
-        if (!empty($request->from_date_polis)) {
-            $all_product_info = AllProductInformation::create(
-                [
-                    'all_products_id' => $all_product->id,
-                    'policy_num' => $request->policy_num,
-                    'policy_series' => $request->policy_series,
-                    'policy_insurance_from' => $request->policy_insurance_from,
-                    'from_date_polis' => $request->from_date_polis,
-                    'date_polis_from' => $request->date_polis_from,
-                    'date_polis_to' => $request->date_polis_to,
-                ]
-            );
+        if (!empty($request->all_product_informations)) {
+            $all_product_informations = request('all_product_informations', []);
+            foreach ($all_product_informations as $info) {
+                $info['all_products_id'] = $all_product->id;
+                // :TODO: Тут все не верно, нужно понять куда сохранять, нет полей
+                $all_product_info = AllProductInformation::create(
+                    //$info
+                    [
+                        'all_products_id' => $all_product->id,
+                        'policy_series' => $info['from_date_polis'],
+                        'policy_insurance_from' => $info['date_polis_from'],
+                    ]
+                );
+            }
         }
 
         if (!empty($request->payment_sum)){
@@ -237,7 +239,7 @@ class BrokerController extends Controller
             );
         }
 
-        return redirect(route('brokers.edit', ['broker' => $all_product]))->with('message', 'Успешно создано');
+        return redirect(route('broker.edit', ['broker' => $all_product]))->with('message', 'Успешно создано');
     }
 
     /**

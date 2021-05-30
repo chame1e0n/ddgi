@@ -111,6 +111,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('broker', 'BrokerController');
     Route::get('broker/download/{id}/{info_id}', 'BrokerController@download')->name('broker.download');
 
+    // Ajax forms parts
+    Route::get('/form-part/ajax', 'AjaxFormController@part')->name('ajax-form.part');
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

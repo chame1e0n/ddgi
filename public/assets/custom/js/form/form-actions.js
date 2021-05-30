@@ -588,47 +588,21 @@ const removeAndCalc = (id) => {
 
 if (buttonAddRowInfo) {
     buttonAddRowInfo.addEventListener('click', event => {
-        const id = Math.random();
-        const rowInfo = `
-      <tr id="${id}">
-        <td>
-            <input  type="date" name="from_date_polis[]" class="form-control" required>
-        </td>
-        <td>
-            <input type="date" class="form-control" name="date_polis_from[]" required>
-        </td>
-        <td>
-            <input type="date" class="form-control" name="date_polis_to[]" required>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="insurer_fio[]" required>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="specialty[]" value="Specialty" required>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="experience[]" value="work experience" required>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="position[]" required>
-        </td>
-        <td>
-            <input type="text" class="form-control" name="time_stay[]" required>
-        </td>
-        <td>
-            <input type="text" class="form-control" data-field="value" name="insurer_price[]" required>
-        </td>
-        <td>
-            <input type="text" class="form-control" data-field="sum" name="insurer_sum[]" required>
-        </td>
-        <td>
-            <input type="text" class="form-control" data-field="premiya" name="insurer_premium[]" required>
-        </td>
-        <td>
-            <input onclick="removeAndCalc(${id})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
-        </td>
-      </tr>`
-        infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', rowInfo);
+        $(buttonAddRowInfo).attr('disabled', 'disabled');
+        var index = 0;
+        var trs = $('#empTable').find('tbody tr');
+        for (var i = 0; i < trs.length; i++) {
+            if ($(trs[i]).attr('id') !== undefined) {
+                var cur_id = parseInt($(trs[i]).attr('id'));
+                if (cur_id > index) {
+                    index = cur_id;
+                }
+            }
+        }
+        $.get('/form-part/ajax?type=all_product_informations&index=' + (index + 1), function(html) {
+            infoTable.querySelector('tbody').insertAdjacentHTML('afterbegin', html);
+            $(buttonAddRowInfo).removeAttr('disabled');
+        });
     })
 }
 

@@ -185,47 +185,7 @@
                             <tbody>
                             @if($all_product->allProductInformations->count() > 0)
                                 @foreach($all_product->allProductInformations as $item)
-                                    <tr id="{{ $item->id }}">
-                                        <input type="hidden"
-                                               name="all_product_informations[][id]"
-                                               value="{{ $item->id }}" />
-                                        <td>
-                                            <input  type="date" name="all_product_informations[][from_date_polis]" class="form-control" value="{{ $item->policy_insurance_from }}" required>
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control" name="all_product_informations[][date_polis_from]" value="{{ $item->date_polis_from }}" required>
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control" name="all_product_informations[][date_polis_to]" value="{{ $item->date_polis_to }}" required>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="all_product_informations[][insurer_fio]" value="{{ $item->otvet_litso }}" required>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="all_product_informations[][specialty]" value="Specialty" required>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="all_product_informations[][experience]" value="work experience" required>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="all_product_informations[][position]" required>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name="all_product_informations[][time_stay]" required>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" data-field="value" name="all_product_informations[][insurer_price]" required>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" data-field="sum" name="all_product_informations[][insurer_sum]" required>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" data-field="premiya" name="all_product_informations[][insurer_premium]" required>
-                                        </td>
-                                        <td>
-                                            <input onclick="removeAndCalc({{ $item->id }})" type="button" value="Удалить" data-action="delete" class="btn btn-warning">
-                                        </td>
-                                    </tr>
+                                    @include('products.ajax.all_product_informations', ['product_index' => $loop->index])
                                 @endforeach
                             @endif
                             <tr>
