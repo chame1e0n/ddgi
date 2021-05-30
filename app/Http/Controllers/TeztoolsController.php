@@ -6,13 +6,16 @@ use App\AllProduct;
 use App\AllProductInformation;
 use App\AllProductInformationTransport;
 use App\AllProductsTermsTransh;
+use App\Helpers\Convertio\Convertio;
 use App\Models\Policy;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class TeztoolsController extends Controller
 {
@@ -170,6 +173,42 @@ class TeztoolsController extends Controller
         //
     }
 
+    public function download($id, $info_id) {
+        $all_product = AllProduct::find($id);
+        $product_info = AllProductInformationTransport::find($info_id);
+        $document = new TemplateProcessor(public_path('teztools/polis.docx'));
+        Carbon::setLocale('ru');
+        $document->setValues([
+            'policy_holder_fio' => $all_product->policyHolder->FIO,
+            'policy_holder_address' => $all_product->policyHolder->address,
+            'policy_holder_phone_number' => $all_product->policyHolder->phone_number,
+            'all_product_insurance_bonus' => $all_product->insurance_bonus,
+            'policy_beneficiary_fio' => $all_product->policyBeneficiaries->FIO,
+            'policy_holder_mfo' => $all_product->policyHolder->mfo,
+            'insurance_to' => Carbon::parse($all_product->insurance_to)->translatedFormat('d F Y'),
+            'polis_payload' => $product_info->polis_payload,
+            'polis_year' => $product_info->polis_gos_num,
+            'polis_gos_num' => $product_info->state_num,
+            'num_carcase' => $product_info->num_carcase,
+            'insurance_cost' => $product_info->insurance_cost,
+            'overall_polis_sum' => $product_info->overall_polis_sum,
+        ]);
+        $document->saveAs('polis.docx');
+
+        try {
+            $API = new Convertio(config('app.convertioKey'));
+            $API->start('polis.docx', 'pdf')->wait()->download('polis.pdf')->delete();
+
+            header("Content-type:application/pdf");
+            header("Content-Disposition: inline;filename=polis.pdf");
+            readfile("polis.pdf");
+
+            //echo "<script>window.open('" . config('app.url') . "/polis.pdf', '_blank').print();</script>";
+        } catch (\Exception $e) {
+            return redirect('/polis.docx');
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -243,25 +282,36 @@ class TeztoolsController extends Controller
 
         if (!empty($request->all_product_information_transports)) {
             foreach ($request->all_product_information_transports as $all_product_information_transport_data) {
-                $all_product_information_transport = AllProductInformationTransport::find($all_product_information_transport_data['id']);
+                if (isset($all_product_information_transport_data['id'])) {
+                    $all_product_information_transport = AllProductInformationTransport::find($all_product_information_transport_data['id']);
+                    unset($all_product_information_transport_data['data_vidachi'], $all_product_information_transport_data['id']);
+                    $all_product_information_transport->update($all_product_information_transport_data);
+                } else {
+                    $all_product_information_transport_data['all_products_id'] = $all_product->id;
+                    unset($all_product_information_transport_data['data_vidachi']);
 
-                unset($all_product_information_transport_data['data_vidachi'], $all_product_information_transport_data['id']);
+                    AllProductInformationTransport::create($all_product_information_transport_data);
 
-                $all_product_information_transport->update($all_product_information_transport_data);
+                    $policy = Policy::find($all_product_information_transport_data['polis_model']);
+                    $policy->update(['status' => 'in_use']);
+                }
             }
         }
 
         if (!empty($request->all_products_terms_transhes)) {
             foreach ($request->all_products_terms_transhes as $all_products_terms_transh_data) {
-                $all_products_terms_transh = AllProductsTermsTransh::find($all_products_terms_transh_data['id']);
-
-                unset($all_products_terms_transh_data['id']);
-
-                $all_products_terms_transh->update($all_products_terms_transh_data);
+                if (isset($all_products_terms_transh_data['id'])) {
+                    $all_products_terms_transh = AllProductsTermsTransh::find($all_products_terms_transh_data['id']);
+                    unset($all_products_terms_transh_data['id']);
+                    $all_products_terms_transh->update($all_products_terms_transh_data);
+                } else {
+                    $all_products_terms_transh_data['all_products_id'] = $all_product->id;
+                    AllProductsTermsTransh::create($all_products_terms_transh_data);
+                }
             }
         }
 
-        return 'successfully edit!';
+        return redirect(route('teztools.edit', ['teztool' => $all_product]))->with('message', 'Успешно изменено');
     }
 
     /**

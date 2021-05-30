@@ -17,7 +17,6 @@
         </div>
     </div>
     <div class="col-sm-6">
-        <label class="col-form-label">Период договора</label>
         <div class="form-group">
             <div class="input-group"
                  style="margin-top: 33px;">

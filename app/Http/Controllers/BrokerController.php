@@ -6,10 +6,13 @@ use App\AllProduct;
 use App\AllProductInformation;
 use App\AllProductInformationTransport;
 use App\AllProductsTermsTransh;
+use App\Helpers\Convertio\Convertio;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class BrokerController extends Controller
 {
@@ -32,6 +35,40 @@ class BrokerController extends Controller
     {
         $agents = Agent::query()->get();
         return view('products.otvetstvennost.broker.create', compact('agents'));
+    }
+
+    public function download($id, $info_id) {
+        $all_product = AllProduct::find($id);
+        $product_info = AllProductInformation::find($info_id);
+        $document = new TemplateProcessor(public_path('teztools/polis.docx'));
+        Carbon::setLocale('ru');
+        $document->setValues([
+            'policy_holder_fio' => $all_product->policyHolder->FIO,
+            'policy_holder_address' => $all_product->policyHolder->address,
+            'policy_holder_phone_number' => $all_product->policyHolder->phone_number,
+            'all_product_insurance_bonus' => $all_product->insurance_bonus,
+            'policy_beneficiary_fio' => 'ФИО',
+            'policy_holder_mfo' => $all_product->policyHolder->mfo,
+            'insurance_to' => Carbon::parse($all_product->insurance_to)->translatedFormat('d F Y'),
+            'polis_payload' => $product_info->polis_payload,
+            'polis_year' => $product_info->polis_gos_num,
+            'polis_gos_num' => $product_info->state_num,
+            'num_carcase' => $product_info->num_carcase,
+            'insurance_cost' => $product_info->insurance_cost,
+            'overall_polis_sum' => $product_info->overall_polis_sum,
+        ]);
+        $document->saveAs('polis.docx');
+
+        try {
+            $API = new Convertio(config('app.convertioKey'));
+            $API->start('polis.docx', 'pdf')->wait()->download('polis.pdf')->delete();
+
+            header("Content-type:application/pdf");
+            header("Content-Disposition: inline;filename=polis.pdf");
+            readfile("polis.pdf");
+        } catch (\Exception $e) {
+            return redirect('/polis.docx');
+        }
     }
 
     /**
@@ -176,35 +213,16 @@ class BrokerController extends Controller
             ]
         );
 
-        if (!empty($request->policy_num)){
-            $all_product_info_transport = AllProductInformationTransport::create([
-                'all_products_id' => $all_product->id,
-                'policy_num'=>$request->policy_num,
-                'policy_series_id'=>$request->policy_series_id,
-                'from_date_polis'=>$request->from_date_polis,
-                'date_polis_from'=>$request->date_polis_from,
-                'date_polis_to'=>$request->date_polis_to,
-
-                'agents'=>$request->agent_id,
-
-                'insurer_fio'=>$request->insurer_fio,
-                'specialty'=>$request->specialty,
-                'experience'=>$request->experience,
-                'position'=>$request->position,
-                'time_stay'=>$request->time_stay,
-                'insurer_price'=>$request->insurer_price,
-                'insurer_sum'=>$request->insurer_sum,
-                'insurer_premium'=>$request->insurer_premium,
-            ]);
-        }
-
-        if (!empty($request->policy_series)) {
+        if (!empty($request->from_date_polis)) {
             $all_product_info = AllProductInformation::create(
                 [
                     'all_products_id' => $all_product->id,
+                    'policy_num' => $request->policy_num,
                     'policy_series' => $request->policy_series,
                     'policy_insurance_from' => $request->policy_insurance_from,
-                    'otvet_litso' => $request->litso,
+                    'from_date_polis' => $request->from_date_polis,
+                    'date_polis_from' => $request->date_polis_from,
+                    'date_polis_to' => $request->date_polis_to,
                 ]
             );
         }
@@ -219,8 +237,7 @@ class BrokerController extends Controller
             );
         }
 
-        return 'successfully created!';
-
+        return redirect(route('brokers.edit', ['broker' => $all_product]))->with('message', 'Успешно создано');
     }
 
     /**
@@ -249,6 +266,7 @@ class BrokerController extends Controller
             'allProductInfo',
             'allProductInfoTransport'
         )->findOrFail($id);
+
         return view('products.otvetstvennost.broker.edit', compact('agents', 'all_product'));
     }
 
@@ -313,6 +331,8 @@ class BrokerController extends Controller
                 'policy_holder_id' => $policyHolder->id,
                 'insurance_from' => $request->insurance_from,
                 'insurance_to' => $request->insurance_to,
+                'strah_dogovor_ot' => $request->strah_dogovor_ot,
+                'strah_dogovor_do' => $request->strah_dogovor_do,
                 'geo_zone' => $request->geo_zone,
 
 
@@ -406,8 +426,7 @@ class BrokerController extends Controller
             );
         }
 
-        return 'successfully edit';
-
+        return redirect(route('brokers.edit', ['broker' => $all_product]))->with('message', 'Успешно изменено');
     }
 
     /**

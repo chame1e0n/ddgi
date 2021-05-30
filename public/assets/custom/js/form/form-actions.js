@@ -592,25 +592,13 @@ if (buttonAddRowInfo) {
         const rowInfo = `
       <tr id="${id}">
         <td>
-            <input type="text" class="form-control">
-        </td>
-        <td>
-            <input type="text" class="form-control" name="policy_series_id[]" required>
-        </td>
-        <td>
             <input  type="date" name="from_date_polis[]" class="form-control" required>
         </td>
         <td>
-            <input type="date" class="form-control" name="to_date_polis[]" required>
+            <input type="date" class="form-control" name="date_polis_from[]" required>
         </td>
         <td>
-            <input type="date" class="form-control" name="to_date_polis[]" required>
-        </td>
-        <td>
-            <select class="form-control polises" id="polise_agents" name="agent_id[]" style="width: 100%;" required>
-                <option value="4">aa Name1 middlasdc</option>
-                <option value="3">FotTestOnly ahahah asdcsdac</option>
-            </select>
+            <input type="date" class="form-control" name="date_polis_to[]" required>
         </td>
         <td>
             <input type="text" class="form-control" name="insurer_fio[]" required>
