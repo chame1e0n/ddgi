@@ -301,8 +301,8 @@
                                             <th class="text-nowrap">Серия полиса</th>
                                             <th class="text-nowrap">Дата выдачи</th>
                                             <th class="text-nowrap">Год выпуска</th>
-                                            <th class="text-nowrap">Периуд действия от</th>
-                                            <th class="text-nowrap">Периуд действия до</th>
+                                            <th class="text-nowrap">Период действия от</th>
+                                            <th class="text-nowrap">Период действия до</th>
                                             <th class="text-nowrap">Выбор агента</th>
                                             <th class="text-nowrap">Марка и модель</th>
                                             <th class="text-nowrap">Модификация</th>
@@ -394,43 +394,17 @@
     </form>
 @endsection
 
-@section('scripts')
-    <script>
-        $.ajax({
-            url: '{{route('getBanks')}}',
-            type: 'get',
-            dataType: 'json',
-            success: function (response) {
-                var len = response.length;
-
-                let insurer_banks = $('#policy-holder-bank-id');
-                insurer_banks.empty();
-                insurer_banks.append('<option></option>');
-
-                let beneficiary_banks = $('#policy-beneficiary-bank-id');
-                beneficiary_banks.empty();
-                beneficiary_banks.append('<option></option>');
-
-                var insurer_selected = {{old('policy-holder-bank-id') ?? 0}};
-                var beneficiary_selected = {{old('policy-beneficiary-bank-id') ?? 0}};
-
-                for (var i = 0; i < len; i++) {
-                    var id = response[i]['id'];
-                    var name = response[i]['name'];
-                    var mfo = response[i]['mfo'];
-
-                    insurer_banks.append('<option value="' + id + '" ' + (insurer_selected == id ? 'selected' : '')  + '>' + name + '</option>');
-                    beneficiary_banks.append('<option value="' + id + '" ' + (beneficiary_selected == id ? 'selected' : '')  + '>' + name + '</option>');
-                }
-            }
-        });
-
-        // Initialize Select2 Elements
-        $('#policy-holder-bank-id').select2({
-            theme: 'bootstrap4'
-        });
-        $('#policy-beneficiary-bank-id').select2({
-            theme: 'bootstrap4'
-        });
-    </script>
-@endsection
+@include('products.scripts', [
+    'ajax_data' => [
+        'banks' => [
+            [
+                'id' => 'policy-holder-bank-id',
+                'name' => 'policy_holder[bank_id]'
+            ],
+            [
+                'id' => 'policy-beneficiary-bank-id',
+                'name' => 'policy_beneficiary[bank_id]'
+            ]
+        ]
+    ]
+])

@@ -105,10 +105,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     ////Teztools
     Route::resource('teztools', 'TeztoolsController');
+    Route::get('teztools/download/{id}/{info_id}', 'TeztoolsController@download')->name('teztools.download');
 
     ////Broker
     Route::resource('broker', 'BrokerController');
+    Route::get('broker/download/{id}/{info_id}', 'BrokerController@download')->name('broker.download');
 
+    // Ajax forms parts
+    Route::get('/form-part/ajax', 'AjaxFormController@part')->name('ajax-form.part');
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

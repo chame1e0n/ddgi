@@ -405,8 +405,8 @@
                                         <th class="text-nowrap">Серия полиса</th>
                                         <th class="text-nowrap">Дата выдачи</th>
                                         <th class="text-nowrap">Год выпуска</th>
-                                        <th class="text-nowrap">Периуд действия от</th>
-                                        <th class="text-nowrap">Периуд действия до</th>
+                                        <th class="text-nowrap">Период действия от</th>
+                                        <th class="text-nowrap">Период действия до</th>
                                         <th class="text-nowrap">Выбор агента</th>
                                         <th class="text-nowrap">Марка</th>
                                         <th class="text-nowrap">Модель</th>
