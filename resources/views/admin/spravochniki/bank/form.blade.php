@@ -20,7 +20,7 @@
                                 class="form-control"
                                 name="bank[code]"
                                 required
-                                value="{{ $bank->code }}"
+                                value="{{ $object->code }}"
                             >
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                 class="form-control"
                                 name="bank[name]"
                                 required
-                                value="{{ $bank->name }}"
+                                value="{{ $object->name }}"
                             >
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                                 class="form-control"
                                 name="bank[filial]"
                                 required
-                                value="{{ $bank->filial }}"
+                                value="{{ $object->filial }}"
                             >
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                                 class="form-control"
                                 name="bank[address]"
                                 required
-                                value="{{ $bank->address }}"
+                                value="{{ $object->address }}"
                             >
                         </div>
                     </div>
@@ -74,20 +74,19 @@
                                 class="form-control"
                                 name="bank[inn]"
                                 required
-                                value="{{$bank->inn}}"
+                                value="{{$object->inn}}"
                             >
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="account" class="col-form-label">Расчетный счет
-                                банка</label>
+                            <label for="account" class="col-form-label">Расчетный счет банка</label>
                             <input
                                 id="account"
                                 class="form-control"
                                 name="bank[account]"
                                 required
-                                value="{{ $bank->account }}"
+                                value="{{ $object->account }}"
                             >
                         </div>
                     </div>

@@ -17,7 +17,7 @@ class BankController extends Controller
     {
         $banks = Bank::all();
 
-        return view('admin.index-layout', [
+        return view('admin.layouts.index-layout', [
             'objects' => $banks,
             'title' => 'Банки',
             'fields' => [
@@ -35,7 +35,10 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('admin.spravochniki.bank.create', ['bank' => new Bank()]);
+        return view('admin.common.create', [
+            'object' => new Bank(),
+            'form_path' => 'admin.spravochniki.bank.form'
+        ]);
     }
 
     /**
@@ -71,7 +74,11 @@ class BankController extends Controller
      */
     public function edit(Bank $bank)
     {
-        return view('admin.spravochniki.bank.edit', compact('bank'));
+        return view('admin.common.edit', [
+                'object' => $bank,
+                'form_path' => 'admin.spravochniki.bank.form'
+            ]
+        );
     }
 
     /**
