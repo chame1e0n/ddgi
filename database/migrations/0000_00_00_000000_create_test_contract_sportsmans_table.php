@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestContractSportmansTable extends Migration
+class CreateTestContractSportsmansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTestContractSportmansTable extends Migration
      */
     public function up()
     {
-        Schema::create('contract_sportmans', function (Blueprint $table) {
+        Schema::create('contract_sportsmans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('geo_zone');
             $table->integer('quantity');
@@ -31,6 +31,6 @@ class CreateTestContractSportmansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contract_sportmans');
+        Schema::dropIfExists('contract_sportsmans');
     }
 }

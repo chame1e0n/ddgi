@@ -19,7 +19,7 @@ class CreateTestSportsmanHasInsuranceCasesTable extends Migration
             $table->integer('insurance_case_id')->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
-            $table->foreign('contract_sportsman_id', 'fk_sportsman_has_insurance_case_contract_sportsman')->references('id')->on('contract_sportmans');
+            $table->foreign('contract_sportsman_id', 'fk_sportsman_has_insurance_case_contract_sportsman')->references('id')->on('contract_sportsmans');
             $table->foreign('insurance_case_id', 'fk_sportsman_has_insurance_case_insurance_case')->references('id')->on('insurance_cases');
         });
     }
