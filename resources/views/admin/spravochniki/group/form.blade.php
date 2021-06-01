@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="code" class="col-form-label">Наименование</label>
+                            <label for="name" class="col-form-label">Наименование</label>
                             <input
                                 id="name"
                                 class="form-control"

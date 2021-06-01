@@ -43,9 +43,14 @@
                                     <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">#</th>
                                         @foreach ($fields as $field => $name)
-                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">{{ $name }}</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">
+                                                @if (is_array($name))
+                                                    {{ $name['title'] }}
+                                                @else
+                                                    {{ $name }}
+                                                @endif
+                                            </th>
                                         @endforeach
-                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Статус</th>
                                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Действия</th>
                                     </tr>
                                     </thead>
@@ -54,9 +59,14 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             @foreach ($fields as $field => $name)
-                                                <td>{{ $object->$field }}</td>
+                                                <td>
+                                                    @if (is_array($name))
+                                                        @include('admin.common.fields.' . $name['type'])
+                                                    @else
+                                                        {{ $object->$field }}
+                                                    @endif
+                                                </td>
                                             @endforeach
-                                            <td>{{ $object->deleted_at ? 'Неактивный' : 'Активный' }}</td>
                                             <td>
                                                 <form action="{{ route($route . '.destroy',$object->id) }}" method="POST">
 

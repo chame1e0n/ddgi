@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Spravochniki;
 
 use App\Http\Controllers\Controller;
 use App\Model\Group;
@@ -38,7 +38,7 @@ class GroupController extends Controller
     {
         return view('admin.common.create', [
             'object' => new Group(),
-            'form_path' => 'admin.group.form'
+            'form_path' => 'admin.spravochniki.group.form'
         ]);
     }
 
@@ -64,7 +64,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        return view('admin.group.edit', compact('group'));
+        return view('admin.spravochniki.group.edit', compact('group'));
     }
 
     /**
@@ -77,7 +77,7 @@ class GroupController extends Controller
     {
         return view('admin.common.edit', [
                 'object' => $group,
-                'form_path' => 'admin.group.form'
+                'form_path' => 'admin.spravochniki.group.form'
             ]
         );
     }
