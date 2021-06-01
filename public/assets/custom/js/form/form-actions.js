@@ -168,7 +168,7 @@ let polisNamesList = [];
 
 let domainPath = location.protocol + '//' + location.host;
 
-loadAgents();
+//loadAgents();
 
 function loadAgents() {
     var xmlhttp = new XMLHttpRequest();
@@ -189,14 +189,16 @@ function loadAgents() {
     xmlhttp.send();
 }
 
-$.ajax({
-    url: domainPath + '/get/polis_name',
-    type: 'get',
-    dataType: 'json',
-    success: function (response) {
-        polisNamesList = response;
-    }
-});
+function loadPolisNames() {
+    $.ajax({
+        url: domainPath + '/get/polis_name',
+        type: 'get',
+        dataType: 'json',
+        success: function (response) {
+            polisNamesList = response;
+        }
+    });
+}
 
 function getPolicyName(rowId) {
     var polisNameField = document.getElementById(rowId).querySelector('.polis_name_id');
