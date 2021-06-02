@@ -17,7 +17,7 @@
                             <label for="code" class="col-form-label">Код банка</label>
                             <input
                                 id="code"
-                                class="form-control"
+                                class="form-control @error('bank.code') is-invalid @enderror"
                                 name="bank[code]"
                                 required
                                 value="{{ old('bank.code', $object->code) }}"
@@ -29,7 +29,7 @@
                             <label for="name" class="col-form-label">Наименование банка</label>
                             <input
                                 id="name"
-                                class="form-control"
+                                class="form-control @error('bank.name') is-invalid @enderror"
                                 name="bank[name]"
                                 required
                                 value="{{ old('bank.name', $object->name) }}"
@@ -44,7 +44,7 @@
                             <label for="filial" class="col-form-label">Наименование филиала</label>
                             <input
                                 id="filial"
-                                class="form-control"
+                                class="form-control @error('bank.filial') is-invalid @enderror"
                                 name="bank[filial]"
                                 required
                                 value="{{ old('bank.filial', $object->filial) }}"
@@ -56,7 +56,7 @@
                             <label for="address" class="col-form-label">Адрес банка</label>
                             <input
                                 id="address"
-                                class="form-control"
+                                class="form-control @error('bank.address') is-invalid @enderror"
                                 name="bank[address]"
                                 required
                                 value="{{ old('bank.address', $object->address) }}"
@@ -71,7 +71,7 @@
                             <label for="inn" class="col-form-label">ИНН банка</label>
                             <input
                                 id="inn"
-                                class="form-control"
+                                class="form-control @error('bank.inn') is-invalid @enderror"
                                 name="bank[inn]"
                                 required
                                 value="{{ old('bank.inn', $object->inn) }}"
@@ -83,7 +83,7 @@
                             <label for="account" class="col-form-label">Расчетный счет банка</label>
                             <input
                                 id="account"
-                                class="form-control"
+                                class="form-control @error('bank.account') is-invalid @enderror"
                                 name="bank[account]"
                                 required
                                 value="{{ old('bank.account', $object->account) }}"

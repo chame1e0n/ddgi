@@ -18,7 +18,7 @@
                             <input
                                 id="name"
                                 class="form-control"
-                                name="group[name]"
+                                name="group[name] @error('group.name') is-invalid @enderror"
                                 required
                                 value="{{ old('group.name', $object->name) }}"
                             >

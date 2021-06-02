@@ -15,7 +15,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="group_id">Группа</label>
-                            <select id="group_id" name="type[group_id]" class="form-control select2"
+                            <select id="group_id" name="type[group_id]" class="form-control select2 @error('type.group_id') is-invalid @enderror"
                                     style="margin-top: 6px;"
                                     required>
                                 @foreach($groups as $group)
@@ -29,7 +29,7 @@
                             <label for="code" class="col-form-label">Код</label>
                             <input
                                 id="code"
-                                class="form-control"
+                                class="form-control @error('type.code') is-invalid @enderror"
                                 name="type[code]"
                                 required
                                 value="{{ old('type.code', $object->code) }}"
@@ -41,7 +41,7 @@
                             <label for="name" class="col-form-label">Наименование</label>
                             <input
                                 id="name"
-                                class="form-control"
+                                class="form-control @error('type.name') is-invalid @enderror"
                                 name="type[name]"
                                 required
                                 value="{{ old('type.name', $object->name) }}"
@@ -55,7 +55,7 @@
                             <label for="description" class="col-form-label">Описание</label>
                             <textarea
                                 id="description"
-                                class="form-control"
+                                class="form-control @error('type.description') is-invalid @enderror"
                                 name="type[description]"
                                 required
                             >{{ old('type.description', $object->description) }}</textarea>
