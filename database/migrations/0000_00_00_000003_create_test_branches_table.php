@@ -16,8 +16,8 @@ class CreateTestBranchesTable extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('director_id')->unsigned()->nullable();
-            $table->integer('region_id')->unsigned();
             $table->integer('parent_id')->unsigned()->nullable();
+            $table->integer('region_id')->unsigned();
             $table->string('name', 150);
             $table->tinyInteger('is_center')->unsigned()->nullable()->default(0);
             $table->date('founded_date');
