@@ -49,7 +49,7 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        $this->saveObject(new Bank(request('bank')));
+        $this->saveObject(new Bank());
 
         return redirect()->route('bank.index')
             ->with('success', 'Успешно добавлен новый банк');
@@ -90,7 +90,6 @@ class BankController extends Controller
      */
     public function update(Request $request, Bank $bank)
     {
-        $bank->update(request('bank'));
         $this->saveObject($bank);
 
         return redirect()->route('bank.index')
@@ -107,6 +106,7 @@ class BankController extends Controller
             'bank.account' => 'required'
         ]);
 
+        $bank->fill(request('bank'));
         $bank->save();
     }
 

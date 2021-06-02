@@ -50,7 +50,7 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $this->saveObject(new Group(request('group')));
+        $this->saveObject(new Group());
 
         return redirect()->route('group.index')
             ->with('success', 'Успешно добавлена новая группа');
@@ -91,7 +91,6 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        $group->update(request('group'));
         $this->saveObject($group);
 
         return redirect()->route('group.index')
@@ -103,6 +102,7 @@ class GroupController extends Controller
             'group.name' => 'required',
         ]);
 
+        $group->fill(request('group'));
         $group->save();
     }
 

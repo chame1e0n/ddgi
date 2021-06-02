@@ -57,7 +57,7 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->saveObject(new Type(request('type')));
+        $this->saveObject(new Type());
 
         return redirect()->route('type.index')
             ->with('success', 'Успешно добавлен новый класс');
@@ -99,7 +99,6 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        $type->update(request('type'));
         $this->saveObject($type);
 
         return redirect()->route('type.index')
@@ -114,6 +113,7 @@ class TypeController extends Controller
             'type.group_id' => 'required'
         ]);
 
+        $type->fill(request('type'));
         $type->save();
     }
 
