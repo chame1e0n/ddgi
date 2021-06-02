@@ -13,16 +13,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="name" class="col-form-label">Наименование</label>
-                            <input
-                                id="name"
-                                class="form-control"
-                                name="group[name] @error('group.name') is-invalid @enderror"
-                                required
-                                value="{{ old('group.name', $object->name) }}"
-                            >
-                        </div>
+                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Наименование'])
                     </div>
                 </div>
             </div>

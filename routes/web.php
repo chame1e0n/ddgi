@@ -120,9 +120,13 @@ Route::group(['middleware' => ['auth']], function () {
     // $modelLocation = ""; // Uncomment for old Controllers
     Route::resource('spravochniki/bank',$modelLocation . 'Spravochniki\BankController');
     Route::resource('spravochniki/group',$modelLocation . 'Spravochniki\GroupController');
+
     Route::resource('spravochniki/klass','KlassController');
     Route::resource('spravochniki/type',$modelLocation . 'Spravochniki\TypeController');
+
     Route::resource('spravochniki/product','ProductController');
+    Route::resource('spravochniki/specification',$modelLocation . 'Spravochniki\SpecificationController');
+
     Route::resource('spravochniki/agent','Spravochniki\AgentController');
     Route::resource('spravochniki/manager','Spravochniki\ManagerController');
     Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');

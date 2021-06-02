@@ -27,8 +27,8 @@ class TypeController extends Controller
                 'description' => 'Описание',
                 'group_id' => [
                     'title' => 'Группа',
-                    'type' => 'list',
-                    'source' => Group::select('id', 'name')->get()->keyBy('id')
+                    'type' => 'select',
+                    'list' => Group::select('id', 'name')->get()->keyBy('id')
                 ],
             ],
             'route' => 'type'
