@@ -15,8 +15,8 @@ class CreateTestRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('policy_id')->unsigned()->nullable();
             $table->integer('employee_id')->unsigned();
+            $table->integer('policy_id')->unsigned()->nullable();
             $table->enum('status', ['defective', 'cancelling', 'lost', 'terminated', 'policy_transfer', 'underwritting'])->nullable();
             $table->tinyInteger('is_underwritting_request')->unsigned();
             $table->tinyInteger('is_perestrahovaniya_request')->unsigned();

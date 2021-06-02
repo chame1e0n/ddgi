@@ -15,13 +15,13 @@ class CreateTestContractsTable extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('client_id')->unsigned();
             $table->integer('beneficiary_id')->unsigned();
             $table->integer('borrower_id')->unsigned();
-            $table->integer('pledger_id')->unsigned();
-            $table->integer('specification_id')->unsigned();
+            $table->integer('client_id')->unsigned();
             $table->integer('currency_id')->unsigned();
             $table->integer('payment_method_id')->unsigned()->nullable();
+            $table->integer('pledger_id')->unsigned();
+            $table->integer('specification_id')->unsigned();
             $table->enum('payment_type', ['entirely', 'tranche'])->nullable();
             $table->enum('type', ['individual', 'legal'])->nullable();
             $table->string('status', 45)->default('created');

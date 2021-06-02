@@ -15,8 +15,8 @@ class CreateTestRequestOverviewsTable extends Migration
     {
         Schema::create('request_overviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('request_id')->unsigned();
             $table->integer('employee_id')->unsigned();
+            $table->integer('request_id')->unsigned();
             $table->tinyInteger('is_passed')->unsigned()->default(0);
             $table->text('comment')->nullable();
             $table->timestamps();
