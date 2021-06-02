@@ -116,9 +116,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    Route::resource('spravochniki/bank','Spravochniki\BankController');
-    Route::resource('spravochniki/group','GroupController');
+    $modelLocation = "Admin\\";
+    // $modelLocation = ""; // Uncomment for old Controllers
+    Route::resource('spravochniki/bank',$modelLocation . 'Spravochniki\BankController');
+    Route::resource('spravochniki/group',$modelLocation . 'Spravochniki\GroupController');
     Route::resource('spravochniki/klass','KlassController');
+    Route::resource('spravochniki/type',$modelLocation . 'Spravochniki\TypeController');
     Route::resource('spravochniki/product','ProductController');
     Route::resource('spravochniki/agent','Spravochniki\AgentController');
     Route::resource('spravochniki/manager','Spravochniki\ManagerController');
