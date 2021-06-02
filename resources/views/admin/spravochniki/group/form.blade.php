@@ -20,7 +20,7 @@
                                 class="form-control"
                                 name="group[name]"
                                 required
-                                value="{{ $object->name }}"
+                                value="{{ old('group.name', $object->name) }}"
                             >
                         </div>
                     </div>

@@ -20,7 +20,7 @@
                                 class="form-control"
                                 name="bank[code]"
                                 required
-                                value="{{ $object->code }}"
+                                value="{{ old('bank.code', $object->code) }}"
                             >
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                                 class="form-control"
                                 name="bank[name]"
                                 required
-                                value="{{ $object->name }}"
+                                value="{{ old('bank.name', $object->name) }}"
                             >
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                                 class="form-control"
                                 name="bank[filial]"
                                 required
-                                value="{{ $object->filial }}"
+                                value="{{ old('bank.filial', $object->filial) }}"
                             >
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                                 class="form-control"
                                 name="bank[address]"
                                 required
-                                value="{{ $object->address }}"
+                                value="{{ old('bank.address', $object->address) }}"
                             >
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                 class="form-control"
                                 name="bank[inn]"
                                 required
-                                value="{{$object->inn}}"
+                                value="{{ old('bank.inn', $object->inn) }}"
                             >
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                 class="form-control"
                                 name="bank[account]"
                                 required
-                                value="{{ $object->account }}"
+                                value="{{ old('bank.account', $object->account) }}"
                             >
                         </div>
                     </div>

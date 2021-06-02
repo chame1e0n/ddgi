@@ -19,7 +19,7 @@
                                     style="margin-top: 6px;"
                                     required>
                                 @foreach($groups as $group)
-                                    <option value="{{$group->id}}" @if($group->id == $object->group_id) selected="selected" @endif>{{$group->name}}</option>
+                                    <option value="{{$group->id}}" @if($group->id == old('type.group_id', $object->group_id)) selected="selected" @endif>{{$group->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -32,7 +32,7 @@
                                 class="form-control"
                                 name="type[code]"
                                 required
-                                value="{{ $object->code }}"
+                                value="{{ old('type.code', $object->code) }}"
                             >
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                                 class="form-control"
                                 name="type[name]"
                                 required
-                                value="{{ $object->name }}"
+                                value="{{ old('type.name', $object->name) }}"
                             >
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                                 class="form-control"
                                 name="type[description]"
                                 required
-                            >{{ $object->description }}</textarea>
+                            >{{ old('type.description', $object->description) }}</textarea>
                         </div>
                     </div>
                 </div>
