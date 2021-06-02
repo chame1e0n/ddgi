@@ -118,26 +118,32 @@ Route::group(['middleware' => ['auth']], function () {
 
     $modelLocation = "Admin\\";
     // $modelLocation = ""; // Uncomment for old Controllers
-    Route::resource('spravochniki/bank',$modelLocation . 'Spravochniki\BankController');
-    Route::resource('spravochniki/group',$modelLocation . 'Spravochniki\GroupController');
-
-    Route::resource('spravochniki/klass','KlassController');
-    Route::resource('spravochniki/type',$modelLocation . 'Spravochniki\TypeController');
-
-    Route::resource('spravochniki/product','ProductController');
-    Route::resource('spravochniki/specification',$modelLocation . 'Spravochniki\SpecificationController');
-
-    Route::resource('spravochniki/request', $modelLocation . 'Spravochniki\RequestController');
-    Route::resource('spravochniki/policy_series',$modelLocation . 'Spravochniki\PolicySeriesController');
+    $newFront = true;
+    if ($newFront) {
+        Route::resource('spravochniki/bank','Admin\Spravochniki\BankController');
+        Route::resource('spravochniki/group','Admin\Spravochniki\GroupController');
+        Route::resource('spravochniki/type','Admin\Spravochniki\TypeController');
+        Route::resource('spravochniki/product','ProductController'); // :TODO:
+        Route::resource('spravochniki/specification','Admin\Spravochniki\SpecificationController');
+        Route::resource('spravochniki/request', 'Admin\Spravochniki\RequestController');
+        Route::resource('director','Admin\DirectorController');
+    } else {
+        Route::resource('spravochniki/bank','Spravochniki\BankController');
+        Route::resource('spravochniki/group','Spravochniki\GroupController');
+        Route::resource('spravochniki/klass','KlassController');
+        Route::resource('spravochniki/product','ProductController'); // :TODO:
+        Route::resource('spravochniki/request', 'Spravochniki\RequestController');
+        Route::resource('director','DirectorController');
+    }
 
     Route::resource('spravochniki/agent','Spravochniki\AgentController');
     Route::resource('spravochniki/manager','Spravochniki\ManagerController');
+    Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
     Route::resource('spravochniki/branch','Spravochniki\BranchController');
     Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
     Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
     Route::resource('spravochniki/currency','CurrencyController');
     Route::resource('spravochniki/klass','KlassController');
-    Route::resource('director','DirectorController');
     Route::resource('policy_registration','PolicyRegistrationController');
     Route::resource('policy','PolicyController');
     Route::resource('kasko','Product\KaskoController');

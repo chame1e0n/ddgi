@@ -32,7 +32,7 @@
                         @include('admin.common.form_fields.input', ['field_name' => 'act_number', 'field_title' => 'Номер акта'])
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input', ['field_name' => 'policy_amount', 'field_title' => 'Количество полисов'])
+                        @include('admin.common.form_fields.input_number', ['field_name' => 'policy_amount', 'field_title' => 'Количество полисов'])
                     </div>
                 </div>
 

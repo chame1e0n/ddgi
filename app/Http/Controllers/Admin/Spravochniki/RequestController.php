@@ -113,12 +113,14 @@ class RequestController extends Controller
 
     protected function saveObject($request) {
         request()->validate([
-            'request.code' => 'required',
-            'request.name' => 'required',
-            'request.filial' => 'required',
-            'request.address' => 'required',
-            'request.inn' => 'required',
-            'request.account' => 'required'
+            'request.policy_id' => 'required',
+            'request.employee_id' => 'required',
+            'request.status' => 'required',
+            'request.comment' => 'required',
+            'request.file' => 'required',
+            'request.act_number' => 'required',
+            'request.limit_reason' => 'required',
+            'request.policy_amount' => 'required',
         ]);
 
         $request->fill(request('request'));
