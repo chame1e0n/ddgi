@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Spravochniki;
 
+use App\Helpers\ListHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Group;
 use App\Model\Type;
@@ -28,7 +29,7 @@ class TypeController extends Controller
                 'group_id' => [
                     'title' => 'Группа',
                     'type' => 'select',
-                    'list' => Group::select('id', 'name')->get()->keyBy('id')
+                    'list' => ListHelper::get(Group::class, 'name')
                 ],
             ],
             'route' => 'type'
@@ -45,7 +46,7 @@ class TypeController extends Controller
         return view('admin.common.create', [
             'object' => new Type(),
             'form_path' => 'admin.spravochniki.type.form',
-            'groups' => Group::all()
+            'groups' => ListHelper::get(Group::class, 'name')
         ]);
     }
 
@@ -85,7 +86,7 @@ class TypeController extends Controller
         return view('admin.common.edit', [
                 'object' => $type,
                 'form_path' => 'admin.spravochniki.type.form',
-                'groups' => Group::all()
+                'groups' => ListHelper::get(Group::class, 'name')
             ]
         );
     }

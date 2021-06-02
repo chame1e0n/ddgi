@@ -127,9 +127,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('spravochniki/product','ProductController');
     Route::resource('spravochniki/specification',$modelLocation . 'Spravochniki\SpecificationController');
 
+    Route::resource('spravochniki/request', $modelLocation . 'Spravochniki\RequestController');
+    Route::resource('spravochniki/policy_series',$modelLocation . 'Spravochniki\PolicySeriesController');
+
     Route::resource('spravochniki/agent','Spravochniki\AgentController');
     Route::resource('spravochniki/manager','Spravochniki\ManagerController');
-    Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
     Route::resource('spravochniki/branch','Spravochniki\BranchController');
     Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
     Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
@@ -157,7 +159,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('policy_retransfer','PolicyRetransferController');
     Route::resource('pretensii_overview','PretensiiOverviewController');
     Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
-    Route::resource('spravochniki/request', 'Spravochniki\RequestController');
     Route::get('get/policies', 'Spravochniki\RequestController@getPolicyByPolicySeries')->name('getPolicies');
     Route::get('get/branch_agent_managers', 'EmployeeController@getBranchAgentManagers')->name('getBranchAgentManagers');
     Route::get('get/branch_employees', 'EmployeeController@getBranchEmployees')->name('getBranchEmployees');

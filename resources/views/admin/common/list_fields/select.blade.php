@@ -1,1 +1,1 @@
-{{ $name['list'][$object->$field]['name'] }}
+{{ $name['list'][$object->$field] ?? $object->$field }}

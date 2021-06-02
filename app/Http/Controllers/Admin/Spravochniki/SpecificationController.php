@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Spravochniki;
 
+use App\Helpers\ListHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Group;
 use App\Model\Type;
@@ -29,7 +30,7 @@ class SpecificationController extends Controller
                 'type_id' => [
                     'title' => 'Класс',
                     'type' => 'select',
-                    'list' => Type::select('id', 'name')->get()->keyBy('id')
+                    'list' => ListHelper::get(Type::class, 'name')
                 ],
             ],
             'route' => 'specification'
