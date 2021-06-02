@@ -37,7 +37,8 @@ class DirectorController extends Controller
     {
         return view('admin.common.create', [
             'object' => new Employee(),
-            'form_path' => 'admin.director.form'
+            'form_path' => 'admin.director.form',
+            'route' => 'director'
         ]);
     }
 

@@ -13,7 +13,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Username'])
+                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Имя'])
+                    </div>
+                    <div class="col-md-6">
+                        @include('admin.common.form_fields.input', ['field_name' => 'surname', 'field_title' => 'Фамилия'])
                     </div>
                 </div>
             </div>
