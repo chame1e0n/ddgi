@@ -13,82 +13,28 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="code" class="col-form-label">Код банка</label>
-                            <input
-                                id="code"
-                                class="form-control @error('bank.code') is-invalid @enderror"
-                                name="bank[code]"
-                                required
-                                value="{{ old('bank.code', $object->code) }}"
-                            >
-                        </div>
+                        @include('admin.common.form_fields.input', ['field_name' => 'code', 'field_title' => 'Код банка'])
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="name" class="col-form-label">Наименование банка</label>
-                            <input
-                                id="name"
-                                class="form-control @error('bank.name') is-invalid @enderror"
-                                name="bank[name]"
-                                required
-                                value="{{ old('bank.name', $object->name) }}"
-                            >
-                        </div>
+                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Наименование банка'])
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="filial" class="col-form-label">Наименование филиала</label>
-                            <input
-                                id="filial"
-                                class="form-control @error('bank.filial') is-invalid @enderror"
-                                name="bank[filial]"
-                                required
-                                value="{{ old('bank.filial', $object->filial) }}"
-                            >
-                        </div>
+                        @include('admin.common.form_fields.input', ['field_name' => 'filial', 'field_title' => 'Наименование филиала'])
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="address" class="col-form-label">Адрес банка</label>
-                            <input
-                                id="address"
-                                class="form-control @error('bank.address') is-invalid @enderror"
-                                name="bank[address]"
-                                required
-                                value="{{ old('bank.address', $object->address) }}"
-                            >
-                        </div>
+                        @include('admin.common.form_fields.input', ['field_name' => 'address', 'field_title' => 'Адрес банка'])
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="inn" class="col-form-label">ИНН банка</label>
-                            <input
-                                id="inn"
-                                class="form-control @error('bank.inn') is-invalid @enderror"
-                                name="bank[inn]"
-                                required
-                                value="{{ old('bank.inn', $object->inn) }}"
-                            >
-                        </div>
+                        @include('admin.common.form_fields.input', ['field_name' => 'inn', 'field_title' => 'ИНН банка'])
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="account" class="col-form-label">Расчетный счет банка</label>
-                            <input
-                                id="account"
-                                class="form-control @error('bank.account') is-invalid @enderror"
-                                name="bank[account]"
-                                required
-                                value="{{ old('bank.account', $object->account) }}"
-                            >
-                        </div>
+                        @include('admin.common.form_fields.input', ['field_name' => 'account', 'field_title' => 'Расчетный счет банка'])
                     </div>
                 </div>
             </div>

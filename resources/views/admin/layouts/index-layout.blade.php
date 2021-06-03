@@ -61,7 +61,7 @@
                                             @foreach ($fields as $field => $name)
                                                 <td>
                                                     @if (is_array($name))
-                                                        @include('admin.common.fields.' . $name['type'])
+                                                        @include('admin.common.list_fields.' . $name['type'])
                                                     @else
                                                         {{ $object->$field }}
                                                     @endif

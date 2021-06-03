@@ -118,11 +118,24 @@ Route::group(['middleware' => ['auth']], function () {
 
     $modelLocation = "Admin\\";
     // $modelLocation = ""; // Uncomment for old Controllers
-    Route::resource('spravochniki/bank',$modelLocation . 'Spravochniki\BankController');
-    Route::resource('spravochniki/group',$modelLocation . 'Spravochniki\GroupController');
-    Route::resource('spravochniki/klass','KlassController');
-    Route::resource('spravochniki/type',$modelLocation . 'Spravochniki\TypeController');
-    Route::resource('spravochniki/product','ProductController');
+    $newFront = true;
+    if ($newFront) {
+        Route::resource('spravochniki/bank','Admin\Spravochniki\BankController');
+        Route::resource('spravochniki/group','Admin\Spravochniki\GroupController');
+        Route::resource('spravochniki/type','Admin\Spravochniki\TypeController');
+        Route::resource('spravochniki/product','ProductController'); // :TODO:
+        Route::resource('spravochniki/specification','Admin\Spravochniki\SpecificationController');
+        Route::resource('spravochniki/request', 'Admin\Spravochniki\RequestController');
+        Route::resource('director','Admin\DirectorController');
+    } else {
+        Route::resource('spravochniki/bank','Spravochniki\BankController');
+        Route::resource('spravochniki/group','Spravochniki\GroupController');
+        Route::resource('spravochniki/klass','KlassController');
+        Route::resource('spravochniki/product','ProductController'); // :TODO:
+        Route::resource('spravochniki/request', 'Spravochniki\RequestController');
+        Route::resource('director','DirectorController');
+    }
+
     Route::resource('spravochniki/agent','Spravochniki\AgentController');
     Route::resource('spravochniki/manager','Spravochniki\ManagerController');
     Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
@@ -131,7 +144,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
     Route::resource('spravochniki/currency','CurrencyController');
     Route::resource('spravochniki/klass','KlassController');
-    Route::resource('director','DirectorController');
     Route::resource('policy_registration','PolicyRegistrationController');
     Route::resource('policy','PolicyController');
     Route::resource('kasko','Product\KaskoController');
@@ -153,7 +165,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('policy_retransfer','PolicyRetransferController');
     Route::resource('pretensii_overview','PretensiiOverviewController');
     Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
-    Route::resource('spravochniki/request', 'Spravochniki\RequestController');
     Route::get('get/policies', 'Spravochniki\RequestController@getPolicyByPolicySeries')->name('getPolicies');
     Route::get('get/branch_agent_managers', 'EmployeeController@getBranchAgentManagers')->name('getBranchAgentManagers');
     Route::get('get/branch_employees', 'EmployeeController@getBranchEmployees')->name('getBranchEmployees');

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Specification extends Model
 {
     use SoftDeletes;
+    protected $guarded=[];
 
     /**
      * Name of the table for the model.

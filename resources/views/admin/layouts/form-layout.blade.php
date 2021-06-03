@@ -31,3 +31,12 @@
     </div>
     <!-- /.content -->
 @endsection
+
+@section('scripts')
+    <script>
+        $(function () {
+            $('.summernote').summernote();
+        });
+    </script>
+@endsection
+
