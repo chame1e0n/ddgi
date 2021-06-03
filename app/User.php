@@ -54,4 +54,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Model\Employee::class);
     }
+
+    public static $validate = [
+        'user.password' => 'required',
+    ];
 }

@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Добавить Директора</h3>
+                <h3 class="card-title">Добавить регион</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"
                             data-toggle="tooltip" title="Collapse">
@@ -12,11 +12,8 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Имя'])
-                    </div>
-                    <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'surname', 'field_title' => 'Фамилия'])
+                    <div class="col-md-12">
+                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Наименование'])
                     </div>
                 </div>
             </div>

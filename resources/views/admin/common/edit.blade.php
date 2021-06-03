@@ -1,7 +1,7 @@
 @extends('admin.layouts.form-layout')
 
 @section('form-content')
-    <form method="post" action="{{ $route ?? route(strtolower(class_basename($object)) . '.update', $object->id) }}" id="{{ strtolower(class_basename($object)) }}-form">
+    <form method="post" action="{{ route(strtolower($route ?? class_basename($object)) . '.update', $object->id) }}" id="{{ strtolower(class_basename($object)) }}-form">
         @csrf
         @method('PUT')
         @include($form_path)

@@ -10,6 +10,13 @@ class Branch extends Model
     use SoftDeletes;
 
     /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

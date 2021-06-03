@@ -127,6 +127,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('spravochniki/specification','Admin\Spravochniki\SpecificationController');
         Route::resource('spravochniki/request', 'Admin\Spravochniki\RequestController');
         Route::resource('director','Admin\DirectorController');
+        Route::resource('agent','Admin\AgentController');
+        Route::resource('manager','Admin\ManagerController');
+        Route::resource('spravochniki/region','Admin\Spravochniki\RegionController');
+        Route::resource('spravochniki/branch','Admin\Spravochniki\BranchController');
     } else {
         Route::resource('spravochniki/bank','Spravochniki\BankController');
         Route::resource('spravochniki/group','Spravochniki\GroupController');
@@ -134,12 +138,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('spravochniki/product','ProductController'); // :TODO:
         Route::resource('spravochniki/request', 'Spravochniki\RequestController');
         Route::resource('director','DirectorController');
+        Route::resource('spravochniki/branch','Spravochniki\BranchController');
+        Route::resource('spravochniki/agent','Spravochniki\AgentController');
+        Route::resource('spravochniki/manager','Spravochniki\ManagerController');
     }
 
-    Route::resource('spravochniki/agent','Spravochniki\AgentController');
-    Route::resource('spravochniki/manager','Spravochniki\ManagerController');
     Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
-    Route::resource('spravochniki/branch','Spravochniki\BranchController');
     Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
     Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
     Route::resource('spravochniki/currency','CurrencyController');

@@ -1,7 +1,7 @@
 @extends('admin.layouts.form-layout')
 
 @section('form-content')
-    <form method="post" action="{{ $route ?? route(strtolower(class_basename($object)) . '.store') }}" id="{{ strtolower(class_basename($object)) }}-form">
+    <form method="post" action="{{ route(strtolower($route ?? class_basename($object)) . '.store') }}" id="{{ strtolower(class_basename($object)) }}-form">
         @csrf
         @include($form_path)
         <div class="card-footer">

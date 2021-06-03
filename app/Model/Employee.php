@@ -9,10 +9,31 @@ class Employee extends Model
 {
     use SoftDeletes;
 
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
     public const ROLE_ADMIN = 'admin';
     public const ROLE_AGENT = 'agent';
     public const ROLE_DIRECTOR = 'director';
     public const ROLE_MANAGER = 'manager';
+
+    public static $validate = [
+        'employee.name' => 'required',
+        'employee.surname' => 'required',
+        'employee.middlename' => 'required',
+        'employee.birthdate' => 'required',
+        'employee.passport_number' => 'required',
+        'employee.passport_series' => 'required',
+        'employee.work_start_date' => 'required',
+        'employee.work_end_date' => 'required',
+        'employee.phone' => 'required',
+        'employee.address' => 'required',
+        'employee.branch_id' => 'required',
+    ];
 
     /**
      * Name of the table for the model.

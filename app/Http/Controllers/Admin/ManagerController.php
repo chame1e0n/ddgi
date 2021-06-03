@@ -11,10 +11,10 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class DirectorController extends EmployeeController
+class ManagerController extends EmployeeController
 {
-    protected $route = 'director';
-    protected $role = Employee::ROLE_DIRECTOR;
-    protected $title = 'директор';
-    protected $title_multiple = 'Директора';
+    protected $route = 'manager';
+    protected $role = Employee::ROLE_MANAGER;
+    protected $title = 'менеджер';
+    protected $title_multiple = 'Менеджеры';
 }
