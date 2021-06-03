@@ -1,5 +1,4 @@
 @extends('layouts.index')
-@include('products._form_elements.blocks._obshie_svedeniya.create')
 @include('products._form_elements.blocks._vigodopriopredatel.create')
 @include('products._form_elements.blocks._zalogodatel.create')
 @include('products._form_elements.blocks._zagruzka_dokumentov.create')
@@ -32,9 +31,12 @@
                 @include('products.select')
 
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
+                    @include('includes.client')
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
+                            <h3 class="card-title">Залогодатель</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                         data-toggle="tooltip" title="Collapse">
@@ -42,57 +44,36 @@
                                 </button>
                             </div>
                         </div>
-
-                        <div class="card-body">
-                            <div class="row">
-                                @yield('_obshie_svedeniya_content')
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    @yield('_zalogodatel_content')
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Залогодатель</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            @yield('_zalogodatel_content')
-                                        </div>
-                                    </div>
-                                </div>
 
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Выгодоприобретатель</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Выгодоприобретатель</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            @yield('_vigodopriobretatel_content')
-                                        </div>
-                                    </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    @yield('_vigodopriobretatel_content')
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
                 <div class="card-body">
                     <div id="anketa-fields">
                         <div class="row">
@@ -379,7 +360,6 @@
 @endsection
 
 @section('scripts')
-    @yield('_obshie_svedeniya_scripts')
     @yield('_zalogodatel_scripts')
     @yield('_vigodopriobretatel_scripts')
 @endsection

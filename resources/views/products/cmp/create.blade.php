@@ -18,7 +18,6 @@
 @include('products._form_elements.elements._obshaya_strahovaya_summa.create')
 @include('products._form_elements.blocks._svediniya_o_polise.create')
 @include('products._form_elements.blocks._zagruzka_dokumentov.create')
-@include('products._form_elements.blocks._obshie_svedeniya.create')
 @include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create', ['withoutInsuranceSum'=>1])
 
 @section('content')
@@ -46,9 +45,14 @@
             <section class="content">
                 @include('products.select')
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
+                    @include('includes.client')
+
+                    @yield('_period_strahovaniya_content')
+                    @yield('_uchastniki_stroitelstva_content')
+
+                    <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
+                            <h3 class="card-title">Сведения об объекте</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                         data-toggle="tooltip" title="Collapse">
@@ -56,139 +60,114 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    @yield('_svedenija_o_dogovore_stroitelnogo_porjadka_content')
+                                    @yield('_obekt_striotelno_montaj_content')
+                                    @yield('_raspolojenie_obekta_content')
+                                    @yield('_strahovaya_stoimost_content')
+                                    @yield('_period_strahovaniya_content')
 
-
-                        <div class="card-body">
-
-                            <div class="row">
-                                @yield('_obshie_svedeniya_content')
-                                @yield('_period_strahovaniya_content')
-                                @yield('_uchastniki_stroitelstva_content')
-
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Сведения об объекте</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
+                                    <div class="col-12">
+                                        <h3 class="card-title">Страхование ответственности</h3>
                                     </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            @yield('_svedenija_o_dogovore_stroitelnogo_porjadka_content')
-                                            @yield('_obekt_striotelno_montaj_content')
-                                            @yield('_raspolojenie_obekta_content')
-                                            @yield('_strahovaya_stoimost_content')
-                                            @yield('_period_strahovaniya_content')
 
-                                            <div class="col-12">
-                                                <h3 class="card-title">Страхование ответственности</h3>
-                                            </div>
+                                    @yield('_telesnye_povrejdenija_content')
+                                    @yield('_materialnij_usherb_content')
+                                    @yield('_obekti_nahodashiesja_na_ploshadke_content')
+                                    @yield('_kratkoe_opisaniye_po_vibrannomu_obektu_content')
 
-                                            @yield('_telesnye_povrejdenija_content')
-                                            @yield('_materialnij_usherb_content')
-                                            @yield('_obekti_nahodashiesja_na_ploshadke_content')
-                                            @yield('_kratkoe_opisaniye_po_vibrannomu_obektu_content')
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="distanceToObect" class="col-form-label">Расстояние до
-                                                        данных объектов</label>
-                                                    <input type="text" id="distanceToObect" name="distanceToObj" class="form-control">
-                                                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="distanceToObect" class="col-form-label">Расстояние до
+                                                данных объектов</label>
+                                            <input type="text" id="distanceToObect" name="distanceToObj" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="descСonstructWorks" class="col-form-label">Описание
+                                                производимых строительных работ</label>
+                                            <textarea class="form-control" id="descСonstructWorks"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="typeBase" class="col-form-label">Тип основания</label>
+                                            <input type="text" id="typeBase" name="typeBase" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="maxRecessDepth" class="col-form-label">Максимальная
+                                                глубина выемки</label>
+                                            <input type="text" id="maxRecessDepth" name="maxRecessDepth" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="col-md-6">
+                                            <div class="icheck-success ">
+                                                <input onchange="toggleBlock('losses', 'data-losses-descr')" class="form-check-input client-type-radio" type="checkbox" name="losses" id="losses">
+                                                <label class="form-check-label" for="losses">Убытки</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="descСonstructWorks" class="col-form-label">Описание
-                                                        производимых строительных работ</label>
-                                                    <textarea class="form-control" id="descСonstructWorks"></textarea>
-                                                </div>
+                                            <!-- TODO: Блок должен находится в скрытом состоянии
+                                            отображаться только тогда, когда выбран checkbox "Убытки"
+                                        -->
+                                            <div class="form-group" data-losses-descr style="display: none">
+                                                <label for="descrLosses" class="col-form-label">Описание</label>
+                                                <textarea class="form-control" id="descrLosses"></textarea>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="typeBase" class="col-form-label">Тип основания</label>
-                                                    <input type="text" id="typeBase" name="typeBase" class="form-control">
-                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="icheck-success ">
+                                                <input onchange="toggleBlock('fences', 'data-fence-descr')" class="form-check-input client-type-radio" type="checkbox" name="fences" id="fences">
+                                                <label class="form-check-label" for="fences">Ограждения</label>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="maxRecessDepth" class="col-form-label">Максимальная
-                                                        глубина выемки</label>
-                                                    <input type="text" id="maxRecessDepth" name="maxRecessDepth" class="form-control">
-                                                </div>
+                                            <!-- TODO: Блок должен находится в скрытом состоянии
+                                            отображаться только тогда, когда выбран checkbox "Ограждение"
+                                        -->
+                                            <div class="form-group" data-fence-descr style="display: none">
+                                                <label for="descrFences" class="col-form-label">Описание</label>
+                                                <textarea class="form-control" id="descrFences"></textarea>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="col-md-6">
-                                                    <div class="icheck-success ">
-                                                        <input onchange="toggleBlock('losses', 'data-losses-descr')" class="form-check-input client-type-radio" type="checkbox" name="losses" id="losses">
-                                                        <label class="form-check-label" for="losses">Убытки</label>
-                                                    </div>
-                                                    <!-- TODO: Блок должен находится в скрытом состоянии
-                                                    отображаться только тогда, когда выбран checkbox "Убытки"
-                                                -->
-                                                    <div class="form-group" data-losses-descr style="display: none">
-                                                        <label for="descrLosses" class="col-form-label">Описание</label>
-                                                        <textarea class="form-control" id="descrLosses"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="icheck-success ">
-                                                        <input onchange="toggleBlock('fences', 'data-fence-descr')" class="form-check-input client-type-radio" type="checkbox" name="fences" id="fences">
-                                                        <label class="form-check-label" for="fences">Ограждения</label>
-                                                    </div>
-                                                    <!-- TODO: Блок должен находится в скрытом состоянии
-                                                    отображаться только тогда, когда выбран checkbox "Ограждение"
-                                                -->
-                                                    <div class="form-group" data-fence-descr style="display: none">
-                                                        <label for="descrFences" class="col-form-label">Описание</label>
-                                                        <textarea class="form-control" id="descrFences"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="icheck-success ">
-                                                        <input onchange="toggleBlock('security', 'data-security')" class="form-check-input" type="checkbox" name="security" id="security">
-                                                        <label class="form-check-label" for="security">Охрана</label>
-                                                    </div>
-                                                    <!-- TODO: Блок должен находится в скрытом состоянии
-                                                    отображаться только тогда, когда выбран checkbox "Охрана"
-                                                -->
-                                                    <div data-security style="display: none">
-                                                        <div class="form-group">
-                                                            <label for="securityFio" class="col-form-label">ФИО
-                                                                охранника</label>
-                                                            <input type="text" id="securityFio" name="securityFio" class="form-control">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="workMode" class="col-form-label">Режим</label>
-                                                            <select class="form-control polises" id="workMode" name="workMode" style="width: 100%;">
-                                                                <option selected="selected" value="aroundClock">
-                                                                    Круглосуточно
-                                                                </option>
-                                                                <option value="day">Днем</option>
-                                                                <option value="night">Ночью</option>
-                                                                <option value="weekends">Выходные дни</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="icheck-success ">
+                                                <input onchange="toggleBlock('security', 'data-security')" class="form-check-input" type="checkbox" name="security" id="security">
+                                                <label class="form-check-label" for="security">Охрана</label>
                                             </div>
-                                            <div class="col-md-12">
+                                            <!-- TODO: Блок должен находится в скрытом состоянии
+                                            отображаться только тогда, когда выбран checkbox "Охрана"
+                                        -->
+                                            <div data-security style="display: none">
                                                 <div class="form-group">
-                                                    <label class="col-form-label" for="documentForConstructObj">Загрузка
-                                                        необходимых документов</label>
-                                                    <input class="form-control" id="documentForConstructObj" type="file" multiple name="documentsForConstructObj[]">
+                                                    <label for="securityFio" class="col-form-label">ФИО
+                                                        охранника</label>
+                                                    <input type="text" id="securityFio" name="securityFio" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="workMode" class="col-form-label">Режим</label>
+                                                    <select class="form-control polises" id="workMode" name="workMode" style="width: 100%;">
+                                                        <option selected="selected" value="aroundClock">
+                                                            Круглосуточно
+                                                        </option>
+                                                        <option value="day">Днем</option>
+                                                        <option value="night">Ночью</option>
+                                                        <option value="weekends">Выходные дни</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="documentForConstructObj">Загрузка
+                                                необходимых документов</label>
+                                            <input class="form-control" id="documentForConstructObj" type="file" multiple name="documentsForConstructObj[]">
+                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -229,7 +208,6 @@
 @endsection
 
 @section('scripts')
-    @yield('_obshie_svedeniya_scripts')
     @yield('_svediniya_o_polise_scripts')
     @yield('_obshaya_strahovaya_summa_scripts')
 @endsection

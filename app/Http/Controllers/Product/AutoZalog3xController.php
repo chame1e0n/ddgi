@@ -4,17 +4,16 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AutoZalog3xRequest;
+use App\Model\Bank;
+use App\Model\Client;
+use App\Model\Employee;
+
 use App\Models\Allproduct;
-use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductInformation;
 use App\Models\AllProductsTermsTranshes;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
-use App\Models\Spravochniki\Agent;
-use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
-use App\Models\Zalogodatel;
-use Illuminate\Http\Request;
 
 class AutoZalog3xController extends Controller
 {
@@ -35,10 +34,11 @@ class AutoZalog3xController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
         $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.zalog.autozalog3x.create', compact('policySeries', 'banks', 'agents'));
+        $client = new Client();
+
+        return view('products.zalog.autozalog3x.create', compact('agents', 'banks', 'client'));
     }
 
     /**

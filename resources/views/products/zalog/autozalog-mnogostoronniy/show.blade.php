@@ -69,9 +69,12 @@
                 </div>
                 @include('errors.errors')
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
+                    @include('includes.client')
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
+                            <h3 class="card-title">Выгодоприобретатель</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                         data-toggle="tooltip" title="Collapse">
@@ -79,399 +82,258 @@
                                 </button>
                             </div>
                         </div>
-
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">Наименование
-                                            страхователя</label>
-                                        <input disabled required type="text" id="insurer-name" name="fio_insurer"
-                                               value="{{$page->policyHolders->FIO}}" @if($errors->has('fio_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif
-                                               required>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-name" class="col-form-label">ФИО
+                                                выгодоприобретателя</label>
+                                            <input disabled required value="{{$page->policyBeneficiaries->FIO}}"
+                                                   type="text"
+                                                   id="beneficiary-name" name="fio_beneficiary"
+                                                   @if($errors->has('FIO'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Юр адрес
-                                            страхователя</label>
-                                        <input disabled required value="{{$page->policyHolders->address}}" type="text"
-                                               id="insurer-address"
-                                               name="address_insurer"
-                                               @if($errors->has('address_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif required>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-address" class="col-form-label">Адрес
+                                                выгодоприобретателя</label>
+                                            <input disabled required value="{{$page->policyBeneficiaries->address}}"
+                                                   type="text"
+                                                   id="beneficiary-address"
+                                                   name="address_beneficiary"
+                                                   @if($errors->has('address'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input disabled required value="{{$page->policyHolders->phone_number}}" type="text"
-                                               id="insurer-tel"
-                                               name="tel_insurer"
-                                               @if($errors->has('tel_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
+                                            <input disabled required value="{{$page->policyBeneficiaries->phone_number}}"
+                                                   type="text"
+                                                   id="beneficiary-tel" name="tel_beneficiary"
+                                                   @if($errors->has('phone_number'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input disabled required value="{{$page->policyHolders->checking_account}}" type="text"
-                                               id="insurer-schet"
-                                               name="checking_account"
-                                               @if($errors->has('checking_account'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-schet" class="col-form-label">Расчетный
+                                                счет</label>
+                                            <input disabled required
+                                                   value="{{$page->policyBeneficiaries->checking_account}}"
+                                                   type="text" id="beneficiary_schet"
+                                                   name="beneficiary_schet"
+                                                   @if($errors->has('checking_account'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                   @endif required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input disabled required value="{{$page->policyHolders->inn}}" type="text"
-                                               id="insurer-inn"
-                                               name="inn_insurer"
-                                               @if($errors->has('inn_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif
-                                        >
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-inn" class="col-form-label">ИНН</label>
+                                            <input disabled required value="{{$page->policyBeneficiaries->inn}}"
+                                                   type="number" id="inn_beneficiary"
+                                                   name="inn_beneficiary"
+                                                   @if($errors->has('inn'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input disabled required value="{{$page->policyHolders->mfo}}" type="text"
-                                               id="insurer-mfo" name="mfo_insurer" @if($errors->has('mfo_insurer'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-mfo" class="col-form-label">МФО</label>
+                                            <input disabled required value="{{$page->policyBeneficiaries->mfo}}"
+                                                   type="text" id="mfo_beneficiary"
+                                                   name="mfo_beneficiary"
+                                                   @if($errors->has('mfo_beneficiary'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <select disabled @if($errors->has('bank_insurer'))
-                                                class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                                @endif id="insurer_bank" name="bank_insurer"
-                                                style="width: 100%;" required>
-                                            <option>Выберите банк</option>
-                                            @foreach($banks as $bank)
-                                                @if($page->policyHolders->bank_id == $bank->id)
-                                                    <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                @else
-                                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="insurer-bank" class="col-form-label">Банк</label>
+                                            <select disabled @if($errors->has('bank_beneficiary'))
+                                                    class="form-control is-invalid"
+                                                    @else
+                                                    class="form-control"
+                                                    @endif id="bank_beneficiary" name="bank_beneficiary"
+                                                    style="width: 100%;" required>
+                                                <option>Выберите банк</option>
+                                                @foreach($banks as $bank)
+                                                    @if($page->policyBeneficiaries->bank_id == $bank->id)
+                                                        <option selected
+                                                                value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                    @else
+                                                        <option
+                                                            value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input disabled required value="{{$page->policyHolders->oked}}" type="text" id="oked"
-                                               name="oked"
-                                               @if($errors->has('oked'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif >
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
+                                            <input disabled required value="{{$page->policyBeneficiaries->oked}}"
+                                                   type="text" id="oked_beneficiary"
+                                                   name="oked_beneficiary"
+                                                   @if($errors->has('oked_beneficiary'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input disabled type="text" id="insurer-okonh" name="okonx"
-                                               value="{{$page->policyHolders->okonx}}" @if($errors->has('okonh'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                            @endif>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Выгодоприобретатель</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-name" class="col-form-label">ФИО
-                                                        выгодоприобретателя</label>
-                                                    <input disabled required value="{{$page->policyBeneficiaries->FIO}}"
-                                                           type="text"
-                                                           id="beneficiary-name" name="fio_beneficiary"
-                                                           @if($errors->has('FIO'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                           @endif required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-address" class="col-form-label">Адрес
-                                                        выгодоприобретателя</label>
-                                                    <input disabled required value="{{$page->policyBeneficiaries->address}}"
-                                                           type="text"
-                                                           id="beneficiary-address"
-                                                           name="address_beneficiary"
-                                                           @if($errors->has('address'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                           @endif required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input disabled required value="{{$page->policyBeneficiaries->phone_number}}"
-                                                           type="text"
-                                                           id="beneficiary-tel" name="tel_beneficiary"
-                                                           @if($errors->has('phone_number'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                           @endif required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-schet" class="col-form-label">Расчетный
-                                                        счет</label>
-                                                    <input disabled required
-                                                           value="{{$page->policyBeneficiaries->checking_account}}"
-                                                           type="text" id="beneficiary_schet"
-                                                           name="beneficiary_schet"
-                                                           @if($errors->has('checking_account'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                           @endif required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                    <input disabled required value="{{$page->policyBeneficiaries->inn}}"
-                                                           type="number" id="inn_beneficiary"
-                                                           name="inn_beneficiary"
-                                                           @if($errors->has('inn'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                        @endif>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                    <input disabled required value="{{$page->policyBeneficiaries->mfo}}"
-                                                           type="text" id="mfo_beneficiary"
-                                                           name="mfo_beneficiary"
-                                                           @if($errors->has('mfo_beneficiary'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                        @endif>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="insurer-bank" class="col-form-label">Банк</label>
-                                                    <select disabled @if($errors->has('bank_beneficiary'))
-                                                            class="form-control is-invalid"
-                                                            @else
-                                                            class="form-control"
-                                                            @endif id="bank_beneficiary" name="bank_beneficiary"
-                                                            style="width: 100%;" required>
-                                                        <option>Выберите банк</option>
-                                                        @foreach($banks as $bank)
-                                                            @if($page->policyBeneficiaries->bank_id == $bank->id)
-                                                                <option selected
-                                                                        value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                            @else
-                                                                <option
-                                                                    value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                    <input disabled required value="{{$page->policyBeneficiaries->oked}}"
-                                                           type="text" id="oked_beneficiary"
-                                                           name="oked_beneficiary"
-                                                           @if($errors->has('oked_beneficiary'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                        @endif>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
-                                                    <input disabled type="text" value="{{$page->policyBeneficiaries->okonx}}"
-                                                           id="beneficiary-okonh" name="okonx_beneficiary" required
-                                                           class="form-control">
-                                                </div>
-                                            </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
+                                            <input disabled type="text" value="{{$page->policyBeneficiaries->okonx}}"
+                                                   id="beneficiary-okonh" name="okonx_beneficiary" required
+                                                   class="form-control">
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Залогодатель</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-name" class="col-form-label">Наименования
-                                                        залогодателя</label>
-                                                    <input disabled type="text" id="fio_zalog" name="fio_zalog"
-                                                           class="form-control
-                                                            @if($errors->has('fio_zalog'))
-                                                               is-invalid
-                                                                @endif" value="{{$page->zalogodatel->fio}}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-address" class="col-form-label">Адрес
-                                                        залогодателя</label>
-                                                    <input disabled type="text" id="beneficiary-address"
-                                                           name="address_zalog" class="form-control
-                                                            @if($errors->has('address_zalog'))
-                                                        is-invalid
-                                                            @endif" value="{{$page->zalogodatel->address}}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input disabled type="text" id="phone_zalog" name="phone_zalog"
-                                                           class="form-control
-                                                            @if($errors->has('phone_zalog'))
-                                                               is-invalid
-                                                                @endif" value="{{$page->zalogodatel->phone}}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-schet" class="col-form-label">Расчетный
-                                                        счет</label>
-                                                    <input disabled type="text" id="checking_account_zalog"
-                                                           name="checking_account_zalog"
-                                                           class="form-control
-                                                            @if($errors->has('checking_account_zalog'))
-                                                               is-invalid
-                                                                @endif"
-                                                           value="{{$page->zalogodatel->checking_account}}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                    <input disabled type="text" id="inn_zalog" name="inn_zalog"
-                                                           class="form-control
-                                                            @if($errors->has('inn_zalog'))
-                                                               is-invalid
-                                                                @endif" value="{{$page->zalogodatel->inn}}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                    <input disabled type="text" id="mfo_zalog" name="mfo_zalog"
-                                                           class="form-control
-                                                            @if($errors->has('mfo_zalog'))
-                                                               is-invalid
-                                                                @endif" value="{{$page->zalogodatel->mfo}}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="insurer-bank" class="col-form-label">Банк</label>
-                                                    <select disabled @if($errors->has('bank_id_zalog'))
-                                                            class="form-control is-invalid"
-                                                            @else
-                                                            class="form-control"
-                                                            @endif id="bank_id_zalog" name="bank_id_zalog"
-                                                            style="width: 100%;" required>
-                                                        <option>Выберите банк</option>
-                                                        @foreach($banks as $bank)
-                                                            @if($page->zalogodatel->bank_id == $bank->id)
-                                                                <option selected
-                                                                        value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                            @else
-                                                                <option
-                                                                    value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                    <input disabled type="text" id="oked_zalog" name="oked_zalog"
-                                                           class="form-control
-                                                            @if($errors->has('oked_zalog'))
-                                                               is-invalid
-                                                                @endif" value="{{$page->zalogodatel->oked}}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </div>
-                        </div>
                     </div>
                 </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Залогодатель</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="beneficiary-name" class="col-form-label">Наименования
+                                                залогодателя</label>
+                                            <input disabled type="text" id="fio_zalog" name="fio_zalog"
+                                                   class="form-control
+                                                    @if($errors->has('fio_zalog'))
+                                                       is-invalid
+                                                        @endif" value="{{$page->zalogodatel->fio}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="beneficiary-address" class="col-form-label">Адрес
+                                                залогодателя</label>
+                                            <input disabled type="text" id="beneficiary-address"
+                                                   name="address_zalog" class="form-control
+                                                    @if($errors->has('address_zalog'))
+                                                is-invalid
+                                                    @endif" value="{{$page->zalogodatel->address}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
+                                            <input disabled type="text" id="phone_zalog" name="phone_zalog"
+                                                   class="form-control
+                                                    @if($errors->has('phone_zalog'))
+                                                       is-invalid
+                                                        @endif" value="{{$page->zalogodatel->phone}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-schet" class="col-form-label">Расчетный
+                                                счет</label>
+                                            <input disabled type="text" id="checking_account_zalog"
+                                                   name="checking_account_zalog"
+                                                   class="form-control
+                                                    @if($errors->has('checking_account_zalog'))
+                                                       is-invalid
+                                                        @endif"
+                                                   value="{{$page->zalogodatel->checking_account}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-inn" class="col-form-label">ИНН</label>
+                                            <input disabled type="text" id="inn_zalog" name="inn_zalog"
+                                                   class="form-control
+                                                    @if($errors->has('inn_zalog'))
+                                                       is-invalid
+                                                        @endif" value="{{$page->zalogodatel->inn}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-mfo" class="col-form-label">МФО</label>
+                                            <input disabled type="text" id="mfo_zalog" name="mfo_zalog"
+                                                   class="form-control
+                                                    @if($errors->has('mfo_zalog'))
+                                                       is-invalid
+                                                        @endif" value="{{$page->zalogodatel->mfo}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="insurer-bank" class="col-form-label">Банк</label>
+                                            <select disabled @if($errors->has('bank_id_zalog'))
+                                                    class="form-control is-invalid"
+                                                    @else
+                                                    class="form-control"
+                                                    @endif id="bank_id_zalog" name="bank_id_zalog"
+                                                    style="width: 100%;" required>
+                                                <option>Выберите банк</option>
+                                                @foreach($banks as $bank)
+                                                    @if($page->zalogodatel->bank_id == $bank->id)
+                                                        <option selected
+                                                                value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                    @else
+                                                        <option
+                                                            value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
+                                            <input disabled type="text" id="oked_zalog" name="oked_zalog"
+                                                   class="form-control
+                                                    @if($errors->has('oked_zalog'))
+                                                       is-invalid
+                                                        @endif" value="{{$page->zalogodatel->oked}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-
+                    </div>
+                </div>
                 <div class="card-body">
                     <div id="anketa-fields">
                         <div class="row">

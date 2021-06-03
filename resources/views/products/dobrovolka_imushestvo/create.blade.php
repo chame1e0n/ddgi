@@ -4,7 +4,6 @@
 @include('products._form_elements.elements._geograficheskaya_zona.create')
 @include('products._form_elements.elements._ispolzovaniye_ts_na_osnovanii.create')
 @include('products._form_elements.elements._srok_deystviya_dogovora.create')
-@include('products._form_elements.blocks._obshie_svedeniya.create')
 @include('products._form_elements.blocks._vigodopriopredatel.create')
 @include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create', ['insurance_sum_all'=> true, 'insurance_bonus_all' => true])
 @include('products._form_elements.blocks._zagruzka_dokumentov.create')
@@ -37,21 +36,7 @@
                 @include('products.select')
 
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
-                        <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                @yield('_obshie_svedeniya_content')
-                            </div>
-                        </div>
-                    </div>
+                    @include('includes.client')
                 </div>
                 <div class="card-body">
                     <div class="card card-info" id="clone-beneficiary">
@@ -163,6 +148,5 @@
 @endsection
 
 @section('scripts')
-    @yield('_obshie_svedeniya_scripts')
     @yield('_vigodopriobretatel_scripts')
 @endsection

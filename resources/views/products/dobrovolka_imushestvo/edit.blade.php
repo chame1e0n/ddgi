@@ -3,7 +3,6 @@
 @include('products._form_elements.elements._period_strahovaniya.edit')
 @include('products._form_elements.elements._geograficheskaya_zona.edit')
 @include('products._form_elements.elements._ispolzovaniye_ts_na_osnovanii.edit')
-@include('products._form_elements.blocks._obshie_svedeniya.edit')
 @include('products._form_elements.blocks._vigodopriopredatel.edit')
 @include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.edit')
 @include('products._form_elements.blocks._zagruzka_dokumentov.edit')
@@ -38,21 +37,7 @@
                 @include('products.select')
 
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
-                        <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                @yield('_obshie_svedeniya_content')
-                            </div>
-                        </div>
-                    </div>
+                    @include('includes.client')
                 </div>
                 <div class="card-body">
                     <div class="card card-info" id="clone-beneficiary">
@@ -256,6 +241,5 @@
 @endsection
 
 @section('scripts')
-    @yield('_obshie_svedeniya_scripts')
     @yield('_vigodopriobretatel_scripts')
 @endsection

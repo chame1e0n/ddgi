@@ -80,9 +80,11 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
+                    @include('includes.client')
+
+                    <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
+                            <h3 class="card-title">Выгодоприобретатель</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                         data-toggle="tooltip" title="Collapse">
@@ -90,173 +92,88 @@
                                 </button>
                             </div>
                         </div>
-
-                        <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">Наименование
-                                            страхователя</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer"
-                                               value="{{$cargo->policyHolder->FIO}}" class="form-control">
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-name" class="col-form-label">Наименование
+                                                выгодоприобретателя</label>
+                                            <input type="text" id="beneficiary-name" name="fio_beneficiary"
+                                                   value="{{$cargo->policyBeneficiaries->FIO}}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Юр адрес
-                                            страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer"
-                                               value="{{$cargo->policyHolder->address}}" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-address" class="col-form-label">Юр адрес
+                                                выгодоприобретателя</label>
+                                            <input type="text" id="beneficiary-address"
+                                                   name="address_beneficiary"
+                                                   value="{{$cargo->policyBeneficiaries->address}}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-tel" name="tel_insurer"
-                                               value="{{$cargo->policyHolder->phone_number}}" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
+                                            <input type="text" id="beneficiary-tel" name="tel_beneficiary"
+                                                   value="{{$cargo->policyBeneficiaries->phone_number}}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Почтовый адрес</label>
-                                        <input type="email" id="insurer-tel" name="email_address"
-                                               value="{{$cargo->policyHolder->email_address}}" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-tel" class="col-form-label">Почтовый
+                                                адрес</label>
+                                            <input type="email" id="beneficiary-tel" name="email_beneficiary"
+                                                   value="{{$cargo->policyBeneficiaries->email_beneficiary}}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-schet" name="address_schet"
-                                               value="{{$cargo->policyHolder->checking_account}}" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-schet" class="col-form-label">Расчетный
+                                                счет</label>
+                                            <input type="text" id="beneficiary-schet" name="checking_account"
+                                                   value="{{$cargo->policyBeneficiaries->checking_account}}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-inn" name="inn_insurer"
-                                               value="{{$cargo->policyHolder->inn}}" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-inn" class="col-form-label">ИНН</label>
+                                            <input type="text" id="beneficiary-inn"
+                                                   value="{{$cargo->policyBeneficiaries->inn}}"
+                                                   name="inn_beneficiary"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer"
-                                               value="{{$cargo->policyHolder->mfo}}" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-mfo" class="col-form-label">МФО</label>
+                                            <input type="text" id="beneficiary-mfo" name="mfo_beneficiary"
+                                                   value="{{$cargo->policyBeneficiaries->mfo}}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <input type="text" id="insurer-bank" name="bank_insurer"
-                                               value="{{$cargo->policyHolder->bank_id}}" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-bank" class="col-form-label">Банк</label>
+                                            <input type="text" id="beneficiary-bank" name="bank_beneficiary"
+                                                   value="{{$cargo->policyBeneficiaries->bank_id}}"
+                                                   class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="okonh_insurer"
-                                               value="{{$cargo->policyHolder->okonx}}" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Выгодоприобретатель</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-name" class="col-form-label">Наименование
-                                                        выгодоприобретателя</label>
-                                                    <input type="text" id="beneficiary-name" name="fio_beneficiary"
-                                                           value="{{$cargo->policyBeneficiaries->FIO}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-address" class="col-form-label">Юр адрес
-                                                        выгодоприобретателя</label>
-                                                    <input type="text" id="beneficiary-address"
-                                                           name="address_beneficiary"
-                                                           value="{{$cargo->policyBeneficiaries->address}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input type="text" id="beneficiary-tel" name="tel_beneficiary"
-                                                           value="{{$cargo->policyBeneficiaries->phone_number}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Почтовый
-                                                        адрес</label>
-                                                    <input type="email" id="beneficiary-tel" name="email_beneficiary"
-                                                           value="{{$cargo->policyBeneficiaries->email_beneficiary}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-schet" class="col-form-label">Расчетный
-                                                        счет</label>
-                                                    <input type="text" id="beneficiary-schet" name="checking_account"
-                                                           value="{{$cargo->policyBeneficiaries->checking_account}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                    <input type="text" id="beneficiary-inn"
-                                                           value="{{$cargo->policyBeneficiaries->inn}}"
-                                                           name="inn_beneficiary"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                    <input type="text" id="beneficiary-mfo" name="mfo_beneficiary"
-                                                           value="{{$cargo->policyBeneficiaries->mfo}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                                    <input type="text" id="beneficiary-bank" name="bank_beneficiary"
-                                                           value="{{$cargo->policyBeneficiaries->bank_id}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                    <input type="text" id="beneficiary-okonh" name="okonh_beneficiary"
-                                                           value="{{$cargo->policyBeneficiaries->okonx}}"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
+                                            <input type="text" id="beneficiary-okonh" name="okonh_beneficiary"
+                                                   value="{{$cargo->policyBeneficiaries->okonx}}"
+                                                   class="form-control">
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

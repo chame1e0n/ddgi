@@ -23,130 +23,66 @@
             <section class="content">
                 @include('products.select')
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
+                    @include('includes.client')
+
+                    <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
+                            <h3 class="card-title">Заемщик</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">Наименования страхователя</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer" class="form-control">
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="insurer-name" class="col-form-label">Наименования заемщика</label>
+                                            <input type="text" id="insurer-name" name="fio_insured" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Адрес страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-address" class="col-form-label">Адрес заемщика</label>
+                                            <input type="text" id="beneficiary-address" name="address_beneficiary" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-tel" name="tel_insurer" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
+                                            <input type="text" id="beneficiary-tel" name="tel_beneficiary" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-schet" name="address_schet" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
+                                            <input type="text" id="beneficiary-schet" name="beneficiary_schet" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-inn" name="inn_insurer" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-inn" class="col-form-label">ИНН</label>
+                                            <input type="text" id="beneficiary-inn" name="inn_beneficiary" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer" class="form-control">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="beneficiary-mfo" class="col-form-label">МФО</label>
+                                            <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <input type="text" id="insurer-bank" name="bank_insurer" class="form-control">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="beneficiary-bank" class="col-form-label">Банк</label>
+                                            <input type="text" id="beneficiary-bank" name="bank_beneficiary" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="okonh_insurer" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Заемщик</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="insurer-name" class="col-form-label">Наименования заемщика</label>
-                                                    <input type="text" id="insurer-name" name="fio_insured" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-address" class="col-form-label">Адрес заемщика</label>
-                                                    <input type="text" id="beneficiary-address" name="address_beneficiary" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input type="text" id="beneficiary-tel" name="tel_beneficiary" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                                    <input type="text" id="beneficiary-schet" name="beneficiary_schet" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                    <input type="text" id="beneficiary-inn" name="inn_beneficiary" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                    <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                                    <input type="text" id="beneficiary-bank" name="bank_beneficiary" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                    <input type="text" id="beneficiary-okonh" name="oked_beneficiary" class="form-control">
-                                                </div>
-                                            </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
+                                            <input type="text" id="beneficiary-okonh" name="oked_beneficiary" class="form-control">
                                         </div>
                                     </div>
                                 </div>

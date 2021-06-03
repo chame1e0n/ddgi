@@ -1,5 +1,4 @@
 @extends('layouts.index')
-@include('products._form_elements.blocks._obshie_svedeniya.create')
 @include('products._form_elements.blocks._principal.create')
 @include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create')
 @include('products._form_elements.blocks._svediniya_o_polise.create')
@@ -73,9 +72,12 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
+                    @include('includes.client')
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
+                            <h3 class="card-title">Принципал</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                         data-toggle="tooltip" title="Collapse">
@@ -83,90 +85,70 @@
                                 </button>
                             </div>
                         </div>
-
-                        <div class="card-body">
-
-                            <div class="row">
-                                @yield('_obshie_svedeniya_content')
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    @yield('_principal_content')
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Принципал</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            @yield('_principal_content')
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Контрагент</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="name_kontragent" class="col-form-label">Наименование
+                                                контрагента</label>
+                                            <input type="text" id="name_kontragent"
+                                                   name="name_kontragent"
+                                                   value="{{old('name_kontragent')}}"
+                                                   @if($errors->has('oked_principal'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                    @endif>
                                         </div>
                                     </div>
-                                </div>
 
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Контрагент</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="agentskoe_soglashenie_nomer_kontragent" class="col-form-label">Агентское
+                                                соглашение(№)</label>
+                                            <input type="text" id="agentskoe_soglashenie_nomer_kontragent" name="agentskoe_soglashenie_nomer_kontragent"
+                                                   value="{{old('agentskoe_soglashenie_nomer_kontragent')}}"
+                                                   @if($errors->has('agentskoe_soglashenie_nomer_kontragent'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                    @endif>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="name_kontragent" class="col-form-label">Наименование
-                                                        контрагента</label>
-                                                    <input type="text" id="name_kontragent"
-                                                           name="name_kontragent"
-                                                           value="{{old('name_kontragent')}}"
-                                                           @if($errors->has('oked_principal'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="agentskoe_soglashenie_nomer_kontragent" class="col-form-label">Агентское
-                                                        соглашение(№)</label>
-                                                    <input type="text" id="agentskoe_soglashenie_nomer_kontragent" name="agentskoe_soglashenie_nomer_kontragent"
-                                                           value="{{old('agentskoe_soglashenie_nomer_kontragent')}}"
-                                                           @if($errors->has('agentskoe_soglashenie_nomer_kontragent'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                            @endif>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="agentskoe_soglashenie_data_kontragent" class="col-form-label">Агентское соглашение(от какого
-                                                        числа)</label>
-                                                    <div class="input-group">
-                                                        <input id="agentskoe_soglashenie_data_kontragent" name="agentskoe_soglashenie_data_kontragent" type="date"
-                                                               value="{{old('agentskoe_soglashenie_data_kontragent')}}"
-                                                               @if($errors->has('agentskoe_soglashenie_data_kontragent'))
-                                                               class="form-control is-invalid"
-                                                               @else
-                                                               class="form-control"
-                                                                @endif>
-                                                    </div>
-                                                </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="agentskoe_soglashenie_data_kontragent" class="col-form-label">Агентское соглашение(от какого
+                                                числа)</label>
+                                            <div class="input-group">
+                                                <input id="agentskoe_soglashenie_data_kontragent" name="agentskoe_soglashenie_data_kontragent" type="date"
+                                                       value="{{old('agentskoe_soglashenie_data_kontragent')}}"
+                                                       @if($errors->has('agentskoe_soglashenie_data_kontragent'))
+                                                       class="form-control is-invalid"
+                                                       @else
+                                                       class="form-control"
+                                                        @endif>
                                             </div>
                                         </div>
                                     </div>
@@ -175,7 +157,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body">
                     <div id="anketa-fields">
                         <div class="row">
@@ -293,7 +274,6 @@
 @endsection
 
 @section('scripts')
-    @yield('_obshie_svedeniya_scripts')
     @yield('_principal_scripts')
     @yield('_svediniya_o_polise_scripts')
 @endsection

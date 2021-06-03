@@ -117,284 +117,142 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
+                    @include('includes.client')
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
+                            <h3 class="card-title">Сведения о товаре</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id="beneficiary-card-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">ФИО страхователя</label>
-                                        <input type="text"
-                                               id="insurer-name"
-                                               name="fio_insurer"
-                                               value="{{$tamozhnya->policyHolders->FIO}}"
-                                               required
-                                               @if($errors->has('fio_insurer'))
-                                                class="form-control is-invalid"
-                                               @else
-                                                class="form-control"
-                                               @endif />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Юр. адрес страхователя</label>
-                                        <input value="{{$tamozhnya->policyHolders->address}}"
-                                               type="text"
-                                               id="insurer-address"
-                                               name="address_insurer"
-                                               required
-                                               @if($errors->has('address_insurer'))
-                                                class="form-control is-invalid"
-                                               @else
-                                                class="form-control"
-                                               @endif />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input value="{{$tamozhnya->policyHolders->phone_number}}"
-                                               type="text"
-                                               id="insurer-tel"
-                                               name="tel_insurer"
-                                               @if($errors->has('tel_insurer'))
-                                                class="form-control is-invalid"
-                                               @else
-                                                class="form-control"
-                                               @endif />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input value="{{$tamozhnya->policyHolders->checking_account}}"
-                                               type="text"
-                                               id="insurer-schet"
-                                               name="address_schet"
-                                               @if($errors->has('address_schet'))
-                                                class="form-control is-invalid"
-                                               @else
-                                                class="form-control"
-                                               @endif />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input value="{{$tamozhnya->policyHolders->inn}}"
-                                               type="text"
-                                               id="insurer-inn"
-                                               name="inn_insurer"
-                                               @if($errors->has('inn_insurer'))
-                                                class="form-control is-invalid"
-                                               @else
-                                                class="form-control"
-                                               @endif />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input value="{{$tamozhnya->policyHolders->mfo}}"
-                                               type="text"
-                                               id="insurer-mfo"
-                                               name="mfo_insurer"
-                                               @if($errors->has('mfo_insurer'))
-                                                class="form-control is-invalid"
-                                               @else
-                                                class="form-control"
-                                               @endif />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <select id="insurer_bank"
-                                                name="bank_insurer"
-                                                style="width: 100%;"
-                                                required
-                                                @if($errors->has('bank_insurer'))
+                                        <label for="beneficiary-name" class="col-form-label">Описание</label>
+                                        <textarea id="description"
+                                                  name="description"
+                                                  @if($errors->has('description'))
                                                     class="form-control is-invalid"
-                                                @else
+                                                  @else
                                                     class="form-control"
-                                                @endif>
-                                            <option>Выберите банк</option>
-
-                                            @foreach($banks as $bank)
-                                                @if($tamozhnya->policyHolders->bank_id == $bank->id)
-                                                    <option selected
-                                                            value="{{$bank->id}}">
-                                                        {{$bank->name}}
-                                                    </option>
-                                                @else
-                                                    <option value="{{$bank->id}}">
-                                                        {{$bank->name}}
-                                                    </option>
-                                                @endif
-                                            @endforeach
-                                        </select>
+                                                  @endif>
+                                            {{$tamozhnya->description}}
+                                        </textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input value="{{$tamozhnya->policyHolders->oked}}"
-                                               type="text"
-                                               id="oked"
-                                               name="oked"
-                                               @if($errors->has('oked'))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Информация о подерженности рискам</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="col-form-label">Период деятельности</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">с</span>
+                                        </div>
+                                        <input id="from_date"
+                                               name="from_date"
+                                               value="{{$tamozhnya->from_date}}"
+                                               type="date"
+                                               @if($errors->has('from_date'))
                                                 class="form-control is-invalid"
                                                @else
                                                 class="form-control"
                                                @endif />
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Сведения о товаре</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="beneficiary-name" class="col-form-label">Описание</label>
-                                                <textarea id="description"
-                                                          name="description"
-                                                          @if($errors->has('description'))
-                                                            class="form-control is-invalid"
-                                                          @else
-                                                            class="form-control"
-                                                          @endif>
-                                                    {{$tamozhnya->description}}
-                                                </textarea>
+                                <div class="col-sm-6">
+                                    <label class="col-form-label">Период деятельности</label>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">до</span>
                                             </div>
+                                            <input id="to_date"
+                                                   name="to_date"
+                                                   value="{{$tamozhnya->to_date}}"
+                                                   type="date"
+                                                   @if($errors->has('to_date'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Информация о подерженности рискам</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="insurer-okonh" class="col-form-label">Профессиональные риски</label>
+                                        <input id="prof_riski"
+                                               name="prof_riski"
+                                               value="{{$tamozhnya->prof_riski}}"
+                                               type="text"
+                                               @if($errors->has('prof_riski'))
+                                                class="form-control is-invalid"
+                                               @else
+                                                class="form-control"
+                                               @endif />
                                     </div>
                                 </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <label class="col-form-label">Период деятельности</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">с</span>
-                                                </div>
-                                                <input id="from_date"
-                                                       name="from_date"
-                                                       value="{{$tamozhnya->from_date}}"
-                                                       type="date"
-                                                       @if($errors->has('from_date'))
-                                                        class="form-control is-invalid"
-                                                       @else
-                                                        class="form-control"
-                                                       @endif />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="col-form-label">Период деятельности</label>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">до</span>
-                                                    </div>
-                                                    <input id="to_date"
-                                                           name="to_date"
-                                                           value="{{$tamozhnya->to_date}}"
-                                                           type="date"
-                                                           @if($errors->has('to_date'))
-                                                            class="form-control is-invalid"
-                                                           @else
-                                                            class="form-control"
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Были ли в Вашей практике случаи, когда  Вам была предъявлена претензия или иск таможенными органами РУз</label>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="checkbox icheck-success">
+                                                    <input id="defects-1"
+                                                           onclick="Go()"
+                                                           type="radio"
+                                                           class="pretenzii_in_ruz"
+                                                           name="pretenzii_in_ruz"
+                                                           value="1"
+                                                           @if($tamozhnya->pretenzii_in_ruz == 1)
+                                                            checked
                                                            @endif />
+                                                    <label for="defects-1">Да</label>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label for="insurer-okonh" class="col-form-label">Профессиональные риски</label>
-                                                <input id="prof_riski"
-                                                       name="prof_riski"
-                                                       value="{{$tamozhnya->prof_riski}}"
-                                                       type="text"
-                                                       @if($errors->has('prof_riski'))
-                                                        class="form-control is-invalid"
-                                                       @else
-                                                        class="form-control"
-                                                       @endif />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label>Были ли в Вашей практике случаи, когда  Вам была предъявлена претензия или иск таможенными органами РУз</label>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="checkbox icheck-success">
-                                                            <input id="defects-1"
-                                                                   onclick="Go()"
-                                                                   type="radio"
-                                                                   class="pretenzii_in_ruz"
-                                                                   name="pretenzii_in_ruz"
-                                                                   value="1"
-                                                                   @if($tamozhnya->pretenzii_in_ruz == 1)
-                                                                    checked
-                                                                   @endif />
-                                                            <label for="defects-1">Да</label>
-                                                        </div>
-                                                        <div class="checkbox icheck-success ">
-                                                            <input id="defects-0"
-                                                                   onclick="Go()"
-                                                                   type="radio"
-                                                                   class="pretenzii_in_ruz"
-                                                                   name="pretenzii_in_ruz"
-                                                                   value="0"
-                                                                   @if($tamozhnya->pretenzii_in_ruz == 0)
-                                                                    checked
-                                                                   @endif />
-                                                            <label for="defects-0">Нет</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group defects_images" id="hide" @if ($tamozhnya->pretenzii_in_ruz == 1 || old('pretenzii_in_ruz') == 1) style = "display: block;" @else style = "display: none;" @endif>
-                                                    <label>Опсиание причины</label>
-                                                    <input id="prichina_pretenzii"
-                                                           name="prichina_pretenzii"
-                                                           value="{{$tamozhnya->prichina_pretenzii}}"
-                                                           type="text"
-                                                           @if($errors->has('prichina_pretenzii'))
-                                                            class="form-control is-invalid"
-                                                           @else
-                                                            class="form-control"
+                                                <div class="checkbox icheck-success ">
+                                                    <input id="defects-0"
+                                                           onclick="Go()"
+                                                           type="radio"
+                                                           class="pretenzii_in_ruz"
+                                                           name="pretenzii_in_ruz"
+                                                           value="0"
+                                                           @if($tamozhnya->pretenzii_in_ruz == 0)
+                                                            checked
                                                            @endif />
+                                                    <label for="defects-0">Нет</label>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="form-group defects_images" id="hide" @if ($tamozhnya->pretenzii_in_ruz == 1 || old('pretenzii_in_ruz') == 1) style = "display: block;" @else style = "display: none;" @endif>
+                                            <label>Опсиание причины</label>
+                                            <input id="prichina_pretenzii"
+                                                   name="prichina_pretenzii"
+                                                   value="{{$tamozhnya->prichina_pretenzii}}"
+                                                   type="text"
+                                                   @if($errors->has('prichina_pretenzii'))
+                                                    class="form-control is-invalid"
+                                                   @else
+                                                    class="form-control"
+                                                   @endif />
                                         </div>
                                     </div>
                                 </div>

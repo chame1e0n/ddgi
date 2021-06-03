@@ -34,176 +34,94 @@
             <section class="content">
 
                 <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
-                        <div class="card-header">
-                            <h3 class="card-title">Общие сведения</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
+                    @include('includes.client')
 
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">Наименования
-                                            страхователя</label>
-                                        <input type="text" id="insurer-name" name="fio_insurer"
-                                               value="{{$all_product->policyHolder->FIO}}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Юр адрес
-                                            страхователя</label>
-                                        <input type="text" id="insurer-address" name="address_insurer"
-                                               value="{{$all_product->policyHolder->address}}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-tel" class="col-form-label">Телефон</label>
-                                        <input type="text" id="insurer-tel" name="phone_insurer"
-                                               value="{{$all_product->policyHolder->phone_number}}"
-                                               class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-schet" class="col-form-label">Расчетный счет</label>
-                                        <input type="text" id="insurer-schet" name="payment_bill"
-                                               value="{{$all_product->policyHolder->checking_account}}"
-                                               class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-mfo" class="col-form-label">МФО</label>
-                                        <input type="text" id="insurer-mfo" name="mfo_insurer"
-                                               value="{{$all_product->policyHolder->mfo}}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-bank" class="col-form-label">Банк</label>
-                                        <input type="text" id="insurer-bank" name="bank_insurer"
-                                               value="{{$all_product->policyHolder->bank_id}}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-inn" class="col-form-label">ИНН</label>
-                                        <input type="text" id="insurer-inn" name="inn_insurer"
-                                               value="{{$all_product->policyHolder->inn}}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКОНХ</label>
-                                        <input type="text" id="insurer-okonh" name="okonh_insurer"
-                                               value="{{$all_product->policyHolder->okonx}}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-okonh" class="col-form-label">ОКЭД</label>
-                                        <input type="text" id="insurer-okonh" name="oked_insurer"
-                                               value="{{$all_product->policyHolder->oked}}" class="form-control">
-                                    </div>
+                    <div class="card-body">
+                        <div class="card card-info" id="clone-beneficiary">
+                            <div class="card-header">
+                                <h3 class="card-title">Выгодоприобретатель</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="card card-info" id="clone-beneficiary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Выгодоприобретатель</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                data-toggle="tooltip" title="Collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body" id="beneficiary-card-body">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-name" class="col-form-label">Ниаменование
-                                                        выгодоприобретателя</label>
-                                                    <input type="text" id="beneficiary-name" name="fio_beneficiary"
-                                                           value="{{$all_product->policyBeneficiaries->FIO}}"
-                                                           class="form-control">
-                                                </div>
+                            <div class="card-body" id="beneficiary-card-body">
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="beneficiary-name" class="col-form-label">Ниаменование
+                                                    выгодоприобретателя</label>
+                                                <input type="text" id="beneficiary-name" name="fio_beneficiary"
+                                                       value="{{$all_product->policyBeneficiaries->FIO}}"
+                                                       class="form-control">
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-address" class="col-form-label">Адрес
-                                                        выгодоприобретателя</label>
-                                                    <input type="text" id="beneficiary-address"
-                                                           name="address_beneficiary"
-                                                           value="{{$all_product->policyBeneficiaries->address}}"
-                                                           class="form-control">
-                                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="beneficiary-address" class="col-form-label">Адрес
+                                                    выгодоприобретателя</label>
+                                                <input type="text" id="beneficiary-address"
+                                                       name="address_beneficiary"
+                                                       value="{{$all_product->policyBeneficiaries->address}}"
+                                                       class="form-control">
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                    <input type="text" id="beneficiary-tel" name="tel_beneficiary"
-                                                           value="{{$all_product->policyBeneficiaries->phone_number}}"
-                                                           class="form-control">
-                                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="beneficiary-tel" class="col-form-label">Телефон</label>
+                                                <input type="text" id="beneficiary-tel" name="tel_beneficiary"
+                                                       value="{{$all_product->policyBeneficiaries->phone_number}}"
+                                                       class="form-control">
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-bill" class="col-form-label">Расчетный
-                                                        счет</label>
-                                                    <input type="text" id="beneficiary-bill" name="beneficiary_bill"
-                                                           value="{{$all_product->policyBeneficiaries->checking_account}}"
-                                                           class="form-control">
-                                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="beneficiary-bill" class="col-form-label">Расчетный
+                                                    счет</label>
+                                                <input type="text" id="beneficiary-bill" name="beneficiary_bill"
+                                                       value="{{$all_product->policyBeneficiaries->checking_account}}"
+                                                       class="form-control">
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                    <input type="text" id="beneficiary-mfo" name="mfo_beneficiary"
-                                                           value="{{$all_product->policyBeneficiaries->mfo}}"
-                                                           class="form-control">
-                                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="beneficiary-mfo" class="col-form-label">МФО</label>
+                                                <input type="text" id="beneficiary-mfo" name="mfo_beneficiary"
+                                                       value="{{$all_product->policyBeneficiaries->mfo}}"
+                                                       class="form-control">
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                                    <input type="text" id="beneficiary-bank" name="bank_beneficiary"
-                                                           value="{{$all_product->policyBeneficiaries->bank_id}}"
-                                                           class="form-control">
-                                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="beneficiary-bank" class="col-form-label">Банк</label>
+                                                <input type="text" id="beneficiary-bank" name="bank_beneficiary"
+                                                       value="{{$all_product->policyBeneficiaries->bank_id}}"
+                                                       class="form-control">
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                    <input type="text" id="beneficiary-inn" name="inn_beneficiary"
-                                                           value="{{$all_product->policyBeneficiaries->inn}}"
-                                                           class="form-control">
-                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="beneficiary-inn" class="col-form-label">ИНН</label>
+                                                <input type="text" id="beneficiary-inn" name="inn_beneficiary"
+                                                       value="{{$all_product->policyBeneficiaries->inn}}"
+                                                       class="form-control">
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="beneficiary-oked" class="col-form-label">ОКЭД</label>
-                                                    <input type="text" id="beneficiary-oked" name="oked_beneficiary"
-                                                           value="{{$all_product->policyBeneficiaries->oked}}"
-                                                           class="form-control">
-                                                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="beneficiary-oked" class="col-form-label">ОКЭД</label>
+                                                <input type="text" id="beneficiary-oked" name="oked_beneficiary"
+                                                       value="{{$all_product->policyBeneficiaries->oked}}"
+                                                       class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                     <div class="card-body">
