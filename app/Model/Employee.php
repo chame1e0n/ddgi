@@ -9,6 +9,11 @@ class Employee extends Model
 {
     use SoftDeletes;
 
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_AGENT = 'agent';
+    public const ROLE_DIRECTOR = 'director';
+    public const ROLE_MANAGER = 'manager';
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -16,12 +21,20 @@ class Employee extends Model
      */
     protected $guarded = [];
 
-    public const ROLE_ADMIN = 'admin';
-    public const ROLE_AGENT = 'agent';
-    public const ROLE_DIRECTOR = 'director';
-    public const ROLE_MANAGER = 'manager';
+    /**
+     * Name of the table for the model.
+     *
+     * @var string
+     */
+    protected $table = 'employees';
 
+    /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
     public static $validate = [
+        'employee.branch_id' => 'required',
         'employee.name' => 'required',
         'employee.surname' => 'required',
         'employee.middlename' => 'required',
@@ -32,15 +45,7 @@ class Employee extends Model
         'employee.work_end_date' => 'required',
         'employee.phone' => 'required',
         'employee.address' => 'required',
-        'employee.branch_id' => 'required',
     ];
-
-    /**
-     * Name of the table for the model.
-     *
-     * @var string
-     */
-    protected $table = 'employees';
 
     /**
      * Get relation to the branches table.

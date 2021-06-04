@@ -3,7 +3,6 @@
 @include('products._form_elements.elements._period_strahovaniya.edit')
 @include('products._form_elements.elements._geograficheskaya_zona.edit')
 @include('products._form_elements.elements._ispolzovaniye_ts_na_osnovanii.edit')
-@include('products._form_elements.blocks._vigodopriopredatel.edit')
 @include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.edit')
 @include('products._form_elements.blocks._zagruzka_dokumentov.edit')
 
@@ -40,32 +39,16 @@
                     @include('includes.client')
                 </div>
                 <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Выгодоприобретатель</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
+                    @include('includes.beneficiary')
+                </div>
+                <div class="card-body">
+                    <div id="anketa-fields">
+                        <div class="row">
+                            <div class="col-sm-12">
                                 <div class="row">
-                                    @yield('_vigodopriobretatel_content')
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div id="anketa-fields">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            @yield('_period_strahovaniya_content')
-                                            @yield('_ispolzovaniye_ts_na_osnovanii_content')
-                                            @yield('_geograficheskaya_zona_content')
-                                        </div>
-                                    </div>
+                                    @yield('_period_strahovaniya_content')
+                                    @yield('_ispolzovaniye_ts_na_osnovanii_content')
+                                    @yield('_geograficheskaya_zona_content')
                                 </div>
                             </div>
                         </div>
@@ -238,8 +221,4 @@
             </div>
         </div>
     </form>
-@endsection
-
-@section('scripts')
-    @yield('_vigodopriobretatel_scripts')
 @endsection

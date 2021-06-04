@@ -72,135 +72,64 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Выгодоприобретатель</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-name" class="col-form-label">Наименования</label>
-                                            <input type="text" id="beneficiary-name" name="fio_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-address" class="col-form-label">Адрес страхователя</label>
-                                            <input type="text" id="beneficiary-address" name="address_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="beneficiary-tel" name="tel_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-schet" class="col-form-label">Расчетный
-                                                счет</label>
-                                            <input type="text" id="beneficiary-schet" name="beneficiary_schet" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                            <input type="text" id="beneficiary-inn" name="inn_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                            <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-4">
+                    @include('includes.beneficiary')
+                </div>
+                <div class="card-body">
+                    <div id="anketa-fields">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="beneficiary-mfo" class="col-form-label">ОКЭД</label>
-                                            <input type="text" id="beneficiary-mfo" name="oked_beneficiary" class="form-control">
+                                            <label for="insurance_from">Кредитный договор</label>
+                                            <div class="input-group mb-3">
+
+                                                <input type="text" id="insurer-tel" name="credit_contract" class="form-control">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                            <input type="text" id="beneficiary-bank" name="bank_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-okonh" class="col-form-label">ОКОНХ</label>
-                                            <input type="text" id="beneficiary-okonh" name="okonh_beneficiary" class="form-control">
+                                            <div class="input-group mb-3" style="margin-top: 33px">
+                                                <input id="insurance_to" name="credit_contract_to" type="date" class="form-control">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div id="anketa-fields">
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="insurance_from">Кредитный договор</label>
-                                                    <div class="input-group mb-3">
-
-                                                        <input type="text" id="insurer-tel" name="credit_contract" class="form-control">
-                                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="insurance_from">Период страхования</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">с</span>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <div class="input-group mb-3" style="margin-top: 33px">
-                                                        <input id="insurance_to" name="credit_contract_to" type="date" class="form-control">
-                                                    </div>
-                                                </div>
+                                                <input id="insurance_from" name="insurance_from" type="date" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="insurance_from">Период страхования</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">с</span>
-                                                        </div>
-                                                        <input id="insurance_from" name="insurance_from" type="date" class="form-control">
-                                                    </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group mb-3" style="margin-top: 33px">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">до</span>
                                                 </div>
+                                                <input id="insurance_to" name="insurance_to" type="date" class="form-control">
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <div class="input-group mb-3" style="margin-top: 33px">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">до</span>
-                                                        </div>
-                                                        <input id="insurance_to" name="insurance_to" type="date" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="icheck-success ">
-                                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="tarif" id="tarif">
-                                                    <label class="form-check-label" for="tarif">Тариф</label>
-                                                </div>
-                                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                                -->
-                                                <div class="form-group" data-tarif-descr style="display: none">
-                                                    <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                                    <input class="form-control" id="descrTarif" name="percent_of_tariff" type="number">
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="icheck-success ">
+                                            <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="tarif" id="tarif">
+                                            <label class="form-check-label" for="tarif">Тариф</label>
+                                        </div>
+                                        <!-- TODO: Блок должен находится в скрытом состоянии
+                                        отображаться только тогда, когда выбран checkbox "Тариф"
+                                        -->
+                                        <div class="form-group" data-tarif-descr style="display: none">
+                                            <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
+                                            <input class="form-control" id="descrTarif" name="percent_of_tariff" type="number">
                                         </div>
                                     </div>
                                 </div>
@@ -208,8 +137,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>

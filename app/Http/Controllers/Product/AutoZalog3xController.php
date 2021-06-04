@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AutoZalog3xRequest;
 use App\Model\Bank;
+use App\Model\Beneficiary;
 use App\Model\Client;
 use App\Model\Employee;
 
@@ -36,9 +37,10 @@ class AutoZalog3xController extends Controller
     {
         $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
         $banks = Bank::all();
+        $beneficiary = new Beneficiary();
         $client = new Client();
 
-        return view('products.zalog.autozalog3x.create', compact('agents', 'banks', 'client'));
+        return view('products.zalog.autozalog3x.create', compact('agents', 'banks', 'beneficiary', 'client'));
     }
 
     /**

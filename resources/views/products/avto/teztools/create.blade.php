@@ -47,155 +47,64 @@
                     @include('includes.client')
                 </div>
                 <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Выгодоприобретатель</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
+                    @include('includes.beneficiary')
+                </div>
+                <div class="card-body">
+                    <div id="anketa-fields">
+                        <div class="row">
+                            <div class="col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-fio" class="col-form-label">Наименования страхователя</label>
-                                            <input type="text" id="policy-beneficiary-fio" name="policy_beneficiary[FIO]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-address" class="col-form-label">Адрес</label>
-                                            <input type="text" id="policy-beneficiary-address" name="policy_beneficiary[address]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-phone-number" class="col-form-label">Телефон</label>
-                                            <input type="text" id="policy-beneficiary-phone-number" name="policy_beneficiary[phone_number]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-checking-account" class="col-form-label">Расчетный счет</label>
-                                            <input type="text" id="policy-beneficiary-checking-account" name="policy_beneficiary[checking_account]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-inn" class="col-form-label">ИНН</label>
-                                            <input type="text" id="policy-beneficiary-inn" name="policy_beneficiary[inn]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-mfo" class="col-form-label">МФО</label>
-                                            <input type="text" id="policy-beneficiary-mfo" name="policy_beneficiary[mfo]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-oked" class="col-form-label">ОКЭД</label>
-                                            <input type="text" id="policy-beneficiary-oked" name="policy_beneficiary[oked]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-nomer-passport" class="col-form-label">Номер паспорта</label>
-                                            <input type="text" id="policy-beneficiary-nomer-passport" name="policy_beneficiary[nomer_passport]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-bank-id" class="col-form-label">Банк</label>
-                                            <select id="policy-beneficiary-bank-id"
-                                                    name="policy_beneficiary[bank_id]"
-                                                    style="width: 100%;"
-                                                    required
-                                                    @if($errors->has('policy-beneficiary-bank-id'))
-                                                        class="form-control is-invalid"
-                                                    @else
-                                                        class="form-control"
-                                                    @endif>
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-okonx" class="col-form-label">ОКОНХ</label>
-                                            <input type="text" id="policy-beneficiary-okonx" name="policy_beneficiary[okonx]" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="policy-beneficiary-seria-passport" class="col-form-label">Серия</label>
-                                            <input type="text" id="policy-beneficiary-seria-passport" name="policy_beneficiary[seria_passport]" class="form-control" />
-                                        </div>
-                                    </div>
+                                   @yield('_srok_deystviya_dogovora_content')
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div id="anketa-fields">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="anketa-fields">
+                        <div class="row">
+                            <div class="col-sm-12">
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                           @yield('_srok_deystviya_dogovora_content')
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="all-product-insurance-from">Период страхования</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">с</span>
+                                                </div>
+                                                <input id="all-product-insurance-from" name="all_product[insurance_from]" type="date" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="input-group mb-3"
+                                                 style="margin-top: 33px;">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">до</span>
+                                                </div>
+                                                <input id="all-product-insurance-to" name="all_product[insurance_to]" type="date" class="form-control" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div id="anketa-fields">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="all-product-insurance-from">Период страхования</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">с</span>
-                                                        </div>
-                                                        <input id="all-product-insurance-from" name="all_product[insurance_from]" type="date" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <div class="input-group mb-3"
-                                                         style="margin-top: 33px;">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">до</span>
-                                                        </div>
-                                                        <input id="all-product-insurance-to" name="all_product[insurance_to]" type="date" class="form-control" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group form-inline justify-content-between">
-                                                <label>Использования ТС на основании</label>
-                                                <select class="form-control payment-schedule"
-                                                        name="all_product[using_tc]"
-                                                        style="width: 100%; text-align: center;">
-                                                    <option value="selected"></option>
-                                                    <option value="1">Тех пасспорт</option>
-                                                    <option value="2">Доверенность</option>
-                                                    <option value="3">Договор аренды</option>
-                                                    <option value="4">Путевой лист</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="all-product-geo-zone">Географическая зона:</label>
-                                            <input type="text" id="all-product-geo-zone" name="all_product[geo_zone]" class="form-control" />
-                                        </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-inline justify-content-between">
+                                        <label>Использования ТС на основании</label>
+                                        <select class="form-control payment-schedule"
+                                                name="all_product[using_tc]"
+                                                style="width: 100%; text-align: center;">
+                                            <option value="selected"></option>
+                                            <option value="1">Тех пасспорт</option>
+                                            <option value="2">Доверенность</option>
+                                            <option value="3">Договор аренды</option>
+                                            <option value="4">Путевой лист</option>
+                                        </select>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="all-product-geo-zone">Географическая зона:</label>
+                                    <input type="text" id="all-product-geo-zone" name="all_product[geo_zone]" class="form-control" />
                                 </div>
                             </div>
                         </div>

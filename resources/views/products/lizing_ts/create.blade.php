@@ -1,7 +1,6 @@
 @extends('layouts.index')
 @include('products._form_elements.elements._dogovor_lizinga.create')
 @include('products._form_elements.elements._period_dogovora.create')
-@include('products._form_elements.blocks._vigodopriopredatel.create')
 @include('products._form_elements.elements._period_strahovaniya.create')
 @include('products._form_elements.elements._geograficheskaya_zona.create')
 @include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create')
@@ -37,25 +36,7 @@
                     @include('includes.client')
                 </div>
                 <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Выгодоприобретатель</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    @yield('_vigodopriobretatel_content')
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    @include('includes.beneficiary')
                 </div>
                 <div class="card-body">
                     <div id="anketa-fields">
@@ -157,5 +138,4 @@
 
 @section('scripts')
     @yield('_svediniya_o_polise_scripts')
-    @yield('_vigodopriobretatel_scripts')
 @endsection

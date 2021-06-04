@@ -63,70 +63,7 @@
                     <div class="card-body">
                         @include('includes.client')
 
-                        <div class="card card-info" id="clone-beneficiary">
-                            <div class="card-header">
-                                <h3 class="card-title">Выгодоприобретатель</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body" id="beneficiary-card-body">
-                                <div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="beneficiary-name" class="col-form-label">ФИО выгодоприобретателя</label>
-                                                <input type="text" id="beneficiary-name" name="fio_beneficiary" value="{{ old('fio_beneficiary') }}" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="beneficiary-address" class="col-form-label">Юр адрес выгодоприобретателя</label>
-                                                <input type="text" id="beneficiary-address" name="address_beneficiary" value="{{ old('address_beneficiary') }}" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                                <input type="text" id="beneficiary-tel" name="tel_beneficiary" value="{{ old('tel_beneficiary') }}" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                                <input type="text" id="beneficiary-schet" name="beneficiary_schet" value="{{ old('beneficiary_schet') }}" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                                <input type="text" id="beneficiary-inn" name="inn_beneficiary" value="{{ old('inn_beneficiary') }}" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                                <input type="text" id="beneficiary-mfo" name="mfo_beneficiary" value="{{ old('mfo_beneficiary') }}" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                                <input type="text" id="beneficiary-bank" name="bank_beneficiary" value="{{ old('bank_beneficiary') }}" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                                <input type="text" id="beneficiary-okonh" name="okonh_beneficiary" value="{{ old('okonh_beneficiary') }}" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('includes.beneficiary')
                     </div>
 
 

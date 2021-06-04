@@ -47,6 +47,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'user.password' => 'required',
+    ];
+
+    /**
      * Get relation to the employees table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -54,8 +63,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Model\Employee::class);
     }
-
-    public static $validate = [
-        'user.password' => 'required',
-    ];
 }
