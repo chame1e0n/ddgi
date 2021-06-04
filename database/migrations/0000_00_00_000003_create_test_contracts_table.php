@@ -15,24 +15,21 @@ class CreateTestContractsTable extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('beneficiary_id')->unsigned();
-            $table->integer('borrower_id')->unsigned();
+            $table->integer('beneficiary_id')->unsigned()->nullable();
+            $table->integer('borrower_id')->unsigned()->nullable();
             $table->integer('client_id')->unsigned();
-            $table->integer('currency_id')->unsigned();
+            $table->integer('currency_id')->unsigned()->nullable();
             $table->integer('payment_method_id')->unsigned()->nullable();
-            $table->integer('pledger_id')->unsigned();
-            $table->integer('specification_id')->unsigned();
+            $table->integer('pledger_id')->unsigned()->nullable();
+            $table->integer('specification_id')->unsigned()->nullable();
             $table->enum('payment_type', ['entirely', 'tranche'])->nullable();
             $table->enum('type', ['individual', 'legal'])->nullable();
             $table->string('status', 45)->default('created');
             $table->date('from')->nullable();
             $table->date('to')->nullable();
-            $table->integer('tarif')->unsigned()->nullable();
-            $table->float('insurance_premium', 12, 3)->nullable();
+            $table->float('tarif', 12, 3)->unsigned()->nullable();
+            $table->float('premium', 12, 3)->unsigned()->nullable();
             $table->nullableMorphs('model');
-            $table->string('file_questionary')->nullable();
-            $table->string('file_agreement')->nullable();
-            $table->string('file_policy')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
             $table->foreign('beneficiary_id', 'fk_contract_beneficiary')->references('id')->on('beneficiaries');

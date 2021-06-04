@@ -15,6 +15,10 @@ class Contract extends Model
     public const TYPE_INDIVIDUAL = 'individual';
     public const TYPE_LEGAL = 'legal';
 
+    public const FILE_TYPE_QUESTIONARY = 'questionary';
+    public const FILE_TYPE_AGREEMENT = 'agreement';
+    public const FILE_TYPE_POLICY = 'policy';
+
     /**
      * Name of the table for the model.
      *

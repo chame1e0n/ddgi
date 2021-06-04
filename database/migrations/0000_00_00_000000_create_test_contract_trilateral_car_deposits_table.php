@@ -18,13 +18,10 @@ class CreateTestContractTrilateralCarDepositsTable extends Migration
             $table->string('insurance_agreement_number', 45);
             $table->date('insurance_agreement_date');
             $table->string('credit_agreement_number', 45);
-            $table->date('credit_agreement_date');
             $table->date('credit_period_from');
             $table->date('credit_period_to');
-            $table->date('period_from');
-            $table->date('period_to');
-            $table->string('fire_certificate_path')->nullable();
-            $table->string('security_certificate_path')->nullable();
+            $table->string('defect_damage_comment')->nullable();
+            $table->string('actual_insurance_comment')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
