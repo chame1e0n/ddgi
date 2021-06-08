@@ -47,7 +47,7 @@ class SpecificationController extends Controller
         return view('admin.common.create', [
             'object' => new Specification(),
             'form_path' => 'admin.spravochniki.specification.form',
-            'types' => Type::all()
+            'types' => ListHelper::get(Type::class, 'name')
         ]);
     }
 
@@ -87,7 +87,7 @@ class SpecificationController extends Controller
         return view('admin.common.edit', [
                 'object' => $specification,
                 'form_path' => 'admin.spravochniki.specification.form',
-                'types' => Type::all()
+                'types' => ListHelper::get(Type::class, 'name')
             ]
         );
     }

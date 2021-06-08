@@ -122,7 +122,7 @@ Route::group(['middleware' => ['auth']], function () {
     if ($newFront) {
         Route::resource('spravochniki/bank','Admin\Spravochniki\BankController');
         Route::resource('spravochniki/group','Admin\Spravochniki\GroupController');
-        Route::resource('spravochniki/type','Admin\Spravochniki\TypeController');
+        // Route::resource('spravochniki/type','Admin\Spravochniki\TypeController'); // была удалена
         Route::resource('spravochniki/product','ProductController'); // :TODO:
         Route::resource('spravochniki/specification','Admin\Spravochniki\SpecificationController');
         Route::resource('spravochniki/request', 'Admin\Spravochniki\RequestController');

@@ -439,14 +439,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('type.index')}}" class="nav-link">
-                        <i class="nav-icon far fa-building"></i>
-                        <p>
-                            Классы
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{route('specification.index')}}" class="nav-link">
                         <i class="nav-icon far fa-building"></i>
                         <p>
