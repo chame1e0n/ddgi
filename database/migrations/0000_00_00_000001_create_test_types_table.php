@@ -15,13 +15,11 @@ class CreateTestTypesTable extends Migration
     {
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('group_id')->unsigned();
-            $table->string('code', 200);
-            $table->string('name', 250);
-            $table->string('description', 250);
+            $table->string('code', 20)->unique();
+            $table->string('name', 255);
+            $table->string('description', 250)->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
-            $table->foreign('group_id', 'fk_type_group')->references('id')->on('groups');
         });
     }
 

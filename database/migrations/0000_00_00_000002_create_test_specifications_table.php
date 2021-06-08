@@ -16,8 +16,10 @@ class CreateTestSpecificationsTable extends Migration
         Schema::create('specifications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('type_id')->unsigned();
-            $table->string('name', 250)->nullable();
-            $table->string('code', 50)->nullable();
+            $table->string('code', 20)->unique();
+            $table->string('name', 255);
+            $table->tinyInteger('is_for_individual')->unsigned()->default(0);
+            $table->tinyInteger('is_for_legal')->unsigned()->default(0);
             $table->integer('tarif')->unsigned()->nullable();
             $table->integer('max_acceptable_amount')->unsigned()->nullable();
             $table->timestamps();
