@@ -24,4 +24,13 @@ class Currency extends Model
     {
         return $this->hasMany(Contract::class);
     }
+
+    /**
+     * Get all currencies ordered by priority.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getOrderedCurrencies()
+    {
+        return self::orderBy('priority', 'asc')->get();
+    }
 }

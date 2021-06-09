@@ -27,6 +27,26 @@ class Contract extends Model
     protected $table = 'contracts';
 
     /**
+     * Payment type names.
+     * 
+     * @var array
+     */
+    public static $payment_types = [
+        self::PAYMENT_TYPE_ENTIRELY => 'единовременно',
+        self::PAYMENT_TYPE_TRANCHE => 'транш',
+    ];
+
+    /**
+     * Type names.
+     * 
+     * @var array
+     */
+    public static $types = [
+        self::TYPE_INDIVIDUAL => 'физическое лицо',
+        self::TYPE_LEGAL => 'юридическое лицо',
+    ];
+
+    /**
      * Get relation to the beneficiaries table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

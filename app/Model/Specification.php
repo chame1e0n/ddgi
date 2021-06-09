@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -28,7 +29,7 @@ class Specification extends Model
      * 
      * @var array
      */
-    public $specification_to_routes = [
+    public static $specification_to_routes = [
         'S_BAI' => 'borrower',
         'S_IOAAA' => 'borrower_sportsman',
         'S_CAI24HAD' => 'neshchastka/time',
@@ -37,7 +38,7 @@ class Specification extends Model
         'S_VHI' => null,
         'S_IAID' => null,
         'S_CVMI' => null,
-        'S_I' => 'covid-fiz',
+        'S_CCI' => 'covid-fiz',
         'S_PVI' => 'zalog/autozalog-mnogostoronniy',
         'S_LVI' => 'tc-lizing-zalog',
         'S_VVI' => 'kasco',
@@ -106,5 +107,22 @@ class Specification extends Model
     public function contracts()
     {
         return $this->hasMany(Contract::class);
+    }
+
+    /**
+     * Get specifications of the specified type.
+     * @param string $type Type
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getSpecificationsByType($type)
+    {
+        if ($type == Contract::TYPE_INDIVIDUAL) {
+            return static::where('is_for_individual', 1)->get();
+        }
+        if ($type == Contract::TYPE_LEGAL) {
+            return static::where('is_for_legal', 1)->get();
+        }
+
+        return new Collection();
     }
 }
