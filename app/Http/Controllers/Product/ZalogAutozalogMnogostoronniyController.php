@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ZalogAutozalogMnogostoronniyRequest;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductInformation;
@@ -35,10 +39,12 @@ class ZalogAutozalogMnogostoronniyController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.zalog.autozalog-mnogostoronniy.create', compact('banks', 'agents', 'policySeries'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.zalog.autozalog-mnogostoronniy.create', compact('agents', 'beneficiary', 'client', 'contract'));
     }
 
     /**

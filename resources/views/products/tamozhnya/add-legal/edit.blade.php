@@ -72,50 +72,8 @@
             @csrf
 
             <section class="content">
-                <div class="card card-success product-type">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="client-product-form">
-                            <div class="form-group clearfix">
-                                <label>Типы клиента</label>
+                @include('includes.contract')
 
-                                <div class="row">
-                                @if($tamozhnya->type == 0)
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input type="radio" class="client-type-radio" id="client-type-radio-1" value="individual" checked>
-                                            <label for="client-type-radio-1">физ. лицо</label>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input type="radio" class="client-type-radio" id="client-type-radio-2" value="legal" checked>
-                                            <label for="client-type-radio-2" >юр. лицо</label>
-                                        </div>
-                                    </div>
-                                @endif
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="product-id">Вид продукта</label>
-                                <select id="product-id"
-                                        class="form-control select2"
-                                        style="width: 100%;"
-                                        readonly="true">
-                                    <option value="1">{{$tamozhnya->product->name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-body">
                     @include('includes.client')
                 </div>
@@ -310,61 +268,6 @@
                     </div>
                     <div class="card-body">
                         <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control"
-                                                id="walletNames"
-                                                style="width: 100%; text-align: center;"
-                                                name="insurance_premium_currency">
-                                            <option selected="selected"
-                                                    value="{{$tamozhnya->currencies}}">
-                                                {{$tamozhnya->currencies}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition"
-                                                class="form-control payment-schedule"
-                                                name="payment_term"
-                                                style="width: 100%; text-align: center;">
-                                            <option value="1"
-                                                    @if($tamozhnya->payment_term == 1)
-                                                        selected
-                                                    @endif>
-                                                Единовременно
-                                            </option>
-                                            <option value="transh"
-                                                    @if($tamozhnya->payment_term == 'transh')
-                                                        selected
-                                                    @endif>
-                                                Транш
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control sposob_rascheta"
-                                                name="sposob_rascheta"
-                                                style="width: 100%; text-align: center;">
-                                        @foreach(config('app.sposob_rascheta') as $key => $sposob)
-                                            <option value="{{$key}}"
-                                                    @if($key == $tamozhnya->sposob_rascheta)
-                                                        selected
-                                                    @endif>
-                                                {{$sposob}}
-                                            </option>
-                                        @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div id="transh-payment-schedule"
                                  @if($tamozhnya->payment_term == 1)
                                     class="d-none"

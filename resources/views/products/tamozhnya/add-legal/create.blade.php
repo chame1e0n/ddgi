@@ -29,7 +29,7 @@
             </div>
 
             <section class="content">
-                @include('products.select')
+                @include('includes.contract')
 
                 <div class="card-body">
                     @include('includes.client')
@@ -186,45 +186,6 @@
                     </div>
                     <div class="card-body">
                         <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control"
-                                                id="walletNames"
-                                                style="width: 100%; text-align: center;"
-                                                name="insurance_premium_currency">
-                                            <option selected="selected">UZS</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition"
-                                                class="form-control payment-schedule"
-                                                name="payment_term"
-                                                style="width: 100%; text-align: center;">
-                                            <option value="1">Единовременно</option>
-                                            <option value="transh">Транш</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control sposob_rascheta"
-                                                name="sposob_rascheta"
-                                                style="width: 100%; text-align: center;">
-                                            <option value="1">Сумах</option>
-                                            <option value="2">Сумах В ин. валюте</option>
-                                            <option value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
-                                            <option value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option value="5">В ин. валюте по фиксированному ЦБ на день оплаты премии/первого транша</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div id="transh-payment-schedule" class="d-none">
                                 <div class="form-group">
                                     <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
@@ -302,7 +263,7 @@
                                         <div class="form-group">
                                             <label for="geographic-zone">Тариф (%)</label>
                                             <input readonly
-                                                   value="{{$product->tarif}}"
+                                                   value="{{--$product->tarif--}}"
                                                    type="text"
                                                    name="tarif"
                                                    class="form-control" />
@@ -491,7 +452,7 @@
 
 @section('scripts')
     <script>
-        var product_tarif = {{$product->tarif / 100}};
+        var product_tarif = {{--$product->tarif / 100--}};
         const strah_premiya = document.getElementById('strahovaya_purpose');
         const strahovaya_sum = document.getElementById('strahovaya_sum');
         var descr_tarif = document.getElementById('descrTarif');

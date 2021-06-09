@@ -27,18 +27,6 @@ Route::get('/', function () {
 
 Route::resource('tamojenniy-sklad', 'Product\TamojeniySkladController');
 Route::patch('tamojenniy-sklad/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
-Route::resource('/otvetstvennost-notaries', 'Product\NotaryController');
-
-
-//Route::get('tamojenniy-sklad/kasko', 'Product\TamojeniySkladController@kasko')->name('bonded.kasko');
-
-//Route::get('tc-lizing-zalog/create', function () {
-//    return view('products.about-tc-lizing-zalog.create');
-//});
-
-Route::resource('tc-lizing-zalog', 'LisingZalogController');
-
-Route::resource('imushestvo-lizing-zalog', 'PropertyLisingZalog');
 
 Route::get('test', function () {
     $dog = new Dogovor();
@@ -48,27 +36,10 @@ Route::get('test', function () {
 Route::get('test1', 'EmployeeController@getEmployees');
 
 Route::group(['middleware' => ['auth']], function () {
-    ////////////////////////////////// Ulugbek //////////////////////////////////////
-    //// Product3777
-    Route::resource('product3777', 'Product3777\Product3777Controller')->except('index');
-
-    //// BorrowerSportsman
-    Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
-
     ///Printing
     Route::get('product3777/print/{id}', 'Product3777\Product3777Controller@print')->name('print');
 
-    ///Audit
-    Route::resource('audit', 'OtvetsvennostAuditController');
-
-    ///Cargo
-  //  Route::resource('cargo', 'CargoController');
-
-    ///Mejd
-    Route::resource('mejd', 'MejdController');
-
     // Iskan
-    Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');
     Route::resource('lizing_ts','Product\LizingTsController');
     Route::resource('rassrochka','Product\CreditRassrochkaController');
 
@@ -87,7 +58,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/product-search', 'AllProductController@search')->name('product.search');
     Route::get('/export-database', 'ZaemshikController@download_db')->name('db_download');
     ////Neshchastka Zaemshik
-    Route::resource('borrower', 'NeshchastkZaemshikController');
+
     Route::resource('perestrahovaniya', 'PerestrahovaniyaController');
     Route::resource('perestrahovaniya_overview', 'PerestrahovaniyaOverviewController');
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
@@ -100,15 +71,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('policy_filter', 'PolicyFilterController');
     Route::post('policy_filter/filter', 'PolicyFilterController@filter')->name('all_product.filter');
 
-    ////Gruz Export
-    Route::resource('export', 'ExportController');
-
     ////Teztools
     Route::resource('teztools', 'TeztoolsController');
     Route::get('teztools/download/{id}/{info_id}', 'TeztoolsController@download')->name('teztools.download');
 
     ////Broker
-    Route::resource('broker', 'BrokerController');
     Route::get('broker/download/{id}/{info_id}', 'BrokerController@download')->name('broker.download');
 
     // Ajax forms parts
@@ -151,17 +118,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('policy_registration','PolicyRegistrationController');
     Route::resource('policy','PolicyController');
     Route::resource('kasko','Product\KaskoController');
-    Route::resource('cmp','Product\CmpController');
     Route::resource('avtocredit','Product\AvtocreditController');
-    Route::resource('garant','Product\GarantController');
     Route::resource('nepogashen','Product\NepogashenController');
-    Route::resource('credit-nepogashen','Product\CreditNepogashenController')->names('credit-nepogashen');
-    Route::resource('otvetstvennost-podryadchik','Product\OtvetstvennostPodryadchikController')->names('otvetstvennost-podryadchik');
     Route::resource('otvetstvennost-broker','Product\OtvetstvennostBrokerController')->names('otvetstvennost-broker');
-    Route::resource('otvetstvennost-realtor','Product\OtvetstvennostRealtorController')->names('otvetstvennost-realtor');
-    Route::resource('covid-fiz','Product\CovidController')->names('covid-fiz');
-    Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
-    Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');
     Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('policy_flow','PolicyFlowController');
     Route::post('policy_pending_transfer/{id}', 'PolicyTransferController@confirm')->name('policy_transfer.confirm');
@@ -194,15 +153,35 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('credit-fin-risk/nepogashen-avtocredit', 'Product\CrediFinRiskNepogashenAvtocreditController')->names('nepogashen-avtocredit');
     Route::resource('credit-fin-risk/nepogashen-credit', 'Product\CreditFinRiskNepogashenCreditController')->names('nepogashen-credit');
     Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
-    Route::resource('otvetstvennost/otsenshiki', 'Product\OtvetstvennostOtsenshikiController')->names('otvetstvennost-otsenshiki');
-    Route::resource('kasco', 'Product\KaskoController')->names('kasco-add');
-    Route::resource('neshchastka/time', 'Product\Neshchastka24TimeController')->names('neshchastka-time');
-    Route::resource('zalog/imushestvo3x', 'Product\ZalogImushestvo3xController')->names('zalog-imushestvo3x');
-    Route::resource('zalog/ipoteka', 'Product\ZalogIpotekaController')->names('zalog-ipoteka');
-    Route::resource('zalog/tehnika', 'Product\ZalogTehnikaController')->names('zalog-tehnika');
-    Route::resource('zalog/autozalog-mnogostoronniy', 'Product\ZalogAutozalogMnogostoronniyController')->names('zalog-autozalog-mnogostoronniy');
-    Route::resource('zalog/autozalog3x', 'Product\AutoZalog3xController')->names('zalog-autozalog3x');
 
+
+    Route::resource('borrower', 'NeshchastkZaemshikController');
+    Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
+    Route::resource('neshchastka/time', 'Product\Neshchastka24TimeController')->names('neshchastka-time');
+    Route::resource('mejd', 'MejdController');
+    Route::resource('covid-fiz','Product\CovidController')->names('covid-fiz');
+    Route::resource('zalog/autozalog-mnogostoronniy', 'Product\ZalogAutozalogMnogostoronniyController')->names('zalog-autozalog-mnogostoronniy');
+    Route::resource('tc-lizing-zalog', 'LisingZalogController');
+    Route::resource('kasco', 'Product\KaskoController')->names('kasco-add');
+    Route::resource('zalog/autozalog3x', 'Product\AutoZalog3xController')->names('zalog-autozalog3x');
+    Route::resource('zalog/tehnika', 'Product\ZalogTehnikaController')->names('zalog-tehnika');
+    Route::resource('export', 'ExportController');
+    Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
+    Route::resource('zalog/ipoteka', 'Product\ZalogIpotekaController')->names('zalog-ipoteka');
+    Route::resource('imushestvo-lizing-zalog', 'PropertyLisingZalog');
+    Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');
+    Route::resource('cmp','Product\CmpController');
+    Route::resource('zalog/imushestvo3x', 'Product\ZalogImushestvo3xController')->names('zalog-imushestvo3x');
+    Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');
+    Route::resource('broker', 'BrokerController');
+    Route::resource('audit', 'OtvetsvennostAuditController');
+    Route::resource('otvetstvennost-realtor','Product\OtvetstvennostRealtorController')->names('otvetstvennost-realtor');
+    Route::resource('otvetstvennost/otsenshiki', 'Product\OtvetstvennostOtsenshikiController')->names('otvetstvennost-otsenshiki');
+    Route::resource('otvetstvennost-podryadchik','Product\OtvetstvennostPodryadchikController')->names('otvetstvennost-podryadchik');
+    Route::resource('otvetstvennost-notaries', 'Product\NotaryController');
+    Route::resource('credit-nepogashen','Product\CreditNepogashenController')->names('credit-nepogashen');
+    Route::resource('product3777', 'Product3777\Product3777Controller')->except('index');
+    Route::resource('garant','Product\GarantController');
 });
 
 Auth::routes();

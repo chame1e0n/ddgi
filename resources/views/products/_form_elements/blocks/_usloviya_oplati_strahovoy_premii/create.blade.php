@@ -1,5 +1,3 @@
-@include('products._form_elements.elements._tarif_i_premiya.create')
-
 @section('_usloviya_oplati_strahovoy_premii_content')
     <div class="card-body">
         <div id="payment-terms-form">
@@ -52,55 +50,6 @@
                                @else
                                 class="form-control"
                                @endif />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group form-inline justify-content-between">
-                        <label for="all-product-insurance-premium-currency">Валюта взаиморасчетов</label>
-                        <select name="all_product[insurance_premium_currency]"
-                                id="all-product-insurance-premium-currency"
-                                style="width: 100%; text-align: center;"
-                                @if($errors->has('all_product.insurance_premium_currency'))
-                                    class="form-control is-invalid"
-                                @else
-                                    class="form-control"
-                                @endif>
-                            <option>UZS</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group form-inline justify-content-between">
-                        <label>Способ расчета</label>
-                        <select name="all_product[sposob_rascheta]"
-                                class="form-control"
-                                style="width: 100%; text-align: center;">
-                        @foreach(\App\Models\Dogovor::SPOSOB_RASCHETA as $key => $value)
-                            <option value="{{$key}}"
-                                    @if(old('all_product.sposob_rascheta') && old('all_product.sposob_rascheta') == $key)
-                                        selected
-                                    @endif>
-                                {{$value}}
-                            </option>
-                        @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group form-inline justify-content-between">
-                        <label>Порядок оплаты страховой премии</label>
-                        <select id="all-product-payment-term"
-                                class="form-control payment-schedule"
-                                name="all_product[payment_term]"
-                                style="width: 100%; text-align: center;">
-                            <option value="1">Единовременно</option>
-                            <option value="transh"
-                                    @if(old('all_product.payment_term') && old('all_product.payment_term') == 'transh')
-                                        selected
-                                    @endif>
-                                Транш
-                            </option>
-                        </select>
                     </div>
                 </div>
 
@@ -170,8 +119,6 @@
                     </div>
                 </div>
             </div>
-
-            @yield('_tarif_i_premiya_content')
         </div>
     </div>
 @endsection

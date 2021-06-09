@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Product;
 
 use App\Helpers\Convertio\Convertio;
 use App\Http\Requests\CovidRequest;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\Covid;
@@ -35,10 +39,13 @@ class CovidController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.covid.fiz-litso.create', compact('banks', 'agents', 'policySeries'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+        $policySeries = [];        
+
+        return view('products.covid.fiz-litso.create', compact('agents', 'beneficiary', 'client', 'contract', 'policySeries'));
     }
 
     /**

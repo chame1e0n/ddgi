@@ -31,7 +31,10 @@
                 </div>
             </div>
             <section class="content">
-                @include('products.select')
+                @include('errors.errors')
+
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
 
@@ -97,19 +100,19 @@
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">с</span>
-                                                </div>
+                                </div>
                                                 <input id="object_from_date" name="object_from_date" type="date"
                                                        class="form-control @if($errors->has('object_from_date')) is-invalid @endif" value="{{old('object_from_date')}}">
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="period_strah_to">Период страхования</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">до</span>
-                                                </div>
+                </div>
                                                 <input id="object_to_date" name="object_to_date" type="date"
                                                        class="form-control @if($errors->has('object_to_date')) is-invalid @endif" value="{{old('object_to_date')}}">
                                             </div>
@@ -359,52 +362,6 @@
                                             @endif>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select @if($errors->has('insurance_premium_currency'))
-                                                class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                                @endif id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected" value="{{old('insurance_premium_currency')}}" name="insurance_premium_currency">{{old('insurance_premium_currency', "UZS")}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition"  @if($errors->has('payment_term'))
-                                        class="form-control is-invalid payment-schedule"
-                                                @else
-                                                class="form-control payment-schedule"
-                                                @endif name="payment_term" style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="transh">Транш</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select @if($errors->has('payment_term'))
-                                                class="form-control is-invalid payment-schedule"
-                                                @else
-                                                class="form-control payment-schedule"
-                                                @endif name="payment_term" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            <option value="1" @if(old('payment_term') === "1") selected @endif>Сумах</option>
-                                            <option value="2" @if(old('payment_term') === "2") selected @endif>Сумах В ин. валюте</option>
-                                            <option value="3" @if(old('payment_term') === "3") selected @endif>В ин. валюте по курсу ЦБ на день заключение
-                                                договора
-                                            </option>
-                                            <option value="4" @if(old('payment_term') === "4") selected @endif>В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option value="5" @if(old('payment_term') === "5") selected @endif>В ин. валюте по фиксированному ЦБ на день оплаты
-                                                премии/первого транша
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <div id="transh-payment-schedule" class="d-none">
                                 <div class="form-group">
@@ -437,40 +394,6 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="icheck-success ">
-                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="tarif" id="tarif">
-                                    <label class="form-check-label" for="tarif">Тариф</label>
-                                </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-tarif-descr style="display: none">
-                                    <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input @if($errors->has('tarif_other'))
-                                           class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                           @endif id="descrTarif" type="number" name="tarif_other" value="{{old('tarif_other')}}">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="icheck-success ">
-                                    <input onchange="toggleBlock('preim', 'data-preim-descr')" class="form-check-input client-type-radio" type="checkbox" name="preim" id="preim">
-                                    <label class="form-check-label" for="preim">Премия</label>
-                                </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-preim-descr style="display: none">
-                                    <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input @if($errors->has('premiya_other'))
-                                           class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                           @endif id="descrPreim" type="number" name="premiya_other" value="{{old('premiya_other')}}">
                                 </div>
                             </div>
                         </div>

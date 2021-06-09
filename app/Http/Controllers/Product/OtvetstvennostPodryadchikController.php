@@ -7,6 +7,10 @@ use App\AllProductInformation;
 use App\AllProductsTermsTransh;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OtvetstvennostPodryadchikRequest;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\Dogovor;
 use App\Models\Policy;
 use App\Models\PolicyBeneficiaries;
@@ -40,10 +44,12 @@ class OtvetstvennostPodryadchikController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.otvetstvennost.podryadchik.create', compact('banks', 'agents', 'policySeries'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.otvetstvennost.podryadchik.create', compact('agents', 'beneficiary', 'client', 'contract'));
     }
 
     /**

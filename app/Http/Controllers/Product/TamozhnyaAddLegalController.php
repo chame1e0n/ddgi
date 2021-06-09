@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TamozhnyaAddLegalRequest;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\Dogovor;
 use App\Models\Policy;
 use App\Models\PolicyHolder;
@@ -39,14 +42,12 @@ class TamozhnyaAddLegalController extends Controller
      */
     public function create()
     {
-        $product = Product::where('name', 'Таможенный платеж')->first();
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $client = new Client();
+        $contract = new Contract();
+        $policies = [];
 
-        // need to make a limitations for user and status
-        $policies = Policy::all();
-        $banks = Bank::all();
-        $agents = Agent::all();
-
-        return view('products.tamozhnya.add-legal.create', compact('banks', 'agents', 'policies', 'product'));
+        return view('products.tamozhnya.add-legal.create', compact('agents', 'client', 'contract', 'policies'));
     }
 
     private function countStrahovayaPremiya($strahovaya_summa, $is_custom_tarif, $custom_tarif, $product_id)

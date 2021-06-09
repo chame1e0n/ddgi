@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreditNepogashenRequest;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\PolicyHolder;
 use App\Models\Product\CreditNepogashen;
 use App\Models\Spravochniki\Agent;
@@ -31,9 +34,11 @@ class CreditNepogashenController extends Controller
      */
     public function create()
     {
-        $banks = Bank::getBanks();
-        $agents = Agent::all();
-        return view('products.credit.nepogashen.create', compact('banks', 'agents'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.credit.nepogashen.create', compact('agents', 'client', 'contract'));
     }
 
     /**

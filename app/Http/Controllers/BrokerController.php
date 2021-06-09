@@ -7,6 +7,9 @@ use App\AllProductInformation;
 use App\AllProductInformationTransport;
 use App\AllProductsTermsTransh;
 use App\Helpers\Convertio\Convertio;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use Carbon\Carbon;
@@ -33,8 +36,11 @@ class BrokerController extends Controller
      */
     public function create()
     {
-        $agents = Agent::query()->get();
-        return view('products.otvetstvennost.broker.create', compact('agents'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.otvetstvennost.broker.create', compact('agents', 'client', 'contract'));
     }
 
     public function download($id, $info_id) {

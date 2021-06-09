@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\AuditInfo;
 use App\AuditTurnover;
 use App\CurrencyTerm;
+use App\Model\Client;
+use App\Model\Contract;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Bank;
 use App\OtvetsvennostAudit;
@@ -30,8 +32,10 @@ class OtvetsvennostAuditController extends Controller
      */
     public function create()
     {
-        $banks = Bank::query()->get();
-        return view('audit.audit', compact('banks'));
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('audit.audit', compact('client', 'contract'));
     }
 
     /**

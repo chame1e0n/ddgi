@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ZalogImushestvo3xRequest;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductInformation;
@@ -30,10 +33,11 @@ class ZalogImushestvo3xController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.zalog.imushestvo3x.create', compact('banks', 'agents', 'policySeries'));
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.zalog.imushestvo3x.create', compact('beneficiary', 'client', 'contract'));
     }
 
     /**

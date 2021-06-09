@@ -32,6 +32,8 @@
                 </div>
             </div>
             <section class="content">
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
                 </div>
@@ -68,15 +70,15 @@
                                     <div class="form-group">
                                         <label for="insurer-address" class="col-form-label">Премия</label>
                                         <input type="text" id="insurer-address" value="{{$all_product->bonus}}" name="bonus" class="form-control">
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
                                 <div class="col-md-12">
                                     <div class="icheck-success ">
                                         <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox"
                                                @if($all_product->tariff === "on") checked @endif
                                                name="tarif" id="tarif">
                                         <label class="form-check-label" for="tarif">Тариф</label>
-                                    </div>
+                    </div>
                                     <!-- TODO: Блок должен находится в скрытом состоянии
                                     отображаться только тогда, когда выбран checkbox "Тариф"
                                     -->
@@ -86,7 +88,7 @@
                                                @if(!empty($all_product->percent_of_tariff)) value="{{$all_product->percent_of_tariff}}"
                                                @endif
                                                name="percent_of_tariff" type="number">
-                                    </div>
+                </div>
                                 </div>
                             </div>
                         </div>
@@ -120,45 +122,6 @@
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
                                         <input type="text" id="all-summ" value="{{$all_product->franchise}}" name="franchise" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected" name="insurance_premium_currency">{{$all_product->insurance_premium_currency}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition" class="form-control payment-schedule" name="payment_term" style="width: 100%; text-align: center">
-                                            <option @if($all_product->payment_term === "1") selected @endif value="1">Единовременно</option>
-                                            <option @if($all_product->payment_term === "transh") selected @endif value="transh">Транш</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control payment-schedule" name="way_of_calculation" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            <option @if($all_product->way_of_calculation === "1") selected
-                                                    @endif value="1">Сумах</option>
-                                            <option @if($all_product->way_of_calculation === "2") selected
-                                                    @endif value="2">Сумах В ин. валюте</option>
-                                            <option @if($all_product->way_of_calculation === "3") selected
-                                                    @endif value="3">В ин. валюте по курсу ЦБ на день заключение
-                                                договора
-                                            </option>
-                                            <option @if($all_product->way_of_calculation === "4") selected
-                                                    @endif value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option @if($all_product->way_of_calculation === "5") selected
-                                                    @endif value="5">В ин. валюте по фиксированному ЦБ на день оплаты
-                                                премии/первого транша
-                                            </option>
-                                        </select>
                                     </div>
                                 </div>
                             </div>

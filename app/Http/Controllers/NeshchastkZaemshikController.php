@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
 use Illuminate\Http\Request;
 
 class NeshchastkZaemshikController extends Controller
@@ -23,8 +26,11 @@ class NeshchastkZaemshikController extends Controller
      */
     public function create()
     {
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
 
-        return view('neshchastk_zaemshik.borrower');
+        return view('neshchastk_zaemshik.borrower', compact('beneficiary', 'client', 'contract'));
     }
 
     /**

@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Product;
 
 use App\Helpers\Convertio\Convertio;
 use App\Http\Requests\Neshchastka24TimeRequest;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\Neshchastka24Time;
@@ -30,10 +34,13 @@ class Neshchastka24TimeController extends Controller
      */
     public function create()
     {
-        $banks = Bank::getBanks();
-        $agents = Agent::getActiveAgent();
-        $polis_series = PolicySeries::get();
-        return view('products.neshchastka.24time.create', compact('banks', 'agents' , 'polis_series'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+        $polis_series = [];
+
+        return view('products.neshchastka.24time.create', compact('agents', 'beneficiary', 'client', 'contract', 'polis_series'));
     }
 
     /**

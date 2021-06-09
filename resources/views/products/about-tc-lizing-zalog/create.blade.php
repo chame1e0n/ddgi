@@ -23,43 +23,8 @@
                     </div>
                 </div>
                 <section class="content">
-                    <div class="card card-success product-type">
-                        <div class="card-header">
-                            <h3 class="card-title"></h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div id="client-product-form">
-                                <div class="form-group clearfix">
-                                    <label>Типы клиента</label>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="icheck-success">
-                                                <input type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-1" value="individual">
-                                                <label for="client-type-radio-1">физ. лицо</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="icheck-success">
-                                                <input type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-2" value="legal">
-                                                <label for="client-type-radio-2">юр. лицо</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="product-id">Вид продукта</label>
-                                    <select id="product-id" class="form-control select2" name="product_id" style="width: 100%;">
-                                            <option selected="selected">ТРАСПОРТНОЕ СРЕДСТВО ПЕРЕДАВАЕМОЕ В ЛИЗИНГ/ЗАЛОГ</option>
-                                        </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('includes.contract')
+
                     <div class="card-body">
                         @include('includes.client')
 
@@ -102,29 +67,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="insurance_from">Период страхования</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">с</span>
-                                                    </div>
-                                                    <input id="insurance_from" name="insurance_from" value="{{ old('insurance_from') }}" type="date" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3" style="margin-top: 33px">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">до</span>
-                                                    </div>
-                                                    <input id="insurance_to" name="insurance_to" value="{{ old('insurance_to') }}" type="date" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label for="geographic-zone">Географическая зона:</label>
                                         <input type="text" id="geographic-zone" name="geo_zone" value="{{ old('geo_zone') }}" class="form-control">

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Product;
 use App\Helpers\Convertio\Convertio;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OtvetstvennostOtsenshikiRequest;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\PolicyHolder;
 use App\Models\Product\OtvetstvennostOtsenshiki;
 use App\Models\Product\OtvetstvennostOtsenshikiInfo;
@@ -35,10 +38,12 @@ class OtvetstvennostOtsenshikiController extends Controller
      */
     public function create()
     {
-        $agents = Agent::getActiveAgent();
-        $banks = Bank::getBanks();
-        $policySeries = PolicySeries::get();
-        return view('products.otvetstvennost.otsenshiki.create', compact('banks', 'agents', 'policySeries'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $client = new Client();
+        $contract = new Contract();
+        $policySeries = [];
+
+        return view('products.otvetstvennost.otsenshiki.create', compact('agents', 'client', 'contract', 'policySeries'));
     }
 
     /**

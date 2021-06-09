@@ -23,7 +23,7 @@
                 </div>
             </div>
             <section class="content">
-                @include('products.select')
+                @include('includes.contract')
                 @include('errors.errors')
 
                 <div class="card-body">
@@ -377,41 +377,6 @@
                                                @else
                                                class="form-control"
                                             @endif>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select name="currencies" @if($errors->has('currencies'))
-                                        class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                                @endif id="walletNames" style="width: 100%; text-align: center" required>
-                                            <option selected="selected" value="{{$page->currencies}}">{{$page->currencies}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select required id="condition" class="form-control
-                                            @if($errors->has('poryadok_oplaty_premii'))
-                                            payment-schedule
-                                            @endif" name="poryadok_oplaty_premii" style="width: 100%; text-align: center">
-                                            <option value="1" @if($page->poryadok_oplaty_premii == 1) selected @endif>Единовременно</option>
-                                            <option value="transh" @if($page->poryadok_oplaty_premii == 'transh') selected @endif>Транш</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select required class="form-control payment-schedule" name="sposob_rascheta" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            @foreach(config('app.sposob_rascheta') as $key => $sposob)
-                                                <option value="{{$key}}" @if($page->sposob_rascheta == $key) selected @endif>{{$sposob}}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                 </div>
                             </div>

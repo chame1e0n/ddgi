@@ -154,7 +154,7 @@
                                 class="form-control"
                             @endif>
                         <option>Выберите банк</option>
-                        @foreach($banks as $bank)
+                        @foreach(\App\Model\Bank::all() as $bank)
                             <option value="{{ $bank->id }}"
                                     @if($beneficiary->bank_id == $bank->id)
                                         selected

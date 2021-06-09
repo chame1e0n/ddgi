@@ -25,6 +25,8 @@
             </div>
             <section class="content">
                 @include('errors.errors')
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
 
@@ -32,39 +34,6 @@
                         <div id="anketa-fields">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="insurance_from">Период страхования</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">с</span>
-                                                    </div>
-                                                    <input value="{{$page->insurance_from}}" id="insurance_from" name="insurance_from" type="date"
-                                                           @if($errors->has('insurance_from'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                        @endif>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3" style="margin-top: 33px">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">до</span>
-                                                    </div>
-                                                    <input value="{{$page->insurance_to}}" id="insurance_to" name="insurance_to" type="date"
-                                                           @if($errors->has('insurance_to'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                        @endif>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label for="geographic-zone">Географическая зона:</label>
                                         <input value="{{$page->geo_zone}}" type="text" id="geo_zone" name="geo_zone"
@@ -467,26 +436,6 @@
                     <div class="card card-success">
                         <div class="card-body">
                             <div id="payment-terms-form">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-inline justify-content-between">
-                                            <label>Валюта взаиморасчетов</label>
-                                            <select name="insurance_premium_currency" class="form-control" data-wallet="wallet" id="walletNames" style="width: 100%; text-align: center">
-                                                <option selected="selected" name="insurance_premium_currency" value="{{$page->insurance_premium_currency}}">
-                                                    {{$page->insurance_premium_currency}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-inline justify-content-between">
-                                            <label>Порядок оплаты страховой премии</label>
-                                            <select class="form-control payment-schedule" data-payment="payment" id="payment-procedure" name="poryadok_oplaty_premii" style="width: 100%; text-align: center">
-                                                <option value="1" @if($page->poryadok_oplaty_premii == 1) selected @endif>Единовременно</option>
-                                                <option value="other" @if($page->poryadok_oplaty_premii == 'other') selected @endif>Другое</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div id="other-payment-schedule" @if($page->poryadok_oplaty_premii == 1) style="display: none;" @endif>
                                     <div class="form-group">
                                         <button type="button" data-btn-add-row class="btn btn-primary ">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Product;
 
 use App\AllProduct;
 use App\Http\Controllers\Controller;
+use App\Model\Client;
+use App\Model\Contract;
 use App\Models\Dogovor;
 use App\Models\Policy;
 use App\Models\PolicyHolder;
@@ -40,10 +42,10 @@ class CmpController extends Controller
      */
     public function create()
     {
-        $agents = Agent::all();
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        return view('products.cmp.create', compact('agents', 'policySeries', 'banks'));
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.cmp.create', compact('client', 'contract'));
     }
 
     /**

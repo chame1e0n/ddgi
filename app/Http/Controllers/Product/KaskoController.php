@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KascoRequest;
+use App\Model\Beneficiary;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\KascoStrahPremiya;
@@ -34,10 +37,12 @@ class KaskoController extends Controller
      */
     public function create()
     {
-        $agents = Agent::getActiveAgent();
-        $banks = Bank::getBanks();
-        $policySeries = PolicySeries::get();
-        return view('products.kasko.create', compact('agents', 'banks', 'policySeries'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $beneficiary = new Beneficiary();
+        $contract = new Contract();
+        $policySeries = [];
+
+        return view('products.kasko.create', compact('agents', 'beneficiary', 'contract', 'policySeries'));
     }
 
     /**

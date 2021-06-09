@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ZalogTehnikaRequest;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductsTermsTranshes;
@@ -34,10 +37,11 @@ class ZalogTehnikaController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.zalog.tehnika.create', compact('banks', 'agents', 'policySeries'));
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.zalog.tehnika.create', compact('beneficiary', 'client', 'contract'));
     }
 
     /**

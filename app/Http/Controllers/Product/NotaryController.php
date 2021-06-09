@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNotaryRequest;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\Notary;
 use App\Models\NotaryGrey;
 use App\Models\NotaryPaymentTerm;
@@ -23,10 +26,12 @@ class NotaryController extends Controller
      */
     public function create()
     {
-        $polis_series = PolicySeries::all();
-        $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.otvetstvennost.notaries.create', compact('polis_series', 'banks', 'agents'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $client = new Client();
+        $contract = new Contract();
+        $polis_series = [];
+
+        return view('products.otvetstvennost.notaries.create', compact('agents', 'client', 'contract', 'polis_series'));
     }
 
     /**

@@ -33,7 +33,8 @@
             </div>
 
             <section class="content">
-                @include('products.select')
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
 
@@ -42,31 +43,6 @@
                     <div id="anketa-fields">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="insurance_from">Период страхования</label>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">с</span>
-                                                </div>
-                                                <input id="insurance_from" name="insurance_from" type="date"
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="input-group mb-3" style="margin-top: 33px">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">до</span>
-                                                </div>
-                                                <input id="insurance_to" name="insurance_to" type="date"
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label for="geographic-zone">Географическая зона:</label>
                                     <input type="text" id="geographic-zone" name="geo-zone"
@@ -291,30 +267,6 @@
                     </div>
                     <div class="card-body">
                         <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" id="walletNames" name="insurance_premium_currency"
-                                                style="width: 100%; text-align: center">
-                                            <option selected="selected">
-                                                UZS
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" name="payment_term"
-                                                onchange="showDiv('other-payment-schedule', this)"
-                                                style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="other">Другое</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div id="other-payment-schedule" style="display: block;">
                                 <div class="form-group">
                                     <button type="button" onclick="addRowBonusCondition()" class="btn btn-primary ">

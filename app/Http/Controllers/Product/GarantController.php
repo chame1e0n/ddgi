@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Model\Client;
+use App\Model\Contract;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -29,7 +31,10 @@ class GarantController extends Controller
      */
     public function create()
     {
-        return view('products.credit.garant.create');
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.credit.garant.create', compact('client', 'contract'));
     }
 
     /**

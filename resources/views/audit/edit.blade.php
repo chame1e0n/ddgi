@@ -33,7 +33,8 @@
                 </div>
             </div>
             <section class="content">
-                @include('products.select')
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
 
@@ -41,33 +42,6 @@
                         <div id="anketa-fields">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="insurance_from">Период страхования</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">с</span>
-                                                    </div>
-                                                    <input id="insurance-from" name="insurance_from"
-                                                           value="{{$product->insurance_from}}" type="date"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="input-group mb-3" style="margin-top: 33px">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">до</span>
-                                                    </div>
-                                                    <input id="insurance-to" name="insurance_to"
-                                                           value="{{$product->insurance_to}}" type="date"
-                                                           class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label for="geograph-zone">Географическая зона:</label>
                                         <input type="text" id="geograph-zone" name="geo_zone"
@@ -631,33 +605,6 @@
                     </div>
                     <div class="card-body">
                         <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" data-wallet="wallet"
-                                                name="insurance_premium_currency"
-                                                id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected">{{ $product->insurance_premium_currency }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" data-payment="payment"
-                                                id="payment-procedure" name="payment_term"
-                                                style="width: 100%; text-align: center">
-                                            <option value="1" @if($product->payment_term == "1") selected @endif>
-                                                Единовременно
-                                            </option>
-                                            <option value="other"
-                                                    @if($product->payment_term == "other") selected @endif >Другое
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div id="other-payment-schedule"
                                  @if($product->payment_term == "1") style="display: none;" @endif >
                                 <div class="form-group">

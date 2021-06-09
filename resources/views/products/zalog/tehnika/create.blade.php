@@ -23,49 +23,8 @@
                 </div>
             </div>
             <section class="content">
-                <div class="card card-success product-type">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="client-product-form">
-                            <div class="form-group clearfix">
-                                <label>Типы клиента</label>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input type="radio" name="client_type_radio" class="client-type-radio"
-                                                   id="client-type-radio-1" value="individual">
-                                            <label for="client-type-radio-1">физ. лицо</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input type="radio" name="client_type_radio" class="client-type-radio"
-                                                   id="client-type-radio-2" value="legal">
-                                            <label for="client-type-radio-2">юр. лицо</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="product-id">Вид продукта</label>
-                                <select id="product-id" class="form-control select2" name="product_id"
-                                        style="width: 100%;">
-                                    <option selected="selected">говно</option>
-                                    <option selected="selected">говно 2</option>
-                                    <option value="1">asdc</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
                 </div>
@@ -159,7 +118,7 @@
                                                     @endif id="bank_id_zalog" name="bank_id_zalog"
                                                     style="width: 100%;" required>
                                                 <option>Выберите банк</option>
-                                                @foreach($banks as $bank)
+                                                @foreach(\App\Model\Bank::all() as $bank)
                                                     @if(old('bank_id_zalog') == $bank->id)
                                                         <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
                                                     @else
@@ -470,52 +429,6 @@
                                             @endif>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select @if($errors->has('insurance_premium_currency'))
-                                                class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                                @endif id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected" value="{{old('insurance_premium_currency')}}" name="insurance_premium_currency">{{old('insurance_premium_currency', "UZS")}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition"  @if($errors->has('payment_term'))
-                                        class="form-control is-invalid payment-schedule"
-                                                @else
-                                                class="form-control payment-schedule"
-                                                @endif name="payment_term" style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="transh">Транш</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select @if($errors->has('payment_term'))
-                                                class="form-control is-invalid payment-schedule"
-                                                @else
-                                                class="form-control payment-schedule"
-                                                @endif name="payment_term" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            <option value="1" @if(old('payment_term') === "1") selected @endif>Сумах</option>
-                                            <option value="2" @if(old('payment_term') === "2") selected @endif>Сумах В ин. валюте</option>
-                                            <option value="3" @if(old('payment_term') === "3") selected @endif>В ин. валюте по курсу ЦБ на день заключение
-                                                договора
-                                            </option>
-                                            <option value="4" @if(old('payment_term') === "4") selected @endif>В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option value="5" @if(old('payment_term') === "5") selected @endif>В ин. валюте по фиксированному ЦБ на день оплаты
-                                                премии/первого транша
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <div id="transh-payment-schedule" class="d-none">
                                 <div class="form-group">
@@ -548,40 +461,6 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="icheck-success ">
-                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="tarif" id="tarif">
-                                    <label class="form-check-label" for="tarif">Тариф</label>
-                                </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-tarif-descr style="display: none">
-                                    <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input @if($errors->has('tarif_other'))
-                                           class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                           @endif id="descrTarif" type="number" name="tarif_other" value="{{old('tarif_other')}}">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="icheck-success ">
-                                    <input onchange="toggleBlock('preim', 'data-preim-descr')" class="form-check-input client-type-radio" type="checkbox" name="preim" id="preim">
-                                    <label class="form-check-label" for="preim">Премия</label>
-                                </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-preim-descr style="display: none">
-                                    <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input @if($errors->has('premiya_other'))
-                                           class="form-control is-invalid"
-                                           @else
-                                           class="form-control"
-                                           @endif id="descrPreim" type="number" name="premiya_other" value="{{old('premiya_other')}}">
                                 </div>
                             </div>
                         </div>

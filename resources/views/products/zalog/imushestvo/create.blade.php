@@ -22,45 +22,8 @@
                 </div>
             </div>
             <section class="content">
-                <div class="card card-success product-type">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="client-product-form">
-                            <div class="form-group clearfix">
-                                <label>Типы клиента</label>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input  type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-1" value="individual">
-                                            <label for="client-type-radio-1">физ. лицо</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input  type="radio" name="client_type_radio" class="client-type-radio" id="client-type-radio-2" value="legal">
-                                            <label for="client-type-radio-2">юр. лицо</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="product-id">Вид продукта</label>
-                                <select id="product-id" class="form-control select2" name="product_id" style="width: 100%;">
-                                    <option selected="selected">говно</option>
-                                    <option selected="selected">говно 2</option>
-                                    <option value="1">asdc</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
                 </div>
@@ -361,41 +324,6 @@
                                                @else
                                                class="form-control"
                                             @endif>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select name="currencies" @if($errors->has('currencies'))
-                                        class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                                @endif id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected" >UZS
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition" class="form-control
-                                            @if($errors->has('poryadok_oplaty_premii'))
-                                            payment-schedule
-                                            @endif" name="poryadok_oplaty_premii" style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="transh">Транш</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control payment-schedule" name="sposob_rascheta" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            @foreach(config('app.sposob_rascheta') as $key => $sposob)
-                                                <option value="{{$key}}" @if(old('sposob_rascheta') == $key) selected @endif>{{$sposob}}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                 </div>
                             </div>

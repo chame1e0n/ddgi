@@ -24,7 +24,8 @@
                         </div>
                     </div>
                     <section class="content">
-                        @include('products.select')
+                        @include('includes.contract')
+
                         <div class="card-body">
                             @include('includes.client')
 
@@ -162,7 +163,7 @@
                                                             @endif id="z_bank_id" name="z_bank_id"
                                                             style="width: 100%;" required>
                                                         <option>Выберите банк</option>
-                                                        @foreach($banks as $bank)
+                                                        @foreach(\App\Model\Bank::all() as $bank)
                                                             @if(old('z_bank_id') == $bank->id)
                                                                 <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
                                                             @else

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
 use App\Models\PropertyLising;
 use Illuminate\Http\Request;
 
@@ -24,7 +27,11 @@ class PropertyLisingZalog extends Controller
      */
     public function create()
     {
-        return view('products.about-imushestvo-lizing-zalog.create');
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.about-imushestvo-lizing-zalog.create', compact('beneficiary', 'client', 'contract'));
     }
 
     /**

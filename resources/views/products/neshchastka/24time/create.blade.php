@@ -30,6 +30,7 @@
                 </div>
             </div>
             <section class="content">
+                @include('includes.contract')
 
                 <div class="card-body">
                     @include('includes.client')
@@ -42,29 +43,6 @@
                     <div id="anketa-fields">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="insurance_from">Период страхования</label>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">с</span>
-                                                </div>
-                                                <input id="insurance_from" name="insurance_from" type="date"required class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="input-group mb-3" style="margin-top: 33px">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">до</span>
-                                                </div>
-                                                <input id="insurance_to" name="insurance_to" type="date"required class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label for="geographic-zone">Географическая зона:</label>
                                     <input type="text" id="geographic-zone" name="geo_zone"required class="form-control">
@@ -108,20 +86,6 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                                    {{--TODO серия полиса--}}
-{{--                                            <select name="polis_series" id="polis_series">--}}
-{{--                                                @foreach($polis_series as $seriya)--}}
-{{--                                                    <option value="{{$seriya->id}}">{{$seriya->code}}</option>--}}
-{{--                                                @endforeach--}}
-{{--                                            </select>--}}
-                                            {{--TODO пример агента--}}
-{{--                                            <label class="col-form-label" for="otvet-litso">Ответственное лицо</label>--}}
-{{--                                            <select class="form-control polises" required id="otvet-litso" name="otvet_litso" style="width: 100%;">--}}
-{{--                                                @foreach($agents as $agent)--}}
-{{--                                                    <option @if(old('otvet_litso') == $agent->user_id) selected--}}
-{{--                                                            @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>--}}
-{{--                                                @endforeach--}}
-{{--                                            </select>--}}
                                             <td colspan="10" style="text-align: right"><label class="text-bold">Итого</label></td>
                                             <td><input data-insurance-stoimost readonly type="text" class="form-control overall-sum4" />
                                             </td>
@@ -132,19 +96,6 @@
                                     </table>
                                 </div>
                             </div>
-{{--                            <div class="col-md-12">--}}
-{{--                                <div class="icheck-success ">--}}
-{{--                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox" name="tarif" id="tarif">--}}
-{{--                                    <label class="form-check-label" for="tarif">Тариф</label>--}}
-{{--                                </div>--}}
-{{--                                <!-- TODO: Блок должен находится в скрытом состоянии--}}
-{{--                                отображаться только тогда, когда выбран checkbox "Тариф"--}}
-{{--                                -->--}}
-{{--                                <div class="form-group" data-tarif-descr style="display: none">--}}
-{{--                                    <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>--}}
-{{--                                    <inputrequired class="form-control" id="descrTarif" type="number">--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                         </div>
 
                     </div>
@@ -180,40 +131,6 @@
                                     <div class="form-group">
                                         <label for="all-summ">Франшиза</label>
                                         <input type="text" id="all-summ" name="franshiza"required class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select name="insurance_premium_currency" required class="form-control" id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected">UZS
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition" class="form-control payment-schedule" name="payment_term" style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="transh">Транш</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control payment-schedule" name="sposob_rascheta" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            <option value="1">Сумах</option>
-                                            <option value="2">Сумах В ин. валюте</option>
-                                            <option value="3">В ин. валюте по курсу ЦБ на день заключение
-                                                договора
-                                            </option>
-                                            <option value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option value="5">В ин. валюте по фиксированному ЦБ на день оплаты
-                                                премии/первого транша
-                                            </option>
-                                        </select>
                                     </div>
                                 </div>
                             </div>

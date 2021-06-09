@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ZalogImushestvoRequest;
+use App\Model\Client;
+use App\Model\Beneficiary;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\ZalogImushestvo;
@@ -33,10 +37,13 @@ class ZalogImushestvoController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-        $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.zalog.imushestvo.create', compact('banks', 'agents', 'policySeries'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+        $policySeries = [];
+
+        return view('products.zalog.imushestvo.create', compact('agents', 'beneficiary', 'client', 'contract', 'policySeries'));
     }
 
     /**

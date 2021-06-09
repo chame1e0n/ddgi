@@ -25,7 +25,8 @@
                 </div>
             </div>
             <section class="content">
-                @include('products.select')
+                @include('includes.contract')
+
                     <div class="card-body">
                         @include('includes.client')
                     </div>

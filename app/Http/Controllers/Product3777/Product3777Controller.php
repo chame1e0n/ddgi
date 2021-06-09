@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Product3777;
 
 use App\AllProduct;
 use App\Http\Controllers\Controller;
+use App\Model\Client;
+use App\Model\Contract;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Bank;
 use App\Product3777;
@@ -30,8 +32,10 @@ class Product3777Controller extends Controller
      */
     public function create()
     {
-        $banks = Bank::query()->get();
-        return view('products.product3777.create', compact('banks'));
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.product3777.create', compact('client', 'contract'));
     }
 
     /**
