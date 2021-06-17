@@ -21,13 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-//Route::get('tamojenniy-sklad/create', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
-//Route::post('tamojenniy-sklad/bonded/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
-
-Route::resource('tamojenniy-sklad', 'Product\TamojeniySkladController');
-Route::patch('tamojenniy-sklad/store', 'Product\TamojeniySkladController@create')->name('bonded.bonded');
-
 Route::get('test', function () {
     $dog = new Dogovor();
     echo $dog->createUniqueNumber(3, 1);
@@ -39,14 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
     ///Printing
     Route::get('product3777/print/{id}', 'Product3777\Product3777Controller@print')->name('print');
 
-    // Iskan
-    Route::resource('lizing_ts','Product\LizingTsController');
-    Route::resource('rassrochka','Product\CreditRassrochkaController');
-
-
     /////////////////////////////////////////////////////////////////////////////////
 
-    Route::resource('all_products', 'AllProductController');
     Route::get('/cbu_currencies', function (Request $request) {
         $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
         $json = file_get_contents($jsonurl);
@@ -61,12 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('perestrahovaniya', 'PerestrahovaniyaController');
     Route::resource('perestrahovaniya_overview', 'PerestrahovaniyaOverviewController');
-    Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('request_overview', 'RequestOverviewController');
-    ////Microzaym
-    Route::resource('microzaym', 'MicroZaymController');
-    ////Potrebkredit
-    Route::resource('potrebkredit', 'PotrebKreditController');
     ////Policy_Filter
     Route::resource('policy_filter', 'PolicyFilterController');
     Route::post('policy_filter/filter', 'PolicyFilterController@filter')->name('all_product.filter');
@@ -89,7 +71,6 @@ Route::group(['middleware' => ['auth']], function () {
     if ($newFront) {
         Route::resource('spravochniki/bank','Admin\Spravochniki\BankController');
         Route::resource('spravochniki/group','Admin\Spravochniki\GroupController');
-        // Route::resource('spravochniki/type','Admin\Spravochniki\TypeController'); // была удалена
         Route::resource('spravochniki/product','ProductController'); // :TODO:
         Route::resource('spravochniki/specification','Admin\Spravochniki\SpecificationController');
         Route::resource('spravochniki/request', 'Admin\Spravochniki\RequestController');
@@ -119,10 +100,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('policy_registration','PolicyRegistrationController');
     Route::resource('policy','PolicyController');
     Route::resource('kasko','Product\KaskoController');
-    Route::resource('avtocredit','Product\AvtocreditController');
     Route::resource('nepogashen','Product\NepogashenController');
     Route::resource('otvetstvennost-broker','Product\OtvetstvennostBrokerController')->names('otvetstvennost-broker');
-    Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('policy_flow','PolicyFlowController');
     Route::post('policy_pending_transfer/{id}', 'PolicyTransferController@confirm')->name('policy_transfer.confirm');
     Route::resource('policy_transfer','PolicyTransferController');
@@ -151,18 +130,16 @@ Route::group(['middleware' => ['auth']], function () {
         'only' => ['index', 'show']
     ]);
 
-    Route::resource('credit-fin-risk/nepogashen-avtocredit', 'Product\CrediFinRiskNepogashenAvtocreditController')->names('nepogashen-avtocredit');
-    Route::resource('credit-fin-risk/nepogashen-credit', 'Product\CreditFinRiskNepogashenCreditController')->names('nepogashen-credit');
     Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
 
 
-    Route::resource('borrower', 'NeshchastkZaemshikController');
+    Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
     Route::resource('neshchastka/time', 'Product\Neshchastka24TimeController')->names('neshchastka-time');
     Route::resource('mejd', 'MejdController');
     Route::resource('covid-fiz','Product\CovidController')->names('covid-fiz');
     Route::resource('zalog/autozalog-mnogostoronniy', 'Product\ZalogAutozalogMnogostoronniyController')->names('zalog-autozalog-mnogostoronniy');
-    Route::resource('tc-lizing-zalog', 'LisingZalogController');
+    Route::resource('lizing_ts','Product\LizingTsController');
     Route::resource('kasco', 'Product\KaskoController')->names('kasco-add');
     Route::resource('zalog/autozalog3x', 'Product\AutoZalog3xController')->names('zalog-autozalog3x');
     Route::resource('zalog/tehnika', 'Product\ZalogTehnikaController')->names('zalog-tehnika');
@@ -174,6 +151,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('cmp','Product\CmpController');
     Route::resource('zalog/imushestvo3x', 'Product\ZalogImushestvo3xController')->names('zalog-imushestvo3x');
     Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');
+    Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('broker', 'BrokerController');
     Route::resource('audit', 'OtvetsvennostAuditController');
     Route::resource('otvetstvennost-realtor','Product\OtvetstvennostRealtorController')->names('otvetstvennost-realtor');
@@ -181,6 +159,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('otvetstvennost-podryadchik','Product\OtvetstvennostPodryadchikController')->names('otvetstvennost-podryadchik');
     Route::resource('otvetstvennost-notaries', 'Product\NotaryController');
     Route::resource('credit-nepogashen','Product\CreditNepogashenController')->names('credit-nepogashen');
+    Route::resource('potrebkredit', 'PotrebKreditController');
+    Route::resource('avtocredit','Product\AvtocreditController');
+    Route::resource('microzaym', 'MicroZaymController');
+    Route::resource('rassrochka','Product\CreditRassrochkaController');
     Route::resource('product3777', 'Product3777\Product3777Controller')->except('index');
     Route::resource('garant','Product\GarantController');
 });
