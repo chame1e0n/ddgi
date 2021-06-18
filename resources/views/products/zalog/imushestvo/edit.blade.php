@@ -23,8 +23,9 @@
                 </div>
             </div>
             <section class="content">
+                @include('includes.messages')
+
                 @include('includes.contract')
-                @include('errors.errors')
 
                 <div class="card-body">
                     @include('includes.client')

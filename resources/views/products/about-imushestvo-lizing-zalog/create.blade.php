@@ -23,6 +23,8 @@
                 </div>
             </div>
             <section class="content">
+                @include('includes.messages')
+
                 @include('includes.contract')
 
                 <div class="card-body">

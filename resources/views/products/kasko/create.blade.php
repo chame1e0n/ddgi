@@ -31,6 +31,8 @@
                 </div>
             </div>
             <section class="content">
+                @include('includes.messages')
+
                 @include('includes.contract')
 
                 <div id="insurer">

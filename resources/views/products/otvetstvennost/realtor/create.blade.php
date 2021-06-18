@@ -4,7 +4,6 @@
     <!-- Content Wrapper. Contains page content -->
 
     <form action="{{route('otvetstvennost-realtor.store')}}" method="POST" id="formRealtors">
-        @include('errors.errors')
         @csrf
         <!-- Content Wrapper. Contains page content -->
         <form action="GET" id="formRealtors">
@@ -27,6 +26,8 @@
                     </div>
                 </div>
                 <section class="content">
+                    @include('includes.messages')
+
                     @include('includes.contract')
 
                     <div class="card-body">

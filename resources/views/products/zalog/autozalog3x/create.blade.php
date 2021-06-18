@@ -31,7 +31,7 @@
                 </div>
             </div>
             <section class="content">
-                @include('errors.errors')
+                @include('includes.messages')
 
                 @include('includes.contract')
 
