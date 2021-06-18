@@ -23,49 +23,8 @@
                 </div>
             </div>
             <section class="content">
-                <div class="card card-success product-type">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="client-product-form">
-                            <div class="form-group clearfix">
-                                <label>Типы клиента</label>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input type="radio" name="client_type_radio" class="client-type-radio"
-                                                   id="client-type-radio-1" value="individual">
-                                            <label for="client-type-radio-1">физ. лицо</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="icheck-success">
-                                            <input type="radio" name="client_type_radio" class="client-type-radio"
-                                                   id="client-type-radio-2" value="legal">
-                                            <label for="client-type-radio-2">юр. лицо</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="product-id">Вид продукта</label>
-                                <select id="product-id" class="form-control select2" name="product_id"
-                                        style="width: 100%;">
-                                    <option selected="selected">говно</option>
-                                    <option selected="selected">говно 2</option>
-                                    <option value="1">asdc</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
 
@@ -1099,58 +1058,6 @@
                                                value="{{$all_product->franchise}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" id="walletNames"
-                                                name="insurance_premium_currency"
-                                                style="width: 100%; text-align: center">
-                                            <option @if($all_product->insurance_premium_currency =='1')  selected
-                                                    @endif value="1">UZS
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition" class="form-control payment-schedule" name="payment_term"
-                                                style="width: 100%; text-align: center">
-                                            <option @if($all_product->payment_term == '1') selected @endif value="1">
-                                                Единовременно
-                                            </option>
-                                            <option @if($all_product->payment_term == 'transh') selected
-                                                    @endif value="transh">Транш
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control payment-schedule" name="way_of_calculation"
-                                                onchange="showDiv('other-payment-schedule', this)"
-                                                style="width: 100%; text-align: center">
-                                            <option @if($all_product->way_of_calculation == '1') selected
-                                                    @endif value="1">Сумах
-                                            </option>
-                                            <option @if($all_product->way_of_calculation == '2') selected
-                                                    @endif value="2">Сумах В ин. валюте
-                                            </option>
-                                            <option @if($all_product->way_of_calculation == '3') selected
-                                                    @endif value="3">В ин. валюте по курсу ЦБ на день заключение
-                                                договора
-                                            </option>
-                                            <option @if($all_product->way_of_calculation == '4') selected
-                                                    @endif value="4">В ин. валюте по курсу ЦБ на день оплаты
-                                            </option>
-                                            <option @if($all_product->way_of_calculation == '5') selected
-                                                    @endif value="5">В ин. валюте по фиксированному ЦБ на день оплаты
-                                                премии/первого транша
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <div id="transh-payment-schedule"
                                  @if($all_product->payment_term !== 'transh') class="d-none" @endif>
@@ -1198,44 +1105,6 @@
                                         @endif
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="icheck-success ">
-                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')"
-                                           class="form-check-input client-type-radio"
-                                           type="checkbox" name="tarif" id="tarif"
-                                           @if($all_product->tariff == 'tariff') checked @endif
-                                           value="tariff">
-                                    <label class="form-check-label" for="tarif">Тариф</label>
-                                </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-tarif-descr
-                                     @if($all_product->tariff !== 'tariff') style="display: none" @endif>
-                                    <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input class="form-control" id="descrTarif" name="tariff_other"
-                                           value="{{$all_product->tarif_other}}" type="number">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="icheck-success ">
-                                    <input onchange="toggleBlock('preim', 'data-preim-descr')"
-                                           class="form-check-input client-type-radio"
-                                           type="checkbox" name="preim" id="preim"
-                                           @if($all_product->preim == 'preim') checked @endif
-                                           value="preim">
-                                    <label class="form-check-label" for="preim">Премия</label>
-                                </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-preim-descr
-                                     @if($all_product->preim !== 'preim') style="display: none" @endif>
-                                    <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input class="form-control" id="descrPreim" name="premiya_other"
-                                           value="{{$all_product->premiya_other}}" type="number">
                                 </div>
                             </div>
                         </div>
