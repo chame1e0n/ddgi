@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TamozhnyaAddRequest;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
+use App\Model\Employee;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\TamozhnyaAdd;
@@ -35,9 +39,12 @@ class TamozhnyaAddController extends Controller
      */
     public function create()
     {
-        $banks = Bank::all();
-        $agents = Agent::all();
-        return view('products.tamozhnya.add.create', compact('banks', 'agents'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.tamozhnya.add.create', compact('agents', 'beneficiary', 'client', 'contract'));
     }
 
     /**

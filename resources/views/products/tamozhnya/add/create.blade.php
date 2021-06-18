@@ -24,8 +24,7 @@
                 </div>
             </div>
             <section class="content">
-
-                    @include('products.select')
+                @include('includes.contract')
 
                 <div class="card-body">
                     @include('includes.client')
@@ -169,44 +168,6 @@
                     </div>
                     <div class="card-body">
                         <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" id="walletNames"
-                                                style="width: 100%; text-align: center" name="insurance_premium_currency">
-                                            <option selected="selected">UZS
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" name="payment_term"
-                                                onchange="showDiv('other-payment-schedule', this)"
-                                                style="width: 100%; text-align: center">
-                                            <option value="1" @if(old('payment_term') == 1) selected
-                                                @endif>Единовременно</option>
-                                            <option value="other" @if(old('payment_term') == 'other') selected
-                                                @endif>Другое</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control sposob_rascheta" name="sposob_rascheta" style="width: 100%; text-align: center">
-                                            <option value="1">Сумах</option>
-                                            <option value="2">Сумах В ин. валюте</option>
-                                            <option value="3">В ин. валюте по курсу ЦБ на день заключение договора</option>
-                                            <option value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option value="4">В ин. валюте по фиксированному ЦБ на день оплаты премии/первого транша</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">

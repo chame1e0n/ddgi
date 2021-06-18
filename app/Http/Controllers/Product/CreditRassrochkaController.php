@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
 use Illuminate\Http\Request;
 
 class CreditRassrochkaController extends Controller
@@ -24,7 +27,11 @@ class CreditRassrochkaController extends Controller
      */
     public function create()
     {
-        return view('products.credit.rassrochka.create');
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.credit.rassrochka.create', compact('beneficiary', 'client', 'contract'));
     }
 
     /**

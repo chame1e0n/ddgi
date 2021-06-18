@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\AllProduct;
 use App\CurrencyTermsTransh;
 use App\MejdCurrencyTermsTransh;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Bank;
@@ -31,7 +34,11 @@ class NeshchastkaBorrowerController extends Controller
      */
     public function create()
     {
-        return view('neshchastka_borrower.borrower_create');
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('neshchastka_borrower.borrower_create', compact('beneficiary', 'client', 'contract'));
     }
 
     /**

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\AllProduct;
 use App\AllProductInformation;
 use App\AllProductsTermsTransh;
+use App\Model\Contract;
+use App\Model\Client;
+use App\Model\Employee;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
@@ -31,8 +34,11 @@ class PotrebKreditController extends Controller
      */
     public function create()
     {
-        $agents = Agent::query()->get();
-        return view('credit.potrebkredit_create', compact('agents'));
+        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
+        $contract = new Contract();
+        $client = new Client();
+
+        return view('credit.potrebkredit_create', compact('agents', 'contract', 'client'));
     }
 
     /**

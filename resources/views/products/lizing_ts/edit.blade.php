@@ -30,8 +30,7 @@
                 </div>
             </div>
             <section class="content">
-                @include('products.select')
-
+                @include('includes.contract')
 
                 <div class="card-body">
                     @include('includes.client')
@@ -54,65 +53,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{--                TODO finish --}}
-                {{--                <div class="card card-success">--}}
-                {{--                    <div class="card-header">--}}
-                {{--                        <h3 class="card-title">Сведени о трансортных средствах</h3>--}}
-                {{--                        <div class="card-tools">--}}
-                {{--                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"--}}
-                {{--                                    title="Collapse">--}}
-                {{--                                <i class="fas fa-minus"></i>--}}
-                {{--                            </button>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                    <div class="card-body">--}}
-                {{--                        <div class="form-group">--}}
-                {{--                            <button type="button" id="addTcButton" class="btn btn-primary ">Добавить</button>--}}
-                {{--                        </div>--}}
-                {{--                        <div class="table-responsive p-0 " style="max-height: 300px;">--}}
-                {{--                            <div id="product-fields" data-info-table class="product-fields" data-field-number="0">--}}
-                {{--                                <table data-info-table class="table table-hover table-head-fixed" id="empTable">--}}
-                {{--                                    <thead>--}}
-                {{--                                    <tr>--}}
-                {{--                                        <th class="text-nowrap">Год выпуска</th>--}}
-                {{--                                        <th class="text-nowrap">Марка</th>--}}
-                {{--                                        <th class="text-nowrap">Дата выдачи</th>--}}
-                {{--                                        <th class="text-nowrap">Модель</th>--}}
-                {{--                                        <th class="text-nowrap">Гос. номер</th>--}}
-                {{--                                        <th class="text-nowrap">Номер тех паспорта</th>--}}
-                {{--                                        <th class="text-nowrap">Номер двигателя</th>--}}
-                {{--                                        <th class="text-nowrap">Номер кузова</th>--}}
-                {{--                                        <th class="text-nowrap">Страховая стоимость</th>--}}
-                {{--                                        <th class="text-nowrap">Страховая сумма</th>--}}
-                {{--                                        <th class="text-nowrap">Страховая премия</th>--}}
-                {{--                                        <th class="text-nowrap">Франшиза</th>--}}
-                {{--                                    </tr>--}}
-                {{--                                    </thead>--}}
-                {{--                                    <tbody>--}}
-                {{--                                    <tr>--}}
-                {{--                                        <td colspan="8" style="text-align: right"><label class="text-bold">Итого</label>--}}
-                {{--                                        </td>--}}
-                {{--                                        <td><input readonly data-insurance-stoimost type="text"--}}
-                {{--                                                   class="form-control overall-sum"/></td>--}}
-                {{--                                        <td><input readonly data-insurance-sum type="text"--}}
-                {{--                                                   class="form-control overall-sum4"/></td>--}}
-                {{--                                        <td><input readonly data-insurance-award type="text"--}}
-                {{--                                                   class="form-control overall-sum3"/></td>--}}
-                {{--                                        <td><input readonly data-insurance-franchise type="text"--}}
-                {{--                                                   class="form-control overall-sum3"/></td>--}}
-                {{--                                    </tr>--}}
-                {{--                                    </tbody>--}}
-                {{--                                </table>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                    <div id="general-product-fields">--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
-
-
-
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>

@@ -6,6 +6,9 @@ use App\AllProduct;
 use App\AllProductInformation;
 use App\AllProductsTermsTransh;
 use App\Http\Controllers\Controller;
+use App\Model\Beneficiary;
+use App\Model\Client;
+use App\Model\Contract;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use Illuminate\Http\Request;
@@ -32,7 +35,11 @@ class LizingTsController extends Controller
      */
     public function create()
     {
-        return view('products.lizing_ts.create');
+        $beneficiary = new Beneficiary();
+        $client = new Client();
+        $contract = new Contract();
+
+        return view('products.lizing_ts.create', compact('beneficiary', 'client', 'contract'));
     }
 
     /**

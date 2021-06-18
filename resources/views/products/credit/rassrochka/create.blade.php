@@ -26,8 +26,7 @@
                 </div>
             </div>
             <section class="content">
-
-                @include('products.select')
+                @include('includes.contract')
 
                 <div class="card-body">
                     @include('includes.client')
@@ -247,60 +246,6 @@
                                                 <input type="text" class="form-control">
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Оплата страховой премии в</label>
-                                        <select class="form-control" style="width: 100%; text-align: center">
-                                            <option selected="selected" name="insurance_premium_currency">UZS</option>
-                                            <option>USD</option>
-                                            <option>Евро</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" name="payment_term"
-                                                onchange="showDiv('other-payment-schedule', this)"
-                                                style="width: 100%; text-align: center">
-                                            <option value="1">Единовременно</option>
-                                            <option value="other">Другое</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="icheck-success ">
-                                        <input onchange="toggleBlock('tarif', 'data-tarif-descr')"
-                                               class="form-check-input client-type-radio" type="checkbox" name="tarif"
-                                               id="tarif">
-                                        <label class="form-check-label" for="tarif">Тариф</label>
-                                    </div>
-                                    <!-- TODO: Блок должен находится в скрытом состоянии
-                                    отображаться только тогда, когда выбран checkbox "Тариф"
-                                    -->
-                                    <div class="form-group" data-tarif-descr style="display: none">
-                                        <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                        <input class="form-control" id="descrTarif" type="number">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="icheck-success ">
-                                        <input onchange="toggleBlock('preim', 'data-preim-descr')"
-                                               class="form-check-input client-type-radio" type="checkbox" name="preim"
-                                               id="preim">
-                                        <label class="form-check-label" for="preim">Премия</label>
-                                    </div>
-                                    <!-- TODO: Блок должен находится в скрытом состоянии
-                                    отображаться только тогда, когда выбран checkbox "Тариф"
-                                    -->
-                                    <div class="form-group" data-preim-descr style="display: none">
-                                        <label for="descrPreim" class="col-form-label">Укажите процент тарифа</label>
-                                        <input class="form-control" id="descrPreim" type="number">
                                     </div>
                                 </div>
                             </div>

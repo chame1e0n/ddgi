@@ -70,7 +70,7 @@
                 <!--Управление-->
                 <li class="nav-header">Договора</li>
                 <li class="nav-item has-treeview">
-                    <a href="{{route('all_products.index')}}" class="nav-link">
+                    <a href="{{--route('all_products.index')--}}" class="nav-link">
                         <i class="nav-icon fas fa-folder-open"></i>
                         <p>
                             Продукты

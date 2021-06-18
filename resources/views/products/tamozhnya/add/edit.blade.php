@@ -27,8 +27,7 @@
                 </div>
             </div>
             <section class="content">
-
-                    @include('products.select')
+                @include('includes.contract')
 
                 <div class="card-body">
                     @include('includes.client')
@@ -172,40 +171,6 @@
                     </div>
                     <div class="card-body">
                         <div id="payment-terms-form">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" id="walletNames"
-                                                style="width: 100%; text-align: center" name="insurance_premium_currency">
-                                            <option selected="selected" value="{{$tamozhnya->currencies}}">{{$tamozhnya->currencies}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select class="form-control payment-schedule" name="payment_term"
-                                                onchange="showDiv('other-payment-schedule', this)"
-                                                style="width: 100%; text-align: center">
-                                            <option value="1" @if($tamozhnya->payment_term == 1) selected @endif>Единовременно</option>
-                                            <option value="other" @if($tamozhnya->payment_term == 'other') selected @endif>Другое</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control sposob_rascheta" name="sposob_rascheta" style="width: 100%; text-align: center">
-                                            @foreach(config('app.sposob_rascheta') as $key => $sposob)
-                                                <option value="{{$key}}" @if($key == $tamozhnya->sposob_rascheta) selected @endif>{{$sposob}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">

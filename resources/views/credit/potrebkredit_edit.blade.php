@@ -32,7 +32,8 @@
                 </div>
             </div>
             <section class="content">
-                @include('products.select')
+                @include('includes.contract')
+
                 <div class="card-body">
                     @include('includes.client')
 
@@ -257,45 +258,6 @@
                                         <input type="text" id="all-summ" value="{{$all_product->franchise}}" name="franchise" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Валюта взаиморасчетов</label>
-                                        <select class="form-control" id="walletNames" style="width: 100%; text-align: center">
-                                            <option selected="selected" value="{{$all_product->insurance_premium_currency}}"  name="insurance_premium_currency">UZS
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Порядок оплаты страховой премии</label>
-                                        <select id="condition" class="form-control payment-schedule" name="payment_term" style="width: 100%; text-align: center">
-                                            <option  @if($all_product->payment_term === "1") selected @endif value="1">Единовременно</option>
-                                            <option  @if($all_product->payment_term === "transh") selected @endif value="transh">Транш</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group form-inline justify-content-between">
-                                        <label>Способ расчета</label>
-                                        <select class="form-control payment-schedule" name="way_of_calculation" onchange="showDiv('other-payment-schedule', this)" style="width: 100%; text-align: center">
-                                            <option @if($all_product->way_of_calculation === "1") selected
-                                                    @endif value="1">Сумах</option>
-                                            <option @if($all_product->way_of_calculation === "2") selected
-                                                    @endif value="2">Сумах В ин. валюте</option>
-                                            <option @if($all_product->way_of_calculation === "3") selected
-                                                    @endif value="3">В ин. валюте по курсу ЦБ на день заключение
-                                                договора
-                                            </option>
-                                            <option @if($all_product->way_of_calculation === "4") selected
-                                                    @endif value="4">В ин. валюте по курсу ЦБ на день оплаты</option>
-                                            <option @if($all_product->way_of_calculation === "5") selected
-                                                    @endif value="5">В ин. валюте по фиксированному ЦБ на день оплаты
-                                                премии/первого транша
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <div id="transh-payment-schedule" @if($all_product->payment_term == "1") class="d-none" @endif>
                                 <div class="form-group">
@@ -340,32 +302,6 @@
                                         @endif
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="icheck-success ">
-                                    <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" @if($all_product->tariff === "tariff") checked @endif value="tariff" type="checkbox" name="tariff" id="tarif">
-                                    <label class="form-check-label" for="tarif">Тариф</label>
-                                </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-tarif-descr @if($all_product->tariff !== "tariff") style="display: none" @endif>
-                                    <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                    <input class="form-control" value="{{$all_product->tariff_other}}" name="tariff_other" id="descrTarif" type="number">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="icheck-success ">
-                                    <input onchange="toggleBlock('preim', 'data-preim-descr')" class="form-check-input client-type-radio" @if($all_product->preim === "preim") checked @endif value="preim" type="checkbox" name="preim" id="preim">
-                                    <label class="form-check-label" for="preim">Премия</label>
-                                </div>
-                                <!-- TODO: Блок должен находится в скрытом состоянии
-                                отображаться только тогда, когда выбран checkbox "Тариф"
-                                -->
-                                <div class="form-group" data-preim-descr @if($all_product->preim !== "preim") style="display: none" @endif>
-                                    <label for="descrPreim" class="col-form-label">Укажите процент премии</label>
-                                    <input class="form-control" value="{{$all_product->premiya_other}}" name="premiya_other" id="descrPreim" type="number">
                                 </div>
                             </div>
                         </div>
