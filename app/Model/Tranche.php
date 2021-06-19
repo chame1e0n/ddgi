@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Type extends Model
+class Tranche extends Model
 {
     use SoftDeletes;
 
@@ -21,14 +21,14 @@ class Type extends Model
      *
      * @var string
      */
-    protected $table = 'types';
+    protected $table = 'tranches';
 
     /**
-     * Get relation to the specifications table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get relation to the contracts table.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function specifications()
+    public function contract()
     {
-        return $this->hasMany(Specification::class);
+        return $this->belongsTo(Contract::class);
     }
 }

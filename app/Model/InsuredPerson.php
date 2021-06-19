@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Group extends Model
+class InsuredPerson extends Model
 {
     use SoftDeletes;
 
@@ -21,14 +21,14 @@ class Group extends Model
      *
      * @var string
      */
-    protected $table = 'groups';
+    protected $table = 'insured_persons';
 
     /**
-     * Get relation to the types table.
+     * Get relation to the contracts table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function types()
+    public function contracts()
     {
-        return $this->hasMany(Type::class);
+        return $this->hasMany(Contract::class);
     }
 }

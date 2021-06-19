@@ -83,6 +83,15 @@ class Contract extends Model
     }
 
     /**
+     * Get relation to the insured_persons table.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function insured_person()
+    {
+        return $this->belongsTo(InsuredPerson::class);
+    }
+
+    /**
      * Get relation to the payment_methods table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -116,6 +125,15 @@ class Contract extends Model
     public function policies()
     {
         return $this->hasMany(Policy::class);
+    }
+
+    /**
+     * Get relation to the tranches table.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tranches()
+    {
+        return $this->hasMany(Tranche::class);
     }
 
     /**
