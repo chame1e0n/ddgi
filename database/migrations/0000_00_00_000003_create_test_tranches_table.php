@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestContractPropertiesTable extends Migration
+class CreateTestTranchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateTestContractPropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('contract_properties', function (Blueprint $table) {
+        Schema::create('tranches', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('period_from');
-            $table->date('period_to');
-            $table->enum('usage_basement', ['techpassport', 'proxy', 'leasing', 'waybill']);
-            $table->string('geo_zone', 45);
+            $table->integer('contract_id')->unsigned();
+            $table->float('sum', 12, 3)->unsigned();
+            $table->date('from');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
+            $table->foreign('contract_id', 'fk_tranche_contract')->references('id')->on('contracts');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateTestContractPropertiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contract_properties');
+        Schema::dropIfExists('tranches');
     }
 }

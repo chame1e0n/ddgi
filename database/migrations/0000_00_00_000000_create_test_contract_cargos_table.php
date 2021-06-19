@@ -40,7 +40,7 @@ class CreateTestContractCargosTable extends Migration
             $table->date('insurance_period_to');
             $table->date('package_period_from');
             $table->date('package_period_to');
-            $table->enum('insurance_conditions', ['no', 'all_risks', 'private_accident', 'only_crash'])->nullable();
+            $table->enum('insurance_conditions', ['no', 'all_risks', 'private_accident', 'only_crash']);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

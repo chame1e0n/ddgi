@@ -19,9 +19,9 @@ class CreateTestContractExportCargosTable extends Migration
             $table->date('insurance_agreement_date');
             $table->date('period_from');
             $table->date('period_to');
-            $table->enum('waiting_period', ['30', '180', '300'])->nullable();
+            $table->enum('waiting_period', ['30', '180', '300']);
             $table->string('agreement_goods_list')->nullable();
-            $table->enum('agreement_goods_type', ['standard', 'order'])->nullable();
+            $table->enum('agreement_goods_type', ['standard', 'order']);
             $table->string('failuer_reason')->nullable();
             $table->string('insurance_country', 45);
             $table->date('shipping_date');

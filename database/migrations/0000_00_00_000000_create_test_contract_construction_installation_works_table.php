@@ -21,7 +21,7 @@ class CreateTestContractConstructionInstallationWorksTable extends Migration
             $table->string('short_description')->nullable();
             $table->string('injures');
             $table->string('material_damage');
-            $table->set('location_specificity', ['motorways', 'bridges_overpasses', 'pipelines', 'railways', 'dams_embankments', 'land_paths', 'waterways', 'car_parks', 'power_lines', 'land_lines', 'underground_lines', 'underground_cables'])->nullable();
+            $table->set('location_specificity', ['motorways', 'bridges_overpasses', 'pipelines', 'railways', 'dams_embankments', 'land_paths', 'waterways', 'car_parks', 'power_lines', 'land_lines', 'underground_lines', 'underground_cables']);
             $table->string('distance', 45)->nullable();
             $table->text('construction_work_description')->nullable();
             $table->string('basement')->nullable();

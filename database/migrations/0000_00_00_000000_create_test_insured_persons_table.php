@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestBorrowersTable extends Migration
+class CreateTestInsuredPersonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,18 @@ class CreateTestBorrowersTable extends Migration
      */
     public function up()
     {
-        Schema::create('borrowers', function (Blueprint $table) {
+        Schema::create('insured_persons', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('bank_id')->unsigned();
             $table->string('fio', 250);
             $table->string('address', 150);
             $table->string('phone', 50);
-            $table->string('bank_account', 50);
-            $table->string('inn', 50);
-            $table->string('mfo', 50);
-            $table->string('okonh')->nullable();
-            $table->string('oked')->nullable();
             $table->string('passport_series');
             $table->string('passport_number');
-            $table->string('passport_issued_place')->nullable();
-            $table->date('passport_issued_date')->nullable();
+            $table->float('sum', 12, 3)->unsigned()->nullable();
+            $table->float('tariff', 12, 3)->unsigned()->nullable();
+            $table->float('premium', 12, 3)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
-            $table->foreign('bank_id', 'fk_borrower_bank')->references('id')->on('banks');
         });
     }
 
@@ -41,6 +35,6 @@ class CreateTestBorrowersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('borrowers');
+        Schema::dropIfExists('insured_persons');
     }
 }

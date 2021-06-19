@@ -17,7 +17,7 @@ class CreateTestContractCustomWarehousesTable extends Migration
             $table->increments('id');
             $table->date('period_from');
             $table->date('period_to');
-            $table->enum('measure', ['liter', 'ton', 'unit'])->nullable();
+            $table->enum('measure', ['liter', 'ton', 'unit']);
             $table->float('square', 12, 3)->unsigned();
             $table->float('capacity', 12, 3)->unsigned();
             $table->float('sum', 12, 3)->unsigned();

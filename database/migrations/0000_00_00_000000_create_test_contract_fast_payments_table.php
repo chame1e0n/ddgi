@@ -17,7 +17,7 @@ class CreateTestContractFastPaymentsTable extends Migration
             $table->increments('id');
             $table->date('period_from');
             $table->date('period_to');
-            $table->enum('usage_basement', ['techpassport', 'proxy', 'leasing', 'waybill'])->nullable();
+            $table->enum('usage_basement', ['techpassport', 'proxy', 'leasing', 'waybill']);
             $table->string('geo_zone', 45);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

@@ -15,7 +15,7 @@ class CreateTestContractCascosTable extends Migration
     {
         Schema::create('contract_cascos', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('usage_basement', ['techpassport', 'proxy', 'leasing', 'waybill'])->nullable();
+            $table->enum('usage_basement', ['techpassport', 'proxy', 'leasing', 'waybill']);
             $table->string('geo_zone');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

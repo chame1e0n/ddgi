@@ -19,7 +19,7 @@ class CreateTestBranchesTable extends Migration
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('region_id')->unsigned();
             $table->string('name', 150);
-            $table->tinyInteger('is_center')->unsigned()->nullable()->default(0);
+            $table->tinyInteger('is_center')->unsigned()->default(0);
             $table->date('founded_date');
             $table->string('address', 150);
             $table->string('phone_number', 50);

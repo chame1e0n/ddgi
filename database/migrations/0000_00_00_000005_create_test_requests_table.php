@@ -21,7 +21,7 @@ class CreateTestRequestsTable extends Migration
             $table->tinyInteger('is_underwritting_request')->unsigned();
             $table->tinyInteger('is_perestrahovaniya_request')->unsigned();
             $table->text('comment')->nullable();
-            $table->string('file')->nullable();
+            $table->string('file');
             $table->string('act_number', 200)->nullable();
             $table->string('limit_reason', 200)->nullable();
             $table->integer('policy_amount')->unsigned()->nullable();

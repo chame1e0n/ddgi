@@ -18,7 +18,7 @@ class CreateTestRequestOverviewsTable extends Migration
             $table->integer('employee_id')->unsigned();
             $table->integer('request_id')->unsigned();
             $table->tinyInteger('is_passed')->unsigned()->default(0);
-            $table->text('comment')->nullable();
+            $table->text('comment');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
             $table->foreign('employee_id', 'fk_request_overview_employee')->references('id')->on('employees');

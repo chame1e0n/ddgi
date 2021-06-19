@@ -18,7 +18,7 @@ class CreateTestReinsuranceOverviewsTable extends Migration
             $table->integer('employee_id')->unsigned();
             $table->integer('reinsurance_id')->unsigned();
             $table->tinyInteger('is_approved')->unsigned()->default(0);
-            $table->text('comment')->nullable();
+            $table->text('comment');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
             $table->foreign('employee_id', 'fk_reinsurance_overview_employee')->references('id')->on('employees');
