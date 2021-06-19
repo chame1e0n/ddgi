@@ -47,6 +47,18 @@ class Contract extends Model
     ];
 
     /**
+     * Defining default attributes values.
+     * @param array $attributes Attributes
+     * @return void
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->payment_type = Contract::PAYMENT_TYPE_ENTIRELY;
+
+        parent::__construct($attributes);
+    }
+
+    /**
      * Get relation to the beneficiaries table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

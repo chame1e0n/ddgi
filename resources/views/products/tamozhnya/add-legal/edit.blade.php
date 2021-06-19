@@ -270,52 +270,6 @@
                     </div>
                     <div class="card-body">
                         <div id="payment-terms-form">
-                            <div id="transh-payment-schedule"
-                                 @if($tamozhnya->payment_term == 1)
-                                    class="d-none"
-                                 @endif>
-                                <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-nowrap">Сумма</th>
-                                                <th class="text-nowrap">От</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if(!$tamozhnya->strahPremiya)
-                                            <tr id="payment-term-tr-0" data-field-number="0">
-                                                <td><input type="text" class="form-control" name="payment_sum[]" /></td>
-                                                <td><input type="date" class="form-control" name="payment_from[]" /></td>
-                                            </tr>
-                                        @else
-                                            @foreach($tamozhnya->strahPremiya as $premiya)
-                                                <tr id="payment-term-tr-0" data-field-number="0">
-                                                    <td>
-                                                        <input type="text"
-                                                               class="form-control"
-                                                               name="payment_sum[{{$premiya->id}}]"
-                                                               value="{{$premiya->prem_sum}}" />
-                                                    </td>
-                                                    <td>
-                                                        <input type="date"
-                                                               class="form-control"
-                                                               name="payment_from[{{$premiya->id}}]"
-                                                               value="{{$premiya->prem_from}}" />
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">

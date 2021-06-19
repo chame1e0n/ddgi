@@ -329,31 +329,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="transh-payment-schedule" class="d-none">
-                                <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input required type="text" class="form-control" name="payment_sum[]"></td>
-                                            <td><input required type="date" class="form-control" name="payment_from[]">
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
 
                     </div>

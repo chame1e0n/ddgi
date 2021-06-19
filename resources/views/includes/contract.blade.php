@@ -83,6 +83,7 @@
                     <select class="form-control payment-schedule @if($errors->has('contract.payment_type')) is-invalid @endif"
                             id="contract-payment-type"
                             name="contract[payment_type]"
+                            onchange="toggle('tranches', this.value == '{{\App\Model\Contract::PAYMENT_TYPE_TRANCHE}}')"
                             style="width: 100%; text-align: center;">
                     @foreach(\App\Model\Contract::$payment_types as $key => $value)
                         <option value="{{$key}}"
@@ -111,6 +112,50 @@
                         </option>
                     @endforeach
                     </select>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div id="tranches"
+                     @if($contract->payment_type == \App\Model\Contract::PAYMENT_TYPE_ENTIRELY)
+                        style="display: none;"
+                     @endif>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary ddgi-add-tranche">
+                            Добавить
+                        </button>
+                    </div>
+                    <div class="table-responsive p-0 " style="max-height: 300px;">
+                        <table class="table table-hover table-head-fixed">
+                            <thead>
+                                <tr>
+                                    <th class="text-nowrap">Сумма</th>
+                                    <th class="text-nowrap">От</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($contract->tranches as $key => $tranche)
+                                <tr data-number="{{$key}}">
+                                    <td>
+                                        <input class="form-control"
+                                               name="tranches[{{$key}}][sum]"
+                                               type="text"
+                                               value="{{$tranche->sum}}" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control"
+                                               name="tranches[{{$key}}][from]"
+                                               type="date"
+                                               value="{{$tranche->from}}" />
+                                    </td>
+                                    <td>
+                                        <input type="button" value="Удалить" class="btn btn-warning ddgi-remove-tranche" />
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-6">
@@ -200,5 +245,37 @@
         document.querySelector('.list-' + '{{\App\Model\Contract::TYPE_LEGAL}}').setAttribute('hidden', 'true');
 
         document.querySelector('.list-' + element.value).removeAttribute('hidden');
+    }
+
+    const block = document.querySelector('#tranches');
+    const button_add_tranche = block.querySelector('.ddgi-add-tranche');
+    if (button_add_tranche) {
+        button_add_tranche.addEventListener('click', function () {
+            const tbody = block.querySelector('tbody');
+            const tr = tbody.lastElementChild;
+            const id = tr ? (+tr.dataset.number) + 1 : 0;
+
+            const new_tranche = `
+                <tr data-number="${id}">
+                    <td>
+                        <input type="text" class="form-control" name="tranches[${id}][sum]" />
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" name="tranches[${id}][from]" />
+                    </td>
+                    <td>
+                        <input type="button" value="Удалить" class="btn btn-warning ddgi-remove-tranche" />
+                    </td>
+                  </tr>`;
+
+            tbody.insertAdjacentHTML('beforeend', new_tranche);
+        });
+    }
+    if (block) {
+        block.addEventListener('click', function (event) {
+            if (event.target.classList.contains('ddgi-remove-tranche')) {
+                event.target.parentElement.parentElement.remove();
+            }
+        });
     }
 </script>

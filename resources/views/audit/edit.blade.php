@@ -606,57 +606,6 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div id="payment-terms-form">
-                            <div id="other-payment-schedule"
-                                 @if($product->payment_term == "1") style="display: none;" @endif >
-                                <div class="form-group">
-                                    <button type="button" data-btn-add-row class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="table-payment-schedule">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment_sum_main"
-                                                       value="{{ $product->payment_sum_main }}">
-                                            </td>
-                                            <td><input type="date" class="form-control" name="payment_from_main"
-                                                       value="{{ $product->payment_from_main }}">
-                                            </td>
-                                        </tr>
-                                        @foreach($product->currencyTerms[0]->payment_sum as $key => $item)
-                                            <tr id="payment-term-tr-${fieldNumber}" data-field-number="${fieldNumber}">
-                                                <td><input type="text" class="form-control" data-field="sum"
-                                                           name="payment_sum[]"
-                                                           value="{{ $product->currencyTerms[0]->payment_sum[$key] }}">
-                                                </td>
-                                                <td><input type="date" class="form-control" data-field="from"
-                                                           name="payment_from[]"
-                                                           value="{{ $product->currencyTerms[0]->payment_from[$key] }}">
-                                                </td>
-                                                <td>
-                                                    <input type="button" value="Удалить" id="delete_terms"
-                                                           data-action="delete" class="btn btn-warning">
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
                         <div id="anketa-fields">
                             <div class="row">
                                 <div class="col-md-4">

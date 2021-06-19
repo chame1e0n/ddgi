@@ -194,33 +194,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="transh-payment-schedule" @if(!$page->StrahPremiya)class="d-none" @endif>
-                                <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($page->StrahPremiya as $prem)
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" value="{{$prem->payment_sum}}" name="payment_sum[]"></td>
-                                            <td><input type="date" class="form-control" value="{{$prem->payment_from}}" name="payment_from[]">
-                                            </td>
-                                        </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
 
                     </div>

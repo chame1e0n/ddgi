@@ -439,59 +439,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="transh-payment-schedule"
-                                 @if($page->payment_term == 1) class="d-none" @endif>
-                                <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if($page->strahPremiya->count() > 0)
-                                            @foreach($page->strahPremiya as $prem)
-                                                <tr id="{{$prem->id}}" data-field-number="0">
-                                                    <td><input type="text" class="
-                                                        @if($errors->has('payment_sum.'.$loop->index))
-                                                            is-invalid
-                                                        @endif form-control" name="payment_sum[]" value="{{$prem->payment_sum}}">
-                                                    </td>
-                                                    <td><input type="date"
-                                                               class="@if($errors->has('payment_from.'.$loop->index))
-                                                                   is-invalid
-                                                    @endif form-control" name="payment_from[]" value="{{$prem->payment_from}}">
-                                                    </td>
-                                                    <td>
-                                                        <input type="button" value="Удалить" data-action="delete"
-                                                               class="btn btn-warning"
-                                                               onclick="removeEl({{$prem->id}})">
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            <tr id="payment-term-tr-0" data-field-number="0">
-                                                <td><input type="text" class="@if($errors->has('payment_sum.*'))
-                                                        is-invalid
-                                            @endif form-control" name="payment_sum[]" value="">
-                                                </td>
-                                                <td><input type="date" class="@if($errors->has('payment_from.*'))
-                                                        is-invalid
-                                                @endif form-control" name="payment_from[]" value="">
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

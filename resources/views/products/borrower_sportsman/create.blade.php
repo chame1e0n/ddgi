@@ -268,37 +268,6 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div id="payment-terms-form">
-                            <div id="other-payment-schedule" style="display: block;">
-                                <div class="form-group">
-                                    <button type="button" onclick="addRowBonusCondition()" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="addRowBonusCondition">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control"
-                                                       name="payment_bonus_sum[]"></td>
-                                            <td><input type="date" class="form-control"
-                                                       name="payment_bonus_from[]"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-body">
                         <div id="anketa-fields">
                             <div class="row">
                                 <div class="col-sm-6">

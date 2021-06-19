@@ -129,15 +129,11 @@ const formRealtors = document.querySelector('#formRealtors')
 const periodActiveOrg = document.querySelector('#period-active-org')
 // Блок с элементами "radio" и "select" форм
 const fieldsChanged = document.querySelector('#fields-changed')
-// Форма "Условия оплаты страховой премии"
-const paymentsForm = document.querySelector('#payment-terms-form')
 
 const actedBoxDescription = document.querySelector('[data-acted]')
 const casesReasonBox = document.querySelector('[data-cases-reason]')
 const administrCaseBox = document.querySelector('[data-administr-case]')
 const otherPaymentSchedule = document.querySelector('#other-payment-schedule')
-const buttonAddRowSchedule = document.querySelector('[data-btn-add-row]')
-const tablePaymentSchedule = document.querySelector('#table-payment-schedule')
 const buttonAddRowInfo = document.querySelector('[data-btn-add-row-info]')
 const buttonAddRowInfo2 = document.querySelector('[data-btn-add-row-info2]')
 const infoTable = document.querySelector('[data-info-table]')
@@ -169,6 +165,11 @@ let polisNamesList = [];
 let domainPath = location.protocol + '//' + location.host;
 
 //loadAgents();
+
+// Display/Hide specified block
+function toggle(id, is_to_display) {
+  document.getElementById(id).style.display = is_to_display ? 'block' : 'none';
+}
 
 function loadAgents() {
     var xmlhttp = new XMLHttpRequest();
@@ -276,64 +277,6 @@ function getActivityDates(element) {
 }
 
 let fieldNumber = 0
-
-function addRowPaymentSchedule() {
-    const tableBody = tablePaymentSchedule.querySelector('tbody')
-
-    const newTableRow = `
-    <tr id="all-products-terms-transh-${fieldNumber}" data-field-number="${fieldNumber}">
-      <td><input type="text" class="form-control" data-field="sum" name="all_products_terms_transhes[${fieldNumber}][payment_sum]">
-      </td>
-      <td><input type="date" class="form-control" data-field="from" name="all_products_terms_transhes[${fieldNumber}][payment_from]">
-      </td>
-      <td>
-        <input type="button" value="Удалить" data-action="delete" class="btn btn-warning">
-      </td>
-    </tr>`
-
-    tableBody.insertAdjacentHTML('beforeend', newTableRow)
-    fieldNumber++
-}
-
-function removeRowSchedule(event) {
-    const target = event.target
-    const removeRowElement = target.parentElement.parentElement
-
-    if (target.dataset.action === 'delete' &&
-        removeRowElement.dataset &&
-        removeRowElement.dataset.fieldNumber) {
-        removeRowElement.remove()
-    }
-}
-
-const paymentTransh = {}
-
-if (buttonAddRowSchedule) {
-    buttonAddRowSchedule.addEventListener("click", addRowPaymentSchedule);
-}
-if (tablePaymentSchedule) {
-    tablePaymentSchedule.addEventListener('click', removeRowSchedule)
-}
-
-if (tablePaymentSchedule) {
-    tablePaymentSchedule.addEventListener("change", event => {
-        const target = event.target
-
-        if (target.dataset.field === 'sum') {
-            paymentTransh.sum = target.value.trim()
-        }
-
-        if (target.dataset.field === 'from') {
-            paymentTransh.from = target.value.trim()
-        }
-
-        if (+paymentTransh.sum && paymentTransh.from) {
-            paymentFormData.paymentSchedule.push(paymentTransh)
-        }
-
-    })
-}
-
 
 if (formAudit) {
     formAudit.addEventListener('submit', event => {
@@ -666,36 +609,6 @@ if (annualTurnoverInfo) {
         calcTurnover();
     })
 }
-
-
-if (paymentsForm) {
-    paymentsForm.addEventListener('change', event => {
-        const target = event.target
-
-        if (target.dataset && target.dataset.wallet === 'wallet') {
-            paymentFormData.wallet = {
-                currency: {
-                    rate: +target.value,
-                    exchange: target.options[target.selectedIndex].text
-                }
-            }
-        }
-
-        if (target.dataset && target.dataset.payment === 'payment') {
-            otherPaymentSchedule.style.display = target.value == 'other' ? 'block' : 'none';
-
-            paymentProcedure = target.value
-
-            paymentFormData.payment = {
-                term: {
-                    text: target.options[target.selectedIndex].text,
-                    value: target.value
-                }
-            }
-        }
-    })
-}
-
 
 const addBuilderButton = document.getElementById('add-costruct-participant');
 

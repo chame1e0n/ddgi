@@ -840,41 +840,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="transh-payment-schedule" class="d-none">
-                                <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($page->KascoStrahPremiya as $prem)
-                                        <tr id="payment-term-tr-{{$loop->iteration}}" data-field-number="{{$loop->iteration}}">
-                                            <td><input type="text" @if($errors->has('payment_sum.*'))
-                                                class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                       @endif value="{{$prem->payment_sum}}" name="payment_sum[]"></td>
-                                            <td><input type="date" @if($errors->has('payment_from.*'))
-                                                class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                       @endif value="{{$prem->payment_from}}" name="payment_from[]">
-                                            </td>
-                                        </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
 
                     </div>

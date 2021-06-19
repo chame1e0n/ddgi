@@ -450,38 +450,6 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div id="payment-terms-form">
-                            <div id="other-payment-schedule" style="display: none;">
-                                <div class="form-group">
-                                    <button type="button" data-btn-add-row class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="table-payment-schedule">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" class="form-control" name="payment_sum_main">
-                                            </td>
-                                            <td><input type="date" class="form-control" name="payment_from_main">
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="card-body">
                         <div id="anketa-fields">
                             <div class="row">
                                 <div class="col-md-4">

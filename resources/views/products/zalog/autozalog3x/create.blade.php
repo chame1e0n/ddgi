@@ -363,39 +363,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="transh-payment-schedule" class="d-none">
-                                <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input type="text" @if($errors->has('payment_sum.0'))
-                                                class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                       @endif name="payment_sum[]" value="{{old('payment_sum.0')}}"></td>
-                                            <td><input type="date" @if($errors->has('payment_from.0'))
-                                                class="form-control is-invalid"
-                                                       @else
-                                                       class="form-control"
-                                                       @endif name="payment_from[]" value="{{old('payment_from.0')}}">
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

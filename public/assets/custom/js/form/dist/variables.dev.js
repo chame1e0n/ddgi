@@ -42,7 +42,6 @@ var beneficiaryOkonh = $('#beneficiary-okonh');
 var submitButton = $('#submit-button');
 var productFieldsForm = $('#product-fields');
 var clientProductForm = $('#client-product-form');
-var paymentTermsForm = $('#payment-terms-form');
 var anketaFieldsForm = $('#anketa-fields');
 var polises = $('.polises');
 var generalProductFields = $('#general-product-fields');

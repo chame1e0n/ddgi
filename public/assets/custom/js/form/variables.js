@@ -48,7 +48,6 @@ let submitButton = $('#submit-button');
 
 let productFieldsForm = $('#product-fields');
 let clientProductForm = $('#client-product-form');
-let paymentTermsForm = $('#payment-terms-form');
 let anketaFieldsForm = $('#anketa-fields');
 
 let polises = $('.polises');

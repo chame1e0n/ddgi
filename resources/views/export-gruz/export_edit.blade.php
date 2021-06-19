@@ -800,55 +800,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="transh-payment-schedule"
-                                 @if($all_product->payment_term == "1") class="d-none" @endif>
-                                <div class="form-group">
-                                    <button type="button" id="transh-payment-schedule-button" class="btn btn-primary ">
-                                        Добавить
-                                    </button>
-                                </div>
-                                <div class="table-responsive p-0 " style="max-height: 300px;">
-                                    <table class="table table-hover table-head-fixed" id="empTable3">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-nowrap">Сумма</th>
-                                            <th class="text-nowrap">От</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr id="payment-term-tr-0" data-field-number="0">
-                                            <td><input value="{{$all_product->payment_sum_main}}" type="text"
-                                                       class="form-control" name="payment_sum_main"></td>
-                                            <td><input value="{{$all_product->payment_from_main}}" type="date"
-                                                       class="form-control" name="payment_from_main">
-                                            </td>
-                                        </tr>
-                                        {{--                                        @dd($all_product->allProductCurrencyTerms[0]->payment_sum)--}}
-                                        @if($all_product->allProductCurrencyTerms[0]->payment_sum !== null)
-                                            @foreach($all_product->allProductCurrencyTerms[0]->payment_sum as $key=>$item)
-                                                <tr id="${id}" data-field-number="0">
-                                                    <td>
-                                                        <input type="text" class="form-control"
-                                                               value="{{$all_product->allProductCurrencyTerms[0]->payment_sum[$key]}}"
-                                                               name="payment_sum[]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="date" class="form-control"
-                                                               value="{{$all_product->allProductCurrencyTerms[0]->payment_from[$key]}}"
-                                                               name="payment_from[]">
-                                                    </td>
-                                                    <td>
-                                                        <input type="button" onclick="removeEl(${id})" value="Удалить"
-                                                               class="btn btn-warning">
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
