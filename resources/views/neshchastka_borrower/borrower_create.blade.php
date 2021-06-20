@@ -26,39 +26,53 @@
 
                 @include('includes.contract')
 
-                <div class="card-body">
-                    @include('includes.client')
+                @include('includes.client')
 
-                    @include('includes.insured_person')
+                @include('includes.insured_person')
 
-                    @include('includes.beneficiary')
-                </div>
-                <div class="card-body">
-                    <div id="anketa-fields">
+                @include('includes.beneficiary')
+
+                <div class="card card-info" id="beneficiary">
+                    <div class="card-header">
+                        <h3 class="card-title">Дополнительные поля контракта</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="insurance_from">Кредитный договор</label>
-                                            <div class="input-group mb-3">
-
-                                                <input type="text" id="insurer-tel" name="credit_contract" class="form-control">
-                                            </div>
-                                        </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="contract-borrower-accident-loan-agreement">Кредитный договор</label>
+                                    <div class="input-group mb-3">
+                                        <input required
+                                               class="form-control @if($errors->has('contract_borrower_accident.loan_agreement')) is-invalid @endif"
+                                               id="contract-borrower-accident-loan-agreement"
+                                               name="contract_borrower_accident[loan_agreement]"
+                                               type="text"
+                                               value="{{$contract_borrower_accident->loan_agreement}}" />
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="input-group mb-3" style="margin-top: 33px">
-                                                <input id="insurance_to" name="credit_contract_to" type="date" class="form-control">
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="contract-borrower-accident-agreement-date">Дата заключения договора</label>
+                                    <div class="input-group mb-3">
+                                        <input required
+                                               class="form-control @if($errors->has('contract_borrower_accident.agreement_date')) is-invalid @endif"
+                                               id="contract-borrower-accident-agreement-date"
+                                               name="contract_borrower_accident[agreement_date]"
+                                               type="date"
+                                               value="{{$contract_borrower_accident->agreement_date}}" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>
