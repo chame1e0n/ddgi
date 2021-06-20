@@ -69,7 +69,7 @@ class PolicyRetransferController extends Controller
             $policy->save();
         }
 
-        PolicyFlow::createPolicyFlow($request, 'retransferred', $toUserId);
+//        PolicyFlow::createPolicyFlow($request, 'retransferred', $toUserId); ToDo::change logic and delete this line
 
         return redirect()->route('policy_flow.index')
             ->with('success','Полисы успешно перерапределены');

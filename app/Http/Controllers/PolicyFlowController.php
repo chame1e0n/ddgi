@@ -16,10 +16,10 @@ class PolicyFlowController extends Controller
     public function index(Request $request)
     {
         $policyFlow = PolicyFlow::filter()->paginate(15);
-        $a4New = Policy::where('a_reg', 'a4')->where('status', 'new')->get()->count();
-        $a5New = Policy::where('a_reg', 'a5')->where('status', 'new')->get()->count();
-        $a4Transfered = Policy::where('a_reg', 'a4')->where('status', 'transferred')->get()->count();
-        $a5Transfered = Policy::where('a_reg', 'a5')->where('status', 'transferred')->get()->count();
+        $a4New = Policy::where('print_size', 'a4')->where('status', 'new')->get()->count();
+        $a5New = Policy::where('print_size', 'a5')->where('status', 'new')->get()->count();
+        $a4Transfered = Policy::where('print_size', 'a4')->where('status', 'transferred')->get()->count();
+        $a5Transfered = Policy::where('print_size', 'a5')->where('status', 'transferred')->get()->count();
 
         return view('policy_flow.index',compact('policyFlow', 'a4New', 'a4Transfered', 'a5New', 'a5Transfered'));
     }

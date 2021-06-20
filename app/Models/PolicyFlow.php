@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Models\Spravochniki\Branch;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PolicyFlow extends Model
 {
@@ -83,47 +85,44 @@ class PolicyFlow extends Model
         return $q;
     }
 
-    static function createNewPolicies(Request $request)
+    static function createNewPoliciesAndPolicyFlows(Request $request)
     {
+        $createdByUserId = Auth::user()->employees->first()->id;
+
         for ($i = $request->policy_from; $i <= $request->policy_to; $i++) {
             $policy = new Policy;
-            $policy->number = $i;
+            $policy->series = $i;
             $policy->act_number = $request->act_number;
-            $policy->a_reg = $request->a_reg;
-            $policy->polis_name = $request->polis_name;
+            $policy->print_size = $request->a_reg;
+            $policy->name = $request->polis_name;
             $policy->price = $request->price_per_policy;
-            $policy->user_id = $request->from_user_id;
-            $policy->status = 'new';
+            $policy->employee_id = $createdByUserId;
+            $policy->status = 'registered';
+            $policy->date_of_issue = Carbon::now();
             $policy->save();
+
+            PolicyFlow::create([
+                'act_date' => $request->act_date,
+                'policy_id' => $policy->id,
+                'policy_given_by_employee_id' => $createdByUserId,
+                'branch_id' => $request->branch_id,
+                'status' => 'registered',
+            ]);
         }
     }
 
     static function createPolicyFlow(Request $request, $status, $toUserId)
     {
-        $newPolicyFlow = PolicyFlow::create([
-            'act_number' => $request->act_number,
-            'act_date' => $request->act_date,
-            'policy_from' => $request->policy_from,
-            'policy_to' => $request->policy_to,
-            'to_user_id' => $toUserId,
-            'from_user_id' => $request->from_user_id,
-            'branch_id' => $request->branch_id,
-            'polis_name' => $request->polis_name,
-            'status' => $status,
-            'a_reg' => $request->a_reg,
-            'price_per_policy' => $request->price_per_policy,
-        ]);
-
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                $name = $file->store('document/PolicyFlow', 'public');
-
-                PolicyFlowFile::create([
-                    'name' => $name,
-                    'policy_flow_id' => $newPolicyFlow->id
-                ]);
-            }
-        }
+//        if ($request->hasFile('files')) {
+//            foreach ($request->file('files') as $file) {
+//                $name = $file->store('document/PolicyFlow', 'public');
+//
+//                PolicyFlowFile::create([
+//                    'name' => $name,
+//                    'policy_flow_id' => $newPolicyFlow->id
+//                ]);
+//            }
+//        }
     }
 
     static function updatePolicyFlow(Request $request, $id, $status)

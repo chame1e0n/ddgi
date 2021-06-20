@@ -70,7 +70,7 @@ class PolicyTransferController extends Controller
             $policy->save();
         }
 
-        PolicyFlow::createPolicyFlow($request, 'pending_transfer', $toUserId);
+//        PolicyFlow::createPolicyFlow($request, 'pending_transfer', $toUserId); ToDo::change logic and delete this line
 
         return redirect()->route('policy_flow.index')
             ->with('success','Успешно полюсы были направлены на подтвержение распределения');

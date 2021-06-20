@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Policy;
-use App\Models\PolicyFlow;
+use App\Model\Policy;
+use App\Model\PolicyFlow;
 use App\Models\PolicyFlowFile;
 use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Http\Request;
@@ -19,9 +19,7 @@ class PolicyRegistrationController extends Controller
      */
     public function create()
     {
-        $policySeries = PolicySeries::all();
-
-        return view('policy_flow.policy_registration.create', compact('policySeries'));
+        return view('policy_flow.policy_registration.create');
     }
 
     /**
@@ -37,28 +35,30 @@ class PolicyRegistrationController extends Controller
             'act_date' => 'required',
             'policy_from' => 'required',
             'policy_to' => 'required',
+            'polis_name' => 'required',
+            'price_per_policy' => 'required',
         ]);
 
         $policyFrom = $request->policy_from;
         $policyTo = $request->policy_to;
 
         $existRangeOfSeries = Policy::select('id')
-            ->whereBetween('number', [$policyFrom, $policyTo])
+            ->whereBetween('series', [$policyFrom, $policyTo])
             ->where('act_number', $request->act_number)
-            ->where('polis_name', $request->polis_name)
+            ->where('name', $request->polis_name)
             ->get()->count();
 
         if ($existRangeOfSeries) {
             return back()->withErrors([
-                sprintf('В базе присутствуют полностью или чистично полиса от %s до %s',
-                    $request->from_number,
-                    $request->to_number
+                sprintf('В базе присутствуют полностью или чистично полиса от %s до %s с наименованием %s',
+                    $policyFrom,
+                    $policyTo,
+                    $request->polis_name
                 )
             ]);
         }
 
-        PolicyFlow::createNewPolicies($request);
-        PolicyFlow::createPolicyFlow($request, 'registered', 3); //Todo::change admin id to better solution
+        PolicyFlow::createNewPoliciesAndPolicyFlows($request);
 
         return redirect()->route('policy_flow.index')
             ->with('success', 'Успешно добавлены новые полисы');
