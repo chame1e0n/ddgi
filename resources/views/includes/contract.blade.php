@@ -217,6 +217,44 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="contract-files-questionary" class="col-form-label">Анкета</label>
+                    @if($contract->file_questionary)
+                        <a href="{{asset($contract->file_questionary->href)}}" target="_blank">Скачать</a>
+                    @endif
+                    <input class="form-control @if($errors->has('contract.files.questionary')) is-invalid @endif"
+                           id="contract-files-questionary"
+                           name="contract[files][questionary]"
+                           type="file" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="contract-files-agreement" class="col-form-label">Договор</label>
+                    @if($contract->file_agreement)
+                        <a href="{{asset($contract->file_agreement->href)}}" target="_blank">Скачать</a>
+                    @endif
+                    <input class="form-control @if($errors->has('contract.files.agreement')) is-invalid @endif"
+                           id="contract-files-agreement"
+                           name="contract[files][agreement]"
+                           type="file" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="contract-files-policy" class="col-form-label">Полис</label>
+                    @if($contract->file_policy)
+                        <a href="{{asset($contract->file_policy->href)}}" target="_blank">Скачать</a>
+                    @endif
+                    <input class="form-control @if($errors->has('contract.files.policy')) is-invalid @endif"
+                           id="contract-files-policy"
+                           name="contract[files][policy]"
+                           type="file" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>

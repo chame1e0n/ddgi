@@ -538,41 +538,6 @@
 
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="card card-info" id="clone-beneficiary">
-                            <div class="card-header">
-                                <h3 class="card-title">Загрузка документов</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body" id="beneficiary-card-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Анкета</label>
-                                            <input type="file" id="geographic-zone" name="geo_zone" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Договор</label>
-                                            <input type="file" id="geographic-zone" name="geo_zone" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Полис</label>
-                                            <input type="file" id="geographic-zone" name="geo_zone" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                     <!-- раздел 3 - да - show -->
                     <div class="table-responsive p-0 r-3-show-0" style="display: none;">
                         <div id="product-fields-0-7">

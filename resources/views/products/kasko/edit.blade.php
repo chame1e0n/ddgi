@@ -898,55 +898,6 @@
 
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Загрузка документов</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="polis-series" class="col-form-label">Анкета</label>
-                                        <input type="file" id="geographic-zone" name="anketa" class="form-control">
-                                        @if($page->anketa != null)
-                                            <a target="_blank" href="/storage/{{$page->anketa}}">
-                                                Открыть
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="polis-series" class="col-form-label">Договор</label>
-                                        <input type="file" id="geographic-zone" name="dogovor" class="form-control">
-                                        @if($page->dogovor != null)
-                                            <a target="_blank" href="/storage/{{$page->dogovor}}">
-                                                Открыть
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="polis-series" class="col-form-label">Полис</label>
-                                        <input type="file" id="geographic-zone" name="polis" class="form-control">
-                                        @if($page->polis != null)
-                                            <a target="_blank" href="/storage/{{$page->polis}}">
-                                                Открыть
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-
-
-                    </div>
-                </div>
             </section>
         </div>
         <div class="card-footer">

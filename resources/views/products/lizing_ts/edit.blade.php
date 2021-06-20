@@ -4,7 +4,6 @@
 @include('products._form_elements.elements._period_strahovaniya.edit')
 @include('products._form_elements.elements._geograficheskaya_zona.edit')
 @include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.edit')
-@include('products._form_elements.blocks._zagruzka_dokumentov.edit')
 @include('products._form_elements.blocks._svediniya_o_polise.edit', ['productInformation' => $product->allProductInfo()->first()])
 
 @section('content')
@@ -69,8 +68,6 @@
                 </div>
 
                 @yield('_svediniya_o_polise_content')
-                @yield('_zagruzka_dokumentov_content')
-
             </section>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>

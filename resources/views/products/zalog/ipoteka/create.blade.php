@@ -390,56 +390,6 @@
                 <div class="card-body">
                     <div class="card card-info" id="clone-beneficiary">
                         <div class="card-header">
-                            <h3 class="card-title">Загрузка документов</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="polis-series" class="col-form-label">Анкета</label>
-                                        <input  id="anketa_img" name="application_form_file" value="{{old('application_form_file')}}"
-                                                type="file" @if($errors->has('application_form_file'))
-                                                class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                            @endif>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="polis-series" class="col-form-label">Договор</label>
-                                        <input  id="dogovor_img" name="contract_file" value="{{old('contract_file')}}"
-                                                type="file" @if($errors->has('contract_file'))
-                                                class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                            @endif>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="polis-series" class="col-form-label">Полис</label>
-                                        <input  id="polis_img" name="policy_file" value="{{old('policy_file')}}"
-                                                type="file" @if($errors->has('policy_file'))
-                                                class="form-control is-invalid"
-                                                @else
-                                                class="form-control"
-                                            @endif>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
                             <h3 class="card-title">Копии документов</h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">

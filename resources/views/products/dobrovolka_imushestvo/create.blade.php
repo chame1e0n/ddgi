@@ -5,7 +5,6 @@
 @include('products._form_elements.elements._ispolzovaniye_ts_na_osnovanii.create')
 @include('products._form_elements.elements._srok_deystviya_dogovora.create')
 @include('products._form_elements.blocks._usloviya_oplati_strahovoy_premii.create', ['insurance_sum_all'=> true, 'insurance_bonus_all' => true])
-@include('products._form_elements.blocks._zagruzka_dokumentov.create')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -121,8 +120,6 @@
 
                     @yield('_usloviya_oplati_strahovoy_premii_content')
                 </div>
-
-                @yield('_zagruzka_dokumentov_content')
             </section>
 
             <div class="card-footer">
