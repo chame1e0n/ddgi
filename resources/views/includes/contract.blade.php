@@ -16,15 +16,13 @@
                     @foreach(\App\Model\Contract::$types as $type => $label)
                         <div class="col-sm-4">
                             <div class="icheck-success">
-                                <input class="client-type-radio"
+                                <input @if($contract->type == $type) checked @endif
+                                       class="client-type-radio"
                                        id="contract-type-{{$type}}"
                                        name="contract[type]"
                                        type="radio"
                                        value="{{$type}}"
-                                       onchange="changeContractType(this)"
-                                       @if($contract->type == $type)
-                                        checked
-                                       @endif />
+                                       onchange="changeContractType(this)" />
                                 <label for="contract-type-{{$type}}">{{$label}}</label>
                             </div>
                         </div>
@@ -34,10 +32,8 @@
             </div>
             <div class="col-md-12">
             @foreach(\App\Model\Contract::$types as $type => $label)
-                <div class="form-group list-{{$type}}"
-                     @if($contract->type != $type)
-                        hidden
-                     @endif>
+                <div @if($contract->type != $type) hidden @endif
+                     class="form-group list-{{$type}}">
                     <label for="contract-specification-{{$type}}">Вид продукта</label>
                     <select class="form-control @if($errors->has('contract.specification_id')) is-invalid @endif"
                             id="contract-specification-{{$type}}"
@@ -47,11 +43,9 @@
                         <option></option>
 
                         @foreach(\App\Model\Specification::getSpecificationsByType($type) as $specification)
-                            <option value="{{$specification->id}}"
-                                    data-route="{{\App\Model\Specification::$specification_to_routes[$specification->code]}}"
-                                    @if(\Illuminate\Support\Facades\Route::current()->uri() == \App\Model\Specification::$specification_to_routes[$specification->code] . '/create')
-                                        selected
-                                    @endif>
+                            <option @if(\Illuminate\Support\Facades\Route::current()->uri() == \App\Model\Specification::$specification_to_routes[$specification->code] . '/create') selected @endif
+                                    value="{{$specification->id}}"
+                                    data-route="{{\App\Model\Specification::$specification_to_routes[$specification->code]}}">
                                 {{$specification->name}}
                             </option>
                         @endforeach
@@ -67,10 +61,8 @@
                             name="contract[currency_id]"
                             style="width: 100%; text-align: center;">
                     @foreach(\App\Model\Currency::getOrderedCurrencies() as $currency)
-                        <option value="{{$currency->id}}"
-                                @if($contract->currency_id == $currency->id)
-                                    selected
-                                @endif>
+                        <option @if($contract->currency_id == $currency->id) selected @endif
+                                value="{{$currency->id}}">
                             {{$currency->code}}
                         </option>
                     @endforeach
@@ -86,10 +78,8 @@
                             onchange="toggle('tranches', this.value == '{{\App\Model\Contract::PAYMENT_TYPE_TRANCHE}}')"
                             style="width: 100%; text-align: center;">
                     @foreach(\App\Model\Contract::$payment_types as $key => $value)
-                        <option value="{{$key}}"
-                                @if($contract->payment_type == $key)
-                                    selected
-                                @endif>
+                        <option @if($contract->payment_type == $key) selected @endif
+                                value="{{$key}}">
                             {{$value}}
                         </option>
                     @endforeach
@@ -104,10 +94,8 @@
                             name="contract[payment_method_id]"
                             style="width: 100%; text-align: center;">
                     @foreach(\App\Model\PaymentMethod::all() as $payment_method)
-                        <option value="{{$payment_method->id}}"
-                                @if($contract->payment_method_id == $payment_method->id)
-                                    selected
-                                @endif>
+                        <option @if($contract->payment_method_id == $payment_method->id) selected @endif
+                                value="{{$payment_method->id}}">
                             {{$payment_method->name}}
                         </option>
                     @endforeach
@@ -116,9 +104,7 @@
             </div>
             <div class="col-sm-12">
                 <div id="tranches"
-                     @if($contract->payment_type == \App\Model\Contract::PAYMENT_TYPE_ENTIRELY)
-                        style="display: none;"
-                     @endif>
+                     @if($contract->payment_type == \App\Model\Contract::PAYMENT_TYPE_ENTIRELY) style="display: none;" @endif>
                     <div class="form-group">
                         <button type="button" class="btn btn-primary ddgi-add-tranche">
                             Добавить
@@ -190,36 +176,38 @@
             </div>
             <div class="col-md-12">
                 <div class="icheck-success ">
-                    <input class="form-check-input client-type-radio"
-                           id="tarif"
-                           name="tarif"
-                           onchange="toggleBlock('tarif', 'id=tarif-description')"
+                    <input @if($contract->tariff) checked @endif
+                           class="form-check-input client-type-radio"
+                           id="contract-tariff-switch"
+                           name="contract_tariff_switch"
+                           onchange="toggleSwitch(this, 'contract-tariff-block')"
                            type="checkbox" />
-                    <label class="form-check-label" for="tarif">Тариф</label>
+                    <label class="form-check-label" for="contract-tariff-switch">Тариф</label>
                 </div>
                 <div class="form-group"
-                     id="tarif-description"
-                     style="display: none;">
-                    <label for="contract-tarif" class="col-form-label">Укажите процент тарифа</label>
-                    <input class="form-control @if($errors->has('contract.tarif')) is-invalid @endif"
-                           id="contract-tarif"
-                           name="contract[tarif]"
+                     id="contract-tariff-block"
+                     @if(!$contract->tariff) style="display: none;" @endif>
+                    <label for="contract-tariff" class="col-form-label">Укажите процент тарифа</label>
+                    <input class="form-control @if($errors->has('contract.tariff')) is-invalid @endif"
+                           id="contract-tariff"
+                           name="contract[tariff]"
                            type="number"
-                           value="{{$contract->tarif}}" />
+                           value="{{$contract->tariff}}" />
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="icheck-success ">
-                    <input class="form-check-input client-type-radio"
-                           id="premium"
-                           name="premium"
-                           type="checkbox"
-                           onchange="toggleBlock('premium', 'id=preim-description')" />
-                    <label class="form-check-label" for="premium">Премия</label>
+                    <input @if($contract->premium) checked @endif
+                           class="form-check-input client-type-radio"
+                           id="contract-premium-switch"
+                           name="contract_premium_switch"
+                           onchange="toggleSwitch(this, 'contract-premium-block')"
+                           type="checkbox" />
+                    <label class="form-check-label" for="contract-premium-switch">Премия</label>
                 </div>
                 <div class="form-group"
-                     id="preim-description"
-                     style="display: none;">
+                     id="contract-premium-block"
+                     @if(!$contract->premium) style="display: none;" @endif>
                     <label for="contract-premium" class="col-form-label">Укажите процент премии</label>
                     <input class="form-control @if($errors->has('contract.premium')) is-invalid @endif"
                            id="contract-premium"

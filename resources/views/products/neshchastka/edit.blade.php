@@ -41,61 +41,8 @@
                 </div>
 
 
-                <div class="card-body">
-                    <div class="card card-info" id="clone-insurance">
-                        <div class="card-header">
-                            <h3 class="card-title">Застрахованное лицо </h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
+                @include('includes.insured_person')
 
-                        <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-name" class="col-form-label">ФИО</label>
-                                        <input type="text" id="insurer-name" value="{{$all_product->fio_insured}}" name="fio_insured" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Сумма</label>
-                                        <input type="text" id="insurer-address" value="{{$all_product->sum_of_insurance}}" name="sum_of_insurance" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="insurer-address" class="col-form-label">Премия</label>
-                                        <input type="text" id="insurer-address" value="{{$all_product->bonus}}" name="bonus" class="form-control">
-                            </div>
-                        </div>
-                                <div class="col-md-12">
-                                    <div class="icheck-success ">
-                                        <input onchange="toggleBlock('tarif', 'data-tarif-descr')" class="form-check-input client-type-radio" type="checkbox"
-                                               @if($all_product->tariff === "on") checked @endif
-                                               name="tarif" id="tarif">
-                                        <label class="form-check-label" for="tarif">Тариф</label>
-                    </div>
-                                    <!-- TODO: Блок должен находится в скрытом состоянии
-                                    отображаться только тогда, когда выбран checkbox "Тариф"
-                                    -->
-                                    <div class="form-group" data-tarif-descr @if(!$all_product->tariff === "on") style="display: none" @endif>
-                                        <label for="descrTarif" class="col-form-label">Укажите процент тарифа</label>
-                                        <input class="form-control" id="descrTarif"
-                                               @if(!empty($all_product->percent_of_tariff)) value="{{$all_product->percent_of_tariff}}"
-                                               @endif
-                                               name="percent_of_tariff" type="number">
-                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">Условия оплаты страховой премии</h3>

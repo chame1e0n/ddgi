@@ -37,67 +37,7 @@
                 <div class="card-body">
                     @include('includes.client')
 
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Застрахованное лицо</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-name" class="col-form-label">ФИО
-                                                заемщика</label>
-                                            <input type="text" id="beneficiary-name"
-                                                   value="{{$borrower->fio_insured}}" name="fio_insured"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-address" class="col-form-label">Юр адрес
-                                                заемщика</label>
-                                            <input type="text" id="beneficiary-address"
-                                                   value="{{$borrower->address_insured}}" name="address_insured"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="beneficiary-tel"
-                                                   value="{{$borrower->tel_insured}}" name="tel_insured"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Серия
-                                                паспорта</label>
-                                            <input type="text" id="beneficiary-tel"
-                                                   value="{{$borrower->passport_series_insured}}"
-                                                   name="passport_series_insured" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Номер
-                                                паспорта</label>
-                                            <input type="text" id="beneficiary-tel"
-                                                   value="{{$borrower->passport_num_insured}}"
-                                                   name="passport_num_insured" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('includes.insured_person')
 
                     @include('includes.beneficiary')
                 </div>

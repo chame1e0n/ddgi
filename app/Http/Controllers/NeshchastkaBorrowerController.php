@@ -8,6 +8,7 @@ use App\MejdCurrencyTermsTransh;
 use App\Model\Beneficiary;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\InsuredPerson;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Bank;
@@ -37,8 +38,9 @@ class NeshchastkaBorrowerController extends Controller
         $beneficiary = new Beneficiary();
         $client = new Client();
         $contract = new Contract();
+        $insured_person = new InsuredPerson();
 
-        return view('neshchastka_borrower.borrower_create', compact('beneficiary', 'client', 'contract'));
+        return view('neshchastka_borrower.borrower_create', compact('beneficiary', 'client', 'contract', 'insured_person'));
     }
 
     /**

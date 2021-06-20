@@ -9,6 +9,7 @@ use App\MejdCurrencyTermsTransh;
 use App\Model\Client;
 use App\Model\Contract;
 use App\Model\Employee;
+use App\Model\InsuredPerson;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
@@ -37,8 +38,9 @@ class MejdController extends Controller
         $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
         $client = new Client();
         $contract = new Contract();
+        $insured_person = new InsuredPerson();
 
-        return view('products.neshchastka.mejd_create', compact('agents', 'client', 'contract'));
+        return view('products.neshchastka.mejd_create', compact('agents', 'client', 'contract', 'insured_person'));
     }
 
     /**
