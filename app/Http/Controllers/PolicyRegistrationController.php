@@ -58,7 +58,28 @@ class PolicyRegistrationController extends Controller
             ]);
         }
 
-        PolicyFlow::createNewPoliciesAndPolicyFlows($request);
+        $createdByUserId = Auth::user()->employees->first()->id;
+
+        for ($i = $request->policy_from; $i <= $request->policy_to; $i++) {
+            $policy = new Policy;
+            $policy->series = $i;
+            $policy->act_number = $request->act_number;
+            $policy->print_size = $request->a_reg;
+            $policy->name = $request->polis_name;
+            $policy->price = $request->price_per_policy;
+            $policy->employee_id = $createdByUserId;
+            $policy->status = PolicyFlow::STATUS_REGISTERED;
+            $policy->date_of_issue = Carbon::now();
+            $policy->save();
+
+            PolicyFlow::create([
+                'act_date' => $request->act_date,
+                'policy_id' => $policy->id,
+                'policy_given_by_employee_id' => $createdByUserId,
+                'branch_id' => $request->branch_id,
+                'status' => PolicyFlow::STATUS_REGISTERED,
+            ]);
+        }
 
         return redirect()->route('policy_flow.index')
             ->with('success', 'Успешно добавлены новые полисы');
@@ -142,35 +163,5 @@ class PolicyRegistrationController extends Controller
         return redirect()->route('policy_flow.index')
             ->with('success', sprintf('Дынные о движении были успешно удалены'));
 
-    }
-
-    /**
-     * Create new policies in policies table and register them in policy_flows table
-     * @param Request $request
-     */
-    static function createNewPoliciesAndPolicyFlows(Request $request)
-    {
-        $createdByUserId = Auth::user()->employees->first()->id;
-
-        for ($i = $request->policy_from; $i <= $request->policy_to; $i++) {
-            $policy = new Policy;
-            $policy->series = $i;
-            $policy->act_number = $request->act_number;
-            $policy->print_size = $request->a_reg;
-            $policy->name = $request->polis_name;
-            $policy->price = $request->price_per_policy;
-            $policy->employee_id = $createdByUserId;
-            $policy->status = PolicyFlow::STATUS_REGISTERED;
-            $policy->date_of_issue = Carbon::now();
-            $policy->save();
-
-            PolicyFlow::create([
-                'act_date' => $request->act_date,
-                'policy_id' => $policy->id,
-                'policy_given_by_employee_id' => $createdByUserId,
-                'branch_id' => $request->branch_id,
-                'status' => PolicyFlow::STATUS_REGISTERED,
-            ]);
-        }
     }
 }
