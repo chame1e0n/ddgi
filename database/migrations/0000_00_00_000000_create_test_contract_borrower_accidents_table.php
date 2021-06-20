@@ -17,8 +17,6 @@ class CreateTestContractBorrowerAccidentsTable extends Migration
             $table->increments('id');
             $table->string('loan_agreement', 45);
             $table->date('agreement_date');
-            $table->date('period_from');
-            $table->date('period_to');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

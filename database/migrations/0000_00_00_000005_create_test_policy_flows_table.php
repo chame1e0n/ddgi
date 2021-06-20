@@ -20,11 +20,8 @@ class CreateTestPolicyFlowsTable extends Migration
             $table->integer('policy_given_by_employee_id')->unsigned()->nullable();
             $table->integer('policy_id')->unsigned()->nullable();
             $table->integer('to_employee_id')->unsigned()->nullable();
-            $table->string('act_number', 50);
             $table->date('act_date');
             $table->enum('status', ['registered', 'pending_transfer', 'rejected_transfer', 'transferred', 'retransferred']);
-            $table->string('polis_name', 100)->nullable();
-            $table->float('price_per_policy', 12, 3)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
             $table->foreign('branch_id', 'fk_policy_flow_branch')->references('id')->on('branches');

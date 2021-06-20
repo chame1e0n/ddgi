@@ -28,7 +28,7 @@ class CreateTestContractsTable extends Migration
             $table->string('status', 45)->default('created');
             $table->date('from')->nullable();
             $table->date('to')->nullable();
-            $table->float('tarif', 12, 3)->unsigned()->nullable();
+            $table->float('tariff', 12, 3)->unsigned()->nullable();
             $table->float('premium', 12, 3)->unsigned()->nullable();
             $table->nullableMorphs('model');
             $table->timestamps();
