@@ -13,21 +13,64 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input', ['field_name' => 'code', 'field_title' => 'Код'])
+                        <div class="form-group">
+                            <label for="code" class="col-form-label">Код</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.code') is-invalid @enderror"
+                                   id="code"
+                                   name="{{strtolower(class_basename($object))}}[code]"
+                                   value="{{old(strtolower(class_basename($object)) . '.code', $object->code)}}" />
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Наименование'])
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Наименование</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.name') is-invalid @enderror"
+                                   id="name"
+                                   name="{{strtolower(class_basename($object))}}[name]"
+                                   value="{{old(strtolower(class_basename($object)) . '.name', $object->name)}}" />
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.select', ['field_name' => 'type_id', 'field_title' => 'Класс', 'list' => $types])
+                        <div class="form-group">
+                            <label for="type_id" class="col-form-label">Класс</label>
+                            <select required
+                                    class="form-control select2 @error(strtolower(class_basename($object)) . '.type_id') is-invalid @enderror"
+                                    id="type_id"
+                                    name="{{strtolower(class_basename($object))}}[type_id]">
+                            @foreach($types as $id => $value)
+                                <option @if($id == old(strtolower(class_basename($object)) . '.type_id', $object->type_id)) selected="selected" @endif
+                                        value="{{$id}}">
+                                    {{$value}}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input_number', ['field_name' => 'tarif', 'field_title' => 'Тарифная ставка'])
+                        <div class="form-group">
+                            <label for="tarif" class="col-form-label">Тарифная ставка</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.tarif') is-invalid @enderror"
+                                   id="tarif"
+                                   name="{{strtolower(class_basename($object))}}[tarif]"
+                                   type="number"
+                                   value="{{old(strtolower(class_basename($object)) . '.tarif', $object->tarif)}}" />
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input_number', ['field_name' => 'max_acceptable_amount', 'field_title' => 'Максимально допустимая сумма'])
+                        <div class="form-group">
+                            <label for="max_acceptable_amount" class="col-form-label">Максимально допустимая сумма</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.max_acceptable_amount') is-invalid @enderror"
+                                   id="max_acceptable_amount"
+                                   name="{{strtolower(class_basename($object))}}[max_acceptable_amount]"
+                                   type="number"
+                                   value="{{old(strtolower(class_basename($object)) . '.max_acceptable_amount', $object->max_acceptable_amount)}}" />
+                        </div>
                     </div>
                 </div>
             </div>

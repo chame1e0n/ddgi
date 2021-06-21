@@ -20,11 +20,13 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::where('role', $this->role)->get();
+        $role = Employee::$roles[$this->role];
+        $first_char = mb_substr($role, 0, 1);
+        $last_chars = mb_substr($role, 1, null);
 
         return view('admin.layouts.index-layout', [
-            'objects' => $employees,
-            'title' => ucfirst(Employee::$roles[$this->role]) . 'ы',
+            'objects' => Employee::where('role', $this->role)->get(),
+            'title' => mb_strtoupper($first_char) . $last_chars . 'ы',
             'fields' => [
                 'name' => 'Имя',
                 'branch_id' => [

@@ -13,13 +13,36 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Наименование'])
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Наименование</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.name') is-invalid @enderror"
+                                   id="name"
+                                   name="{{strtolower(class_basename($object))}}[name]"
+                                   value="{{old(strtolower(class_basename($object)) . '.name', $object->name)}}" />
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input', ['field_name' => 'code', 'field_title' => 'Код'])
+                        <div class="form-group">
+                            <label for="code" class="col-form-label">Код</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.code') is-invalid @enderror"
+                                   id="code"
+                                   name="{{strtolower(class_basename($object))}}[code]"
+                                   value="{{old(strtolower(class_basename($object)) . '.code', $object->code)}}" />
+                        </div>
+
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input_number', ['field_name' => 'priority', 'field_title' => 'Приоритет'])
+                        <div class="form-group">
+                            <label for="priority" class="col-form-label">Приоритет</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.priority') is-invalid @enderror"
+                                   id="priority"
+                                   name="{{strtolower(class_basename($object))}}[priority]"
+                                   type="number"
+                                   value="{{old(strtolower(class_basename($object)) . '.priority', $object->priority)}}" />
+                        </div>
                     </div>
                 </div>
             </div>

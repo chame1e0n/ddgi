@@ -13,38 +13,110 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input', ['field_name' => 'act_number', 'field_title' => 'Наименование', 'list' => $policies])
+                        <div class="form-group">
+                            <label for="act_number" class="col-form-label">Наименование</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.act_number') is-invalid @enderror"
+                                   id="act_number"
+                                   name="{{strtolower(class_basename($object))}}[act_number]"
+                                   value="{{old(strtolower(class_basename($object)) . '.act_number', $object->act_number)}}" />
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.select', ['field_name' => 'status', 'field_title' => 'Статус', 'list' => $statuses])
+                        <div class="form-group">
+                            <label for="status" class="col-form-label">Статус</label>
+                            <select required
+                                    class="form-control select2 @error(strtolower(class_basename($object)) . '.status') is-invalid @enderror"
+                                    id="status"
+                                    name="{{strtolower(class_basename($object))}}[status]">
+                            @foreach($statuses as $id => $value)
+                                <option @if($id == old(strtolower(class_basename($object)) . '.status', $object->status)) selected="selected" @endif
+                                        value="{{$id}}">
+                                    {{$value}}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.select', ['field_name' => 'policy_id', 'field_title' => 'Полис', 'list' => $policies])
+                        <div class="form-group">
+                            <label for="policy_id" class="col-form-label">Полис</label>
+                            <select required
+                                    class="form-control select2 @error(strtolower(class_basename($object)) . '.policy_id') is-invalid @enderror"
+                                    id="policy_id"
+                                    name="{{strtolower(class_basename($object))}}[policy_id]">
+                            @foreach($policies as $id => $value)
+                                <option @if($id == old(strtolower(class_basename($object)) . '.policy_id', $object->policy_id)) selected="selected" @endif
+                                        value="{{$id}}">
+                                    {{$value}}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
                     </div>
-
                 </div>
-
                 <div class="row">
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input', ['field_name' => 'limit_reason', 'field_title' => 'Причина увеличения лимита'])
+                        <div class="form-group">
+                            <label for="limit_reason" class="col-form-label">Причина увеличения лимита</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.limit_reason') is-invalid @enderror"
+                                   id="limit_reason"
+                                   name="{{strtolower(class_basename($object))}}[limit_reason]"
+                                   value="{{old(strtolower(class_basename($object)) . '.limit_reason', $object->limit_reason)}}" />
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input', ['field_name' => 'act_number', 'field_title' => 'Номер акта'])
+                        <div class="form-group">
+                            <label for="act_number" class="col-form-label">Номер акта</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.act_number') is-invalid @enderror"
+                                   id="act_number"
+                                   name="{{strtolower(class_basename($object))}}[act_number]"
+                                   value="{{old(strtolower(class_basename($object)) . '.act_number', $object->act_number)}}" />
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        @include('admin.common.form_fields.input_number', ['field_name' => 'policy_amount', 'field_title' => 'Количество полисов'])
+                        <div class="form-group">
+                            <label for="policy_amount" class="col-form-label">Количество полисов</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.policy_amount') is-invalid @enderror"
+                                   id="policy_amount"
+                                   name="{{strtolower(class_basename($object))}}[policy_amount]"
+                                   type="number"
+                                   value="{{old(strtolower(class_basename($object)) . '.policy_amount', $object->policy_amount)}}" />
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
-                        @include('admin.common.form_fields.file', ['field_name' => 'file', 'field_title' => 'Файл'])
+                        <div class="form-group">
+                            <label for="file" class="col-form-label">Файл</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input class="form-control custom-file-input @error(strtolower(class_basename($object)) . '.file') is-invalid @enderror"
+                                           id="file"
+                                           name="{{strtolower(class_basename($object))}}[file]"
+                                           type="file"
+                                           value="{{old(strtolower(class_basename($object)) . '.file', $object->file)}}" />
+                                    <label class="custom-file-label" for="file">Выберите файл</label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
-                        @include('admin.common.form_fields.summernote', ['field_name' => 'comment', 'field_title' => 'Коммент'])
+                        <div class="form-group">
+                            <label for="comment" class="col-form-label">Коммент</label>
+                            <textarea required
+                                      class="summernote form-control @error(strtolower(class_basename($object)) . '.comment') is-invalid @enderror"
+                                      id="comment"
+                                      name="{{strtolower(class_basename($object))}}[comment]">{{old(strtolower(class_basename($object)) . '.comment', $object->comment)}}</textarea>
+                        </div>
                     </div>
                 </div>
             </div>

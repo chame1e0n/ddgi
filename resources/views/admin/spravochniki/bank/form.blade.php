@@ -13,28 +13,70 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'code', 'field_title' => 'Код банка'])
+                        <div class="form-group">
+                            <label for="code" class="col-form-label">Код банка</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.code') is-invalid @enderror"
+                                   id="code"
+                                   name="{{strtolower(class_basename($object))}}[code]"
+                                   value="{{old(strtolower(class_basename($object)) . '.code', $object->code)}}" />
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Наименование банка'])
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Наименование банка</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.name') is-invalid @enderror"
+                                   id="name"
+                                   name="{{strtolower(class_basename($object))}}[name]"
+                                   value="{{old(strtolower(class_basename($object)) . '.name', $object->name)}}" />
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'filial', 'field_title' => 'Наименование филиала'])
+                        <div class="form-group">
+                            <label for="filial" class="col-form-label">Наименование филиала</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.filial') is-invalid @enderror"
+                                   id="filial"
+                                   name="{{strtolower(class_basename($object))}}[filial]"
+                                   value="{{old(strtolower(class_basename($object)) . '.filial', $object->filial)}}" />
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'address', 'field_title' => 'Адрес банка'])
+                        <div class="form-group">
+                            <label for="address" class="col-form-label">Адрес банка</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.address') is-invalid @enderror"
+                                   id="address"
+                                   name="{{strtolower(class_basename($object))}}[address]"
+                                   value="{{old(strtolower(class_basename($object)) . '.address', $object->address)}}" />
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'inn', 'field_title' => 'ИНН банка'])
+                        <div class="form-group">
+                            <label for="inn" class="col-form-label">ИНН банка</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.inn') is-invalid @enderror"
+                                   id="inn"
+                                   name="{{strtolower(class_basename($object))}}[inn]"
+                                   value="{{old(strtolower(class_basename($object)) . '.inn', $object->inn)}}" />
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        @include('admin.common.form_fields.input', ['field_name' => 'account', 'field_title' => 'Расчетный счет банка'])
+                        <div class="form-group">
+                            <label for="account" class="col-form-label">Расчетный счет банка</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.account') is-invalid @enderror"
+                                   id="account"
+                                   name="{{strtolower(class_basename($object))}}[account]"
+                                   value="{{old(strtolower(class_basename($object)) . '.account', $object->account)}}" />
+                        </div>
                     </div>
                 </div>
             </div>

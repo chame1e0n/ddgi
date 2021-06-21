@@ -13,7 +13,14 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
-                        @include('admin.common.form_fields.input', ['field_name' => 'name', 'field_title' => 'Наименование'])
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Наименование</label>
+                            <input required
+                                   class="form-control @error(strtolower(class_basename($object)) . '.name') is-invalid @enderror"
+                                   id="name"
+                                   name="{{strtolower(class_basename($object))}}[name]"
+                                   value="{{old(strtolower(class_basename($object)) . '.name', $object->name)}}" />
+                        </div>
                     </div>
                 </div>
             </div>

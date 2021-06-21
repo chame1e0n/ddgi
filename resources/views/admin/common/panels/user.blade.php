@@ -12,10 +12,24 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">
-                @include('admin.common.form_fields.email', ['field_name' => 'email', 'field_title' => 'Эл. почта'])
+                <div class="form-group">
+                    <label for="email" class="col-form-label">Электронная почта</label>
+                    <input required
+                           class="form-control @error(strtolower(class_basename($object)) . '.email') is-invalid @enderror"
+                           id="email"
+                           name="{{strtolower(class_basename($object))}}[email]"
+                           type="email"
+                           value="{{old(strtolower(class_basename($object)) . '.email', $object->email)}}" />
+                </div>
             </div>
             <div class="col-md-6">
-                @include('admin.common.form_fields.password', ['field_name' => 'password', 'field_title' => 'Пароль'])
+                <div class="form-group">
+                    <label for="password" class="col-form-label">Пароль</label>
+                    <input id="password"
+                           class="form-control @error(strtolower(class_basename($object)) . '.password') is-invalid @enderror"
+                           name="{{strtolower(class_basename($object))}}[password]"
+                           type="password" />
+                </div>
             </div>
         </div>
     </div>
