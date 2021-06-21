@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Spravochniki;
 
-use App\Helpers\ListHelper;
 use App\Http\Controllers\Controller;
-use App\Model\Group;
 use App\Model\Type;
 use App\Model\Specification;
 use Illuminate\Http\Request;
@@ -18,10 +16,8 @@ class SpecificationController extends Controller
      */
     public function index()
     {
-        $specifications = Specification::all();
-
         return view('admin.layouts.index-layout', [
-            'objects' => $specifications,
+            'objects' => Specification::all(),
             'title' => 'Продукты',
             'fields' => [
                 'name' => 'Наименование',
@@ -30,10 +26,10 @@ class SpecificationController extends Controller
                 'type_id' => [
                     'title' => 'Класс',
                     'type' => 'select',
-                    'list' => ListHelper::get(Type::class, 'name')
+                    'list' => Type::select('id', 'name')->get()->pluck('name', 'id'),
                 ],
             ],
-            'route' => 'specification'
+            'route' => 'specification',
         ]);
     }
 
@@ -47,7 +43,7 @@ class SpecificationController extends Controller
         return view('admin.common.create', [
             'object' => new Specification(),
             'form_path' => 'admin.spravochniki.specification.form',
-            'types' => ListHelper::get(Type::class, 'name')
+            'types' => Type::select('id', 'name')->get()->pluck('name', 'id'),
         ]);
     }
 
@@ -87,7 +83,7 @@ class SpecificationController extends Controller
         return view('admin.common.edit', [
                 'object' => $specification,
                 'form_path' => 'admin.spravochniki.specification.form',
-                'types' => ListHelper::get(Type::class, 'name')
+                'types' => Type::select('id', 'name')->get()->pluck('name', 'id'),
             ]
         );
     }

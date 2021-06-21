@@ -431,14 +431,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('group.index')}}" class="nav-link">
-                        <i class="nav-icon far fa-building"></i>
-                        <p>
-                            Группы
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{route('specification.index')}}" class="nav-link">
                         <i class="nav-icon far fa-building"></i>
                         <p>

@@ -65,23 +65,25 @@ Route::group(['middleware' => ['auth']], function () {
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    Route::resource('spravochniki/bank','Admin\Spravochniki\BankController');
-    Route::resource('spravochniki/group','Admin\Spravochniki\GroupController');
-    Route::resource('spravochniki/product','ProductController'); // :TODO:
-    Route::resource('spravochniki/specification','Admin\Spravochniki\SpecificationController');
+    Route::resource('spravochniki/bank', 'Admin\Spravochniki\BankController');
+    Route::resource('spravochniki/branch', 'Admin\Spravochniki\BranchController');
+    Route::resource('spravochniki/currency', 'Admin\Spravochniki\CurrencyController');
+    Route::resource('spravochniki/region', 'Admin\Spravochniki\RegionController');
     Route::resource('spravochniki/request', 'Admin\Spravochniki\RequestController');
-    Route::resource('director','Admin\DirectorController');
-    Route::resource('agent','Admin\AgentController');
-    Route::resource('manager','Admin\ManagerController');
-    Route::resource('spravochniki/region','Admin\Spravochniki\RegionController');
-    Route::resource('spravochniki/branch','Admin\Spravochniki\BranchController');
-    Route::resource('spravochniki/currency','Admin\Spravochniki\CurrencyController');
+    Route::resource('spravochniki/specification', 'Admin\Spravochniki\SpecificationController');
+    Route::resource('director', 'Admin\DirectorController');
+    Route::resource('agent', 'Admin\AgentController');
+    Route::resource('manager', 'Admin\ManagerController');
+
+    Route::resource('spravochniki/product','ProductController'); // :TODO:
     Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
     Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
     Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
     Route::resource('spravochniki/klass','KlassController');
     Route::resource('policy_registration','PolicyRegistrationController');
+
     Route::resource('policy','PolicyController');
+
     Route::resource('kasko','Product\KaskoController');
     Route::resource('nepogashen','Product\NepogashenController');
     Route::resource('otvetstvennost-broker','Product\OtvetstvennostBrokerController')->names('otvetstvennost-broker');
@@ -91,6 +93,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('policy_retransfer','PolicyRetransferController');
     Route::resource('pretensii_overview','PretensiiOverviewController');
     Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
+
     Route::get('get/policies', function (Request $request) {
         return \App\Models\Policy::where('policy_series_id', $request->input('policy_series_id'))->get()->toJson();
     })->name('getPolicies');
@@ -103,6 +106,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('get/banks', function (Request $request) {
         return \App\Models\Spravochniki\Bank::select('id', 'code as mfo', 'name')->get()->toJson();
     })->name('getBanks');
+
     Route::get('branches', 'Api\BranchController@index')->name('branches');
 
     Route::get('spravochniki/request/upload/{file}', function ($id) {

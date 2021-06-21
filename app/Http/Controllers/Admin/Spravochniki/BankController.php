@@ -15,16 +15,14 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = Bank::all();
-
         return view('admin.layouts.index-layout', [
-            'objects' => $banks,
+            'objects' => Bank::all(),
             'title' => 'Банки',
             'fields' => [
                 'name' => 'Наименование',
-                'code' => 'Код'
+                'code' => 'Код',
             ],
-            'route' => 'bank'
+            'route' => 'bank',
         ]);
     }
 

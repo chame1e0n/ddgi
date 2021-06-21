@@ -17,6 +17,20 @@ class Request extends Model
     public const STATUS_UNDERWRITTING = 'underwritting';
 
     /**
+     * Employee's roles.
+     * 
+     * @var array
+     */
+    public static $statuses = [
+        self::STATUS_CANCELLING => 'испорчен',
+        self::STATUS_DEFECTIVE => 'бракован',
+        self::STATUS_LOST => 'утерян',
+        self::STATUS_POLICY_TRANSFER => 'прием-передача полисов',
+        self::STATUS_TERMINATED => 'расторгнут',
+        self::STATUS_UNDERWRITTING => 'андеррайтинг',
+    ];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

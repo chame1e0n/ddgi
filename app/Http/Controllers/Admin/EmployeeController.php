@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\ListHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Branch;
 use App\Model\Employee;
@@ -12,10 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
-    protected $route = 'employee'; // Реально его не существует!
-    protected $role = 0; // Такой роли нет
-    protected $title = 'сотрудник';
-    protected $title_multiple = 'Сотрудники';
+    protected $role;
 
     /**
      * Display a listing of the resource.
@@ -24,21 +20,20 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::where('role', $this->role)
-            ->get();
+        $employees = Employee::where('role', $this->role)->get();
 
         return view('admin.layouts.index-layout', [
             'objects' => $employees,
-            'title' => $this->title_multiple,
+            'title' => ucfirst(Employee::$roles[$this->role]) . 'ы',
             'fields' => [
                 'name' => 'Имя',
                 'branch_id' => [
                     'title' => 'Филиал',
                     'type' => 'select',
-                    'list' => ListHelper::get(Branch::class, 'name')
+                    'list' => Branch::select('id', 'name')->get()->pluck('name', 'id'),
                 ],
             ],
-            'route' => $this->route
+            'route' => $this->role,
         ]);
     }
 
@@ -54,10 +49,10 @@ class EmployeeController extends Controller
 
         return view('admin.common.create', [
             'object' => $employee,
-            'title' => $this->title,
+            'title' => Employee::$roles[$this->role],
             'form_path' => 'admin.employee.form',
-            'route' => $this->route,
-            'branches' => ListHelper::get(Branch::class, 'name')
+            'route' => $this->role,
+            'branches' => Branch::select('id', 'name')->get()->pluck('name', 'id'),
         ]);
     }
 
@@ -74,8 +69,8 @@ class EmployeeController extends Controller
 
         $this->saveObject($employee, $user);
 
-        return redirect()->route($this->route . '.index')
-            ->with('success', 'Успешно добавлен новый ' . $this->title);
+        return redirect()->route($this->role . '.index')
+            ->with('success', 'Успешно добавлен новый ' . Employee::$roles[$this->role]);
     }
 
     /**
@@ -100,8 +95,8 @@ class EmployeeController extends Controller
         return view('admin.common.edit', [
                 'object' => $employee,
                 'form_path' => 'admin.employee.form',
-                'route' => $this->route,
-                'branches' => ListHelper::get(Branch::class, 'name')
+                'route' => $this->role,
+                'branches' => Branch::select('id', 'name')->get()->pluck('name', 'id'),
             ]
         );
     }
@@ -117,8 +112,8 @@ class EmployeeController extends Controller
     {
         $this->saveObject($employee, $employee->user);
 
-        return redirect()->route($this->route . '.index')
-            ->with('success', sprintf('Дынные о ' . $this->title . 'е \'%s\' были успешно обновлены', $employee->name));
+        return redirect()->route($this->role . '.index')
+            ->with('success', sprintf('Дынные о ' . Employee::$roles[$this->role] . 'е \'%s\' были успешно обновлены', $employee->name));
     }
 
     protected function saveObject($employee, $user) {
@@ -147,7 +142,7 @@ class EmployeeController extends Controller
     {
         $employee->delete();
 
-        return redirect()->route($this->route . '.index')
-            ->with('success', sprintf('Дынные о ' . $this->title . 'е \'%s\' были успешно удалены', $employee->name));
+        return redirect()->route($this->role . '.index')
+            ->with('success', sprintf('Дынные о ' . Employee::$roles[$this->role] . 'е \'%s\' были успешно удалены', $employee->name));
     }
 }

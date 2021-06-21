@@ -15,6 +15,18 @@ class Employee extends Model
     public const ROLE_MANAGER = 'manager';
 
     /**
+     * Employee's roles.
+     * 
+     * @var array
+     */
+    public static $roles = [
+        self::ROLE_ADMIN => 'администратор',
+        self::ROLE_AGENT => 'агент',
+        self::ROLE_DIRECTOR => 'директор',
+        self::ROLE_MANAGER => 'менеджер',
+    ];
+
+    /**
      * The attributes that are not mass assignable.
      *
      * @var array

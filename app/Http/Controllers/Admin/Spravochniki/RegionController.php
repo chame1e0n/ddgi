@@ -15,16 +15,14 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::all();
-
         return view('admin.layouts.index-layout', [
-            'objects' => $regions,
+            'objects' => Region::all(),
             'title' => 'Регионы',
             'fields' => [
                 'name' => 'Регион',
                 'created_at' => 'Создан',
             ],
-            'route' => 'region'
+            'route' => 'region',
         ]);
     }
 

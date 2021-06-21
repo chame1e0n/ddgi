@@ -15,10 +15,8 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        $currencies = Currency::all();
-
         return view('admin.layouts.index-layout', [
-            'objects' => $currencies,
+            'objects' => Currency::all(),
             'title' => 'Валюты',
             'fields' => [
                 'name' => 'Валюта',
@@ -26,7 +24,7 @@ class CurrencyController extends Controller
                 'priority' => 'Приоритет',
                 'created_at' => 'Создан',
             ],
-            'route' => 'currency'
+            'route' => 'currency',
         ]);
     }
 

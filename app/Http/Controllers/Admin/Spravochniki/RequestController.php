@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Spravochniki;
 
-use App\Helpers\ListHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Policy;
 use App\Model\Request;
@@ -18,25 +17,23 @@ class RequestController extends Controller
      */
     public function index()
     {
-        $requests = \App\Model\Request::all();
-
         return view('admin.layouts.index-layout', [
-            'objects' => $requests,
+            'objects' => Request::all(),
             'title' => 'Запросы',
             'fields' => [
                 'employee_id' => [
                     'title' => 'От кого',
                     'type' => 'select',
-                    'list' => ListHelper::get(User::class, 'name')
+                    'list' => User::select('id', 'name')->get()->pluck('name', 'id'),
                 ],
                 'status' => [
                     'title' => 'Статус',
                     'type' => 'select',
-                    'list' => RequestModel::STATUS
+                    'list' => Request::$statuses,
                 ],
-                'created_at' => 'Дата запроса'
+                'created_at' => 'Дата запроса',
             ],
-            'route' => 'request'
+            'route' => 'request',
         ]);
     }
 
@@ -51,7 +48,7 @@ class RequestController extends Controller
             'object' => new \App\Model\Request(),
             'form_path' => 'admin.spravochniki.request.form',
             'statuses' => RequestModel::STATUS,
-            'policies' => ListHelper::get(Policy::class, 'name')
+            'policies' => Policy::select('id', 'name')->get()->pluck('name', 'id'),
         ]);
     }
 
@@ -91,7 +88,7 @@ class RequestController extends Controller
                 'object' => $request,
                 'form_path' => 'admin.spravochniki.request.form',
                 'statuses' => RequestModel::STATUS,
-                'policies' => ListHelper::get(Policy::class, 'name')
+                'policies' => Policy::select('id', 'name')->get()->pluck('name', 'id'),
             ]
         );
     }

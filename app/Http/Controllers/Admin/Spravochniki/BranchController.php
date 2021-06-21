@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Spravochniki;
 
-use App\Helpers\ListHelper;
 use App\Http\Controllers\Controller;
 use App\Model\Branch;
-use App\Model\Group;
 use App\Model\Region;
 use Illuminate\Http\Request;
 
@@ -18,10 +16,8 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $branchs = Branch::all();
-
         return view('admin.layouts.index-layout', [
-            'objects' => $branchs,
+            'objects' => Branch::all(),
             'title' => 'Филиалы',
             'fields' => [
                 'name' => 'Филиал',
@@ -29,10 +25,10 @@ class BranchController extends Controller
                 'region_id' => [
                     'title' => 'Регион',
                     'type' => 'select',
-                    'list' => ListHelper::get(Region::class, 'name')
+                    'list' => Region::select('id', 'name')->get()->pluck('name', 'id'),
                 ],
             ],
-            'route' => 'branch'
+            'route' => 'branch',
         ]);
     }
 
@@ -46,7 +42,7 @@ class BranchController extends Controller
         return view('admin.common.create', [
             'object' => new Branch(),
             'form_path' => 'admin.spravochniki.branch.form',
-            'regions' => ListHelper::get(Region::class, 'name')
+            'regions' => Region::select('id', 'name')->get()->pluck('name', 'id'),
         ]);
     }
 
@@ -86,7 +82,7 @@ class BranchController extends Controller
         return view('admin.common.edit', [
                 'object' => $branch,
                 'form_path' => 'admin.spravochniki.branch.form',
-                'regions' => ListHelper::get(Region::class, 'name')
+                'regions' => Region::select('id', 'name')->get()->pluck('name', 'id'),
             ]
         );
     }
