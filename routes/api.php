@@ -32,4 +32,9 @@ Route::middleware('auth:api')->group( function () {
     Route::get('agent/{id}', 'Api\AgentController@show');
 });
 
-Route::get('agent_list', 'Spravochniki\AgentController@agent_list');
+Route::get('agent_list', function () {
+    $list = \App\Models\Spravochniki\Agent::query()->get();
+    return response()->json([
+        'data' => $list
+    ]);
+});
