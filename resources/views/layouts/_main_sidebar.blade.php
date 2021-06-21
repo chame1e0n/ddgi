@@ -423,8 +423,24 @@
                 {{--</a>--}}
                 {{--</li>--}}
                 <li class="nav-item">
-                    <a href="{{route('bank.index')}}" id="banki" class="nav-link">
-                        <i class="nav-icon far fa-building"></i>
+                    <a href="{{route('region.index')}}" id="regions" class="nav-link">
+                        <i class="nav-icon fa fa-map"></i>
+                        <p>
+                            Регионы
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('currency.index')}}" id="currencies" class="nav-link">
+                        <i class="nav-icon fa fa-money-bill"></i>
+                        <p>
+                            Валюты
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('bank.index')}}" id="banks" class="nav-link">
+                        <i class="nav-icon fa fa-university"></i>
                         <p>
                             Банки
                         </p>
