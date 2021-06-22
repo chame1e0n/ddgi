@@ -44,9 +44,8 @@ class RequestController extends Controller
      */
     public function create()
     {
-        return view('admin.common.create', [
+        return view('admin.spravochniki.request.form', [
             'object' => new \App\Model\Request(),
-            'form_path' => 'admin.spravochniki.request.form',
             'statuses' => RequestModel::STATUS,
             'policies' => Policy::select('id', 'name')->get()->pluck('name', 'id'),
         ]);
@@ -73,7 +72,7 @@ class RequestController extends Controller
      */
     public function show(\App\Model\Request $request)
     {
-        return view('admin.spravochniki.request.edit', compact('request'));
+        return view('admin.spravochniki.request.form', compact('request'));
     }
 
     /**
@@ -84,9 +83,8 @@ class RequestController extends Controller
      */
     public function edit(\App\Model\Request $request)
     {
-        return view('admin.common.edit', [
+        return view('admin.spravochniki.request.form', [
                 'object' => $request,
-                'form_path' => 'admin.spravochniki.request.form',
                 'statuses' => RequestModel::STATUS,
                 'policies' => Policy::select('id', 'name')->get()->pluck('name', 'id'),
             ]

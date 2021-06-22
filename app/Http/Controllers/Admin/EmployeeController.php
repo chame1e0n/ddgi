@@ -49,10 +49,9 @@ class EmployeeController extends Controller
         $employee = new Employee();
         $employee->user = new User();
 
-        return view('admin.common.create', [
+        return view('admin.employee.form', [
             'object' => $employee,
             'title' => Employee::$roles[$this->role],
-            'form_path' => 'admin.employee.form',
             'route' => $this->role,
             'branches' => Branch::select('id', 'name')->get()->pluck('name', 'id'),
         ]);
@@ -83,7 +82,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('admin.employee.edit', compact('employee'));
+        return view('admin.employee.form', compact('employee'));
     }
 
     /**
@@ -94,9 +93,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('admin.common.edit', [
+        return view('admin.employee.form', [
                 'object' => $employee,
-                'form_path' => 'admin.employee.form',
                 'route' => $this->role,
                 'branches' => Branch::select('id', 'name')->get()->pluck('name', 'id'),
             ]

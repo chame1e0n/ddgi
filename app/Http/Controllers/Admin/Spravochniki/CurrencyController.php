@@ -35,9 +35,8 @@ class CurrencyController extends Controller
      */
     public function create()
     {
-        return view('admin.common.create', [
+        return view('admin.spravochniki.currency.form', [
             'object' => new Currency(),
-            'form_path' => 'admin.spravochniki.currency.form'
         ]);
     }
 
@@ -63,7 +62,7 @@ class CurrencyController extends Controller
      */
     public function show(Currency $currency)
     {
-        return view('admin.spravochniki.currency.edit', compact('currency'));
+        return view('admin.spravochniki.currency.form', compact('currency'));
     }
 
     /**
@@ -74,9 +73,8 @@ class CurrencyController extends Controller
      */
     public function edit(Currency $currency)
     {
-        return view('admin.common.edit', [
+        return view('admin.spravochniki.currency.form', [
                 'object' => $currency,
-                'form_path' => 'admin.spravochniki.currency.form'
             ]
         );
     }

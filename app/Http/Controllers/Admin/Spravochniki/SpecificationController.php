@@ -40,9 +40,8 @@ class SpecificationController extends Controller
      */
     public function create()
     {
-        return view('admin.common.create', [
+        return view('admin.spravochniki.specification.form', [
             'object' => new Specification(),
-            'form_path' => 'admin.spravochniki.specification.form',
             'types' => Type::select('id', 'name')->get()->pluck('name', 'id'),
         ]);
     }
@@ -69,7 +68,7 @@ class SpecificationController extends Controller
      */
     public function show(Specification $specification)
     {
-        return view('admin.spravochniki.specification.edit', compact('specification'));
+        return view('admin.spravochniki.specification.form', compact('specification'));
     }
 
     /**
@@ -80,9 +79,8 @@ class SpecificationController extends Controller
      */
     public function edit(Specification $specification)
     {
-        return view('admin.common.edit', [
+        return view('admin.spravochniki.specification.form', [
                 'object' => $specification,
-                'form_path' => 'admin.spravochniki.specification.form',
                 'types' => Type::select('id', 'name')->get()->pluck('name', 'id'),
             ]
         );

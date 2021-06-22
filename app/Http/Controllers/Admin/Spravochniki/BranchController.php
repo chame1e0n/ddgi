@@ -39,9 +39,8 @@ class BranchController extends Controller
      */
     public function create()
     {
-        return view('admin.common.create', [
+        return view('admin.spravochniki.branch.form', [
             'object' => new Branch(),
-            'form_path' => 'admin.spravochniki.branch.form',
             'regions' => Region::select('id', 'name')->get()->pluck('name', 'id'),
         ]);
     }
@@ -68,7 +67,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        return view('admin.spravochniki.branch.edit', compact('branch'));
+        return view('admin.spravochniki.branch.form', compact('branch'));
     }
 
     /**
@@ -79,9 +78,8 @@ class BranchController extends Controller
      */
     public function edit(Branch $branch)
     {
-        return view('admin.common.edit', [
+        return view('admin.spravochniki.branch.form', [
                 'object' => $branch,
-                'form_path' => 'admin.spravochniki.branch.form',
                 'regions' => Region::select('id', 'name')->get()->pluck('name', 'id'),
             ]
         );
