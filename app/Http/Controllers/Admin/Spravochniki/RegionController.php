@@ -33,9 +33,8 @@ class RegionController extends Controller
      */
     public function create()
     {
-        return view('admin.common.create', [
+        return view('admin.spravochniki.region.form', [
             'object' => new Region(),
-            'form_path' => 'admin.spravochniki.region.form'
         ]);
     }
 
@@ -61,7 +60,7 @@ class RegionController extends Controller
      */
     public function show(Region $region)
     {
-        return view('admin.spravochniki.region.edit', compact('region'));
+        return view('admin.spravochniki.region.form', compact('region'));
     }
 
     /**
@@ -72,9 +71,8 @@ class RegionController extends Controller
      */
     public function edit(Region $region)
     {
-        return view('admin.common.edit', [
+        return view('admin.spravochniki.region.form', [
                 'object' => $region,
-                'form_path' => 'admin.spravochniki.region.form'
             ]
         );
     }

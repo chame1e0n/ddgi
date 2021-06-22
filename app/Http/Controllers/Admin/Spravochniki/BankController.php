@@ -33,9 +33,8 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('admin.common.create', [
+        return view('admin.spravochniki.bank.form', [
             'object' => new Bank(),
-            'form_path' => 'admin.spravochniki.bank.form'
         ]);
     }
 
@@ -61,7 +60,7 @@ class BankController extends Controller
      */
     public function show(Bank $bank)
     {
-        return view('admin.spravochniki.bank.edit', compact('bank'));
+        return view('admin.spravochniki.bank.form', compact('bank'));
     }
 
     /**
@@ -72,9 +71,8 @@ class BankController extends Controller
      */
     public function edit(Bank $bank)
     {
-        return view('admin.common.edit', [
+        return view('admin.spravochniki.bank.form', [
                 'object' => $bank,
-                'form_path' => 'admin.spravochniki.bank.form'
             ]
         );
     }

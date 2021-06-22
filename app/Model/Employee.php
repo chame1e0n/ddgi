@@ -53,8 +53,6 @@ class Employee extends Model
         'employee.birthdate' => 'required',
         'employee.passport_number' => 'required',
         'employee.passport_series' => 'required',
-        'employee.work_start_date' => 'required',
-        'employee.work_end_date' => 'required',
         'employee.phone' => 'required',
         'employee.address' => 'required',
     ];
@@ -165,5 +163,20 @@ class Employee extends Model
     public function request_overviews()
     {
         return $this->hasMany(RequestOverview::class);
+    }
+
+    /**
+     * Get title of the role in the specified form.
+     * @param string $role        Role
+     * @param bool   $plural_form Form
+     * @return string
+     */
+    public static function getTitle($role, $plural_form = false)
+    {
+        $title = self::$roles[$role];
+        $first_char = mb_substr($title, 0, 1);
+        $last_chars = mb_substr($title, 1, null);
+
+        return mb_strtoupper($first_char) . $last_chars . ($plural_form ? 'ы' : '');
     }
 }

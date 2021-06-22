@@ -71,9 +71,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('spravochniki/region', 'Admin\Spravochniki\RegionController');
     Route::resource('spravochniki/request', 'Admin\Spravochniki\RequestController');
     Route::resource('spravochniki/specification', 'Admin\Spravochniki\SpecificationController');
-    Route::resource('director', 'Admin\DirectorController');
-    Route::resource('agent', 'Admin\AgentController');
-    Route::resource('manager', 'Admin\ManagerController');
+    Route::resource('directors', 'Admin\DirectorController');
+    Route::resource('agents', 'Admin\AgentController');
+    Route::resource('managers', 'Admin\ManagerController');
 
     Route::resource('spravochniki/product','ProductController'); // :TODO:
     Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
