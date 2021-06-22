@@ -14,11 +14,29 @@ class Pretension extends Model
     public const STATUS_REFUSED = 'refused';
 
     /**
+     * Employee's roles.
+     *
+     * @var array
+     */
+    public static $statuses = [
+        self::STATUS_ACCEPTED => 'Принят',
+        self::STATUS_IN_PROGRESS => 'В процессе',
+        self::STATUS_REFUSED => 'Отклонено'
+    ];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
      */
     protected $table = 'pretensions';
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     /**
      * Get relation to the branches table.

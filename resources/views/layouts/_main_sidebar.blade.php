@@ -121,11 +121,10 @@
 
                 <li class="nav-header">Претензии</li>
                 <li class="nav-item">
-                    <a href="{{route('pretensii.index')}}" class="nav-link">
+                    <a href="{{route('pretension.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-medkit"></i>
                         <p>
                             Претензии
-                            <!--<span class="badge badge-info right">2</span>-->
                         </p>
                     </a>
                 </li>

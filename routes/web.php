@@ -117,10 +117,12 @@ Route::group(['middleware' => ['auth']], function () {
         return \Illuminate\Support\Facades\Storage::disk('public')->download($file->file, $file->from_whom . "." . $filetype[1]);
     })->name('request.upload');
 
-    Route::group(['middleware' => ['permission:show pretensii']], function () {
-        Route::resource('pretensii', 'PretensiiController'); // ['only' => ['index']]
-        Route::get('pretensii/create/{id}', 'PretensiiController@create'); // ['only' => ['index']]
-    });
+    Route::resource('pretension', 'Admin\PretensionController');
+    Route::resource('pretensionoverview', 'Admin\PretensionOverviewController');
+    /*Route::group(['middleware' => ['permission:show pretensii']], function () {
+        Route::resource('pretension', 'Admin\PretensionController'); // ['only' => ['index']]
+        //Route::get('pretension/create/{id}', 'PretensiiController@create'); // ['only' => ['index']]
+    });*/
 
     Route::get('site_order/refresh', 'FromSiteOrderController@refresh')->name('site_order.refresh');
     Route::resource('site_order', 'FromSiteOrderController', [
