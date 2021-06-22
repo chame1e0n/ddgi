@@ -389,7 +389,7 @@
                 {{--</a>--}}
                 {{--</li>--}}
                 <li class="nav-item">
-                    <a href="{{route('director.index')}}" class="nav-link">
+                    <a href="{{route('directors.index')}}" class="nav-link">
                         <i class="nav-icon far fa-address-card"></i>
                         <p>
                             Директора
@@ -397,7 +397,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('agent.index')}}" class="nav-link">
+                    <a href="{{route('agents.index')}}" class="nav-link">
                         <i class="nav-icon far fa-address-card"></i>
                         <p>
                             Агенты
@@ -405,7 +405,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('manager.index')}}" class="nav-link">
+                    <a href="{{route('managers.index')}}" class="nav-link">
                         <i class="nav-icon far fa-address-card"></i>
                         <p>
                             Менеджеры

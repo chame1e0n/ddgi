@@ -52,6 +52,7 @@ class User extends Authenticatable
      * @var array
      */
     public static $validate = [
+        'user.email' => 'required',
         'user.password' => 'required',
     ];
 

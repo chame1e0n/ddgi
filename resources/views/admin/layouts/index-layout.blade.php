@@ -63,7 +63,7 @@
                                                 <form action="{{route($route . '.destroy', $object->id)}}"
                                                       method="POST">
                                                     <a class="btn btn-info"
-                                                       href="{{route($route . '.edit', $object->id)}}">
+                                                       href="{{route($route . '.show', $object->id)}}">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
 

@@ -14,19 +14,15 @@ class EmployeeController extends Controller
     protected $role;
 
     /**
-     * Display a listing of the resource.
+     * Display a list of all employees.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $role = Employee::$roles[$this->role];
-        $first_char = mb_substr($role, 0, 1);
-        $last_chars = mb_substr($role, 1, null);
-
         return view('admin.layouts.index-layout', [
             'objects' => Employee::where('role', $this->role)->get(),
-            'title' => mb_strtoupper($first_char) . $last_chars . 'ы',
+            'title' => Employee::getTitle($this->role, true),
             'fields' => [
                 'name' => 'Имя',
                 'branch_id' => [
@@ -35,114 +31,128 @@ class EmployeeController extends Controller
                     'list' => Branch::select('id', 'name')->get()->pluck('name', 'id'),
                 ],
             ],
-            'route' => $this->role,
+            'route' => $this->role . 's',
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new employee.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         $employee = new Employee();
-        $employee->user = new User();
+        $employee->role = $this->role;
+
+        $user = new User();
 
         return view('admin.employee.form', [
-            'object' => $employee,
-            'title' => Employee::$roles[$this->role],
-            'route' => $this->role,
-            'branches' => Branch::select('id', 'name')->get()->pluck('name', 'id'),
+            'block' => false,
+            'employee' => $employee,
+            'user' => $user,
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new employee.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $employee = new Employee();
+        $request->validate(array_merge(Employee::$validate, User::$validate));
+
         $user = new User();
-
-        $this->saveObject($employee, $user);
-
-        return redirect()->route($this->role . '.index')
-            ->with('success', 'Успешно добавлен новый ' . Employee::$roles[$this->role]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Employee $employees
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Employee $employee)
-    {
-        return view('admin.employee.form', compact('employee'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Employee $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employee $employee)
-    {
-        return view('admin.employee.form', [
-                'object' => $employee,
-                'route' => $this->role,
-                'branches' => Branch::select('id', 'name')->get()->pluck('name', 'id'),
-            ]
-        );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Employee $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Employee $employee)
-    {
-        $this->saveObject($employee, $employee->user);
-
-        return redirect()->route($this->role . '.index')
-            ->with('success', sprintf('Дынные о ' . Employee::$roles[$this->role] . 'е \'%s\' были успешно обновлены', $employee->name));
-    }
-
-    protected function saveObject($employee, $user) {
-        $validate = empty($user->id) ? array_merge(Employee::$validate, User::$validate) : Employee::$validate;
-        request()->validate($validate);
-
-        $user->email = request('user.email');
-        if (request('user.password')) {
-            $user->password = Hash::make(request('user.password'));
-        }
+        $user->name = $request['employee.name'];
+        $user->email = $request['user.email'];
+        $user->password = Hash::make($request['user.password']);
         $user->save();
 
-        $employee->fill(request('employee'));
+        $employee = new Employee();
+        $employee->fill($request['employee']);
         $employee->role = $this->role;
         $employee->user_id = $user->id;
-
         $employee->save();
+
+        return redirect()->route($this->role . 's.index')
+                         ->with('success', 'Успешно добавлен новый ' . Employee::$roles[$this->role]);
     }
 
     /**
-     * @param Employee $employee
+     * Display an existing employee.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $employee = Employee::find($id);
+
+        return view('admin.employee.form', [
+            'block' => true,
+            'employee' => $employee,
+            'user' => $employee->user,
+        ]);
+    }
+
+    /**
+     * Show a form to edit existing employee.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $employee = Employee::find($id);
+
+        return view('admin.employee.form', [
+            'block' => false,
+            'employee' => $employee,
+            'user' => $employee->user,
+        ]);
+    }
+
+    /**
+     * Update an existing employee.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate(array_merge(Employee::$validate));
+
+        $employee = Employee::find($id);
+
+        $user = $employee->user;
+        $user->name = $request['employee.name'];
+        $user->email = $request['user.email'] ?? $user->email;
+        $user->password = $request['user.password'] ? Hash::make($request['user.password']) : $user->password;
+        $user->save();
+
+        $employee->fill($request['employee']);
+        $employee->save();
+
+        return redirect()->route($this->role . 's.index')
+                         ->with('success', sprintf('Данные о ' . Employee::$roles[$this->role] . 'е \'%s\' были успешно обновлены', $employee->name));
+    }
+
+    /**
+     * Destroy an existing employee.
+     * 
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
+        $employee = Employee::find($id);
         $employee->delete();
 
-        return redirect()->route($this->role . '.index')
-            ->with('success', sprintf('Дынные о ' . Employee::$roles[$this->role] . 'е \'%s\' были успешно удалены', $employee->name));
+        return redirect()->route($this->role . 's.index')
+                         ->with('success', sprintf('Данные о ' . Employee::$roles[$this->role] . 'е \'%s\' были успешно удалены', $employee->name));
     }
 }
