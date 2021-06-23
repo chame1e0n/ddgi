@@ -38,71 +38,7 @@
 
                 <div class="card-body">
                     @include('includes.client')
-
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Заемщик</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="insurer-name" class="col-form-label">Наименования заемщика</label>
-                                            <input type="text" id="insurer-name" value="{{$all_product->zaemshik->z_fio}}" name="fio_insured" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-address" class="col-form-label">Адрес заемщика</label>
-                                            <input type="text" id="beneficiary-address" value="{{$all_product->zaemshik->z_address}}" name="address_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="beneficiary-tel" value="{{$all_product->zaemshik->z_phone}}" name="tel_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-schet" class="col-form-label">Расчетный счет</label>
-                                            <input type="text" id="beneficiary-schet" value="{{$all_product->zaemshik->z_checking_account}}" name="beneficiary_schet" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-inn" class="col-form-label">ИНН</label>
-                                            <input type="text" id="beneficiary-inn" value="{{$all_product->zaemshik->z_inn}}" name="inn_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-mfo" class="col-form-label">МФО</label>
-                                            <input type="text" id="beneficiary-mfo" value="{{$all_product->zaemshik->z_mfo}}" name="mfo_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-bank" class="col-form-label">Банк</label>
-                                            <input type="text" id="beneficiary-bank" value="{{$all_product->zaemshik->bank_id}}" name="bank_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-okonh" class="col-form-label">ОКЭД</label>
-                                            <input type="text" id="beneficiary-okonh" value="{{$all_product->zaemshik->z_oked}}" name="oked_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('includes.borrower')
                 </div>
 
 
