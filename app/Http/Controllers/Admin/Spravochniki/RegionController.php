@@ -22,49 +22,57 @@ class RegionController extends Controller
                 'name' => 'Регион',
                 'created_at' => 'Создан',
             ],
-            'route' => 'region',
+            'route' => 'regions',
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new region.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('admin.spravochniki.region.form', [
-            'object' => new Region(),
+            'block' => false,
+            'region' => new Region(),
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new region.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->saveObject(new Region());
+        $request->validate(Region::$validate);
 
-        return redirect()->route('region.index')
-            ->with('success', 'Успешно добавлена новая регион');
+        $region = new Region();
+        $region->fill($request['region']);
+        $region->save();
+
+        return redirect()->route('regions.index')
+                         ->with('success', 'Успешно добавлен новый регион');
     }
 
     /**
-     * Display the specified resource.
+     * Display an existing region.
      *
      * @param  Region $region
      * @return \Illuminate\Http\Response
      */
     public function show(Region $region)
     {
-        return view('admin.spravochniki.region.form', compact('region'));
+        return view('admin.spravochniki.region.form', [
+            'block' => true,
+            'region' => $region,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show a form to edit existing region.
      *
      * @param  Region $region
      * @return \Illuminate\Http\Response
@@ -72,13 +80,13 @@ class RegionController extends Controller
     public function edit(Region $region)
     {
         return view('admin.spravochniki.region.form', [
-                'object' => $region,
-            ]
-        );
+            'block' => false,
+            'region' => $region,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing region.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  Region $region
@@ -86,22 +94,18 @@ class RegionController extends Controller
      */
     public function update(Request $request, Region $region)
     {
-        $this->saveObject($region);
+        $request->validate(Region::$validate);
 
-        return redirect()->route('region.index')
-            ->with('success', sprintf('Дынные о группе \'%s\' были успешно обновлены', $region->name));
-    }
-
-    protected function saveObject($region) {
-        request()->validate([
-            'region.name' => 'required',
-        ]);
-
-        $region->fill(request('region'));
+        $region->fill($request['region']);
         $region->save();
+
+        return redirect()->route('regions.index')
+                         ->with('success', sprintf('Данные о группе \'%s\' были успешно обновлены', $region->name));
     }
 
     /**
+     * Destroy an existing region.
+     * 
      * @param Region $region
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
@@ -110,7 +114,7 @@ class RegionController extends Controller
     {
         $region->delete();
 
-        return redirect()->route('region.index')
-            ->with('success', sprintf('Дынные о группе \'%s\' были успешно удалены', $region->name));
+        return redirect()->route('regions.index')
+                         ->with('success', sprintf('Данные о группе \'%s\' были успешно удалены', $region->name));
     }
 }

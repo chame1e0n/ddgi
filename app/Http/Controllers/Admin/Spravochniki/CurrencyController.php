@@ -24,49 +24,57 @@ class CurrencyController extends Controller
                 'priority' => 'Приоритет',
                 'created_at' => 'Создан',
             ],
-            'route' => 'currency',
+            'route' => 'currencies',
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new currency.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('admin.spravochniki.currency.form', [
-            'object' => new Currency(),
+            'block' => false,
+            'currency' => new Currency(),
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new currency.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->saveObject(new Currency());
+        $request->validate(Currency::$validate);
 
-        return redirect()->route('currency.index')
-            ->with('success', 'Успешно добавлена новая валюта');
+        $currency = new Currency();
+        $currency->fill($request['currency']);
+        $currency->save();
+
+        return redirect()->route('currencies.index')
+                         ->with('success', 'Успешно добавлена новая валюта');
     }
 
     /**
-     * Display the specified resource.
+     * Display an existing currency.
      *
      * @param  Currency $currency
      * @return \Illuminate\Http\Response
      */
     public function show(Currency $currency)
     {
-        return view('admin.spravochniki.currency.form', compact('currency'));
+        return view('admin.spravochniki.currency.form', [
+            'block' => true,
+            'currency' => $currency,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show a form to edit existing currency.
      *
      * @param  Currency $currency
      * @return \Illuminate\Http\Response
@@ -74,13 +82,13 @@ class CurrencyController extends Controller
     public function edit(Currency $currency)
     {
         return view('admin.spravochniki.currency.form', [
-                'object' => $currency,
-            ]
-        );
+            'block' => false,
+            'currency' => $currency,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing currency.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  Currency $currency
@@ -88,22 +96,18 @@ class CurrencyController extends Controller
      */
     public function update(Request $request, Currency $currency)
     {
-        $this->saveObject($currency);
+        $request->validate(Currency::$validate);
 
-        return redirect()->route('currency.index')
-            ->with('success', sprintf('Дынные о валюте \'%s\' были успешно обновлены', $currency->name));
-    }
-
-    protected function saveObject($currency) {
-        request()->validate([
-            'currency.name' => 'required',
-        ]);
-
-        $currency->fill(request('currency'));
+        $currency->fill($request['currency']);
         $currency->save();
+
+        return redirect()->route('currencies.index')
+                         ->with('success', sprintf('Данные о валюте \'%s\' были успешно обновлены', $currency->name));
     }
 
     /**
+     * Destroy an existing currency.
+     * 
      * @param Currency $currency
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
@@ -112,7 +116,7 @@ class CurrencyController extends Controller
     {
         $currency->delete();
 
-        return redirect()->route('currency.index')
-            ->with('success', sprintf('Дынные о валюте \'%s\' были успешно удалены', $currency->name));
+        return redirect()->route('currencies.index')
+                         ->with('success', sprintf('Данные о валюте \'%s\' были успешно удалены', $currency->name));
     }
 }

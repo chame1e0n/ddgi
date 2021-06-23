@@ -24,6 +24,15 @@ class Region extends Model
     protected $table = 'regions';
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'region.name' => 'required',
+    ];
+
+    /**
      * Get relation to the branches table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

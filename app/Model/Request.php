@@ -31,11 +31,29 @@ class Request extends Model
     ];
 
     /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
      */
     protected $table = 'requests';
+
+    /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'request.employee_id' => 'required',
+        'request.comment' => 'required',
+        'request.file' => 'required',
+    ];
 
     /**
      * Get relation to the employees table.

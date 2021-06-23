@@ -65,12 +65,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    Route::resource('spravochniki/bank', 'Admin\Spravochniki\BankController');
-    Route::resource('spravochniki/branch', 'Admin\Spravochniki\BranchController');
-    Route::resource('spravochniki/currency', 'Admin\Spravochniki\CurrencyController');
-    Route::resource('spravochniki/region', 'Admin\Spravochniki\RegionController');
-    Route::resource('spravochniki/request', 'Admin\Spravochniki\RequestController');
-    Route::resource('spravochniki/specification', 'Admin\Spravochniki\SpecificationController');
+    Route::resource('directory/banks', 'Admin\Spravochniki\BankController');
+    Route::resource('directory/branches', 'Admin\Spravochniki\BranchController');
+    Route::resource('directory/currencies', 'Admin\Spravochniki\CurrencyController');
+    Route::resource('directory/regions', 'Admin\Spravochniki\RegionController');
+    Route::resource('directory/requests', 'Admin\Spravochniki\RequestController');
+    Route::resource('directory/specifications', 'Admin\Spravochniki\SpecificationController');
+
     Route::resource('directors', 'Admin\DirectorController');
     Route::resource('agents', 'Admin\AgentController');
     Route::resource('managers', 'Admin\ManagerController');

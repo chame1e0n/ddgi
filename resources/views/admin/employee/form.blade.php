@@ -2,7 +2,7 @@
 
 @section('form-content')
     <form action="{{route($employee->role . 's.' . ($employee->exists ? 'update' : 'store'), $employee->id)}}"
-          id="{{$employee->role}}-form"
+          id="form-{{$employee->role}}"
           method="post">
         @csrf
 

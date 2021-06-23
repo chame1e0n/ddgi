@@ -352,7 +352,7 @@
                 <!--Филилалы-->
                 <li class="nav-header">Филиалы</li>
                 <li class="nav-item">
-                    <a href="{{route('branch.index')}}" class="nav-link">
+                    <a href="{{route('branches.index')}}" class="nav-link">
                         <i class="nav-icon fab fa-buffer"></i>
                         <p>
                             Офисы
@@ -422,7 +422,7 @@
                 {{--</a>--}}
                 {{--</li>--}}
                 <li class="nav-item">
-                    <a href="{{route('region.index')}}" id="regions" class="nav-link">
+                    <a href="{{route('regions.index')}}" id="regions" class="nav-link">
                         <i class="nav-icon fa fa-map"></i>
                         <p>
                             Регионы
@@ -430,7 +430,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('currency.index')}}" id="currencies" class="nav-link">
+                    <a href="{{route('currencies.index')}}" id="currencies" class="nav-link">
                         <i class="nav-icon fa fa-money-bill"></i>
                         <p>
                             Валюты
@@ -438,7 +438,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('bank.index')}}" id="banks" class="nav-link">
+                    <a href="{{route('banks.index')}}" id="banks" class="nav-link">
                         <i class="nav-icon fa fa-university"></i>
                         <p>
                             Банки
@@ -446,7 +446,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('specification.index')}}" class="nav-link">
+                    <a href="{{route('specifications.index')}}" class="nav-link">
                         <i class="nav-icon far fa-building"></i>
                         <p>
                             Продукты
@@ -454,7 +454,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('request.index')}}" id="banki"
+                    <a href="{{route('requests.index')}}" id="banki"
                        class="nav-link {{ request()->is('spravochniki/request*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-question-circle"></i>
                         <p>

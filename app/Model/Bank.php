@@ -24,6 +24,20 @@ class Bank extends Model
     protected $table = 'banks';
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'bank.code' => 'required',
+        'bank.name' => 'required',
+        'bank.filial' => 'required',
+        'bank.address' => 'required',
+        'bank.inn' => 'required',
+        'bank.account' => 'required',
+    ];
+
+    /**
      * Get relation to the beneficiaries table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

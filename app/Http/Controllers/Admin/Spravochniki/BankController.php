@@ -22,49 +22,57 @@ class BankController extends Controller
                 'name' => 'Наименование',
                 'code' => 'Код',
             ],
-            'route' => 'bank',
+            'route' => 'banks',
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new bank.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('admin.spravochniki.bank.form', [
-            'object' => new Bank(),
+            'block' => false,
+            'bank' => new Bank(),
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new bank.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->saveObject(new Bank());
+        $request->validate(Bank::$validate);
 
-        return redirect()->route('bank.index')
-            ->with('success', 'Успешно добавлен новый банк');
+        $bank = new Bank();
+        $bank->fill($request['bank']);
+        $bank->save();        
+
+        return redirect()->route('banks.index')
+                         ->with('success', 'Успешно добавлен новый банк');
     }
 
     /**
-     * Display the specified resource.
+     * Display an existing bank.
      *
-     * @param  Bank $banks
+     * @param  Bank $bank
      * @return \Illuminate\Http\Response
      */
     public function show(Bank $bank)
     {
-        return view('admin.spravochniki.bank.form', compact('bank'));
+        return view('admin.spravochniki.bank.form', [
+            'block' => true,
+            'bank' => $bank,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show a form to edit existing bank.
      *
      * @param  Bank $bank
      * @return \Illuminate\Http\Response
@@ -72,13 +80,13 @@ class BankController extends Controller
     public function edit(Bank $bank)
     {
         return view('admin.spravochniki.bank.form', [
-                'object' => $bank,
-            ]
-        );
+            'block' => false,
+            'bank' => $bank,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing bank.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  Bank $bank
@@ -86,27 +94,18 @@ class BankController extends Controller
      */
     public function update(Request $request, Bank $bank)
     {
-        $this->saveObject($bank);
+        $request->validate(Bank::$validate);
 
-        return redirect()->route('bank.index')
-            ->with('success', sprintf('Дынные о банке \'%s\' были успешно обновлены', $bank->name));
-    }
-
-    protected function saveObject($bank) {
-        request()->validate([
-            'bank.code' => 'required',
-            'bank.name' => 'required',
-            'bank.filial' => 'required',
-            'bank.address' => 'required',
-            'bank.inn' => 'required',
-            'bank.account' => 'required'
-        ]);
-
-        $bank->fill(request('bank'));
+        $bank->fill($request['bank']);
         $bank->save();
+
+        return redirect()->route('banks.index')
+                         ->with('success', sprintf('Данные о банке \'%s\' были успешно обновлены', $bank->name));
     }
 
     /**
+     * Destroy an existing bank.
+     * 
      * @param Bank $bank
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
@@ -115,12 +114,7 @@ class BankController extends Controller
     {
         $bank->delete();
 
-        return redirect()->route('bank.index')
-            ->with('success', sprintf('Дынные о банке \'%s\' были успешно удалены', $bank->name));
-    }
-
-    public function getAllBanks(Request $request)
-    {
-        return Bank::select('id', 'code as mfo', 'name')->get()->toJson();
+        return redirect()->route('banks.index')
+                         ->with('success', sprintf('Данные о банке \'%s\' были успешно удалены', $bank->name));
     }
 }

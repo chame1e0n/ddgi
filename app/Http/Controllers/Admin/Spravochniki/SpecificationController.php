@@ -29,93 +29,91 @@ class SpecificationController extends Controller
                     'list' => Type::select('id', 'name')->get()->pluck('name', 'id'),
                 ],
             ],
-            'route' => 'specification',
+            'route' => 'specifications',
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new specification.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('admin.spravochniki.specification.form', [
-            'object' => new Specification(),
-            'types' => Type::select('id', 'name')->get()->pluck('name', 'id'),
+            'block' => false,
+            'specification' => new Specification(),
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new specification.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->saveObject(new Specification());
+        $request->validate(Specification::$validate);
 
-        return redirect()->route('specification.index')
-            ->with('success', 'Успешно добавлен новый продукте');
+        $specification = new Specification();
+        $specification->fill($request['specification']);
+        $specification->save();
+
+        return redirect()->route('specifications.index')
+                         ->with('success', 'Успешно добавлен новый продукт');
     }
 
     /**
-     * Display the specified resource.
+     * Display an existing specification.
      *
-     * @param  Specification $specification
+     * @param  \App\Model\Specification $specification
      * @return \Illuminate\Http\Response
      */
     public function show(Specification $specification)
     {
-        return view('admin.spravochniki.specification.form', compact('specification'));
+        return view('admin.spravochniki.specification.form', [
+            'block' => true,
+            'specification' => $specification,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show a form to edit existing specification.
      *
-     * @param  Specification $specification
+     * @param  \App\Model\Specification $specification
      * @return \Illuminate\Http\Response
      */
     public function edit(Specification $specification)
     {
         return view('admin.spravochniki.specification.form', [
-                'object' => $specification,
-                'types' => Type::select('id', 'name')->get()->pluck('name', 'id'),
-            ]
-        );
+            'block' => false,
+            'specification' => $specification,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing specification.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Specification $specification
+     * @param  \App\Model\Specification $specification
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Specification $specification)
     {
-        $this->saveObject($specification);
+        $request->validate(Specification::$validate);
 
-        return redirect()->route('specification.index')
-            ->with('success', sprintf('Дынные о продукте \'%s\' были успешно обновлены', $specification->name));
-    }
-
-    protected function saveObject($specification) {
-        request()->validate([
-            'specification.code' => 'required',
-            'specification.name' => 'required',
-            'specification.tarif' => 'required',
-            'specification.type_id' => 'required',
-            'specification.max_acceptable_amount' => 'required'
-        ]);
-
-        $specification->fill(request('specification'));
+        $specification->fill($request['specification']);
         $specification->save();
+
+        return redirect()->route('specifications.index')
+                         ->with('success', sprintf('Данные о продукте \'%s\' были успешно обновлены', $specification->name));
     }
 
     /**
-     * @param Specification $specification
+     * Destroy an existing specification.
+     * 
+     * @param \App\Model\Specification $specification
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
@@ -123,7 +121,7 @@ class SpecificationController extends Controller
     {
         $specification->delete();
 
-        return redirect()->route('specification.index')
-            ->with('success', sprintf('Дынные о продукте \'%s\' были успешно удалены', $specification->name));
+        return redirect()->route('specifications.index')
+                         ->with('success', sprintf('Данные о продукте \'%s\' были успешно удалены', $specification->name));
     }
 }

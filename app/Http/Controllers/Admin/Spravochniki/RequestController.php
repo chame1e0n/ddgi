@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin\Spravochniki;
 
 use App\Http\Controllers\Controller;
-use App\Model\Policy;
-use App\Model\Request;
-use App\Models\Spravochniki\RequestModel;
+use App\Model\Request as ModelRequest;
 use App\User;
+use Illuminate\Http\Request as HttpRequest;
 
 class RequestController extends Controller
 {
@@ -18,7 +17,7 @@ class RequestController extends Controller
     public function index()
     {
         return view('admin.layouts.index-layout', [
-            'objects' => Request::all(),
+            'objects' => ModelRequest::all(),
             'title' => 'Запросы',
             'fields' => [
                 'employee_id' => [
@@ -29,109 +28,102 @@ class RequestController extends Controller
                 'status' => [
                     'title' => 'Статус',
                     'type' => 'select',
-                    'list' => Request::$statuses,
+                    'list' => ModelRequest::$statuses,
                 ],
                 'created_at' => 'Дата запроса',
             ],
-            'route' => 'request',
+            'route' => 'requests',
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new request.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         return view('admin.spravochniki.request.form', [
-            'object' => new \App\Model\Request(),
-            'statuses' => RequestModel::STATUS,
-            'policies' => Policy::select('id', 'name')->get()->pluck('name', 'id'),
+            'block' => false,
+            'request' => new ModelRequest(),
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new request.
      *
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(HttpRequest $http_request)
     {
-        $this->saveObject(new \App\Model\Request());
+        $http_request->validate(Request::$validate);
 
-        return redirect()->route('request.index')
-            ->with('success', 'Успешно добавлен новый запрос');
+        $model_request = new ModelRequest();
+        $model_request->fill($http_request['request']);
+        $model_request->save();
+
+        return redirect()->route('requests.index')
+                         ->with('success', 'Успешно добавлен новый запрос');
     }
 
     /**
-     * Display the specified resource.
+     * Display an existing request.
      *
-     * @param  \App\Model\Request $requests
+     * @param  \App\Model\Request $model_request
      * @return \Illuminate\Http\Response
      */
-    public function show(\App\Model\Request $request)
-    {
-        return view('admin.spravochniki.request.form', compact('request'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(\App\Model\Request $request)
+    public function show(ModelRequest $model_request)
     {
         return view('admin.spravochniki.request.form', [
-                'object' => $request,
-                'statuses' => RequestModel::STATUS,
-                'policies' => Policy::select('id', 'name')->get()->pluck('name', 'id'),
-            ]
-        );
+            'block' => true,
+            'request' => $model_request,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Show a form to edit existing request.
      *
-     * @param  \Illuminate\Http\Request $request
      * @param  \App\Model\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(\App\Model\Request $request)
+    public function edit(ModelRequest $model_request)
     {
-        $this->saveObject($request);
-
-        return redirect()->route('request.index')
-            ->with('success', sprintf('Дынные о запросе \'%s\' были успешно обновлены', $request->name));
-    }
-
-    protected function saveObject($request) {
-        request()->validate([
-            'request.policy_id' => 'required',
-            'request.employee_id' => 'required',
-            'request.status' => 'required',
-            'request.comment' => 'required',
-            'request.file' => 'required',
-            'request.act_number' => 'required',
-            'request.limit_reason' => 'required',
-            'request.policy_amount' => 'required',
+        return view('admin.spravochniki.request.form', [
+            'block' => false,
+            'request' => $model_request,
         ]);
-
-        $request->fill(request('request'));
-        $request->save();
     }
 
     /**
-     * @param \App\Model\Request $request
+     * Update an existing request.
+     *
+     * @param  \Illuminate\Http\Request $http_request
+     * @param  \App\Model\Request $model_request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(HttpRequest $http_request, ModelRequest $model_request)
+    {
+        $http_request->validate(Request::$validate);
+
+        $model_request->fill($http_request['request']);
+        $model_request->save();
+
+        return redirect()->route('requests.index')
+                         ->with('success', sprintf('Данные о запросе \'%s\' были успешно обновлены', $model_request->name));
+    }
+
+    /**
+     * Destroy an existing request.
+     * 
+     * @param \App\Model\Request $model_request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(\App\Model\Request $request)
+    public function destroy(ModelRequest $model_request)
     {
-        $request->delete();
+        $model_request->delete();
 
-        return redirect()->route('request.index')
-            ->with('success', sprintf('Дынные о запросе \'%s\' были успешно удалены', $request->name));
+        return redirect()->route('requests.index')
+                         ->with('success', sprintf('Данные о запросе \'%s\' были успешно удалены', $model_request->name));
     }
 }

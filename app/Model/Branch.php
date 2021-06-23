@@ -24,6 +24,19 @@ class Branch extends Model
     protected $table = 'branches';
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'branch.name' => 'required',
+        'branch.region_id' => 'required',
+        'branch.founded_date' => 'required',
+        'branch.address' => 'required',
+        'branch.phone_number' => 'required',
+    ];
+
+    /**
      * Get relation to the employees table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

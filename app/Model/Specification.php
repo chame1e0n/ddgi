@@ -92,6 +92,17 @@ class Specification extends Model
     ];
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'specification.code' => 'required',
+        'specification.name' => 'required',
+        'specification.type_id' => 'required',
+    ];
+
+    /**
      * Get relation to the types table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

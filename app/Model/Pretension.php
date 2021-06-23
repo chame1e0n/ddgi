@@ -14,14 +14,14 @@ class Pretension extends Model
     public const STATUS_REFUSED = 'refused';
 
     /**
-     * Employee's roles.
+     * Pretension's statuses.
      *
      * @var array
      */
     public static $statuses = [
         self::STATUS_ACCEPTED => 'Принят',
         self::STATUS_IN_PROGRESS => 'В процессе',
-        self::STATUS_REFUSED => 'Отклонено'
+        self::STATUS_REFUSED => 'Отклонено',
     ];
 
     /**
