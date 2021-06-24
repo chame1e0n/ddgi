@@ -12,44 +12,35 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="insurer-name" class="col-form-label">ФИО/Наименования заемщика</label>
+                        <label for="z_fio" class="col-form-label">ФИО/Наименования заемщика</label>
                         <input type="text"
-                               id="beneficiary-name"
+                               id="z_fio"
                                name="z_fio"
                                value="{{old('z_fio')}}"
-                               @if($errors->has('z_fio'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                            @endif>
+                               class="form-control @if($errors->has('z_fio')) polises is-invalid @endif"
+                        >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="beneficiary-address" class="col-form-label">Адрес заемщика</label>
+                        <label for="z_address" class="col-form-label">Адрес заемщика</label>
                         <input type="text"
-                               id="beneficiary-address"
+                               id="z_address"
                                name="z_address"
                                value="{{old('z_address')}}"
-                               @if($errors->has('z_address'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                            @endif>
+                               class="form-control @if($errors->has('z_address')) polises is-invalid @endif"
+                            >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="beneficiary-tel" class="col-form-label">Телефон</label>
+                        <label for="z_phone" class="col-form-label">Телефон</label>
                         <input type="text"
-                               id="beneficiary-tel"
+                               id="z_phone"
                                name="z_phone"
                                value="{{old('z_phone')}}"
-                               @if($errors->has('z_phone'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                            @endif>
+                               class="form-control @if($errors->has('z_phone')) polises is-invalid @endif"
+                            >
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -59,11 +50,7 @@
                                id="beneficiary-tel"
                                name="passport_series"
                                value="{{old('passport_series')}}"
-                               @if($errors->has('passport_series'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                               @endif
+                               class="form-control @if($errors->has('passport_series')) polises is-invalid @endif"
                             >
                     </div>
                 </div>
@@ -74,11 +61,7 @@
                                id="beneficiary-tel"
                                name="passport_number"
                                value="{{old('passport_number')}}"
-                               @if($errors->has('passport_number'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                               @endif
+                               class="form-control @if($errors->has('passport_number')) polises is-invalid @endif"
                         >
                     </div>
                 </div>
@@ -89,11 +72,7 @@
                                id="beneficiary-tel"
                                name="passport_issued"
                                value="{{old('passport_issued')}}"
-                               @if($errors->has('passport_issued'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                               @endif
+                               class="form-control @if($errors->has('passport_issued')) polises is-invalid @endif"
                         >
                     </div>
                 </div>
@@ -105,11 +84,7 @@
                                    name="passport_when_issued"
                                    type="date"
                                    value="{{old('passport_when_issued')}}"
-                                   @if($errors->has('passport_when_issued'))
-                                    class="form-control polises is-invalid"
-                                   @else
-                                    class="form-control polises"
-                                   @endif
+                                   class="form-control @if($errors->has('passport_when_issued')) polises is-invalid @endif"
                             >
                         </div>
                     </div>
@@ -121,11 +96,7 @@
                                id="beneficiary-schet"
                                name="z_checking_account"
                                value="{{old('z_checking_account')}}"
-                               @if($errors->has('z_checking_account'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                               @endif
+                               class="form-control @if($errors->has('z_checking_account')) polises is-invalid @endif"
                         >
                     </div>
                 </div>
@@ -136,11 +107,7 @@
                                id="beneficiary-inn"
                                name="z_inn"
                                value="{{old('z_inn')}}"
-                               @if($errors->has('z_inn'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                               @endif
+                               class="form-control @if($errors->has('z_inn')) polises is-invalid @endif"
                         >
                     </div>
                 </div>
@@ -151,22 +118,15 @@
                                id="beneficiary-mfo"
                                name="z_mfo"
                                value="{{old('z_mfo')}}"
-                               @if($errors->has('z_mfo'))
-                                class="form-control polises is-invalid"
-                               @else
-                                class="form-control polises"
-                               @endif
+                               class="form-control @if($errors->has('z_mfo')) polises is-invalid @endif"
                         >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="z_bank_id" class="col-form-label">Банк</label>
-                        <select @if($errors->has('z_bank_id'))
-                                    class="form-control is-invalid"
-                                @else
-                                    class="form-control"
-                                @endif
+                        <select
+                                class="form-control @if($errors->has('z_bank_id')) is-invalid @endif"
                                 id="z_bank_id"
                                 name="z_bank_id"
                                 style="width: 100%;"
@@ -190,11 +150,7 @@
                                id="beneficiary-okonh"
                                name="z_okonx"
                                value="{{old('z_okonx')}}"
-                               @if($errors->has('z_okonx'))
-                                class="form-control is-invalid"
-                               @else
-                                class="form-control"
-                               @endif
+                               class="form-control @if($errors->has('z_okonx')) is-invalid @endif"
                         >
                     </div>
                 </div>

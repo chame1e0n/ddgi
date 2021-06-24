@@ -33,25 +33,7 @@
                     @include('includes.client')
                 </div>
                 <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Залогодатель</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    @yield('_zalogodatel_content')
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    @include('includes.pledger')
                 </div>
                 <div class="card-body">
                     @include('includes.beneficiary')
