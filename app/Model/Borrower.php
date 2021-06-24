@@ -33,4 +33,17 @@ class Borrower extends Model
     {
         return $this->hasMany(Contract::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->contracts as /* @var $contract Contract */ $contract) {
+            $contract->borrower_id = null;
+            $contract->save();
+        }
+
+        return parent::delete();
+    }
 }

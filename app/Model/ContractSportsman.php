@@ -34,4 +34,16 @@ class ContractSportsman extends Model
     {
         return $this->morphOne(Contract::class, 'model');
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->insurance_cases as /* @var $insurance_case InsuranceCase */ $insurance_case) {
+            $insurance_case->pivot->delete();
+        }
+
+        return parent::delete();
+    }
 }

@@ -55,6 +55,15 @@ class Branch extends Model
     }
 
     /**
+     * Get relation to the branches table.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(Branch::class, 'parent_id');
+    }
+
+    /**
      * Get relation to the regions table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -97,5 +106,30 @@ class Branch extends Model
     public function pretensions()
     {
         return $this->hasMany(Pretension::class);
+    }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->children as /* @var $child Branch */ $child) {
+            $child->delete();
+        }
+        foreach($this->employees as /* @var $employee Employee */ $employee) {
+            $employee->delete();
+        }
+        foreach($this->policies as /* @var $policy Policy */ $policy) {
+            $policy->branch_id = null;
+            $policy->save();
+        }
+        foreach($this->policy_flows as /* @var $policy_flow PolicyFlow */ $policy_flow) {
+            $policy_flow->delete();
+        }
+        foreach($this->pretensions as /* @var $pretension Pretension */ $pretension) {
+            $pretension->delete();
+        }
+
+        return parent::delete();
     }
 }

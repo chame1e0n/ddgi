@@ -24,4 +24,16 @@ class Contragent extends Model
     {
         return $this->hasMany(ContractGuarantee::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->contract_guarantees as /* @var $contract_guarantee ContractGuarantee */ $contract_guarantee) {
+            $contract_guarantee->delete();
+        }
+
+        return parent::delete();
+    }
 }

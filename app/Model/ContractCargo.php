@@ -38,4 +38,16 @@ class ContractCargo extends Model
     {
         return $this->morphOne(Contract::class, 'model');
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->accompanying_persons as /* @var $accompanying_person AccompanyingPerson */ $accompanying_person) {
+            $accompanying_person->delete();
+        }
+
+        return parent::delete();
+    }
 }

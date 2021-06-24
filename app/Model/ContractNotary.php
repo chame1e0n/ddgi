@@ -48,4 +48,16 @@ class ContractNotary extends Model
     {
         return $this->morphOne(Contract::class, 'model');
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->notary_employees as /* @var $notary_employee NotaryEmployee */ $notary_employee) {
+            $notary_employee->delete();
+        }
+
+        return parent::delete();
+    }
 }

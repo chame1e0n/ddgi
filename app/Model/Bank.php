@@ -72,4 +72,25 @@ class Bank extends Model
     {
         return $this->hasMany(Pledger::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->beneficiaries as /* @var $beneficiary Beneficiary */ $beneficiary) {
+            $beneficiary->delete();
+        }
+        foreach($this->borrowers as /* @var $borrower Borrower */ $borrower) {
+            $borrower->delete();
+        }
+        foreach($this->clients as /* @var $client Client */ $client) {
+            $client->delete();
+        }
+        foreach($this->pledgers as /* @var $pledger Pledger */ $pledger) {
+            $pledger->delete();
+        }
+
+        return parent::delete();
+    }
 }

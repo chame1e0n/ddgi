@@ -31,4 +31,16 @@ class Type extends Model
     {
         return $this->hasMany(Specification::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->specifications as /* @var $specification Specification */ $specification) {
+            $specification->delete();
+        }
+
+        return parent::delete();
+    }
 }

@@ -33,4 +33,17 @@ class Pledger extends Model
     {
         return $this->hasMany(Contract::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->contracts as /* @var $contract Contract */ $contract) {
+            $contract->pledger_id = null;
+            $contract->save();
+        }
+
+        return parent::delete();
+    }
 }

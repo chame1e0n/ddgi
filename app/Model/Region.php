@@ -40,4 +40,16 @@ class Region extends Model
     {
         return $this->hasMany(Branch::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->branches as /* @var $branch Branch */ $branch) {
+            $branch->delete();
+        }
+
+        return parent::delete();
+    }
 }

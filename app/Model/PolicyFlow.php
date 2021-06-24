@@ -82,4 +82,16 @@ class PolicyFlow extends Model
     {
         return $this->hasMany(PolicyFlowFile::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->policy_flow_files as /* @var $policy_flow_file PolicyFlowFile */ $policy_flow_file) {
+            $policy_flow_file->delete();
+        }
+
+        return parent::delete();
+    }
 }

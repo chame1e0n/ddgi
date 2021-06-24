@@ -52,4 +52,17 @@ class Currency extends Model
     {
         return self::orderBy('priority', 'asc')->get();
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->contracts as /* @var $contract Contract */ $contract) {
+            $contract->currency_id = null;
+            $contract->save();
+        }
+
+        return parent::delete();
+    }
 }

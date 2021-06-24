@@ -179,4 +179,44 @@ class Employee extends Model
 
         return mb_strtoupper($first_char) . $last_chars . ($plural_form ? 'ы' : '');
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->branches_via_director as /* @var $branch Branch */ $branch) {
+            $branch->director_id = null;
+            $branch->save();
+        }
+        foreach($this->policies as /* @var $policy Policy */ $policy) {
+            $policy->delete();
+        }
+        foreach($this->policy_flows_via_from_employee as /* @var $policy_flow PolicyFlow */ $policy_flow) {
+            $policy_flow->delete();
+        }
+        foreach($this->policy_flows_via_policy_given_by_employee as /* @var $policy_flow PolicyFlow */ $policy_flow) {
+            $policy_flow->delete();
+        }
+        foreach($this->policy_flows_via_to_employee as /* @var $policy_flow PolicyFlow */ $policy_flow) {
+            $policy_flow->delete();
+        }
+        foreach($this->pretension_overviews as /* @var $pretension_overview PretensionOverview */ $pretension_overview) {
+            $pretension_overview->delete();
+        }
+        foreach($this->reinsurances as /* @var $reinsurance Reinsurance */ $reinsurance) {
+            $reinsurance->delete();
+        }
+        foreach($this->reinsurance_overviews as /* @var $reinsurance_overview ReinsuranceOverview */ $reinsurance_overview) {
+            $reinsurance_overview->delete();
+        }
+        foreach($this->requests as /* @var $request Request */ $request) {
+            $request->delete();
+        }
+        foreach($this->request_overviews as /* @var $request_overview RequestOverview */ $request_overview) {
+            $request_overview->delete();
+        }
+
+        return parent::delete();
+    }
 }

@@ -64,4 +64,16 @@ class Pretension extends Model
     {
         return $this->hasMany(PretensionOverview::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->pretension_overviews as /* @var $pretension_overview PretensionOverview */ $pretension_overview) {
+            $pretension_overview->delete();
+        }
+
+        return parent::delete();
+    }
 }

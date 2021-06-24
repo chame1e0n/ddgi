@@ -87,4 +87,29 @@ class Policy extends Model
     {
         return $this->morphTo('model');
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->policy_flows as /* @var $policy_flow PolicyFlow */ $policy_flow) {
+            $policy_flow->delete();
+        }
+        foreach($this->pretensions as /* @var $pretension Pretension */ $pretension) {
+            $pretension->delete();
+        }
+        foreach($this->reinsurances as /* @var $reinsurance Reinsurance */ $reinsurance) {
+            $reinsurance->delete();
+        }
+        foreach($this->requests as /* @var $request Request */ $request) {
+            $request->delete();
+        }
+
+        if ($this->policy_model) {
+            $this->policy_model->delete();
+        }
+
+        return parent::delete();
+    }
 }

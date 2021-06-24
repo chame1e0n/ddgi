@@ -81,4 +81,16 @@ class Request extends Model
     {
         return $this->hasMany(RequestOverview::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->request_overviews as /* @var $request_overview RequestOverview */ $request_overview) {
+            $request_overview->delete();
+        }
+
+        return parent::delete();
+    }
 }

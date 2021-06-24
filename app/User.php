@@ -64,4 +64,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Model\Employee::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->employees as /* @var $employee Employee */ $employee) {
+            $employee->delete();
+        }
+
+        return parent::delete();
+    }
 }

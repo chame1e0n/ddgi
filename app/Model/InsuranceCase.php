@@ -25,4 +25,16 @@ class InsuranceCase extends Model
         return $this->belongsToMany(ContractSportsman::class)
                     ->using(ContractSportsmanInsuranceCase::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->contract_sportsmans as /* @var $contract_sportsman ContractSportsman */ $contract_sportsman) {
+            $contract_sportsman->pivot->delete();
+        }
+
+        return parent::delete();
+    }
 }

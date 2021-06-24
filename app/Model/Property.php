@@ -63,4 +63,28 @@ class Property extends Model
     {
         return $this->hasMany(ContractTrilateralPropertyPledge::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->contract_mortgages as /* @var $contract_mortgage ContractMortgage */ $contract_mortgage) {
+            $contract_mortgage->delete();
+        }
+        foreach($this->contract_multilateral_property_pledges as /* @var $contract_multilateral_property_pledge ContractMultilateralPropertyPledge */ $contract_multilateral_property_pledge) {
+            $contract_multilateral_property_pledge->delete();
+        }
+        foreach($this->contract_property_leasings as /* @var $contract_property_leasing ContractPropertyLeasing */ $contract_property_leasing) {
+            $contract_property_leasing->delete();
+        }
+        foreach($this->contract_special_equipment_pledges as /* @var $contract_special_equipment_pledge ContractSpecialEquipmentPledge */ $contract_special_equipment_pledge) {
+            $contract_special_equipment_pledge->delete();
+        }
+        foreach($this->contract_trilateral_property_pledges as /* @var $contract_trilateral_property_pledge ContractTrilateralPropertyPledge */ $contract_trilateral_property_pledge) {
+            $contract_trilateral_property_pledge->delete();
+        }
+
+        return parent::delete();
+    }
 }

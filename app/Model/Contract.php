@@ -156,4 +156,24 @@ class Contract extends Model
     {
         return $this->morphTo('model');
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->policies as /* @var $policy Policy */ $policy) {
+            $policy->contract_id = null;
+            $policy->save();
+        }
+        foreach($this->tranches as /* @var $tranche Tranche */ $tranche) {
+            $tranche->delete();
+        }
+
+        if ($this->contract_model) {
+            $this->contract_model->delete();
+        }
+
+        return parent::delete();
+    }
 }

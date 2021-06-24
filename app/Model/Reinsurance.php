@@ -42,4 +42,16 @@ class Reinsurance extends Model
     {
         return $this->hasMany(ReinsuranceOverview::class);
     }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->reinsurance_overviews as /* @var $reinsurance_overview ReinsuranceOverview */ $reinsurance_overview) {
+            $reinsurance_overview->delete();
+        }
+
+        return parent::delete();
+    }
 }
