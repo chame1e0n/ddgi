@@ -113,7 +113,7 @@ Route::group(['middleware' => ['auth']], function () {
         $query = $connection->table('agents');
         $query->select('agents.id', 'agents.name');
         $query->crossJoin('policies', 'policies.user_id', '=', 'agents.user_id');
-        $query->whereNotIn('policies.status', ['lost', 'cancelling', 'terminated', 'underwritting']);
+        $query->whereNotIn('policies.status', ['lost', 'cancelling', 'terminated', 'underwriting']);
         $query->where('policies.polis_name', $request->polis_name);
 
         return [

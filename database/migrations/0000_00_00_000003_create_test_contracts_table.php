@@ -22,7 +22,8 @@ class CreateTestContractsTable extends Migration
             $table->integer('insured_person_id')->unsigned()->nullable();
             $table->integer('payment_method_id')->unsigned()->nullable();
             $table->integer('pledger_id')->unsigned()->nullable();
-            $table->integer('specification_id')->unsigned()->nullable();
+            $table->integer('specification_id')->unsigned();
+            $table->string('number', 50);
             $table->enum('payment_type', ['entirely', 'tranche'])->nullable();
             $table->enum('type', ['individual', 'legal']);
             $table->string('status', 45)->default('created');

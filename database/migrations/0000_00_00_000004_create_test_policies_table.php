@@ -19,6 +19,7 @@ class CreateTestPoliciesTable extends Migration
             $table->integer('contract_id')->unsigned()->nullable();
             $table->integer('employee_id')->unsigned();
             $table->string('name', 100);
+            $table->string('number', 50)->nullable();
             $table->integer('series')->unsigned();
             $table->string('act_number', 50);
             $table->string('print_size', 50)->nullable();

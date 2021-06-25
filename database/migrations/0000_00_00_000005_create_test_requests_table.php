@@ -17,9 +17,9 @@ class CreateTestRequestsTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
             $table->integer('policy_id')->unsigned()->nullable();
-            $table->enum('status', ['defective', 'cancelling', 'lost', 'terminated', 'policy_transfer', 'underwritting'])->nullable();
-            $table->tinyInteger('is_underwritting_request')->unsigned();
-            $table->tinyInteger('is_perestrahovaniya_request')->unsigned();
+            $table->enum('status', ['defective', 'cancelling', 'lost', 'terminated', 'policy_transfer', 'underwriting'])->nullable();
+            $table->tinyInteger('is_underwriting_request')->unsigned()->default(0);
+            $table->tinyInteger('is_reinsurance_request')->unsigned()->default(0);
             $table->text('comment')->nullable();
             $table->string('file');
             $table->string('act_number', 200)->nullable();

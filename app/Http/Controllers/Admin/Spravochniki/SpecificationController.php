@@ -22,7 +22,7 @@ class SpecificationController extends Controller
             'fields' => [
                 'name' => 'Наименование',
                 'code' => 'Код',
-                'tarif' => 'Тарифная ставка',
+                'tariff' => 'Тарифная ставка',
                 'type_id' => [
                     'title' => 'Класс',
                     'type' => 'select',

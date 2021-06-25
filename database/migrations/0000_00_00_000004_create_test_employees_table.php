@@ -22,8 +22,8 @@ class CreateTestEmployeesTable extends Migration
             $table->string('surname', 150);
             $table->string('middlename', 150);
             $table->date('birthdate');
-            $table->string('passport_number', 50);
             $table->string('passport_series', 50);
+            $table->string('passport_number', 50);
             $table->date('work_start_date')->nullable();
             $table->date('work_end_date')->nullable();
             $table->string('phone', 70);

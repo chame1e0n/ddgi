@@ -14,7 +14,7 @@ class Request extends Model
     public const STATUS_LOST = 'lost';
     public const STATUS_POLICY_TRANSFER = 'policy_transfer';
     public const STATUS_TERMINATED = 'terminated';
-    public const STATUS_UNDERWRITTING = 'underwritting';
+    public const STATUS_UNDERWRITING = 'underwriting';
 
     /**
      * Employee's roles.
@@ -27,7 +27,7 @@ class Request extends Model
         self::STATUS_LOST => 'утерян',
         self::STATUS_POLICY_TRANSFER => 'прием-передача полисов',
         self::STATUS_TERMINATED => 'расторгнут',
-        self::STATUS_UNDERWRITTING => 'андеррайтинг',
+        self::STATUS_UNDERWRITING => 'подписан',
     ];
 
     /**

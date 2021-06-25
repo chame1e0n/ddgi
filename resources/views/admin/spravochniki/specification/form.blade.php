@@ -65,12 +65,12 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="specification-tarif" class="col-form-label">Тарифная ставка</label>
-                                        <input class="form-control @error('specification.tarif') is-invalid @enderror"
-                                               id="specification-tarif"
-                                               name="specification[tarif]"
+                                        <label for="specification-tariff" class="col-form-label">Тарифная ставка</label>
+                                        <input class="form-control @error('specification.tariff') is-invalid @enderror"
+                                               id="specification-tariff"
+                                               name="specification[tariff]"
                                                type="number"
-                                               value="{{old('specification.tarif', $specification->tarif)}}" />
+                                               value="{{old('specification.tariff', $specification->tariff)}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
