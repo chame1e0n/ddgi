@@ -8,7 +8,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
-                @include('layouts._success_or_error')
+                @include('includes.messages')
             </div>
         </div>
 

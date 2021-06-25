@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Policy;
+use App\Model\Policy;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PolicyController extends Controller
 {
@@ -13,9 +12,9 @@ class PolicyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $policies = Policy::filter()->get();
+        $policies = Policy::where($request['filter'])->get();
 
         return view('policy.index', compact('policies'));
     }
@@ -87,30 +86,5 @@ class PolicyController extends Controller
 
         return redirect()->route('policy.index')
                          ->with('success', sprintf('Данные о полисе \'%s\' были успешно удалены', $policy->number));
-    }
-
-    public function getPolisNames(Request $request)
-    {
-        $polis_names = Policy::validPolicies()->select('polis_name')->groupBy('polis_name')->get();
-
-        return $polis_names->toJson();
-    }
-
-    public function getPolicyRelations(Request $request)
-    {
-        $policies = Policy::validPolicies()->where('polis_name', $request->polis_name);
-
-        $connection = \Illuminate\Support\Facades\DB::connection();
-
-        $query = $connection->table('agents');
-        $query->select('agents.id', 'agents.name');
-        $query->crossJoin('policies', 'policies.user_id', '=', 'agents.user_id');
-        $query->whereNotIn('policies.status', ['lost', 'cancelling', 'terminated', 'underwritting']);
-        $query->where('policies.polis_name', $request->polis_name);
-
-        return [
-            'series' => $policies->pluck('number', 'id'),
-            'agents' => $query->pluck('name', 'id'),
-        ];
     }
 }

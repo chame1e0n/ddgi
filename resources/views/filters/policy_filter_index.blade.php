@@ -273,7 +273,6 @@
 
                             <!-- /.card-header -->
                             <div class="card-body table-responsive p-0">
-                                {{--                        @include('layouts._success_or_error')--}}
                                 <table id="example1" class="table table-bordered table-striped text-nowrap">
                                     <thead>
                                     <tr>

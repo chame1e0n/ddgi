@@ -26,7 +26,7 @@
             @csrf
             <div class="content-header">
                 <div class="container-fluid">
-                    @include('layouts._success_or_error')
+                    @include('includes.messages')
                     <div class="row mb-2">
                         <div class="col-sm-6">
 

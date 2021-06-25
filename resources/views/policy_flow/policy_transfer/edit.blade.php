@@ -9,7 +9,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
-                @include('layouts._success_or_error')
+                @include('includes.messages')
                 @if(auth()->user()->id == $policy->to_user_id && $policy->status == 'pending_transfer')
                     <div class="alert alert-default-primary">
                         <form method="post" action="{{route('policy_transfer.confirm', $policy->id)}}">

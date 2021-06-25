@@ -26,8 +26,6 @@ Route::get('test', function () {
     echo $dog->createUniqueNumber(3, 1);
 });
 
-Route::get('test1', 'EmployeeController@getEmployees');
-
 Route::group(['middleware' => ['auth']], function () {
     ///Printing
     Route::get('product3777/print/{id}', 'Product3777\Product3777Controller@print')->name('print');
@@ -102,8 +100,27 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('get/branch_employees', 'EmployeeController@getBranchEmployees')->name('getBranchEmployees');
     Route::get('get/employees', 'EmployeeController@getEmployees')->name('getEmployees');
     Route::get('get/agents', 'EmployeeController@getAgents')->name('getAgents');
-    Route::get('get/polis_name', 'PolicyController@getPolisNames')->name('getPolisNames');
-    Route::get('get/policy_relations', 'PolicyController@getPolicyRelations')->name('getPolicyRelations');
+    Route::get('get/polis_name', function () {
+        $polis_names = \App\Model\Policy::validPolicies()->select('polis_name')->groupBy('polis_name')->get();
+
+        return $polis_names->toJson();
+    })->name('getPolisNames');
+    Route::get('get/policy_relations', function (Request $request) {
+        $policies = \App\Model\Policy::validPolicies()->where('polis_name', $request->polis_name);
+
+        $connection = \Illuminate\Support\Facades\DB::connection();
+
+        $query = $connection->table('agents');
+        $query->select('agents.id', 'agents.name');
+        $query->crossJoin('policies', 'policies.user_id', '=', 'agents.user_id');
+        $query->whereNotIn('policies.status', ['lost', 'cancelling', 'terminated', 'underwritting']);
+        $query->where('policies.polis_name', $request->polis_name);
+
+        return [
+            'series' => $policies->pluck('number', 'id'),
+            'agents' => $query->pluck('name', 'id'),
+        ];
+    })->name('getPolicyRelations');
     Route::get('get/banks', function (Request $request) {
         return \App\Models\Spravochniki\Bank::select('id', 'code as mfo', 'name')->get()->toJson();
     })->name('getBanks');

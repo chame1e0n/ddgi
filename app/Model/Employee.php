@@ -181,6 +181,15 @@ class Employee extends Model
     }
 
     /**
+     * Get full name of employee and his position in the branch.
+     * 
+     * @return string
+     */
+    public function getFullNameAndPosition() {
+        return $this->surname . ' ' . $this->name . ' ' . $this->middlename . ' - ' . self::$roles[$this->role];
+    }
+
+    /**
      * Cascade deletion.
      */
     public function delete()

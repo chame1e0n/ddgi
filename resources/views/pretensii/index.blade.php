@@ -34,7 +34,7 @@
                 </div>
                 <form>
                     <div class="card-body">
-                            @include('layouts._success_or_error')
+                            @include('includes.messages')
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-12">

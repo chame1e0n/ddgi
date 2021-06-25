@@ -37,31 +37,6 @@ class Policy extends Model
            return $q->whereNotIn('status', ['lost', 'cancelling', 'terminated', 'underwritting']);
     }
 
-    public function scopeFilter($q)
-    {
-        if (request('status')) {
-            $q->where('status', request('status'));
-        }
-
-        if (request('user_id')) {
-            $q->where('user_id', request('user_id'));
-        }
-
-        if (request('polis_from_date')) {
-            $q->where('polis_from_date', request('polis_from_date'));
-        }
-
-        if (request('polis_to_date')) {
-            $q->where('polis_to_date', request('polis_to_date'));
-        }
-
-        if (request('branch_id')) {
-            $q->where('branch_id', request('branch_id'));
-        }
-
-        return $q;
-    }
-
     /**
      * Get the policy series.
      */

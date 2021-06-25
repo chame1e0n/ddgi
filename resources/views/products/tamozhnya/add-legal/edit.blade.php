@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    @include('layouts._success_or_error')
+                    @include('includes.messages')
 
                     @if($tamozhnya->requests()->exists())
                         @php
