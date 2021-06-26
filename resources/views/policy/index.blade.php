@@ -25,7 +25,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <a class="btn btn-success" href="{{route('policy_registration.create')}}">Создать</a>
+                                        <a class="btn btn-success" href="{{route('policies.create')}}">Создать</a>
                                     </div>
                                     <div class="col-md-1">
                                         <a class="btn btn-success" href="{{\Illuminate\Support\Facades\URL::current()}}">Обновить</a>

@@ -63,25 +63,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     //////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    Route::resource('directory/banks', 'Admin\Spravochniki\BankController');
-    Route::resource('directory/branches', 'Admin\Spravochniki\BranchController');
-    Route::resource('directory/currencies', 'Admin\Spravochniki\CurrencyController');
-    Route::resource('directory/regions', 'Admin\Spravochniki\RegionController');
-    Route::resource('directory/requests', 'Admin\Spravochniki\RequestController');
-    Route::resource('directory/specifications', 'Admin\Spravochniki\SpecificationController');
-
-    Route::resource('directors', 'Admin\DirectorController');
-    Route::resource('agents', 'Admin\AgentController');
-    Route::resource('managers', 'Admin\ManagerController');
-
     Route::resource('spravochniki/product','ProductController'); // :TODO:
     Route::resource('spravochniki/policy_series','Spravochniki\PolicySeriesController');
     Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
     Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
     Route::resource('spravochniki/klass','KlassController');
     Route::resource('policy_registration','PolicyRegistrationController');
-
-    Route::resource('policy','PolicyController');
 
     Route::resource('kasko','Product\KaskoController');
     Route::resource('nepogashen','Product\NepogashenController');
@@ -149,6 +136,18 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
 
+    Route::resource('directory/banks', 'Admin\Spravochniki\BankController');
+    Route::resource('directory/branches', 'Admin\Spravochniki\BranchController');
+    Route::resource('directory/currencies', 'Admin\Spravochniki\CurrencyController');
+    Route::resource('directory/regions', 'Admin\Spravochniki\RegionController');
+    Route::resource('directory/requests', 'Admin\Spravochniki\RequestController');
+    Route::resource('directory/specifications', 'Admin\Spravochniki\SpecificationController');
+
+    Route::resource('directors', 'Admin\DirectorController');
+    Route::resource('agents', 'Admin\AgentController');
+    Route::resource('managers', 'Admin\ManagerController');
+
+    Route::resource('policies', 'PolicyController');
 
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('borrower_sportsman', 'BorrowerSportsmanController');

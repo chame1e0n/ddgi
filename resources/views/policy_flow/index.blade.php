@@ -1,5 +1,4 @@
 @extends('layouts.index')
-@include('policy_flow._form_elements._from_whom.create')
 @php
     $statusRoute = [
     'registered' => 'policy_registration',
@@ -39,7 +38,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <a class="btn btn-success" href="{{ route('policy_registration.create') }}">Зарегистроровать</a>
+                                        <a class="btn btn-success" href="{{ route('policies.create') }}">Зарегистрировать</a>
                                     </div>
                                     <div class="col-md-2">
                                         <a class="btn btn-success" href="{{ route('policy_transfer.create') }}">Распределить</a>
