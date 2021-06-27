@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class BankController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all banks.
      *
      * @return \Illuminate\Http\Response
      */
@@ -60,7 +60,7 @@ class BankController extends Controller
     /**
      * Display an existing bank.
      *
-     * @param  Bank $bank
+     * @param  \App\Model\Bank $bank
      * @return \Illuminate\Http\Response
      */
     public function show(Bank $bank)
@@ -74,7 +74,7 @@ class BankController extends Controller
     /**
      * Show a form to edit existing bank.
      *
-     * @param  Bank $bank
+     * @param  \App\Model\Bank $bank
      * @return \Illuminate\Http\Response
      */
     public function edit(Bank $bank)
@@ -89,7 +89,7 @@ class BankController extends Controller
      * Update an existing bank.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Bank $bank
+     * @param  \App\Model\Bank $bank
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Bank $bank)
@@ -106,7 +106,7 @@ class BankController extends Controller
     /**
      * Destroy an existing bank.
      * 
-     * @param Bank $bank
+     * @param \App\Model\Bank $bank
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */

@@ -10,7 +10,7 @@ use Illuminate\Http\Request as HttpRequest;
 class RequestController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all requests.
      *
      * @return \Illuminate\Http\Response
      */

@@ -9,6 +9,19 @@ class Policy extends Model
 {
     use SoftDeletes;
 
+    public const PRINT_SIZE_A4 = 'a4';
+    public const PRINT_SIZE_A5 = 'a5';
+
+    /**
+     * Policy print size names.
+     * 
+     * @var array
+     */
+    public static $print_sizes = [
+        self::PRINT_SIZE_A4 => 'A4',
+        self::PRINT_SIZE_A5 => 'A5',
+    ];
+
     /**
      * Name of the table for the model.
      *

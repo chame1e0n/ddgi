@@ -1,7 +1,7 @@
 @extends('admin.layouts.form-layout')
 
 @section('form-content')
-    <form action="{{route('banks.' . ($bank->exists ? 'update' : 'store'),$bank->id)}}"
+    <form action="{{route('banks.' . ($bank->exists ? 'update' : 'store'), $bank->id)}}"
           id="form-bank"
           method="post">
         @csrf

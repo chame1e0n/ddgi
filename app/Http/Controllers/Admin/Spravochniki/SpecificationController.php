@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class SpecificationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all specifications.
      *
      * @return \Illuminate\Http\Response
      */

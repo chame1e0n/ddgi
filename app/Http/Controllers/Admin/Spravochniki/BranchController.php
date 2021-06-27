@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class BranchController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all branches.
      *
      * @return \Illuminate\Http\Response
      */
@@ -66,7 +66,7 @@ class BranchController extends Controller
     /**
      * Display an existing branch.
      *
-     * @param  Branch $branch
+     * @param  \App\Model\Branch $branch
      * @return \Illuminate\Http\Response
      */
     public function show(Branch $branch)
@@ -80,7 +80,7 @@ class BranchController extends Controller
     /**
      * Show a form to edit existing branch.
      *
-     * @param  Branch $branch
+     * @param  \App\Model\Branch $branch
      * @return \Illuminate\Http\Response
      */
     public function edit(Branch $branch)
@@ -95,7 +95,7 @@ class BranchController extends Controller
      * Update an existing branch.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Branch $branch
+     * @param  \App\Model\Branch $branch
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Branch $branch)
@@ -112,7 +112,7 @@ class BranchController extends Controller
     /**
      * Destroy an existing branch.
      * 
-     * @param Branch $branch
+     * @param \App\Model\Branch $branch
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */

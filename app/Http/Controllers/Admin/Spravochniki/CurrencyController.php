@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CurrencyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all currencies.
      *
      * @return \Illuminate\Http\Response
      */
@@ -62,7 +62,7 @@ class CurrencyController extends Controller
     /**
      * Display an existing currency.
      *
-     * @param  Currency $currency
+     * @param  \App\Model\Currency $currency
      * @return \Illuminate\Http\Response
      */
     public function show(Currency $currency)
@@ -76,7 +76,7 @@ class CurrencyController extends Controller
     /**
      * Show a form to edit existing currency.
      *
-     * @param  Currency $currency
+     * @param  \App\Model\Currency $currency
      * @return \Illuminate\Http\Response
      */
     public function edit(Currency $currency)
@@ -91,7 +91,7 @@ class CurrencyController extends Controller
      * Update an existing currency.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Currency $currency
+     * @param  \App\Model\Currency $currency
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Currency $currency)
@@ -108,7 +108,7 @@ class CurrencyController extends Controller
     /**
      * Destroy an existing currency.
      * 
-     * @param Currency $currency
+     * @param \App\Model\Currency $currency
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */

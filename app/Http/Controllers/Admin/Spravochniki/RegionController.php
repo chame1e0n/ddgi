@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class RegionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all regions.
      *
      * @return \Illuminate\Http\Response
      */
@@ -60,7 +60,7 @@ class RegionController extends Controller
     /**
      * Display an existing region.
      *
-     * @param  Region $region
+     * @param  \App\Model\Region $region
      * @return \Illuminate\Http\Response
      */
     public function show(Region $region)
@@ -74,7 +74,7 @@ class RegionController extends Controller
     /**
      * Show a form to edit existing region.
      *
-     * @param  Region $region
+     * @param  \App\Model\Region $region
      * @return \Illuminate\Http\Response
      */
     public function edit(Region $region)
@@ -89,7 +89,7 @@ class RegionController extends Controller
      * Update an existing region.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  Region $region
+     * @param  \App\Model\Region $region
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Region $region)
@@ -106,7 +106,7 @@ class RegionController extends Controller
     /**
      * Destroy an existing region.
      * 
-     * @param Region $region
+     * @param \App\Model\Region $region
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */

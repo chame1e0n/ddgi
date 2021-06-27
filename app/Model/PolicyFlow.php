@@ -16,6 +16,19 @@ class PolicyFlow extends Model
     public const STATUS_TRANSFERRED = 'transferred';
 
     /**
+     * Policy Flow status names.
+     * 
+     * @var array
+     */
+    public static $statuses = [
+        self::STATUS_PENDING_TRANSFER => 'отложен',
+        self::STATUS_REGISTERED => 'зарегистрирован',
+        self::STATUS_REJECTED_TRANSFER => 'отменен',
+        self::STATUS_RETRANFERRED => 'повторно передан',
+        self::STATUS_TRANSFERRED => 'передан',
+    ];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
@@ -72,26 +85,5 @@ class PolicyFlow extends Model
     public function to_employee()
     {
         return $this->belongsTo(Employee::class);
-    }
-
-    /**
-     * Get relation to the policy_flow_files table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function policy_flow_files()
-    {
-        return $this->hasMany(PolicyFlowFile::class);
-    }
-
-    /**
-     * Cascade deletion.
-     */
-    public function delete()
-    {
-        foreach($this->policy_flow_files as /* @var $policy_flow_file PolicyFlowFile */ $policy_flow_file) {
-            $policy_flow_file->delete();
-        }
-
-        return parent::delete();
     }
 }
