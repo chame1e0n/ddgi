@@ -29,6 +29,15 @@ class PolicyFlow extends Model
     ];
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'policy_flow.act_date' => 'required',
+    ];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
@@ -56,15 +65,6 @@ class PolicyFlow extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function from_employee()
-    {
-        return $this->belongsTo(Employee::class);
-    }
-
-    /**
-     * Get relation to the employees table.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function policy_given_by_employee()
     {
         return $this->belongsTo(Employee::class);
     }

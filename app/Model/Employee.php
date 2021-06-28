@@ -106,15 +106,6 @@ class Employee extends Model
      * Get relation to the policy_flows table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function policy_flows_via_policy_given_by_employee()
-    {
-        return $this->hasMany(PolicyFlow::class, 'policy_given_by_employee_id');
-    }
-
-    /**
-     * Get relation to the policy_flows table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function policy_flows_via_to_employee()
     {
         return $this->hasMany(PolicyFlow::class, 'to_employee_id');

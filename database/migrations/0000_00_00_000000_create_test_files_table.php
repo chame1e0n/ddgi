@@ -19,6 +19,7 @@ class CreateTestFilesTable extends Migration
             $table->string('type', 45);
             $table->string('path');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

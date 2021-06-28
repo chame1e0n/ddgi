@@ -21,7 +21,7 @@ class CreateTestPoliciesTable extends Migration
             $table->string('number', 50)->nullable();
             $table->integer('series')->unsigned();
             $table->string('act_number', 50);
-            $table->string('print_size', 50)->nullable();
+            $table->enum('print_size', ['a4', 'a5']);
             $table->float('price', 12, 3)->unsigned();
             $table->string('status', 45);
             $table->date('polis_from_date')->nullable();
