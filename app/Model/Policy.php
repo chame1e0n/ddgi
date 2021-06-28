@@ -23,20 +23,29 @@ class Policy extends Model
     ];
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'policy.name' => 'required',
+        'policy.act_number' => 'required',
+        'policy.price' => 'required',
+    ];
+
+    /**
+     * Name of the columns which should not be fillable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
      */
     protected $table = 'policies';
-
-    /**
-     * Get relation to the branches table.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function branch()
-    {
-        return $this->belongsTo(Branch::class);
-    }
 
     /**
      * Get relation to the contracts table.

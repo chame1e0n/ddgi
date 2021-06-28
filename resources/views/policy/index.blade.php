@@ -173,18 +173,18 @@
                                             <td>{{ $policy->act_number }}</td>
                                             <td>{{ $policy->status }}</td>
                                             <td>{{ $policy->employee->getFullNameAndPosition() }}</td>
-                                            <td>{{ ($branch = $policy->branch) ? $branch->name : '' }}</td>
+                                            <td>{{ $policy->employee->branch->name }}</td>
                                             <td>{{ $policy->polis_from_date }}</td>
                                             <td>{{ $policy->polis_to_date }}</td>
                                             <td>
-                                                <form action="{{route('policy.destroy', $policy->id)}}"
+                                                <form action="{{route('policies.destroy', $policy->id)}}"
                                                       method="POST">
                                                     <a class="btn btn-info"
-                                                       href="{{route('policy.show', $object->id)}}">
+                                                       href="{{route('policies.show', $policy->id)}}">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                     <a class="btn btn-info"
-                                                       href="{{route('policy.edit', $policy->id)}}">
+                                                       href="{{route('policies.edit', $policy->id)}}">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                     @csrf

@@ -38,18 +38,18 @@ class PolicyFlow extends Model
     ];
 
     /**
-     * Name of the table for the model.
-     *
-     * @var string
-     */
-    protected $table = 'policy_flows';
-
-    /**
      * Name of the columns which should not be fillable.
      *
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Name of the table for the model.
+     *
+     * @var string
+     */
+    protected $table = 'policy_flows';
 
     /**
      * Get relation to the branches table.
@@ -85,5 +85,14 @@ class PolicyFlow extends Model
     public function to_employee()
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    /**
+     * Get relation to the files table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'model');
     }
 }
