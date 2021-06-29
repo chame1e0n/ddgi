@@ -175,15 +175,15 @@
                                     <tbody>
                                     @foreach ($policies as $policy)
                                         <tr>
-                                            <td>{{ $policy->name }}</td>
-                                            <td>{{ $policy->number }}</td>
-                                            <td>{{ $policy->series }}</td>
-                                            <td>{{ $policy->act_number }}</td>
-                                            <td>{{ $policy->status }}</td>
-                                            <td>{{ $policy->employee->getFullNameAndPosition() }}</td>
-                                            <td>{{ $policy->employee->branch->name }}</td>
-                                            <td>{{ $policy->polis_from_date }}</td>
-                                            <td>{{ $policy->polis_to_date }}</td>
+                                            <td>{{$policy->name}}</td>
+                                            <td>{{$policy->number}}</td>
+                                            <td>{{$policy->series}}</td>
+                                            <td>{{$policy->act_number}}</td>
+                                            <td>{{$policy->status}}</td>
+                                            <td>{{$policy->employee->getFullNameAndPosition()}}</td>
+                                            <td>{{$policy->employee->branch->name}}</td>
+                                            <td>{{$policy->polis_from_date}}</td>
+                                            <td>{{$policy->polis_to_date}}</td>
                                             <td>
                                                 <form action="{{route('policies.destroy', $policy->id)}}"
                                                       method="POST">

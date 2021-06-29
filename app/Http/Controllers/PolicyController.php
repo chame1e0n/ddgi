@@ -21,7 +21,8 @@ class PolicyController extends Controller
 
         $filter = array_filter($data, function ($value) { return !is_null($value) && $value !== ''; });
 
-        $policies = Policy::crossJoin('employees', 'policies.employee_id', '=', 'employees.id')
+        $policies = Policy::select('policies.*')
+            ->crossJoin('employees', 'policies.employee_id', '=', 'employees.id')
             ->where($filter)
             ->get();
 
@@ -119,7 +120,10 @@ class PolicyController extends Controller
      */
     public function show(Policy $policy)
     {
-        //
+        return view('policy.form', [
+            'block' => true,
+            'policy' => $policy,
+        ]);
     }
 
     /**
@@ -130,7 +134,10 @@ class PolicyController extends Controller
      */
     public function edit(Policy $policy)
     {
-        return view('policy.edit', compact('policy'));
+        return view('policy.form', [
+            'block' => false,
+            'policy' => $policy,
+        ]);
     }
 
     /**
@@ -142,7 +149,13 @@ class PolicyController extends Controller
      */
     public function update(Request $request, Policy $policy)
     {
-        //
+        $request->validate(Policy::$validate);
+
+        $policy->fill($request['policy']);
+        $policy->save();
+
+        return redirect()->route('policies.index')
+                         ->with('success', sprintf('Данные о полисе \'%s\' были успешно обновлены', $policy->name));
     }
 
     /**
@@ -155,7 +168,7 @@ class PolicyController extends Controller
     {
         $policy->delete();
 
-        return redirect()->route('policy.index')
+        return redirect()->route('policies.index')
                          ->with('success', sprintf('Данные о полисе \'%s\' были успешно удалены', $policy->number));
     }
 }

@@ -30,6 +30,7 @@ class Policy extends Model
     public static $validate = [
         'policy.name' => 'required',
         'policy.act_number' => 'required',
+        'policy.print_size' => 'required',
         'policy.price' => 'required',
     ];
 
