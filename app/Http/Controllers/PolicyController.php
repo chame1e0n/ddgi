@@ -17,7 +17,13 @@ class PolicyController extends Controller
      */
     public function index(Request $request)
     {
-        $policies = Policy::where($request['filter'])->get();
+        $data = $request->has('filter') ? $request['filter'] : [];
+
+        $filter = array_filter($data, function ($value) { return !is_null($value) && $value !== ''; });
+
+        $policies = Policy::crossJoin('employees', 'policies.employee_id', '=', 'employees.id')
+            ->where($filter)
+            ->get();
 
         return view('policy.index', compact('policies'));
     }

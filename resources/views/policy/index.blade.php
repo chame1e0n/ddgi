@@ -59,11 +59,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="filter-branch-id" class="col-form-label">Филиал</label>
-                                        <select id="filter-branch-id" class="form-control select2" name="filter[branch_id]">
+                                        <select id="filter-branch-id" class="form-control select2" name="filter[employees.branch_id]">
                                             <option></option>
 
                                             @foreach(\App\Model\Branch::all() as $branch)
-                                                <option @if(request('filter.branch_id') == $branch->id) selected="selected" @endif
+                                                <option @if(request('filter') && request('filter')['employees.branch_id'] == $branch->id) selected="selected" @endif
                                                         value="{{$branch->id}}">
                                                     {{$branch->name}}
                                                 </option>
@@ -101,7 +101,15 @@
                                     <div class="form-group">
                                         <label for="filter-status" class="col-form-label">Статусы</label>
                                         <select id="filter-status" class="form-control select2" name="filter[status]">
-                                            @foreach(\App\Models\Policy::STATUS as $key => $value)
+                                            <option></option>
+
+                                            @foreach(\App\Model\PolicyFlow::$statuses as $key => $value)
+                                                <option @if(request('filter.status') == $key) selected @endif
+                                                        value="{{$key}}">
+                                                    {{$value}}
+                                                </option>
+                                            @endforeach
+                                            @foreach(\App\Model\Request::$statuses as $key => $value)
                                                 <option @if(request('filter.status') == $key) selected @endif
                                                         value="{{$key}}">
                                                     {{$value}}
@@ -127,7 +135,7 @@
                                                class="form-control"
                                                name="filter[polis_to_date]"
                                                type="date"
-                                               value="{{request('fillter.polis_to_date')}}" />
+                                               value="{{request('filter.polis_to_date')}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
