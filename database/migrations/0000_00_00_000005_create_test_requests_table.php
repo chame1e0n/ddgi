@@ -21,7 +21,6 @@ class CreateTestRequestsTable extends Migration
             $table->tinyInteger('is_underwriting_request')->unsigned()->default(0);
             $table->tinyInteger('is_reinsurance_request')->unsigned()->default(0);
             $table->text('comment')->nullable();
-            $table->string('file');
             $table->string('act_number', 200)->nullable();
             $table->string('limit_reason', 200)->nullable();
             $table->integer('policy_amount')->unsigned()->nullable();

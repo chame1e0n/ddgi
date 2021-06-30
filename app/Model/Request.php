@@ -50,9 +50,6 @@ class Request extends Model
      * @var array
      */
     public static $validate = [
-        'request.employee_id' => 'required',
-        'request.comment' => 'required',
-        'request.file' => 'required',
     ];
 
     /**
@@ -74,6 +71,15 @@ class Request extends Model
     }
 
     /**
+     * Get relation to the files table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function file()
+    {
+        return $this->morphOne(File::class, 'model');
+    }
+
+    /**
      * Get relation to the request_overviews table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -90,6 +96,8 @@ class Request extends Model
         foreach($this->request_overviews as /* @var $request_overview RequestOverview */ $request_overview) {
             $request_overview->delete();
         }
+
+        $this->file->delete();
 
         return parent::delete();
     }

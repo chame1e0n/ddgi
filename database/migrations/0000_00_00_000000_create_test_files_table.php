@@ -17,6 +17,7 @@ class CreateTestFilesTable extends Migration
             $table->increments('id');
             $table->morphs('model');
             $table->string('type', 45);
+            $table->string('original_name');
             $table->string('path');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
