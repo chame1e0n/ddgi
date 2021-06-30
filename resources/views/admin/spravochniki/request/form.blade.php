@@ -2,6 +2,7 @@
 
 @section('form-content')
     <form action="{{route('requests.' . ($request->exists ? 'update' : 'store'), $request->id)}}"
+          enctype="multipart/form-data"
           id="form-request"
           method="post">
         @csrf
@@ -27,11 +28,28 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="request-act-number" class="col-form-label">Наименование</label>
-                                        <input class="form-control @error('request.act_number') is-invalid @enderror"
-                                               id="request-act-number"
-                                               name="request[act_number]"
-                                               value="{{old('request.act_number', $request->act_number)}}" />
+                                        <label for="policy-name" class="col-form-label">Фильтр полиса по наименованию</label>
+                                        <input class="form-control @error('policy.name') is-invalid @enderror"
+                                               id="policy-name"
+                                               name="policy[name]"
+                                               value="{{old('policy.name')}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="request-policy-id" class="col-form-label">Полис</label>
+                                        <select class="form-control select2 @error('request.policy_id') is-invalid @enderror"
+                                                id="request-policy-id"
+                                                name="request[policy_id]">
+                                            <option></option>
+
+                                            @foreach(\App\Model\Policy::all() as $policy)
+                                                <option @if($policy->id == old('request.policy_id', $request->policy_id)) selected="selected" @endif
+                                                        value="{{$policy->id}}">
+                                                    {{$policy->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -49,29 +67,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="request-policy-id" class="col-form-label">Полис</label>
-                                        <select class="form-control select2 @error('request.policy_id') is-invalid @enderror"
-                                                id="request-policy-id"
-                                                name="request[policy_id]">
-                                        @foreach(\App\Model\Policy::all() as $policy)
-                                            <option @if($policy->id == old('request.policy_id', $request->policy_id)) selected="selected" @endif
-                                                    value="{{$policy->id}}">
-                                                {{$policy->name}}
-                                            </option>
-                                        @endforeach
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="request-limit-reason" class="col-form-label">Причина увеличения лимита</label>
                                         <input class="form-control @error('request.limit_reason') is-invalid @enderror"
-                                               id="request-limit_reason"
-                                               name="request[limit-reason]"
+                                               id="request-limit-reason"
+                                               name="request[limit_reason]"
                                                value="{{old('request.limit_reason', $request->limit_reason)}}" />
                                     </div>
                                 </div>
@@ -102,16 +105,15 @@
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <input required
-                                                       class="form-control custom-file-input @error('request.file') is-invalid @enderror"
-                                                       id="request-file"
-                                                       name="request[file]"
+                                                       class="form-control custom-file-input @error('file') is-invalid @enderror"
+                                                       id="file"
+                                                       name="file"
                                                        type="file"
-                                                       value="{{old('request.file', $request->file)}}" />
-                                                <label class="custom-file-label" for="request-file">Выберите файл</label>
+                                                       value="{{old('file')}}" />
+                                                <label class="custom-file-label" for="file">Выберите файл</label>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row">
@@ -139,4 +141,29 @@
             @endif
         </fieldset>
     </form>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#policy-name').keyup(function () {
+                $.ajax({
+                    url: '{{route('get_policies')}}',
+                    type: 'get',
+                    data: { name: $(this).val() },
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#request-policy-id').empty();
+                        $('#request-policy-id').append('<option></option>');
+
+                        for (var i = 0; i < response.length; i++) {
+                            $('#request-policy-id').append('<option value="' + response[i]['id']+ '">' + response[i]['name'] + '</option>');
+                        }
+                    }
+                });
+            });
+
+            $('.summernote').summernote();
+        });
+    </script>
 @endsection

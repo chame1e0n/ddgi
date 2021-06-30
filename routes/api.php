@@ -38,3 +38,9 @@ Route::get('agent_list', function () {
         'data' => $list
     ]);
 });
+
+Route::get('policies', function (Request $request) {
+    return \App\Model\Policy::where('name', $request['name'])
+        ->get()
+        ->toJson();
+})->name('get_policies');

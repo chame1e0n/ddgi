@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Model\Request as ModelRequest;
 use App\User;
 use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RequestController extends Controller
 {
@@ -56,11 +58,22 @@ class RequestController extends Controller
      */
     public function store(HttpRequest $http_request)
     {
-        $http_request->validate(Request::$validate);
+        $http_request->validate(['file' => 'required']);
+
+        $http_request_data = $http_request['request'];
+        $http_request_data['employee_id'] = Auth::user()->employees->first()->id;
 
         $model_request = new ModelRequest();
-        $model_request->fill($http_request['request']);
+        $model_request->fill($http_request_data);
         $model_request->save();
+
+        $file = [
+            'type' => 'document',
+            'original_name' => $http_request['file']->getClientOriginalName(),
+            'path' => Storage::putFile('public/requests', $http_request['file']),
+        ];
+
+        $model_request->file()->create($file);
 
         return redirect()->route('requests.index')
                          ->with('success', 'Успешно добавлен новый запрос');
@@ -69,14 +82,14 @@ class RequestController extends Controller
     /**
      * Display an existing request.
      *
-     * @param  \App\Model\Request $model_request
+     * @param  \App\Model\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function show(ModelRequest $model_request)
+    public function show(ModelRequest $request)
     {
         return view('admin.spravochniki.request.form', [
             'block' => true,
-            'request' => $model_request,
+            'request' => $request,
         ]);
     }
 
@@ -86,11 +99,11 @@ class RequestController extends Controller
      * @param  \App\Model\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function edit(ModelRequest $model_request)
+    public function edit(ModelRequest $request)
     {
         return view('admin.spravochniki.request.form', [
             'block' => false,
-            'request' => $model_request,
+            'request' => $request,
         ]);
     }
 
@@ -98,32 +111,41 @@ class RequestController extends Controller
      * Update an existing request.
      *
      * @param  \Illuminate\Http\Request $http_request
-     * @param  \App\Model\Request $model_request
+     * @param  \App\Model\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(HttpRequest $http_request, ModelRequest $model_request)
+    public function update(HttpRequest $http_request, ModelRequest $request)
     {
-        $http_request->validate(Request::$validate);
+        $http_request->validate(['file' => 'required']);
 
-        $model_request->fill($http_request['request']);
-        $model_request->save();
+        $request->fill($http_request['request']);
+        $request->save();
+
+        $file = [
+            'type' => 'document',
+            'original_name' => $http_request['file']->getClientOriginalName(),
+            'path' => Storage::putFile('public/requests', $http_request['file']),
+        ];
+
+        $request->file->delete();
+        $request->file()->create($file);
 
         return redirect()->route('requests.index')
-                         ->with('success', sprintf('Данные о запросе \'%s\' были успешно обновлены', $model_request->name));
+                         ->with('success', sprintf('Данные о запросе \'%s\' были успешно обновлены', $request->id));
     }
 
     /**
      * Destroy an existing request.
      * 
-     * @param \App\Model\Request $model_request
+     * @param \App\Model\Request $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(ModelRequest $model_request)
+    public function destroy(ModelRequest $request)
     {
-        $model_request->delete();
+        $request->delete();
 
         return redirect()->route('requests.index')
-                         ->with('success', sprintf('Данные о запросе \'%s\' были успешно удалены', $model_request->name));
+                         ->with('success', sprintf('Данные о запросе \'%s\' были успешно удалены', $request->id));
     }
 }

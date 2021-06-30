@@ -87,6 +87,7 @@ class PolicyController extends Controller
         foreach($request['files'] as $file) {
             $files[] = [
                 'type' => 'document',
+                'original_name' => $file->getClientOriginalName(),
                 'path' => Storage::putFile('public/policy_flow', $file),
             ];
         }
