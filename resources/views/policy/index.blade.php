@@ -58,8 +58,8 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="filter-branch-id" class="col-form-label">Филиал</label>
-                                        <select id="filter-branch-id" class="form-control select2" name="filter[employees.branch_id]">
+                                        <label for="filter-employees-branch-id" class="col-form-label">Филиал</label>
+                                        <select id="filter-employees-branch-id" class="form-control select2" name="filter[employees.branch_id]">
                                             <option></option>
 
                                             @foreach(\App\Model\Branch::all() as $branch)

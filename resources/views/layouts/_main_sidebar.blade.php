@@ -39,7 +39,7 @@
                 </li>
                 <li class="nav-header">Полисы</li>
                 <li class="nav-item">
-                    <a href="{{route('policy_flow.index')}}" class="nav-link">
+                    <a href="{{route('policy_flows.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-file-signature"></i>
 
                         <p>Движение полисов</p>

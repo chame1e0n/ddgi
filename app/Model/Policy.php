@@ -49,6 +49,20 @@ class Policy extends Model
     protected $table = 'policies';
 
     /**
+     * Get number of policies with specified print size and status.
+     * @param string $print_size print size
+     * @param string $status     status
+     * @return int
+     */
+    public static function printSizeStatusCount($print_size, $status)
+    {
+        return self::where('print_size', $print_size)
+            ->where('status', $status)
+            ->get()
+            ->count();
+    }
+
+    /**
      * Get relation to the contracts table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

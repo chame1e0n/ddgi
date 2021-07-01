@@ -2,26 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Policy;
-use App\Models\PolicyFlow;
+use App\Model\Policy;
+use App\Model\PolicyFlow;
 use Illuminate\Http\Request;
 
 class PolicyFlowController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all policy flows.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $policyFlow = PolicyFlow::filter()->paginate(15);
-        $a4New = Policy::where('print_size', 'a4')->where('status', 'new')->get()->count();
-        $a5New = Policy::where('print_size', 'a5')->where('status', 'new')->get()->count();
-        $a4Transfered = Policy::where('print_size', 'a4')->where('status', 'transferred')->get()->count();
-        $a5Transfered = Policy::where('print_size', 'a5')->where('status', 'transferred')->get()->count();
+        $filter_data = $request->has('filter') ? $request['filter'] : [];
 
-        return view('policy_flow.index',compact('policyFlow', 'a4New', 'a4Transfered', 'a5New', 'a5Transfered'));
+        $query = PolicyFlow::select('policy_flows.*')
+            ->crossJoin('policies', 'policy_flows.policy_id', '=', 'policies.id');
+
+        if (isset($filter_data['status']) && !empty($filter_data['status'])) {
+            $query->where('policy_flows.status', '=', $filter_data['status']);
+        }
+        if (isset($filter_data['act_date']) && !empty($filter_data['act_date'])) {
+            $query->where('policy_flows.act_date', '=', $filter_data['act_date']);
+        }
+        if (isset($filter_data['policy']['act_number']) && !empty($filter_data['policy']['act_number'])) {
+            $query->where('policies.act_number', '=', $filter_data['policy']['act_number']);
+        }
+        if (isset($filter_data['from']['value']) && !empty($filter_data['from']['value'])) {
+            $query->where('policies.series', $filter_data['from']['sign'], $filter_data['from']['value']);
+        }
+        if (isset($filter_data['to']['value']) && !empty($filter_data['to']['value'])) {
+            $query->where('policies.series', $filter_data['to']['sign'], $filter_data['to']['value']);
+        }
+        if (isset($filter_data['from_employee_id']) && !empty($filter_data['from_employee_id'])) {
+            $query->where('policy_flows.from_employee_id', '=', $filter_data['from_employee_id']);
+        }
+        if (isset($filter_data['to_employee_id']) && !empty($filter_data['to_employee_id'])) {
+            $query->where('policy_flows.to_employee_id', '=', $filter_data['to_employee_id']);
+        }
+
+        return view('policy_flow.index', [
+            'policy_flows' => $query->get(),
+        ]);
     }
 
     /**

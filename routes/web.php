@@ -44,9 +44,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/export-database', 'ZaemshikController@download_db')->name('db_download');
     ////Neshchastka Zaemshik
 
-    Route::resource('perestrahovaniya', 'PerestrahovaniyaController');
-    Route::resource('perestrahovaniya_overview', 'PerestrahovaniyaOverviewController');
-    Route::resource('request_overview', 'RequestOverviewController');
     ////Policy_Filter
     Route::resource('policy_filter', 'PolicyFilterController');
     Route::post('policy_filter/filter', 'PolicyFilterController@filter')->name('all_product.filter');
@@ -73,7 +70,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('kasko','Product\KaskoController');
     Route::resource('nepogashen','Product\NepogashenController');
     Route::resource('otvetstvennost-broker','Product\OtvetstvennostBrokerController')->names('otvetstvennost-broker');
-    Route::resource('policy_flow','PolicyFlowController');
     Route::post('policy_pending_transfer/{id}', 'PolicyTransferController@confirm')->name('policy_transfer.confirm');
     Route::resource('policy_transfer','PolicyTransferController');
     Route::resource('policy_retransfer','PolicyRetransferController');
@@ -122,13 +118,6 @@ Route::group(['middleware' => ['auth']], function () {
         return \Illuminate\Support\Facades\Storage::disk('public')->download($file->file, $file->from_whom . "." . $filetype[1]);
     })->name('request.upload');
 
-    Route::resource('pretension', 'Admin\PretensionController');
-    Route::resource('pretensionoverview', 'Admin\PretensionOverviewController');
-    /*Route::group(['middleware' => ['permission:show pretensii']], function () {
-        Route::resource('pretension', 'Admin\PretensionController'); // ['only' => ['index']]
-        //Route::get('pretension/create/{id}', 'PretensiiController@create'); // ['only' => ['index']]
-    });*/
-
     Route::get('site_order/refresh', 'FromSiteOrderController@refresh')->name('site_order.refresh');
     Route::resource('site_order', 'FromSiteOrderController', [
         'only' => ['index', 'show']
@@ -140,14 +129,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('directory/branches', 'Admin\Spravochniki\BranchController');
     Route::resource('directory/currencies', 'Admin\Spravochniki\CurrencyController');
     Route::resource('directory/regions', 'Admin\Spravochniki\RegionController');
-    Route::resource('directory/requests', 'Admin\Spravochniki\RequestController');
     Route::resource('directory/specifications', 'Admin\Spravochniki\SpecificationController');
 
     Route::resource('directors', 'Admin\DirectorController');
     Route::resource('agents', 'Admin\AgentController');
     Route::resource('managers', 'Admin\ManagerController');
 
+    Route::resource('pretension', 'Admin\PretensionController');
+    Route::resource('pretensionoverview', 'Admin\PretensionOverviewController');
+    Route::resource('perestrahovaniya', 'PerestrahovaniyaController');
+    Route::resource('perestrahovaniya_overview', 'PerestrahovaniyaOverviewController');
+    Route::resource('directory/requests', 'Admin\Spravochniki\RequestController');
+    Route::resource('request_overview', 'RequestOverviewController');
+
     Route::resource('policies', 'PolicyController');
+    Route::resource('policy_flows','PolicyFlowController');
 
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
