@@ -12,7 +12,7 @@
         </div>
         <div class="content">
             <div class="container-fluid">
-                <form action="{{route('policies.store')}}"
+                <form action="{{route('policy_flows.store')}}"
                       enctype="multipart/form-data"
                       id="polis-registration-form"
                       method="post">

@@ -97,7 +97,9 @@ class Request extends Model
             $request_overview->delete();
         }
 
-        $this->file->delete();
+        if ($this->file) {
+            $this->file->delete();
+        }
 
         return parent::delete();
     }

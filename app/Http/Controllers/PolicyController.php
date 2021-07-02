@@ -30,7 +30,7 @@ class PolicyController extends Controller
     }
 
     /**
-     * Show a form to create a new policy.
+     * Show a form to create a new policies.
      *
      * @return \Illuminate\Http\Response
      */
@@ -46,7 +46,7 @@ class PolicyController extends Controller
     }
 
     /**
-     * Store a new policy.
+     * Store a new policies.
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -142,7 +142,7 @@ class PolicyController extends Controller
     }
 
     /**
-     * Update an existing bank.
+     * Update an existing policy.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Model\Policy        $policy
@@ -160,10 +160,11 @@ class PolicyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Policy  $policy
-     * @return \Illuminate\Http\Response
+     * Destroy an existing policy.
+     * 
+     * @param \App\Model\Policy $policy
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Policy $policy)
     {
