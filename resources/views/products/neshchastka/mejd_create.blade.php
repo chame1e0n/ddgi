@@ -80,10 +80,15 @@
                         <div class="card-body" id="beneficiary-card-body">
                             <div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="polis-series" class="col-form-label">Серийный номер полиса
-                                                страхования</label>
+                                            <label for="policy-name" class="col-form-label">Наименование </label>
+                                            <input type="text" id="policy-name" name="policy_name" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="polis-series" class="col-form-label">Серийный номер</label>
                                             <input type="text" id="polis-series" name="policy_series" class="form-control">
                                         </div>
                                     </div>
