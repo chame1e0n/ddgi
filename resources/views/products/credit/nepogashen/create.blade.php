@@ -176,7 +176,41 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">Условия оплаты страховой премии</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="payment-terms-form">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="all-summ">Cтраховая сумма</label>
+                                                <input type="text" id="all-summ" name="insurance_sum" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="all-summ">Cтраховая премия</label>
+                                                <input type="text" id="all-summ" name="insurance_bonus" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="all-summ">Франшиза</label>
+                                                <input type="text" id="all-summ" name="franchise" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="card card-info" id="clone-beneficiary">
                                 <div class="card-header">
@@ -190,15 +224,16 @@
                                 <div class="card-body" id="beneficiary-card-body">
                                     <div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
-                                                    <label for="polis-series" class="col-form-label">Серийный номер полиса страхования</label>
-                                                    <input type="text" id="polis-series" name="polis_series"
-                                                           @if($errors->has('polis_series'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                        @endif>
+                                                    <label for="policy-name" class="col-form-label">Наименование </label>
+                                                    <input type="text" id="policy-name" name="policy_name" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="polis-series" class="col-form-label">Серийный номер</label>
+                                                    <input type="text" id="polis-series" name="policy_series" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
@@ -207,27 +242,15 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"></span>
                                                     </div>
-                                                    <input id="insurance_from" name="date_issue_policy" type="date"
-                                                           @if($errors->has('date_issue_policy'))
-                                                           class="form-control is-invalid"
-                                                           @else
-                                                           class="form-control"
-                                                        @endif>
+                                                    <input id="insurance_from" name="policy_insurance_from" type="date" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="otvet-litso">Ответственное лицо</label>
-                                                    <select @if($errors->has('litso'))
-                                                            class="form-control is-invalid"
-                                                            @else
-                                                            class="form-control"
-                                                            @endif id="otvet-litso" name="litso"
-                                                            style="width: 100%;" required>
-                                                        <option></option>
+                                                    <label class="col-form-label" for="otvet-litso">Ответственное лицо</label>
+                                                    <select class="form-control polises" id="otvet-litso" name="person" style="width: 100%;">
                                                         @foreach($agents as $agent)
-                                                            <option @if(old('litso') == $agent->user_id) selected
-                                                                    @endif value="{{ $agent->user_id }}">{{ $agent->surname }} {{ $agent->name }} {{ $agent->middle_name }}</option>
+                                                            <option value="{{$agent->id}}">{{$agent->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

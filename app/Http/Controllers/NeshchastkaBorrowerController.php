@@ -49,83 +49,10 @@ class NeshchastkaBorrowerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return
      */
     public function store(Request $request)
     {
-//        dd($request);
-
-//        $request->validate([
-//            // policy_holders
-//            'fio_insurer' => 'required',
-//            'address_insurer' => 'required',
-//            'tel_insurer' => 'required',
-//            'address_schet' => 'required',
-//            'inn_insurer' => 'required',
-//            'mfo_insurer' => 'required',
-//            'oked_insurer' => 'required',
-//            'okonh_insurer' => 'required',
-//            'bank_insurer' => 'required',
-//
-//            ////
-//            'fio_insured'=> 'required',
-//            'address_insured'=> 'required',
-//            'tel_insured'=> 'required',
-//            'passport_series_insured'=> 'required',
-//            'passport_num_insured'=> 'required',
-//
-//            'credit_contract'=> 'required',
-//            'credit_contract_to'=> 'required',
-//            'insurance_from'=> 'required',
-//            'insurance_to'=> 'required',
-//            //'tarif' => 'required',
-//
-//            'insurance_sum'=> 'required',
-//            'insurance_bonus'=> 'required',
-//            'franchise'=> 'required',
-//            'insurance_premium_currency'=> 'required',
-//            'payment_term'=> 'required',
-//            'way_of_calculation'=> 'required',
-
-
-//            'policy_series'=> 'required',
-//            'policy_insurance_from'=> 'required',
-//            'person'=> 'required',
-
-//            'application_form_file'=> 'required',
-//            'contract_file'=> 'required',
-//            'policy_file'=> 'required',
-//
-//
-//            //////////////////
-//
-//            // policy_beneficiaries
-//            'fio_beneficiary' => 'required',
-//            'address_beneficiary' => 'required',
-//            'tel_beneficiary' => 'required',
-//            'beneficiary_schet' => 'required',
-//            'inn_beneficiary' => 'required',
-//            'mfo_beneficiary' => 'required',
-//            'oked_beneficiary' => 'required',
-//            'bank_beneficiary' => 'required',
-//            'okonh_beneficiary' => 'required',
-//
-//        ]);
-//
-//        if (!$request->tarif === "null"){
-//            $request->validate([
-//                'percent_of_tariff'=>'required',
-//            ]);
-//        }
-//
-//        if ($request->get('payment_term') === "transh"){
-//            $request->validate([
-//                "payment_sum_main" => "required",
-//                "payment_from_main" => "required"
-//            ]);
-//        }
-
-
         $policyHolder = PolicyHolder::create([
             'FIO' => $request->fio_insurer,
             'address' => $request->address_insurer,

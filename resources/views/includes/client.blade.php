@@ -153,14 +153,14 @@
                            value="{{$client->okonh}}" />
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="client-info" class="col-form-label">Информация о персонале</label>
-                    <textarea class="form-control @if($errors->has('client.info')) is-invalid @endif"
-                              id="client-info"
-                              name="client[info]">{{$client->info}}</textarea>
-                </div>
-            </div>
+            {{--<div class="col-md-12">--}}
+                {{--<div class="form-group">--}}
+                    {{--<label for="client-info" class="col-form-label">Информация о персонале</label>--}}
+                    {{--<textarea class="form-control @if($errors->has('client.info')) is-invalid @endif"--}}
+                              {{--id="client-info"--}}
+                              {{--name="client[info]">{{$client->info}}</textarea>--}}
+                {{--</div>--}}
+            {{--</div>--}}
         </div>
     </div>
 </div>
