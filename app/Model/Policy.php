@@ -126,6 +126,15 @@ class Policy extends Model
     }
 
     /**
+     * Get relation to the files table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'model');
+    }
+
+    /**
      * Cascade deletion.
      */
     public function delete()
@@ -141,6 +150,9 @@ class Policy extends Model
         }
         foreach($this->requests as /* @var $request Request */ $request) {
             $request->delete();
+        }
+        foreach($this->files as /* @var $file File */ $file) {
+            $file->delete();
         }
 
         if ($this->policy_model) {

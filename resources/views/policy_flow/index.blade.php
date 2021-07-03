@@ -27,11 +27,6 @@
                                     <div class="col-md-2">
                                         <a class="btn btn-success"
                                            href="{{route('policy_flows.create')}}"
-                                           style="width: 150px !important;">Зарегистрировать</a>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <a class="btn btn-success"
-                                           href="{{route('policy_flows.transfer')}}"
                                            style="width: 150px !important;">Распределить</a>
                                     </div>
                                     <div class="col-md-2">
@@ -291,9 +286,9 @@
                                         <tr>
                                             <td>{{$policy_flow->policy->name}}</td>
                                             <td>{{$policy_flow->policy->series}}</td>
-                                            <td>{{\App\Model\PolicyFlow::$statuses[$policy_flow->policy->status]}}</td>
+                                            <td>{{\App\Model\PolicyFlow::$statuses[$policy_flow->status]}}</td>
                                             <td>{{($from_employee = $policy_flow->from_employee) ? $from_employee->getFullNameAndPosition() : 'N/A'}}</td>
-                                            <td>{{$policy_flow->branch->name}}</td>
+                                            <td>{{$policy_flow->to_employee->branch->name}}</td>
                                             <td>{{($to_employee = $policy_flow->to_employee) ? $to_employee->getFullNameAndPosition() : 'N/A'}}</td>
                                             <td>{{date('d.m.Y', strtotime($policy_flow->created_at))}}</td>
                                             <td>{{$policy_flow->policy->act_number}}</td>

@@ -13,6 +13,7 @@
         <div class="content">
             <div class="container-fluid">
                 <form action="{{route('policies.update', $policy->id)}}"
+                      enctype="multipart/form-data"
                       id="form-policy"
                       method="post">
                     @csrf
@@ -32,7 +33,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label for="policy-name" class="col-form-label">Наименование</label>
                                                 <input required
                                                        class="form-control @if($errors->has('policy.name')) is-invalid @endif"
@@ -51,6 +52,19 @@
                                                        value="{{old('policy.act_number', $policy->act_number)}}" />
                                             </div>
                                             <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="policy-price" class="col-form-label">Стоимость одного бланка </label>
+                                                    <input required
+                                                           class="form-control @if($errors->has('policy.price')) is-invalid @endif"
+                                                           id="policy-price"
+                                                           name="policy[price]"
+                                                           type="text"
+                                                           value="{{old('policy.price', $policy->price)}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                             @foreach(\App\Model\Policy::$print_sizes as $size => $label)
                                                 <div class="icheck-success">
                                                     <input @if($policy->print_size == $size) checked @endif
@@ -63,15 +77,15 @@
                                                 </div>
                                             @endforeach
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="policy-price" class="col-form-label">Стоимость одного бланка </label>
-                                                    <input required
-                                                           class="form-control @if($errors->has('policy.price')) is-invalid @endif"
-                                                           id="policy-price"
-                                                           name="policy[price]"
-                                                           type="text"
-                                                           value="{{old('policy.price', $policy->price)}}" />
+                                            <div class="col-md-6">
+                                                <label for="files" class="col-form-label">Загрузка документов</label>
+                                                <div class="input-group">
+                                                    <input type="file" multiple id="files" name="files[]" class="form-control" />
+                                                    <div class="input-group-append">
+                                                        <a class="btn btn-info" href="#">
+                                                            <i class="fas fa-download"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -90,6 +90,17 @@ class PolicyFlow extends Model
     }
 
     /**
+     * Overriden save method.
+     */
+    public function save($options = [])
+    {
+        $this->policy->status = $this->status;
+        $this->policy->save();
+
+        parent::save($options);
+    }
+
+    /**
      * Cascade deletion.
      */
     public function delete()

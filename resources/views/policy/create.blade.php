@@ -32,6 +32,15 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="policy-name" class="col-form-label">Наименование</label>
+                                                <input required
+                                                       class="form-control @if($errors->has('policy.name')) is-invalid @endif"
+                                                       id="policy-name"
+                                                       name="policy[name]"
+                                                       type="text"
+                                                       value="{{old('policy.name', $policy->name)}}" />
+                                            </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="policy-act-number" class="col-form-label">Номер акта</label>
@@ -41,29 +50,6 @@
                                                            name="policy[act_number]"
                                                            value="{{old('policy.act_number', $policy->act_number)}}" />
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="policy-flow-act-date" class="col-form-label">Дата акта</label>
-                                                    <div class="input-group">
-                                                        <input required
-                                                               class="form-control @if($errors->has('policy_flow.act_date')) is-invalid @endif"
-                                                               id="policy-flow-act-date"
-                                                               name="policy_flow[act_date]"
-                                                               placeholder="yyyy-mm-dd"
-                                                               type="date"
-                                                               value="{{old('policy_flow.act_date', $policy_flow->act_date)}}" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="policy-name" class="col-form-label">Наименование</label>
-                                                <input required
-                                                       class="form-control @if($errors->has('policy.name')) is-invalid @endif"
-                                                       id="policy-name"
-                                                       name="policy[name]"
-                                                       type="text"
-                                                       value="{{old('policy.name', $policy->name)}}" />
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="files" class="col-form-label">Загрузка документов</label>
@@ -168,7 +154,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-footer">
                             <button type="submit" id="submit-button" class="btn btn-primary float-right">Добавить</button>
                         </div>

@@ -56,11 +56,7 @@ class PolicyFlowController extends Controller
      */
     public function create()
     {
-        $policy = new Policy();
-        $policy->print_size = Policy::PRINT_SIZE_A4;
-
         return view('policy_flow.create', [
-            'policy' => $policy,
             'policy_flow' => new PolicyFlow(),
         ]);
     }
@@ -73,35 +69,15 @@ class PolicyFlowController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(array_merge(
-            Policy::$validate,
-            PolicyFlow::$validate,
-            ['policy_series_from' => 'required', 'policy_series_to' => 'required'],
-        ));
+        $request->validate(array_merge(PolicyFlow::$validate, [
+            'name' => 'required',
+            'policy_series_from' => 'required',
+            'policy_series_to' => 'required',
+        ]));
 
-        $policy_data = $request['policy'];
-        $policy_flow_data = $request['policy_flow'];
-        $policy_series_from = $request['policy_series_from'];
-        $policy_series_to = $request['policy_series_to'];
-
-        $existing_policies = Policy::select('id')
-            ->whereBetween('series', [$policy_series_from, $policy_series_to])
-            ->where('act_number', $policy_data['act_number'])
-            ->where('name', $policy_data['name'])
+        $policies = Policy::where('name', '=', $request['name'])
+            ->whereBetween('series', [$request['policy_series_from'], $request['policy_series_to']])
             ->get();
-
-        if ($existing_policies->count() > 0) {
-            return back()->withErrors([
-                sprintf(
-                    'В базе присутствуют полностью или чистично полиса от %s до %s с наименованием %s',
-                    $policy_series_from,
-                    $policy_series_to,
-                    $policy_data['name']
-                )
-            ]);
-        }
-
-        $employee = Auth::user()->employees->first();
 
         $files = [];
         foreach($request['files'] as $file) {
@@ -112,24 +88,21 @@ class PolicyFlowController extends Controller
             ];
         }
 
-        for ($i = $policy_series_from; $i <= $policy_series_to; $i++) {
-            $policy_data['employee_id'] = $employee->id;
-            $policy_data['series'] = $i;
-            $policy_data['status'] = PolicyFlow::STATUS_REGISTERED;
-            $policy_data['date_of_issue'] = date('Y-m-d');
+        foreach($policies as /* @var $policy Policy */ $policy) {
+            foreach($policy->policy_flows as /* @var $policy_flow PolicyFlow */ $policy_flow) {
+                $policy_flow->delete();
+            }
 
-            $policy = Policy::create($policy_data);
-
-            $policy_flow_data['branch_id'] = $employee->branch_id;
+            $policy_flow_data = $request['policy_flow'];
             $policy_flow_data['policy_id'] = $policy->id;
-            $policy_flow_data['status'] = PolicyFlow::STATUS_REGISTERED;
+            $policy_flow_data['status'] = PolicyFlow::STATUS_TRANSFERRED;
 
             $policy_flow = PolicyFlow::create($policy_flow_data);
             $policy_flow->files()->createMany($files);
         }
 
         return redirect()->route('policy_flows.index')
-                         ->with('success', 'Успешно добавлены новые движения полисов');
+                         ->with('success', 'Успешно произведены перемещения существующих полисов');
     }
 
     /**
@@ -174,6 +147,20 @@ class PolicyFlowController extends Controller
         $policy_flow->fill($request['policy_flow']);
         $policy_flow->save();
 
+        if (count($request['files']) > 0) {
+            $files = [];
+            foreach($request['files'] as $file) {
+                $files[] = [
+                    'type' => 'document',
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/policy', $file),
+                ];
+            }
+
+            $policy_flow->files()->delete();
+            $policy_flow->files()->createMany($files);
+        }
+
         return redirect()->route('policy_flows.index')
                          ->with('success', sprintf('Данные о движении полиса \'%s\' были успешно обновлены', $policy_flow->id));
     }
@@ -187,60 +174,9 @@ class PolicyFlowController extends Controller
      */
     public function destroy(PolicyFlow $policy_flow)
     {
-        $policy_flow->policy->delete();
+        $policy_flow->delete();
 
         return redirect()->route('policy_flows.index')
                          ->with('success', sprintf('Данные о движении полиса \'%s\' были успешно удалены', $policy_flow->id));
-    }
-
-    /**
-     * Transfer existing policies.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function transfer(Request $request)
-    {
-        if ($request->isMethod('POST')) {
-            $request->validate(array_merge(PolicyFlow::$validate, [
-                'policy.name' => 'required',
-                'policy_series_from' => 'required',
-                'policy_series_to' => 'required',
-                'policy_flow.branch_id' => 'required',
-            ]));
-
-            $policies = Policy::where('name', '=', $request['policy']['name'])
-                ->whereBetween('series', [$request['policy_series_from'], $request['policy_series_to']])
-                ->get();
-
-            $files = [];
-            foreach($request['files'] as $file) {
-                $files[] = [
-                    'type' => 'document',
-                    'original_name' => $file->getClientOriginalName(),
-                    'path' => Storage::putFile('public/policy_flow', $file),
-                ];
-            }
-
-            foreach($policies as /* @var $policy Policy */ $policy) {
-                $policy_flow = $policy->policy_flows->first();
-                $policy_flow->delete();
-
-                $policy_flow_data = $request['policy_flow'];
-                $policy_flow_data['policy_id'] = $policy->id;
-                $policy_flow_data['status'] = PolicyFlow::STATUS_TRANSFERRED;
-
-                $policy_flow = PolicyFlow::create($policy_flow_data);
-                $policy_flow->files()->createMany($files);
-            }
-
-            return redirect()->route('policy_flows.index')
-                             ->with('success', 'Успешно произведены перемещения существующих полисов');
-        }
-
-        return view('policy_flow.transfer', [
-            'policy' => new Policy(),
-            'policy_flow' => new PolicyFlow(),
-        ]);
     }
 }

@@ -41,7 +41,6 @@ class PolicyController extends Controller
 
         return view('policy.create', [
             'policy' => $policy,
-            'policy_flow' => new PolicyFlow(),
         ]);
     }
 
@@ -55,12 +54,10 @@ class PolicyController extends Controller
     {
         $request->validate(array_merge(
             Policy::$validate,
-            PolicyFlow::$validate,
             ['policy_series_from' => 'required', 'policy_series_to' => 'required'],
         ));
 
         $policy_data = $request['policy'];
-        $policy_flow_data = $request['policy_flow'];
         $policy_series_from = $request['policy_series_from'];
         $policy_series_to = $request['policy_series_to'];
 
@@ -88,7 +85,7 @@ class PolicyController extends Controller
             $files[] = [
                 'type' => 'document',
                 'original_name' => $file->getClientOriginalName(),
-                'path' => Storage::putFile('public/policy_flow', $file),
+                'path' => Storage::putFile('public/policy', $file),
             ];
         }
 
@@ -100,13 +97,7 @@ class PolicyController extends Controller
 
             $policy = Policy::create($policy_data);
 
-            $policy_flow_data['branch_id'] = $employee->branch_id;
-            $policy_flow_data['policy_id'] = $policy->id;
-            $policy_flow_data['status'] = PolicyFlow::STATUS_REGISTERED;
-
-            $policy_flow = PolicyFlow::create($policy_flow_data);
-
-            $policy_flow->files()->createMany($files);
+            $policy->files()->createMany($files);
         }
 
         return redirect()->route('policies.index')
@@ -154,6 +145,20 @@ class PolicyController extends Controller
 
         $policy->fill($request['policy']);
         $policy->save();
+
+        if (count($request['files']) > 0) {
+            $files = [];
+            foreach($request['files'] as $file) {
+                $files[] = [
+                    'type' => 'document',
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/policy', $file),
+                ];
+            }
+
+            $policy->files()->delete();
+            $policy->files()->createMany($files);
+        }
 
         return redirect()->route('policies.index')
                          ->with('success', sprintf('Данные о полисе \'%s\' были успешно обновлены', $policy->name));

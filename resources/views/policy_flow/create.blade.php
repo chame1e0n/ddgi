@@ -4,7 +4,7 @@
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
-                <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
+                <a href="{{url()->previous()}}" class="btn btn-info">Назад</a>
                 <br /><br />
 
                 @include('includes.messages')
@@ -23,7 +23,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Регистрация полисов</h3>
+                                        <h3 class="card-title">Передача полисов</h3>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                                 <i class="fas fa-minus"></i>
@@ -33,66 +33,14 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="policy-act-number" class="col-form-label">Номер акта</label>
-                                                    <input required
-                                                           class="form-control @if($errors->has('policy.act_number')) is-invalid @endif"
-                                                           id="policy-act-number"
-                                                           name="policy[act_number]"
-                                                           value="{{old('policy.act_number', $policy->act_number)}}" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="policy-flow-act-date" class="col-form-label">Дата акта</label>
-                                                    <div class="input-group">
-                                                        <input required
-                                                               class="form-control @if($errors->has('policy_flow.act_date')) is-invalid @endif"
-                                                               id="policy-flow-act-date"
-                                                               name="policy_flow[act_date]"
-                                                               placeholder="yyyy-mm-dd"
-                                                               type="date"
-                                                               value="{{old('policy_flow.act_date', $policy_flow->act_date)}}" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="policy-name" class="col-form-label">Наименование</label>
+                                                <label for="name" class="col-form-label">Наименование</label>
                                                 <input required
-                                                       class="form-control @if($errors->has('policy.name')) is-invalid @endif"
-                                                       id="policy-name"
-                                                       name="policy[name]"
+                                                       class="form-control @if($errors->has('name')) is-invalid @endif"
+                                                       id="name"
+                                                       name="name"
                                                        type="text"
-                                                       value="{{old('policy.name', $policy->name)}}" />
+                                                       value="{{old('name')}}" />
                                             </div>
-                                            <div class="col-md-3">
-                                                <label for="files" class="col-form-label">Загрузка документов</label>
-                                                <div class="input-group">
-                                                    <input type="file" multiple id="files" name="files[]" class="form-control" />
-                                                    <div class="input-group-append">
-                                                        <a class="btn btn-info" href="#">
-                                                            <i class="fas fa-download"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                            @foreach(\App\Model\Policy::$print_sizes as $size => $label)
-                                                <div class="icheck-success">
-                                                    <input @if($policy->print_size == $size) checked @endif
-                                                           class="form-check-input client-type-radio"
-                                                           id="policy-print-size-{{$size}}"
-                                                           name="policy[print_size]"
-                                                           type="radio"
-                                                           value="{{$size}}" />
-                                                    <label for="policy-print-size-{{$size}}">{{$label}}</label>
-                                                </div>
-                                            @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="policy-series-from" class="col-form-label">Серия полиса с:</label>
@@ -125,6 +73,11 @@
                                                        type="text"
                                                        value="" />
                                             </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3"></div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="policy-created-at" class="col-form-label">Дата распределения</label>
@@ -140,27 +93,81 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-3"></div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="policy-price" class="col-form-label">Стоимость одного бланка </label>
-                                                    <input required
-                                                           class="form-control @if($errors->has('policy.price')) is-invalid @endif"
-                                                           id="policy-price"
-                                                           name="policy[price]"
-                                                           oninput="counter()"
-                                                           type="text"
-                                                           value="{{old('policy.price', $policy->price)}}" />
+                                                    <label for="policy-flow-act-date" class="col-form-label">Дата акта</label>
+                                                    <div class="input-group">
+                                                        <input required
+                                                               class="form-control @if($errors->has('policy_flow.act_date')) is-invalid @endif"
+                                                               id="policy-flow-act-date"
+                                                               name="policy_flow[act_date]"
+                                                               placeholder="yyyy-mm-dd"
+                                                               type="date"
+                                                               value="{{old('policy_flow.act_date', $policy_flow->act_date)}}" />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="policy-price-total" class="col-form-label">Всего стоимость</label>
-                                                    <input disabled
-                                                           class="form-control"
-                                                           id="policy-price-total"
-                                                           type="text"
-                                                           value="" />
+                                                    <label for="policy-flow-from-employee-id" class="col-form-label">От кого</label>
+                                                    <select id="policy-flow-from-employee-id" class="form-control select2" name="policy_flow[from_employee_id]">
+                                                        <option></option>
+
+                                                        @php $header = null @endphp
+                                                        @foreach(\App\Model\Employee::orderBy('role')->get() as $employee)
+                                                            @if($employee->role != $header)
+                                                                <option disabled="disabled"
+                                                                        style="font-weight: bold;"
+                                                                        value="0">
+                                                                    {{\App\Model\Employee::getTitle($employee->role, true)}}
+                                                                </option>
+
+                                                                @php $header = $employee->role @endphp
+                                                            @endif
+
+                                                            <option @if(request('policy_flow.from_employee_id') == $employee->id) selected="selected" @endif
+                                                                    value="{{$employee->id}}">
+                                                                {{$employee->surname}} {{$employee->name}} {{$employee->middlename}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="policy-flow-to-employee-id" class="col-form-label">Кому</label>
+                                                    <select id="policy-flow-to-employee-id" class="form-control select2" name="policy_flow[to_employee_id]">
+                                                        <option></option>
+
+                                                        @php $header = null @endphp
+                                                        @foreach(\App\Model\Employee::orderBy('role')->get() as $employee)
+                                                            @if($employee->role != $header)
+                                                                <option disabled="disabled"
+                                                                        style="font-weight: bold;"
+                                                                        value="0">
+                                                                    {{\App\Model\Employee::getTitle($employee->role, true)}}
+                                                                </option>
+
+                                                                @php $header = $employee->role @endphp
+                                                            @endif
+
+                                                            <option @if(request('policy_flow.to_employee_id') == $employee->id) selected="selected" @endif
+                                                                    value="{{$employee->id}}">
+                                                                {{$employee->surname}} {{$employee->name}} {{$employee->middlename}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="files" class="col-form-label">Загрузка документов</label>
+                                                <div class="input-group">
+                                                    <input type="file" multiple id="files" name="files[]" class="form-control" />
+                                                    <div class="input-group-append">
+                                                        <a class="btn btn-info" href="#">
+                                                            <i class="fas fa-download"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -183,11 +190,9 @@
         function counter() {
             var from = parseInt(document.getElementById('policy-series-from').value);
             var to = parseInt(document.getElementById('policy-series-to').value);
-            var price = parseInt(document.getElementById('policy-price').value);
 
             if (from > 0 && to > 0 && to >= from) {
                 document.getElementById('policy-amount').value = to - from + 1;
-                document.getElementById('policy-price-total').value = (to - from + 1) * price;
             }
         }
     </script>
