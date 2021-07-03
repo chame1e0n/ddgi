@@ -21,50 +21,50 @@
                                value="{{$insured_person->fio}}" />
                     </div>
                 </div>
-                {{--<div class="col-md-6">--}}
-                    {{--<div class="form-group">--}}
-                        {{--<label for="insured-person-address" class="col-form-label">Юр. адрес заемщика</label>--}}
-                        {{--<input required--}}
-                               {{--class="form-control @if($errors->has('insured_person.address')) is-invalid @endif"--}}
-                               {{--id="insured-person-address"--}}
-                               {{--name="insured_person[address]"--}}
-                               {{--type="text"--}}
-                               {{--value="{{$insured_person->address}}" />--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-md-4">--}}
-                    {{--<div class="form-group">--}}
-                        {{--<label for="insured-person-phone" class="col-form-label">Телефон</label>--}}
-                        {{--<input required--}}
-                               {{--class="form-control @if($errors->has('insured_person.phone')) is-invalid @endif"--}}
-                               {{--id="insured-person-phone"--}}
-                               {{--name="insured_person[phone]"--}}
-                               {{--type="text"--}}
-                               {{--value="{{$insured_person->phone}}" />--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-md-4">--}}
-                    {{--<div class="form-group">--}}
-                        {{--<label for="insured-person-passport_series" class="col-form-label">Серия паспорта</label>--}}
-                        {{--<input required--}}
-                               {{--class="form-control @if($errors->has('insured_person.passport_series')) is-invalid @endif"--}}
-                               {{--id="insured-person-passport_series"--}}
-                               {{--name="insured_person[passport_series]"--}}
-                               {{--type="text"--}}
-                               {{--value="{{$insured_person->passport_series}}" />--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-md-4">--}}
-                    {{--<div class="form-group">--}}
-                        {{--<label for="insured-person-passport-number" class="col-form-label">Номер паспорта</label>--}}
-                        {{--<input required--}}
-                               {{--class="form-control @if($errors->has('insured_person.passport_number')) is-invalid @endif"--}}
-                               {{--id="insured-person-passport-number"--}}
-                               {{--name="insured_person[passport_number]"--}}
-                               {{--type="text"--}}
-                               {{--value="{{$insured_person->passport_number}}" />--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="insured-person-address" class="col-form-label">Юр. адрес заемщика</label>
+                        <input required
+                               class="form-control @if($errors->has('insured_person.address')) is-invalid @endif"
+                               id="insured-person-address"
+                               name="insured_person[address]"
+                               type="text"
+                               value="{{$insured_person->address}}" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="insured-person-phone" class="col-form-label">Телефон</label>
+                        <input required
+                               class="form-control @if($errors->has('insured_person.phone')) is-invalid @endif"
+                               id="insured-person-phone"
+                               name="insured_person[phone]"
+                               type="text"
+                               value="{{$insured_person->phone}}" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="insured-person-passport_series" class="col-form-label">Серия паспорта</label>
+                        <input required
+                               class="form-control @if($errors->has('insured_person.passport_series')) is-invalid @endif"
+                               id="insured-person-passport_series"
+                               name="insured_person[passport_series]"
+                               type="text"
+                               value="{{$insured_person->passport_series}}" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="insured-person-passport-number" class="col-form-label">Номер паспорта</label>
+                        <input required
+                               class="form-control @if($errors->has('insured_person.passport_number')) is-invalid @endif"
+                               id="insured-person-passport-number"
+                               name="insured_person[passport_number]"
+                               type="text"
+                               value="{{$insured_person->passport_number}}" />
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="insured-person-sum" class="col-form-label">Сумма</label>
