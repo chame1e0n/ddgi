@@ -15,7 +15,7 @@ class CreateTestPaymentMethodsTable extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code', 20)->unique();
+            $table->string('key', 20)->unique();
             $table->string('name', 255);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

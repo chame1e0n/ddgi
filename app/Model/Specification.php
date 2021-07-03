@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Specification extends Model
 {
@@ -29,7 +30,7 @@ class Specification extends Model
      * 
      * @var array
      */
-    public static $specification_to_routes = [
+    public static $specification_key_to_routes = [
         'S_BAI' => 'neshchastka_borrower',
         'S_IOAAA' => 'borrower_sportsman',
         'S_CAI24HAD' => 'neshchastka/time',
@@ -97,9 +98,9 @@ class Specification extends Model
      * @var array
      */
     public static $validate = [
+        'specification.type_id' => 'required',
         'specification.code' => 'required',
         'specification.name' => 'required',
-        'specification.type_id' => 'required',
     ];
 
     /**
@@ -135,6 +136,18 @@ class Specification extends Model
         }
 
         return new Collection();
+    }
+
+    /**
+     * Overriden save method.
+     */
+    public function save($options = [])
+    {
+        if (!$this->exists) {
+            $this->key = 'S_' . strtoupper(Str::random(8));
+        }
+
+        parent::save($options);
     }
 
     /**

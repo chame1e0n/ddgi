@@ -28,175 +28,185 @@ class DatabaseSeeder extends Seeder
 
         $admin_users = factory(App\User::class, 1)->create();
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_IFUC',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_IFUC',
+            'code' => '01',
             'name' => 'страхование от несчастных случаев',
             'description' => 'Страхование от несчастных случаев.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,   'code' => 'S_BAI',         'name' => 'страхование заемщика от несчастных случаев',                                                         'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,   'code' => 'S_IOAAA',       'name' => 'страхование спортсменов от несчастных случаев',                                                      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,   'code' => 'S_CAI24HAD',    'name' => 'коллективное страхование от несчастных случаев 24 часа в сутки',                                     'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,   'code' => 'S_AI',          'name' => 'страхование от несчастных случаев (единичный полис формата А5)',                                     'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,   'code' => 'S_IOPIIRTAA',   'name' => 'страхование пассажиров при международном сообщении автомобильным транспортом от несчастных случаев', 'is_for_individual' => 1,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_BAI',       'code' => '01', 'name' => 'страхование заемщика от несчастных случаев',                                                         'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOAAA',     'code' => '02', 'name' => 'страхование спортсменов от несчастных случаев',                                                      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CAI24HAD',  'code' => '03', 'name' => 'коллективное страхование от несчастных случаев 24 часа в сутки',                                     'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_AI',        'code' => '04', 'name' => 'страхование от несчастных случаев (единичный полис формата А5)',                                     'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOPIIRTAA', 'code' => '05', 'name' => 'страхование пассажиров при международном сообщении автомобильным транспортом от несчастных случаев', 'is_for_individual' => 1,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_II',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_II',
+            'code' => '02',
             'name' => 'cтрахование на случай болезни',
             'description' => 'Страхование на случай болезни.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,  'code' => 'S_VHI',  'name' => 'добровольное медицинское страхование',                                                               'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IAID', 'name' => 'страхование от инфекционных заболеваний',                                                            'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CVMI', 'name' => 'комплексное добровольное медицинское страхование (ДМС + страхование от инфекционных заболеваний)',   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CCI',  'name' => 'страхование на случай заболевания коронавирусом COVID-19 (Полис/Договор)',                           'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_VHI',   'code' => '01', 'name' => 'добровольное медицинское страхование',                                                               'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IAID',  'code' => '02', 'name' => 'страхование от инфекционных заболеваний',                                                            'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CVMI',  'code' => '03', 'name' => 'комплексное добровольное медицинское страхование (ДМС + страхование от инфекционных заболеваний)',   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CCI',   'code' => '04', 'name' => 'страхование на случай заболевания коронавирусом COVID-19 (Полис/Договор)',                           'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_LVI',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_LVI',
+            'code' => '03',
             'name' => 'страхование наземных транспортных средств',
             'description' => 'Страхование наземных транспортных средств.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,  'code' => 'S_PVI',          'name' => 'страхование транспортного средства выставляемого в залог (многосторонний)',                                                                      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_LVI',          'name' => 'страхование транспортного средства передаваемого в лизинг',                                                                                      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_VVI',          'name' => 'добровольное страхование транспортных средств (каско)',                                                                                          'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_VCVICIAL',     'name' => 'добровольное комплексное страхование транспортных средств (каско и ответ. перед. третьими лицами)',                                              'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_VCVICIAW',     'name' => 'добровольное комплексное страхование транспортных средств (каско, несчастный случай с водителем/пассажирами и ответ. перед. третьими лицами)',   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOTVBP',       'name' => 'страхование транспортного средства выставляемого в залог (трех)',                                                                                'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOAMLO',       'name' => 'страхования сельхозтехники передаваемого в лизинг (в том числе по работе с АК «Узагролизинг»)',                                                  'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOSEPUAAP',    'name' => 'страхование спец. техники выставляемого в залог',                                                                                                'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOGCEIOAV',    'name' => 'страхование газо-баллонного оборудования установленное на транспортное средство',                                                                'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_VIP',          'name' => 'полис страхования транспортных средств',                                                                                                         'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_PVI',       'code' => '01', 'name' => 'страхование транспортного средства выставляемого в залог (многосторонний)',                                                                      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_LVI',       'code' => '02', 'name' => 'страхование транспортного средства передаваемого в лизинг',                                                                                      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_VVI',       'code' => '03', 'name' => 'добровольное страхование транспортных средств (каско)',                                                                                          'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_VCVICIAL',  'code' => '04', 'name' => 'добровольное комплексное страхование транспортных средств (каско и ответ. перед. третьими лицами)',                                              'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_VCVICIAW',  'code' => '05', 'name' => 'добровольное комплексное страхование транспортных средств (каско, несчастный случай с водителем/пассажирами и ответ. перед. третьими лицами)',   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOTVBP',    'code' => '06', 'name' => 'страхование транспортного средства выставляемого в залог (трех)',                                                                                'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOAMLO',    'code' => '07', 'name' => 'страхования сельхозтехники передаваемого в лизинг (в том числе по работе с АК «Узагролизинг»)',                                                  'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOSEPUAAP', 'code' => '08', 'name' => 'страхование спец. техники выставляемого в залог',                                                                                                'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOGCEIOAV', 'code' => '09', 'name' => 'страхование газо-баллонного оборудования установленное на транспортное средство',                                                                'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_VIP',       'code' => '10', 'name' => 'полис страхования транспортных средств',                                                                                                         'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
         DB::table('types')->insert([
-            ['code' => 'T_RRSI',    'name' => 'страхование железнодорожного подвижного состава',    'description' => 'Страхование железнодорожного подвижного состава.',    'created_at' => date('Y-m-d H:i:s')],
-            ['code' => 'T_AI',      'name' => 'авиационное страхование',                            'description' => 'Авиационное страхование.',                            'created_at' => date('Y-m-d H:i:s')],
-            ['code' => 'T_MI',      'name' => 'морское страхование',                                'description' => 'Морское страхование.',                                'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'T_RRSI', 'code' => '04', 'name' => 'страхование железнодорожного подвижного состава',    'description' => 'Страхование железнодорожного подвижного состава.',    'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'T_AI',   'code' => '05', 'name' => 'авиационное страхование',                            'description' => 'Авиационное страхование.',                            'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'T_MI',   'code' => '06', 'name' => 'морское страхование',                                'description' => 'Морское страхование.',                                'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_PIIT',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_PIIT',
+            'code' => '07',
             'name' => 'страхование имущества находящегося в пути',
             'description' => 'Страхование имущества, находящегося в пути.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,  'code' => 'S_CIG',  'name' => 'страхование грузов (генеральный договор)',   'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CIS',  'name' => 'страхование груза (единичный)',              'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CIG',   'code' => '01', 'name' => 'страхование грузов (генеральный договор)',   'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CIS',   'code' => '02', 'name' => 'страхование груза (единичный)',              'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_PIAFAND',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_PIAFAND',
+            'code' => '08',
             'name' => 'страхование имущества от огня и стихийных бедствий',
             'description' => 'Страхование имущества от огня и стихийных бедствий.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,  'code' => 'S_PPIM',         'name' => 'страхование имущества выставляемого в залог (многосторонний)',                       'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOREP',        'name' => 'страхование недвижимого имущества передаваемого в залог (ипотеку)',                  'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_LPI',          'name' => 'страхование имущества передаваемого в лизинг',                                       'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_PI',           'name' => 'страхование имущества (добровольное)',                                               'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOCAAR',       'name' => 'страхование строительно-монтажных рисков',                                           'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOCAIRATPL',   'name' => 'страхование строительно-монтажных рисков и ответственности перед третьими лицами',   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_PPIT',         'name' => 'страхование имущества выставляемого в залог (трёхсторонний)',                        'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_PIP',          'name' => 'страхование имущества выставляемого в залог (генеральный договор)',                  'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_PPIM',          'code' => '01', 'name' => 'страхование имущества выставляемого в залог (многосторонний)',                       'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOREP',         'code' => '02', 'name' => 'страхование недвижимого имущества передаваемого в залог (ипотеку)',                  'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_LPI',           'code' => '03', 'name' => 'страхование имущества передаваемого в лизинг',                                       'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_PI',            'code' => '04', 'name' => 'страхование имущества (добровольное)',                                               'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOCAAR',        'code' => '05', 'name' => 'страхование строительно-монтажных рисков',                                           'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOCAIRATPL',    'code' => '06', 'name' => 'страхование строительно-монтажных рисков и ответственности перед третьими лицами',   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_PPIT',          'code' => '07', 'name' => 'страхование имущества выставляемого в залог (трёхсторонний)',                        'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_PIP',           'code' => '08', 'name' => 'страхование имущества выставляемого в залог (генеральный договор)',                  'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_PDI',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_PDI',
+            'code' => '09',
             'name' => 'страхование имущества от ущерба',
             'description' => 'Страхование имущества от ущерба.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_MTPLI',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_MTPLI',
+            'code' => '10',
             'name' => 'страхование автогражданской ответственности',
             'description' => 'Страхование автогражданской ответственности.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,  'code' => 'S_VIT',  'name' => 'страхование транспортных средств (ответственность перед третьими лицами)',   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_VI',   'name' => 'страхование транспортных средств',                                           'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_VIT',   'code' => '01', 'name' => 'страхование транспортных средств (ответственность перед третьими лицами)',    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_VI',    'code' => '02', 'name' => 'страхование транспортных средств',                                            'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
         DB::table('types')->insert([
-            ['code' => 'T_LIWTFOAI',    'name' => 'страхование ответственности в рамках авиационного страхования',  'description' => 'Страхование ответственности в рамках авиационного страхования.',  'created_at' => date('Y-m-d H:i:s')],
-            ['code' => 'T_MLI',         'name' => 'страхование ответственности в рамках морского страхования',      'description' => 'Страхование ответственности в рамках морского страхования.',      'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'T_LIWTFOAI', 'code' => '11', 'name' => 'страхование ответственности в рамках авиационного страхования',  'description' => 'Страхование ответственности в рамках авиационного страхования.',  'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'T_MLI',      'code' => '12', 'name' => 'страхование ответственности в рамках морского страхования',      'description' => 'Страхование ответственности в рамках морского страхования.',      'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_GLI',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_GLI',
+            'code' => '13',
             'name' => 'страхование общей гражданской ответственности',
             'description' => 'Страхование общей гражданской ответственности.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,  'code' => 'S_CLIFTTODG',    'name' => 'страхование гражданской ответственности при транспортировке опасных грузов',                                 'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_VCLIFTOOHPF',  'name' => 'добровольное страхование гражданской ответственности при эксплуатации опасных производственных объектов',    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CLIFCP',       'name' => 'страхование гражданской ответственности по уплате таможенных платежей',                                      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CLI',          'name' => 'страхование гражданской ответственности',                                                                    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_PLIOCB',       'name' => 'страхование профессиональной ответственности таможенных брокеров',                                           'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IPRA',         'name' => 'страхование профессиональной ответственности аудиторов',                                                     'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_RCLI',         'name' => 'страхование гражданской ответственности риэлторов (страхование профессиональной ответственности)',           'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_PLIFA',        'name' => 'страхование профессиональной ответственности оценщиков',                                                     'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_ICRC',         'name' => 'страхование гражданской ответственности подрядчика',                                                         'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_AOAOLI',       'name' => 'страхование гражданской ответственности собственников и операторов аэропортов (ARIEL)',                      'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_PLION',        'name' => 'страхование профессиональной ответственности нотариусов',                                                    'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CLIOCA',       'name' => 'страхование гражданской ответственности судебных управляющих',                                               'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOCLOTOOTC',   'name' => 'страхование гражданско-правовой ответственности организации налоговых  консультантов',                       'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CLIFTTODG',     'code' => '01', 'name' => 'страхование гражданской ответственности при транспортировке опасных грузов',                                 'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_VCLIFTOOHPF',   'code' => '02', 'name' => 'добровольное страхование гражданской ответственности при эксплуатации опасных производственных объектов',    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CLIFCP',        'code' => '03', 'name' => 'страхование гражданской ответственности по уплате таможенных платежей',                                      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CLI',           'code' => '04', 'name' => 'страхование гражданской ответственности',                                                                    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_PLIOCB',        'code' => '05', 'name' => 'страхование профессиональной ответственности таможенных брокеров',                                           'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IPRA',          'code' => '06', 'name' => 'страхование профессиональной ответственности аудиторов',                                                     'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_RCLI',          'code' => '07', 'name' => 'страхование гражданской ответственности риэлторов (страхование профессиональной ответственности)',           'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_PLIFA',         'code' => '08', 'name' => 'страхование профессиональной ответственности оценщиков',                                                     'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_ICRC',          'code' => '09', 'name' => 'страхование гражданской ответственности подрядчика',                                                         'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_AOAOLI',        'code' => '10', 'name' => 'страхование гражданской ответственности собственников и операторов аэропортов (ARIEL)',                      'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_PLION',         'code' => '11', 'name' => 'страхование профессиональной ответственности нотариусов',                                                    'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CLIOCA',        'code' => '12', 'name' => 'страхование гражданской ответственности судебных управляющих',                                               'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOCLOTOOTC',    'code' => '13', 'name' => 'страхование гражданско-правовой ответственности организации налоговых  консультантов',                       'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_LI',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_LI',
+            'code' => '14',
             'name' => 'страхование кредитов',
             'description' => 'Страхование кредитов.',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,  'code' => 'S_LDRIL',            'name' => 'страхование риска непогашения кредита (юр. лицо)',                                                           'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CLNRRI',           'name' => 'страхования риска непогашения потребительского кредита (генеральное соглашение)',                            'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CCLI',             'name' => 'комплексное страхование автокредита (непогашение кредита + ТС выставляемого в залог)',                       'is_for_individual' => 1,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_MDRI',             'name' => 'страхование риска непогашения микрозайма (генеральный договор)',                                             'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IONOACL',          'name' => 'страхование непогашения товарного кредита (генеральный договор)',                                            'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_CECI',             'name' => 'комплексное страхование экспортного контракта',                                                              'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOTRONOTLU',       'name' => 'страхование риска непогашения кредита по программе «Каждая семья – предприниматель»',                        'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_LDRII',            'name' => 'страхование риска непогашения кредита (физ. лицо)',                                                          'is_for_individual' => 1,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_LDRIO',            'name' => 'страхование риска непогашения кредита (овердрафт) (генеральный договор)',                                    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOTMRAWLTTPOPV',   'name' => 'страхования рисков завода-изготовителя связанных с кредитованием покупки транспортных средств производства', 'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_IOTRONOTLF',       'name' => 'страхование риска непогашения кредита (по платежной карте «кобренд») (генеральный договор)',                 'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_LDRIF',            'name' => 'страхование риска непогашения кредита (по платежной карте N-Qulay) (генеральный договор)',                   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_LDRIL',             'code' => '01', 'name' => 'страхование риска непогашения кредита (юр. лицо)',                                                           'is_for_individual' => 0,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CLNRRI',            'code' => '02', 'name' => 'страхования риска непогашения потребительского кредита (генеральное соглашение)',                            'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CCLI',              'code' => '03', 'name' => 'комплексное страхование автокредита (непогашение кредита + ТС выставляемого в залог)',                       'is_for_individual' => 1,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_MDRI',              'code' => '04', 'name' => 'страхование риска непогашения микрозайма (генеральный договор)',                                             'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IONOACL',           'code' => '05', 'name' => 'страхование непогашения товарного кредита (генеральный договор)',                                            'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_CECI',              'code' => '06', 'name' => 'комплексное страхование экспортного контракта',                                                              'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOTRONOTLU',        'code' => '07', 'name' => 'страхование риска непогашения кредита по программе «Каждая семья – предприниматель»',                        'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_LDRII',             'code' => '08', 'name' => 'страхование риска непогашения кредита (физ. лицо)',                                                          'is_for_individual' => 1,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_LDRIO',             'code' => '09', 'name' => 'страхование риска непогашения кредита (овердрафт) (генеральный договор)',                                    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOTMRAWLTTPOPV',    'code' => '10', 'name' => 'страхования рисков завода-изготовителя связанных с кредитованием покупки транспортных средств производства', 'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_IOTRONOTLF',        'code' => '11', 'name' => 'страхование риска непогашения кредита (по платежной карте «кобренд») (генеральный договор)',                 'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_LDRIF',             'code' => '12', 'name' => 'страхование риска непогашения кредита (по платежной карте N-Qulay) (генеральный договор)',                   'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10, 'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
-        $id = DB::table('types')->insertGetId([
-            'code' => 'T_GI',
+        $type_id = DB::table('types')->insertGetId([
+            'key' => 'T_GI',
+            'code' => '15',
             'name' => 'страхование поручительства (гарантий)',
             'description' => 'Страхование поручительства (гарантий).',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
         DB::table('specifications')->insert([
-            ['type_id' => $id,  'code' => 'S_SI',   'name' => 'страхование поручительства (гарантии)',      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_APIS', 'name' => 'страхование авансовых платежей (услуга)',    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
-            ['type_id' => $id,  'code' => 'S_APIC', 'name' => 'страхование авансовых платежей (товар)',     'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_SI',    'code' => '01', 'name' => 'страхование поручительства (гарантии)',      'is_for_individual' => 1,   'is_for_legal' => 1,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_APIS',  'code' => '02', 'name' => 'страхование авансовых платежей (услуга)',    'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
+            ['type_id' => $type_id, 'key' => 'S_APIC',  'code' => '03', 'name' => 'страхование авансовых платежей (товар)',     'is_for_individual' => 0,   'is_for_legal' => 0,    'tariff' => 10,  'max_acceptable_amount' => 100000,  'created_at' => date('Y-m-d H:i:s')],
         ]);
 
         DB::table('types')->insert([
-            ['code' => 'T_IAOFR',   'name' => 'страхование от прочих финансовых рисков',            'description' => 'Страхование от прочих финансовых рисков.',            'created_at' => date('Y-m-d H:i:s')],
-            ['code' => 'T_IOERTLP', 'name' => 'страхование расходов связанных с правовой защитой',  'description' => 'Страхование расходов, связанных с правовой защитой.', 'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'T_IAOFR',    'code' => '16', 'name' => 'страхование от прочих финансовых рисков',            'description' => 'Страхование от прочих финансовых рисков.',            'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'T_IOERTLP',  'code' => '17', 'name' => 'страхование расходов связанных с правовой защитой',  'description' => 'Страхование расходов, связанных с правовой защитой.', 'created_at' => date('Y-m-d H:i:s')],
         ]);
 
         DB::table('payment_methods')->insert([
-            ['code' => 'PM_LC',             'name' => 'локальная валюта',                                               'created_at' => date('Y-m-d H:i:s')],
-            ['code' => 'PM_FC',             'name' => 'локальная валюта в иностранной валюте',                          'created_at' => date('Y-m-d H:i:s')],
-            ['code' => 'PM_FCOTDOTCOTC',    'name' => 'иностранная валюта на день заключения договора',                 'created_at' => date('Y-m-d H:i:s')],
-            ['code' => 'PM_FCOTDOP',        'name' => 'иностранная валюта на день оплаты',                              'created_at' => date('Y-m-d H:i:s')],
-            ['code' => 'PM_FCOTDOPOTPOTFT', 'name' => 'иностранная валюта на день оплаты премии или первого транша',    'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_LC',             'name' => 'локальная валюта',                                               'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_FC',             'name' => 'локальная валюта в иностранной валюте',                          'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_FCOTDOTCOTC',    'name' => 'иностранная валюта на день заключения договора',                 'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_FCOTDOP',        'name' => 'иностранная валюта на день оплаты',                              'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_FCOTDOPOTPOTFT', 'name' => 'иностранная валюта на день оплаты премии или первого транша',    'created_at' => date('Y-m-d H:i:s')],
         ]);
 
         DB::table('currencies')->insert([

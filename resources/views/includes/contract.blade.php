@@ -43,9 +43,9 @@
                         <option></option>
 
                         @foreach(\App\Model\Specification::getSpecificationsByType($type) as $specification)
-                            <option @if(\Illuminate\Support\Facades\Route::current()->uri() == \App\Model\Specification::$specification_to_routes[$specification->code] . '/create') selected @endif
+                            <option @if(\Illuminate\Support\Facades\Route::current()->uri() == \App\Model\Specification::$specification_key_to_routes[$specification->key] . '/create') selected @endif
                                     value="{{$specification->id}}"
-                                    data-route="{{\App\Model\Specification::$specification_to_routes[$specification->code]}}">
+                                    data-route="{{\App\Model\Specification::$specification_key_to_routes[$specification->key]}}">
                                 {{$specification->name}}
                             </option>
                         @endforeach
