@@ -65,15 +65,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('spravochniki/individual_client','Spravochniki\IndividualClientController');
     Route::resource('spravochniki/legal_client','Spravochniki\LegalClientController');
     Route::resource('spravochniki/klass','KlassController');
-
-    Route::resource('policy_registration','PolicyRegistrationController');
-    Route::resource('policy_transfer','PolicyTransferController');
-    Route::resource('policy_retransfer','PolicyRetransferController');
-
     Route::resource('kasko','Product\KaskoController');
     Route::resource('nepogashen','Product\NepogashenController');
     Route::resource('otvetstvennost-broker','Product\OtvetstvennostBrokerController')->names('otvetstvennost-broker');
-    Route::post('policy_pending_transfer/{id}', 'PolicyTransferController@confirm')->name('policy_transfer.confirm');
+
     Route::resource('pretensii_overview','PretensiiOverviewController');
     Route::get('pretensii_overview/create/{id}', 'PretensiiOverviewController@create');
 
