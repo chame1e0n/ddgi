@@ -34,6 +34,8 @@ class PolicyFlow extends Model
      * @var array
      */
     public static $validate = [
+        'policy_flow.from_employee_id' => 'required',
+        'policy_flow.to_employee_id' => 'required',
         'policy_flow.act_date' => 'required',
     ];
 
@@ -50,15 +52,6 @@ class PolicyFlow extends Model
      * @var string
      */
     protected $table = 'policy_flows';
-
-    /**
-     * Get relation to the branches table.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function branch()
-    {
-        return $this->belongsTo(Branch::class);
-    }
 
     /**
      * Get relation to the employees table.

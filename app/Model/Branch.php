@@ -82,15 +82,6 @@ class Branch extends Model
     }
 
     /**
-     * Get relation to the policy_flows table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function policy_flows()
-    {
-        return $this->hasMany(PolicyFlow::class);
-    }
-
-    /**
      * Get relation to the pretensions table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -109,9 +100,6 @@ class Branch extends Model
         }
         foreach($this->employees as /* @var $employee Employee */ $employee) {
             $employee->delete();
-        }
-        foreach($this->policy_flows as /* @var $policy_flow PolicyFlow */ $policy_flow) {
-            $policy_flow->delete();
         }
         foreach($this->pretensions as /* @var $pretension Pretension */ $pretension) {
             $pretension->delete();
