@@ -21,11 +21,11 @@ class PolicyFlow extends Model
      * @var array
      */
     public static $statuses = [
-        self::STATUS_PENDING_TRANSFER => 'отложен',
-        self::STATUS_REGISTERED => 'зарегистрирован',
-        self::STATUS_REJECTED_TRANSFER => 'отменен',
-        self::STATUS_RETRANFERRED => 'повторно передан',
-        self::STATUS_TRANSFERRED => 'передан',
+        self::STATUS_PENDING_TRANSFER => 'отложен',     // директор или менеджер или агент отказывается принимать полисы, отправив обратно отправителю
+        self::STATUS_REGISTERED => 'зарегистрирован',   // при создании полисов админом
+        self::STATUS_REJECTED_TRANSFER => 'отменен',    // директор отказывается принимать полисы, отправив обратно админу
+        self::STATUS_RETRANFERRED => 'перераспределен', // директор или менеджер или агент отправляет их кому-то из своей или ниже роли
+        self::STATUS_TRANSFERRED => 'распределен',      // админ отправляет их директору или менеджеру или агенту
     ];
 
     /**
@@ -94,5 +94,17 @@ class PolicyFlow extends Model
     public function files()
     {
         return $this->morphMany(File::class, 'model');
+    }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->files as /* @var $file File */ $file) {
+            $file->delete();
+        }
+
+        return parent::delete();
     }
 }

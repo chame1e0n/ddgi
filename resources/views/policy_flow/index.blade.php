@@ -25,16 +25,18 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <a class="btn btn-success" href="{{route('policy_flows.create')}}">Зарегистрировать</a>
+                                        <a class="btn btn-success"
+                                           href="{{route('policy_flows.create')}}"
+                                           style="width: 150px !important;">Зарегистрировать</a>
                                     </div>
                                     <div class="col-md-2">
-                                        <a class="btn btn-success" href="{{route('policy_transfer.create')}}">Распределить</a>
+                                        <a class="btn btn-success"
+                                           href="{{route('policy_flows.transfer')}}"
+                                           style="width: 150px !important;">Распределить</a>
                                     </div>
                                     <div class="col-md-2">
-                                        <a class="btn btn-success" href="{{route('policy_retransfer.create')}}">Перераспределить</a>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <a class="btn btn-success" href="{{\Illuminate\Support\Facades\URL::current()}}">Обновить</a>
+                                        <a class="btn btn-success"
+                                           href="{{\Illuminate\Support\Facades\URL::current()}}">Обновить</a>
                                     </div>
                                     <div class="col-md-2">
                                         <a class="btn btn-success" href="#">Export</a>

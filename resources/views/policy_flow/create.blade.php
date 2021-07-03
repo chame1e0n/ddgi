@@ -168,7 +168,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-footer">
                             <button type="submit" id="submit-button" class="btn btn-primary float-right">Добавить</button>
                         </div>

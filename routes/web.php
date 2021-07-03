@@ -144,6 +144,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('request_overview', 'RequestOverviewController');
 
     Route::resource('policies', 'PolicyController');
+
+    Route::get('policy_flows/transfer', 'PolicyFlowController@transfer')->name('policy_flows.transfer');
+    Route::post('policy_flows/transfer', 'PolicyFlowController@transfer')->name('policy_flows.transfer');
     Route::resource('policy_flows','PolicyFlowController');
 
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
