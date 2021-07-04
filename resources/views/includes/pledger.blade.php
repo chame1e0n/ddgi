@@ -1,116 +1,109 @@
-<div class="card card-info" id="clone-beneficiary">
+<div class="card card-info" id="pledger">
     <div class="card-header">
         <h3 class="card-title">Залогодатель</h3>
         <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                    data-toggle="tooltip" title="Collapse">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fas fa-minus"></i>
             </button>
         </div>
     </div>
-    <div class="card-body" id="beneficiary-card-body">
-        <div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="fio_zalog" class="col-form-label">Наименования залогодателя</label>
-                        <input type="text"
-                               id="fio_zalog"
-                               name="fio_zalog"
-                               class="form-control @if($errors->has('fio_zalog')) is-invalid @endif"
-                               value="{{old('fio_zalog')}}"
-                        >
-                    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pledger-fio" class="col-form-label">Наименования залогодателя</label>
+                    <input required
+                           class="form-control @error('pledger.fio') is-invalid @enderror"
+                           id="pledger-fio"
+                           name="pledger[fio]"
+                           type="text"
+                           value="{{old('pledger.fio', $pledger->fio)}}" />
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="address_zalog" class="col-form-label">Адрес залогодателя</label>
-                        <input type="text"
-                               id="address_zalog"
-                               name="address_zalog"
-                               class="form-control @if($errors->has('address_zalog')) is-invalid @endif"
-                               value="{{old('address_zalog')}}">
-                    </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="pledger-address" class="col-form-label">Адрес залогодателя</label>
+                    <input required
+                           class="form-control @error('pledger.address') is-invalid @enderror"
+                           id="pledger-address"
+                           name="pledger[address]"
+                           type="text"
+                           value="{{old('pledger.address', $pledger->address)}}" />
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="phone_zalog" class="col-form-label">Телефон</label>
-                        <input type="text"
-                               id="phone_zalog"
-                               name="phone_zalog"
-                               class="form-control @if($errors->has('phone_zalog')) is-invalid @endif"
-                               value="{{old('phone_zalog')}}"
-                        >
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="pledger-phone" class="col-form-label">Телефон</label>
+                    <input required
+                           class="form-control @error('pledger.phone') is-invalid @enderror"
+                           id="pledger-phone"
+                           name="pledger[phone]"
+                           type="text"
+                           value="{{old('pledger.phone', $pledger->phone)}}" />
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="checking_account_zalog" class="col-form-label">Расчетный счет</label>
-                        <input type="text"
-                               id="checking_account_zalog"
-                               name="checking_account_zalog"
-                               class="form-control @if($errors->has('checking_account_zalog')) is-invalid @endif"
-                               value="{{old('checking_account_zalog')}}"
-                        >
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="pledger-bank-account" class="col-form-label">Расчетный счет</label>
+                    <input required
+                           class="form-control @error('pledger.bank_account') is-invalid @enderror"
+                           id="pledger-bank-account"
+                           name="pledger[bank_account]"
+                           type="text"
+                           value="{{old('pledger.bank_account', $pledger->bank_account)}}" />
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="inn_zalog" class="col-form-label">ИНН</label>
-                        <input type="text"
-                               id="inn_zalog"
-                               name="inn_zalog"
-                               class="form-control @if($errors->has('inn_zalog')) is-invalid @endif"
-                               value="{{old('inn_zalog')}}"
-                        >
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="pledger-inn" class="col-form-label">ИНН</label>
+                    <input required
+                           class="form-control @error('pledger.inn') is-invalid @enderror"
+                           id="pledger-inn"
+                           name="pledger[inn]"
+                           type="text"
+                           value="{{old('pledger.inn', $pledger->inn)}}" />
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="mfo_zalog" class="col-form-label">МФО</label>
-                        <input type="text"
-                               id="mfo_zalog"
-                               name="mfo_zalog"
-                               class="form-control @if($errors->has('mfo_zalog')) is-invalid @endif"
-                               value="{{old('mfo_zalog')}}"
-                        >
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="pledger-mfo" class="col-form-label">МФО</label>
+                    <input required
+                           class="form-control @error('pledger.mfo') is-invalid @enderror"
+                           id="pledger-mfo"
+                           name="pledger[mfo]"
+                           type="text"
+                           value="{{old('pledger.mfo', $pledger->mfo)}}" />
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="bank_id_zalog" class="col-form-label">Банк</label>
-                        <select
-                            class="form-control @if($errors->has('bank_id_zalog')) is-invalid @endif"
-                            id="bank_id_zalog"
-                            name="bank_id_zalog"
-                            style="width: 100%;"
-                            required
-                        >
-                            <option>Выберите банк</option>
-                            @foreach(\App\Model\Bank::all() as $bank)
-                                @if(old('bank_id_zalog') == $bank->id)
-                                    <option selected value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                @else
-                                    <option value="{{ $bank->id }}">{{ $bank->name }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="pledger-bank-id" class="col-form-label">Банк</label>
+                    <select required
+                            class="form-control @error('pledger.bank_id') is-invalid @enderror"
+                            id="pledger-bank-id"
+                            name="pledger[bank_id]"
+                            style="width: 100%;">
+                        <option>Выберите банк</option>
+
+                        @foreach(\App\Model\Bank::all() as $bank)
+                            <option @if($bank->id == old('pledger.bank_id', $pledger->bank_id)) selected @endif
+                                    value="{{$bank->id}}">
+                                {{$bank->name}}
+                            </option> 
+                        @endforeach
+                    </select>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="oked_zalog" class="col-form-label">ОКЭД</label>
-                        <input
-                            class="form-control @if($errors->has('oked_zalog')) is-invalid @endif"
-                            type="text"
-                            id="oked_zalog"
-                            name="oked_zalog"
-                            value="{{old('oked_zalog')}}"
-                        >
-                    </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="pledger-oked" class="col-form-label">ОКЭД</label>
+                    <input class="form-control @error('pledger.oked') is-invalid @enderror"
+                           id="pledger-oked"
+                           name="pledger[oked]"
+                           type="text"
+                           value="{{old('pledger.oked', $pledger->oked)}}" />
                 </div>
             </div>
         </div>
     </div>
-
 </div>

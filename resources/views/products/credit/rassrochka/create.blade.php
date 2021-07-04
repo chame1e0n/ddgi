@@ -1,5 +1,4 @@
 @extends('layouts.index')
-@include('products._form_elements.blocks._zalogodatel.create')
 @include('products._form_elements.blocks._svediniya_o_polise.create')
 @include('products._form_elements.blocks._franshiza.create')
 
