@@ -27,8 +27,8 @@ class CreateTestPoliciesTable extends Migration
             $table->date('polis_from_date')->nullable();
             $table->date('polis_to_date')->nullable();
             $table->date('date_of_issue')->nullable();
-            $table->float('insurance_value', 12, 3)->unsigned()->nullable();
             $table->float('insurance_sum', 12, 3)->unsigned()->nullable();
+            $table->float('franchise', 12, 3)->unsigned()->nullable();
             $table->nullableMorphs('model');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

@@ -93,7 +93,6 @@ class PolicyController extends Controller
             $policy_data['employee_id'] = $employee->id;
             $policy_data['series'] = $i;
             $policy_data['status'] = PolicyFlow::STATUS_REGISTERED;
-            $policy_data['date_of_issue'] = date('Y-m-d');
 
             $policy = Policy::create($policy_data);
 
