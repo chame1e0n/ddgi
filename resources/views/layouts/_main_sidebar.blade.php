@@ -108,7 +108,7 @@
                     <a href="{{route('specifications.index')}}" class="nav-link">
                         <i class="nav-icon far fa-building"></i>
 
-                        <p>Продукты</p>
+                        <p>Спецификации</p>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -40,63 +40,7 @@
                     @include('includes.client')
                 </div>
                 <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Заемщик</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-name" class="col-form-label">ФИО
-                                                заемщика</label>
-                                            <input type="text" id="beneficiary-name" name="fio_beneficiary"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="beneficiary-address" class="col-form-label">Юр адрес
-                                                заемщика</label>
-                                            <input type="text" id="beneficiary-address"
-                                                   name="address_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Телефон</label>
-                                            <input type="text" id="beneficiary-tel" name="tel_beneficiary"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Серия
-                                                паспорта</label>
-                                            <input type="text" id="beneficiary-tel" name="passport_beneficiary"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="beneficiary-tel" class="col-form-label">Номер
-                                                паспорта</label>
-                                            <input type="text" id="beneficiary-tel"
-                                                   name="passport_num_beneficiary" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    @include('includes.borrower')
                 </div>
                 <div class="card-body">
                     <div id="anketa-fields">

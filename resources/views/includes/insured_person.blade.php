@@ -85,6 +85,26 @@
                                value="{{$insured_person->premium}}" />
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="icheck-success ">
+                        <input class="form-check-input client-type-radio"
+                               id="insured-person-tariff-switch"
+                               name="insured_person_tariff_switch"
+                               onchange="toggleSwitch(this, 'insured-person-tariff-block')"
+                               type="checkbox" />
+                        <label class="form-check-label" for="insured-person-tariff-switch">Тариф</label>
+                    </div>
+                    <div class="form-group"
+                         id="insured-person-tariff-block"
+                         @if(!$insured_person->tariff) style="display: none;" @endif>
+                        <label for="insured-person-tariff" class="col-form-label">Укажите процент тарифа</label>
+                        <input class="form-control @if($errors->has('insured_person.tariff')) is-invalid @endif"
+                               id="insured-person-tariff"
+                               name="insured_person[tariff]"
+                               type="number"
+                               value="{{$insured_person->tariff}}" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
