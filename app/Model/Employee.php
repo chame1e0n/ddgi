@@ -172,6 +172,15 @@ class Employee extends Model
     }
 
     /**
+     * Get full name of employee.
+     * 
+     * @return string
+     */
+    public function getFullName() {
+        return $this->surname . ' ' . $this->name . ' ' . $this->middlename;
+    }
+
+    /**
      * Get full name of employee and his position in the branch.
      * 
      * @return string

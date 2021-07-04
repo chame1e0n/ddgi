@@ -141,6 +141,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('policies', 'PolicyController');
     Route::resource('policy_flows','PolicyFlowController');
 
+    Route::resource('contracts', 'ContractController');
+
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
     Route::resource('neshchastka/time', 'Product\Neshchastka24TimeController')->names('neshchastka-time');
@@ -152,7 +154,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('zalog/autozalog3x', 'Product\AutoZalog3xController')->names('zalog-autozalog3x');
     Route::resource('zalog/tehnika', 'Product\ZalogTehnikaController')->names('zalog-tehnika');
     Route::resource('export', 'ExportController');
-    Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
+        Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
     Route::resource('zalog/ipoteka', 'Product\ZalogIpotekaController')->names('zalog-ipoteka');
     Route::resource('imushestvo-lizing-zalog', 'PropertyLisingZalog');
     Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');

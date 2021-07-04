@@ -158,6 +158,48 @@ class Contract extends Model
     }
 
     /**
+     * Get names of all contract policies.
+     * 
+     * @return array
+     */
+    public function getPolicyNames()
+    {
+        return array_unique($this->policies->pluck('name'));
+    }
+
+    /**
+     * Get series of all contract policies.
+     * 
+     * @return array
+     */
+    public function getPolicySeries()
+    {
+        return array_unique($this->policies->pluck('series'));
+    }
+
+    /**
+     * Get all full names of all agents of the contract.
+     * 
+     * @return array
+     */
+    public function getAgentFullNames()
+    {
+        $employees = Employee::select('employees.*')
+            ->crossJoin('policy_flows', 'employees.id', '=', 'policy_flows.to_employee_id')
+            ->crossJoin('policies', 'policy_flows.policy_id', '=', 'policies.id')
+            ->where('policies.contract_id', '=', $this->id)
+            ->where('employees.role', '=', Employee::ROLE_AGENT)
+            ->get();
+
+        $full_names = [];
+        foreach($employees as /* @var $employee Employee */ $employee) {
+            $full_names[] = $employee->getFullName();
+        }
+
+        return array_unique($full_names);
+    }
+
+    /**
      * Cascade deletion.
      */
     public function delete()

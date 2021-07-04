@@ -16,10 +16,10 @@ class CreateTestInsuredPersonsTable extends Migration
         Schema::create('insured_persons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('fio', 250);
-            $table->string('address', 150)->nullable();
-            $table->string('phone', 50)->nullable();
-            $table->string('passport_series')->nullable();
-            $table->string('passport_number')->nullable();
+            $table->string('address', 150);
+            $table->string('phone', 50);
+            $table->string('passport_series');
+            $table->string('passport_number');
             $table->float('sum', 12, 3)->unsigned()->nullable();
             $table->float('tariff', 12, 3)->unsigned()->nullable();
             $table->float('premium', 12, 3)->unsigned()->nullable();
