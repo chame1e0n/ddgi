@@ -80,12 +80,14 @@ class PolicyFlowController extends Controller
             ->get();
 
         $files = [];
-        foreach($request['files'] as $file) {
-            $files[] = [
-                'type' => 'document',
-                'original_name' => $file->getClientOriginalName(),
-                'path' => Storage::putFile('public/policy_flow', $file),
-            ];
+        if ($request['files']) {
+            foreach($request['files'] as $file) {
+                $files[] = [
+                    'type' => 'document',
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/policy_flow', $file),
+                ];
+            }
         }
 
         foreach($policies as /* @var $policy Policy */ $policy) {
@@ -147,8 +149,9 @@ class PolicyFlowController extends Controller
         $policy_flow->fill($request['policy_flow']);
         $policy_flow->save();
 
-        if (count($request['files']) > 0) {
+        if ($request['files']) {
             $files = [];
+
             foreach($request['files'] as $file) {
                 $files[] = [
                     'type' => 'document',

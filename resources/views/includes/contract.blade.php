@@ -304,4 +304,26 @@
             }
         });
     }
+
+    function toggleSwitch(element, block_id) {
+        let block = document.getElementById(block_id);
+
+        let other_switch_id, other_block_id;
+        if (element.id == 'contract-tariff-switch') {
+            other_switch_id = 'contract-premium-switch';
+            other_block_id = 'contract-premium-block';
+        } else if (element.id == 'contract-premium-switch') {
+            other_switch_id = 'contract-tariff-switch';
+            other_block_id = 'contract-tariff-block';
+        }
+
+        if (block) {
+            block.style.display = element.checked ? 'block' : 'none';
+
+            if (element.checked && other_switch_id && other_block_id) {
+                document.getElementById(other_switch_id).checked = false;
+                document.getElementById(other_block_id).style.display = 'none';
+            }
+        }
+    }
 </script>

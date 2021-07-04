@@ -1291,14 +1291,6 @@ if (covidFizAddBtn) {
     })
 }
 
-const toggleSwitch = (element, block_id) => {
-    const block = document.getElementById(block_id);
-
-    if (block) {
-        block.style.display = element.checked ? 'block' : 'none';
-    }
-};
-
 const toggleBlock = (id, dataAttr) => {
     const formEl = document.getElementById(id);
     const hiddenEl = document.querySelector(`[${dataAttr}]`);

@@ -81,12 +81,14 @@ class PolicyController extends Controller
         $employee = Auth::user()->employees->first();
 
         $files = [];
-        foreach($request['files'] as $file) {
-            $files[] = [
-                'type' => 'document',
-                'original_name' => $file->getClientOriginalName(),
-                'path' => Storage::putFile('public/policy', $file),
-            ];
+        if ($request['files']) {
+            foreach($request['files'] as $file) {
+                $files[] = [
+                    'type' => 'document',
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/policy', $file),
+                ];
+            }
         }
 
         for ($i = $policy_series_from; $i <= $policy_series_to; $i++) {
@@ -145,8 +147,9 @@ class PolicyController extends Controller
         $policy->fill($request['policy']);
         $policy->save();
 
-        if (count($request['files']) > 0) {
+        if ($request['files']) {
             $files = [];
+
             foreach($request['files'] as $file) {
                 $files[] = [
                     'type' => 'document',

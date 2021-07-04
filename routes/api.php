@@ -39,6 +39,16 @@ Route::get('agent_list', function () {
     ]);
 });
 
+Route::get('employee/of/policy', function(Request $request) {
+    $policy = \App\Model\Policy::where('policies.name', '=', $request['name'])
+        ->where('policies.series', '=', $request['series'])
+        ->get()
+        ->first();
+    $policy_flow = $policy->policy_flows->first();
+
+    return $policy_flow ? $policy_flow->to_employee : [];
+})->name('get_policy_employee');
+
 Route::get('policies', function (Request $request) {
     return \App\Model\Policy::where('name', $request['name'])
         ->get()
