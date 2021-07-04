@@ -71,7 +71,8 @@
                         <input class="form-control @error('insured_person.sum') is-invalid @enderror"
                                id="insured-person-sum"
                                name="insured_person[sum]"
-                               type="text"
+                               step="0.01"
+                               type="number"
                                value="{{old('insured_person.sum', $insured_person->sum)}}" />
                     </div>
                 </div>
@@ -81,7 +82,8 @@
                         <input class="form-control @error('insured_person.premium') is-invalid @enderror"
                                id="insured-person-premium"
                                name="insured_person[premium]"
-                               type="text"
+                               step="0.01"
+                               type="number"
                                value="{{old('insured_person.premium', $insured_person->premium)}}" />
                     </div>
                 </div>
@@ -101,6 +103,7 @@
                         <input class="form-control @error('insured_person.tariff') is-invalid @enderror"
                                id="insured-person-tariff"
                                name="insured_person[tariff]"
+                               step="0.01"
                                type="number"
                                value="{{old('insured_person.tariff', $insured_person->tariff)}}" />
                     </div>

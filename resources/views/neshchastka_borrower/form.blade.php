@@ -145,7 +145,8 @@
                                             <input class="form-control @error('policy.insurance_sum') is-invalid @enderror"
                                                    id="policy-insurance-sum"
                                                    name="policy[insurance_sum]"
-                                                   type="text"
+                                                   step="0.01"
+                                                   type="number"
                                                    value="{{old('policy.insurance_sum', $policy->insurance_sum)}}" />
                                         </div>
                                     </div>
@@ -165,7 +166,8 @@
                                             <input class="form-control @error('policy.franchise') is-invalid @enderror"
                                                    id="policy-franchise"
                                                    name="policy[franchise]"
-                                                   type="text"
+                                                   step="0.01"
+                                                   type="number"
                                                    value="{{old('policy.franchise', $policy->franchise)}}" />
                                         </div>
                                     </div>

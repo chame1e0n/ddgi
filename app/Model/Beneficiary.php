@@ -10,6 +10,29 @@ class Beneficiary extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'beneficiary.bank_id' => 'required',
+        'beneficiary.fio' => 'required',
+        'beneficiary.address' => 'required',
+        'beneficiary.phone' => 'required',
+        'beneficiary.bank_account' => 'required',
+        'beneficiary.inn' => 'required',
+        'beneficiary.mfo' => 'required',
+    ];
+
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

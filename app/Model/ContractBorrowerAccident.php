@@ -10,6 +10,23 @@ class ContractBorrowerAccident extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_borrower_accident.loan_agreement' => 'required',
+        'contract_borrower_accident.agreement_date' => 'required',
+    ];
+
+    /**
+     * Name of the columns which should not be fillable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

@@ -10,6 +10,29 @@ class Client extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'client.bank_id' => 'required',
+        'client.fio' => 'required',
+        'client.address' => 'required',
+        'client.phone' => 'required',
+        'client.bank_account' => 'required',
+        'client.inn' => 'required',
+        'client.mfo' => 'required',
+    ];
+
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

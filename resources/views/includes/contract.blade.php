@@ -191,6 +191,7 @@
                     <input class="form-control @error('contract.tariff') is-invalid @enderror"
                            id="contract-tariff"
                            name="contract[tariff]"
+                           step="0.01"
                            type="number"
                            value="{{old('contract.tariff', $contract->tariff)}}" />
                 </div>
@@ -212,6 +213,7 @@
                     <input class="form-control @error('contract.premium') is-invalid @enderror"
                            id="contract-premium"
                            name="contract[premium]"
+                           step="0.01"
                            type="number"
                            value="{{old('contract.premium', $contract->premium)}}" />
                 </div>
@@ -220,37 +222,37 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="contract-files-questionary" class="col-form-label">Анкета</label>
+                    <label for="files-questionary" class="col-form-label">Анкета</label>
                     @if($contract->file_questionary)
                         <a href="{{asset($contract->file_questionary->href)}}" target="_blank">Скачать</a>
                     @endif
-                    <input class="form-control @error('contract.files.questionary') is-invalid @enderror"
-                           id="contract-files-questionary"
-                           name="contract[files][questionary]"
+                    <input class="form-control @error('files.questionary') is-invalid @enderror"
+                           id="files-questionary"
+                           name="files[questionary]"
                            type="file" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="contract-files-agreement" class="col-form-label">Договор</label>
+                    <label for="files-agreement" class="col-form-label">Договор</label>
                     @if($contract->file_agreement)
                         <a href="{{asset($contract->file_agreement->href)}}" target="_blank">Скачать</a>
                     @endif
-                    <input class="form-control @error('contract.files.agreement') is-invalid @enderror"
-                           id="contract-files-agreement"
-                           name="contract[files][agreement]"
+                    <input class="form-control @error('files.agreement') is-invalid @enderror"
+                           id="files-agreement"
+                           name="files[agreement]"
                            type="file" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="contract-files-policy" class="col-form-label">Полис</label>
+                    <label for="files-policy" class="col-form-label">Полис</label>
                     @if($contract->file_policy)
                         <a href="{{asset($contract->file_policy->href)}}" target="_blank">Скачать</a>
                     @endif
-                    <input class="form-control @error('contract.files.policy') is-invalid @enderror"
-                           id="contract-files-policy"
-                           name="contract[files][policy]"
+                    <input class="form-control @error('files.policy') is-invalid @enderror"
+                           id="files-policy"
+                           name="files[policy]"
                            type="file" />
                 </div>
             </div>
@@ -284,7 +286,7 @@
             const new_tranche = `
                 <tr data-number="${id}">
                     <td>
-                        <input type="text" class="form-control" name="tranches[${id}][sum]" />
+                        <input step="0.01" type="number" class="form-control" name="tranches[${id}][sum]" />
                     </td>
                     <td>
                         <input type="date" class="form-control" name="tranches[${id}][from]" />

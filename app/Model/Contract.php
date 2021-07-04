@@ -20,13 +20,6 @@ class Contract extends Model
     public const FILE_TYPE_POLICY = 'policy';
 
     /**
-     * Name of the table for the model.
-     *
-     * @var string
-     */
-    protected $table = 'contracts';
-
-    /**
      * Payment type names.
      * 
      * @var array
@@ -45,6 +38,30 @@ class Contract extends Model
         self::TYPE_INDIVIDUAL => 'физическое лицо',
         self::TYPE_LEGAL => 'юридическое лицо',
     ];
+
+    /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract.specification_id' => 'required',
+        'contract.type' => 'required',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * Name of the table for the model.
+     *
+     * @var string
+     */
+    protected $table = 'contracts';
 
     /**
      * Defining default attributes values.
@@ -158,13 +175,22 @@ class Contract extends Model
     }
 
     /**
+     * Get relation to the files table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'model');
+    }
+
+    /**
      * Get names of all contract policies.
      * 
      * @return array
      */
     public function getPolicyNames()
     {
-        return array_unique($this->policies->pluck('name'));
+        return array_unique($this->policies->pluck('name')->all());
     }
 
     /**
@@ -174,7 +200,7 @@ class Contract extends Model
      */
     public function getPolicySeries()
     {
-        return array_unique($this->policies->pluck('series'));
+        return array_unique($this->policies->pluck('series')->all());
     }
 
     /**

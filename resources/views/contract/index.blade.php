@@ -97,9 +97,9 @@
                                         <tr>
                                             <td>{{$contract->specification->type->name}}</td>
                                             <td>{{$contract->number}}</td>
-                                            <td>{{!! join('<br />', $contract->getPolicyNames()) !!}}</td>
-                                            <td>{{!! join('<br />', $contract->getPolicySeries()) !!}}</td>
-                                            <td>{{!! join('<br />', $contract->getAgentFullNames()) !!}}</td>
+                                            <td>{!! join('<br />', $contract->getPolicyNames()) !!}</td>
+                                            <td>{!! join('<br />', $contract->getPolicySeries()) !!}</td>
+                                            <td>{!! join('<br />', $contract->getAgentFullNames()) !!}</td>
                                             <td>
                                                 <form action="{{route('contracts.destroy', $contract->id)}}"
                                                       method="POST">

@@ -10,6 +10,19 @@ class InsuredPerson extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'insured_person.fio' => 'required',
+        'insured_person.address' => 'required',
+        'insured_person.phone' => 'required',
+        'insured_person.passport_series' => 'required',
+        'insured_person.passport_number' => 'required',
+    ];
+
+    /**
      * The attributes that are not mass assignable.
      *
      * @var array
