@@ -166,21 +166,21 @@ class Contract extends Model
     }
 
     /**
-     * Get relation to the contract_*s table.
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function contract_model()
-    {
-        return $this->morphTo('model');
-    }
-
-    /**
      * Get relation to the files table.
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function files()
     {
         return $this->morphMany(File::class, 'model');
+    }
+
+    /**
+     * Get relation to the contract_*s table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function contract_model()
+    {
+        return $this->morphTo('model');
     }
 
     /**
@@ -226,6 +226,17 @@ class Contract extends Model
     }
 
     /**
+     * Get contract's file of the specified type.
+     * 
+     * @param string $type Type
+     * @return File
+     */
+    public function getFile($type = 'document')
+    {
+        return $this->files()->where('type' , '=', $type)->get()->first();
+    }
+
+    /**
      * Cascade deletion.
      */
     public function delete()
@@ -236,6 +247,9 @@ class Contract extends Model
         }
         foreach($this->tranches as /* @var $tranche Tranche */ $tranche) {
             $tranche->delete();
+        }
+        foreach($this->files as /* @var $file File */ $file) {
+            $file->delete();
         }
 
         if ($this->contract_model) {

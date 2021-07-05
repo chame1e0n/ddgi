@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Model\Contract;
 use App\Model\Employee;
+use App\Model\Specification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ContractController extends Controller
 {
@@ -58,7 +61,7 @@ class ContractController extends Controller
     /**
      * Show a form to create a new contract.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create()
     {
@@ -68,57 +71,62 @@ class ContractController extends Controller
     /**
      * Store a new contracts.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @throw \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function store(Request $request)
     {
-
+        throw new AccessDeniedHttpException('Access is forbidden!');
     }
 
     /**
      * Display an existing contract.
      *
      * @param  \App\Model\Contract $contract
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function show(Contract $contract)
     {
-
+        return redirect()
+            ->route(Specification::$specification_key_to_routes[$contract->specification->key] . '.show', $contract->id);
     }
 
     /**
      * Show a form to edit existing contract.
      *
      * @param  \App\Model\Contract $contract
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Contract $contract)
     {
-
+        return redirect()
+            ->route(Specification::$specification_key_to_routes[$contract->specification->key] . '.edit', $contract->id);
     }
 
     /**
      * Update an existing contract.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Model\Contract      $contract
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Model\Contract      $contract
+     * @throw \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      */
     public function update(Request $request, Contract $contract)
     {
-
+        throw new AccessDeniedHttpException('Access is forbidden!');
     }
 
     /**
      * Destroy an existing contract.
      * 
-     * @param \App\Model\Contract $contract
+     * @param  \App\Model\Contract $contract
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy(Contract $contract)
     {
+        $route_name = Specification::$specification_key_to_routes[$contract->specification->key] . '.destroy';
+        $route = Route::getRoutes()->getByName($route_name);
 
+        return app()->call($route->getActionName(), ['neshchastka_borrower' => $contract]);
     }
 }

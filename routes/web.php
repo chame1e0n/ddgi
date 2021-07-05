@@ -143,6 +143,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('contracts', 'ContractController');
 
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
+
     Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
     Route::resource('neshchastka/time', 'Product\Neshchastka24TimeController')->names('neshchastka-time');
     Route::resource('mejd', 'MejdController');

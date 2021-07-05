@@ -89,7 +89,8 @@
                 </div>
                 <div class="col-md-12">
                     <div class="icheck-success ">
-                        <input class="form-check-input client-type-radio"
+                        <input @if($insured_person->tariff) checked @endif
+                               class="form-check-input client-type-radio"
                                id="insured-person-tariff-switch"
                                name="insured_person_tariff_switch"
                                onchange="toggleSwitch(this, 'insured-person-tariff-block')"

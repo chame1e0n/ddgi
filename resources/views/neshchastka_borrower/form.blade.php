@@ -78,7 +78,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="card-body">
                         <div class="card card-info" id="clone-beneficiary">
                             <div class="card-header">
@@ -95,6 +94,7 @@
                                         <div class="form-group">
                                             <label for="policy-name" class="col-form-label">Наименование полиса</label>
                                             <input required
+                                                   @if($policy->contract_id) disabled @endif
                                                    class="form-control @error('policy.name') is-invalid @enderror"
                                                    id="policy-name"
                                                    name="policy[name]"
@@ -105,15 +105,16 @@
                                         <div class="form-group">
                                             <label for="policy-series" class="col-form-label">Серийный номер полиса</label>
                                             <select required
+                                                    @if($policy->contract_id) disabled @endif
                                                     class="form-control select2 @error('policy.series') is-invalid @enderror"
                                                     id="policy-series"
                                                     name="policy[series]">
                                                 <option></option>
 
-                                                @foreach(\App\Model\Policy::all() as $policy)
-                                                    <option @if($policy->id == old('policy.series', $policy->series)) selected="selected" @endif
-                                                            value="{{$policy->series}}">
-                                                        {{$policy->series}}
+                                                @foreach(\App\Model\Policy::all() as $policy_series)
+                                                    <option @if($policy_series->id == old('policy.series', $policy->series)) selected="selected" @endif
+                                                            value="{{$policy_series->series}}">
+                                                        {{$policy_series->series}}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -208,7 +209,8 @@
                     }
                 });
             });
-            $('#policy-series').change(function () {
+
+            let defineResponsiblePerson = function() {
                 $.ajax({
                     url: '{{route("get_policy_employee")}}',
                     type: 'get',
@@ -218,9 +220,9 @@
                         $('#responsible-person').val(response.surname + ' ' + response.name + ' ' + response.middlename);
                     }
                 });
-            });
+            }
 
-            let calculateInsurancePremium = function() {
+            let defineInsurancePremium = function() {
                 let is_tariff = document.getElementById('contract-tariff-switch').checked;
                 let is_premium = document.getElementById('contract-premium-switch').checked;
 
@@ -247,11 +249,23 @@
                 }
             };
 
-            $('#contract-from').change(calculateInsurancePremium);
-            $('#contract-to').change(calculateInsurancePremium);
-            $('#contract-tariff').change(calculateInsurancePremium);
-            $('#contract-premium').change(calculateInsurancePremium);
-            $('#policy-insurance-sum').keyup(calculateInsurancePremium);
+            $('#contract-from').change(defineInsurancePremium);
+            $('#contract-to').change(defineInsurancePremium);
+            $('#contract-tariff').change(defineInsurancePremium);
+            $('#contract-premium').change(defineInsurancePremium);
+            $('#policy-insurance-sum').keyup(defineInsurancePremium);
+
+            defineInsurancePremium();
+
+            $('#policy-series').change(defineResponsiblePerson);
+
+            defineResponsiblePerson();
+
+            $('form').submit(function(e) {
+                $(':disabled').each(function(e) {
+                    $(this).removeAttr('disabled');
+                })
+            });
         });
     </script>
 @endsection

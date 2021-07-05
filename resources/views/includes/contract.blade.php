@@ -17,6 +17,7 @@
                         <div class="col-sm-4">
                             <div class="icheck-success">
                                 <input @if($type == old('contract.type', $contract->type)) checked @endif
+                                       @if($contract->exists) disabled @endif
                                        class="client-type-radio"
                                        id="contract-type-{{$type}}"
                                        name="contract[type]"
@@ -35,7 +36,8 @@
                 <div @if($contract->type != $type) hidden @endif
                      class="form-group list-{{$type}}">
                     <label for="contract-specification-{{$type}}">Вид продукта</label>
-                    <select class="form-control @error('contract.specification_id') is-invalid @enderror"
+                    <select @if($contract->exists) disabled @endif
+                            class="form-control @error('contract.specification_id') is-invalid @enderror"
                             id="contract-specification-{{$type}}"
                             name="contract[specification_id]"
                             style="width: 100%;"
@@ -43,7 +45,7 @@
                         <option></option>
 
                         @foreach(\App\Model\Specification::getSpecificationsByType($type) as $specification)
-                            <option @if(\Illuminate\Support\Facades\Route::current()->uri() == \App\Model\Specification::$specification_key_to_routes[$specification->key] . '/create') selected @endif
+                            <option @if($specification->id == old('contract.specification_id', $contract->specification_id)) selected @endif
                                     value="{{$specification->id}}"
                                     data-route="{{\App\Model\Specification::$specification_key_to_routes[$specification->key]}}">
                                 {{$specification->name}}
@@ -223,8 +225,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="files-questionary" class="col-form-label">Анкета</label>
-                    @if($contract->file_questionary)
-                        <a href="{{asset($contract->file_questionary->href)}}" target="_blank">Скачать</a>
+                    @if($file = $contract->getFile(\App\Model\Contract::FILE_TYPE_QUESTIONARY))
+                        <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
                     @endif
                     <input class="form-control @error('files.questionary') is-invalid @enderror"
                            id="files-questionary"
@@ -235,8 +237,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="files-agreement" class="col-form-label">Договор</label>
-                    @if($contract->file_agreement)
-                        <a href="{{asset($contract->file_agreement->href)}}" target="_blank">Скачать</a>
+                    @if($file = $contract->getFile(\App\Model\Contract::FILE_TYPE_AGREEMENT))
+                        <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
                     @endif
                     <input class="form-control @error('files.agreement') is-invalid @enderror"
                            id="files-agreement"
@@ -247,8 +249,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="files-policy" class="col-form-label">Полис</label>
-                    @if($contract->file_policy)
-                        <a href="{{asset($contract->file_policy->href)}}" target="_blank">Скачать</a>
+                    @if($file = $contract->getFile(\App\Model\Contract::FILE_TYPE_POLICY))
+                        <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
                     @endif
                     <input class="form-control @error('files.policy') is-invalid @enderror"
                            id="files-policy"
