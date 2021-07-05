@@ -98,6 +98,8 @@ class NeshchastkaBorrowerController extends Controller
         $contract_data['insured_person_id'] = $insured_person->id;
         $contract_data['number'] = '@BoburZ какой номер?';
         $contract_data['status'] = 'concluded';
+        $contract_data['model_type'] = ContractBorrowerAccident::class;
+        $contract_data['model_id'] = $contract_borrower_accident->id;
 
         $contract = Contract::create($contract_data);
 
@@ -106,11 +108,9 @@ class NeshchastkaBorrowerController extends Controller
         $policy->fill($policy_data);
         $policy->save();
 
-        $contract->contract_model()->associate($contract_borrower_accident);
-
         $files = [];
-        if (isset($request['contract']['files'])) {
-            foreach($request['contract']['files'] as $type => $file) {
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
                 $files[] = [
                     'type' => $type,
                     'original_name' => $file->getClientOriginalName(),

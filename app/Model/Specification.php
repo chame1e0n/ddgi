@@ -98,7 +98,7 @@ class Specification extends Model
      * @var array
      */
     public static $validate = [
-        'specification.type_id' => 'required',
+        'specification.type_id' => ['required', 'integer'],
         'specification.code' => 'required',
         'specification.name' => 'required',
     ];

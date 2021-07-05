@@ -29,8 +29,8 @@ class Branch extends Model
      * @var array
      */
     public static $validate = [
+        'branch.region_id' => ['required', 'integer'],
         'branch.name' => 'required',
-        'branch.region_id' => 'required',
         'branch.founded_date' => 'required',
         'branch.address' => 'required',
         'branch.phone_number' => 'required',

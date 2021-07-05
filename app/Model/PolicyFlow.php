@@ -34,8 +34,8 @@ class PolicyFlow extends Model
      * @var array
      */
     public static $validate = [
-        'policy_flow.from_employee_id' => 'required',
-        'policy_flow.to_employee_id' => 'required',
+        'policy_flow.from_employee_id' => ['required', 'integer'],
+        'policy_flow.to_employee_id' => ['required', 'integer'],
         'policy_flow.act_date' => 'required',
     ];
 

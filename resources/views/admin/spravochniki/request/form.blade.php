@@ -46,7 +46,7 @@
                                             @foreach(\App\Model\Policy::all() as $policy)
                                                 <option @if($policy->id == old('request.policy_id', $request->policy_id)) selected="selected" @endif
                                                         value="{{$policy->id}}">
-                                                    {{$policy->name}}
+                                                    {{$policy->series}}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -157,7 +157,7 @@
                         $('#request-policy-id').append('<option></option>');
 
                         for (var i = 0; i < response.length; i++) {
-                            $('#request-policy-id').append('<option value="' + response[i]['id']+ '">' + response[i]['name'] + '</option>');
+                            $('#request-policy-id').append('<option value="' + response[i]['id']+ '">' + response[i]['series'] + '</option>');
                         }
                     }
                 });

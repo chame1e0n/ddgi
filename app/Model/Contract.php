@@ -45,7 +45,7 @@ class Contract extends Model
      * @var array
      */
     public static $validate = [
-        'contract.specification_id' => 'required',
+        'contract.specification_id' => ['required', 'integer'],
         'contract.type' => 'required',
     ];
 

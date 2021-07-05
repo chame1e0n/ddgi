@@ -94,7 +94,8 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="policy-name" class="col-form-label">Наименование полиса</label>
-                                            <input class="form-control @error('policy.name') is-invalid @enderror"
+                                            <input required
+                                                   class="form-control @error('policy.name') is-invalid @enderror"
                                                    id="policy-name"
                                                    name="policy[name]"
                                                    value="{{old('policy.name', $policy->name)}}" />
@@ -103,7 +104,8 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="policy-series" class="col-form-label">Серийный номер полиса</label>
-                                            <select class="form-control select2 @error('policy.series') is-invalid @enderror"
+                                            <select required
+                                                    class="form-control select2 @error('policy.series') is-invalid @enderror"
                                                     id="policy-series"
                                                     name="policy[series]">
                                                 <option></option>

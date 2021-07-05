@@ -46,7 +46,7 @@ class Employee extends Model
      * @var array
      */
     public static $validate = [
-        'employee.branch_id' => 'required',
+        'employee.branch_id' => ['required', 'integer'],
         'employee.name' => 'required',
         'employee.surname' => 'required',
         'employee.middlename' => 'required',

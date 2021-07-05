@@ -15,7 +15,7 @@ class Beneficiary extends Model
      * @var array
      */
     public static $validate = [
-        'beneficiary.bank_id' => 'required',
+        'beneficiary.bank_id' => ['required', 'integer'],
         'beneficiary.fio' => 'required',
         'beneficiary.address' => 'required',
         'beneficiary.phone' => 'required',

@@ -40,7 +40,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     //////////////////////////////////// Ulugbek \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     /// Search
-    Route::get('/product-search', 'AllProductController@search')->name('product.search');
     Route::get('/export-database', 'ZaemshikController@download_db')->name('db_download');
     ////Neshchastka Zaemshik
 
@@ -154,7 +153,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('zalog/autozalog3x', 'Product\AutoZalog3xController')->names('zalog-autozalog3x');
     Route::resource('zalog/tehnika', 'Product\ZalogTehnikaController')->names('zalog-tehnika');
     Route::resource('export', 'ExportController');
-        Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
+    Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
     Route::resource('zalog/ipoteka', 'Product\ZalogIpotekaController')->names('zalog-ipoteka');
     Route::resource('imushestvo-lizing-zalog', 'PropertyLisingZalog');
     Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');

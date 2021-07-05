@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\Contract;
+use App\Model\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -20,12 +21,38 @@ class ContractController extends Controller
 
         $filter = array_filter($data, function ($value) { return !is_null($value) && $value !== ''; });
 
-        $contracts = Contract::select('contracts.*')
-//            ->crossJoin('policies', 'contracts.id', '=', 'policies.contract_id')
-//            ->where($filter)
-            ->get();
+        $query = Contract::select('contracts.*')
+            ->crossJoin('specifications', 'contracts.specification_id', '=', 'specifications.id')
+            ->crossJoin('types', 'specifications.type_id', '=', 'types.id')
+            ->leftJoin('policies', 'contracts.id', '=', 'policies.contract_id')
+            ->leftJoin('policy_flows', 'policies.id', '=', 'policy_flows.policy_id')
+            ->leftJoin('employees', 'policy_flows.to_employee_id', '=', 'employees.id');
 
-        return view('contract.index', compact('contracts'));
+        if (isset($filter['types.name'])) {
+            $query->where('types.name', 'like', '%' . $filter['types.name'] . '%');
+        }
+        if (isset($filter['contracts.number'])) {
+            $query->where('contracts.number', 'like', '%' . $filter['contracts.number'] . '%');
+        }
+        if (isset($filter['policies.name'])) {
+            $query->where('policies.name', '=', $filter['policies.name']);
+        }
+        if (isset($filter['policies.series'])) {
+            $query->where('policies.series', '=', $filter['policies.series']);
+        }
+        if (isset($filter['employees.name'])) {
+            $query->where('employees.role', '=', \App\Model\Employee::ROLE_AGENT);
+
+            $query->where(function($query) use ($filter) {
+                $query->orWhere('employees.name', 'like', '%' . $filter['employees.name'] . '%')
+                      ->orWhere('employees.surname', 'like', '%' . $filter['employees.name'] . '%')
+                      ->orWhere('employees.middlename', 'like', '%' . $filter['employees.name'] . '%');
+            });
+        }
+
+        return view('contract.index', [
+            'contracts' => $query->get(),
+        ]);
     }
 
     /**

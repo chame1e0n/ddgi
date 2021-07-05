@@ -51,9 +51,9 @@
                                                     Номер договора
                                                     <div class="form-group">
                                                         <input class="form-control"
-                                                               name="filter[number]"
+                                                               name="filter[contracts.number]"
                                                                type="text"
-                                                               value="{{request('filter.number')}}" />
+                                                               value="{{request('filter') ? request('filter')['contracts.number'] : ''}}" />
                                                     </div>
                                                 </th>
                                                 <th>

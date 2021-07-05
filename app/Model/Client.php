@@ -15,7 +15,7 @@ class Client extends Model
      * @var array
      */
     public static $validate = [
-        'client.bank_id' => 'required',
+        'client.bank_id' => ['required', 'integer'],
         'client.fio' => 'required',
         'client.address' => 'required',
         'client.phone' => 'required',
