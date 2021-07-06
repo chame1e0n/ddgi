@@ -26,8 +26,6 @@ class DatabaseSeeder extends Seeder
         DB::table('employees')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
-        $admin_users = factory(App\User::class, 1)->create();
-
         $type_id = DB::table('types')->insertGetId([
             'key' => 'T_IFUC',
             'code' => '01',
@@ -303,6 +301,23 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
+        $admin_users = factory(App\User::class, 1)->create();
+
+        $admin_employee = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $admin_users->first()->id,
+            'role' => 'admin',
+            'name' => 'A.',
+            'middlename' => 'A.',
+            'surname' => 'Administrator',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
         $branch_id = DB::table('branches')->insertGetId([
             'region_id' => $region_id,
             'code' => '02',
@@ -467,21 +482,6 @@ class DatabaseSeeder extends Seeder
             'email' => Str::random(8) . '@example.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $admin_employee = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $admin_users->first()->id,
-            'role' => 'admin',
-            'name' => 'A.',
-            'middlename' => 'A.',
-            'surname' => 'Administrator',
-            'birthdate' => '1970-01-01',
-            'passport_series' => '',
-            'passport_number' => '012345678',
-            'phone' => '0123456789',
-            'address' => 'address',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
