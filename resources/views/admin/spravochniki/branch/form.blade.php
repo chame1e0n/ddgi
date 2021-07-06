@@ -25,7 +25,17 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="branch-code" class="col-form-label">Код</label>
+                                        <input required
+                                               class="form-control @error('branch.code') is-invalid @enderror"
+                                               id="branch-code"
+                                               name="branch[code]"
+                                               value="{{old('branch.code', $branch->code)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="branch-name" class="col-form-label">Наименование</label>
                                         <input required
@@ -35,7 +45,7 @@
                                                value="{{old('branch.name', $branch->name)}}" />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="branch-region-id" class="col-form-label">Регион</label>
                                         <select required
@@ -51,7 +61,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="branch-founded-date" class="col-form-label">Дата создания</label>
                                         <input required

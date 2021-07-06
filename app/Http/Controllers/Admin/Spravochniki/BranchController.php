@@ -20,6 +20,7 @@ class BranchController extends Controller
             'objects' => Branch::all(),
             'title' => 'Филиалы',
             'fields' => [
+                'code' => 'Код',
                 'name' => 'Филиал',
                 'created_at' => 'Создан',
                 'region_id' => [

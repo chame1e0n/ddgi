@@ -19,6 +19,7 @@ class RegionController extends Controller
             'objects' => Region::all(),
             'title' => 'Регионы',
             'fields' => [
+                'code' => 'Код',
                 'name' => 'Регион',
                 'created_at' => 'Создан',
             ],

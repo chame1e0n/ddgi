@@ -25,7 +25,17 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="region-code" class="col-form-label">Код</label>
+                                        <input required
+                                               class="form-control @error('region.code') is-invalid @enderror"
+                                               id="region-code"
+                                               name="region[code]"
+                                               value="{{old('region.code', $region->code)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="region-name" class="col-form-label">Наименование</label>
                                         <input required

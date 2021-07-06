@@ -29,6 +29,7 @@ class Region extends Model
      * @var array
      */
     public static $validate = [
+        'region.code' => 'required',
         'region.name' => 'required',
     ];
 

@@ -30,6 +30,7 @@ class Branch extends Model
      */
     public static $validate = [
         'branch.region_id' => ['required', 'integer'],
+        'branch.code' => 'required',
         'branch.name' => 'required',
         'branch.founded_date' => 'required',
         'branch.address' => 'required',
@@ -88,6 +89,16 @@ class Branch extends Model
     public function pretensions()
     {
         return $this->hasMany(Pretension::class);
+    }
+
+    /**
+     * Overriden save method.
+     */
+    public function save($options = [])
+    {
+        $this->is_center = $this->code >= 70 ? true : false;
+
+        parent::save($options);
     }
 
     /**
