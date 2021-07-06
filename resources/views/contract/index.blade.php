@@ -85,7 +85,8 @@
                                                 </th>
                                                 <th>
                                                     Действия
-                                                    <div class="form-group">
+                                                    <div class="form-group"
+                                                         style="width: 135px;">
                                                         <button type="submit" class="btn btn-primary">Найти</button>
                                                     </div>
                                                 </th>
@@ -99,7 +100,7 @@
                                             <td>{{$contract->number}}</td>
                                             <td>{!! join('<br />', $contract->getPolicyNames()) !!}</td>
                                             <td>{!! join('<br />', $contract->getPolicySeries()) !!}</td>
-                                            <td>{!! join('<br />', $contract->getAgentFullNames()) !!}</td>
+                                            <td>{!! join('<br />', $contract->getEmployeeFullNames()) !!}</td>
                                             <td>
                                                 <form action="{{route('contracts.destroy', $contract->id)}}"
                                                       method="POST">

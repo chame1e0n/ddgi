@@ -123,7 +123,8 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="policy-date-of-issue" class="col-form-label">Дата выдачи страхового полиса </label>
-                                            <input class="form-control @error('policy.date_of_issue') is-invalid @enderror"
+                                            <input required
+                                                   class="form-control @error('policy.date_of_issue') is-invalid @enderror"
                                                    id="policy-date-of-issue"
                                                    name="policy[date_of_issue]"
                                                    type="date"
@@ -145,7 +146,8 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="policy-insurance-sum">Cтраховая сумма</label>
-                                            <input class="form-control @error('policy.insurance_sum') is-invalid @enderror"
+                                            <input required
+                                                   class="form-control @error('policy.insurance_sum') is-invalid @enderror"
                                                    id="policy-insurance-sum"
                                                    name="policy[insurance_sum]"
                                                    step="0.01"
@@ -166,7 +168,8 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label for="policy-franchise">Франшиза</label>
-                                            <input class="form-control @error('policy.franchise') is-invalid @enderror"
+                                            <input required
+                                                   class="form-control @error('policy.franchise') is-invalid @enderror"
                                                    id="policy-franchise"
                                                    name="policy[franchise]"
                                                    step="0.01"

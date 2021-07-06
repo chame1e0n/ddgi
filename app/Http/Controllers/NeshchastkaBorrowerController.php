@@ -106,7 +106,7 @@ class NeshchastkaBorrowerController extends Controller
         $contract_data['beneficiary_id'] = $beneficiary->id;
         $contract_data['client_id'] = $client->id;
         $contract_data['insured_person_id'] = $insured_person->id;
-        $contract_data['number'] = '@BoburZ какой номер?';
+        $contract_data['number'] = '';
         $contract_data['status'] = 'concluded';
         $contract_data['model_type'] = ContractBorrowerAccident::class;
         $contract_data['model_id'] = $contract_borrower_accident->id;
@@ -117,6 +117,10 @@ class NeshchastkaBorrowerController extends Controller
 
         $policy->fill($policy_data);
         $policy->save();
+
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
 
         $files = [];
         if (isset($request['files'])) {
@@ -131,9 +135,7 @@ class NeshchastkaBorrowerController extends Controller
 
         $contract->files()->createMany($files);
 
-        if ($request['tranches']) {
-            $contract->tranches()->createMany($request['tranches']);
-        }
+        $contract->generateNumber();
 
         return redirect()->route('contracts.index')
                          ->with('success', 'Успешно произведено сохранения контракта');
@@ -229,23 +231,6 @@ class NeshchastkaBorrowerController extends Controller
         $policy->fill($request['policy']);
         $policy->save();
 
-        $files = [];
-        if (isset($request['files'])) {
-            foreach($request['files'] as $type => $file) {
-                if ($old_file = $contract->getFile($type)) {
-                    $old_file->delete();
-                }
-
-                $files[] = [
-                    'type' => $type,
-                    'original_name' => $file->getClientOriginalName(),
-                    'path' => Storage::putFile('public/contract', $file),
-                ];
-            }
-        }
-
-        $contract->files()->createMany($files);
-
         if ($request['tranches']) {
             $tranche_ids = [];
             foreach($request['tranches'] as $tranche_data) {
@@ -270,6 +255,23 @@ class NeshchastkaBorrowerController extends Controller
                    ->whereNotIn('id', $tranche_ids)
                    ->delete();
         }
+
+        $files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                if ($old_file = $contract->getFile($type)) {
+                    $old_file->delete();
+                }
+
+                $files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($files);
 
         return redirect()->route('contracts.index')
                          ->with('success', 'Успешно произведено изменение контракта');

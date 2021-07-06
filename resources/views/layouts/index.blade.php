@@ -43,6 +43,12 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="/assets/plugins/bootstrap-fileinput/css/fileinput.min.css">
     @yield('css')
+
+    <style>
+        :required {
+            border-bottom-color: red;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

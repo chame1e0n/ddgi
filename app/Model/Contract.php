@@ -208,13 +208,13 @@ class Contract extends Model
      * 
      * @return array
      */
-    public function getAgentFullNames()
+    public function getEmployeeFullNames()
     {
         $employees = Employee::select('employees.*')
             ->crossJoin('policy_flows', 'employees.id', '=', 'policy_flows.to_employee_id')
             ->crossJoin('policies', 'policy_flows.policy_id', '=', 'policies.id')
             ->where('policies.contract_id', '=', $this->id)
-            ->where('employees.role', '=', Employee::ROLE_AGENT)
+            ->whereNull(['policy_flows.deleted_at', 'policies.deleted_at'])
             ->get();
 
         $full_names = [];
@@ -234,6 +234,36 @@ class Contract extends Model
     public function getFile($type = 'document')
     {
         return $this->files()->where('type' , '=', $type)->get()->first();
+    }
+
+    /**
+     * Generate contract number.
+     */
+    public function generateNumber()
+    {
+        if (empty($this->number)) {
+            $branch = $this->policies->first()->policy_flows->first()->to_employee->branch;
+            $region = $branch->region;
+            $specification = $this->specification;
+            $type = $specification->type;
+            $payment_method = $this->payment_method;
+
+            $contract_number = Contract::select('contracts.*')
+                ->join('policies', 'contracts.id', '=', 'policies.contract_id')
+                ->join('policy_flows', 'policies.id', '=', 'policy_flows.policy_id')
+                ->join('employees', 'policy_flows.to_employee_id', '=', 'employees.id')
+                ->where('contracts.specification_id', '=', $specification->id)
+                ->where('employees.branch_id', '=', $branch->id)
+                ->whereNull(['policies.deleted_at', 'policy_flows.deleted_at', 'employees.deleted_at'])
+                ->count();
+
+            $this->number = substr($region->code, -2) . substr($branch->code, -2) . '/' .
+                            substr($type->code, -2) . substr($specification->code, -2) . '/' .
+                            substr($payment_method->code, -2) . '/' .
+                            date('y', $this->created_at->timestamp) . sprintf('%05d', $contract_number - 1);
+
+            $this->save();
+        }
     }
 
     /**
