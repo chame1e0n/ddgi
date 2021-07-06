@@ -202,11 +202,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('payment_methods')->insert([
-            ['key' => 'PM_LC',             'name' => 'локальная валюта',                                               'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'PM_FC',             'name' => 'локальная валюта в иностранной валюте',                          'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'PM_FCOTDOTCOTC',    'name' => 'иностранная валюта на день заключения договора',                 'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'PM_FCOTDOP',        'name' => 'иностранная валюта на день оплаты',                              'created_at' => date('Y-m-d H:i:s')],
-            ['key' => 'PM_FCOTDOPOTPOTFT', 'name' => 'иностранная валюта на день оплаты премии или первого транша',    'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_LC',              'code' => '1',   'name' => 'локальная валюта',                                              'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_FC',              'code' => '2',   'name' => 'локальная валюта в иностранной валюте',                         'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_FCOTDOTCOTC',     'code' => '3',   'name' => 'иностранная валюта на день заключения договора',                'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_FCOTDOP',         'code' => '4',   'name' => 'иностранная валюта на день оплаты',                             'created_at' => date('Y-m-d H:i:s')],
+            ['key' => 'PM_FCOTDOPOTPOTFT',  'code' => '5',   'name' => 'иностранная валюта на день оплаты премии или первого транша',   'created_at' => date('Y-m-d H:i:s')],
         ]);
 
         DB::table('currencies')->insert([
@@ -287,1012 +287,44 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Республика Каракалпакстан',
+            'code' => '01',
+            'name' => 'Головной офис',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
         $branch_id = DB::table('branches')->insertGetId([
             'region_id' => $region_id,
-            'name' => 'Ф-л в Респ.Каракалпакстан',
-            'founded_date' => '2012-08-07',
-            'address' => 'г. Нукус, 60 лет Каракалпакистана, дом 9.',
-            'phone_number' => '(61) 226-35-55;  (97) 788-23-31',
+            'code' => '01',
+            'name' => 'Департамент инвестиций, страховых резервов и перестрахования',
+            'is_center' => 0,
+            'founded_date' => '1970-01-01',
+            'address' => '',
+            'phone_number' => '',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Незметов А.Н.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $admin_employee = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $admin_users->first()->id,
-            'role' => 'admin',
-            'name' => 'A.',
-            'middlename' => 'A.',
-            'surname' => 'Administrator',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012345678',
-            'phone' => '0123456789',
-            'address' => 'address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'А.',
-            'middlename' => 'Н.',
-            'surname' => 'Незметов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
 
         $branch_id = DB::table('branches')->insertGetId([
             'region_id' => $region_id,
-            'name' => 'Отделение "Турткуль"',
-            'founded_date' => '2019-09-04',
-            'address' => 'г. Нукус, 60 лет Каракалпакистана, дом 9.',
-            'phone_number' => '(61) 226-35-55;  (93) 715-30-30',
+            'code' => '02',
+            'name' => 'Департамент общего страхования',
+            'is_center' => 0,
+            'founded_date' => '1970-01-01',
+            'address' => '',
+            'phone_number' => '',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Джуманиязов Ж.С.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Ж.',
-            'middlename' => 'С.',
-            'surname' => 'Джуманиязов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
 
         $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Андижанская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Андижанский обл.филиал',
-            'founded_date' => '2012-05-03',
-            'address' => 'г. Андижан, ул.Фуркат, 8 V.',
-            'phone_number' => '(99) 402-15-04',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Эргашева Ф.А.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Ф.',
-            'middlename' => 'А.',
-            'surname' => 'Эргашева',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Андижанский Центр Страхования',
-            'founded_date' => '2019-05-01',
-            'address' => 'г. Андижан, ул. Чулпон, 23-уй, 3-кв',
-            'phone_number' => '(97) 772-22-45',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Рузиматов Ш.Ш.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Ш.',
-            'middlename' => 'Ш.',
-            'surname' => 'Рузиматов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Андижанский городской филиал',
-            'founded_date' => '2019-05-14',
-            'address' => 'г. Андижан, ул.Фуркат, 8 V.',
-            'phone_number' => '(99) 722-20-90',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Эргашева Ф.А.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Ф.',
-            'middlename' => 'А.',
-            'surname' => 'Эргашева',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Бухарская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Бухарский обл.филиал',
-            'founded_date' => '2012-05-01',
-            'address' => 'г. Бухоро, ул. Узб.Мустакиллиги, 44, 3-кв.',
-            'phone_number' => '(0 365) 223-46-77  (93) 453-77-07',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Кудратов Ж.Б.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Ж.',
-            'middlename' => 'Б.',
-            'surname' => 'Кудратов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Бухарский городской филиал',
-            'founded_date' => '2020-03-02',
-            'address' => 'гг.Бухоро, ул.Б.Накишбандий, дом 31.',
-            'phone_number' => '(91) 404-00-44',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Саломов У.Л.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'У.',
-            'middlename' => 'Л.',
-            'surname' => 'Саломов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Джизакская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Джизакский обл.филиал',
-            'founded_date' => '2013-03-07',
-            'address' => 'г. Джизак, Ш.Рашидов, 106',
-            'phone_number' => '(72) 226-20-88  (91) 209-00-68',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Холбутаев И.Х.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'И.',
-            'middlename' => 'Х.',
-            'surname' => 'Холбутаев',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Отделение "Зарбдар"',
-            'founded_date' => '2019-03-06',
-            'address' => 'г. Джизак, Зарбдарский р-н, ул.Катта Узбек тракти',
-            'phone_number' => '(93) 303-78-07',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Султанов А.А.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'А.',
-            'middlename' => 'А.',
-            'surname' => 'Султанов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Отделения "Шароф Рашидов"',
-            'founded_date' => '2019-07-01',
-            'address' => 'г. Джизак, Ш.Рашидовский р-н, Халкабод кфй.',
-            'phone_number' => '(98) 561-88-61',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Эркабоев  Н.И.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Н.',
-            'middlename' => 'И.',
-            'surname' => 'Эркабоев',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Кашкадарьинская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Кашкадарьинский обл.филиал',
-            'founded_date' => '2012-08-21',
-            'address' => 'г. Карши, ул.Узбекистон, 219',
-            'phone_number' => '(+998 90) 113-77-99  (91) 451-03-08',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Умаров Ч.Ф.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Ч.',
-            'middlename' => 'Ф.',
-            'surname' => 'Умаров',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Навоийская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Навоинский обл.филиал',
-            'founded_date' => '2012-04-02',
-            'address' => 'г. Навои, ул.Навои, 65',
-            'phone_number' => '(+998 91) 252-78-40',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Каримов Г.С.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Г.',
-            'middlename' => 'С.',
-            'surname' => 'Каримов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Навоинский Центр Страхования',
-            'founded_date' => '2020-03-16',
-            'address' => 'г. Навои, ул.Меъморчилар, дом 33.',
-            'phone_number' => '(91) 339-00-02  (98) 278-18-80',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Ахматкулов К.Я.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'К.',
-            'middlename' => 'Я.',
-            'surname' => 'Ахматкулов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Наманганская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Наманганский обл.филиал',
-            'founded_date' => '2012-06-11',
-            'address' => 'г. Наманган, ул.Кукумбойшох, 7.',
-            'phone_number' => '(0 369) 227-96-00  (90) 260-33-88',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Турахужаев М.С.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'М.',
-            'middlename' => 'С.',
-            'surname' => 'Турахужаев',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Самаркандская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Самаркандский обл.филиал',
-            'founded_date' => '2015-07-01',
-            'address' => 'г. Самарканд, ул.Ж.Шоший, 65',
-            'phone_number' => '(90) 250-20-34',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Максудов У.Т.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'У.',
-            'middlename' => 'Т.',
-            'surname' => 'Максудов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Филиал город Самарканд',
-            'founded_date' => '2019-06-01',
-            'address' => 'г. Самарканд, пл. Кук-Сарай 1, блок А, 1-этаж',
-            'phone_number' => '(90) 198-83-83',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Изаев Ш.Д.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Ш.',
-            'middlename' => 'Д.',
-            'surname' => 'Изаев',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Отделение "Марокан"',
-            'founded_date' => '2019-09-09',
-            'address' => 'г. Самарканд, ул. Ж.Шоший, 65',
-            'phone_number' => '(93) 231-56-28',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Шодибаев С.А.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'С.',
-            'middlename' => 'А.',
-            'surname' => 'Шодибаев',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Сурхандарьинская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Сурхандарьинский обл.филиал',
-            'founded_date' => '2011-11-21',
-            'address' => 'г.Термез, ул.А.Навоий, 20',
-            'phone_number' => '(0 376) 223-06-62  (93) 790-10-44',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Хидаева З.Б.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'З.',
-            'middlename' => 'Б.',
-            'surname' => 'Хидаева',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Сырдарьинская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Сырдарьинский обл.филиал',
-            'founded_date' => '2012-04-16',
-            'address' => 'г.Гулистан, ул.Сайхун, 39',
-            'phone_number' => '(0 367) 225-25-15  (91) 505-08-09',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Андакулов М.К.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'М.',
-            'middlename' => 'К.',
-            'surname' => 'Андакулов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Ташкентская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Ташкентский областной филиал',
-            'founded_date' => '2012-08-16',
-            'address' => 'г.Ташкент, ул.А.Кодириу, дом 23.',
-            'phone_number' => '(90) 983-00-91',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Хамдамов Ф.Х.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Ф.',
-            'middlename' => 'Х.',
-            'surname' => 'Хамдамов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Чирчикский городской филиал',
-            'founded_date' => '2019-08-01',
-            'address' => '-',
-            'phone_number' => '(90) 198-83-83',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Чирчикский г фл руководитель',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'г фл',
-            'middlename' => 'руководитель',
-            'surname' => 'Чирчикский',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Ферганская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Ферганский обл.филиал',
-            'founded_date' => '2011-12-09',
-            'address' => 'г.Фергана, ул.А.Фаргоний, 50',
-            'phone_number' => '(0 374) 224 72 27  (91) 669-72-27',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Дехконов Т.И.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Т.',
-            'middlename' => 'И.',
-            'surname' => 'Дехконов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Кокандский филиал',
-            'founded_date' => '2020-02-03',
-            'address' => 'Ферганская обл, г.коканд, 52-мфй,ул.Пустиндуз.',
-            'phone_number' => '(90) 309-78-48',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Тургунбоев З.Б.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'З.',
-            'middlename' => 'Б.',
-            'surname' => 'Тургунбоев',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Отделение "Сух"',
-            'founded_date' => '2018-11-01',
-            'address' => 'Ферганская обл, район Сух',
-            'phone_number' => '-',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Отделение "Сух" руководитель',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => '"Сух"',
-            'middlename' => 'руководитель',
-            'surname' => 'Отделение',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
-            'name' => 'Хорезмская область',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Хорезмский обл.филиал',
-            'founded_date' => '2012-07-08',
-            'address' => 'г.Ургенч, ул. Тинчлик, 29',
-            'phone_number' => '(0 362) 228-59-06  (90) 649-61-06',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Бектурсунов Г.Т.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Г.',
-            'middlename' => 'Т.',
-            'surname' => 'Бектурсунов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Отделение "Хонка"',
-            'founded_date' => '2019-02-07',
-            'address' => '-',
-            'phone_number' => '-',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Отделение "Хонка" руководитель',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => '"Хонка"',
-            'middlename' => 'руководитель',
-            'surname' => 'Отделение',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $branch_id = DB::table('branches')->insertGetId([
-            'region_id' => $region_id,
-            'name' => 'Ургенч гор.филиал',
-            'founded_date' => '2019-06-12',
-            'address' => 'г.Ургенч, ул.Ёгду,1',
-            'phone_number' => '(97) 792-30-31',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $user_id = DB::table('users')->insertGetId([
-            'name' => 'Хасанов Б.И.',
-            'email' => Str::random(8) . '@example.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        $employee_id = DB::table('employees')->insertGetId([
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role' => 'director',
-            'name' => 'Б.',
-            'middlename' => 'И.',
-            'surname' => 'Хасанов',
-            'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
-
-        $region_id = DB::table('regions')->insertGetId([
+            'code' => '02',
             'name' => 'г.Ташкент',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
         $branch_id = DB::table('branches')->insertGetId([
             'region_id' => $region_id,
+            'code' => '70',
             'name' => 'Центр страхования',
+            'is_center' => 1,
             'founded_date' => '2018-02-06',
             'address' => 'г.Ташкент, ул.Навои, 27',
             'phone_number' => '(+99890)  322-33-44',
@@ -1315,10 +347,10 @@ class DatabaseSeeder extends Seeder
             'middlename' => 'Б.',
             'surname' => 'Пулатов',
             'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
@@ -1326,7 +358,9 @@ class DatabaseSeeder extends Seeder
 
         $branch_id = DB::table('branches')->insertGetId([
             'region_id' => $region_id,
+            'code' => '00',
             'name' => 'Ташкентский региональный филиал',
+            'is_center' => 0,
             'founded_date' => '2017-02-01',
             'address' => 'г.Ташкент, ул.А.Кодирий,Навои, 23',
             'phone_number' => '(97) 155-55-52',
@@ -1349,10 +383,1000 @@ class DatabaseSeeder extends Seeder
             'middlename' => 'Ф.',
             'surname' => 'Сайфуддинов',
             'birthdate' => '1970-01-01',
-            'passport_series' => 'AA',
-            'passport_number' => '012846682',
-            'phone' => '998931234567',
-            'address' => 'Test address',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '03',
+            'name' => 'Ташкентская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Ташкентский областной филиал',
+            'is_center' => 0,
+            'founded_date' => '2012-08-16',
+            'address' => 'г.Ташкент, ул.А.Кодириу, дом 23.',
+            'phone_number' => '(90) 983-00-91',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Хамдамов Ф.Х.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Ф.',
+            'middlename' => 'Х.',
+            'surname' => 'Хамдамов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '30',
+            'name' => 'Чирчикский городской филиал',
+            'is_center' => 0,
+            'founded_date' => '2019-08-01',
+            'address' => '',
+            'phone_number' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '04',
+            'name' => 'Республика Каракалпакстан',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Ф-л в Респ.Каракалпакстан',
+            'is_center' => 0,
+            'founded_date' => '2012-08-07',
+            'address' => 'г. Нукус, 60 лет Каракалпакистана, дом 9.',
+            'phone_number' => '(61) 226-35-55;  (97) 788-23-31',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Незметов А.Н.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $admin_employee = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $admin_users->first()->id,
+            'role' => 'admin',
+            'name' => 'A.',
+            'middlename' => 'A.',
+            'surname' => 'Administrator',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '012345678',
+            'phone' => '0123456789',
+            'address' => 'address',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'А.',
+            'middlename' => 'Н.',
+            'surname' => 'Незметов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '02',
+            'name' => 'Отделение "Турткуль"',
+            'is_center' => 0,
+            'founded_date' => '2019-09-04',
+            'address' => 'г. Нукус, 60 лет Каракалпакистана, дом 9.',
+            'phone_number' => '(61) 226-35-55;  (93) 715-30-30',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Джуманиязов Ж.С.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Ж.',
+            'middlename' => 'С.',
+            'surname' => 'Джуманиязов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '05',
+            'name' => 'Ферганская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Ферганский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2011-12-09',
+            'address' => 'г.Фергана, ул.А.Фаргоний, 50',
+            'phone_number' => '(0 374) 224 72 27  (91) 669-72-27',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Дехконов Т.И.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Т.',
+            'middlename' => 'И.',
+            'surname' => 'Дехконов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '30',
+            'name' => 'Кокандский филиал',
+            'is_center' => 0,
+            'founded_date' => '2020-02-03',
+            'address' => 'Ферганская обл, г.коканд, 52-мфй,ул.Пустиндуз.',
+            'phone_number' => '(90) 309-78-48',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Тургунбоев З.Б.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'З.',
+            'middlename' => 'Б.',
+            'surname' => 'Тургунбоев',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '02',
+            'name' => 'Отделение "Сух"',
+            'is_center' => 0,
+            'founded_date' => '2018-11-01',
+            'address' => 'Ферганская обл, район Сух',
+            'phone_number' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '06',
+            'name' => 'Андижанская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Андижанский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2012-05-03',
+            'address' => 'г. Андижан, ул.Фуркат, 8 V.',
+            'phone_number' => '(99) 402-15-04',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Эргашева Ф.А.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Ф.',
+            'middlename' => 'А.',
+            'surname' => 'Эргашева',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '70',
+            'name' => 'Андижанский Центр Страхования',
+            'is_center' => 1,
+            'founded_date' => '2019-05-01',
+            'address' => 'г. Андижан, ул. Чулпон, 23-уй, 3-кв',
+            'phone_number' => '(97) 772-22-45',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Рузиматов Ш.Ш.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Ш.',
+            'middlename' => 'Ш.',
+            'surname' => 'Рузиматов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '30',
+            'name' => 'Андижанский городской филиал',
+            'is_center' => 0,
+            'founded_date' => '2019-05-14',
+            'address' => 'г. Андижан, ул.Фуркат, 8 V.',
+            'phone_number' => '(99) 722-20-90',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Эргашева Ф.А.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Ф.',
+            'middlename' => 'А.',
+            'surname' => 'Эргашева',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '07',
+            'name' => 'Бухарская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Бухарский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2012-05-01',
+            'address' => 'г. Бухоро, ул. Узб.Мустакиллиги, 44, 3-кв.',
+            'phone_number' => '(0 365) 223-46-77  (93) 453-77-07',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Кудратов Ж.Б.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Ж.',
+            'middlename' => 'Б.',
+            'surname' => 'Кудратов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '30',
+            'name' => 'Бухарский городской филиал',
+            'is_center' => 0,
+            'founded_date' => '2020-03-02',
+            'address' => 'г.Бухоро, ул.Б.Накишбандий, дом 31.',
+            'phone_number' => '(91) 404-00-44',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Саломов У.Л.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'У.',
+            'middlename' => 'Л.',
+            'surname' => 'Саломов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '08',
+            'name' => 'Джизакская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Джизакский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2013-03-07',
+            'address' => 'г. Джизак, Ш.Рашидов, 106',
+            'phone_number' => '(72) 226-20-88  (91) 209-00-68',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Холбутаев И.Х.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'И.',
+            'middlename' => 'Х.',
+            'surname' => 'Холбутаев',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '01',
+            'name' => 'Отделение "Зарбдар"',
+            'is_center' => 0,
+            'founded_date' => '2019-03-06',
+            'address' => 'г. Джизак, Зарбдарский р-н, ул.Катта Узбек тракти',
+            'phone_number' => '(93) 303-78-07',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Султанов А.А.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'А.',
+            'middlename' => 'А.',
+            'surname' => 'Султанов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '02',
+            'name' => 'Отделения "Шароф Рашидов"',
+            'is_center' => 0,
+            'founded_date' => '2019-07-01',
+            'address' => 'г. Джизак, Ш.Рашидовский р-н, Халкабод кфй.',
+            'phone_number' => '(98) 561-88-61',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Эркабоев  Н.И.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Н.',
+            'middlename' => 'И.',
+            'surname' => 'Эркабоев',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '09',
+            'name' => 'Кашкадарьинская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Кашкадарьинский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2012-08-21',
+            'address' => 'г. Карши, ул.Узбекистон, 219',
+            'phone_number' => '(+998 90) 113-77-99  (91) 451-03-08',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Умаров Ч.Ф.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Ч.',
+            'middlename' => 'Ф.',
+            'surname' => 'Умаров',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '10',
+            'name' => 'Навоийская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Навоинский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2012-04-02',
+            'address' => 'г. Навои, ул.Навои, 65',
+            'phone_number' => '(+998 91) 252-78-40',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Каримов Г.С.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Г.',
+            'middlename' => 'С.',
+            'surname' => 'Каримов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '70',
+            'name' => 'Навоинский Центр Страхования',
+            'is_center' => 1,
+            'founded_date' => '2020-03-16',
+            'address' => 'г. Навои, ул.Меъморчилар, дом 33.',
+            'phone_number' => '(91) 339-00-02  (98) 278-18-80',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Ахматкулов К.Я.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'К.',
+            'middlename' => 'Я.',
+            'surname' => 'Ахматкулов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '11',
+            'name' => 'Наманганская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Наманганский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2012-06-11',
+            'address' => 'г. Наманган, ул.Кукумбойшох, 7.',
+            'phone_number' => '(0 369) 227-96-00  (90) 260-33-88',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Турахужаев М.С.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'М.',
+            'middlename' => 'С.',
+            'surname' => 'Турахужаев',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '12',
+            'name' => 'Самаркандская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Самаркандский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2015-07-01',
+            'address' => 'г. Самарканд, ул.Ж.Шоший, 65',
+            'phone_number' => '(90) 250-20-34',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Максудов У.Т.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'У.',
+            'middlename' => 'Т.',
+            'surname' => 'Максудов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '30',
+            'name' => 'Филиал город Самарканд',
+            'is_center' => 0,
+            'founded_date' => '2019-06-01',
+            'address' => 'г. Самарканд, пл. Кук-Сарай 1, блок А, 1-этаж',
+            'phone_number' => '(90) 198-83-83',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Изаев Ш.Д.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Ш.',
+            'middlename' => 'Д.',
+            'surname' => 'Изаев',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '01',
+            'name' => 'Отделение "Марокан"',
+            'is_center' => 0,
+            'founded_date' => '2019-09-09',
+            'address' => 'г. Самарканд, ул. Ж.Шоший, 65',
+            'phone_number' => '(93) 231-56-28',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Шодибаев С.А.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'С.',
+            'middlename' => 'А.',
+            'surname' => 'Шодибаев',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '13',
+            'name' => 'Сурхандарьинская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Сурхандарьинский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2011-11-21',
+            'address' => 'г.Термез, ул.А.Навоий, 20',
+            'phone_number' => '(0 376) 223-06-62  (93) 790-10-44',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Хидаева З.Б.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'З.',
+            'middlename' => 'Б.',
+            'surname' => 'Хидаева',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '14',
+            'name' => 'Сырдарьинская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Сырдарьинский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2012-04-16',
+            'address' => 'г.Гулистан, ул.Сайхун, 39',
+            'phone_number' => '(0 367) 225-25-15  (91) 505-08-09',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Андакулов М.К.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'М.',
+            'middlename' => 'К.',
+            'surname' => 'Андакулов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $region_id = DB::table('regions')->insertGetId([
+            'code' => '15',
+            'name' => 'Хорезмская область',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '00',
+            'name' => 'Хорезмский обл.филиал',
+            'is_center' => 0,
+            'founded_date' => '2012-08-07',
+            'address' => 'г.Ургенч, ул. Тинчлик, 29',
+            'phone_number' => '(0 362) 228-59-06  (90) 649-61-06',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Бектурсунов Г.Т.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Г.',
+            'middlename' => 'Т.',
+            'surname' => 'Бектурсунов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('branches')->where('id', $branch_id)->update(['director_id' => $employee_id]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '01',
+            'name' => 'Отделение "Хонка"',
+            'is_center' => 0,
+            'founded_date' => '2019-02-07',
+            'address' => '',
+            'phone_number' => '',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $branch_id = DB::table('branches')->insertGetId([
+            'region_id' => $region_id,
+            'code' => '30',
+            'name' => 'Ургенч гор.филиал',
+            'is_center' => 0,
+            'founded_date' => '2019-06-12',
+            'address' => 'г.Ургенч, ул.Ёгду,1',
+            'phone_number' => '(97) 792-30-31',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $user_id = DB::table('users')->insertGetId([
+            'name' => 'Хасанов Б.И.',
+            'email' => Str::random(8) . '@example.com',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $employee_id = DB::table('employees')->insertGetId([
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role' => 'director',
+            'name' => 'Б.',
+            'middlename' => 'И.',
+            'surname' => 'Хасанов',
+            'birthdate' => '1970-01-01',
+            'passport_series' => '',
+            'passport_number' => '',
+            'phone' => '',
+            'address' => '',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 

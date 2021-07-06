@@ -15,7 +15,7 @@ class CreateTestCurrenciesTable extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code', 20)->unique();
+            $table->string('code', 3)->unique();
             $table->string('name', 255);
             $table->integer('priority')->unsigned()->default(0);
             $table->timestamps();

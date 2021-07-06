@@ -22,7 +22,6 @@ class CreateTestBorrowersTable extends Migration
             $table->string('bank_account', 50);
             $table->string('inn', 50);
             $table->string('mfo', 50);
-            $table->string('okonh')->nullable();
             $table->string('oked')->nullable();
             $table->string('passport_series');
             $table->string('passport_number');

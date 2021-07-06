@@ -15,6 +15,7 @@ class CreateTestRegionsTable extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code', 3)->unique();
             $table->string('name', 200);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
