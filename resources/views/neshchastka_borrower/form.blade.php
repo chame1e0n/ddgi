@@ -2,8 +2,8 @@
 
 @section('content')
     <form action="{{route('neshchastka_borrower.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
-          id="form-contract"
           enctype="multipart/form-data"
+          id="form-contract"
           method="post">
         @csrf
 
@@ -27,6 +27,7 @@
                         </div>
                     </div>
                 </div>
+
                 <section class="content">
                     @include('includes.messages')
 
@@ -98,6 +99,7 @@
                                                    class="form-control @error('policy.name') is-invalid @enderror"
                                                    id="policy-name"
                                                    name="policy[name]"
+                                                   type="text"
                                                    value="{{old('policy.name', $policy->name)}}" />
                                         </div>
                                     </div>
@@ -185,7 +187,9 @@
 
                 @if(!$block)
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary float-right" id="form-save-button">{{$contract->exists ? 'Изменить' : 'Добавить'}}</button>
+                        <button type="submit" class="btn btn-primary float-right" id="form-save-button">
+                            {{$contract->exists ? 'Изменить' : 'Добавить'}}
+                        </button>
                     </div>
                 @endif
             </div>

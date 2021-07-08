@@ -8,6 +8,7 @@ use App\BorrowerSportsmanOther;
 use App\Model\Beneficiary;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractSportsman;
 use App\Model\Employee;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
@@ -19,32 +20,36 @@ use Illuminate\Http\Request;
 class BorrowerSportsmanController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        //
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
-        $beneficiary = new Beneficiary();
-        $client = new Client();
-        $contract = new Contract();
-
-        return view("products.borrower_sportsman.create", compact('agents', 'beneficiary', 'client', 'contract'));
+        return view('products.borrower_sportsman.form', [
+            'beneficiary' => new Beneficiary(),
+            'client' => new Client(),
+            'contract' => new Contract(),
+            'contract_sportsman' => new ContractSportsman(),
+            'block' => false,
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new contract.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {

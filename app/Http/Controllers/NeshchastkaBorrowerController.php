@@ -23,17 +23,17 @@ use Illuminate\Support\Facades\Storage;
 class NeshchastkaBorrowerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        //
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
      * @return \Illuminate\Http\Response
      */
@@ -59,10 +59,10 @@ class NeshchastkaBorrowerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new contract.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -188,7 +188,7 @@ class NeshchastkaBorrowerController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \App\Model\Contract      $neshchastka_borrower
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Contract $neshchastka_borrower)
     {
