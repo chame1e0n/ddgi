@@ -18,6 +18,7 @@ class CreateTestPolicySportsmansTable extends Migration
             $table->string('fio', 45);
             $table->date('birthdate');
             $table->string('sport', 45);
+            $table->string('beneficiary', 45)->nullable();
             $table->integer('traumatic_quantity')->nullable();
             $table->float('traumatic_sum', 12, 3)->unsigned()->nullable();
             $table->float('traumatic_premium', 12, 3)->unsigned()->nullable();

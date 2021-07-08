@@ -17,16 +17,6 @@ class ContractSportsman extends Model
     protected $table = 'contract_sportsmans';
 
     /**
-     * Get relation to the insurance_cases table.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function insurance_cases()
-    {
-        return $this->belongsToMany(InsuranceCase::class)
-                    ->using(ContractSportsmanInsuranceCase::class);
-    }
-
-    /**
      * Get relation to the contracts table.
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */

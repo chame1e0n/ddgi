@@ -19,6 +19,7 @@ class CreateTestContractSportsmansTable extends Migration
             $table->integer('quantity');
             $table->string('location', 45);
             $table->tinyInteger('is_extended')->unsigned()->default(0);
+            $table->string('insured_cases')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
