@@ -108,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card card-info" id="clone-beneficiary">
+                    <div class="card card-info" id="policies">
                         <div class="card-header">
                             <h3 class="card-title">Полисы</h3>
                             <div class="card-tools">
@@ -118,149 +118,66 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive p-0 " style="max-height: 300px;">
-                                <div id="product-fields" class="product-fields" data-field-number="0">
-                                    <table class="table table-hover table-head-fixed" id="empTable_u">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-nowrap">Наименование полиса</th>
-                                                <th class="text-nowrap">Серия полиса</th>
-                                                <th class="text-nowrap">Ответственное лицо</th>
-                                                <th class="text-nowrap">Действие полиса от</th>
-                                                <th class="text-nowrap">Действие полиса до</th>
-                                                <th class="text-nowrap">Страховая сумма</th>
-                                                <th class="text-nowrap">Страховая премия</th>
-                                                <th class="text-nowrap">Франшиза</th>
-                                                <th class="text-nowrap" colspan="2">Действия</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($contract->policies as $key => $policy)
-                                                <tr data-number="{{$key}}">
-                                                    <td>
-                                                        <input required
-                                                               @if($policy->contract_id) disabled @endif
-                                                               class="form-control @error('policies.' . $key . '.name') is-invalid @enderror"
-                                                               id="policies-{{$key}}-name"
-                                                               name="policies[{{$key}}][name]"
-                                                               type="text"
-                                                               value="{{old('policies.' . $key . '.name', $policy->name)}}" />
-                                                    </td>
-                                                    <td>
-                                                        <select required
-                                                                @if($policy->contract_id) disabled @endif
-                                                                class="form-control select2 @error('policies.' . $key . '.series') is-invalid @enderror"
-                                                                id="policies-{{$key}}-series"
-                                                                name="policies[{{$key}}][series]">
-                                                            <option></option>
+                            <div class="table-responsive"
+                                 style="max-height: 300px;">
+                                <table class="table table-hover table-head-fixed">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-nowrap">Наименование</th>
+                                            <th class="text-nowrap">Серия</th>
+                                            <th class="text-nowrap">Ответственное лицо</th>
+                                            <th class="text-nowrap">Дата выдачи</th>
+                                            <th class="text-nowrap">Действие от</th>
+                                            <th class="text-nowrap">Действие до</th>
+                                            <th class="text-nowrap">Страховая сумма</th>
+                                            <th class="text-nowrap">Страховая премия</th>
+                                            <th class="text-nowrap">Франшиза</th>
+                                            <th class="text-nowrap" colspan="2">Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($contract->policies as $key => $policy)
+                                            @php $policy_sportsman = $policy->policy_sportsman @endphp
 
-                                                            @foreach(\App\Model\Policy::all() as $policy_series)
-                                                                <option @if($policy_series->id == old('policies.' . $key . '.series', $policy->series)) selected="selected" @endif
-                                                                        value="{{$policy_series->series}}">
-                                                                    {{$policy_series->series}}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input disabled="disabled"
-                                                               class="form-control"
-                                                               id="policies-{{$key}}-responsible-person"
-                                                               type="text"
-                                                               value="" />
-                                                    </td>
-                                                    <td>
-                                                        <input required
-                                                               class="form-control @error('policies.' . $key . '.polis_from_date') is-invalid @enderror"
-                                                               id="policies-{{$key}}-polis-from-date"
-                                                               name="policies[{{$key}}][polis_from_date]"
-                                                               type="date"
-                                                               value="{{old('policies.' . $key . '.polis_from_date', $policy->polis_from_date)}}" />
-                                                    </td>
-                                                    <td>
-                                                        <input required
-                                                               class="form-control @error('policies.' . $key . '.polis_to_date') is-invalid @enderror"
-                                                               id="policies-{{$key}}-polis-to-date"
-                                                               name="policies[{{$key}}][polis_to_date]"
-                                                               type="date"
-                                                               value="{{old('policies.' . $key . '.polis_to_date', $policy->polis_to_date)}}" />
-                                                    </td>
-                                                    <td>
-                                                        <input required
-                                                               class="form-control @error('policies.' . $key . '.insurance_sum') is-invalid @enderror"
-                                                               id="policies-{{$key}}-insurance-sum"
-                                                               name="policies[{{$key}}][insurance_sum]"
-                                                               step="0.01"
-                                                               type="number"
-                                                               value="{{old('policies.' . $key . '.insurance_sum', $policy->insurance_sum)}}" />
-                                                    </td>
-                                                    <td>
-                                                        <input disabled="disabled"
-                                                               class="form-control"
-                                                               id="policies-{{$key}}-insurance-premium"
-                                                               type="text"
-                                                               value="" />
-                                                    </td>
-                                                    <td>
-                                                        <input required
-                                                               class="form-control @error('policies.' . $key . '.franchise') is-invalid @enderror"
-                                                               id="policy-{{$key}}-franchise"
-                                                               name="policies[{{$key}}][franchise]"
-                                                               step="0.01"
-                                                               type="number"
-                                                               value="{{old('policy.' . $key . '.franchise', $policy->franchise)}}" />
-                                                    </td>
-                                                    <td>
-                                                        <input type="button" value="Удалить" class="btn btn-warning ddgi-remove-tranche" />
-                                                        <input type="button"
-                                                               value="Заполнить"
-                                                               class="btn btn-success ddgi-display-modal" />
-                                                    </td>
-                                                    <td>
-                                                        <input type="button"
-                                                               value="Удалить"
-                                                               class="btn btn-warning ddgi-remove-policy" />
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                            @include('includes.policy_in_table')
+                                        @endforeach
 
-                                            <tr>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <button type="button"
-                                                                class="btn btn-primary ddgi-add-policy">
-                                                            Добавить
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td colspan="4" style="text-align: right;">
-                                                    <label class="text-bold">Итого:</label>
-                                                </td>
-                                                <td>
-                                                    <input disabled="disabled"
-                                                           class="form-control"
-                                                           id="total-insurance-sum"
-                                                           type="text"
-                                                           value="" />
-                                                </td>
-                                                <td>
-                                                    <input disabled="disabled"
-                                                           class="form-control"
-                                                           id="total-insurance-premium"
-                                                           type="text"
-                                                           value="" />
-                                                </td>
-                                                <td>
-                                                    <input disabled="disabled"
-                                                           class="form-control"
-                                                           id="total-franchise"
-                                                           type="text"
-                                                           value="" />
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        <tr id="policy-row-total">
+                                            <td>
+                                                <div class="form-group">
+                                                    <button type="button"
+                                                            class="btn btn-primary ddgi-add-policy">
+                                                        Добавить
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td colspan="4" style="text-align: right;">
+                                                <label class="text-bold">Итого:</label>
+                                            </td>
+                                            <td>
+                                                <input disabled="disabled"
+                                                       class="form-control"
+                                                       id="total-insurance-sum"
+                                                       type="text"
+                                                       value="" />
+                                            </td>
+                                            <td>
+                                                <input disabled="disabled"
+                                                       class="form-control"
+                                                       id="total-insurance-premium"
+                                                       type="text"
+                                                       value="" />
+                                            </td>
+                                            <td>
+                                                <input disabled="disabled"
+                                                       class="form-control"
+                                                       id="total-franchise"
+                                                       type="text"
+                                                       value="" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                            </table>
                             </div>
                         </div>
                     </div>
@@ -276,4 +193,43 @@
             @endif
         </fieldset>
     </form>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            const policies = document.querySelector('#policies');
+            const button_add_policy = policies.querySelector('.ddgi-add-policy');
+            if (button_add_policy) {
+                button_add_policy.addEventListener('click', function () {
+                    let tbody = policies.querySelector('tbody');
+                    let counter = tbody.childElementCount;
+
+                    while(document.getElementById('policy-row-' + counter)) {
+                        counter++;
+                    }
+
+                    $.ajax({
+                        url: '{{route("get_policy_for_table")}}',
+                        type: 'post',
+                        data: { key: counter },
+                        dataType: 'json',
+                        success: function (response) {
+                            document.getElementById('policy-row-total').insertAdjacentHTML('beforebegin', response.template);
+                        },
+                        error: function (data) {
+                            console.log('get policy template error', data);
+                        }
+                    });
+                });
+            }
+            if (policies) {
+                policies.addEventListener('click', function (event) {
+                    if (event.target.classList.contains('ddgi-remove-policy')) {
+                        event.target.parentElement.parentElement.remove();
+                    }
+                });
+            }
+        });
+    </script>
 @endsection

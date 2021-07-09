@@ -39,6 +39,20 @@ Route::get('agent_list', function () {
     ]);
 });
 
+Route::post('policy/for/table', function(Request $request) {
+    $view = view('includes.policy_in_table', [
+        'key' => $request['key'],
+        'policy' => new \App\Model\Policy(),
+        'errors' => new \Illuminate\Support\ViewErrorBag(),
+        'policy_sportsman' => new \App\Model\PolicySportsman(),
+    ])->toHtml();
+
+    return [
+        'code' => 200,
+        'template' => $view,
+    ];
+})->name('get_policy_for_table');
+
 Route::get('employee/of/policy', function(Request $request) {
     $policy = \App\Model\Policy::where('policies.name', '=', $request['name'])
         ->where('policies.series', '=', $request['series'])

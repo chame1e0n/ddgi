@@ -277,11 +277,11 @@
         document.querySelector('.list-' + element.value).removeAttribute('hidden');
     }
 
-    const block = document.querySelector('#tranches');
-    const button_add_tranche = block.querySelector('.ddgi-add-tranche');
+    const tranches = document.querySelector('#tranches');
+    const button_add_tranche = tranches.querySelector('.ddgi-add-tranche');
     if (button_add_tranche) {
         button_add_tranche.addEventListener('click', function () {
-            const tbody = block.querySelector('tbody');
+            const tbody = tranches.querySelector('tbody');
             const tr = tbody.lastElementChild;
             const id = tr ? (+tr.dataset.number) + 1 : 0;
 
@@ -301,8 +301,8 @@
             tbody.insertAdjacentHTML('beforeend', new_tranche);
         });
     }
-    if (block) {
-        block.addEventListener('click', function (event) {
+    if (tranches) {
+        tranches.addEventListener('click', function (event) {
             if (event.target.classList.contains('ddgi-remove-tranche')) {
                 event.target.parentElement.parentElement.remove();
             }
