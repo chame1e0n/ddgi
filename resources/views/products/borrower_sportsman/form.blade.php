@@ -129,8 +129,8 @@
                                             <th class="text-nowrap">Дата выдачи</th>
                                             <th class="text-nowrap">Действие от</th>
                                             <th class="text-nowrap">Действие до</th>
-                                            <th class="text-nowrap">Страховая сумма</th>
-                                            <th class="text-nowrap">Страховая премия</th>
+                                            <th class="text-nowrap" style="min-width: 200px;">Страховая сумма</th>
+                                            <th class="text-nowrap" style="min-width: 200px;">Страховая премия</th>
                                             <th class="text-nowrap">Франшиза</th>
                                             <th class="text-nowrap" colspan="2">Действия</th>
                                         </tr>
@@ -151,7 +151,7 @@
                                                     </button>
                                                 </div>
                                             </td>
-                                            <td colspan="4" style="text-align: right;">
+                                            <td colspan="5" style="text-align: right;">
                                                 <label class="text-bold">Итого:</label>
                                             </td>
                                             <td>
@@ -177,7 +177,7 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                            </table>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -198,6 +198,65 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
+            function calculation() {
+                let is_tariff = document.getElementById('contract-tariff-switch').checked;
+                let is_premium = document.getElementById('contract-premium-switch').checked;
+
+                let from = new Date($('#contract-from').val());
+                let to = new Date($('#contract-to').val());
+                let days = Math.round((to - from) / (24 * 60 * 60 * 1000)) + 1;
+
+                let total_insurance_sum = 0;
+                let total_insurance_premium = 0;
+                let total_franchise = 0;
+
+                $(policies).find('tbody > tr').each(function (i, element) {
+                    let number = element.id.replace('policy-row-', '');
+
+                    if (number == 'total') {
+                        $('#total-insurance-sum').val(total_insurance_sum);
+                        $('#total-insurance-premium').val(total_insurance_premium);
+                        $('#total-franchise').val(total_franchise);
+
+                        return;
+                    }
+
+                    let policy_insurance_sum = Number($('#policies-' + number + '-insurance-sum').val());
+
+                    let policy_sportsman_sum = Number($('#policies-' + number + '-policy-sportsman-traumatic-sum').val()) + Number($('#policies-' + number + '-policy-sportsman-death-sum').val());
+
+                    $('#policies-' + number + '-policy-sportsman-total-sum').val(policy_sportsman_sum);
+                    $('#policies-' + number + '-insurance-sum-plus').text('+ ' + policy_sportsman_sum);
+
+                    let policy_sportsman_premium = Number($('#policies-' + number + '-policy-sportsman-traumatic-premium').val()) + Number($('#policies-' + number + '-policy-sportsman-death-premium').val());
+
+                    $('#policies-' + number + '-policy-sportsman-total-premium').val(policy_sportsman_premium);
+                    $('#policies-' + number + '-insurance-premium-plus').text('+ ' + policy_sportsman_premium);
+
+                    let policy_premium = 0;
+
+                    if (!is_tariff && !is_premium) {
+                        let tariff = {{$contract->specification ? $contract->specification->tariff : 0}};
+
+                        policy_premium = (days * policy_insurance_sum * tariff) / 365;
+                    }
+                    if (is_tariff) {
+                        let tariff = $('#contract-tariff').val();
+
+                        policy_premium = (days * policy_insurance_sum * tariff) / 365;
+                    }
+                    if (is_premium) {
+                        policy_premium = $('#contract-premium').val();
+                    }
+
+                    $('#policies-' + number + '-insurance-premium').val(policy_premium);
+
+                    total_insurance_sum += policy_insurance_sum + policy_sportsman_sum;
+                    total_insurance_premium += policy_premium + policy_sportsman_premium;
+                    total_franchise += Number($('#policies-' + number + '-franchise').val());
+                });
+            }
+
             const policies = document.querySelector('#policies');
             const button_add_policy = policies.querySelector('.ddgi-add-policy');
             if (button_add_policy) {
@@ -227,8 +286,46 @@
                 policies.addEventListener('click', function (event) {
                     if (event.target.classList.contains('ddgi-remove-policy')) {
                         event.target.parentElement.parentElement.remove();
+
+                        calculation();
                     }
                 });
+
+                $(policies).delegate('.ddgi-policy-name', 'keyup', function () {
+                    let series = document.getElementById(this.id.replace('name', 'series'));
+
+                    $.ajax({
+                        url: '{{route("get_policies")}}',
+                        type: 'get',
+                        data: { name: $(this).val() },
+                        dataType: 'json',
+                        success: function (response) {
+                            $(series).empty();
+                            $(series).append('<option></option>');
+
+                            for (var i = 0; i < response.length; i++) {
+                                $(series).append('<option value="' + response[i]['series']+ '">' + response[i]['series'] + '</option>');
+                            }
+                        }
+                    });
+                });
+
+                $(policies).delegate('.ddgi-policy-series', 'change', function () {
+                    let name = document.getElementById(this.id.replace('series', 'name'));
+                    let responsible_person = document.getElementById(this.id.replace('series', 'responsible-person'));
+
+                    $.ajax({
+                        url: '{{route("get_policy_employee")}}',
+                        type: 'get',
+                        data: { name: $(name).val(), series: $(this).val() },
+                        dataType: 'json',
+                        success: function (response) {
+                            $(responsible_person).val(response.surname + ' ' + response.name + ' ' + response.middlename);
+                        }
+                    });
+                });
+
+                $('#form-contract').delegate('.ddgi-policy-calculate', 'change', calculation);
             }
         });
     </script>

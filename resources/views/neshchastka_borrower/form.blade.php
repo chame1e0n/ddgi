@@ -236,7 +236,7 @@
                 if (!is_tariff && !is_premium) {
                     let tariff = {{$contract->specification ? $contract->specification->tariff : 0}};
                     let from = new Date($('#contract-from').val());
-                    let to = new Date($('#contract-to').val())
+                    let to = new Date($('#contract-to').val());
                     let days = Math.round((to - from) / (24 * 60 * 60 * 1000)) + 1;
                     let insurance_sum = $('#policy-insurance-sum').val();
 
@@ -245,7 +245,7 @@
                 if (is_tariff) {
                     let tariff = $('#contract-tariff').val();
                     let from = new Date($('#contract-from').val());
-                    let to = new Date($('#contract-to').val())
+                    let to = new Date($('#contract-to').val());
                     let days = Math.round((to - from) / (24 * 60 * 60 * 1000)) + 1;
                     let insurance_sum = $('#policy-insurance-sum').val();
 

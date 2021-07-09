@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label for="policy-series-to" class="col-form-label">Серия полиса до:</label>
+                                                    <label for="policy-series-to" class="col-form-label">Серия полиса по:</label>
                                                     <input required
                                                            class="form-control @if($errors->has('policy_series_to')) is-invalid @endif"
                                                            id="policy-series-to"

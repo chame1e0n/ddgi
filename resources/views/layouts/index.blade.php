@@ -48,6 +48,9 @@
         :required {
             border-bottom-color: red;
         }
+        .form-control {
+            min-width: 100px;
+        }
     </style>
 </head>
 
