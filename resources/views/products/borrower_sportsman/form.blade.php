@@ -66,7 +66,8 @@
                                                class="form-control @error('contract_sportsman.quantity') is-invalid @enderror"
                                                id="contract-sportsman-quantity"
                                                name="contract_sportsman[quantity]"
-                                               type="text"
+                                               step="1"
+                                               type="number"
                                                value="{{old('contract_sportsman.quantity', $contract_sportsman->quantity)}}" />
                                     </div>
                                 </div>
@@ -137,7 +138,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach($contract->policies as $key => $policy)
-                                            @php $policy_sportsman = $policy->policy_sportsman @endphp
+                                            @php $policy_sportsman = $policy->policy_model @endphp
 
                                             @include('includes.policy_in_table')
                                         @endforeach
@@ -246,7 +247,7 @@
                         policy_premium = (days * policy_insurance_sum * tariff) / 365;
                     }
                     if (is_premium) {
-                        policy_premium = $('#contract-premium').val();
+                        policy_premium = Number($('#contract-premium').val());
                     }
 
                     $('#policies-' + number + '-insurance-premium').val(policy_premium);
@@ -256,77 +257,90 @@
                     total_franchise += Number($('#policies-' + number + '-franchise').val());
                 });
             }
+            function addPolicy() {
+                let tbody = policies.querySelector('tbody');
+                let counter = tbody.childElementCount - 1;
+
+                while(document.getElementById('policy-row-' + counter)) {
+                    counter++;
+                }
+
+                $.ajax({
+                    url: '{{route("get_policy_for_table")}}',
+                    type: 'post',
+                    data: { key: counter },
+                    dataType: 'json',
+                    success: function (response) {
+                        document.getElementById('policy-row-total').insertAdjacentHTML('beforebegin', response.template);
+                    },
+                    error: function (data) {
+                        console.log('get policy template error', data);
+                    }
+                });
+            }
+            function removePolicy(event) {
+                if (event.target.classList.contains('ddgi-remove-policy')) {
+                    event.target.parentElement.parentElement.remove();
+
+                    calculation();
+                }
+            }
+            function definePolicySeries() {
+                let series = document.getElementById(this.id.replace('name', 'series'));
+
+                $.ajax({
+                    url: '{{route("get_policies")}}',
+                    type: 'get',
+                    data: { name: $(this).val() },
+                    dataType: 'json',
+                    success: function (response) {
+                        $(series).empty();
+                        $(series).append('<option></option>');
+
+                        for (var i = 0; i < response.length; i++) {
+                            $(series).append('<option value="' + response[i]['series']+ '">' + response[i]['series'] + '</option>');
+                        }
+                    }
+                });
+            }
+            function defineResponsiblePerson() {
+                let name = document.getElementById(this.id.replace('series', 'name'));
+                let responsible_person = document.getElementById(this.id.replace('series', 'responsible-person'));
+
+                $.ajax({
+                    url: '{{route("get_policy_employee")}}',
+                    type: 'get',
+                    data: { name: $(name).val(), series: $(this).val() },
+                    dataType: 'json',
+                    success: function (response) {
+                        $(responsible_person).val(response.surname + ' ' + response.name + ' ' + response.middlename);
+                    }
+                });
+            }
 
             const policies = document.querySelector('#policies');
             const button_add_policy = policies.querySelector('.ddgi-add-policy');
             if (button_add_policy) {
-                button_add_policy.addEventListener('click', function () {
-                    let tbody = policies.querySelector('tbody');
-                    let counter = tbody.childElementCount;
-
-                    while(document.getElementById('policy-row-' + counter)) {
-                        counter++;
-                    }
-
-                    $.ajax({
-                        url: '{{route("get_policy_for_table")}}',
-                        type: 'post',
-                        data: { key: counter },
-                        dataType: 'json',
-                        success: function (response) {
-                            document.getElementById('policy-row-total').insertAdjacentHTML('beforebegin', response.template);
-                        },
-                        error: function (data) {
-                            console.log('get policy template error', data);
-                        }
-                    });
-                });
+                button_add_policy.addEventListener('click', addPolicy);
             }
             if (policies) {
-                policies.addEventListener('click', function (event) {
-                    if (event.target.classList.contains('ddgi-remove-policy')) {
-                        event.target.parentElement.parentElement.remove();
+                policies.addEventListener('click', removePolicy);
 
-                        calculation();
-                    }
-                });
+                $(policies).delegate('.ddgi-policy-name', 'keyup', definePolicySeries);
 
-                $(policies).delegate('.ddgi-policy-name', 'keyup', function () {
-                    let series = document.getElementById(this.id.replace('name', 'series'));
-
-                    $.ajax({
-                        url: '{{route("get_policies")}}',
-                        type: 'get',
-                        data: { name: $(this).val() },
-                        dataType: 'json',
-                        success: function (response) {
-                            $(series).empty();
-                            $(series).append('<option></option>');
-
-                            for (var i = 0; i < response.length; i++) {
-                                $(series).append('<option value="' + response[i]['series']+ '">' + response[i]['series'] + '</option>');
-                            }
-                        }
-                    });
-                });
-
-                $(policies).delegate('.ddgi-policy-series', 'change', function () {
-                    let name = document.getElementById(this.id.replace('series', 'name'));
-                    let responsible_person = document.getElementById(this.id.replace('series', 'responsible-person'));
-
-                    $.ajax({
-                        url: '{{route("get_policy_employee")}}',
-                        type: 'get',
-                        data: { name: $(name).val(), series: $(this).val() },
-                        dataType: 'json',
-                        success: function (response) {
-                            $(responsible_person).val(response.surname + ' ' + response.name + ' ' + response.middlename);
-                        }
-                    });
-                });
+                $(policies).delegate('.ddgi-policy-series', 'change', defineResponsiblePerson);
 
                 $('#form-contract').delegate('.ddgi-policy-calculate', 'change', calculation);
+
+                $('.ddgi-policy-series').trigger('change');     // для show метода при загрузке страницы
+                $('.ddgi-policy-calculate').trigger('change');  // для show метода при загрузке страницы
             }
+
+            $('form').submit(function(e) {
+                $(':disabled').each(function(e) {
+                    $(this).removeAttr('disabled');
+                })
+            });
         });
     </script>
 @endsection

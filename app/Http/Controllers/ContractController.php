@@ -25,8 +25,8 @@ class ContractController extends Controller
         $filter = array_filter($data, function ($value) { return !is_null($value) && $value !== ''; });
 
         $query = Contract::select('contracts.*')
-            ->crossJoin('specifications', 'contracts.specification_id', '=', 'specifications.id')
-            ->crossJoin('types', 'specifications.type_id', '=', 'types.id')
+            ->leftJoin('specifications', 'contracts.specification_id', '=', 'specifications.id')
+            ->leftJoin('types', 'specifications.type_id', '=', 'types.id')
             ->leftJoin('policies', 'contracts.id', '=', 'policies.contract_id')
             ->leftJoin('policy_flows', 'policies.id', '=', 'policy_flows.policy_id')
             ->leftJoin('employees', 'policy_flows.to_employee_id', '=', 'employees.id');
@@ -52,6 +52,8 @@ class ContractController extends Controller
                       ->orWhere('employees.middlename', 'like', '%' . $filter['employees.name'] . '%');
             });
         }
+
+        $query->groupBy('contracts.id');
 
         return view('contract.index', [
             'contracts' => $query->get(),
@@ -126,7 +128,8 @@ class ContractController extends Controller
     {
         $route_name = Specification::$specification_key_to_routes[$contract->specification->key] . '.destroy';
         $route = Route::getRoutes()->getByName($route_name);
+        $parameter_names = $route->parameterNames();
 
-        return app()->call($route->getActionName(), ['neshchastka_borrower' => $contract]);
+        return app()->call($route->getActionName(), [$parameter_names[0] => $contract]);
     }
 }

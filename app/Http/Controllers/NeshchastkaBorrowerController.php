@@ -138,7 +138,7 @@ class NeshchastkaBorrowerController extends Controller
         $contract->generateNumber();
 
         return redirect()->route('contracts.index')
-                         ->with('success', 'Успешно произведено сохранения контракта');
+                         ->with('success', 'Успешно произведено сохранение контракта');
     }
 
     /**

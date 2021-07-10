@@ -17,7 +17,7 @@
             <option></option>
 
             @foreach(\App\Model\Policy::all() as $policy_series)
-                <option @if($policy_series->id == old('policies.' . $key . '.series', $policy->series)) selected="selected" @endif
+                <option @if($policy_series->series == old('policies.' . $key . '.series', $policy->series)) selected="selected" @endif
                         value="{{$policy_series->series}}">
                     {{$policy_series->series}}
                 </option>

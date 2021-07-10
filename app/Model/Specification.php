@@ -12,20 +12,6 @@ class Specification extends Model
     use SoftDeletes;
 
     /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
-    /**
-     * Name of the table for the model.
-     *
-     * @var string
-     */
-    protected $table = 'specifications';
-
-    /**
      * The relationship of the specification to interface routers.
      * 
      * @var array
@@ -102,6 +88,20 @@ class Specification extends Model
         'specification.code' => 'required',
         'specification.name' => 'required',
     ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * Name of the table for the model.
+     *
+     * @var string
+     */
+    protected $table = 'specifications';
 
     /**
      * Get relation to the types table.

@@ -10,12 +10,18 @@ use App\Model\Client;
 use App\Model\Contract;
 use App\Model\ContractSportsman;
 use App\Model\Employee;
+use App\Model\Policy;
+use App\Model\PolicySportsman;
+use App\Model\Specification;
+use App\Model\Tranche;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Product3777;
 use App\Zaemshik;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BorrowerSportsmanController extends Controller
 {
@@ -36,12 +42,30 @@ class BorrowerSportsmanController extends Controller
      */
     public function create()
     {
+        $old_data = old();
+
+        $specification = Specification::where('key', '=', 'S_IOAAA')->get()->first();
+
+        $contract = new Contract();
+
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+        }
+        if (isset($old_data['policies'])) {
+            foreach ($old_data['policies'] as $item) {
+                $policy = new Policy();
+                $policy->policy_model = new PolicySportsman();
+
+                $contract->policies[] = $policy;
+            }
+        }
+
         return view('products.borrower_sportsman.form', [
             'beneficiary' => new Beneficiary(),
-            'client' => new Client(),
-            'contract' => new Contract(),
-            'contract_sportsman' => new ContractSportsman(),
             'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_sportsman' => new ContractSportsman(),
         ]);
     }
 
@@ -53,206 +77,299 @@ class BorrowerSportsmanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            // policy_holders
-            'fio_insurer' => 'required',
-            'address_insurer' => 'required',
-            'tel_insurer' => 'required',
-            'address_schet' => 'required',
-            'inn_insurer' => 'required',
-            'mfo_insurer' => 'required',
-            'oked_insurer' => 'required',
-            'okonh_insurer' => 'required',
-            'bank_insurer' => 'required',
-            'activity_type' => 'required',
+        $request->validate(array_merge(
+            Beneficiary::$validate,
+            Client::$validate,
+            Contract::$validate,
+            ContractSportsman::$validate,
+            [
+                'policies.*.name' => 'required',
+                'policies.*.series' => 'required',
+                'policies.*.date_of_issue' => 'required',
+                'policies.*.insurance_sum' => 'required',
+                'policies.*.franchise' => 'required',
 
-            // policy_beneficiaries
-            'fio_beneficiary' => 'required',
-            'address_beneficiary' => 'required',
-            'tel_beneficiary' => 'required',
-            'beneficiary_schet' => 'required',
-            'inn_beneficiary' => 'required',
-            'mfo_beneficiary' => 'required',
-            'bank_beneficiary' => 'required',
-            'okonh_beneficiary' => 'required',
+                'policies.*.policy_sportsman.fio' => 'required',
+                'policies.*.policy_sportsman.birthdate' => 'required',
+                'policies.*.policy_sportsman.sport' => 'required',
+            ]
+        ));
 
-            // borrower_sportsman
-            'insurance_from' => 'required',
-            'insurance_to' => 'required',
-            'polis_series' => 'required',
-            'polis_giving_date' => 'required',
-            'litso' => 'required',
-            'insurance_premium_currency' => 'required',
-            'payment_term' => 'required',
+        $policies_data = $request['policies'];
 
-            'all_sum' => 'required',
-            'insurance_bonus' => 'required',
+        $contract_sportsman_data = $request['contract_sportsman'];
+        $contract_sportsman_data['is_extended'] = $contract_sportsman_data['is_extended'] == 'on' ? 1 : 0;
 
-            // borrower_sportsman_info
-            'policy_num' => 'required',
-            'policy_series' => 'required',
-            'policy_chronic' => 'required',
-            'policy_agent' => 'required',
-            'polis_fio' => 'required',
-            'polis_date_birth' => 'required',
-            'polis_passport_series' => 'required',
-            'polis_usable_period' => 'required',
-            'polis_benefit' => 'required',
-            'polis_overall_sum' => 'required',
-            'polis_bonus' => 'required',
-
-        ]);
-
-        if ($request->get('insurance_premium_currency') === "other") {
-            $request->validate([
-                "payment_bonus_sum" => "required",
-                "payment_bonus_from" => "required"
-            ]);
-        }
-
-        $policyHolder = PolicyHolder::create([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'oked' => $request->oked_insurer,
-            'bank_id' => $request->bank_insurer,
-            'okonx' => $request->okonh_insurer,
-            'activity_type' => $request->activity_type,
-        ]);
-
-        $policyBeneficiary = PolicyBeneficiaries::create([
-            'FIO' => $request->fio_beneficiary,
-            'address' => $request->address_beneficiary,
-            'phone_number' => $request->tel_beneficiary,
-            'checking_account' => $request->beneficiary_schet,
-            'inn' => $request->inn_beneficiary,
-            'mfo' => $request->mfo_beneficiary,
-            'okonx' => $request->okonh_beneficiary,
-            'bank_id' => $request->bank_beneficiary,
-        ]);
-        $borrowerSportsman = BorrowerSportsman::create([
-            'policy_holder_id' => $policyHolder->id,
-            'insurance_from' => $request->insurance_from,
-            'insurance_to' => $request->insurance_to,
-            'polis_series' => $request->polis_series,
-            'polis_giving_date' => $request->polis_giving_date,
-            'litso' => $request->litso,
-            'insurance_premium_currency' => $request->insurance_premium_currency,
-            'payment_term' => $request->payment_term,
-            'all_sum' => $request->all_sum,
-            'insurance_bonus' => $request->insurance_bonus,
-        ]);
-        $count = count($request->get("policy_num"));
-        for ($i = 0; $i < $count; $i++) {
-            $borrowerSportsmanInfos = BorrowerSportsmanInfo::create([
-                'borrower_sportsman_id' => $borrowerSportsman->id,
-                'policy_num' => $request->get("policy_num")[$i],
-                'policy_series' => $request->get("policy_series")[$i],
-                'policy_chronic' => $request->get("policy_chronic")[$i],
-                'policy_agent' => $request->get("policy_agent")[$i],
-                'polis_fio' => $request->get("polis_fio")[$i],
-                'polis_date_birth' => $request->get("polis_date_birth")[$i],
-                'polis_passport_series' => $request->get("polis_passport_series")[$i],
-                'polis_usable_period' => $request->get("polis_usable_period")[$i],
-                'polis_benefit' => $request->get("polis_benefit")[$i],
-                'polis_overall_sum' => $request->get("polis_overall_sum")[$i],
-            ]);
-        }
-        if (!empty($request->get("other_mark_model"))) {
-            $count = count($request->get("other_mark_model"));
-            for ($i = 0; $i < $count; $i++) {
-                $value = [
-                    'borrower_sportsman_id' => $borrowerSportsman->id,
-                    'other_mark_model' => (!empty($request->get("other_mark_model")[$i])) ? $request->get("other_mark_model")[$i] : null,
-                    'other_name_tools' => (!empty($request->get("other_name_tools")[$i])) ? $request->get("other_name_tools")[$i] : null,
-                    'other_series_number' => (!empty($request->get("other_series_number")[$i])) ? $request->get("other_series_number")[$i] : null,
-                    'other_insurance_sum' => (!empty($request->get("other_insurance_sum")[$i])) ? $request->get("other_insurance_sum")[$i] : null,
-                    'other_total' => (!empty($request->get("other_total")[$i])) ? $request->get("other_total")[$i] : null,
-                    'other_cover_terror_attacks_sum' => (!empty($request->get("other_cover_terror_attacks_sum")[$i])) ? $request->get("other_cover_terror_attacks_sum")[$i] : null,
-                    'other_cover_terror_attacks_currency' => (!empty($request->get("other_cover_terror_attacks_currency")[$i])) ? $request->get("other_cover_terror_attacks_currency")[$i] : null,
-                    'cover_terror_attacks_insured_sum' => (!empty($request->get("cover_terror_attacks_insured_sum")[$i])) ? $request->get("cover_terror_attacks_insured_sum")[$i] : null,
-                    'other_cover_terror_attacks_insured_currency' => (!empty($request->get("other_cover_terror_attacks_insured_currency")[$i])) ? $request->get("other_cover_terror_attacks_insured_currency")[$i] : null,
-                    'other_coverage_evacuation_cost' => (!empty($request->get("other_coverage_evacuation_cost")[$i])) ? $request->get("other_coverage_evacuation_cost")[$i] : null,
-                    'other_coverage_evacuation_currency' => (!empty($request->get("other_coverage_evacuation_currency")[$i])) ? $request->get("other_coverage_evacuation_currency")[$i] : null,
-                    'other_insurance_info' => (!empty($request->get("other_insurance_info")[$i])) ? $request->get("other_insurance_info")[$i] : null,
-                    'one_sum' => (!empty($request->get("one_sum")[$i])) ? $request->get("one_sum")[$i] : null,
-                    'one_premia' => (!empty($request->get("one_premia")[$i])) ? $request->get("one_premia")[$i] : null,
-                    'one_franshiza' => (!empty($request->get("one_franshiza")[$i])) ? $request->get("one_franshiza")[$i] : null,
-                    'tho_sum' => (!empty($request->get("tho_sum")[$i])) ? $request->get("tho_sum")[$i] : null,
-                    'two_preim' => (!empty($request->get("two_preim")[$i])) ? $request->get("two_preim")[$i] : null,
-                    'driver_quantity' => (!empty($request->get("driver_quantity")[$i])) ? $request->get("driver_quantity")[$i] : null,
-                    'driver_one_sum' => (!empty($request->get("driver_one_sum")[$i])) ? $request->get("driver_one_sum")[$i] : null,
-                    'driver_currency' => (!empty($request->get("driver_currency")[$i])) ? $request->get("driver_currency")[$i] : null,
-                    'driver_total_sum' => (!empty($request->get("driver_total_sum")[$i])) ? $request->get("driver_total_sum")[$i] : null,
-                    'driver_preim_sum' => (!empty($request->get("driver_preim_sum")[$i])) ? $request->get("driver_preim_sum")[$i] : null,
-                    'passenger_quantity' => (!empty($request->get("passenger_quantity")[$i])) ? $request->get("passenger_quantity")[$i] : null,
-                    'passenger_one_sum' => (!empty($request->get("passenger_one_sum")[$i])) ? $request->get("passenger_one_sum")[$i] : null,
-                    'passenger_currency' => (!empty($request->get("passenger_currency")[$i])) ? $request->get("passenger_currency")[$i] : null,
-                    'passenger_total_sum' => (!empty($request->get("passenger_total_sum")[$i])) ? $request->get("passenger_total_sum")[$i] : null,
-                    'passenger_preim_sum' => (!empty($request->get("passenger_preim_sum")[$i])) ? $request->get("passenger_preim_sum")[$i] : null,
-                    'limit_quantity' => (!empty($request->get("limit_quantity")[$i])) ? $request->get("limit_quantity")[$i] : null,
-                    'limit_one_sum' => (!empty($request->get("limit_one_sum")[$i])) ? $request->get("limit_one_sum")[$i] : null,
-                    'limit_currency' => (!empty($request->get("limit_currency")[$i])) ? $request->get("limit_currency")[$i] : null,
-                    'limit_total_sum' => (!empty($request->get("limit_total_sum")[$i])) ? $request->get("limit_total_sum")[$i] : null,
-                    'limit_preim_sum' => (!empty($request->get("limit_preim_sum")[$i])) ? $request->get("limit_preim_sum")[$i] : null,
-                    'total_liability_limit' => (!empty($request->get("total_liability_limit")[$i])) ? $request->get("total_liability_limit")[$i] : null,
-                    'total_liability_limit_currency' => (!empty($request->get("total_liability_limit_currency")[$i])) ? $request->get("total_liability_limit_currency")[$i] : null,
-                    'other_form_policy' => (!empty($request->get("other_form_policy")[$i])) ? $request->get("other_form_policy")[$i] : null,
-                    'other_from_date' => (!empty($request->get("other_from_date")[$i])) ? $request->get("other_from_date")[$i] : null,
-                    'other_agent' => (!empty($request->get("other_agent")[$i])) ? $request->get("other_agent")[$i] : null,
-                    'other_payment' => (!empty($request->get("other_payment")[$i])) ? $request->get("other_payment")[$i] : null,
-                    'payment_order' => (!empty($request->get("payment_order")[$i])) ? $request->get("payment_order")[$i] : null,
-                    'other_totally_sum' => (!empty($request->get("other_totally_sum")[$i])) ? $request->get("other_totally_sum")[$i] : null
-                ];
-                BorrowerSportsmanOther::create($value);
+        $query = Policy::query();
+        if ($policies_data) {
+            foreach($policies_data as $policies_item) {
+                $query->orWhere(function (Builder $sub_query) use ($policies_item) {
+                    $sub_query->where('name', '=', $policies_item['name'])
+                              ->where('series', '=', $policies_item['series']);
+                });
             }
         }
 
-        return "success";
+        if (empty($policies_data) || $query->count() == 0) {
+            return back()->withErrors('В базе не обнаружен ни один полис с указанными именованием и серией');
+        }
 
+        $beneficiary = Beneficiary::create($request['beneficiary']);
+        $client = Client::create($request['client']);
+        $contract_sportsman = ContractSportsman::create($contract_sportsman_data);
+
+        $contract_data = $request['contract'];
+        $contract_data['beneficiary_id'] = $beneficiary->id;
+        $contract_data['client_id'] = $client->id;
+        $contract_data['number'] = '';
+        $contract_data['status'] = 'concluded';
+        $contract_data['model_type'] = ContractSportsman::class;
+        $contract_data['model_id'] = $contract_sportsman->id;
+
+        $contract = Contract::create($contract_data);
+
+        foreach($policies_data as $policy_data) {
+            $policy = Policy::where('name', '=', $policy_data['name'])
+                            ->where('series', '=', $policy_data['series'])
+                            ->get()
+                            ->first();
+
+            if ($policy) {
+                $policy_sportsman = PolicySportsman::create($policy_data['policy_sportsman']);
+
+                unset($policy_data['policy_sportsman']);
+
+                $policy_data['contract_id'] = $contract->id;
+                $policy_data['model_type'] = PolicySportsman::class;
+                $policy_data['model_id'] = $policy_sportsman->id;
+
+                $policy->fill($policy_data);
+                $policy->save();
+            }
+        }
+
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
+
+        $files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                $files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($files);
+
+        $contract->generateNumber();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено сохранение контракта');
     }
 
     /**
-     * Display the specified resource.
+     * Display an existing contract.
      *
-     * @param int $id
+     * @param  \App\Model\Contract $borrower_sportsman
+     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contract $borrower_sportsman)
     {
-        //
+        $contract = $borrower_sportsman;
+
+        return view('products.borrower_sportsman.form', [
+            'beneficiary' => $contract->beneficiary,
+            'block' => true,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_sportsman' => $contract->contract_model,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show a form to edit existing contract.
      *
-     * @param int $id
+     * @param  \App\Model\Contract $borrower_sportsman
+     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contract $borrower_sportsman)
     {
-        //
+        $contract = $borrower_sportsman;
+
+        return view('products.borrower_sportsman.form', [
+            'beneficiary' => $contract->beneficiary,
+            'block' => false,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_sportsman' => $contract->contract_model,
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing contract.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Model\Contract      $borrower_sportsman
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Contract $borrower_sportsman)
     {
-        //
+        $request->validate(array_merge(
+            Beneficiary::$validate,
+            Client::$validate,
+            Contract::$validate,
+            ContractSportsman::$validate,
+            [
+                'policies.*.name' => 'required',
+                'policies.*.series' => 'required',
+                'policies.*.date_of_issue' => 'required',
+                'policies.*.insurance_sum' => 'required',
+                'policies.*.franchise' => 'required',
+
+                'policies.*.policy_sportsman.fio' => 'required',
+                'policies.*.policy_sportsman.birthdate' => 'required',
+                'policies.*.policy_sportsman.sport' => 'required',
+            ]
+        ));
+
+        $contract = $borrower_sportsman;
+
+        $beneficiary = $contract->beneficiary;
+        $beneficiary->fill($request['beneficiary']);
+        $beneficiary->save();
+
+        $client = $contract->client;
+        $client->fill($request['client']);
+        $client->save();
+
+        $contract_sportsman_data = $request['contract_sportsman'];
+        $contract_sportsman_data['is_extended'] = isset($contract_sportsman_data['is_extended']) ? 1 : 0;
+
+        $contract_sportsman = $contract->contract_model;
+        $contract_sportsman->fill($contract_sportsman_data);
+        $contract_sportsman->save();
+
+        $contract->fill($request['contract']);
+        $contract->save();
+
+        if ($request['policies']) {
+            $policies_ids = [];
+            foreach($request['policies'] as $policy_data) {
+                $policy = Policy::where('contract_id', '=', $contract->id)
+                                ->where('name', '=', $policy_data['name'])
+                                ->where('series', '=', $policy_data['series'])
+                                ->get()
+                                ->first();
+
+                if ($policy) {
+                    $policy_sportsman = $policy->policy_model;
+                    $policy_sportsman->fill($policy_data['policy_sportsman']);
+                    $policy_sportsman->save();
+
+                    unset($policy_data['policy_sportsman']);
+
+                    $policy->fill($policy_data);
+                    $policy->save();
+                } else {
+                    $policy = Policy::where('name', '=', $policy_data['name'])
+                                    ->where('series', '=', $policy_data['series'])
+                                    ->get()
+                                    ->first();
+
+                    if ($policy) {
+                        $policy_sportsman = PolicySportsman::create($policy_data['policy_sportsman']);
+
+                        unset($policy_data['policy_sportsman']);
+
+                        $policy_data['contract_id'] = $contract->id;
+                        $policy_data['model_type'] = PolicySportsman::class;
+                        $policy_data['model_id'] = $policy_sportsman->id;
+
+                        $policy->fill($policy_data);
+                        $policy->save();
+                    }
+                }
+
+                $policies_ids[] = $policy->id;
+            }
+
+            $policies = Policy::where('contract_id', '=', $contract->id)
+                              ->whereNotIn('id', $policies_ids)
+                              ->get();
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+
+        if ($request['tranches']) {
+            $tranche_ids = [];
+            foreach($request['tranches'] as $tranche_data) {
+                $tranche = Tranche::where('contract_id', '=', $contract->id)
+                                  ->where('from', '=', $tranche_data['from'])
+                                  ->get()
+                                  ->first();
+
+                if ($tranche) {
+                    if ($tranche->sum != $tranche_data['sum']) {
+                        $tranche->sum = $tranche_data['sum'];
+                        $tranche->save();
+                    }
+                } else {
+                    $tranche = $contract->tranches()->create($tranche_data);
+                }
+
+                $tranche_ids[] = $tranche->id;
+            }
+
+            Tranche::where('contract_id', '=', $contract->id)
+                   ->whereNotIn('id', $tranche_ids)
+                   ->delete();
+        }
+
+        $files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                if ($old_file = $contract->getFile($type)) {
+                    $old_file->delete();
+                }
+
+                $files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($files);
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено изменение контракта');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Destroy an existing contract.
      *
-     * @param int $id
+     * @param  \App\Model\Contract $borrower_sportsman
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Contract $borrower_sportsman)
     {
-        //
+        $contract = $borrower_sportsman;
+
+        if ($policies = $contract->policies) {
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+        $contract->delete();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
 }

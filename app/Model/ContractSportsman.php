@@ -10,6 +10,24 @@ class ContractSportsman extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_sportsman.geo_zone' => 'required',
+        'contract_sportsman.quantity' => 'required',
+        'contract_sportsman.location' => 'required',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
@@ -23,17 +41,5 @@ class ContractSportsman extends Model
     public function contract()
     {
         return $this->morphOne(Contract::class, 'model');
-    }
-
-    /**
-     * Cascade deletion.
-     */
-    public function delete()
-    {
-        foreach($this->insurance_cases as /* @var $insurance_case InsuranceCase */ $insurance_case) {
-            $insurance_case->pivot->delete();
-        }
-
-        return parent::delete();
     }
 }
