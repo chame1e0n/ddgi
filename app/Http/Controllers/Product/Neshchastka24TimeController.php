@@ -7,7 +7,9 @@ use App\Http\Requests\Neshchastka24TimeRequest;
 use App\Model\Beneficiary;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractAccident;
 use App\Model\Employee;
+use App\Model\Specification;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\Neshchastka24Time;
@@ -22,9 +24,14 @@ use PhpOffice\PhpWord\TemplateProcessor;
 
 class Neshchastka24TimeController extends Controller
 {
+    /**
+     * Display a list of all contracts.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function index()
     {
-        //
+        return redirect()->route('contracts.index');
     }
 
     /**
@@ -34,13 +41,31 @@ class Neshchastka24TimeController extends Controller
      */
     public function create()
     {
-        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
-        $beneficiary = new Beneficiary();
-        $client = new Client();
-        $contract = new Contract();
-        $polis_series = [];
+        $old_data = old();
 
-        return view('products.neshchastka.24time.create', compact('agents', 'beneficiary', 'client', 'contract', 'polis_series'));
+        $specification = Specification::where('key', '=', 'S_CAI24HAD')->get()->first();
+
+        $contract = new Contract();
+
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+        }
+        if (isset($old_data['policies'])) {
+            foreach ($old_data['policies'] as $item) {
+                $policy = new Policy();
+                $policy->policy_model = new PolicySportsman();
+
+                $contract->policies[] = $policy;
+            }
+        }
+
+        return view('products.neshchastka.24time.form', [
+            'beneficiary' => new Beneficiary(),
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_accident' => new ContractAccident(),
+        ]);
     }
 
     /**

@@ -40,11 +40,13 @@ Route::get('agent_list', function () {
 });
 
 Route::post('policy/for/table', function(Request $request) {
+    $model = '\\App\\Model\\' . $request['model'];
+
     $view = view('includes.policy_in_table', [
         'key' => $request['key'],
         'policy' => new \App\Model\Policy(),
         'errors' => new \Illuminate\Support\ViewErrorBag(),
-        'policy_sportsman' => new \App\Model\PolicySportsman(),
+        'policy_model' => new $model(),
     ])->toHtml();
 
     return [
