@@ -98,7 +98,7 @@ class BorrowerSportsmanController extends Controller
         $policies_data = $request['policies'];
 
         $contract_sportsman_data = $request['contract_sportsman'];
-        $contract_sportsman_data['is_extended'] = $contract_sportsman_data['is_extended'] == 'on' ? 1 : 0;
+        $contract_sportsman_data['is_extended'] = isset($contract_sportsman_data['is_extended']) ? 1 : 0;
 
         $query = Policy::query();
         if ($policies_data) {

@@ -39,7 +39,7 @@
 
                                             <tr>
                                                 <th>
-                                                    Наименование продукта
+                                                    Продукт
                                                     <div class="form-group">
                                                         <input class="form-control"
                                                                name="filter[types.name]"
@@ -57,7 +57,7 @@
                                                     </div>
                                                 </th>
                                                 <th>
-                                                    Наименование полиса
+                                                    Имя полиса
                                                     <div class="form-group">
                                                         <input class="form-control"
                                                                name="filter[policies.name]"

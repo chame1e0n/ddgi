@@ -155,10 +155,14 @@
 
                     let policy_sportsman_sum = Number($('#policies-' + number + '-policy-sportsman-traumatic-sum').val()) + Number($('#policies-' + number + '-policy-sportsman-death-sum').val());
 
+                    policy_sportsman_sum = window.isNaN(policy_sportsman_sum) ? 0 : policy_sportsman_sum;
+
                     $('#policies-' + number + '-policy-sportsman-total-sum').val(policy_sportsman_sum);
                     $('#policies-' + number + '-insurance-sum-plus').text('+ ' + policy_sportsman_sum);
 
                     let policy_sportsman_premium = Number($('#policies-' + number + '-policy-sportsman-traumatic-premium').val()) + Number($('#policies-' + number + '-policy-sportsman-death-premium').val());
+
+                    policy_sportsman_premium = window.isNaN(policy_sportsman_premium) ? 0 : policy_sportsman_premium;
 
                     $('#policies-' + number + '-policy-sportsman-total-premium').val(policy_sportsman_premium);
                     $('#policies-' + number + '-insurance-premium-plus').text('+ ' + policy_sportsman_premium);

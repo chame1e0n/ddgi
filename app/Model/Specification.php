@@ -19,7 +19,7 @@ class Specification extends Model
     public static $specification_key_to_routes = [
         'S_BAI' => 'neshchastka_borrower',
         'S_IOAAA' => 'borrower_sportsman',
-        'S_CAI24HAD' => 'neshchastka/time',
+        'S_CAI24HAD' => 'neshchastka-time',
         'S_AI' => null,
         'S_IOPIIRTAA' => 'mejd',
         'S_VHI' => null,
