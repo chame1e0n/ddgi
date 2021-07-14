@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
-    <form action="{{route('neshchastka_borrower.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
+    <form action="{{route('mejd.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
           enctype="multipart/form-data"
           id="form-contract"
           method="POST">
@@ -36,49 +36,6 @@
                     @include('includes.client')
 
                     @include('includes.insured_person')
-
-                    @include('includes.beneficiary')
-
-                    <div class="card card-info" id="contract_borrower_accident">
-                        <div class="card-header">
-                            <h3 class="card-title">Дополнительные поля контракта</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="contract-borrower-accident-loan-agreement">Кредитный договор</label>
-                                        <div class="input-group mb-3">
-                                            <input required
-                                                   class="form-control @error('contract_borrower_accident.loan_agreement') is-invalid @enderror"
-                                                   id="contract-borrower-accident-loan-agreement"
-                                                   name="contract_borrower_accident[loan_agreement]"
-                                                   type="text"
-                                                   value="{{old('contract_borrower_accident.loan_agreement', $contract_borrower_accident->loan_agreement)}}" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="contract-borrower-accident-agreement-date">Дата заключения договора</label>
-                                        <div class="input-group mb-3">
-                                            <input required
-                                                   class="form-control @error('contract_borrower_accident.agreement_date') is-invalid @enderror"
-                                                   id="contract-borrower-accident-agreement-date"
-                                                   name="contract_borrower_accident[agreement_date]"
-                                                   type="date"
-                                                   value="{{old('contract_borrower_accident.agreement_date', $contract_borrower_accident->agreement_date)}}" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     @include('includes.policy_in_section')
                 </section>

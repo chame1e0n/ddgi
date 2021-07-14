@@ -55,6 +55,15 @@ Route::post('policy/for/table', function(Request $request) {
     ];
 })->name('get_policy_for_table');
 
+Route::get('specifications/of/type', function(Request $request) {
+    $specifications = \App\Model\Specification::getSpecificationsByType($request['type']);
+    $specifications->map(function($specification) {
+        $specification->route = \App\Model\Specification::$specification_key_to_routes[$specification->key];
+    });
+
+    return $specifications;
+})->name('get_type_specifications');
+
 Route::get('employee/of/policy', function(Request $request) {
     $policy = \App\Model\Policy::where('policies.name', '=', $request['name'])
         ->where('policies.series', '=', $request['series'])

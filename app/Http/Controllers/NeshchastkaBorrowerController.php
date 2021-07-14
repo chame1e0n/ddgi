@@ -45,6 +45,7 @@ class NeshchastkaBorrowerController extends Controller
 
         if ($specification) {
             $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
         }
 
         return view('neshchastka_borrower.form', [
@@ -70,6 +71,7 @@ class NeshchastkaBorrowerController extends Controller
             Beneficiary::$validate,
             Client::$validate,
             Contract::$validate,
+            ContractBorrowerAccident::$validate,
             InsuredPerson::$validate,
             [
                 'policy.name' => 'required',
@@ -196,6 +198,7 @@ class NeshchastkaBorrowerController extends Controller
             Beneficiary::$validate,
             Client::$validate,
             Contract::$validate,
+            ContractBorrowerAccident::$validate,
             InsuredPerson::$validate,
             [
                 'policy.name' => 'required',

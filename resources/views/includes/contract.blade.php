@@ -23,7 +23,7 @@
                                        name="contract[type]"
                                        type="radio"
                                        value="{{$type}}"
-                                       onchange="changeContractType(this)" />
+                                       onchange="defineSpecifications(this)" />
                                 <label for="contract-type-{{$type}}">{{$label}}</label>
                             </div>
                         </div>
@@ -32,19 +32,17 @@
                 </div>
             </div>
             <div class="col-md-12">
-            @foreach(\App\Model\Contract::$types as $type => $label)
-                <div @if($contract->type != $type) hidden @endif
-                     class="form-group list-{{$type}}">
-                    <label for="contract-specification-{{$type}}">Вид продукта</label>
-                    <select @if($contract->exists) disabled @endif
+                <div class="form-group">
+                    <label for="contract-specification-id">Вид продукта</label>
+                    <select @if($contract->exists) disabled="disabled" @endif
                             class="form-control @error('contract.specification_id') is-invalid @enderror"
-                            id="contract-specification-{{$type}}"
+                            id="contract-specification-id"
                             name="contract[specification_id]"
                             style="width: 100%;"
                             onchange="redirect(this)">
                         <option></option>
 
-                        @foreach(\App\Model\Specification::getSpecificationsByType($type) as $specification)
+                        @foreach(\App\Model\Specification::getSpecificationsByType($contract->type) as $specification)
                             <option @if($specification->id == old('contract.specification_id', $contract->specification_id)) selected @endif
                                     value="{{$specification->id}}"
                                     data-route="{{\App\Model\Specification::$specification_key_to_routes[$specification->key]}}">
@@ -53,7 +51,6 @@
                         @endforeach
                     </select>
                 </div>
-            @endforeach
             </div>
             <div class="col-sm-4">
                 <div class="form-group form-inline justify-content-between">
@@ -270,11 +267,21 @@
         }
     }
 
-    function changeContractType(element) {
-        document.querySelector('.list-' + '{{\App\Model\Contract::TYPE_INDIVIDUAL}}').setAttribute('hidden', 'true');
-        document.querySelector('.list-' + '{{\App\Model\Contract::TYPE_LEGAL}}').setAttribute('hidden', 'true');
+    function defineSpecifications(element) {
+        $.ajax({
+            url: '{{route("get_type_specifications")}}',
+            type: 'get',
+            data: { type: element.value },
+            dataType: 'json',
+            success: function (response) {
+                $('#contract-specification-id').empty();
+                $('#contract-specification-id').append('<option></option>');
 
-        document.querySelector('.list-' + element.value).removeAttribute('hidden');
+                for (var i = 0; i < response.length; i++) {
+                    $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '">' + response[i]['name'] + '</option>');
+                }
+            }
+        });
     }
 
     const tranches = document.querySelector('#tranches');
@@ -312,21 +319,23 @@
     function toggleSwitch(element, block_id) {
         let block = document.getElementById(block_id);
 
-        let other_switch_id, other_block_id;
+        let other;
         if (element.id == 'contract-tariff-switch') {
-            other_switch_id = 'contract-premium-switch';
-            other_block_id = 'contract-premium-block';
+            other = 'contract-premium';
         } else if (element.id == 'contract-premium-switch') {
-            other_switch_id = 'contract-tariff-switch';
-            other_block_id = 'contract-tariff-block';
+            other = 'contract-tariff';
         }
 
         if (block) {
             block.style.display = element.checked ? 'block' : 'none';
 
-            if (element.checked && other_switch_id && other_block_id) {
-                document.getElementById(other_switch_id).checked = false;
-                document.getElementById(other_block_id).style.display = 'none';
+            if (element.checked && other) {
+                document.getElementById(other + '-switch').checked = false;
+                document.getElementById(other + '-block').style.display = 'none';
+                document.getElementById(other).value = '';
+            }
+            if (!element.checked) {
+                document.getElementById(element.id.replace('-switch', '')).value = '';
             }
         }
     }

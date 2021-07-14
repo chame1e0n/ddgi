@@ -10,6 +10,9 @@ use App\Model\Client;
 use App\Model\Contract;
 use App\Model\Employee;
 use App\Model\InsuredPerson;
+use App\Model\Policy;
+use App\Model\Specification;
+use App\Model\Tranche;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
@@ -19,279 +22,257 @@ use Illuminate\Support\Facades\Storage;
 class MejdController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
-        $client = new Client();
-        $contract = new Contract();
-        $insured_person = new InsuredPerson();
+        $specification = Specification::where('key', '=', 'S_IOPIIRTAA')->get()->first();
 
-        return view('products.neshchastka.mejd_create', compact('agents', 'client', 'contract', 'insured_person'));
+        $contract = new Contract();
+
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+
+        return view('products.neshchastka.form', [
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'insured_person' => new InsuredPerson(),
+            'policy' => new Policy(),
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new contract.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            InsuredPerson::$validate,
+            [
+                'policy.name' => 'required',
+                'policy.series' => 'required',
+                'policy.date_of_issue' => 'required',
+                'policy.insurance_sum' => 'required',
+                'policy.franchise' => 'required',
+            ]
+        ));
 
-//        $request->validate([
-//            // policy_holders
-//            'fio_insurer' => 'required',
-//            'address_insurer' => 'required',
-//            'tel_insurer' => 'required',
-//            'address_schet' => 'required',
-//            'inn_insurer' => 'required',
-//            'mfo_insurer' => 'required',
-//            'bank_insurer' => 'required',
-//            'oked_insurer' => 'required',
-//            'okonh_insurer' => 'required',
-//
-//
-//            //all_products
-//            'fio_insurer' => 'required',
-//            'sum_of_insurance' => 'required',
-//            'bonus' => 'required',
-//            'insurance_sum' => 'required',
-//            'insurance_bonus'=> 'required',
-//            'franchise'=> 'required',
-//            'insurance_premium_currency'=> 'required',
-//            'payment_term'=> 'required',
-//            'way_of_calculation'=> 'required',
-//            'application_form_file'=> 'required',
-//            'contract_file'=> 'required',
-//            'policy_file'=> 'required',
-//
-//
-//            //all_products_informations
-//            'policy_series'=> 'required',
-//            'policy_insurance_from'=> 'required',
-//            'person'=> 'required',
-//
-//        ]);
+        $policy_data = $request['policy'];
 
+        $policy = Policy::where('name', '=', $policy_data['name'])
+            ->where('series', '=', $policy_data['series'])
+            ->get()
+            ->first();
 
-//        if (!$request->tarif === "null"){
-//            $request->validate([
-//                'percent_of_tariff'=>'required',
-//            ]);
-//        }
-
-
-        if ($request->get('payment_term') === "transh"){
-          $request->validate([
-                "payment_sum_main" => "required",
-                "payment_from_main" => "required"
+        if (!$policy) {
+            return back()->withErrors([
+                sprintf(
+                    'В базе не обнаружен полис с %s именованием и с %s серией',
+                    $policy_data['name'],
+                    $policy_data['series']
+                )
             ]);
-       }
-
-        $policyHolder = PolicyHolder::create([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'bank_id' => $request->bank_insurer,
-            'oked' => $request->oked_insurer,
-            'okonx' => $request->okonh_insurer,
-        ]);
-
-        if (!empty($request->application_form_file)) {
-            $application_form_file_path = $request->application_form_file->store("documents_mejd");
-        } else {
-            $application_form_file_path = null;
-        }
-        if (!empty($request->contract_file)) {
-            $contract_file_path = $request->contract_file->store("documents_mejd");
-        } else {
-            $contract_file_path = null;
-        }
-        if (!empty($request->policy_file)) {
-            $policy_file_path = $request->policy_file->store("documents_mejd");
-        } else {
-            $policy_file_path = null;
         }
 
-        $all_product = AllProduct::create([
-            'policy_holder_id' => $policyHolder->id,
-            'fio_insured'=> $request->fio_insured,
-            'sum_of_insurance'=> $request->sum_of_insurance,
-            'bonus'=> $request->bonus,
-            'tariff' => $request->tarif,
-            'percent_of_tariff' => $request->percent_of_tariff,
-            'insurance_sum'=> $request->insurance_sum,
-            'insurance_bonus'=> $request->insurance_bonus,
-            'franchise'=> $request->franchise,
-            'insurance_premium_currency'=> $request->insurance_premium_currency,
-            'payment_term'=> $request->payment_term,
-            'payment_sum_main' => $request->payment_sum_main,
-            'payment_from_main' => $request->payment_from_main,
-            'way_of_calculation'=> $request->way_of_calculation,
-            'application_form_file' => $application_form_file_path,
-            'contract_file' => $contract_file_path,
-            'policy_file' => $policy_file_path,
-        ]);
+        $client = Client::create($request['client']);
+        $insured_person = InsuredPerson::create($request['insured_person']);
 
-        $all_product_info = AllProductInformation::create([
-            'all_products_id' => $all_product->id,
-            'policy_series' => $request->policy_series,
-            'policy_insurance_from' => $request->policy_insurance_from,
-            'otvet_litso' => $request->person
-        ]);
+        $contract_data = $request['contract'];
+        $contract_data['client_id'] = $client->id;
+        $contract_data['insured_person_id'] = $insured_person->id;
+        $contract_data['number'] = '';
+        $contract_data['status'] = 'concluded';
 
-        $currency_terms_mejd = AllProductsTermsTransh::create([
-            'all_products_id' => $all_product->id,
-            'payment_sum'=>$request->payment_sum,
-            'payment_from'=>$request->payment_from
+        $contract = Contract::create($contract_data);
+
+        $policy_data['contract_id'] = $contract->id;
+
+        $policy->fill($policy_data);
+        $policy->save();
+
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
+
+        $files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                $files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($files);
+
+        $contract->generateNumber();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено сохранение контракта');
+    }
+
+    /**
+     * Display an existing contract.
+     *
+     * @param  \App\Model\Contract $mejd
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Contract $mejd)
+    {
+        $contract = $mejd;
+
+        return view('products.neshchastka.form', [
+            'block' => true,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'insured_person' => $contract->insured_person,
+            'policy' => $contract->policies->first(),
         ]);
     }
 
     /**
-     * Display the specified resource.
+     * Show a form to edit existing contract.
      *
-     * @param int $id
+     * @param  \App\Model\Contract $mejd
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit(Contract $mejd)
     {
-        //
+        $contract = $mejd;
+
+        return view('products.neshchastka.form', [
+            'block' => false,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'insured_person' => $contract->insured_person,
+            'policy' => $contract->policies->first(),
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update an existing contract.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Model\Contract      $mejd
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit($id)
+    public function update(Request $request, Contract $mejd)
     {
-        $banks = Bank::query()->get();
-        $agents=Agent::query()->get();
-        $all_product = AllProduct::query()->with('policyHolder', 'allProductCurrencyTerms','allProductInfo')->findOrFail($id);
-        return view('products.neshchastka.edit',compact('all_product', 'banks', 'agents'));
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            InsuredPerson::$validate,
+            [
+                'policy.name' => 'required',
+                'policy.series' => 'required',
+                'policy.date_of_issue' => 'required',
+                'policy.insurance_sum' => 'required',
+                'policy.franchise' => 'required',
+            ]
+        ));
+
+        $contract = $mejd;
+
+        $client = $contract->client;
+        $client->fill($request['client']);
+        $client->save();
+
+        $insured_person = $contract->insured_person;
+        $insured_person->fill($request['insured_person']);
+        $insured_person->save();
+
+        $contract->fill($request['contract']);
+        $contract->save();
+
+        $policy = $contract->policies->first();
+        $policy->fill($request['policy']);
+        $policy->save();
+
+        if ($request['tranches']) {
+            $tranche_ids = [];
+            foreach($request['tranches'] as $tranche_data) {
+                $tranche = Tranche::where('contract_id', '=', $contract->id)
+                                  ->where('from', '=', $tranche_data['from'])
+                                  ->get()
+                                  ->first();
+
+                if ($tranche) {
+                    if ($tranche->sum != $tranche_data['sum']) {
+                        $tranche->sum = $tranche_data['sum'];
+                        $tranche->save();
+                    }
+                } else {
+                    $tranche = $contract->tranches()->create($tranche_data);
+                }
+
+                $tranche_ids[] = $tranche->id;
+            }
+
+            Tranche::where('contract_id', '=', $contract->id)
+                   ->whereNotIn('id', $tranche_ids)
+                   ->delete();
+        }
+
+        $files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                if ($old_file = $contract->getFile($type)) {
+                    $old_file->delete();
+                }
+
+                $files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($files);
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено изменение контракта');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Destroy an existing contract.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Model\Contract $mejd
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function update(Request $request, $id)
+    public function destroy(Contract $mejd)
     {
+        $contract = $mejd;
 
-        $banks = Bank::query()->get();
-        $all_product = AllProduct::query()->find($id);
-        $policyHolder = PolicyHolder::query()->find($all_product->policy_holder_id);
-        $currencyTerms = AllProductsTermsTransh::query()->where('all_products_id', $all_product->id)->first();
-        $all_product_info = AllProductInformation::query()->where('all_products_id', $all_product->id)->first();
-
-        $policyHolder->update([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'oked' => $request->oked_insurer,
-            'bank_id' => $request->bank_insurer,
-            'okonx' => $request->okonh_insurer,
-        ]);
-
-        if (!empty($request->application_form_file)) {
-            Storage::delete($all_product->application_form_file_path);
-            $application_form_file_path = $request->application_form_file->store("documents_mejd_edit");
-        } if(empty($request->application_form_file)) {
-        $application_form_file_path = $all_product->application_form_file;
-    }
-        if (!empty($request->contract_file)) {
-            Storage::delete($all_product->contract_file_path);
-            $contract_file_path = $request->contract_file->store("documents_mejd_edit");
-        } else {
-            $contract_file_path = $all_product->contract_file;
+        if ($policy = $contract->policies->first()) {
+            $policy->delete();
         }
-        if (!empty($request->policy_file)) {
-            Storage::delete($all_product->policy_file_path);
-            $policy_file_path = $request->policy_file->store("documents_mejd_edit");
-        } else {
-            $policy_file_path = $all_product->policy_file;
-        }
+        $contract->delete();
 
-        $all_product->update([
-            'policy_holder_id' => $policyHolder->id,
-            'fio_insured'=> $request->fio_insured,
-            'sum_of_insurance'=> $request->sum_of_insurance,
-            'bonus'=> $request->bonus,
-            'tariff' => $request->tarif,
-            'percent_of_tariff' => $request->percent_of_tariff,
-            'insurance_sum'=> $request->insurance_sum,
-            'insurance_bonus'=> $request->insurance_bonus,
-            'franchise'=> $request->franchise,
-            'insurance_premium_currency'=> $request->insurance_premium_currency,
-            'payment_term'=> $request->payment_term,
-            'payment_sum_main' => $request->payment_sum_main,
-            'payment_from_main' => $request->payment_from_main,
-            'way_of_calculation'=> $request->way_of_calculation,
-            'application_form_file' => $application_form_file_path,
-            'contract_file' => $contract_file_path,
-            'policy_file' => $policy_file_path,
-        ]);
-
-
-                $currencyTerms->update([
-                    'all_products_id' => $all_product->id,
-                    'payment_sum' => $request->get('payment_sum'),
-                    'payment_from' => $request->get('payment_from')
-                ]);
-
-
-        $all_product_info->update([
-            'all_products_id' => $all_product->id,
-            'policy_series' => $request->policy_series,
-            'policy_insurance_from' => $request->policy_insurance_from,
-            'otvet_litso' => $request->person
-        ]);
-        return "success";
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $all_product = AllProduct::query()->findOrFail($id);
-
-        $currencyTerms = AllProductsTermsTransh::query()->where('all_products_id', $all_product->id)->get();
-        $all_product_info = AllProductInformation::query()->where('all_products_id', $all_product->id)->first();
-        $policyHolder = PolicyHolder::query()->findOrFail($all_product->policy_holder_id);
-        $policyHolder->delete();
-        $all_product_info->delete();
-        foreach ($currencyTerms as $item) {
-            $item->delete();
-        }
-        $all_product->delete();
-        return "success";
+        return redirect()->route('contracts.index')
+                         ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
 }
