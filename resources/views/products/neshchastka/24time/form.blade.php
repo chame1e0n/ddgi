@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
-    <form action="{{route('neshchastka-time.' . ($contract->exists ? 'update' : 'store'), $contract->id )}}"
+    <form action="{{route('neshchastka_time.' . ($contract->exists ? 'update' : 'store'), $contract->id )}}"
           enctype="multipart/form-data"
           id="form-contract"
           method="POST">
