@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
-    <form action="{{route('neshchastka_time.' . ($contract->exists ? 'update' : 'store'), $contract->id )}}"
+    <form action="{{route('covid_fiz.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
           enctype="multipart/form-data"
           id="form-contract"
           method="POST">
@@ -36,32 +36,6 @@
                     @include('includes.client')
 
                     @include('includes.beneficiary')
-
-                    <div class="card card-info" id="contract_borrower_accident">
-                        <div class="card-header">
-                            <h3 class="card-title">Дополнительные поля контракта</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="contract-accident-geo-zone">Географическая зона:</label>
-                                        <input required
-                                               class="form-control @error('contract_accident.geo_zone') is-invalid @enderror"
-                                               id="contract-accident-geo-zone"
-                                               name="contract_accident[geo_zone]"
-                                               type="text"
-                                               value="{{old('contract_accident.geo_zone', $contract_accident->geo_zone)}}" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     @include('includes.policies')
                 </section>
@@ -154,7 +128,7 @@
                 $.ajax({
                     url: '{{route("get_policy_for_table")}}',
                     type: 'post',
-                    data: { key: counter, model: 'PolicyAccident' },
+                    data: { key: counter, model: 'PolicyCovid' },
                     dataType: 'json',
                     success: function (response) {
                         document.getElementById('policy-row-total').insertAdjacentHTML('beforebegin', response.template);

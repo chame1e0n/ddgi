@@ -10,6 +10,13 @@ class PolicyCovid extends Model
     use SoftDeletes;
 
     /**
+     * Name of the columns which should not be fillable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

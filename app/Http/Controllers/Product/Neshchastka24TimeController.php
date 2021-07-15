@@ -40,7 +40,7 @@ class Neshchastka24TimeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
      * @return \Illuminate\Http\Response
      */
@@ -181,12 +181,12 @@ class Neshchastka24TimeController extends Controller
     /**
      * Display an existing contract.
      *
-     * @param  \App\Model\Contract $time
+     * @param  \App\Model\Contract $neshchastka_time
      * @return \Illuminate\Http\Response
      */
-    public function show(Contract $time)
+    public function show(Contract $neshchastka_time)
     {
-        $contract = $time;
+        $contract = $neshchastka_time;
 
         return view('products.neshchastka.24time.form', [
             'beneficiary' => $contract->beneficiary,
@@ -200,12 +200,12 @@ class Neshchastka24TimeController extends Controller
     /**
      * Show a form to edit existing contract.
      *
-     * @param  \App\Model\Contract $time
+     * @param  \App\Model\Contract $neshchastka_time
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contract $time)
+    public function edit(Contract $neshchastka_time)
     {
-        $contract = $time;
+        $contract = $neshchastka_time;
 
         return view('products.neshchastka.24time.form', [
             'beneficiary' => $contract->beneficiary,
@@ -220,10 +220,10 @@ class Neshchastka24TimeController extends Controller
      * Update an existing contract.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Model\Contract      $time
+     * @param  \App\Model\Contract      $neshchastka_time
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Contract $time)
+    public function update(Request $request, Contract $neshchastka_time)
     {
         $request->validate(array_merge(
             Beneficiary::$validate,
@@ -245,7 +245,7 @@ class Neshchastka24TimeController extends Controller
             ]
         ));
 
-        $contract = $time;
+        $contract = $neshchastka_time;
 
         $beneficiary = $contract->beneficiary;
         $beneficiary->fill($request['beneficiary']);
@@ -366,13 +366,13 @@ class Neshchastka24TimeController extends Controller
     /**
      * Destroy an existing contract.
      *
-     * @param  \App\Model\Contract $time
+     * @param  \App\Model\Contract $neshchastka_time
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Contract $time)
+    public function destroy(Contract $neshchastka_time)
     {
-        $contract = $time;
+        $contract = $neshchastka_time;
 
         if ($policies = $contract->policies) {
             foreach($policies as /* @var $policy Policy */ $policy) {
