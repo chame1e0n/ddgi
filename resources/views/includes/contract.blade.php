@@ -124,7 +124,8 @@
                                     <td>
                                         <input class="form-control"
                                                name="tranches[{{$key}}][sum]"
-                                               type="text"
+                                               step="0.01"
+                                               type="number"
                                                value="{{$tranche->sum}}" />
                                     </td>
                                     <td>

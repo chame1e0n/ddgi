@@ -100,7 +100,8 @@
                            class="form-control @error('client.inn') is-invalid @enderror"
                            id="client-inn"
                            name="client[inn]"
-                           type="text"
+                           step="1"
+                           type="number"
                            value="{{old('client.inn', $client->inn)}}" />
                 </div>
             </div>

@@ -19,7 +19,8 @@
                                    class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.issue_year') is-invalid @enderror"
                                    id="policies-{{$key}}-policy-multilateral-car-deposit-issue-year"
                                    name="policies[{{$key}}][policy_multilateral_car_deposit][issue_year]"
-                                   type="text"
+                                   step="1"
+                                   type="number"
                                    value="{{old('policies.' . $key . '.policy_multilateral_car_deposit.issue_year', $policy_model->issue_year)}}" />
                         </div>
                         <div class="form-group">
@@ -45,7 +46,8 @@
                         <div class="form-group">
                             <label for="policies-{{$key}}-policy-multilateral-car-deposit-modification">Модификация</label>
 
-                            <input class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.modification') is-invalid @enderror"
+                            <input required
+                                   class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.modification') is-invalid @enderror"
                                    id="policies-{{$key}}-policy-multilateral-car-deposit-modification"
                                    name="policies[{{$key}}][policy_multilateral_car_deposit][modification]"
                                    type="text"
@@ -54,7 +56,8 @@
                         <div class="form-group">
                             <label for="policies-{{$key}}-policy-multilateral-car-deposit-carrying-capacity">Грузоподъемность</label>
 
-                            <input class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.carrying_capacity') is-invalid @enderror"
+                            <input required
+                                   class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.carrying_capacity') is-invalid @enderror"
                                    id="policies-{{$key}}-policy-multilateral-car-deposit-carrying-capacity"
                                    name="policies[{{$key}}][policy_multilateral_car_deposit][carrying_capacity]"
                                    type="text"
@@ -95,7 +98,8 @@
                         <div class="form-group">
                             <label for="policies-{{$key}}-policy-multilateral-car-deposit-carcase-number">Номер кузова</label>
 
-                            <input class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.carcase_number') is-invalid @enderror"
+                            <input required
+                                   class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.carcase_number') is-invalid @enderror"
                                    id="policies-{{$key}}-policy-multilateral-car-deposit-carcase-number"
                                    name="policies[{{$key}}][policy_multilateral_car_deposit][carcase_number]"
                                    type="text"
@@ -104,10 +108,12 @@
                         <div class="form-group">
                             <label for="policies-{{$key}}-policy-multilateral-car-deposit-insurance-value">Страховая стоимость</label>
 
-                            <input class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.insurance_value') is-invalid @enderror"
+                            <input required
+                                   class="form-control @error('policies.' . $key . '.policy_multilateral_car_deposit.insurance_value') is-invalid @enderror"
                                    id="policies-{{$key}}-policy-multilateral-car-deposit-insurance-value"
                                    name="policies[{{$key}}][policy_multilateral_car_deposit][insurance_value]"
-                                   type="text"
+                                   step="0.01"
+                                   type="number"
                                    value="{{old('policies.' . $key . '.policy_multilateral_car_deposit.insurance_value', $policy_model->insurance_value)}}" />
                         </div>
                     </div>

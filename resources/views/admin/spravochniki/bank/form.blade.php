@@ -27,7 +27,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="bank-code" class="col-form-label">Код банка</label>
+                                        <label for="bank-code" class="col-form-label">Код</label>
                                         <input required
                                                class="form-control @error('bank.code') is-invalid @enderror"
                                                id="bank-code"
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="bank-name" class="col-form-label">Наименование банка</label>
+                                        <label for="bank-name" class="col-form-label">Наименование</label>
                                         <input required
                                                class="form-control @error('bank.name') is-invalid @enderror"
                                                id="bank-name"
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="bank-address" class="col-form-label">Адрес банка</label>
+                                        <label for="bank-address" class="col-form-label">Адрес</label>
                                         <input required
                                                class="form-control @error('bank.address') is-invalid @enderror"
                                                id="bank-address"
@@ -73,17 +73,19 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="bank-inn" class="col-form-label">ИНН банка</label>
+                                        <label for="bank-inn" class="col-form-label">ИНН</label>
                                         <input required
                                                class="form-control @error('bank.inn') is-invalid @enderror"
                                                id="bank-inn"
                                                name="bank[inn]"
+                                               step="1"
+                                               type="number"
                                                value="{{old('bank.inn', $bank->inn)}}" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="bank-account" class="col-form-label">Расчетный счет банка</label>
+                                        <label for="bank-account" class="col-form-label">Расчетный счет</label>
                                         <input required
                                                class="form-control @error('bank.account') is-invalid @enderror"
                                                id="bank-account"

@@ -61,7 +61,8 @@
                                class="form-control @error('borrower.inn') is-invalid @enderror"
                                id="borrower-inn"
                                name="borrower[inn]"
-                               type="text"
+                               step="1"
+                               type="number"
                                value="{{old('borrower.inn', $borrower->inn)}}" />
                     </div>
                 </div>

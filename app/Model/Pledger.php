@@ -10,6 +10,28 @@ class Pledger extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'pledger.bank_id' => ['required', 'integer'],
+        'pledger.fio' => 'required',
+        'pledger.address' => 'required',
+        'pledger.phone' => 'required',
+        'pledger.bank_account' => 'required',
+        'pledger.inn' => 'required',
+        'pledger.mfo' => 'required',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

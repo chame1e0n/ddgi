@@ -144,15 +144,15 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="contract-multilateral-car-deposit-reason" class="col-form-label">
+                                        <label for="contract-multilateral-car-deposit-purpose" class="col-form-label">
                                             Цель использования ТС
                                         </label>
                                         <input required
-                                               class="form-control @if($errors->has('contract_multilateral_car_deposit.reason')) is-invalid @endif"
-                                               id="contract-multilateral-car-deposit-reason"
-                                               name="contract_multilateral_car_deposit[reason]"
+                                               class="form-control @if($errors->has('contract_multilateral_car_deposit.purpose')) is-invalid @endif"
+                                               id="contract-multilateral-car-deposit-purpose"
+                                               name="contract_multilateral_car_deposit[purpose]"
                                                type="text"
-                                               value="{{old('contract_multilateral_car_deposit.reason', $contract_multilateral_car_deposit->reason)}}" />
+                                               value="{{old('contract_multilateral_car_deposit.purpose', $contract_multilateral_car_deposit->purpose)}}" />
                                     </div>
                                 </div>
                             </div>

@@ -90,6 +90,7 @@
                            class="form-control @error('beneficiary.inn') is-invalid @enderror"
                            id="beneficiary-inn"
                            name="beneficiary[inn]"
+                           step="1"
                            type="number"
                            value="{{old('beneficiary.inn', $beneficiary->inn)}}" />
                 </div>
