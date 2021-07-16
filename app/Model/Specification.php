@@ -26,7 +26,7 @@ class Specification extends Model
         'S_IAID' => null,
         'S_CVMI' => null,
         'S_CCI' => 'covid_fiz',
-        'S_PVI' => 'zalog/autozalog-mnogostoronniy',
+        'S_PVI' => 'zalog_autozalog_mnogostoronniy',
         'S_LVI' => 'lizing_ts',
         'S_VVI' => 'kasco',
         'S_VCVICIAL' => null,
