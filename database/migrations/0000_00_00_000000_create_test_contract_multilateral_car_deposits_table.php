@@ -20,8 +20,6 @@ class CreateTestContractMultilateralCarDepositsTable extends Migration
             $table->string('credit_agreement_number', 45);
             $table->date('credit_period_from');
             $table->date('credit_period_to');
-            $table->date('period_from');
-            $table->date('period_to');
             $table->string('geo_zone', 45);
             $table->string('purpose', 45);
             $table->string('overview_comment', 45)->nullable();
