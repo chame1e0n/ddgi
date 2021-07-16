@@ -20,6 +20,11 @@ class CreateTestPolicyMultilateralCarDepositsTable extends Migration
             $table->string('model', 100);
             $table->string('government_number', 45);
             $table->string('techpassport_number', 45);
+            $table->string('modification', 45);
+            $table->string('engine_number', 45);
+            $table->string('carcase_number', 45);
+            $table->string('carrying_capacity', 45);
+            $table->float('insurance_value', 12, 3)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
