@@ -9,8 +9,14 @@ use App\Http\Controllers\Controller;
 use App\Model\Beneficiary;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractAutoleasing;
+use App\Model\Policy;
+use App\Model\PolicyAutoleasing;
+use App\Model\Specification;
+use App\Model\Tranche;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -19,361 +25,355 @@ use Illuminate\Support\Facades\Storage;
 class LizingTsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        //
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $beneficiary = new Beneficiary();
-        $client = new Client();
+        $old_data = old();
+
+        $specification = Specification::where('key', '=', 'S_LVI')->get()->first();
+
         $contract = new Contract();
 
-        return view('products.lizing_ts.create', compact('beneficiary', 'client', 'contract'));
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+        if (isset($old_data['policies'])) {
+            foreach ($old_data['policies'] as $item) {
+                $policy = new Policy();
+                $policy->policy_model = new PolicyAutoleasing();
+
+                $contract->policies[] = $policy;
+            }
+        }
+
+        return view('products.lizing_ts.form', [
+            'beneficiary' => new Beneficiary(),
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_autoleasing' => new ContractAutoleasing(),
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new contract.
      *
-     * @param Request $request
-     * @return Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            // Общие сведения
-            'fio_insurer' => 'required|string|max:255',
-            'address_insurer' => 'required|string|max:255',
-            'tel_insurer' => 'required|digits:12', //998909998877
-            'address_schet' => 'required|string|max:255',
-            'inn_insurer' => 'required|integer',
-            'mfo_insurer' => 'required|integer',
-            'bank_insurer' => 'required|integer',
-            'oked_insurer' => 'required|integer',
+        $request->validate(array_merge(
+            Beneficiary::$validate,
+            Client::$validate,
+            Contract::$validate,
+            ContractAutoleasing::$validate,
+            [
+                'policies.*.name' => 'required',
+                'policies.*.series' => 'required',
+                'policies.*.date_of_issue' => 'required',
+                'policies.*.insurance_sum' => 'required',
+                'policies.*.franchise' => 'required',
 
-            // Выгодоприобретатель
-            'fio_beneficiary' => 'required|string|max:255',
-            'address_beneficiary' => 'required|string|max:255',
-            'tel_beneficiary' => 'required|digits:12',
-            'beneficiary_schet' => 'required|integer',
-            'inn_beneficiary' => 'required|integer',
-            'mfo_beneficiary' => 'required|integer',
-            'bank_beneficiary' => 'required|integer',
-            'okonx_beneficiary' => 'required|integer',
-            'seria_passport' => 'required|string|max:255',
-            'nomer_passport' => 'required|integer',
+                'policies.*.policy_autoleasing.issue_year' => 'required',
+                'policies.*.policy_autoleasing.brand' => 'required',
+                'policies.*.policy_autoleasing.model' => 'required',
+                'policies.*.policy_autoleasing.government_number' => 'required',
+                'policies.*.policy_autoleasing.techpassport_number' => 'required',
+                'policies.*.policy_autoleasing.engine_number' => 'required',
+                'policies.*.policy_autoleasing.carcase_number' => 'required',
+                'policies.*.policy_autoleasing.insurance_value' => 'required',
+            ]
+        ));
 
-            // Договор лизинга
-            'dogovor_lizing_number' => 'required|integer',
-            'dogovor_period_from' => 'required|date',
-            'dogovor_period_to' => 'required|date',
+        $policies_data = $request['policies'];
 
-            // Период страхования...
-            'period_insurance_from' => 'required|date',
-            'period_insurance_to' => 'required|date',
-            'geo_zone' => 'required|string',
+        $query = Policy::query();
+        if ($policies_data) {
+            foreach($policies_data as $policies_item) {
+                $query->orWhere(function (Builder $sub_query) use ($policies_item) {
+                    $sub_query->where('name', '=', $policies_item['name'])
+                              ->where('series', '=', $policies_item['series']);
+                });
+            }
+        }
 
-            //Условия оплаты страховой премии
-            'insurance_sum' => 'required|integer',
-            'insurance_bonus' => 'required|integer',
-            'franchise' => 'required|integer',
-            'insurance_premium_currency' => 'required|string',
-            'sposob_rascheta' => 'required|integer',
+        if (empty($policies_data) || $query->count() == 0) {
+            return back()->withErrors('В базе не обнаружен ни один полис с указанными именованием и серией');
+        }
 
-            'payment_term' => 'required|in:transh,1', // транш
-            'payment_sum' => 'required_if:payment_term,transh|array', // транш
-            'payment_from' => 'required_if:payment_term,transh|array', // транш
+        $beneficiary = Beneficiary::create($request['beneficiary']);
+        $client = Client::create($request['client']);
+        $contract_autoleasing = ContractAutoleasing::create($request['contract_autoleasing']);
 
-            'tarif' => 'nullable', // can be 'on' or nullable
-            'tarif_other' => 'required_with:tarif',
-            'preim' => 'nullable', // can be 'on' or nullable
-            'premiya_other' => 'required_with:preim',
+        $contract_data = $request['contract'];
+        $contract_data['beneficiary_id'] = $beneficiary->id;
+        $contract_data['client_id'] = $client->id;
+        $contract_data['number'] = '';
+        $contract_data['status'] = 'concluded';
+        $contract_data['model_type'] = ContractAutoleasing::class;
+        $contract_data['model_id'] = $contract_autoleasing->id;
 
-            // Сведения о страховом полисе
-            'polis_name' => 'required|string|max:255',
-            'policy_id' => 'required|integer',
-            'data_vidachi' => 'required|date',
-            'otvet_litso' => 'required|integer',
+        $contract = Contract::create($contract_data);
 
-            'application_form_file' => 'nullable|file',
-            'contract_file' => 'nullable|file',
-            'policy_file' => 'nullable|file',
+        foreach($policies_data as $policy_data) {
+            $policy = Policy::where('name', '=', $policy_data['name'])
+                            ->where('series', '=', $policy_data['series'])
+                            ->get()
+                            ->first();
+
+            if ($policy) {
+                $policy_autoleasing = PolicyAutoleasing::create($policy_data['policy_autoleasing']);
+
+                unset($policy_data['policy_autoleasing']);
+
+                $policy_data['contract_id'] = $contract->id;
+                $policy_data['model_type'] = PolicyAutoleasing::class;
+                $policy_data['model_id'] = $policy_autoleasing->id;
+
+                $policy->fill($policy_data);
+                $policy->save();
+            }
+        }
+
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
+
+        $files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                $files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($files);
+
+        $contract->generateNumber();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено сохранение контракта');
+    }
+
+    /**
+     * Display an existing contract.
+     *
+     * @param  \App\Model\Contract $lizing_t
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Contract $lizing_t)
+    {
+        $contract = $lizing_t;
+
+        return view('products.lizing_ts.form', [
+            'beneficiary' => $contract->beneficiary,
+            'block' => true,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_autoleasing' => $contract->contract_model,
         ]);
-
-        if ($request->hasFile('application_form_file')) {
-            $file = $request->file('application_form_file')->store('/img/PolicyHolder', 'public');
-            $request->application_form_file = $file;
-        }
-        if ($request->hasFile('contract_file')) {
-            $file = $request->file('contract_file')->store('/img/PolicyHolder', 'public');
-            $request->contract_file = $file;
-        }
-        if ($request->hasFile('policy_file')) {
-            $file = $request->file('policy_file')->store('/img/PolicyHolder', 'public');
-            $request->policy_file = $file;
-        }
-
-        $allProduct = DB::transaction(function () use ($request) {
-            $ph = PolicyHolder::createPolicyHolders($request);
-            $pb = PolicyBeneficiaries::createPolicyBeneficiaries($request);
-
-            $allP = AllProduct::query()->create([
-                'dogovor_lizing_number' => $request->input('dogovor_lizing_number'),
-                'dogovor_period_from' => $request->input('dogovor_period_from'),
-                'dogovor_period_to' => $request->input('dogovor_period_to'),
-
-                'period_insurance_from' => $request->input('period_insurance_from'),
-                'period_insurance_to' => $request->input('period_insurance_to'),
-                'geo_zone' => $request->input('geo_zone'),
-                'insurance_sum' => $request->input('insurance_sum'),
-                'insurance_bonus' => $request->input('insurance_bonus'),
-                'franchise' => $request->input('franchise'),
-                'insurance_premium_currency' => $request->input('insurance_premium_currency'),
-                'sposob_rascheta' => $request->input('sposob_rascheta'),
-                'tarif_other' => $request->has('tarif') ? $request->input('tarif_other') : null,
-                'premiya_other' => $request->has('preim') ? $request->input('premiya_other') : null,
-                'policy_holder_id' => $ph->id,
-                'policy_beneficiaries_id' => $pb->id,
-                'application_form_file' => $request->hasFile('application_form_file') ? $request->application_form_file : null,
-                'contract_file' => $request->hasFile('contract_file') ? $request->contract_file : null,
-                'policy_file' => $request->hasFile('policy_file') ? $request->policy_file : null,
-            ]);
-
-            if ($request->input('payment_term') == 'transh') {
-                foreach ($request->input('payment_sum') as $key => $value) {
-                    AllProductsTermsTransh::query()->create([
-                        'payment_sum' => $request->input('payment_sum')[$key],
-                        'payment_from' => $request->input('payment_from')[$key],
-                        'all_products_id' => $allP->id
-                    ]);
-                }
-            }
-
-            AllProductInformation::query()->create([
-                'policy_id' => $request->input('policy_id'),
-                'data_vidachi' => $request->input('data_vidachi'),
-                'otvet_litso' => $request->input('otvet_litso'),
-                'all_products_id' => $allP->id
-            ]);
-
-            return $allP;
-        });
-
-        return redirect()->route('lizing_ts.edit', $allProduct->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
     }
 
     /**
-     * Display the specified resource.
+     * Show a form to edit existing contract.
      *
-     * @param int $id
-     * @return Response
+     * @param  \App\Model\Contract $lizing_t
+     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit(Contract $lizing_t)
     {
-        //
-    }
+        $contract = $lizing_t;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $product = AllProduct::query()->with('policyHolder', 'policyBeneficiaries')->find($id);
-        return view('products.lizing_ts.edit', compact('product'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            // Общие сведения
-            'fio_insurer' => 'required|string|max:255',
-            'address_insurer' => 'required|string|max:255',
-            'tel_insurer' => 'required|digits:12', //998909998877
-            'address_schet' => 'required|string|max:255',
-            'inn_insurer' => 'required|integer',
-            'mfo_insurer' => 'required|integer',
-            'bank_insurer' => 'required|integer',
-            'oked_insurer' => 'required|integer',
-
-            // Выгодоприобретатель
-            'fio_beneficiary' => 'required|string|max:255',
-            'address_beneficiary' => 'required|string|max:255',
-            'tel_beneficiary' => 'required|digits:12',
-            'beneficiary_schet' => 'required|integer',
-            'inn_beneficiary' => 'required|integer',
-            'mfo_beneficiary' => 'required|integer',
-            'bank_beneficiary' => 'required|integer',
-            'okonx_beneficiary' => 'required|integer',
-            'seria_passport' => 'required|string|max:255',
-            'nomer_passport' => 'required|integer',
-
-            // Договор лизинга
-            'dogovor_lizing_number' => 'required|integer',
-            'dogovor_period_from' => 'required|date',
-            'dogovor_period_to' => 'required|date',
-
-            // Период страхования...
-            'period_insurance_from' => 'required|date',
-            'period_insurance_to' => 'required|date',
-            'geo_zone' => 'required|string',
-
-            //Условия оплаты страховой премии
-            'insurance_sum' => 'required|integer',
-            'insurance_bonus' => 'required|integer',
-            'franchise' => 'required|integer',
-            'insurance_premium_currency' => 'required|string',
-            'sposob_rascheta' => 'required|integer',
-
-            'payment_term' => 'required|in:transh,1', // транш
-            'payment_sum' => 'required_if:payment_term,transh|array', // транш
-            'payment_from' => 'required_if:payment_term,transh|array', // транш
-
-            'tarif' => 'nullable', // can be 'on' or nullable
-            'tarif_other' => 'required_with:tarif',
-            'preim' => 'nullable', // can be 'on' or nullable
-            'premiya_other' => 'required_with:preim',
-
-            // Сведения о страховом полисе
-            'polis_name' => 'required|string|max:255',
-            'policy_id' => 'required|integer',
-            'data_vidachi' => 'required|date',
-            'otvet_litso' => 'required|integer',
-
-            'application_form_file' => 'nullable|file',
-            'contract_file' => 'nullable|file',
-            'policy_file' => 'nullable|file',
+        return view('products.lizing_ts.form', [
+            'beneficiary' => $contract->beneficiary,
+            'block' => false,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_autoleasing' => $contract->contract_model,
         ]);
-
-        $allP = AllProduct::query()->findOrFail($id);
-        $ph = PolicyHolder::query()->findOrFail($allP->policy_holder_id);
-        $pb = PolicyBeneficiaries::query()->findOrFail($allP->policy_beneficiaries_id);
-
-        if ($request->hasFile('application_form_file')) {
-            if ($allP->application_form_file) {
-                Storage::disk('public')->delete($allP->application_form_file);
-            }
-            $file = $request->file('application_form_file')->store('/img/PolicyHolder', 'public');
-            $request->application_form_file = $file;
-        }
-        if ($request->hasFile('contract_file')) {
-            if ($allP->contract_file) {
-                Storage::disk('public')->delete($allP->contract_file);
-            }
-            $file = $request->file('contract_file')->store('/img/PolicyHolder', 'public');
-            $request->contract_file = $file;
-        }
-        if ($request->hasFile('policy_file')) {
-            if ($allP->policy_file) {
-                Storage::disk('public')->delete($allP->policy_file);
-            }
-            $file = $request->file('policy_file')->store('/img/PolicyHolder', 'public');
-            $request->policy_file = $file;
-        }
-
-        $allP = DB::transaction(function () use ($request, $allP, $ph, $pb) {
-            $ph = PolicyHolder::updatePolicyHolders($ph->id, $request);
-            $pb = PolicyBeneficiaries::updatePolicyBeneficiaries($pb->id, $request);
-
-            $allP->update([
-                'dogovor_lizing_number' => $request->input('dogovor_lizing_number'),
-                'dogovor_period_from' => $request->input('dogovor_period_from'),
-                'dogovor_period_to' => $request->input('dogovor_period_to'),
-
-                'period_insurance_from' => $request->input('period_insurance_from'),
-                'period_insurance_to' => $request->input('period_insurance_to'),
-                'geo_zone' => $request->input('geo_zone'),
-                'insurance_sum' => $request->input('insurance_sum'),
-                'insurance_bonus' => $request->input('insurance_bonus'),
-                'franchise' => $request->input('franchise'),
-                'insurance_premium_currency' => $request->input('insurance_premium_currency'),
-                'sposob_rascheta' => $request->input('sposob_rascheta'),
-                'tarif_other' => $request->has('tarif') ? $request->input('tarif_other') : null,
-                'premiya_other' => $request->has('preim') ? $request->input('premiya_other') : null,
-                'policy_holder_id' => $ph->id,
-                'policy_beneficiaries_id' => $pb->id,
-                'application_form_file' => $request->hasFile('application_form_file') ? $request->application_form_file : null,
-                'contract_file' => $request->hasFile('contract_file') ? $request->contract_file : null,
-                'policy_file' => $request->hasFile('policy_file') ? $request->policy_file : null,
-            ]);
-
-            // 1. был "транш" стал "единоврем" -> удаляем новые обьекты
-            if ($allP->has('allProductTermTransh') && $request->input('payment_term') == 1) {
-                $allP->allProductTermTransh()->delete();
-            } // 2. был "транш" стал "транш" -> добавляем обьекты или удаляем существующие и изменям существующие
-            else if ($allP->has('allProductTermTransh') && $request->input('payment_term') == 'transh') {
-                $exclude = [];
-                foreach ($request->input('payment_sum') as $key => $value) {
-                    $transh = AllProductsTermsTransh::query()->updateOrCreate([
-                        'payment_sum' => $request->input('payment_sum')[$key],
-                        'payment_from' => $request->input('payment_from')[$key],
-                        'all_products_id' => $allP->id
-                    ], [
-                        'payment_sum' => $request->input('payment_sum')[$key],
-                        'payment_from' => $request->input('payment_from')[$key],
-                        'all_products_id' => $allP->id
-                    ]);
-
-                    $exclude[] = $transh->id;
-                }
-
-                $allP->allProductTermTransh()->whereNotIn('id', $exclude)->delete();
-            } // 3. был "единоврем" стал "транш" -> добавляем просто новые обьекты
-            else if ($request->input('payment_term') == 'transh') {
-                foreach ($request->input('payment_sum') as $key => $value) {
-                    AllProductsTermsTransh::query()->create([
-                        'payment_sum' => $request->input('payment_sum')[$key],
-                        'payment_from' => $request->input('payment_from')[$key],
-                        'all_products_id' => $allP->id
-                    ]);
-                }
-            }
-
-
-            // all product info
-            AllProductInformation::query()
-                ->where([
-                    'all_products_id' => $allP->id
-                ])
-                ->update([
-                    'policy_id' => $request->input('policy_id'),
-                    'data_vidachi' => $request->input('data_vidachi'),
-                    'otvet_litso' => $request->input('otvet_litso'),
-                ]);
-
-            return $allP;
-        });
-
-        return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update an existing contract.
      *
-     * @param int $id
-     * @return Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Model\Contract      $lizing_t
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function update(Request $request, Contract $lizing_t)
     {
-        //
+        $request->validate(array_merge(
+            Beneficiary::$validate,
+            Client::$validate,
+            Contract::$validate,
+            ContractAutoleasing::$validate,
+            [
+                'policies.*.name' => 'required',
+                'policies.*.series' => 'required',
+                'policies.*.date_of_issue' => 'required',
+                'policies.*.insurance_sum' => 'required',
+                'policies.*.franchise' => 'required',
+
+                'policies.*.policy_autoleasing.issue_year' => 'required',
+                'policies.*.policy_autoleasing.brand' => 'required',
+                'policies.*.policy_autoleasing.model' => 'required',
+                'policies.*.policy_autoleasing.government_number' => 'required',
+                'policies.*.policy_autoleasing.techpassport_number' => 'required',
+                'policies.*.policy_autoleasing.engine_number' => 'required',
+                'policies.*.policy_autoleasing.carcase_number' => 'required',
+                'policies.*.policy_autoleasing.insurance_value' => 'required',
+            ]
+        ));
+
+        $contract = $lizing_t;
+
+        $beneficiary = $contract->beneficiary;
+        $beneficiary->fill($request['beneficiary']);
+        $beneficiary->save();
+
+        $client = $contract->client;
+        $client->fill($request['client']);
+        $client->save();
+
+        $contract_autoleasing = $contract->contract_model;
+        $contract_autoleasing->fill($request['contract_autoleasing']);
+        $contract_autoleasing->save();
+
+        $contract->fill($request['contract']);
+        $contract->save();
+
+        if ($request['policies']) {
+            $policies_ids = [];
+            foreach($request['policies'] as $policy_data) {
+                $policy = Policy::where('contract_id', '=', $contract->id)
+                                ->where('name', '=', $policy_data['name'])
+                                ->where('series', '=', $policy_data['series'])
+                                ->get()
+                                ->first();
+
+                if ($policy) {
+                    $policy_autoleasing = $policy->policy_model;
+                    $policy_autoleasing->fill($policy_data['policy_autoleasing']);
+                    $policy_autoleasing->save();
+
+                    unset($policy_data['policy_autoleasing']);
+
+                    $policy->fill($policy_data);
+                    $policy->save();
+                } else {
+                    $policy = Policy::where('name', '=', $policy_data['name'])
+                                    ->where('series', '=', $policy_data['series'])
+                                    ->get()
+                                    ->first();
+
+                    if ($policy) {
+                        $policy_autoleasing = PolicyAutoleasing::create($policy_data['policy_autoleasing']);
+
+                        unset($policy_data['policy_autoleasing']);
+
+                        $policy_data['contract_id'] = $contract->id;
+                        $policy_data['model_type'] = PolicyAutoleasing::class;
+                        $policy_data['model_id'] = $policy_autoleasing->id;
+
+                        $policy->fill($policy_data);
+                        $policy->save();
+                    }
+                }
+
+                $policies_ids[] = $policy->id;
+            }
+
+            $policies = Policy::where('contract_id', '=', $contract->id)
+                              ->whereNotIn('id', $policies_ids)
+                              ->get();
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+
+        if ($request['tranches']) {
+            $tranche_ids = [];
+            foreach($request['tranches'] as $tranche_data) {
+                $tranche = Tranche::where('contract_id', '=', $contract->id)
+                                  ->where('from', '=', $tranche_data['from'])
+                                  ->get()
+                                  ->first();
+
+                if ($tranche) {
+                    if ($tranche->sum != $tranche_data['sum']) {
+                        $tranche->sum = $tranche_data['sum'];
+                        $tranche->save();
+                    }
+                } else {
+                    $tranche = $contract->tranches()->create($tranche_data);
+                }
+
+                $tranche_ids[] = $tranche->id;
+            }
+
+            Tranche::where('contract_id', '=', $contract->id)
+                   ->whereNotIn('id', $tranche_ids)
+                   ->delete();
+        }
+
+        $files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                if ($old_file = $contract->getFile($type)) {
+                    $old_file->delete();
+                }
+
+                $files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($files);
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено изменение контракта');
+    }
+
+    /**
+     * Destroy an existing contract.
+     *
+     * @param  \App\Model\Contract $lizing_t
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Contract $lizing_t)
+    {
+        $contract = $lizing_t;
+
+        if ($policies = $contract->policies) {
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+        $contract->delete();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
 }
