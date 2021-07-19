@@ -48,35 +48,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-3">
-                                    <label for="contract-autoleasing-period-from" class="col-form-label">Период договора</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">с</span>
-                                        </div>
-                                        <input required
-                                               class="form-control @if($errors->has('contract_autoleasing.period_from')) is-invalid @endif"
-                                               id="contract-autoleasing-period-from"
-                                               name="contract_autoleasing[period_from]"
-                                               type="date"
-                                               value="{{old('contract_autoleasing.period_from', $contract_autoleasing->period_from)}}" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <label for="contract-autoleasing-period-to" class="col-form-label">Период договора</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">до</span>
-                                        </div>
-                                        <input required
-                                               class="form-control @if($errors->has('contract_autoleasing.period_to')) is-invalid @endif"
-                                               id="contract-autoleasing-period-to"
-                                               name="contract_autoleasing[period_to]"
-                                               type="date"
-                                               value="{{old('contract_autoleasing.period_to', $contract_autoleasing->period_to)}}" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="contract-autoleasing-geo-zone" class="col-form-label">
                                             Географическая зона

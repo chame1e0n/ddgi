@@ -15,8 +15,6 @@ class CreateTestContractAutoleasingTable extends Migration
     {
         Schema::create('contract_autoleasings', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('period_from');
-            $table->date('period_to');
             $table->string('geo_zone', 45);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

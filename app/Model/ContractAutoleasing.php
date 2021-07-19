@@ -15,8 +15,6 @@ class ContractAutoleasing extends Model
      * @var array
      */
     public static $validate = [
-        'contract_autoleasing.period_from' => 'required',
-        'contract_autoleasing.period_to' => 'required',
         'contract_autoleasing.geo_zone' => 'required',
     ];
 
