@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KascoRequest;
 use App\Model\Beneficiary;
+use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractCasco;
 use App\Model\Employee;
+use App\Model\Policy;
+use App\Model\PolicyCasco;
+use App\Model\Specification;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use App\Models\Product\KascoStrahPremiya;
@@ -21,28 +26,48 @@ use Illuminate\Http\Response;
 class KaskoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        //
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
-        $beneficiary = new Beneficiary();
-        $contract = new Contract();
-        $policySeries = [];
+        $old_data = old();
 
-        return view('products.kasko.create', compact('agents', 'beneficiary', 'contract', 'policySeries'));
+        $specification = Specification::where('key', '=', 'S_VVI')->get()->first();
+
+        $contract = new Contract();
+
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+        if (isset($old_data['policies'])) {
+            foreach ($old_data['policies'] as $item) {
+                $policy = new Policy();
+                $policy->policy_model = new PolicyCasco();
+
+                $contract->policies[] = $policy;
+            }
+        }
+
+        return view('products.kasko.form', [
+            'beneficiary' => new Beneficiary(),
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_casco' => new ContractCasco(),
+        ]);
     }
 
     /**

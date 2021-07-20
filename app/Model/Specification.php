@@ -31,7 +31,7 @@ class Specification extends Model
         'S_VVI' => 'kasco',
         'S_VCVICIAL' => null,
         'S_VCVICIAW' => null,
-        'S_IOTVBP' => 'zalog/autozalog3x',
+        'S_IOTVBP' => 'zalog_autozalog3x',
         'S_IOAMLO' => null,
         'S_IOSEPUAAP' => 'zalog/tehnika',
         'S_IOGCEIOAV' => null,

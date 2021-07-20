@@ -146,12 +146,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('borrower_sportsman', 'BorrowerSportsmanController');
     Route::resource('neshchastka_time', 'Product\Neshchastka24TimeController');
     Route::resource('mejd', 'MejdController');
-    Route::resource('covid_fiz','Product\CovidController');
+    Route::resource('covid_fiz', 'Product\CovidController');
     Route::resource('zalog_autozalog_mnogostoronniy', 'Product\ZalogAutozalogMnogostoronniyController');
+    Route::resource('lizing_ts', 'Product\LizingTsController');
+    Route::resource('kasco', 'Product\KaskoController');
+    Route::resource('zalog_autozalog3x', 'Product\AutoZalog3xController');
 
-    Route::resource('lizing_ts','Product\LizingTsController');
-    Route::resource('kasco', 'Product\KaskoController')->names('kasco-add');
-    Route::resource('zalog/autozalog3x', 'Product\AutoZalog3xController')->names('zalog-autozalog3x');
     Route::resource('zalog/tehnika', 'Product\ZalogTehnikaController')->names('zalog-tehnika');
     Route::resource('export', 'ExportController');
     Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');

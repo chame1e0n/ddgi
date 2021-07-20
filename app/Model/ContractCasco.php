@@ -15,6 +15,18 @@ class ContractCasco extends Model
     public const USAGE_BASEMENT_WAYBILL = 'waybill';
 
     /**
+     * Usage basement names.
+     * 
+     * @var array
+     */
+    public static $usage_basements = [
+        self::USAGE_BASEMENT_LEASING => 'договор аренды',
+        self::USAGE_BASEMENT_PROXY => 'доверенность',
+        self::USAGE_BASEMENT_TECHPASSPORT => 'тех. паспорт',
+        self::USAGE_BASEMENT_WAYBILL => 'путевой лист',
+    ];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
