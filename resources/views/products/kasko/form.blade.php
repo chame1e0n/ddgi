@@ -112,9 +112,9 @@
                     let number = element.id.replace('policy-row-', '');
 
                     if (number == 'total') {
-                        $('#total-insurance-sum').val(total_insurance_sum);
-                        $('#total-insurance-premium').val(total_insurance_premium);
-                        $('#total-franchise').val(total_franchise);
+                        $('#total-insurance-sum').val(total_insurance_sum.toFixed(2));
+                        $('#total-insurance-premium').val(total_insurance_premium.toFixed(2));
+                        $('#total-franchise').val(total_franchise.toFixed(2));
 
                         return;
                     }
@@ -155,7 +155,7 @@
 
                     policy_casco_sum = policy_casco_ae_additional_insured_sum + policy_casco_ec_vehicle_death_recovery_sum + policy_casco_ec_civil_liability_sum + policy_casco_ec_total_sum;
 
-                    $('#policies-' + number + '-policy-casco-total-sum').val(policy_casco_sum);
+                    $('#policies-' + number + '-policy-casco-total-sum').val(policy_casco_sum.toFixed(2));
 
                     if (!window.isNaN(policy_casco_sum)) {
                         policy_additional_sum += policy_casco_sum;
@@ -167,15 +167,15 @@
 
                     policy_casco_premium = policy_casco_ec_vehicle_death_recovery_premium + policy_casco_ec_civil_liability_premium + policy_casco_ec_total_premium;
 
-                    $('#policies-' + number + '-policy-casco-total-premium').val(policy_casco_premium);
+                    $('#policies-' + number + '-policy-casco-total-premium').val(policy_casco_premium.toFixed(2));
 
                     if (!window.isNaN(policy_casco_premium)) {
                         policy_additional_premium += policy_casco_premium;
                     }
 
                     // -- policy --
-                    $('#policies-' + number + '-insurance-sum-plus').text('+ ' + policy_additional_sum);
-                    $('#policies-' + number + '-insurance-premium-plus').text('+ ' + policy_additional_premium);
+                    $('#policies-' + number + '-insurance-sum-plus').text('+ ' + policy_additional_sum.toFixed(2));
+                    $('#policies-' + number + '-insurance-premium-plus').text('+ ' + policy_additional_premium.toFixed(2));
 
                     let policy_premium = 0;
 
