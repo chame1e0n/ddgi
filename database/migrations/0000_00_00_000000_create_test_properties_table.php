@@ -15,6 +15,7 @@ class CreateTestPropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
+            $table->morphs('model');
             $table->string('name', 45);
             $table->string('location', 100);
             $table->date('issue_date')->nullable();

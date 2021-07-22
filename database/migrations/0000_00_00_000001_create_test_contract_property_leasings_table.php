@@ -15,7 +15,6 @@ class CreateTestContractPropertyLeasingsTable extends Migration
     {
         Schema::create('contract_property_leasings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('property_id')->unsigned();
             $table->string('agreement_number')->nullable();
             $table->string('geo_zone', 45);
             $table->float('insured_sum_for_closed_warehouse', 12, 3)->unsigned()->nullable();
@@ -25,7 +24,6 @@ class CreateTestContractPropertyLeasingsTable extends Migration
             $table->float('franchise_other_risks_percent', 6, 3)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
-            $table->foreign('property_id', 'fk_contract_property_leasing_property')->references('id')->on('properties');
         });
     }
 

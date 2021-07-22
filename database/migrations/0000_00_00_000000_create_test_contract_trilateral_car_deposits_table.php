@@ -15,8 +15,6 @@ class CreateTestContractTrilateralCarDepositsTable extends Migration
     {
         Schema::create('contract_trilateral_car_deposits', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('insurance_agreement_number', 45);
-            $table->date('insurance_agreement_date');
             $table->string('credit_agreement_number', 45);
             $table->date('credit_period_from');
             $table->date('credit_period_to');

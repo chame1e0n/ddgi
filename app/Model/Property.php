@@ -13,6 +13,13 @@ class Property extends Model
     public const MEASURE_SM_2 = 'sm_2';
 
     /**
+     * Name of the columns which should not be fillable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
@@ -20,71 +27,16 @@ class Property extends Model
     protected $table = 'properties';
 
     /**
-     * Get relation to the contract_mortgages table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get relation to the tables, containing the property:
+     *  contract_mortgages
+     *  contract_multilateral_property_pledges
+     *  contract_property_leasings
+     *  contract_special_equipment_pledges
+     *  contract_trilateral_property_pledges.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function contract_mortgages()
+    public function contract_model()
     {
-        return $this->hasMany(ContractMortgage::class);
-    }
-
-    /**
-     * Get relation to the contract_multilateral_property_pledges table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function contract_multilateral_property_pledges()
-    {
-        return $this->hasMany(ContractMultilateralPropertyPledge::class);
-    }
-
-    /**
-     * Get relation to the contract_property_leasings table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function contract_property_leasings()
-    {
-        return $this->hasMany(ContractPropertyLeasing::class);
-    }
-
-    /**
-     * Get relation to the contract_special_equipment_pledges table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function contract_special_equipment_pledges()
-    {
-        return $this->hasMany(ContractSpecialEquipmentPledge::class);
-    }
-
-    /**
-     * Get relation to the contract_trilateral_property_pledges table.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function contract_trilateral_property_pledges()
-    {
-        return $this->hasMany(ContractTrilateralPropertyPledge::class);
-    }
-
-    /**
-     * Cascade deletion.
-     */
-    public function delete()
-    {
-        foreach($this->contract_mortgages as /* @var $contract_mortgage ContractMortgage */ $contract_mortgage) {
-            $contract_mortgage->delete();
-        }
-        foreach($this->contract_multilateral_property_pledges as /* @var $contract_multilateral_property_pledge ContractMultilateralPropertyPledge */ $contract_multilateral_property_pledge) {
-            $contract_multilateral_property_pledge->delete();
-        }
-        foreach($this->contract_property_leasings as /* @var $contract_property_leasing ContractPropertyLeasing */ $contract_property_leasing) {
-            $contract_property_leasing->delete();
-        }
-        foreach($this->contract_special_equipment_pledges as /* @var $contract_special_equipment_pledge ContractSpecialEquipmentPledge */ $contract_special_equipment_pledge) {
-            $contract_special_equipment_pledge->delete();
-        }
-        foreach($this->contract_trilateral_property_pledges as /* @var $contract_trilateral_property_pledge ContractTrilateralPropertyPledge */ $contract_trilateral_property_pledge) {
-            $contract_trilateral_property_pledge->delete();
-        }
-
-        return parent::delete();
+        return $this->morphTo('model');
     }
 }

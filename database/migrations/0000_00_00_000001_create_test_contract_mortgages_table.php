@@ -15,7 +15,6 @@ class CreateTestContractMortgagesTable extends Migration
     {
         Schema::create('contract_mortgages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('property_id')->unsigned();
             $table->string('agreement_number', 45);
             $table->date('agreement_date');
             $table->string('between_agreement_number', 45);
@@ -32,7 +31,6 @@ class CreateTestContractMortgagesTable extends Migration
             $table->float('franchise_other_risks_percent', 6, 3)->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
-            $table->foreign('property_id', 'fk_contract_mortgage_property')->references('id')->on('properties');
         });
     }
 
