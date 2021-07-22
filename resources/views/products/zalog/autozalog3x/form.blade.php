@@ -208,7 +208,7 @@
 
                                         <input class="form-control @if($errors->has('contract_trilateral_car_deposit.actual_insurance_comment')) is-invalid @endif"
                                                id="contract-trilateral-car-deposit-actual-insurance-comment"
-                                               name="contract_trilateral_car_deposit[actual-insurance_comment]"
+                                               name="contract_trilateral_car_deposit[actual_insurance_comment]"
                                                type="text"
                                                value="{{old('contract_trilateral_car_deposit.actual_insurance_comment', $contract_trilateral_car_deposit->actual_insurance_comment)}}" />
                                     </div>
