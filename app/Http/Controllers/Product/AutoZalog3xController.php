@@ -8,8 +8,12 @@ use App\Model\Bank;
 use App\Model\Beneficiary;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractTrilateralCarDeposit;
 use App\Model\Employee;
-
+use App\Model\Pledger;
+use App\Model\Policy;
+use App\Model\PolicyTrilateralCarDeposit;
+use App\Model\Specification;
 use App\Models\Allproduct;
 use App\Models\AllProductInformation;
 use App\Models\AllProductsTermsTranshes;
@@ -20,28 +24,48 @@ use App\Models\Spravochniki\PolicySeries;
 class AutoZalog3xController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        //
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
-        $beneficiary = new Beneficiary();
-        $client = new Client();
+        $old_data = old();
+
+        $specification = Specification::where('key', '=', 'S_IOTVBP')->get()->first();
+
         $contract = new Contract();
 
-        return view('products.zalog.autozalog3x.create', compact('agents', 'beneficiary', 'client', 'contract'));
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+        if (isset($old_data['policies'])) {
+            foreach ($old_data['policies'] as $item) {
+                $policy = new Policy();
+                $policy->policy_model = new PolicyTrilateralCarDeposit();
+
+                $contract->policies[] = $policy;
+            }
+        }
+
+        return view('products.zalog.autozalog3x.form', [
+            'beneficiary' => new Beneficiary(),
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_trilateral_car_deposit' => new ContractTrilateralCarDeposit(),
+        ]);
     }
 
     /**

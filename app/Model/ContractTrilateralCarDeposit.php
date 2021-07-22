@@ -9,6 +9,8 @@ class ContractTrilateralCarDeposit extends Model
 {
     use SoftDeletes;
 
+    public const FILE_DEFECT_DAMAGE_PHOTO = 'defect_damage_photo';
+
     /**
      * Validation rules for the form fields.
      *
@@ -41,5 +43,37 @@ class ContractTrilateralCarDeposit extends Model
     public function contract()
     {
         return $this->morphOne(Contract::class, 'model');
+    }
+
+    /**
+     * Get relation to the files table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'model');
+    }
+
+    /**
+     * Get trilateral car deposit contract's file of the specified type.
+     * 
+     * @param string $type Type
+     * @return File
+     */
+    public function getFile($type = 'document')
+    {
+        return $this->files()->where('type' , '=', $type)->get()->first();
+    }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->files as /* @var $file File */ $file) {
+            $file->delete();
+        }
+
+        return parent::delete();
     }
 }
