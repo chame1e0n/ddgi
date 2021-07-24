@@ -72,6 +72,8 @@ class MejdController extends Controller
                 'policy.name' => 'required',
                 'policy.series' => 'required',
                 'policy.date_of_issue' => 'required',
+                'policy.polis_from_date' => 'required',
+                'policy.polis_to_date' => 'required',
                 'policy.insurance_sum' => 'required',
                 'policy.franchise' => 'required',
             ]
@@ -188,6 +190,8 @@ class MejdController extends Controller
                 'policy.name' => 'required',
                 'policy.series' => 'required',
                 'policy.date_of_issue' => 'required',
+                'policy.polis_from_date' => 'required',
+                'policy.polis_to_date' => 'required',
                 'policy.insurance_sum' => 'required',
                 'policy.franchise' => 'required',
             ]

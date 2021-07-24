@@ -17,7 +17,7 @@
 
                         <input required
                                @if($policy->contract_id) disabled @endif
-                               class="form-control @error('policy.name') is-invalid @enderror"
+                               class="form-control ddgi-policy-name @error('policy.name') is-invalid @enderror"
                                id="policy-name"
                                name="policy[name]"
                                type="text"
@@ -30,7 +30,7 @@
 
                         <select required
                                 @if($policy->contract_id) disabled @endif
-                                class="form-control select2 @error('policy.series') is-invalid @enderror"
+                                class="form-control ddgi-policy-series @error('policy.series') is-invalid @enderror"
                                 id="policy-series"
                                 name="policy[series]">
                             <option></option>
@@ -46,11 +46,11 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="responsible-person" class="col-form-label">Ответственное лицо</label>
+                        <label for="policy-responsible-person" class="col-form-label">Ответственное лицо</label>
 
                         <input disabled="disabled"
                                class="form-control"
-                               id="responsible-person"
+                               id="policy-responsible-person"
                                type="text"
                                value="" />
                     </div>

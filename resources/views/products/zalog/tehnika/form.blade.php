@@ -153,7 +153,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="files-fire-sertificate" class="col-form-label">
+                                                    <label for="files-fire-certificate" class="col-form-label">
                                                         Прикрепите сертификат
                                                     </label>
 
@@ -161,9 +161,9 @@
                                                         <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
                                                     @endif
 
-                                                    <input class="form-control @error('files.fire_sertificate') is-invalid @enderror"
-                                                           id="files-fire-sertificate"
-                                                           name="files[fire_sertificate]"
+                                                    <input class="form-control @error('files.fire_certificate') is-invalid @enderror"
+                                                           id="files-fire-certificate"
+                                                           name="files[fire_certificate]"
                                                            type="file" />
                                                 </div>
                                             </div>
@@ -207,7 +207,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="files-security-sertificate" class="col-form-label">
+                                                    <label for="files-security-certificate" class="col-form-label">
                                                         Прикрепите сертификат
                                                     </label>
 
@@ -215,9 +215,9 @@
                                                         <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
                                                     @endif
 
-                                                    <input class="form-control @error('files.security_sertificate') is-invalid @enderror"
-                                                           id="files-security-sertificate"
-                                                           name="files[security_sertificate]"
+                                                    <input class="form-control @error('files.security_certificate') is-invalid @enderror"
+                                                           id="files-security-certificate"
+                                                           name="files[security_certificate]"
                                                            type="file" />
                                                 </div>
                                             </div>
@@ -263,6 +263,26 @@
                 let total_insurance_premium = 0;
                 let total_franchise = 0;
 
+                $('#policy').find('div.card-body').each(function (i, element) {
+                    let insurance_premium = 0;
+                    let policy_insurance_sum = Number($('#policy-insurance-sum').val());
+
+                    if (!is_tariff && !is_premium) {
+                        let tariff = {{$contract->specification ? $contract->specification->tariff : 0}};
+
+                        insurance_premium = (days * policy_insurance_sum * tariff) / 365;
+                    }
+                    if (is_tariff) {
+                        let tariff = $('#contract-tariff').val();
+
+                        insurance_premium = (days * policy_insurance_sum * tariff) / 365;
+                    }
+                    if (is_premium) {
+                        insurance_premium = Number($('#contract-premium').val());
+                    }
+
+                    $('#insurance-premium').val(insurance_premium.toFixed(2));
+                });
                 $('#policies').find('tbody > tr[id^=policy-row-]').each(function (i, element) {
                     let number = element.id.replace('policy-row-', '');
 
@@ -477,41 +497,20 @@
                 });
             }
 
-            const policies = document.querySelector('#policies');
+            $('#form-contract').delegate('.ddgi-calculate', 'change', calculation);
 
-            if (policies) {
-                const button_add_policy = policies.querySelector('.ddgi-add-policy');
-                if (button_add_policy) {
-                    button_add_policy.addEventListener('click', addPolicy);
-                }
+            $('#policies').delegate('.ddgi-add-policy', 'click', addPolicy);
+            $('#policies').delegate('.ddgi-remove-policy', 'click', removePolicy);
 
-                policies.addEventListener('click', removePolicy);
+            $('#policies, #policy').delegate('.ddgi-policy-name', 'change', definePolicySeries);
+            $('#policies, #policy').delegate('.ddgi-policy-series', 'change', defineResponsiblePerson);
 
-                $(policies).delegate('.ddgi-policy-name', 'keyup', definePolicySeries);
+            $('.ddgi-policy-name').trigger('keyup');        // для show метода при загрузке страницы
+            $('.ddgi-policy-series').trigger('change');     // для show метода при загрузке страницы
+            $('.ddgi-calculate').trigger('change');         // для show метода при загрузке страницы
 
-                $(policies).delegate('.ddgi-policy-series', 'change', defineResponsiblePerson);
-
-                $('#form-contract').delegate('.ddgi-calculate', 'change', calculation);
-
-                $('.ddgi-policy-series').trigger('change');     // для show метода при загрузке страницы
-                $('.ddgi-calculate').trigger('change');         // для show метода при загрузке страницы
-            }
-
-            const properties = document.querySelector('#properties');
-
-            if (properties) {
-                const button_add_property = properties.querySelector('.ddgi-add-property');
-                if (button_add_property) {
-                    button_add_property.addEventListener('click', addProperty);
-                }
-
-                properties.addEventListener('click', removeProperty);
-
-                $('#form-contract').delegate('.ddgi-calculate', 'change', calculation);
-
-                $('.ddgi-property-series').trigger('change');     // для show метода при загрузке страницы
-                $('.ddgi-calculate').trigger('change');           // для show метода при загрузке страницы
-            }
+            $('#properties').delegate('.ddgi-add-property', 'click', addProperty);
+            $('#properties').delegate('.ddgi-remove-property', 'click', removeProperty);
 
             $('form').submit(function(e) {
                 $(':disabled').each(function(e) {

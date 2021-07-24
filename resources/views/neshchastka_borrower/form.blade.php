@@ -122,7 +122,7 @@
                     data: { name: $('#policy-name').val(), series: $('#policy-series').val() },
                     dataType: 'json',
                     success: function (response) {
-                        $('#responsible-person').val(response.surname + ' ' + response.name + ' ' + response.middlename);
+                        $('#policy-responsible-person').val(response.surname + ' ' + response.name + ' ' + response.middlename);
                     }
                 });
             }
