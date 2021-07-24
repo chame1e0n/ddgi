@@ -12,6 +12,11 @@ class Property extends Model
     public const MEASURE_M_2 = 'm_2';
     public const MEASURE_SM_2 = 'sm_2';
 
+    public static $measures = [
+        self::MEASURE_M_2 => 'м²',
+        self::MEASURE_SM_2 => 'см²',
+    ];
+
     /**
      * Name of the columns which should not be fillable.
      *

@@ -76,7 +76,7 @@
                                         <span class="input-group-text">Страховая сумма</span>
                                     </div>
 
-                                    <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_sportsman.traumatic_sum') is-invalid @enderror"
+                                    <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_sportsman.traumatic_sum') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-sportsman-traumatic-sum"
                                            name="policies[{{$key}}][policy_sportsman][traumatic_sum]"
                                            step="0.01"
@@ -90,7 +90,7 @@
                                         <span class="input-group-text">Страховая премия</span>
                                     </div>
 
-                                    <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_sportsman.traumatic_premium') is-invalid @enderror"
+                                    <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_sportsman.traumatic_premium') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-sportsman-traumatic-premium"
                                            name="policies[{{$key}}][policy_sportsman][traumatic_premium]"
                                            step="0.01"
@@ -108,7 +108,7 @@
                                         <span class="input-group-text">Страховая сумма</span>
                                     </div>
 
-                                    <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_sportsman.death_sum') is-invalid @enderror"
+                                    <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_sportsman.death_sum') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-sportsman-death-sum"
                                            name="policies[{{$key}}][policy_sportsman][death_sum]"
                                            step="0.01"
@@ -122,7 +122,7 @@
                                         <span class="input-group-text">Страховая премия</span>
                                     </div>
 
-                                    <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_sportsman.death_premium') is-invalid @enderror"
+                                    <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_sportsman.death_premium') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-sportsman-death-premium"
                                            name="policies[{{$key}}][policy_sportsman][death_premium]"
                                            step="0.01"

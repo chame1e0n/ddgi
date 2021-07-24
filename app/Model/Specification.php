@@ -33,7 +33,7 @@ class Specification extends Model
         'S_VCVICIAW' => null,
         'S_IOTVBP' => 'zalog_autozalog3x',
         'S_IOAMLO' => null,
-        'S_IOSEPUAAP' => 'zalog/tehnika',
+        'S_IOSEPUAAP' => 'zalog_tehnika',
         'S_IOGCEIOAV' => null,
         'S_VIP' => null,
         'S_CIG' => 'export',

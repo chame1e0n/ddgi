@@ -151,7 +151,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">с</span>
                         </div>
-                        <input class="form-control ddgi-policy-calculate @error('contract.from') is-invalid @enderror"
+                        <input class="form-control ddgi-calculate @error('contract.from') is-invalid @enderror"
                                id="contract-from"
                                name="contract[from]"
                                type="date"
@@ -166,7 +166,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">до</span>
                         </div>
-                        <input class="form-control ddgi-policy-calculate @error('contract.from') is-invalid @enderror"
+                        <input class="form-control ddgi-calculate @error('contract.from') is-invalid @enderror"
                                id="contract-to"
                                name="contract[to]"
                                type="date"
@@ -177,7 +177,7 @@
             <div class="col-md-12">
                 <div class="icheck-success ">
                     <input @if($contract->tariff) checked @endif
-                           class="form-check-input client-type-radio ddgi-policy-calculate"
+                           class="form-check-input client-type-radio ddgi-calculate"
                            id="contract-tariff-switch"
                            name="contract_tariff_switch"
                            onchange="toggleSwitch(this, 'contract-tariff-block')"
@@ -188,7 +188,7 @@
                      id="contract-tariff-block"
                      @if(!$contract->tariff) style="display: none;" @endif>
                     <label for="contract-tariff" class="col-form-label">Укажите процент тарифа</label>
-                    <input class="form-control ddgi-policy-calculate @error('contract.tariff') is-invalid @enderror"
+                    <input class="form-control ddgi-calculate @error('contract.tariff') is-invalid @enderror"
                            id="contract-tariff"
                            name="contract[tariff]"
                            step="0.01"
@@ -199,7 +199,7 @@
             <div class="col-md-12">
                 <div class="icheck-success ">
                     <input @if($contract->premium) checked @endif
-                           class="form-check-input client-type-radio ddgi-policy-calculate"
+                           class="form-check-input client-type-radio ddgi-calculate"
                            id="contract-premium-switch"
                            name="contract_premium_switch"
                            onchange="toggleSwitch(this, 'contract-premium-block')"
@@ -210,7 +210,7 @@
                      id="contract-premium-block"
                      @if(!$contract->premium) style="display: none;" @endif>
                     <label for="contract-premium" class="col-form-label">Укажите процент премии</label>
-                    <input class="form-control ddgi-policy-calculate @error('contract.premium') is-invalid @enderror"
+                    <input class="form-control ddgi-calculate @error('contract.premium') is-invalid @enderror"
                            id="contract-premium"
                            name="contract[premium]"
                            step="0.01"

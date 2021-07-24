@@ -9,6 +9,9 @@ class ContractSpecialEquipmentPledge extends Model
 {
     use SoftDeletes;
 
+    public const FILE_FIRE_CERTIFICATE = 'fire_certificate';
+    public const FILE_SECURITY_CERTIFICATE = 'security_certificate';
+
     /**
      * Validation rules for the form fields.
      *
@@ -45,11 +48,31 @@ class ContractSpecialEquipmentPledge extends Model
     }
 
     /**
+     * Get relation to the files table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'model');
+    }
+
+    /**
      * Get relation to the properties table.
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function properties()
     {
         return $this->morphMany(Property::class, 'model');
+    }
+
+    /**
+     * Get special equipment pledge contract's file of the specified type.
+     * 
+     * @param string $type Type
+     * @return File
+     */
+    public function getFile($type = 'document')
+    {
+        return $this->files()->where('type' , '=', $type)->get()->first();
     }
 }

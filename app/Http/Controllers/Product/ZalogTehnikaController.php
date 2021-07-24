@@ -7,6 +7,10 @@ use App\Http\Requests\ZalogTehnikaRequest;
 use App\Model\Beneficiary;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractSpecialEquipmentPledge;
+use App\Model\Pledger;
+use App\Model\Policy;
+use App\Model\Specification;
 use App\Models\Allproduct;
 use App\Models\AllProductImushestvoInfo;
 use App\Models\AllProductsTermsTranshes;
@@ -21,27 +25,42 @@ use Illuminate\Http\Request;
 class ZalogTehnikaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $beneficiary = new Beneficiary();
-        $client = new Client();
+        $old_data = old();
+
+        $specification = Specification::where('key', '=', 'S_IOSEPUAAP')->get()->first();
+
         $contract = new Contract();
 
-        return view('products.zalog.tehnika.create', compact('beneficiary', 'client', 'contract'));
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+
+        return view('products.zalog.tehnika.form', [
+            'beneficiary' => new Beneficiary(),
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_special_equipment_pledge' => new ContractSpecialEquipmentPledge(),
+            'pledger' => new Pledger(),
+            'policy' => new Policy(),
+        ]);
     }
 
     /**

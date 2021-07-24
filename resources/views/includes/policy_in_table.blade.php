@@ -58,7 +58,7 @@
     <td>
         <div class="input-group">
             <input required
-                   class="form-control ddgi-policy-calculate @error('policies.' . $key . '.insurance_sum') is-invalid @enderror"
+                   class="form-control ddgi-calculate @error('policies.' . $key . '.insurance_sum') is-invalid @enderror"
                    id="policies-{{$key}}-insurance-sum"
                    name="policies[{{$key}}][insurance_sum]"
                    step="0.01"
@@ -89,7 +89,7 @@
     </td>
     <td>
         <input required
-               class="form-control ddgi-policy-calculate @error('policies.' . $key . '.franchise') is-invalid @enderror"
+               class="form-control ddgi-calculate @error('policies.' . $key . '.franchise') is-invalid @enderror"
                id="policies-{{$key}}-franchise"
                name="policies[{{$key}}][franchise]"
                step="0.01"
@@ -107,6 +107,6 @@
     <td>
         <input type="button"
                value="Удалить"
-               class="btn btn-warning ddgi-remove-policy ddgi-policy-calculate" />
+               class="btn btn-warning ddgi-remove-policy ddgi-calculate" />
     </td>
 </tr>

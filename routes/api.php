@@ -55,6 +55,19 @@ Route::post('policy/for/table', function(Request $request) {
     ];
 })->name('get_policy_for_table');
 
+Route::post('property/for/table', function(Request $request) {
+    $view = view('includes.property_in_table', [
+        'key' => $request['key'],
+        'property' => new \App\Model\Property(),
+        'errors' => new \Illuminate\Support\ViewErrorBag(),
+    ])->toHtml();
+
+    return [
+        'code' => 200,
+        'template' => $view,
+    ];
+})->name('get_property_for_table');
+
 Route::get('specifications/of/type', function(Request $request) {
     $specifications = \App\Model\Specification::getSpecificationsByType($request['type']);
     $specifications->map(function($specification) {

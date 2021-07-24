@@ -218,10 +218,10 @@
 
                 $(policies).delegate('.ddgi-policy-series', 'change', defineResponsiblePerson);
 
-                $('#form-contract').delegate('.ddgi-policy-calculate', 'change', calculation);
+                $('#form-contract').delegate('.ddgi-calculate', 'change', calculation);
 
                 $('.ddgi-policy-series').trigger('change');     // для show метода при загрузке страницы
-                $('.ddgi-policy-calculate').trigger('change');  // для show метода при загрузке страницы
+                $('.ddgi-calculate').trigger('change');         // для show метода при загрузке страницы
             }
 
             $('form').submit(function(e) {

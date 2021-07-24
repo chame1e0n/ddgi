@@ -1,7 +1,7 @@
 @extends('layouts.index')
 
 @section('content')
-    <form action="{{route('zalog_autozalog3x.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
+    <form action="{{route('zalog_tehnika.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
           enctype="multipart/form-data"
           id="form-contract"
           method="POST">
@@ -37,6 +37,8 @@
 
                     @include('includes.beneficiary')
 
+                    @include('includes.pledger')
+
                     <div class="card card-info" id="contract_autoleasing">
                         <div class="card-header">
                             <h3 class="card-title">Дополнительные поля контракта</h3>
@@ -48,176 +50,189 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="contract-trilateral-car-deposit-credit-agreement-number" class="col-form-label">
-                                            Номер кредитного договора
+                                        <label for="contract-special-equipment-pledge-pledge-agreement-number" class="col-form-label">
+                                            Номер договора залога
                                         </label>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_trilateral_car_deposit.credit_agreement_number')) is-invalid @endif"
-                                               id="contract-trilateral-car-deposit-credit-agreement-number"
-                                               name="contract_trilateral_car_deposit[credit_agreement_number]"
+                                               class="form-control @if($errors->has('contract_special_equipment_pledge.pledge_agreement_number')) is-invalid @endif"
+                                               id="contract-special-equipment-pledge-pledge-agreement-number"
+                                               name="contract_special_equipment_pledge[pledge_agreement_number]"
                                                type="text"
-                                               value="{{old('contract_trilateral_car_deposit.credit_agreement_number', $contract_trilateral_car_deposit->credit_agreement_number)}}" />
+                                               value="{{old('contract_special_equipment_pledge.pledge_agreement_number', $contract_special_equipment_pledge->pledge_agreement_number)}}" />
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="contract-trilateral-car-deposit-credit-period-from">
-                                            Период кредитного договора
-                                        </label>
+                                <div class="col-md-3">
+                                    <label for="contract-special-equipment-pledge-pledge-agreement-from" class="col-form-label">
+                                        Период договора залога
+                                    </label>
 
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">с</span>
-                                            </div>
-
-                                            <input required
-                                                   class="form-control @if($errors->has('contract_trilateral_car_deposit.credit_period_from')) is-invalid @endif"
-                                                   id="contract-trilateral-car-deposit-credit-period-from"
-                                                   name="contract_trilateral_car_deposit[credit_period_from]"
-                                                   type="date"
-                                                   value="{{old('contract_trilateral_car_deposit.credit_period_from', $contract_trilateral_car_deposit->credit_period_from)}}" />
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">с</span>
                                         </div>
+
+                                        <input required
+                                               class="form-control @if($errors->has('contract_special_equipment_pledge.pledge_agreement_from')) is-invalid @endif"
+                                               id="contract-special-equipment-pledge-pledge-agreement-from"
+                                               name="contract_special_equipment_pledge[pledge_agreement_from]"
+                                               type="date"
+                                               value="{{old('contract_special_equipment_pledge.pledge_agreement_from', $contract_special_equipment_pledge->pledge_agreement_from)}}" />
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-md-3">
+                                    <label for="contract-special-equipment-pledge-pledge-agreement-to" class="col-form-label">
+                                        Период договора залога
+                                    </label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">до</span>
+                                        </div>
+
+                                        <input required
+                                               class="form-control @if($errors->has('contract_special_equipment_pledge.pledge_agreement_to')) is-invalid @endif"
+                                               id="contract-special-equipment-pledge-pledge-agreement-to"
+                                               name="contract_special_equipment_pledge[pledge_agreement_to]"
+                                               type="date"
+                                               value="{{old('contract_special_equipment_pledge.pledge_agreement_to', $contract_special_equipment_pledge->pledge_agreement_to)}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="period_kredit_dogovor_to">
-                                            Период кредитного договора
+                                        <label for="contract-special-equipment-pledge-estimation-basement" class="col-form-label">
+                                            Основание для оценки
                                         </label>
 
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">до</span>
-                                            </div>
-
-                                            <input required
-                                                   class="form-control @if($errors->has('contract_trilateral_car_deposit.credit_period_to')) is-invalid @endif"
-                                                   id="contract-trilateral-car-deposit-credit-period-to"
-                                                   name="contract_trilateral_car_deposit[credit_period_to]"
-                                                   type="date"
-                                                   value="{{old('contract_trilateral_car_deposit.credit_period_to', $contract_trilateral_car_deposit->credit_period_to)}}" />
-                                        </div>
+                                        <input required
+                                               class="form-control @if($errors->has('contract_special_equipment_pledge.estimation_basement')) is-invalid @endif"
+                                               id="contract-special-equipment-pledge-estimation-basement"
+                                               name="contract_special_equipment_pledge[estimation_basement]"
+                                               type="text"
+                                               value="{{old('contract_special_equipment_pledge.estimation_basement', $contract_special_equipment_pledge->estimation_basement)}}" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>
-                                            При наружном осмотре ТС дефекты и повреждения?
+                                            Наличие пожарной сигнализации и средств пожаротушения
                                         </label>
+
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 <div class="checkbox icheck-success">
-                                                    <input @if($contract_trilateral_car_deposit->defect_damage_comment) checked @endif
-                                                           onclick="toggle('defect-damage-comment', true)"
+                                                    <input @if($contract_special_equipment_pledge->getFile(\App\Model\ContractSpecialEquipmentPledge::FILE_FIRE_CERTIFICATE)) checked @endif
+                                                           onclick="toggle('fire', true)"
                                                            type="radio"
-                                                           id="radio-defect-damage-yes"
-                                                           name="radio_defect_damage"
+                                                           id="radio-fire-yes"
+                                                           name="radio_fire"
                                                            value="1" />
 
-                                                    <label for="radio-defect-damage-yes">Да</label>
+                                                    <label for="radio-fire-yes">Да</label>
                                                 </div>
                                                 <div class="checkbox icheck-success">
-                                                    <input @if(!$contract_trilateral_car_deposit->defect_damage_comment) checked @endif
-                                                           onclick="toggle('defect-damage-comment', false)"
+                                                    <input @if(!$contract_special_equipment_pledge->getFile(\App\Model\ContractSpecialEquipmentPledge::FILE_FIRE_CERTIFICATE)) checked @endif
+                                                           onclick="toggle('fire', false)"
                                                            type="radio"
-                                                           id="radio-defect-damage-no"
-                                                           name="radio_defect_damage"
+                                                           id="radio-fire-no"
+                                                           name="radio_fire"
                                                            value="0" />
 
-                                                    <label for="radio-defect-damage-no">Нет</label>
+                                                    <label for="radio-fire-no">Нет</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group"
-                                         id="defect-damage-comment"
-                                         @if(!$contract_trilateral_car_deposit->defect_damage_comment) style="display: none;" @endif>
+                                         id="fire"
+                                         @if(!$contract_special_equipment_pledge->getFile(\App\Model\ContractSpecialEquipmentPledge::FILE_FIRE_CERTIFICATE)) style="display: none;" @endif>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="contract-trilateral-car-deposit-defect-damage-comment" class="col-form-label">
-                                                        Комментарий
+                                                    <label for="files-fire-sertificate" class="col-form-label">
+                                                        Прикрепите сертификат
                                                     </label>
 
-                                                    <input class="form-control @if($errors->has('contract_trilateral_car_deposit.defect_damage_comment')) is-invalid @endif"
-                                                           id="contract-trilateral-car-deposit-defect-damage-comment"
-                                                           name="contract_trilateral_car_deposit[defect_damage_comment]"
-                                                           type="text"
-                                                           value="{{old('contract_trilateral_car_deposit.defect_damage_comment', $contract_trilateral_car_deposit->defect_damage_comment)}}" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="files-defect-damage-photo" class="col-form-label">
-                                                        Прикрепите фотографии
-                                                    </label>
-                                                    @if($file = $contract_trilateral_car_deposit->getFile(\App\Model\ContractTrilateralCarDeposit::FILE_DEFECT_DAMAGE_PHOTO))
+                                                    @if($file = $contract_special_equipment_pledge->getFile(\App\Model\ContractSpecialEquipmentPledge::FILE_FIRE_CERTIFICATE))
                                                         <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
                                                     @endif
-                                                    <input class="form-control @error('files.defect_damage_photo') is-invalid @enderror"
-                                                           id="files-defect-damage-photo"
-                                                           name="files[defect_damage_photo]"
+
+                                                    <input class="form-control @error('files.fire_sertificate') is-invalid @enderror"
+                                                           id="files-fire-sertificate"
+                                                           name="files[fire_sertificate]"
                                                            type="file" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>
-                                            Застрахованы ли автотранспортные средства на момент заполнения настоящей анкеты?
+                                            Наличие охранной сигнализации и средств защиты/охраны
                                         </label>
 
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 <div class="checkbox icheck-success">
-                                                    <input @if($contract_trilateral_car_deposit->actual_insurance_comment) checked @endif
-                                                           onclick="toggle('actual-insurance-comment', true)"
+                                                    <input @if($contract_special_equipment_pledge->getFile(\App\Model\ContractSpecialEquipmentPledge::FILE_SECURITY_CERTIFICATE)) checked @endif
+                                                           onclick="toggle('security', true)"
                                                            type="radio"
-                                                           id="radio-actual-insurance-yes"
-                                                           name="radio_actual_insurance"
+                                                           id="radio-security-yes"
+                                                           name="radio_security"
                                                            value="1" />
 
-                                                    <label for="radio-actual-insurance-yes">Да</label>
+                                                    <label for="radio-security-yes">Да</label>
                                                 </div>
                                                 <div class="checkbox icheck-success">
-                                                    <input @if(!$contract_trilateral_car_deposit->actual_insurance_comment) checked @endif
-                                                           onclick="toggle('actual-insurance-comment', false)"
+                                                    <input @if(!$contract_special_equipment_pledge->getFile(\App\Model\ContractSpecialEquipmentPledge::FILE_SECURITY_CERTIFICATE)) checked @endif
+                                                           onclick="toggle('security', false)"
                                                            type="radio"
-                                                           id="radio-actual-insurance-no"
-                                                           name="radio_actual_insurance"
+                                                           id="radio-security-no"
+                                                           name="radio_security"
                                                            value="0" />
 
-                                                    <label for="radio-actual-insurance-no">Нет</label>
+                                                    <label for="radio-security-no">Нет</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group"
-                                         id="actual-insurance-comment"
-                                         @if(!$contract_trilateral_car_deposit->actual_insurance_comment) style="display: none;" @endif>
-                                        <label for="contract-trilateral-car-deposit-actual-insurance-comment" class="col-form-label">
-                                            Комментарий
-                                        </label>
+                                         id="security"
+                                         @if(!$contract_special_equipment_pledge->getFile(\App\Model\ContractSpecialEquipmentPledge::FILE_SECURITY_CERTIFICATE)) style="display: none;" @endif>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="files-security-sertificate" class="col-form-label">
+                                                        Прикрепите сертификат
+                                                    </label>
 
-                                        <input class="form-control @if($errors->has('contract_trilateral_car_deposit.actual_insurance_comment')) is-invalid @endif"
-                                               id="contract-trilateral-car-deposit-actual-insurance-comment"
-                                               name="contract_trilateral_car_deposit[actual_insurance_comment]"
-                                               type="text"
-                                               value="{{old('contract_trilateral_car_deposit.actual_insurance_comment', $contract_trilateral_car_deposit->actual_insurance_comment)}}" />
+                                                    @if($file = $contract_special_equipment_pledge->getFile(\App\Model\ContractSpecialEquipmentPledge::FILE_SECURITY_CERTIFICATE))
+                                                        <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
+                                                    @endif
+
+                                                    <input class="form-control @error('files.security_sertificate') is-invalid @enderror"
+                                                           id="files-security-sertificate"
+                                                           name="files[security_sertificate]"
+                                                           type="file" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    @include('includes.policies')
+                    @php $contract_model = $contract_special_equipment_pledge @endphp
+
+                    @include('includes.properties')
+
+                    @include('includes.policy_in_section')
                 </section>
             </div>
 
@@ -243,11 +258,12 @@
                 let to = new Date($('#contract-to').val());
                 let days = Math.round((to - from) / (24 * 60 * 60 * 1000)) + 1;
 
+                let total_insurance_value = 0;
                 let total_insurance_sum = 0;
                 let total_insurance_premium = 0;
                 let total_franchise = 0;
 
-                $(policies).find('tbody > tr[id^=policy-row-]').each(function (i, element) {
+                $('#policies').find('tbody > tr[id^=policy-row-]').each(function (i, element) {
                     let number = element.id.replace('policy-row-', '');
 
                     if (number == 'total') {
@@ -338,10 +354,44 @@
                     total_insurance_premium += policy_premium + policy_additional_premium;
                     total_franchise += Number($('#policies-' + number + '-franchise').val());
                 });
+                $('#properties').find('tbody > tr[id^=property-row-]').each(function (i, element) {
+                    let number = element.id.replace('property-row-', '');
+
+                    if (number == 'total') {
+                        $('#total-insurance-value').val(total_insurance_value.toFixed(2));
+                        $('#total-insurance-sum').val(total_insurance_sum.toFixed(2));
+                        $('#total-insurance-premium').val(total_insurance_premium.toFixed(2));
+
+                        return;
+                    }
+
+                    let property_insurance_sum = Number($('#properties-' + number + '-insurance-sum').val());
+
+                    let property_premium = 0;
+
+                    if (!is_tariff && !is_premium) {
+                        let tariff = {{$contract->specification ? $contract->specification->tariff : 0}};
+
+                        property_premium = (days * property_insurance_sum * tariff) / 365;
+                    }
+                    if (is_tariff) {
+                        let tariff = $('#contract-tariff').val();
+
+                        property_premium = (days * property_insurance_sum * tariff) / 365;
+                    }
+                    if (is_premium) {
+                        property_premium = Number($('#contract-premium').val());
+                    }
+
+                    $('#properties-' + number + '-insurance-premium').val(property_premium);
+
+                    total_insurance_value += Number($('#properties-' + number + '-insurance-value').val());
+                    total_insurance_sum += property_insurance_sum;
+                    total_insurance_premium += property_premium
+                });
             }
             function addPolicy() {
-                let tbody = policies.querySelector('tbody');
-                let counter = tbody.childElementCount - 1;
+                let counter = document.getElementById('policies').querySelector('tbody').childElementCount - 1;
 
                 while(document.getElementById('policy-row-' + counter)) {
                     counter++;
@@ -350,7 +400,7 @@
                 $.ajax({
                     url: '{{route("get_policy_for_table")}}',
                     type: 'post',
-                    data: { key: counter, model: 'PolicyTrilateralCarDeposit' },
+                    data: { key: counter, model: null },
                     dataType: 'json',
                     success: function (response) {
                         document.getElementById('policy-row-total').insertAdjacentHTML('beforebegin', response.template);
@@ -362,6 +412,33 @@
             }
             function removePolicy(event) {
                 if (event.target.classList.contains('ddgi-remove-policy')) {
+                    event.target.parentElement.parentElement.remove();
+
+                    calculation();
+                }
+            }
+            function addProperty() {
+                let counter = document.getElementById('properties').querySelector('tbody').childElementCount - 1;
+
+                while(document.getElementById('property-row-' + counter)) {
+                    counter++;
+                }
+
+                $.ajax({
+                    url: '{{route("get_property_for_table")}}',
+                    type: 'post',
+                    data: { key: counter },
+                    dataType: 'json',
+                    success: function (response) {
+                        document.getElementById('property-row-total').insertAdjacentHTML('beforebegin', response.template);
+                    },
+                    error: function (data) {
+                        console.log('get property template error', data);
+                    }
+                });
+            }
+            function removeProperty(event) {
+                if (event.target.classList.contains('ddgi-remove-property')) {
                     event.target.parentElement.parentElement.remove();
 
                     calculation();
@@ -401,11 +478,13 @@
             }
 
             const policies = document.querySelector('#policies');
-            const button_add_policy = policies.querySelector('.ddgi-add-policy');
-            if (button_add_policy) {
-                button_add_policy.addEventListener('click', addPolicy);
-            }
+
             if (policies) {
+                const button_add_policy = policies.querySelector('.ddgi-add-policy');
+                if (button_add_policy) {
+                    button_add_policy.addEventListener('click', addPolicy);
+                }
+
                 policies.addEventListener('click', removePolicy);
 
                 $(policies).delegate('.ddgi-policy-name', 'keyup', definePolicySeries);
@@ -416,6 +495,22 @@
 
                 $('.ddgi-policy-series').trigger('change');     // для show метода при загрузке страницы
                 $('.ddgi-calculate').trigger('change');         // для show метода при загрузке страницы
+            }
+
+            const properties = document.querySelector('#properties');
+
+            if (properties) {
+                const button_add_property = properties.querySelector('.ddgi-add-property');
+                if (button_add_property) {
+                    button_add_property.addEventListener('click', addProperty);
+                }
+
+                properties.addEventListener('click', removeProperty);
+
+                $('#form-contract').delegate('.ddgi-calculate', 'change', calculation);
+
+                $('.ddgi-property-series').trigger('change');     // для show метода при загрузке страницы
+                $('.ddgi-calculate').trigger('change');           // для show метода при загрузке страницы
             }
 
             $('form').submit(function(e) {

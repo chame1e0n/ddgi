@@ -172,7 +172,7 @@
                                 <div class="form-group">
                                     <label for="policies-{{$key}}-policy-casco-ae-additional-insured-sum">Страховая сумма</label>
 
-                                    <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ae_additional_insured_sum') is-invalid @enderror"
+                                    <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ae_additional_insured_sum') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-casco-ae-additional-insured-sum"
                                            name="policies[{{$key}}][policy_casco][ae_additional_insured_sum]"
                                            step="0.01"
@@ -346,7 +346,7 @@
                                             Сумма
                                         </label>
 
-                                        <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_vehicle_death_recovery_sum') is-invalid @enderror"
+                                        <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_vehicle_death_recovery_sum') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-vehicle-death-recovery-sum"
                                                name="policies[{{$key}}][policy_casco][ec_vehicle_death_recovery_sum]"
                                                step="0.01"
@@ -358,7 +358,7 @@
                                             Страховая премия
                                         </label>
 
-                                        <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_vehicle_death_recovery_premium') is-invalid @enderror"
+                                        <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_vehicle_death_recovery_premium') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-vehicle-death-recovery-premium"
                                                name="policies[{{$key}}][policy_casco][ec_vehicle_death_recovery_premium]"
                                                step="0.01"
@@ -424,7 +424,7 @@
                                             Сумма
                                         </label>
 
-                                        <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_civil_liability_sum') is-invalid @enderror"
+                                        <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_civil_liability_sum') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-civil-liability-sum"
                                                name="policies[{{$key}}][policy_casco][ec_civil_liability_sum]"
                                                step="0.01"
@@ -436,7 +436,7 @@
                                             Страховая премия
                                         </label>
 
-                                        <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_civil_liability_premium') is-invalid @enderror"
+                                        <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_civil_liability_premium') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-civil-liability-premium"
                                                name="policies[{{$key}}][policy_casco][ec_civil_liability_premium]"
                                                step="0.01"
@@ -509,7 +509,7 @@
                                                        value="1" />
                                             </td>
                                             <td>
-                                                <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_driver_sum_for_person') is-invalid @enderror"
+                                                <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_driver_sum_for_person') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-driver-sum-for-person"
                                                        name="policies[{{$key}}][policy_casco][ec_driver_sum_for_person]"
                                                        step="0.01"
@@ -524,7 +524,7 @@
                                                        value="" />
                                             </td>
                                             <td>
-                                                <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_driver_premium') is-invalid @enderror"
+                                                <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_driver_premium') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-driver-premium"
                                                        name="policies[{{$key}}][policy_casco][ec_driver_premium]"
                                                        step="0.01"
@@ -535,7 +535,7 @@
                                         <tr>
                                             <td><label class="small">Пассажиры</label></td>
                                             <td>
-                                                <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_passenger_amount') is-invalid @enderror"
+                                                <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_passenger_amount') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-passenger-amount"
                                                        name="policies[{{$key}}][policy_casco][ec_passenger_amount]"
                                                        step="1"
@@ -543,7 +543,7 @@
                                                        value="{{old('policies.' . $key . '.policy_casco.ec_passenger_amount', $policy_model->ec_passenger_amount)}}" />
                                             </td>
                                             <td>
-                                                <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_passenger_sum_for_person') is-invalid @enderror"
+                                                <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_passenger_sum_for_person') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-passenger-sum-for-person"
                                                        name="policies[{{$key}}][policy_casco][ec_passenger_sum_for_person]"
                                                        step="0.01"
@@ -558,7 +558,7 @@
                                                        value="" />
                                             </td>
                                             <td>
-                                                <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_passenger_premium') is-invalid @enderror"
+                                                <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_passenger_premium') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-passenger-premium"
                                                        name="policies[{{$key}}][policy_casco][ec_passenger_premium]"
                                                        step="0.01"
@@ -569,7 +569,7 @@
                                         <tr>
                                             <td><label class="small">Общий Лимит</label></td>
                                             <td>
-                                                <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_general_limit_amount') is-invalid @enderror"
+                                                <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_general_limit_amount') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-general-limit-amount"
                                                        name="policies[{{$key}}][policy_casco][ec_general_limit_amount]"
                                                        step="1"
@@ -577,7 +577,7 @@
                                                        value="{{old('policies.' . $key . '.policy_casco.ec_general_limit_amount', $policy_model->ec_general_limit_amount)}}" />
                                             </td>
                                             <td>
-                                                <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_general_limit_sum_for_person') is-invalid @enderror"
+                                                <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_general_limit_sum_for_person') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-general-limit-sum-for-person"
                                                        name="policies[{{$key}}][policy_casco][ec_general_limit_sum_for_person]"
                                                        step="0.01"
@@ -592,7 +592,7 @@
                                                        value="" />
                                             </td>
                                             <td>
-                                                <input class="form-control ddgi-policy-calculate @error('policies.' . $key . '.policy_casco.ec_general_limit_premium') is-invalid @enderror"
+                                                <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_general_limit_premium') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-general-limit-premium"
                                                        name="policies[{{$key}}][policy_casco][ec_general_limit_premium]"
                                                        step="0.01"
