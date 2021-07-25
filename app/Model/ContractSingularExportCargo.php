@@ -5,7 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ContractExportCargo extends Model
+class ContractSingularExportCargo extends Model
 {
     use SoftDeletes;
 
@@ -21,7 +21,7 @@ class ContractExportCargo extends Model
      *
      * @var string
      */
-    protected $table = 'contract_export_cargos';
+    protected $table = 'contract_singular_export_cargos';
 
     /**
      * Get relation to the contracts table.

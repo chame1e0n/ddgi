@@ -19,6 +19,8 @@ class CreateTestContractsTable extends Migration
             $table->integer('borrower_id')->unsigned()->nullable();
             $table->integer('client_id')->unsigned();
             $table->integer('currency_id')->unsigned()->nullable();
+            $table->integer('customer_id')->unsigned()->nullable();
+            $table->integer('guarantor_id')->unsigned()->nullable();
             $table->integer('insured_person_id')->unsigned()->nullable();
             $table->integer('payment_method_id')->unsigned()->nullable();
             $table->integer('pledger_id')->unsigned()->nullable();
@@ -38,6 +40,8 @@ class CreateTestContractsTable extends Migration
             $table->foreign('borrower_id', 'fk_contract_borrower')->references('id')->on('borrowers');
             $table->foreign('client_id', 'fk_contract_client')->references('id')->on('clients');
             $table->foreign('currency_id', 'fk_contract_currency')->references('id')->on('currencies');
+            $table->foreign('customer_id', 'fk_contract_customer')->references('id')->on('customers');
+            $table->foreign('guarantor_id', 'fk_contract_guarantor')->references('id')->on('guarantors');
             $table->foreign('insured_person_id', 'fk_contract_insured_person')->references('id')->on('insured_persons');
             $table->foreign('payment_method_id', 'fk_contract_payment_method')->references('id')->on('payment_methods');
             $table->foreign('pledger_id', 'fk_contract_pledger')->references('id')->on('pledgers');

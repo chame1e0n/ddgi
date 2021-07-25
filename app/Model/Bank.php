@@ -65,6 +65,24 @@ class Bank extends Model
     }
 
     /**
+     * Get relation to the customers table.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
+    /**
+     * Get relation to the guarantors table.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function guarantors()
+    {
+        return $this->hasMany(Guarantor::class);
+    }
+
+    /**
      * Get relation to the pledgers table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -86,6 +104,12 @@ class Bank extends Model
         }
         foreach($this->clients as /* @var $client Client */ $client) {
             $client->delete();
+        }
+        foreach($this->customers as /* @var $customer Customer */ $customer) {
+            $customer->delete();
+        }
+        foreach($this->guarantors as /* @var $guarantor Guarantor */ $guarantor) {
+            $guarantor->delete();
         }
         foreach($this->pledgers as /* @var $pledger Pledger */ $pledger) {
             $pledger->delete();

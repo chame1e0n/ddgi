@@ -112,6 +112,24 @@ class Contract extends Model
     }
 
     /**
+     * Get relation to the customers table.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * Get relation to the guarantors table.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function guarantor()
+    {
+        return $this->belongsTo(Guarantor::class);
+    }
+
+    /**
      * Get relation to the insured_persons table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

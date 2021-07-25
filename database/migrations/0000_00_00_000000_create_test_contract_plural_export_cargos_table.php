@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestContractExportCargosTable extends Migration
+class CreateTestContractPluralExportCargosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateTestContractExportCargosTable extends Migration
      */
     public function up()
     {
-        Schema::create('contract_export_cargos', function (Blueprint $table) {
+        Schema::create('contract_plural_export_cargos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('insurance_agreement_number', 45);
-            $table->date('insurance_agreement_date');
-            $table->date('period_from');
-            $table->date('period_to');
             $table->enum('waiting_period', ['30', '180', '300']);
             $table->string('agreement_goods_list')->nullable();
             $table->enum('agreement_goods_type', ['standard', 'order']);
@@ -51,13 +47,13 @@ class CreateTestContractExportCargosTable extends Migration
             $table->tinyInteger('is_paid_to_policyholder')->unsigned()->default(0);
             $table->tinyInteger('is_an_obligation')->unsigned()->default(0);
             $table->tinyInteger('is_agree_to_provide_info')->unsigned()->default(0);
+            $table->tinyInteger('is_completed_sales')->unsigned()->default(0);
             $table->string('completed_sales_reason')->nullable();
             $table->tinyInteger('is_extended_changed')->unsigned()->default(0);
             $table->tinyInteger('is_have_info')->unsigned()->default(0);
             $table->tinyInteger('is_have_ensuring_forms')->unsigned()->default(0);
             $table->tinyInteger('is_required')->unsigned()->default(0);
             $table->tinyInteger('is_received')->unsigned()->default(0);
-            $table->tinyInteger('is_realible')->unsigned()->default(0);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
@@ -70,6 +66,6 @@ class CreateTestContractExportCargosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contract_export_cargos');
+        Schema::dropIfExists('contract_plural_export_cargos');
     }
 }
