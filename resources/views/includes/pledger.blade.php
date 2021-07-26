@@ -1,6 +1,7 @@
 <div class="card card-info" id="pledger">
     <div class="card-header">
         <h3 class="card-title">Залогодатель</h3>
+
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fas fa-minus"></i>
@@ -12,6 +13,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="pledger-fio" class="col-form-label">Наименования залогодателя</label>
+
                     <input required
                            class="form-control @error('pledger.fio') is-invalid @enderror"
                            id="pledger-fio"
@@ -23,6 +25,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="pledger-address" class="col-form-label">Адрес залогодателя</label>
+
                     <input required
                            class="form-control @error('pledger.address') is-invalid @enderror"
                            id="pledger-address"
@@ -34,6 +37,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="pledger-phone" class="col-form-label">Телефон</label>
+
                     <input required
                            class="form-control @error('pledger.phone') is-invalid @enderror"
                            id="pledger-phone"
@@ -45,6 +49,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="pledger-bank-account" class="col-form-label">Расчетный счет</label>
+
                     <input required
                            class="form-control @error('pledger.bank_account') is-invalid @enderror"
                            id="pledger-bank-account"
@@ -56,6 +61,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="pledger-inn" class="col-form-label">ИНН</label>
+
                     <input required
                            class="form-control @error('pledger.inn') is-invalid @enderror"
                            id="pledger-inn"
@@ -68,6 +74,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="pledger-mfo" class="col-form-label">МФО</label>
+
                     <input required
                            class="form-control @error('pledger.mfo') is-invalid @enderror"
                            id="pledger-mfo"
@@ -79,6 +86,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="pledger-bank-id" class="col-form-label">Банк</label>
+
                     <select required
                             class="form-control @error('pledger.bank_id') is-invalid @enderror"
                             id="pledger-bank-id"
@@ -98,6 +106,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="pledger-oked" class="col-form-label">ОКЭД</label>
+
                     <input class="form-control @error('pledger.oked') is-invalid @enderror"
                            id="pledger-oked"
                            name="pledger[oked]"

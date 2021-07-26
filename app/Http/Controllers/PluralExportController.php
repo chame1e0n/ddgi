@@ -8,7 +8,12 @@ use App\AllProductsTermsTransh;
 use App\Buyer;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractPluralExportCargo;
+use App\Model\Customer;
 use App\Model\Employee;
+use App\Model\Guarantor;
+use App\Model\Policy;
+use App\Model\Specification;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
@@ -16,30 +21,45 @@ use App\Poruchitel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ExportController extends Controller
+class PluralExportController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
-        $client = new Client();
+        $old_data = old();
+
+        $specification = Specification::where('key', '=', 'S_CIG')->get()->first();
+
         $contract = new Contract();
 
-        return view('export-gruz.export', compact('agents', 'client', 'contract'));
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+
+        return view('plural-export-gruz.form', [
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_plural_export_cargo' => new ContractPluralExportCargo(),
+            'customer' => new Customer(),
+            'guarantor' => new Guarantor(),
+            'policy' => new Policy(),
+        ]);
     }
 
     /**

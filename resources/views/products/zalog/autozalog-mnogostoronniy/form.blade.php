@@ -39,7 +39,7 @@
 
                     @include('includes.pledger')
 
-                    <div class="card card-info" id="contract_multilateral_car_deposit">
+                    <div class="card card-info" id="contract-multilateral-car-deposit">
                         <div class="card-header">
                             <h3 class="card-title">Дополнительные поля контракта</h3>
                             <div class="card-tools">

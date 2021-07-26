@@ -152,8 +152,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('kasco', 'Product\KaskoController');
     Route::resource('zalog_autozalog3x', 'Product\AutoZalog3xController');
     Route::resource('zalog_tehnika', 'Product\ZalogTehnikaController');
+    Route::resource('plural_export', 'PluralExportController');
+    Route::resource('singular_export', 'SingularExportController');
 
-    Route::resource('export', 'ExportController');
     Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
     Route::resource('zalog/ipoteka', 'Product\ZalogIpotekaController')->names('zalog-ipoteka');
     Route::resource('imushestvo-lizing-zalog', 'PropertyLisingZalog');

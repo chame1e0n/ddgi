@@ -39,9 +39,10 @@
 
                     @include('includes.pledger')
 
-                    <div class="card card-info" id="contract_autoleasing">
+                    <div class="card card-info" id="contract-special-equipment-pledge">
                         <div class="card-header">
                             <h3 class="card-title">Дополнительные поля контракта</h3>
+
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>

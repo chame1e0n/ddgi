@@ -37,7 +37,7 @@
 
                     @include('includes.beneficiary')
 
-                    <div class="card card-info" id="contract_sportsman">
+                    <div class="card card-info" id="contract-sportsman">
                         <div class="card-header">
                             <h3 class="card-title">Дополнительные поля контракта</h3>
                             <div class="card-tools">
