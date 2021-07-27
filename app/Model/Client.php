@@ -24,7 +24,6 @@ class Client extends Model
         'client.mfo' => 'required',
     ];
 
-
     /**
      * The attributes that are not mass assignable.
      *

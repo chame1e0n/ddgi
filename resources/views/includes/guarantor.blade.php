@@ -66,7 +66,8 @@
                            class="form-control @error('guarantor.inn') is-invalid @enderror"
                            id="guarantor-inn"
                            name="guarantor[inn]"
-                           type="text"
+                           step="1"
+                           type="number"
                            value="{{old('guarantor.inn', $guarantor->inn)}}" />
                 </div>
             </div>

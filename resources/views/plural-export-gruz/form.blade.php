@@ -168,7 +168,7 @@
                                         <input class="form-control @error('contract_plural_export_cargo.summary_date') is-invalid @enderror"
                                                id="contract-plural-export-cargo-summary-date"
                                                name="contract_plural_export_cargo[summary_date]"
-                                               type="text"
+                                               type="date"
                                                value="{{old('contract_plural_export_cargo.summary_date', $contract_plural_export_cargo->summary_date)}}" />
                                     </div>
                                 </div>
@@ -375,7 +375,7 @@
                                         <input multiple
                                                class="form-control @error('files.invoice') is-invalid @enderror"
                                                id="files-invoice"
-                                               name="files[invoice]"
+                                               name="files[invoice][]"
                                                type="file" />
                                     </div>
                                 </div>
@@ -392,7 +392,7 @@
                                         <input multiple
                                                class="form-control @error('files.bank_statement') is-invalid @enderror"
                                                id="files-bank-statement"
-                                               name="files[bank_statement]"
+                                               name="files[bank_statement][]"
                                                type="file" />
                                     </div>
                                 </div>
@@ -409,7 +409,7 @@
                                         <input multiple
                                                class="form-control @error('files.payment_document') is-invalid @enderror"
                                                id="files-payment-document"
-                                               name="files[payment_document]"
+                                               name="files[payment_document][]"
                                                type="file" />
                                     </div>
                                 </div>
@@ -426,7 +426,7 @@
                                         <input multiple
                                                class="form-control @error('files.payment_request_document') is-invalid @enderror"
                                                id="files-payment-request-document"
-                                               name="files[payment_request_document]"
+                                               name="files[payment_request_document][]"
                                                type="file" />
                                     </div>
                                 </div>
@@ -443,7 +443,7 @@
                                         <input multiple
                                                class="form-control @error('files.correspondence') is-invalid @enderror"
                                                id="files-correspondence"
-                                               name="files[correspondence]"
+                                               name="files[correspondence][]"
                                                type="file" />
                                     </div>
                                 </div>
@@ -460,7 +460,7 @@
                                         <input multiple
                                                class="form-control @error('files.sales_ledger') is-invalid @enderror"
                                                id="files-sales-ledger"
-                                               name="files[sales_ledger]"
+                                               name="files[sales_ledger][]"
                                                type="file" />
                                     </div>
                                 </div>
@@ -477,7 +477,7 @@
                                         <input multiple
                                                class="form-control @error('files.unpaid_invoice') is-invalid @enderror"
                                                id="files-unpaid-invoice"
-                                               name="files[unpaid_invoice]"
+                                               name="files[unpaid_invoice][]"
                                                type="file" />
                                     </div>
                                 </div>
@@ -494,7 +494,7 @@
                                         <input multiple
                                                class="form-control @error('files.warranty_document') is-invalid @enderror"
                                                id="files-warranty-document"
-                                               name="files[warranty_document]"
+                                               name="files[warranty_document][]"
                                                type="file" />
                                     </div>
                                 </div>
@@ -511,7 +511,7 @@
                                         <input multiple
                                                class="form-control @error('files.another_loss_document') is-invalid @enderror"
                                                id="files-another-loss-document"
-                                               name="files[another_loss_document]"
+                                               name="files[another_loss_document][]"
                                                type="file" />
                                     </div>
                                 </div>

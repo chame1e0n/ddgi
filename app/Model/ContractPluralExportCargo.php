@@ -37,6 +37,19 @@ class ContractPluralExportCargo extends Model
     ];
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_plural_export_cargo.waiting_period' => 'required',
+        'contract_plural_export_cargo.agreement_goods_type' => 'required',
+        'contract_plural_export_cargo.insurance_country' => 'required',
+        'contract_plural_export_cargo.shipping_date' => 'required',
+        'contract_plural_export_cargo.shipped_goods_value' => 'required',
+    ];
+
+    /**
      * Waiting period names.
      * 
      * @var array
@@ -46,6 +59,13 @@ class ContractPluralExportCargo extends Model
         self::WAITING_PERIOD_100 => '100 дней',
         self::WAITING_PERIOD_180 => '180 дней',
     ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     /**
      * Name of the table for the model.
@@ -81,5 +101,17 @@ class ContractPluralExportCargo extends Model
     public function getFiles($type = 'document')
     {
         return $this->files()->where('type' , '=', $type)->get();
+    }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->files as /* @var $file File */ $file) {
+            $file->delete();
+        }
+
+        return parent::delete();
     }
 }
