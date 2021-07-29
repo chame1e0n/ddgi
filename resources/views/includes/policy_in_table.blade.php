@@ -97,7 +97,7 @@
                value="{{old('policies.' . $key . '.franchise', $policy->franchise)}}" />
     </td>
     <td>
-        @include('includes.modals.' . \Illuminate\Support\Str::snake(lcfirst(basename(get_class($policy_model)))))
+        @include('includes.modals.' . \Illuminate\Support\Str::snake(lcfirst((new \ReflectionClass($policy_model))->getShortName())))
 
         <button class="btn btn-success"
                 data-target="#policy-modal-{{$key}}"
