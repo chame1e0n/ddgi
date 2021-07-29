@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTestContractMultilateralPropertyPledgesTable extends Migration
+class CreateTestContractGeneralPropertyPledgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTestContractMultilateralPropertyPledgesTable extends Migration
      */
     public function up()
     {
-        Schema::create('contract_multilateral_property_pledges', function (Blueprint $table) {
+        Schema::create('contract_general_property_pledges', function (Blueprint $table) {
             $table->increments('id');
             $table->string('between_agreement_number', 45);
             $table->date('between_agreement_date');
@@ -35,6 +35,6 @@ class CreateTestContractMultilateralPropertyPledgesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contract_multilateral_property_pledges');
+        Schema::dropIfExists('contract_general_property_pledges');
     }
 }
