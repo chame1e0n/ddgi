@@ -154,13 +154,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('zalog_tehnika', 'Product\ZalogTehnikaController');
     Route::resource('plural_export', 'PluralExportController');
     Route::resource('singular_export', 'SingularExportController');
+    Route::resource('multilateral_zalog_imushestvo','Product\MultilateralZalogImushestvoController');
+    Route::resource('general_zalog_imushestvo','Product\GeneralZalogImushestvoController');
+    Route::resource('zalog_imushestvo3x', 'Product\ZalogImushestvo3xController');
 
-    Route::resource('zalog-imushestvo','Product\ZalogImushestvoController')->names('zalog-imushestvo');
     Route::resource('zalog/ipoteka', 'Product\ZalogIpotekaController')->names('zalog-ipoteka');
     Route::resource('imushestvo-lizing-zalog', 'PropertyLisingZalog');
     Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');
     Route::resource('cmp','Product\CmpController');
-    Route::resource('zalog/imushestvo3x', 'Product\ZalogImushestvo3xController')->names('zalog-imushestvo3x');
     Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');
     Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('broker', 'BrokerController');

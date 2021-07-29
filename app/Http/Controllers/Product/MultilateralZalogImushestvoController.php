@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ZalogTehnikaRequest;
-use App\Model\Beneficiary;
+use App\Http\Requests\ZalogImushestvoRequest;
 use App\Model\Client;
+use App\Model\Beneficiary;
 use App\Model\Contract;
-use App\Model\ContractSpecialEquipmentPledge;
-use App\Model\Pledger;
+use App\Model\ContractMultilateralPropertyPledge;
+use App\Model\Employee;
 use App\Model\Policy;
 use App\Model\Property;
 use App\Model\Specification;
 use App\Model\Tranche;
-use App\Models\Allproduct;
-use App\Models\AllProductImushestvoInfo;
-use App\Models\AllProductsTermsTranshes;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
-use App\Models\Zalogodatel;
+use App\Models\Product\ZalogImushestvo;
+use App\Models\Product\ZalogImushestvoInfo;
+use App\Models\Product\ZalogImushestvoStrahPremiya;
 use App\Models\Spravochniki\Agent;
 use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ZalogTehnikaController extends Controller
+class MultilateralZalogImushestvoController extends Controller
 {
     /**
      * Display a list of all contracts.
@@ -46,10 +45,10 @@ class ZalogTehnikaController extends Controller
     {
         $old_data = old();
 
-        $specification = Specification::where('key', '=', 'S_IOSEPUAAP')->get()->first();
+        $specification = Specification::where('key', '=', 'S_PPIM')->get()->first();
 
         $contract = new Contract();
-        $contract_special_equipment_pledge = new ContractSpecialEquipmentPledge();
+        $contract_multilateral_property_pledge = new ContractMultilateralPropertyPledge();
 
         if ($specification) {
             $contract->specification_id = $specification->id;
@@ -57,17 +56,16 @@ class ZalogTehnikaController extends Controller
         }
         if (isset($old_data['properties'])) {
             foreach ($old_data['properties'] as $item) {
-                $contract_special_equipment_pledge->properties[] = new Property();
+                $contract_multilateral_property_pledge->properties[] = new Property();
             }
         }
 
-        return view('products.zalog.tehnika.form', [
+        return view('products.zalog.imushestvo.form', [
             'beneficiary' => new Beneficiary(),
             'block' => false,
             'client' => new Client(),
             'contract' => $contract,
-            'contract_special_equipment_pledge' => $contract_special_equipment_pledge,
-            'pledger' => new Pledger(),
+            'contract_multilateral_property_pledge' => $contract_multilateral_property_pledge,
             'policy' => new Policy(),
         ]);
     }
@@ -84,8 +82,7 @@ class ZalogTehnikaController extends Controller
             Beneficiary::$validate,
             Client::$validate,
             Contract::$validate,
-            ContractSpecialEquipmentPledge::$validate,
-            Pledger::$validate,
+            ContractMultilateralPropertyPledge::$validate,
             [
                 'policy.name' => 'required',
                 'policy.series' => 'required',
@@ -94,11 +91,6 @@ class ZalogTehnikaController extends Controller
                 'policy.polis_to_date' => 'required',
                 'policy.insurance_sum' => 'required',
                 'policy.franchise' => 'required',
-
-                'properties.*.name' => 'required',
-                'properties.*.location' => 'required',
-                'properties.*.insurance_value' => 'required',
-                'properties.*.insurance_sum' => 'required',
             ]
         ));
 
@@ -121,17 +113,15 @@ class ZalogTehnikaController extends Controller
 
         $beneficiary = Beneficiary::create($request['beneficiary']);
         $client = Client::create($request['client']);
-        $pledger = Pledger::create($request['pledger']);
-        $contract_special_equipment_pledge = ContractSpecialEquipmentPledge::create($request['contract_special_equipment_pledge']);
+        $contract_multilateral_property_pledge = ContractMultilateralPropertyPledge::create($request['contract_multilateral_property_pledge']);
 
         $contract_data = $request['contract'];
         $contract_data['beneficiary_id'] = $beneficiary->id;
         $contract_data['client_id'] = $client->id;
-        $contract_data['pledger_id'] = $pledger->id;
         $contract_data['number'] = '';
         $contract_data['status'] = 'concluded';
-        $contract_data['model_type'] = ContractSpecialEquipmentPledge::class;
-        $contract_data['model_id'] = $contract_special_equipment_pledge->id;
+        $contract_data['model_type'] = ContractMultilateralPropertyPledge::class;
+        $contract_data['model_id'] = $contract_multilateral_property_pledge->id;
 
         $contract = Contract::create($contract_data);
 
@@ -141,24 +131,35 @@ class ZalogTehnikaController extends Controller
         $policy->save();
 
         if ($request['properties']) {
-            $contract_special_equipment_pledge->properties()->createMany($request['properties']);
+            $contract_multilateral_property_pledge->properties()->createMany($request['properties']);
         }
 
         if ($request['tranches']) {
             $contract->tranches()->createMany($request['tranches']);
         }
 
+        $contract_multilateral_property_pledge_file_types = [
+            ContractMultilateralPropertyPledge::FILE_OTHER_DOCUMENT,
+            ContractMultilateralPropertyPledge::FILE_PASSPORT,
+            ContractMultilateralPropertyPledge::FILE_REFERENCE,
+            ContractMultilateralPropertyPledge::FILE_TREATY,
+        ];
+
         $contract_files = [];
-        $contract_special_equipment_pledge_files = [];
+        $contract_multilateral_property_pledge_files = [];
         if (isset($request['files'])) {
-            foreach($request['files'] as $type => $file) {
-                if (in_array($type, [ContractSpecialEquipmentPledge::FILE_FIRE_CERTIFICATE, ContractSpecialEquipmentPledge::FILE_SECURITY_CERTIFICATE])) {
-                    $contract_special_equipment_pledge_files[] = [
-                        'type' => $type,
-                        'original_name' => $file->getClientOriginalName(),
-                        'path' => Storage::putFile('public/contract_special_equipment_pledge', $file),
-                    ];
+            foreach($request['files'] as $type => $file_collection) {
+                if (in_array($type, $contract_multilateral_property_pledge_file_types)) {
+                    foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                        $contract_multilateral_property_pledge_files[] = [
+                            'type' => $type,
+                            'original_name' => $file_item->getClientOriginalName(),
+                            'path' => Storage::putFile('public/contract_multilateral_property_pledge', $file_item),
+                        ];
+                    }
                 } else {
+                    $file = $file_collection;
+
                     $contract_files[] = [
                         'type' => $type,
                         'original_name' => $file->getClientOriginalName(),
@@ -169,7 +170,7 @@ class ZalogTehnikaController extends Controller
         }
 
         $contract->files()->createMany($contract_files);
-        $contract_special_equipment_pledge->files()->createMany($contract_special_equipment_pledge_files);
+        $contract_multilateral_property_pledge->files()->createMany($contract_multilateral_property_pledge_files);
 
         $contract->generateNumber();
 
@@ -180,20 +181,19 @@ class ZalogTehnikaController extends Controller
     /**
      * Display an existing contract.
      *
-     * @param  \App\Model\Contract $zalog_tehnika
+     * @param  \App\Model\Contract $multilateral_zalog_imushestvo
      * @return \Illuminate\Http\Response
      */
-    public function show(Contract $zalog_tehnika)
+    public function show(Contract $multilateral_zalog_imushestvo)
     {
-        $contract = $zalog_tehnika;
+        $contract = $multilateral_zalog_imushestvo;
 
-        return view('products.zalog.tehnika.form', [
+        return view('products.zalog.imushestvo.form', [
             'beneficiary' => $contract->beneficiary,
             'block' => true,
             'client' => $contract->client,
             'contract' => $contract,
-            'contract_special_equipment_pledge' => $contract->contract_model,
-            'pledger' => $contract->pledger,
+            'contract_multilateral_property_pledge' => $contract->contract_model,
             'policy' => $contract->policies->first(),
         ]);
     }
@@ -201,20 +201,19 @@ class ZalogTehnikaController extends Controller
     /**
      * Show a form to edit existing contract.
      *
-     * @param  \App\Model\Contract $zalog_tehnika
+     * @param  \App\Model\Contract $multilateral_zalog_imushestvo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contract $zalog_tehnika)
+    public function edit(Contract $multilateral_zalog_imushestvo)
     {
-        $contract = $zalog_tehnika;
+        $contract = $multilateral_zalog_imushestvo;
 
-        return view('products.zalog.tehnika.form', [
+        return view('products.zalog.imushestvo.form', [
             'beneficiary' => $contract->beneficiary,
             'block' => false,
             'client' => $contract->client,
             'contract' => $contract,
-            'contract_special_equipment_pledge' => $contract->contract_model,
-            'pledger' => $contract->pledger,
+            'contract_multilateral_property_pledge' => $contract->contract_model,
             'policy' => $contract->policies->first(),
         ]);
     }
@@ -223,17 +222,16 @@ class ZalogTehnikaController extends Controller
      * Update an existing contract.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Model\Contract      $zalog_tehnika
+     * @param  \App\Model\Contract      $multilateral_zalog_imushestvo
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Contract $zalog_tehnika)
+    public function update(Request $request, Contract $multilateral_zalog_imushestvo)
     {
         $request->validate(array_merge(
             Beneficiary::$validate,
             Client::$validate,
             Contract::$validate,
-            ContractSpecialEquipmentPledge::$validate,
-            Pledger::$validate,
+            ContractMultilateralPropertyPledge::$validate,
             [
                 'policy.name' => 'required',
                 'policy.series' => 'required',
@@ -242,15 +240,10 @@ class ZalogTehnikaController extends Controller
                 'policy.polis_to_date' => 'required',
                 'policy.insurance_sum' => 'required',
                 'policy.franchise' => 'required',
-
-                'properties.*.name' => 'required',
-                'properties.*.location' => 'required',
-                'properties.*.insurance_value' => 'required',
-                'properties.*.insurance_sum' => 'required',
             ]
         ));
 
-        $contract = $zalog_tehnika;
+        $contract = $multilateral_zalog_imushestvo;
 
         $beneficiary = $contract->beneficiary;
         $beneficiary->fill($request['beneficiary']);
@@ -260,13 +253,9 @@ class ZalogTehnikaController extends Controller
         $client->fill($request['client']);
         $client->save();
 
-        $pledger = $contract->pledger;
-        $pledger->fill($request['pledger']);
-        $pledger->save();
-
-        $contract_special_equipment_pledge = $contract->contract_model;
-        $contract_special_equipment_pledge->fill($request['contract_special_equipment_pledge']);
-        $contract_special_equipment_pledge->save();
+        $contract_multilateral_property_pledge = $contract->contract_model;
+        $contract_multilateral_property_pledge->fill($request['contract_multilateral_property_pledge']);
+        $contract_multilateral_property_pledge->save();
 
         $contract->fill($request['contract']);
         $contract->save();
@@ -279,8 +268,8 @@ class ZalogTehnikaController extends Controller
             $properties_ids = [];
 
             foreach($request['properties'] as $property_data) {
-                $property = Property::where('model_type', '=', ContractSpecialEquipmentPledge::class)
-                                    ->where('model_id', '=', $contract_special_equipment_pledge->id)
+                $property = Property::where('model_type', '=', ContractMultilateralPropertyPledge::class)
+                                    ->where('model_id', '=', $contract_multilateral_property_pledge->id)
                                     ->where('name', '=', $property_data['name'])
                                     ->where('location', '=', $property_data['location'])
                                     ->get()
@@ -290,8 +279,8 @@ class ZalogTehnikaController extends Controller
                     $property->fill($property_data);
                     $property->save();
                 } else {
-                    $property_data['model_type'] = ContractSpecialEquipmentPledge::class;
-                    $property_data['model_id'] = $contract_special_equipment_pledge->id;
+                    $property_data['model_type'] = ContractMultilateralPropertyPledge::class;
+                    $property_data['model_id'] = $contract_multilateral_property_pledge->id;
 
                     $property = Property::create($property_data);
                 }
@@ -299,8 +288,8 @@ class ZalogTehnikaController extends Controller
                 $properties_ids[] = $property->id;
             }
 
-            $properties = Property::where('model_type', '=', ContractSpecialEquipmentPledge::class)
-                                  ->where('model_id', '=', $contract_special_equipment_pledge->id)
+            $properties = Property::where('model_type', '=', ContractMultilateralPropertyPledge::class)
+                                  ->where('model_id', '=', $contract_multilateral_property_pledge->id)
                                   ->whereNotIn('id', $properties_ids)
                                   ->get();
             foreach($properties as /* @var $property Property */ $property) {
@@ -334,21 +323,32 @@ class ZalogTehnikaController extends Controller
                    ->delete();
         }
 
-        $contract_files = [];
-        $contract_special_equipment_pledge_files = [];
-        if (isset($request['files'])) {
-            foreach($request['files'] as $type => $file) {
-                if (in_array($type, [ContractSpecialEquipmentPledge::FILE_FIRE_CERTIFICATE, ContractSpecialEquipmentPledge::FILE_SECURITY_CERTIFICATE])) {
-                    if ($old_file = $contract_special_equipment_pledge->getFile($type)) {
-                        $old_file->delete();
-                    }
+        $contract_multilateral_property_pledge_file_types = [
+            ContractMultilateralPropertyPledge::FILE_OTHER_DOCUMENT,
+            ContractMultilateralPropertyPledge::FILE_PASSPORT,
+            ContractMultilateralPropertyPledge::FILE_REFERENCE,
+            ContractMultilateralPropertyPledge::FILE_TREATY,
+        ];
 
-                    $contract_special_equipment_pledge_files[] = [
-                        'type' => $type,
-                        'original_name' => $file->getClientOriginalName(),
-                        'path' => Storage::putFile('public/contract_special_equipment_pledge', $file),
-                    ];
+        $contract_files = [];
+        $contract_multilateral_property_pledge_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file_collection) {
+                if (in_array($type, $contract_multilateral_property_pledge_file_types)) {
+                    foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                        foreach($contract_multilateral_property_pledge->getFiles($type) as $old_file) {
+                            $old_file->delete();
+                        }
+
+                        $contract_multilateral_property_pledge_files[] = [
+                            'type' => $type,
+                            'original_name' => $file_item->getClientOriginalName(),
+                            'path' => Storage::putFile('public/contract_multilateral_property_pledge', $file_item),
+                        ];
+                    }
                 } else {
+                    $file = $file_collection;
+
                     if ($old_file = $contract->getFile($type)) {
                         $old_file->delete();
                     }
@@ -363,7 +363,7 @@ class ZalogTehnikaController extends Controller
         }
 
         $contract->files()->createMany($contract_files);
-        $contract_special_equipment_pledge->files()->createMany($contract_special_equipment_pledge_files);
+        $contract_multilateral_property_pledge->files()->createMany($contract_multilateral_property_pledge_files);
 
         return redirect()->route('contracts.index')
                          ->with('success', 'Успешно произведено изменение контракта');
@@ -372,13 +372,13 @@ class ZalogTehnikaController extends Controller
     /**
      * Destroy an existing contract.
      *
-     * @param  \App\Model\Contract $zalog_tehnika
+     * @param  \App\Model\Contract $multilateral_zalog_imushestvo
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Contract $zalog_tehnika)
+    public function destroy(Contract $multilateral_zalog_imushestvo)
     {
-        $contract = $zalog_tehnika;
+        $contract = $multilateral_zalog_imushestvo;
 
         if ($policies = $contract->policies) {
             foreach($policies as /* @var $policy Policy */ $policy) {
