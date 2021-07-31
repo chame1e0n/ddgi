@@ -33,6 +33,7 @@ class Property extends Model
 
     /**
      * Get relation to the tables, containing the property:
+     *  contract_general_property_pledges.
      *  contract_mortgages
      *  contract_multilateral_property_pledges
      *  contract_property_leasings

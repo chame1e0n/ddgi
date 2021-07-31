@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
-    <form action="{{ route('imushestvo-lizing-zalog.store') }}" method="POST" id="mainFormKasko">
+    <form action="{{ route('imushestvo_lizing_zalog.store') }}" method="POST" id="mainFormKasko">
         @csrf
         <div class="content-wrapper">
             <div class="content-header">
