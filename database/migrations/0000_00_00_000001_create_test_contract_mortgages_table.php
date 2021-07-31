@@ -15,20 +15,14 @@ class CreateTestContractMortgagesTable extends Migration
     {
         Schema::create('contract_mortgages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('agreement_number', 45);
-            $table->date('agreement_date');
             $table->string('between_agreement_number', 45);
             $table->date('between_agreement_date');
-            $table->date('period_from');
-            $table->date('period_to');
             $table->string('evaluation_basis', 45);
-            $table->string('geo_zone', 45);
-            $table->string('property_name', 45);
-            $table->string('fire_certificate_path')->nullable();
-            $table->string('security_certificate_path')->nullable();
-            $table->float('franchise_earthquake_fire_percent', 6, 3)->nullable();
-            $table->float('franchise_illegal_action_percent', 6, 3)->nullable();
-            $table->float('franchise_other_risks_percent', 6, 3)->nullable();
+            $table->string('fire_certificate')->nullable();
+            $table->string('security_certificate')->nullable();
+            $table->float('franchise_earthquake_fire_percent', 6, 3)->unsigned();
+            $table->float('franchise_illegal_action_percent', 6, 3)->unsigned();
+            $table->float('franchise_other_risks_percent', 6, 3)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
