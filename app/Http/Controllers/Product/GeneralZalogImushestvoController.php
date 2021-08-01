@@ -91,6 +91,11 @@ class GeneralZalogImushestvoController extends Controller
                 'policy.polis_to_date' => 'required',
                 'policy.insurance_sum' => 'required',
                 'policy.franchise' => 'required',
+
+                'properties.*.name' => 'required',
+                'properties.*.location' => 'required',
+                'properties.*.insurance_value' => 'required',
+                'properties.*.insurance_sum' => 'required',
             ]
         ));
 
@@ -240,6 +245,11 @@ class GeneralZalogImushestvoController extends Controller
                 'policy.polis_to_date' => 'required',
                 'policy.insurance_sum' => 'required',
                 'policy.franchise' => 'required',
+
+                'properties.*.name' => 'required',
+                'properties.*.location' => 'required',
+                'properties.*.insurance_value' => 'required',
+                'properties.*.insurance_sum' => 'required',
             ]
         ));
 

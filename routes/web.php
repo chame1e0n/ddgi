@@ -159,7 +159,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('zalog_imushestvo3x', 'Product\ZalogImushestvo3xController');
     Route::resource('zalog_ipoteka', 'Product\ZalogIpotekaController');
     Route::resource('imushestvo_lizing_zalog', 'PropertyLisingZalog');
-    Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');
+/**/Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');
 
     Route::resource('cmp','Product\CmpController');
     Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController')->names('tamozhnya-add-legal');

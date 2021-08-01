@@ -88,6 +88,9 @@ class ContractGeneralPropertyPledge extends Model
         foreach($this->files as /* @var $file File */ $file) {
             $file->delete();
         }
+        foreach($this->properties as /* @var $property Property */ $property) {
+            $property->delete();
+        }
 
         return parent::delete();
     }

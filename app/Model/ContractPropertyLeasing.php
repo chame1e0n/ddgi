@@ -10,6 +10,18 @@ class ContractPropertyLeasing extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_property_leasing.geo_zone' => 'required',
+        'contract_property_leasing.franchise_earthquake_fire_percent' => 'required',
+        'contract_property_leasing.franchise_illegal_action_percent' => 'required',
+        'contract_property_leasing.franchise_other_risks_percent' => 'required',
+    ];
+
+    /**
      * Name of the columns which should not be fillable.
      *
      * @var array
@@ -39,5 +51,17 @@ class ContractPropertyLeasing extends Model
     public function properties()
     {
         return $this->morphMany(Property::class, 'model');
+    }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->properties as /* @var $property Property */ $property) {
+            $property->delete();
+        }
+
+        return parent::delete();
     }
 }
