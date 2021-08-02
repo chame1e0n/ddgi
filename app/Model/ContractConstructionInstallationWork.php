@@ -9,6 +9,8 @@ class ContractConstructionInstallationWork extends Model
 {
     use SoftDeletes;
 
+    public const FILE_DOCUMENT = 'document';
+
     public const LOCATION_SPECIFICITY_BRIDGES_OVERPASSES = 'bridges_overpasses';
     public const LOCATION_SPECIFICITY_CAR_PARKS = 'car_parks';
     public const LOCATION_SPECIFICITY_DAMS_EMBANKMENTS = 'dams_embankments';
@@ -28,17 +30,49 @@ class ContractConstructionInstallationWork extends Model
     public const SECURITY_SCHEDULE_FULLTIME = 'fulltime';
 
     /**
+     * Location specificity names.
+     * 
+     * @var array
+     */
+    public static $location_specificities = [
+        self::LOCATION_SPECIFICITY_BRIDGES_OVERPASSES => 'Мосты, путепроводы',
+        self::LOCATION_SPECIFICITY_CAR_PARKS => 'Автопарковки',
+        self::LOCATION_SPECIFICITY_DAMS_EMBANKMENTS => 'Дамбы, набережные',
+        self::LOCATION_SPECIFICITY_LAND_LINES => 'Наземные линии',
+        self::LOCATION_SPECIFICITY_LAND_PATHS => 'Наземные пути',
+        self::LOCATION_SPECIFICITY_MOTORWAYS => 'Автомагистрали',
+        self::LOCATION_SPECIFICITY_PIPELINES => 'Трубопроводы',
+        self::LOCATION_SPECIFICITY_POWER_LINES => 'ЛЭП',
+        self::LOCATION_SPECIFICITY_RAILWAYS => 'Железные дороги',
+        self::LOCATION_SPECIFICITY_UNDERGROUND_CABLES => 'Подземные кабели',
+        self::LOCATION_SPECIFICITY_UNDERGROUND_LINES => 'Подземные линии',
+        self::LOCATION_SPECIFICITY_WATERWAYS => 'Водные пути',
+    ];
+
+    /**
+     * Security schedule names.
+     * 
+     * @var array
+     */
+    public static $security_schedules = [
+        self::SECURITY_SCHEDULE_AT_DAY => 'днем',
+        self::SECURITY_SCHEDULE_AT_NIGHT => 'ночью',
+        self::SECURITY_SCHEDULE_AT_WEEKEND => 'выходные дни',
+        self::SECURITY_SCHEDULE_FULLTIME => 'круглосуточно',
+    ];
+
+    /**
      * Validation rules for the form fields.
      *
      * @var array
      */
     public static $validate = [
-        'contract_construction_installation_work.object' => 'object',
-        'contract_construction_installation_work.location' => 'location',
-        'contract_construction_installation_work.location' => 'description',
-        'contract_construction_installation_work.location' => 'injures',
-        'contract_construction_installation_work.location' => 'material_damage',
-        'contract_construction_installation_work.location' => 'location_specificity',
+        'contract_construction_installation_work.object' => 'required',
+        'contract_construction_installation_work.location' => 'required',
+        'contract_construction_installation_work.description' => 'required',
+        'contract_construction_installation_work.injures' => 'required',
+        'contract_construction_installation_work.material_damage' => 'required',
+        'contract_construction_installation_work.location_specificity' => 'required',
     ];
 
     /**

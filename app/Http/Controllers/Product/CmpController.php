@@ -6,8 +6,12 @@ use App\AllProduct;
 use App\Http\Controllers\Controller;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractConstructionInstallationWork;
+use App\Model\ConstructionParticipant;
+use App\Model\Specification;
 use App\Models\Dogovor;
 use App\Models\Policy;
+use App\Model\PolicyConstructionInstallationWork;
 use App\Models\PolicyHolder;
 use App\Models\Product\Cmp;
 use App\Models\Spravochniki\Agent;
@@ -19,33 +23,50 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
-/**
- * Class CmpController
- * @package App\Http\Controllers\Product
- */
 class CmpController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-//        return view('products.about-tamojenniy-sklad.create');
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $client = new Client();
-        $contract = new Contract();
+        $old_data = old();
 
-        return view('products.cmp.create', compact('client', 'contract'));
+        $specification = Specification::where('key', '=', 'S_IOCAAR')->get()->first();
+
+        $contract = new Contract();
+        $contract_construction_installation_work = new ContractConstructionInstallationWork();
+
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+        if (isset($old_data['construction_participants'])) {
+            foreach ($old_data['construction_participants'] as $item) {
+                $contract_construction_installation_work->construction_participants[] = new ConstructionParticipant();
+            }
+        }
+$contract_construction_installation_work->location_specificity = [];
+        return view('products.cmp.form', [
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_construction_installation_work' => $contract_construction_installation_work,
+            'policy' => new Policy(),
+            'policy_construction_installation_work' => new PolicyConstructionInstallationWork(),
+        ]);
     }
 
     /**

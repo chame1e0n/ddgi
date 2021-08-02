@@ -46,7 +46,7 @@ class PropertyLisingZalog extends Controller
         }
         if (isset($old_data['properties'])) {
             foreach ($old_data['properties'] as $item) {
-                $contract_mortgage->properties[] = new Property();
+                $contract_property_leasing->properties[] = new Property();
             }
         }
 

@@ -336,7 +336,11 @@
                 document.getElementById(other).value = '';
             }
             if (!element.checked) {
-                document.getElementById(element.id.replace('-switch', '')).value = '';
+                let textbox = document.getElementById(element.id.replace('-switch', ''));
+
+                if (textbox) {
+                    textbox.value = '';
+                }
             }
         }
     }
