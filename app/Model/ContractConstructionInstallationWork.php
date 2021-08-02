@@ -28,6 +28,27 @@ class ContractConstructionInstallationWork extends Model
     public const SECURITY_SCHEDULE_FULLTIME = 'fulltime';
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_construction_installation_work.object' => 'object',
+        'contract_construction_installation_work.location' => 'location',
+        'contract_construction_installation_work.location' => 'description',
+        'contract_construction_installation_work.location' => 'injures',
+        'contract_construction_installation_work.location' => 'material_damage',
+        'contract_construction_installation_work.location' => 'location_specificity',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string
@@ -41,5 +62,49 @@ class ContractConstructionInstallationWork extends Model
     public function contract()
     {
         return $this->morphOne(Contract::class, 'model');
+    }
+
+    /**
+     * Get relation to the construction_participants table.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function construction_participants()
+    {
+        return $this->hasMany(ConstructionParticipant::class);
+    }
+
+    /**
+     * Get relation to the files table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'model');
+    }
+
+    /**
+     * Get construction installation work contract's files of the specified type.
+     * 
+     * @param string $type Type
+     * @return File
+     */
+    public function getFiles($type = 'document')
+    {
+        return $this->files()->where('type' , '=', $type)->get();
+    }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->construction_participants as /* @var $construction_participant ConstructionParticipant */ $construction_participant) {
+            $construction_participant->delete();
+        }
+        foreach($this->files as /* @var $file File */ $file) {
+            $file->delete();
+        }
+
+        return parent::delete();
     }
 }

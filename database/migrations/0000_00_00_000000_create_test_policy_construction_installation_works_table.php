@@ -20,6 +20,7 @@ class CreateTestPolicyConstructionInstallationWorksTable extends Migration
             $table->float('equipment_price', 12, 3)->unsigned();
             $table->float('machine_price', 12, 3)->unsigned();
             $table->float('clear_location_price', 12, 3)->unsigned();
+            $table->float('insurance_value', 12, 3)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
