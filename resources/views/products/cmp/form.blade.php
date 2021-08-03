@@ -155,7 +155,8 @@
                                                            class="form-check-input"
                                                            id="contract-construction-installation-work-location-specificity-{{str_replace('_', '-', $value)}}"
                                                            name="contract_construction_installation_work[location_specificity][]"
-                                                           type="checkbox" />
+                                                           type="checkbox"
+                                                           value="{{$value}}" />
 
                                                     <label class="form-check-label" for="contract-construction-installation-work-location-specificity-{{str_replace('_', '-', $value)}}">
                                                         <small><strong>{{$label}}</strong></small>
@@ -173,9 +174,7 @@
 
                                             <textarea class="form-control @error('contract_construction_installation_work.short_description') is-invalid @enderror"
                                                       id="contract-construction-installation-work-short-description"
-                                                      name="contract_construction_installation_work[short_description]">
-                                                {{old('contract_construction_installation_work.short_description', $contract_construction_installation_work->short_description)}}
-                                            </textarea>
+                                                      name="contract_construction_installation_work[short_description]">{{old('contract_construction_installation_work.short_description', $contract_construction_installation_work->short_description)}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -199,9 +198,7 @@
 
                                             <textarea class="form-control @error('contract_construction_installation_work.construction_work_description') is-invalid @enderror"
                                                       id="contract-construction-installation-work-construction-work-description"
-                                                      name="contract_construction_installation_work[construction_work_description]">
-                                                {{old('contract_construction_installation_work.construction_work_description', $contract_construction_installation_work->construction_work_description)}}
-                                            </textarea>
+                                                      name="contract_construction_installation_work[construction_work_description]">{{old('contract_construction_installation_work.construction_work_description', $contract_construction_installation_work->construction_work_description)}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -269,9 +266,7 @@
 
                                             <textarea class="form-control @error('contract_construction_installation_work.losses_description') is-invalid @enderror"
                                                       id="contract-construction-installation-work-losses-description"
-                                                      name="contract_construction_installation_work[losses_description]">
-                                                {{old('contract_construction_installation_work.losses_description', $contract_construction_installation_work->losses_description)}}
-                                            </textarea>
+                                                      name="contract_construction_installation_work[losses_description]">{{old('contract_construction_installation_work.losses_description', $contract_construction_installation_work->losses_description)}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -296,9 +291,7 @@
 
                                             <textarea class="form-control @error('contract_construction_installation_work.fence_description') is-invalid @enderror"
                                                       id="contract-construction-installation-work-fence-description"
-                                                      name="contract_construction_installation_work[fence_description]">
-                                                {{old('contract_construction_installation_work.fence_description', $contract_construction_installation_work->fence_description)}}
-                                            </textarea>
+                                                      name="contract_construction_installation_work[fence_description]">{{old('contract_construction_installation_work.fence_description', $contract_construction_installation_work->fence_description)}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -327,16 +320,16 @@
                                                    type="text"
                                                    value="{{old('contract_construction_installation_work.security_fio', $contract_construction_installation_work->security_fio)}}" />
 
-                                            <label for="contract-construction-installation-work-security-schedules" class="col-form-label">
+                                            <label for="contract-construction-installation-work-security-schedule" class="col-form-label">
                                                 Режим
                                             </label>
 
-                                            <select class="form-control @error('contract_construction_installation_work.security_schedules') is-invalid @enderror"
-                                                    id="contract-construction-installation-work-security-schedules"
-                                                    name="contract_construction_installation_work[security_schedules]"
+                                            <select class="form-control @error('contract_construction_installation_work.security_schedule') is-invalid @enderror"
+                                                    id="contract-construction-installation-work-security-schedule"
+                                                    name="contract_construction_installation_work[security_schedule]"
                                                     style="width: 100%;">
                                                 @foreach(\App\Model\ContractConstructionInstallationWork::$security_schedules as $value => $label)
-                                                    <option @if($value == old('contract_construction_installation_work.security_schedules', $contract_construction_installation_work->security_schedules)) selected @endif
+                                                    <option @if($value == old('contract_construction_installation_work.security_schedule', $contract_construction_installation_work->security_schedule)) selected @endif
                                                             value="{{$value}}">
                                                         {{$label}}
                                                     </option> 

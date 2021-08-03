@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Product;
 use App\AllProduct;
 use App\Http\Controllers\Controller;
 use App\Model\Client;
+use App\Model\ConstructionParticipant;
 use App\Model\Contract;
 use App\Model\ContractConstructionInstallationWork;
-use App\Model\ConstructionParticipant;
-use App\Model\Specification;
-use App\Models\Dogovor;
-use App\Models\Policy;
+use App\Model\Policy;
 use App\Model\PolicyConstructionInstallationWork;
+use App\Model\Specification;
+use App\Model\Tranche;
+use App\Models\Dogovor;
 use App\Models\PolicyHolder;
 use App\Models\Product\Cmp;
 use App\Models\Spravochniki\Agent;
@@ -21,6 +22,7 @@ use App\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class CmpController extends Controller
@@ -70,218 +72,309 @@ class CmpController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new contract.
      *
-     * @param Request $request
-     * @return Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fio_insurer' => 'required',
-            'address_insurer' => 'required',
-            'tel_insurer' => 'required',
-            'address_schet' => 'required',
-            'inn_insurer' => 'required',
-            'mfo_insurer' => 'required',
-            'okonh_insurer' => 'required',
-            'bank_insurer' => 'required',
-            'insurance_from' => 'required',
-            'insurance_to' => 'required',
-            'object_info_dogov_stoy' => 'required',
-            'object_stroy_mont' => 'required',
-            'object_location' => 'required',
-            'object_from_date' => 'required',
-            'object_to_date' => 'required',
-            'object_tel_povr' => 'required',
-            'object_material' => 'required',
-            'stroy_mont_sum' => 'required',
-            'stroy_sum' => 'required',
-            'obor_sum' => 'required',
-            'stroy_mash_sum' => 'required',
-            'rasx_sum' => 'required',
-            'insurance_prem_sum' => 'required',
-            'franchise_sum' => 'required',
-            'insurence_currency' => 'required',
-            'payment_term' => 'required',
-            'polic_given_date' => 'required',
-            'litso' => 'required',
-        ]);
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            ContractConstructionInstallationWork::$validate,
+            [
+                'policy.name' => 'required',
+                'policy.series' => 'required',
+                'policy.date_of_issue' => 'required',
+                'policy.polis_from_date' => 'required',
+                'policy.polis_to_date' => 'required',
+                'policy.insurance_sum' => 'required',
+                'policy.franchise' => 'required',
 
-        $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
 
-        if (empty($policy)) {
-            $policySeries = PolicySeries::find($request->policy_series_id);
+                'construction_participants.*.name' => 'required',
+            ],
+            PolicyConstructionInstallationWork::$validate,
+        ));
 
-            return back()->withInput()->withErrors([
-                sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
+        $policy_data = $request['policy'];
+
+        $policy = Policy::where('name', '=', $policy_data['name'])
+            ->where('series', '=', $policy_data['series'])
+            ->get()
+            ->first();
+
+        if (!$policy) {
+            return back()->withErrors([
+                sprintf(
+                    'В базе не обнаружен полис с %s именованием и с %s серией',
+                    $policy_data['name'],
+                    $policy_data['series']
+                )
             ]);
         }
 
-        $policyHolder = PolicyHolder::create([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'okonx' => $request->okonh_insurer,
-            'bank_id' => $request->bank_insurer,
-        ]);
+        $client = Client::create($request['client']);
+        $contract_construction_installation_work = ContractConstructionInstallationWork::create($request['contract_construction_installation_work']);
 
-        $insurence_currency_rate = null;
+        $contract_data = $request['contract'];
+        $contract_data['client_id'] = $client->id;
+        $contract_data['number'] = '';
+        $contract_data['status'] = 'concluded';
+        $contract_data['model_type'] = ContractConstructionInstallationWork::class;
+        $contract_data['model_id'] = $contract_construction_installation_work->id;
 
-        if ($request->insurence_currency != 'UZS') {
-            $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
-            $json = file_get_contents($jsonurl);
-            $json = json_decode($json);
+        $contract = Contract::create($contract_data);
 
-            foreach ($json as $data) {
-                if ($data->Ccy == $request->insurence_currency) {
-                    $insurence_currency_rate = $data->Rate;
+        $policy_construction_installation_work = PolicyConstructionInstallationWork::create($request['policy_construction_installation_work']);
+
+        $policy_data['contract_id'] = $contract->id;
+        $policy_data['model_type'] = PolicyConstructionInstallationWork::class;
+        $policy_data['model_id'] = $policy_construction_installation_work->id;
+
+        $policy->fill($policy_data);
+        $policy->save();
+
+        if ($request['construction_participants']) {
+            $contract_construction_installation_work->construction_participants()->createMany($request['construction_participants']);
+        }
+
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
+
+        $contract_files = [];
+        $contract_construction_installation_work_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file_collection) {
+                if (in_array($type, [ContractConstructionInstallationWork::FILE_DOCUMENT])) {
+                    foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                        $contract_construction_installation_work_files[] = [
+                            'type' => $type,
+                            'original_name' => $file_item->getClientOriginalName(),
+                            'path' => Storage::putFile('public/contract_construction_installation_work', $file_item),
+                        ];
+                    }
+                } else {
+                    $file = $file_collection;
+
+                    $contract_files[] = [
+                        'type' => $type,
+                        'original_name' => $file->getClientOriginalName(),
+                        'path' => Storage::putFile('public/contract', $file),
+                    ];
                 }
             }
         }
 
-        $cmp = Cmp::create([
-            'type' => $request->client_type_radio,
-            'product_id' => (int)$request->product_id,
-            'policy_holder_id' => $policyHolder->id,
-            'holder_from_date' => $request->insurance_from,
-            'holder_to_date' => $request->insurance_to,
-            'object_info_dogov_stoy' => $request->object_info_dogov_stoy,
-            'object_stroy_mont' => $request->object_stroy_mont,
-            'object_location' => $request->object_location,
-            'object_from_date' => $request->object_from_date,
-            'object_to_date' => $request->object_to_date,
-            'object_tel_povr' => $request->object_tel_povr,
-            'object_material' => $request->object_material,
-            'object_insurance_sum' => $request->object_insurance_sum,
-            'stroy_mont_sum' => $request->stroy_mont_sum,
-            'stroy_sum' => $request->stroy_sum,
-            'obor_sum' => $request->obor_sum,
-            'stroy_mash_sum' => $request->stroy_mash_sum,
-            'rasx_sum' => $request->rasx_sum,
-            'insurance_prem_sum' => $request->insurance_prem_sum,
-            'franchise_sum' => $request->franchise_sum,
-            'insurence_currency' => $request->insurence_currency,
-            'insurence_currency_rate' => $insurence_currency_rate,
-            'insurance_premium_payment_type' => $request->insurance_premium_payment_type,
-            'user_id' => $request->litso,
-            'polic_given_date' => $request->polic_given_date,
-            'policy_id' => $policy->id,
-            'policy_series_id' => $request->policy_series_id,
-            'payment_term' => $request->payment_term,
-        ]);
+        $contract->files()->createMany($contract_files);
+        $contract_construction_installation_work->files()->createMany($contract_construction_installation_work_files);
 
-        $policy->update([
-            'status' => 'in_use',
-            'client_type' => $request->client_type_radio,
-        ]);
+        $contract->generateNumber();
 
-        $brancId = User::find($request->litso)->branch_id;
-        $uniqueNumber = new Dogovor;
-        $uniqueNumber = $uniqueNumber->createUniqueNumber(
-            $brancId,
-            $request->insurance_premium_payment_type,
-            3,
-            'cmp',
-            $cmp->id
-        );
-//
-        $cmp->update([
-            'unique_number' => $uniqueNumber
-        ]);
-//
-        return redirect()->route('all_products.index')
-            ->with('success', 'Успешно заполнен продукт');
-    }
-//
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param $id
-//     * @return void
-//     */
-//    public function show($id)
-//    {
-//    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Cmp $id
-     * @return Factory|View
-     */
-    public function edit($id)
-    {
-        $product = AllProduct::find($id);
-        return view('products.cmp.edit', compact('product'));
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено сохранение контракта');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Display an existing contract.
      *
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param  \App\Model\Contract $cmp
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function show(Contract $cmp)
     {
-        $cmp = Cmp::find($id);
-        $cmp->policyHolder->update([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'okonx' => $request->okonh_insurer,
-            'bank_id' => $request->bank_insurer,
-        ]);
+        $contract = $cmp;
 
-        $cmp->update([
-            'holder_from_date' => $request->insurance_from,
-            'holder_to_date' => $request->insurance_to,
-            'object_info_dogov_stoy' => $request->object_info_dogov_stoy,
-            'object_stroy_mont' => $request->object_stroy_mont,
-            'object_location' => $request->object_location,
-            'object_from_date' => $request->object_from_date,
-            'object_to_date' => $request->object_to_date,
-            'object_tel_povr' => $request->object_tel_povr,
-            'object_material' => $request->object_material,
-            'object_insurance_sum' => $request->object_insurance_sum,
-            'stroy_mont_sum' => $request->stroy_mont_sum,
-            'stroy_sum' => $request->stroy_sum,
-            'obor_sum' => $request->obor_sum,
-            'stroy_mash_sum' => $request->stroy_mash_sum,
-            'rasx_sum' => $request->rasx_sum,
-            'insurance_prem_sum' => $request->insurance_prem_sum,
-            'franchise_sum' => $request->franchise_sum,
-            'insurence_currency' => $request->insurence_currency,
-            'insurance_premium_payment_type' => $request->insurance_premium_payment_type,
-            'user_id' => $request->litso,
-            'polic_given_date' => $request->polic_given_date,
-            'policy_series_id' => $request->policy_series_id,
-            'payment_term' => $request->payment_term,
+        return view('products.cmp.form', [
+            'block' => true,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_construction_installation_work' => $contract->contract_model,
+            'policy' => $contract->policies->first(),
+            'policy_construction_installation_work' => $contract->policies->first()->policy_model,
         ]);
-
-        return redirect()->back()->with('success', 'Успешно обновлен продукт CMP');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Show a form to edit existing contract.
      *
-     * @param int $id
-     * @return Response
+     * @param  \App\Model\Contract $cmp
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function edit(Contract $cmp)
     {
-//        $bonded = Bonded::find($id);
-//        $bonded->policyInformations->delete();
-//        $bonded->delete();
-//
-//        return redirect()->route('all_products.index')
-//            ->with('success', sprintf('Дынные о продукте были успешно удалены', $bonded->unique_number));
+        $contract = $cmp;
+
+        return view('products.cmp.form', [
+            'block' => false,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_construction_installation_work' => $contract->contract_model,
+            'policy' => $contract->policies->first(),
+            'policy_construction_installation_work' => $contract->policies->first()->policy_model,
+        ]);
+    }
+
+    /**
+     * Update an existing contract.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Model\Contract      $cmp
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Contract $cmp)
+    {
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            ContractConstructionInstallationWork::$validate,
+            [
+                'policy.name' => 'required',
+                'policy.series' => 'required',
+                'policy.date_of_issue' => 'required',
+                'policy.polis_from_date' => 'required',
+                'policy.polis_to_date' => 'required',
+                'policy.insurance_sum' => 'required',
+                'policy.franchise' => 'required',
+
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
+
+                'construction_participants.*.name' => 'required',
+            ],
+            PolicyConstructionInstallationWork::$validate,
+        ));
+
+        $contract = $cmp;
+
+        $client = $contract->client;
+        $client->fill($request['client']);
+        $client->save();
+
+        $contract_construction_installation_work = $contract->contract_model;
+        $contract_construction_installation_work->fill($request['contract_construction_installation_work']);
+        $contract_construction_installation_work->save();
+
+        $contract->fill($request['contract']);
+        $contract->save();
+
+        $policy = $contract->policies->first();
+        $policy->fill($request['policy']);
+        $policy->save();
+
+        $policy_construction_installation_work = $policy->policy_model;
+        $policy_construction_installation_work->fill($request['policy_construction_installation_work']);
+        $policy_construction_installation_work->save();
+
+        if ($request['construction_participants']) {
+            $construction_participant_ids = [];
+
+            foreach($request['construction_participants'] as $construction_participant_data) {
+                $construction_participant = ConstructionParticipant::where('contract_construction_installation_work_id', '=', $contract_construction_installation_work->id)
+                                                                   ->where('name', '=', $construction_participant_data['name'])
+                                                                   ->get()
+                                                                   ->first();
+
+                if (!$construction_participant) {
+                    $construction_participant = $contract_construction_installation_work->construction_participants()->create($construction_participant_data);
+                }
+
+                $construction_participant_ids[] = $construction_participant->id;
+            }
+
+            ConstructionParticipant::where('contract_construction_installation_work_id', '=', $contract_construction_installation_work->id)
+                                   ->whereNotIn('id', $construction_participant_ids)
+                                   ->delete();
+        }
+
+        if ($request['tranches']) {
+            $tranche_ids = [];
+
+            foreach($request['tranches'] as $tranche_data) {
+                $tranche = Tranche::where('contract_id', '=', $contract->id)
+                                  ->where('from', '=', $tranche_data['from'])
+                                  ->get()
+                                  ->first();
+
+                if ($tranche) {
+                    if ($tranche->sum != $tranche_data['sum']) {
+                        $tranche->sum = $tranche_data['sum'];
+                        $tranche->save();
+                    }
+                } else {
+                    $tranche = $contract->tranches()->create($tranche_data);
+                }
+
+                $tranche_ids[] = $tranche->id;
+            }
+
+            Tranche::where('contract_id', '=', $contract->id)
+                   ->whereNotIn('id', $tranche_ids)
+                   ->delete();
+        }
+
+        $contract_files = [];
+        $contract_construction_installation_work_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file_collection) {
+                if (in_array($type, [ContractConstructionInstallationWork::FILE_DOCUMENT])) {
+                    foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                        foreach($contract_construction_installation_work->getFiles($type) as $old_file) {
+                            $old_file->delete();
+                        }
+
+                        $contract_construction_installation_work_files[] = [
+                            'type' => $type,
+                            'original_name' => $file_item->getClientOriginalName(),
+                            'path' => Storage::putFile('public/contract_construction_installation_work', $file_item),
+                        ];
+                    }
+                } else {
+                    $file = $file_collection;
+
+                    if ($old_file = $contract->getFile($type)) {
+                        $old_file->delete();
+                    }
+
+                    $contract_files[] = [
+                        'type' => $type,
+                        'original_name' => $file->getClientOriginalName(),
+                        'path' => Storage::putFile('public/contract', $file),
+                    ];
+                }
+            }
+        }
+
+        $contract->files()->createMany($contract_files);
+        $contract_construction_installation_work->files()->createMany($contract_construction_installation_work_files);
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено изменение контракта');
+    }
+
+    /**
+     * Destroy an existing contract.
+     *
+     * @param  \App\Model\Contract $cmp
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Contract $cmp)
+    {
+        $contract = $cmp;
+
+        if ($policies = $contract->policies) {
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+        $contract->delete();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
 }

@@ -136,7 +136,18 @@ class ContractConstructionInstallationWork extends Model
      */
     public function getLocationSpecificityAttribute($value)
     {
-        return Arr::wrap($value);
+        return Arr::wrap(explode(',', $value));
+    }
+
+    /**
+     * Set string representation of the location_specificity attribute.
+     * 
+     * @param array $value
+     * @return \Illuminate\Support\Arr
+     */
+    public function setLocationSpecificityAttribute($value)
+    {
+        return $this->attributes['location_specificity'] = join(',', $value);
     }
 
     /**
