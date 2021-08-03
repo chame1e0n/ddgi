@@ -130,4 +130,6 @@
             });
         });
     </script>
+
+    @yield('contract_js')
 @endsection

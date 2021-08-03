@@ -103,41 +103,26 @@
             </div>
             <div class="col-sm-12">
                 <div id="tranches"
-                     @if($contract->payment_type == \App\Model\Contract::PAYMENT_TYPE_ENTIRELY) style="display: none;" @endif>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-primary ddgi-add-tranche">
-                            Добавить
-                        </button>
-                    </div>
-                    <div class="table-responsive p-0 " style="max-height: 300px;">
+                     @if(old('contract.payment_type', $contract->payment_type) == \App\Model\Contract::PAYMENT_TYPE_ENTIRELY) style="display: none;" @endif>
+                    <div class="table-responsive"
+                         style="max-height: 300px;">
                         <table class="table table-hover table-head-fixed">
                             <thead>
                                 <tr>
                                     <th class="text-nowrap">Сумма</th>
                                     <th class="text-nowrap">От</th>
-                                    <th></th>
+                                    <th>
+                                        <div style="margin-bottom: -10px;">
+                                            <button type="button" class="btn btn-primary ddgi-add-tranche">
+                                                Добавить
+                                            </button>
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($contract->tranches as $key => $tranche)
-                                <tr data-number="{{$key}}">
-                                    <td>
-                                        <input class="form-control"
-                                               name="tranches[{{$key}}][sum]"
-                                               step="0.01"
-                                               type="number"
-                                               value="{{$tranche->sum}}" />
-                                    </td>
-                                    <td>
-                                        <input class="form-control"
-                                               name="tranches[{{$key}}][from]"
-                                               type="date"
-                                               value="{{$tranche->from}}" />
-                                    </td>
-                                    <td>
-                                        <input type="button" value="Удалить" class="btn btn-warning ddgi-remove-tranche" />
-                                    </td>
-                                </tr>
+                                @include('includes.tranche_in_table')
                             @endforeach
                             </tbody>
                         </table>
@@ -259,89 +244,93 @@
         </div>
     </div>
 </div>
-<script>
-    function redirect(element) {
-        var selected_option = element.selectedOptions[0];
 
-        if (selected_option.dataset.route) {
-            window.location = '/' + selected_option.dataset.route + '/create';
-        }
-    }
+@section('contract_js')
+    <script type="text/javascript">
+        function toggleSwitch(element, block_id) {
+            let block = document.getElementById(block_id);
 
-    function defineSpecifications(element) {
-        $.ajax({
-            url: '{{route("get_type_specifications")}}',
-            type: 'get',
-            data: { type: element.value },
-            dataType: 'json',
-            success: function (response) {
-                $('#contract-specification-id').empty();
-                $('#contract-specification-id').append('<option></option>');
+            let other;
+            if (element.id == 'contract-tariff-switch') {
+                other = 'contract-premium';
+            } else if (element.id == 'contract-premium-switch') {
+                other = 'contract-tariff';
+            }
 
-                for (var i = 0; i < response.length; i++) {
-                    $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '">' + response[i]['name'] + '</option>');
+            if (block) {
+                block.style.display = element.checked ? 'block' : 'none';
+
+                if (element.checked && other) {
+                    document.getElementById(other + '-switch').checked = false;
+                    document.getElementById(other + '-block').style.display = 'none';
+                    document.getElementById(other).value = '';
                 }
-            }
-        });
-    }
+                if (!element.checked) {
+                    let textbox = document.getElementById(element.id.replace('-switch', ''));
 
-    const tranches = document.querySelector('#tranches');
-    const button_add_tranche = tranches.querySelector('.ddgi-add-tranche');
-    if (button_add_tranche) {
-        button_add_tranche.addEventListener('click', function () {
-            const tbody = tranches.querySelector('tbody');
-            const tr = tbody.lastElementChild;
-            const id = tr ? (+tr.dataset.number) + 1 : 0;
-
-            const new_tranche = `
-                <tr data-number="${id}">
-                    <td>
-                        <input step="0.01" type="number" class="form-control" name="tranches[${id}][sum]" />
-                    </td>
-                    <td>
-                        <input type="date" class="form-control" name="tranches[${id}][from]" />
-                    </td>
-                    <td>
-                        <input type="button" value="Удалить" class="btn btn-warning ddgi-remove-tranche" />
-                    </td>
-                  </tr>`;
-
-            tbody.insertAdjacentHTML('beforeend', new_tranche);
-        });
-    }
-    if (tranches) {
-        tranches.addEventListener('click', function (event) {
-            if (event.target.classList.contains('ddgi-remove-tranche')) {
-                event.target.parentElement.parentElement.remove();
-            }
-        });
-    }
-
-    function toggleSwitch(element, block_id) {
-        let block = document.getElementById(block_id);
-
-        let other;
-        if (element.id == 'contract-tariff-switch') {
-            other = 'contract-premium';
-        } else if (element.id == 'contract-premium-switch') {
-            other = 'contract-tariff';
-        }
-
-        if (block) {
-            block.style.display = element.checked ? 'block' : 'none';
-
-            if (element.checked && other) {
-                document.getElementById(other + '-switch').checked = false;
-                document.getElementById(other + '-block').style.display = 'none';
-                document.getElementById(other).value = '';
-            }
-            if (!element.checked) {
-                let textbox = document.getElementById(element.id.replace('-switch', ''));
-
-                if (textbox) {
-                    textbox.value = '';
+                    if (textbox) {
+                        textbox.value = '';
+                    }
                 }
             }
         }
-    }
-</script>
+
+        $(document).ready(function() {
+            function redirect(element) {
+                var selected_option = element.selectedOptions[0];
+
+                if (selected_option.dataset.route) {
+                    window.location = '/' + selected_option.dataset.route + '/create';
+                }
+            }
+
+            function defineSpecifications(element) {
+                $.ajax({
+                    url: '{{route("get_type_specifications")}}',
+                    type: 'get',
+                    data: { type: element.value },
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#contract-specification-id').empty();
+                        $('#contract-specification-id').append('<option></option>');
+
+                        for (var i = 0; i < response.length; i++) {
+                            $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '">' + response[i]['name'] + '</option>');
+                        }
+                    }
+                });
+            }
+
+            function addTranche() {
+                let tranche_block = document.getElementById('tranches').querySelector('tbody');
+                let counter = tranche_block.childElementCount - 1;
+
+                while(document.getElementById('tranche-row-' + counter)) {
+                    counter++;
+                }
+
+                $.ajax({
+                    url: '{{route("get_tranche_for_table")}}',
+                    type: 'post',
+                    data: { key: counter },
+                    dataType: 'json',
+                    success: function (response) {
+                        tranche_block.insertAdjacentHTML('beforeend', response.template);
+                    },
+                    error: function (data) {
+                        console.log('get tranche template error', data);
+                    }
+                });
+            }
+
+            function removeTranche(event) {
+                if (event.target.classList.contains('ddgi-remove-tranche')) {
+                    event.target.parentElement.parentElement.remove();
+                }
+            }
+
+            $('#tranches').delegate('.ddgi-add-tranche', 'click', addTranche);
+            $('#tranches').delegate('.ddgi-remove-tranche', 'click', removeTranche);
+        });
+    </script>
+@endsection

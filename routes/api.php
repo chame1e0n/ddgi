@@ -39,6 +39,19 @@ Route::get('agent_list', function () {
     ]);
 });
 
+Route::post('construction_participant/for/table', function(Request $request) {
+    $view = view('includes.construction_participant_in_table', [
+        'key' => $request['key'],
+        'construction_participant' => new \App\Model\ConstructionParticipant(),
+        'errors' => new \Illuminate\Support\ViewErrorBag(),
+    ])->toHtml();
+
+    return [
+        'code' => 200,
+        'template' => $view,
+    ];
+})->name('get_construction_participant_for_table');
+
 Route::post('policy/for/table', function(Request $request) {
     $model = '\\App\\Model\\' . $request['model'];
 
@@ -67,6 +80,19 @@ Route::post('property/for/table', function(Request $request) {
         'template' => $view,
     ];
 })->name('get_property_for_table');
+
+Route::post('tranche/for/table', function(Request $request) {
+    $view = view('includes.tranche_in_table', [
+        'key' => $request['key'],
+        'tranche' => new \App\Model\Tranche(),
+        'errors' => new \Illuminate\Support\ViewErrorBag(),
+    ])->toHtml();
+
+    return [
+        'code' => 200,
+        'template' => $view,
+    ];
+})->name('get_tranche_for_table');
 
 Route::get('specifications/of/type', function(Request $request) {
     $specifications = \App\Model\Specification::getSpecificationsByType($request['type']);

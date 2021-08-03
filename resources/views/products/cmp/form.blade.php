@@ -48,31 +48,30 @@
                         <div class="card-body">
                             <div>
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div class="d-flex flex-column">
-                                            <label class="col-form-label">Участники строительства</label>
-                                            <div class="form-group mb-20">
-                                                <button type="button" id="add-costruct-participant" class="btn btn-primary ">Добавить
-                                                </button>
-                                            </div>
-                                            <div id="builders">
-                                                @if(!old('сonstruct_participants'))
-                                                    <div class="form-group mb-20">
-                                                        <input type="text" name="сonstruct_participants[]" class="form-control">
-                                                    </div>
-                                                @else
-                                                    @foreach(old('сonstruct_participants', []) as $key => $item)
-                                                        <div id="old_сonstruct_participants_{{$key}}" class="d-flex form-group mb-20">
-                                                            <input type="text" name="сonstruct_participants[]"
-                                                                   value="{{ $item }}" class="form-control mr-5">
-                                                            @if($key)
-                                                                <input onclick="removeEl('old_сonstruct_participants_{{$key}}')" type="button" value="Удалить"
-                                                                       class="btn btn-warning">
-                                                            @endif
-                                                        </div>
-                                                    @endforeach
-                                                @endif
-                                            </div>
+                                    <div class="col-md-12" id="construction-participants">
+                                        <label class="col-form-label">Участники строительства</label>
+
+                                        <div class="table-responsive"
+                                             style="max-height: 300px;">
+                                            <table class="table table-hover table-head-fixed">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-nowrap">Имя</th>
+                                                        <th>
+                                                            <div style="margin-bottom: -10px;">
+                                                                <button type="button" class="btn btn-primary ddgi-add-construction-participant">
+                                                                    Добавить
+                                                                </button>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($contract_construction_installation_work->construction_participants as $key => $construction_participant)
+                                                    @include('includes.construction_participant_in_table')
+                                                @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -661,6 +660,34 @@
                     total_insurance_premium += property_premium
                 });
             }
+            function addConstructionParticipant() {
+                let construction_participant_block = document.getElementById('construction-participants').querySelector('tbody');
+                let counter = construction_participant_block.childElementCount - 1;
+
+                while(document.getElementById('construction-participant-row-' + counter)) {
+                    counter++;
+                }
+
+                $.ajax({
+                    url: '{{route("get_construction_participant_for_table")}}',
+                    type: 'post',
+                    data: { key: counter },
+                    dataType: 'json',
+                    success: function (response) {
+                        construction_participant_block.insertAdjacentHTML('beforeend', response.template);
+                    },
+                    error: function (data) {
+                        console.log('get construction participant template error', data);
+                    }
+                });
+            }
+
+            function removeConstructionParticipant(event) {
+                if (event.target.classList.contains('ddgi-remove-construction-participant')) {
+                    event.target.parentElement.parentElement.remove();
+                }
+            }
+
             function addPolicy() {
                 let counter = document.getElementById('policies').querySelector('tbody').childElementCount - 1;
 
@@ -681,6 +708,7 @@
                     }
                 });
             }
+
             function removePolicy(event) {
                 if (event.target.classList.contains('ddgi-remove-policy')) {
                     event.target.parentElement.parentElement.remove();
@@ -688,6 +716,7 @@
                     calculation();
                 }
             }
+
             function addProperty() {
                 let counter = document.getElementById('properties').querySelector('tbody').childElementCount - 1;
 
@@ -708,6 +737,7 @@
                     }
                 });
             }
+
             function removeProperty(event) {
                 if (event.target.classList.contains('ddgi-remove-property')) {
                     event.target.parentElement.parentElement.remove();
@@ -715,6 +745,7 @@
                     calculation();
                 }
             }
+
             function definePolicySeries() {
                 let series = document.getElementById(this.id.replace('name', 'series'));
 
@@ -733,6 +764,7 @@
                     }
                 });
             }
+
             function defineResponsiblePerson() {
                 let name = document.getElementById(this.id.replace('series', 'name'));
                 let responsible_person = document.getElementById(this.id.replace('series', 'responsible-person'));
@@ -763,6 +795,9 @@
             $('#properties').delegate('.ddgi-add-property', 'click', addProperty);
             $('#properties').delegate('.ddgi-remove-property', 'click', removeProperty);
 
+            $('#construction-participants').delegate('.ddgi-add-construction-participant', 'click', addConstructionParticipant);
+            $('#construction-participants').delegate('.ddgi-remove-construction-participant', 'click', removeConstructionParticipant);
+
             $('form').submit(function(e) {
                 $(':disabled').each(function(e) {
                     $(this).removeAttr('disabled');
@@ -770,4 +805,6 @@
             });
         });
     </script>
+
+    @yield('contract_js')
 @endsection
