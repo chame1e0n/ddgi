@@ -267,7 +267,7 @@
                                                 Описание
                                             </label>
 
-                                            <textarea class="form-control ddgi-calculate @error('contract_construction_installation_work.losses_description') is-invalid @enderror"
+                                            <textarea class="form-control @error('contract_construction_installation_work.losses_description') is-invalid @enderror"
                                                       id="contract-construction-installation-work-losses-description"
                                                       name="contract_construction_installation_work[losses_description]">
                                                 {{old('contract_construction_installation_work.losses_description', $contract_construction_installation_work->losses_description)}}
@@ -294,7 +294,7 @@
                                                 Описание
                                             </label>
 
-                                            <textarea class="form-control ddgi-calculate @error('contract_construction_installation_work.fence_description') is-invalid @enderror"
+                                            <textarea class="form-control @error('contract_construction_installation_work.fence_description') is-invalid @enderror"
                                                       id="contract-construction-installation-work-fence-description"
                                                       name="contract_construction_installation_work[fence_description]">
                                                 {{old('contract_construction_installation_work.fence_description', $contract_construction_installation_work->fence_description)}}
@@ -370,7 +370,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @error('policy_construction_installation_work.construction_installation_price') is-invalid @enderror"
+                                               class="form-control ddgi-calculate @error('policy_construction_installation_work.construction_installation_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-construction-installation-price"
                                                name="policy_construction_installation_work[construction_installation_price]"
                                                step="0.01"
@@ -385,7 +385,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @error('policy_construction_installation_work.construction_price') is-invalid @enderror"
+                                               class="form-control ddgi-calculate @error('policy_construction_installation_work.construction_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-construction-price"
                                                name="policy_construction_installation_work[construction_price]"
                                                step="0.01"
@@ -400,7 +400,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @error('policy_construction_installation_work.equipment_price') is-invalid @enderror"
+                                               class="form-control ddgi-calculate @error('policy_construction_installation_work.equipment_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-equipment-price"
                                                name="policy_construction_installation_work[equipment_price]"
                                                step="0.01"
@@ -415,7 +415,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @error('policy_construction_installation_work.machine_price') is-invalid @enderror"
+                                               class="form-control ddgi-calculate @error('policy_construction_installation_work.machine_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-machine-price"
                                                name="policy_construction_installation_work[machine_price]"
                                                step="0.01"
@@ -430,7 +430,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @error('policy_construction_installation_work.clear_location_price') is-invalid @enderror"
+                                               class="form-control ddgi-calculate @error('policy_construction_installation_work.clear_location_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-clear-location-price"
                                                name="policy_construction_installation_work[clear_location_price]"
                                                step="0.01"
@@ -445,7 +445,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @error('policy_construction_installation_work.insurance_value') is-invalid @enderror"
+                                               class="form-control ddgi-calculate @error('policy_construction_installation_work.insurance_value') is-invalid @enderror"
                                                id="policy-construction-installation-work-insurance-value"
                                                name="policy_construction_installation_work[insurance_value]"
                                                step="0.01"
@@ -481,330 +481,4 @@
             @endif
         </fieldset>
     </form>
-@endsection
-
-@section('scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            function calculation() {
-                let is_tariff = document.getElementById('contract-tariff-switch').checked;
-                let is_premium = document.getElementById('contract-premium-switch').checked;
-
-                let from = new Date($('#contract-from').val());
-                let to = new Date($('#contract-to').val());
-                let days = Math.round((to - from) / (24 * 60 * 60 * 1000)) + 1;
-
-                let total_insurance_value = 0;
-                let total_insurance_sum = 0;
-                let total_insurance_premium = 0;
-                let total_franchise = 0;
-
-                // -- contract_(plural|singular)_export_cargo
-                let contract_export_cargo_total = Number($('#contract-singular-export-cargo-shipped-goods-value').val()) +
-                                                  Number($('#contract-singular-export-cargo-shipped-goods-paid').val()) +
-                                                  Number($('#contract-singular-export-cargo-buyer-debt').val()) +
-                                                  Number($('#contract-singular-export-cargo-overdue-amount-1-60').val()) +
-                                                  Number($('#contract-singular-export-cargo-overdue-amount-60-180').val()) +
-                                                  Number($('#contract-singular-export-cargo-paid-insurance-premium').val()) +
-                                                  Number($('#contract-singular-export-cargo-penalty').val()) +
-                                                  Number($('#contract-singular-export-cargo-other-expenses').val()) +
-                                                  Number($('#contract-singular-export-cargo-shipped-goods-payment').val()) +
-                                                  Number($('#contract-singular-export-cargo-unshipped-goods-payment').val())
-
-                $('#contract-export-cargo-total').text(contract_export_cargo_total.toFixed(2));
-
-                $('#policy').find('div.card-body').each(function (i, element) {
-                    let insurance_premium = 0;
-                    let policy_insurance_sum = Number($('#policy-insurance-sum').val());
-
-                    if (!is_tariff && !is_premium) {
-                        let tariff = {{$contract->specification ? $contract->specification->tariff : 0}};
-
-                        insurance_premium = (days * policy_insurance_sum * tariff) / 365;
-                    }
-                    if (is_tariff) {
-                        let tariff = $('#contract-tariff').val();
-
-                        insurance_premium = (days * policy_insurance_sum * tariff) / 365;
-                    }
-                    if (is_premium) {
-                        insurance_premium = Number($('#contract-premium').val());
-                    }
-
-                    $('#insurance-premium').val(insurance_premium.toFixed(2));
-                });
-                $('#policies').find('tbody > tr[id^=policy-row-]').each(function (i, element) {
-                    let number = element.id.replace('policy-row-', '');
-
-                    if (number == 'total') {
-                        $('#total-insurance-sum').val(total_insurance_sum.toFixed(2));
-                        $('#total-insurance-premium').val(total_insurance_premium.toFixed(2));
-                        $('#total-franchise').val(total_franchise.toFixed(2));
-
-                        return;
-                    }
-
-                    let policy_insurance_sum = Number($('#policies-' + number + '-insurance-sum').val());
-                    let policy_additional_sum = 0;
-                    let policy_additional_premium = 0;
-
-                    // -- policy_sportsman --
-                    let policy_sportsman_sum = Number($('#policies-' + number + '-policy-sportsman-traumatic-sum').val()) + Number($('#policies-' + number + '-policy-sportsman-death-sum').val());
-
-                    if (!window.isNaN(policy_sportsman_sum)) {
-                        policy_additional_sum += policy_sportsman_sum;
-                    }
-
-                    $('#policies-' + number + '-policy-sportsman-total-sum').val(policy_additional_sum);
-
-                    let policy_sportsman_premium = Number($('#policies-' + number + '-policy-sportsman-traumatic-premium').val()) + Number($('#policies-' + number + '-policy-sportsman-death-premium').val());
-
-                    if (!window.isNaN(policy_sportsman_premium)) {
-                        policy_additional_premium += policy_sportsman_premium;
-                    }
-
-                    $('#policies-' + number + '-policy-sportsman-total-premium').val(policy_additional_premium);
-
-                    // -- policy_casco --
-                    $('#policies-' + number + '-policy-casco-ec-driver-sum').val(Number($('#policies-' + number + '-policy-casco-ec-driver-amount').val()) * Number($('#policies-' + number + '-policy-casco-ec-driver-sum-for-person').val()));
-                    $('#policies-' + number + '-policy-casco-ec-passenger-sum').val(Number($('#policies-' + number + '-policy-casco-ec-passenger-amount').val()) * Number($('#policies-' + number + '-policy-casco-ec-passenger-sum-for-person').val()));
-                    $('#policies-' + number + '-policy-casco-ec-general-limit-sum').val(Number($('#policies-' + number + '-policy-casco-ec-general-limit-amount').val()) * Number($('#policies-' + number + '-policy-casco-ec-general-limit-sum-for-person').val()));
-
-                    $('#policies-' + number + '-policy-casco-ec-total-sum').val(Number($('#policies-' + number + '-policy-casco-ec-driver-sum').val()) + Number($('#policies-' + number + '-policy-casco-ec-passenger-sum').val()) + Number($('#policies-' + number + '-policy-casco-ec-general-limit-sum').val()));
-                    $('#policies-' + number + '-policy-casco-ec-total-premium').val(Number($('#policies-' + number + '-policy-casco-ec-driver-premium').val()) + Number($('#policies-' + number + '-policy-casco-ec-passenger-premium').val()) + Number($('#policies-' + number + '-policy-casco-ec-general-limit-premium').val()));
-
-                    let policy_casco_ae_additional_insured_sum = Number($('#policies-' + number + '-policy-casco-ae-additional-insured-sum').val());
-                    let policy_casco_ec_vehicle_death_recovery_sum = Number($('#policies-' + number + '-policy-casco-ec-vehicle-death-recovery-sum').val());
-                    let policy_casco_ec_civil_liability_sum = Number($('#policies-' + number + '-policy-casco-ec-civil-liability-sum').val());
-                    let policy_casco_ec_total_sum = Number($('#policies-' + number + '-policy-casco-ec-total-sum').val());
-
-                    policy_casco_sum = policy_casco_ae_additional_insured_sum + policy_casco_ec_vehicle_death_recovery_sum + policy_casco_ec_civil_liability_sum + policy_casco_ec_total_sum;
-
-                    $('#policies-' + number + '-policy-casco-total-sum').val(policy_casco_sum.toFixed(2));
-
-                    if (!window.isNaN(policy_casco_sum)) {
-                        policy_additional_sum += policy_casco_sum;
-                    }
-
-                    let policy_casco_ec_vehicle_death_recovery_premium = Number($('#policies-' + number + '-policy-casco-ec-vehicle-death-recovery-premium').val());
-                    let policy_casco_ec_civil_liability_premium = Number($('#policies-' + number + '-policy-casco-ec-civil-liability-premium').val());
-                    let policy_casco_ec_total_premium = Number($('#policies-' + number + '-policy-casco-ec-total-premium').val());
-
-                    policy_casco_premium = policy_casco_ec_vehicle_death_recovery_premium + policy_casco_ec_civil_liability_premium + policy_casco_ec_total_premium;
-
-                    $('#policies-' + number + '-policy-casco-total-premium').val(policy_casco_premium.toFixed(2));
-
-                    if (!window.isNaN(policy_casco_premium)) {
-                        policy_additional_premium += policy_casco_premium;
-                    }
-
-                    // -- policy --
-                    $('#policies-' + number + '-insurance-sum-plus').text('+ ' + policy_additional_sum.toFixed(2));
-                    $('#policies-' + number + '-insurance-premium-plus').text('+ ' + policy_additional_premium.toFixed(2));
-
-                    let policy_premium = 0;
-
-                    if (!is_tariff && !is_premium) {
-                        let tariff = {{$contract->specification ? $contract->specification->tariff : 0}};
-
-                        policy_premium = (days * policy_insurance_sum * tariff) / 365;
-                    }
-                    if (is_tariff) {
-                        let tariff = $('#contract-tariff').val();
-
-                        policy_premium = (days * policy_insurance_sum * tariff) / 365;
-                    }
-                    if (is_premium) {
-                        policy_premium = Number($('#contract-premium').val());
-                    }
-
-                    $('#policies-' + number + '-insurance-premium').val(policy_premium);
-
-                    total_insurance_sum += policy_insurance_sum + policy_additional_sum;
-                    total_insurance_premium += policy_premium + policy_additional_premium;
-                    total_franchise += Number($('#policies-' + number + '-franchise').val());
-                });
-                $('#properties').find('tbody > tr[id^=property-row-]').each(function (i, element) {
-                    let number = element.id.replace('property-row-', '');
-
-                    if (number == 'total') {
-                        $('#total-insurance-value').val(total_insurance_value.toFixed(2));
-                        $('#total-insurance-sum').val(total_insurance_sum.toFixed(2));
-                        $('#total-insurance-premium').val(total_insurance_premium.toFixed(2));
-
-                        return;
-                    }
-
-                    let property_insurance_sum = Number($('#properties-' + number + '-insurance-sum').val());
-
-                    let property_premium = 0;
-
-                    if (!is_tariff && !is_premium) {
-                        let tariff = {{$contract->specification ? $contract->specification->tariff : 0}};
-
-                        property_premium = (days * property_insurance_sum * tariff) / 365;
-                    }
-                    if (is_tariff) {
-                        let tariff = $('#contract-tariff').val();
-
-                        property_premium = (days * property_insurance_sum * tariff) / 365;
-                    }
-                    if (is_premium) {
-                        property_premium = Number($('#contract-premium').val());
-                    }
-
-                    $('#properties-' + number + '-insurance-premium').val(property_premium.toFixed(2));
-
-                    total_insurance_value += Number($('#properties-' + number + '-insurance-value').val());
-                    total_insurance_sum += property_insurance_sum;
-                    total_insurance_premium += property_premium
-                });
-            }
-            function addConstructionParticipant() {
-                let construction_participant_block = document.getElementById('construction-participants').querySelector('tbody');
-                let counter = construction_participant_block.childElementCount - 1;
-
-                while(document.getElementById('construction-participant-row-' + counter)) {
-                    counter++;
-                }
-
-                $.ajax({
-                    url: '{{route("get_construction_participant_for_table")}}',
-                    type: 'post',
-                    data: { key: counter },
-                    dataType: 'json',
-                    success: function (response) {
-                        construction_participant_block.insertAdjacentHTML('beforeend', response.template);
-                    },
-                    error: function (data) {
-                        console.log('get construction participant template error', data);
-                    }
-                });
-            }
-
-            function removeConstructionParticipant(event) {
-                if (event.target.classList.contains('ddgi-remove-construction-participant')) {
-                    event.target.parentElement.parentElement.remove();
-                }
-            }
-
-            function addPolicy() {
-                let counter = document.getElementById('policies').querySelector('tbody').childElementCount - 1;
-
-                while(document.getElementById('policy-row-' + counter)) {
-                    counter++;
-                }
-
-                $.ajax({
-                    url: '{{route("get_policy_for_table")}}',
-                    type: 'post',
-                    data: { key: counter, model: null },
-                    dataType: 'json',
-                    success: function (response) {
-                        document.getElementById('policy-row-total').insertAdjacentHTML('beforebegin', response.template);
-                    },
-                    error: function (data) {
-                        console.log('get policy template error', data);
-                    }
-                });
-            }
-
-            function removePolicy(event) {
-                if (event.target.classList.contains('ddgi-remove-policy')) {
-                    event.target.parentElement.parentElement.remove();
-
-                    calculation();
-                }
-            }
-
-            function addProperty() {
-                let counter = document.getElementById('properties').querySelector('tbody').childElementCount - 1;
-
-                while(document.getElementById('property-row-' + counter)) {
-                    counter++;
-                }
-
-                $.ajax({
-                    url: '{{route("get_property_for_table")}}',
-                    type: 'post',
-                    data: { key: counter },
-                    dataType: 'json',
-                    success: function (response) {
-                        document.getElementById('property-row-total').insertAdjacentHTML('beforebegin', response.template);
-                    },
-                    error: function (data) {
-                        console.log('get property template error', data);
-                    }
-                });
-            }
-
-            function removeProperty(event) {
-                if (event.target.classList.contains('ddgi-remove-property')) {
-                    event.target.parentElement.parentElement.remove();
-
-                    calculation();
-                }
-            }
-
-            function definePolicySeries() {
-                let series = document.getElementById(this.id.replace('name', 'series'));
-
-                $.ajax({
-                    url: '{{route("get_policies")}}',
-                    type: 'get',
-                    data: { name: $(this).val() },
-                    dataType: 'json',
-                    success: function (response) {
-                        $(series).empty();
-                        $(series).append('<option></option>');
-
-                        for (var i = 0; i < response.length; i++) {
-                            $(series).append('<option value="' + response[i]['series']+ '">' + response[i]['series'] + '</option>');
-                        }
-                    }
-                });
-            }
-
-            function defineResponsiblePerson() {
-                let name = document.getElementById(this.id.replace('series', 'name'));
-                let responsible_person = document.getElementById(this.id.replace('series', 'responsible-person'));
-
-                $.ajax({
-                    url: '{{route("get_policy_employee")}}',
-                    type: 'get',
-                    data: { name: $(name).val(), series: $(this).val() },
-                    dataType: 'json',
-                    success: function (response) {
-                        $(responsible_person).val(response.surname + ' ' + response.name + ' ' + response.middlename);
-                    }
-                });
-            }
-
-            $('#form-contract').delegate('.ddgi-calculate', 'change', calculation);
-
-            $('#policies').delegate('.ddgi-add-policy', 'click', addPolicy);
-            $('#policies').delegate('.ddgi-remove-policy', 'click', removePolicy);
-
-            $('#policies, #policy').delegate('.ddgi-policy-name', 'change', definePolicySeries);
-            $('#policies, #policy').delegate('.ddgi-policy-series', 'change', defineResponsiblePerson);
-
-            $('.ddgi-policy-name').trigger('keyup');        // для show метода при загрузке страницы
-            $('.ddgi-policy-series').trigger('change');     // для show метода при загрузке страницы
-            $('.ddgi-calculate').trigger('change');         // для show метода при загрузке страницы
-
-            $('#properties').delegate('.ddgi-add-property', 'click', addProperty);
-            $('#properties').delegate('.ddgi-remove-property', 'click', removeProperty);
-
-            $('#construction-participants').delegate('.ddgi-add-construction-participant', 'click', addConstructionParticipant);
-            $('#construction-participants').delegate('.ddgi-remove-construction-participant', 'click', removeConstructionParticipant);
-
-            $('form').submit(function(e) {
-                $(':disabled').each(function(e) {
-                    $(this).removeAttr('disabled');
-                })
-            });
-        });
-    </script>
-
-    @yield('contract_js')
 @endsection

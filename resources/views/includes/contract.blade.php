@@ -204,6 +204,9 @@
                 </div>
             </div>
         </div>
+        <div>
+            <input id="specification-tariff" type="hidden" value="{{$contract->specification->tariff}}" />
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -244,93 +247,3 @@
         </div>
     </div>
 </div>
-
-@section('contract_js')
-    <script type="text/javascript">
-        function toggleSwitch(element, block_id) {
-            let block = document.getElementById(block_id);
-
-            let other;
-            if (element.id == 'contract-tariff-switch') {
-                other = 'contract-premium';
-            } else if (element.id == 'contract-premium-switch') {
-                other = 'contract-tariff';
-            }
-
-            if (block) {
-                block.style.display = element.checked ? 'block' : 'none';
-
-                if (element.checked && other) {
-                    document.getElementById(other + '-switch').checked = false;
-                    document.getElementById(other + '-block').style.display = 'none';
-                    document.getElementById(other).value = '';
-                }
-                if (!element.checked) {
-                    let textbox = document.getElementById(element.id.replace('-switch', ''));
-
-                    if (textbox) {
-                        textbox.value = '';
-                    }
-                }
-            }
-        }
-
-        $(document).ready(function() {
-            function redirect(element) {
-                var selected_option = element.selectedOptions[0];
-
-                if (selected_option.dataset.route) {
-                    window.location = '/' + selected_option.dataset.route + '/create';
-                }
-            }
-
-            function defineSpecifications(element) {
-                $.ajax({
-                    url: '{{route("get_type_specifications")}}',
-                    type: 'get',
-                    data: { type: element.value },
-                    dataType: 'json',
-                    success: function (response) {
-                        $('#contract-specification-id').empty();
-                        $('#contract-specification-id').append('<option></option>');
-
-                        for (var i = 0; i < response.length; i++) {
-                            $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '">' + response[i]['name'] + '</option>');
-                        }
-                    }
-                });
-            }
-
-            function addTranche() {
-                let tranche_block = document.getElementById('tranches').querySelector('tbody');
-                let counter = tranche_block.childElementCount - 1;
-
-                while(document.getElementById('tranche-row-' + counter)) {
-                    counter++;
-                }
-
-                $.ajax({
-                    url: '{{route("get_tranche_for_table")}}',
-                    type: 'post',
-                    data: { key: counter },
-                    dataType: 'json',
-                    success: function (response) {
-                        tranche_block.insertAdjacentHTML('beforeend', response.template);
-                    },
-                    error: function (data) {
-                        console.log('get tranche template error', data);
-                    }
-                });
-            }
-
-            function removeTranche(event) {
-                if (event.target.classList.contains('ddgi-remove-tranche')) {
-                    event.target.parentElement.parentElement.remove();
-                }
-            }
-
-            $('#tranches').delegate('.ddgi-add-tranche', 'click', addTranche);
-            $('#tranches').delegate('.ddgi-remove-tranche', 'click', removeTranche);
-        });
-    </script>
-@endsection

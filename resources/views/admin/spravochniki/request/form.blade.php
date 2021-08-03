@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="request-policy-id" class="col-form-label">Полис</label>
+                                        <label for="request-policy-id" class="col-form-label">Фильтр полиса по серии</label>
                                         <select class="form-control select2 @error('request.policy_id') is-invalid @enderror"
                                                 id="request-policy-id"
                                                 name="request[policy_id]">
@@ -162,8 +162,6 @@
                     }
                 });
             });
-
-            $('.summernote').summernote();
         });
     </script>
 @endsection
