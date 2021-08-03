@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class ContractConstructionInstallationWork extends Model
 {
@@ -125,6 +126,17 @@ class ContractConstructionInstallationWork extends Model
     public function getFiles($type = 'document')
     {
         return $this->files()->where('type' , '=', $type)->get();
+    }
+
+    /**
+     * Get array representation of the location_specificity attribute.
+     * 
+     * @param mixed $value
+     * @return \Illuminate\Support\Arr
+     */
+    public function getLocationSpecificityAttribute($value)
+    {
+        return Arr::wrap($value);
     }
 
     /**

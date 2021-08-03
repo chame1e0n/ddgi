@@ -58,7 +58,7 @@ class CmpController extends Controller
                 $contract_construction_installation_work->construction_participants[] = new ConstructionParticipant();
             }
         }
-$contract_construction_installation_work->location_specificity = [];
+
         return view('products.cmp.form', [
             'block' => false,
             'client' => new Client(),
