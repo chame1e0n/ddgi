@@ -161,9 +161,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('imushestvo_lizing_zalog', 'PropertyLisingZalog');
 /**/Route::resource('dobrovolka_imushestvo','Product\DobrovolkaImushestvoController');
     Route::resource('cmp','Product\CmpController');
-    Route::resource('tamozhnya-add-legal','Product\TamozhnyaAddLegalController');
+    Route::resource('tamozhnya_add_legal','Product\TamozhnyaAddLegalController');
+    Route::resource('tamozhnya_add','Product\TamozhnyaAddController');
 
-    Route::resource('tamozhnya-add','Product\TamozhnyaAddController')->names('tamozhnya-add');
     Route::resource('broker', 'BrokerController');
     Route::resource('audit', 'OtvetsvennostAuditController');
     Route::resource('otvetstvennost-realtor','Product\OtvetstvennostRealtorController')->names('otvetstvennost-realtor');
