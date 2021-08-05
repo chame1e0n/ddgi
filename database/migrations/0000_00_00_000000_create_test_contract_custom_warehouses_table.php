@@ -15,8 +15,6 @@ class CreateTestContractCustomWarehousesTable extends Migration
     {
         Schema::create('contract_custom_warehouses', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('period_from');
-            $table->date('period_to');
             $table->enum('measure', ['liter', 'ton', 'unit']);
             $table->float('square', 12, 3)->unsigned();
             $table->float('capacity', 12, 3)->unsigned();
