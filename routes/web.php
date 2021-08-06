@@ -163,8 +163,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('cmp','Product\CmpController');
     Route::resource('tamozhnya_add_legal','Product\TamozhnyaAddLegalController');
     Route::resource('tamozhnya_add','Product\TamozhnyaAddController');
-
     Route::resource('broker', 'BrokerController');
+
     Route::resource('audit', 'OtvetsvennostAuditController');
     Route::resource('otvetstvennost-realtor','Product\OtvetstvennostRealtorController')->names('otvetstvennost-realtor');
     Route::resource('otvetstvennost/otsenshiki', 'Product\OtvetstvennostOtsenshikiController')->names('otvetstvennost-otsenshiki');
