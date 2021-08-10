@@ -164,10 +164,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('tamozhnya_add_legal','Product\TamozhnyaAddLegalController');
     Route::resource('tamozhnya_add','Product\TamozhnyaAddController');
     Route::resource('broker', 'BrokerController');
-
     Route::resource('audit', 'OtvetsvennostAuditController');
-    Route::resource('otvetstvennost-realtor','Product\OtvetstvennostRealtorController')->names('otvetstvennost-realtor');
-    Route::resource('otvetstvennost/otsenshiki', 'Product\OtvetstvennostOtsenshikiController')->names('otvetstvennost-otsenshiki');
+    Route::resource('otvetstvennost_realtor','Product\OtvetstvennostRealtorController');
+    Route::resource('otvetstvennost_otsenshiki', 'Product\OtvetstvennostOtsenshikiController');
+
     Route::resource('otvetstvennost-podryadchik','Product\OtvetstvennostPodryadchikController')->names('otvetstvennost-podryadchik');
     Route::resource('otvetstvennost-notaries', 'Product\NotaryController');
     Route::resource('credit-nepogashen','Product\CreditNepogashenController')->names('credit-nepogashen');

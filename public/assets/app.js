@@ -26,25 +26,104 @@ function calculation() {
     $('#contract-export-cargo-total').text(contract_export_cargo_total.toFixed(2));
 
     // -- contract_custom_officer --
-    let contract_custom_officer_activity_period_from = $('#contract-custom-officer-activity-period-from').get(0).valueAsDate;
-    let contract_custom_officer_activity_period_to = $('#contract-custom-officer-activity-period-to').get(0).valueAsDate;
+    let contract_custom_officer_activity_period_from = $('#contract-custom-officer-activity-period-from').get(0);
+    let contract_custom_officer_activity_period_to = $('#contract-custom-officer-activity-period-to').get(0);
 
     let contract_custom_officer_activity_period = 0;
     if (contract_custom_officer_activity_period_from && contract_custom_officer_activity_period_to) {
-        contract_custom_officer_activity_period = (contract_custom_officer_activity_period_to - contract_custom_officer_activity_period_from) / (1000 * 60 * 60 * 24);
+        contract_custom_officer_activity_period = (contract_custom_officer_activity_period_to.valueAsDate - contract_custom_officer_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
     }
 
     $('#contract-custom-officer-activity-period').val(contract_custom_officer_activity_period.toFixed(0) + ' дней');
 
-    let annual_turnover_money = Number($('#contract-custom-officer-annual-turnover-first-money').val()) +
-                                Number($('#contract-custom-officer-annual-turnover-second-money').val());
+    let custom_officer_annual_turnover_money = Number($('#contract-custom-officer-annual-turnover-first-money').val()) +
+                                               Number($('#contract-custom-officer-annual-turnover-second-money').val());
 
-    $('#annual-turnover-money').val(annual_turnover_money.toFixed(2));
+    if (custom_officer_annual_turnover_money) {
+        $('#annual-turnover-money').val(custom_officer_annual_turnover_money.toFixed(2));
+    }
 
-    let annual_turnover_earnings = Number($('#contract-custom-officer-annual-turnover-first-earnings').val()) +
-                                   Number($('#contract-custom-officer-annual-turnover-second-earnings').val());
+    let custom_officer_annual_turnover_earnings = Number($('#contract-custom-officer-annual-turnover-first-earnings').val()) +
+                                                  Number($('#contract-custom-officer-annual-turnover-second-earnings').val());
 
-    $('#annual-turnover-earnings').val(annual_turnover_earnings.toFixed(2));
+    if (custom_officer_annual_turnover_earnings) {
+        $('#annual-turnover-earnings').val(custom_officer_annual_turnover_earnings.toFixed(2));
+    }
+
+    // -- contract_auditor --
+    let contract_auditor_activity_period_from = $('#contract-auditor-activity-period-from').get(0);
+    let contract_auditor_activity_period_to = $('#contract-auditor-activity-period-to').get(0);
+
+    let contract_auditor_activity_period = 0;
+    if (contract_auditor_activity_period_from && contract_auditor_activity_period_to) {
+        contract_auditor_activity_period = (contract_auditor_activity_period_to.valueAsDate - contract_auditor_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
+    }
+
+    $('#contract-auditor-activity-period').val(contract_auditor_activity_period.toFixed(0) + ' дней');
+
+    let auditor_annual_turnover_money = Number($('#contract-auditor-annual-turnover-first-money').val()) +
+                                        Number($('#contract-auditor-annual-turnover-second-money').val());
+
+    if (auditor_annual_turnover_money) {
+        $('#annual-turnover-money').val(auditor_annual_turnover_money.toFixed(2));
+    }
+
+    let auditor_annual_turnover_earnings = Number($('#contract-auditor-annual-turnover-first-earnings').val()) +
+                                           Number($('#contract-auditor-annual-turnover-second-earnings').val());
+
+    if (auditor_annual_turnover_earnings) {
+        $('#annual-turnover-earnings').val(auditor_annual_turnover_earnings.toFixed(2));
+    }
+
+    // -- contract_realtor --
+    let contract_realtor_activity_period_from = $('#contract-realtor-activity-period-from').get(0);
+    let contract_realtor_activity_period_to = $('#contract-realtor-activity-period-to').get(0);
+
+    let contract_realtor_activity_period = 0;
+    if (contract_realtor_activity_period_from && contract_realtor_activity_period_to) {
+        contract_realtor_activity_period = (contract_realtor_activity_period_to.valueAsDate - contract_realtor_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
+    }
+
+    $('#contract-realtor-activity-period').val(contract_realtor_activity_period.toFixed(0) + ' дней');
+
+    let realtor_annual_turnover_money = Number($('#contract-realtor-annual-turnover-first-money').val()) +
+                                        Number($('#contract-realtor-annual-turnover-second-money').val());
+
+    if (realtor_annual_turnover_money) {
+        $('#annual-turnover-money').val(realtor_annual_turnover_money.toFixed(2));
+    }
+
+    let realtor_annual_turnover_earnings = Number($('#contract-realtor-annual-turnover-first-earnings').val()) +
+                                           Number($('#contract-realtor-annual-turnover-second-earnings').val());
+
+    if (realtor_annual_turnover_earnings) {
+        $('#annual-turnover-earnings').val(realtor_annual_turnover_earnings.toFixed(2));
+    }
+
+    // -- contract_evaluator --
+    let contract_evaluator_activity_period_from = $('#contract-evaluator-activity-period-from').get(0);
+    let contract_evaluator_activity_period_to = $('#contract-evaluator-activity-period-to').get(0);
+
+    let contract_evaluator_activity_period = 0;
+    if (contract_evaluator_activity_period_from && contract_evaluator_activity_period_to) {
+        contract_evaluator_activity_period = (contract_evaluator_activity_period_to.valueAsDate - contract_evaluator_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
+    }
+
+    $('#contract-evaluator-activity-period').val(contract_evaluator_activity_period.toFixed(0) + ' дней');
+
+    let evaluator_annual_turnover_money = Number($('#contract-evaluator-annual-turnover-first-money').val()) +
+                                          Number($('#contract-evaluator-annual-turnover-second-money').val());
+
+    if (evaluator_annual_turnover_money) {
+        $('#annual-turnover-money').val(evaluator_annual_turnover_money.toFixed(2));
+    }
+
+    let evaluator_annual_turnover_earnings = Number($('#contract-evaluator-annual-turnover-first-earnings').val()) +
+                                             Number($('#contract-evaluator-annual-turnover-second-earnings').val());
+
+    if (evaluator_annual_turnover_earnings) {
+        $('#annual-turnover-earnings').val(evaluator_annual_turnover_earnings.toFixed(2));
+    }
 
     // -- policy_construction_installation_work
     let policy_construction_installation_work_total = Number($('#policy-construction-installation-work-construction-installation-price').val()) +

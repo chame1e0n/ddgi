@@ -7,440 +7,406 @@ use App\AuditTurnover;
 use App\CurrencyTerm;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractAuditor;
+use App\Model\Employee;
+use App\Model\Policy;
+use App\Model\PolicyAuditor;
+use App\Model\Specification;
+use App\Model\Tranche;
 use App\Models\PolicyHolder;
 use App\Models\Spravochniki\Bank;
 use App\OtvetsvennostAudit;
 use App\Product3777;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class OtvetsvennostAuditController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $client = new Client();
-        $contract = new Contract();
+        $old_data = old();
 
-        return view('audit.audit', compact('client', 'contract'));
+        $specification = Specification::where('key', '=', 'S_IPRA')->get()->first();
+
+        $contract = new Contract();
+        $contract_auditor = new ContractAuditor();
+
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_LEGAL;
+        }
+        if (isset($old_data['policies'])) {
+            foreach ($old_data['policies'] as $key => $item) {
+                $policy = new Policy();
+                $policy->policy_model = new PolicyAuditor();
+
+                $contract->policies[$key] = $policy;
+            }
+        }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
+
+        return view('audit.form', [
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_auditor' => $contract_auditor,
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new contract.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-//        $request->validate([
-//            //Policy holder
-//            'fio_insurer' => 'required',
-//            'address_insurer' => 'required',
-//            'tel_insurer' => 'required',
-//            'address_schet' => 'required',
-//            'inn_insurer' => 'required',
-//            'mfo_insurer' => 'required',
-//            'oked_insurer' => 'required',
-//            'bank_insurer' => 'required',
-//            'active_type' => 'required',
-//            'okonh_insurer' => 'required',
-//            'personal_info' => 'required',
-//
-//            //Audit
-//            'insurance_from' => 'required',
-//            'insurance_to' => 'required',
-//            'geo_zone' => 'required',
-//            'active_period_from' => 'required',
-//            'active_period_to' => 'required',
-//            'questionnaire' => 'required',
-//            'contract' => 'required',
-//            'policy_file' => 'required',
-//
-//            //Audit Info
-//            'number_polis' => 'required',
-//            'series_polis' => 'required',
-//            'validity_period_from' => 'required',
-//            'validity_period_to' => 'required',
-//            'polis_agent' => 'required',
-//            'polis_mark' => 'required',
-//            'specialty' => 'required',
-//            'workExp' => 'required',
-//            'polis_model' => 'required',
-//            'arriving_time' => 'required',
-//            'cost_of_insurance' => 'required',
-//            'sum_of_insurance' => 'required',
-//            'bonus_of_insurance' => 'required',
-//
-//
-//            //Audit Turnover
-//            'polis_premium' => 'required',
-//            'turnover' => 'required',
-//            'net_profit' => 'required',
-//            'second_polis_premium' => 'required',
-//            'second_turnover' => 'required',
-//            'second_net_profit' => 'required',
-//
-//            ///Audit
-//            'insurance_premium_currency' => 'required',
-//            'payment_term' => 'required',
-//            'all_sum' => 'required',
-//            'franchise' => 'required',
-//            'insurance_bonus' => 'required',
-//            'polis_series' => 'required',
-//            'polis_from' => 'required',
-//            'litso' => 'required',
-//            'acted' => 'required',
-//            'risk' => 'required',
-//            'cases' => 'required',
-//            'administrative_case' => 'required',
-//            'sphere_of_activity' => 'required',
-//            'prof_insurance_services' => 'required',
-//            'liability_limit' => 'required',
-//            'retransfer_akt_file' => 'required',
-//
-//            'payment_sum' => 'required',
-//            'payment_from' => 'required',
-//
-//        ]);
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            ContractAuditor::$validate,
+            [
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
 
-//        dd($request->all());
-        if ($request->get('insurance_premium_currency') === "other") {
-            $request->validate([
-                "payment_sum" => "required",
-                "payment_from" => "required"
-            ]);
+                'policies.*.name' => 'required',
+                'policies.*.series' => 'required',
+                'policies.*.date_of_issue' => 'required',
+                'policies.*.polis_from_date' => 'required',
+                'policies.*.polis_to_date' => 'required',
+                'policies.*.insurance_sum' => 'required',
+                'policies.*.franchise' => 'required',
+
+                'policies.*.policy_auditor.fio' => 'required',
+                'policies.*.policy_auditor.speciality' => 'required',
+                'policies.*.policy_auditor.work_experience' => 'required',
+                'policies.*.policy_auditor.position' => 'required',
+                'policies.*.policy_auditor.start_date' => 'required',
+                'policies.*.policy_auditor.insurance_value' => 'required',
+            ],
+        ));
+
+        $policies_data = $request['policies'];
+
+        $query = Policy::query();
+        if ($policies_data) {
+            foreach($policies_data as $policies_item) {
+                $query->orWhere(function (Builder $sub_query) use ($policies_item) {
+                    $sub_query->where('name', '=', $policies_item['name'])
+                              ->where('series', '=', $policies_item['series']);
+                });
+            }
         }
 
-        if ($request->acted == "true") {
-            $request->validate([
-                'public_sector_comment' => 'required',
-                'private_sector_comment' => 'required',
-            ]);
-            $public_sector_comment = $request->public_sector_comment;
-            $private_sector_comment = $request->private_sector_comment;
-        } else {
-            $public_sector_comment = null;
-            $private_sector_comment = null;
-        }
-        if ($request->cases == "true") {
-            $request->validate([
-                'reason_case' => 'required',
-            ]);
-            $reason_case = $request->reason_case;
-        } else {
-            $reason_case = null;
-        }
-        if ($request->administrative_case == "true") {
-            $request->validate([
-                'reason_administrative_case' => 'required',
-            ]);
-            $reason_administrative_case = $request->administrative_case;
-        } else {
-            $reason_administrative_case = null;
-        }
-        $policyHolder = PolicyHolder::create([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'oked' => $request->oked_insurer,
-            'bank_id' => $request->bank_insurer,
-            'okonx' => $request->okonh_insurer,
-            'activity_type' => $request->active_type,
-            'personal_info' => $request->personal_info,
-        ]);
-
-        $auditTurnover = AuditTurnover::create([
-            'polis_premium' => $request->polis_premium,
-            'turnover' => $request->turnover,
-            'net_profit' => $request->net_profit,
-            'second_polis_premium' => $request->second_polis_premium,
-            'second_turnover' => $request->second_turnover,
-            'second_net_profit' => $request->second_net_profit,
-
-        ]);
-        $questionnaire_path = (!empty($request->questionnaire)) ? $request->questionnaire->store("documents") : null;
-        $contract_path = (!empty($request->contract)) ? $request->contract->store("documents") : null;
-        $policy_file_path = (!empty($request->policy_file)) ? $request->policy_file->store("documents") : null;
-        $retransfer_akt_file_path = (!empty($request->retransfer_akt_file)) ? $request->retransfer_akt_file->store("documents") : null;
-        $audit = OtvetsvennostAudit::create([
-            'policy_holder_id' => $policyHolder->id,
-            'audit_turnover_id' => $auditTurnover->id,
-            'insurance_from' => $request->insurance_from,
-            'insurance_to' => $request->insurance_to,
-            'geo_zone' => $request->geo_zone,
-            'active_period_from' => $request->active_period_from,
-            'active_period_to' => $request->active_period_to,
-
-            'questionnaire' => $questionnaire_path,
-            'contract' => $contract_path,
-            'policy_file' => $policy_file_path,
-
-            'polis_series' => $request->polis_series,
-            'polis_from' => $request->polis_from,
-            'litso' => $request->litso,
-
-            'insurance_premium_currency' => $request->insurance_premium_currency,
-            'payment_term' => $request->payment_term,
-            'all_sum' => $request->all_sum,
-            'franchise' => $request->franchise,
-            'insurance_bonus' => $request->insurance_bonus,
-            'payment_sum_main' => $request->payment_sum_main,
-            'payment_from_main' => $request->payment_from_main,
-
-            'acted' => $request->acted,
-            'public_sector_comment' => $public_sector_comment,
-            'private_sector_comment' => $private_sector_comment,
-            'risk' => $request->risk,
-            'cases' => $request->cases,
-            'reason_case' => $reason_case,
-            'administrative_case' => $request->administrative_case,
-            'reason_administrative_case' => $reason_administrative_case,
-            'sphere_of_activity' => $request->sphere_of_activity,
-            'prof_insurance_services' => $request->prof_insurance_services,
-            'liability_limit' => $request->liability_limit,
-            'retransfer_akt_file' => $retransfer_akt_file_path,
-
-            'number_polis_main' => $request->number_polis_main,
-            'series_polis_main' => $request->series_polis_main,
-            'validity_period_from_main' => $request->validity_period_from_main,
-            'validity_period_to_main' => $request->validity_period_to_main,
-            'polis_agent_main' => $request->polis_agent_main,
-            'polis_mark_main' => $request->polis_mark_main,
-            'specialty_main' => $request->specialty_main,
-            'workExp_main' => $request->workExp_main,
-            'polis_model_main' => $request->polis_model_main,
-            'arriving_time_main' => $request->arriving_time_main,
-            'cost_of_insurance_main' => $request->cost_of_insurance_main,
-            'sum_of_insurance_main' => $request->sum_of_insurance_main,
-            'bonus_of_insurance_main' => $request->bonus_of_insurance_main,
-
-        ]);
-        if (!empty($request->get("payment_sum"))) {
-            $currency_terms = CurrencyTerm::create([
-                'otvetsvennost_audit_id' => $audit->id,
-                'payment_sum' => $request->get('payment_sum'),
-                'payment_from' => $request->get('payment_from')
-            ]);
+        if (empty($policies_data) || $query->count() == 0) {
+            return back()->withErrors('В базе не обнаружен ни один полис с указанными именованием и серией');
         }
 
-        if (!empty($request->get("number_polis"))) {
-            $auditInfo = AuditInfo::create([
-                'otvetsvennost_audit_id' => $audit->id,
-                'number_polis' => $request->get('number_polis'),
-                'series_polis' => $request->get('series_polis'),
-                'validity_period_from' => $request->get('validity_period_from'),
-                'validity_period_to' => $request->get('validity_period_to'),
-                'polis_agent' => $request->get('polis_agent'),
-                'polis_mark' => $request->get('polis_mark'),
-                'specialty' => $request->get('specialty'),
-                'workExp' => $request->get('workExp'),
-                'polis_model' => $request->get('polis_model'),
-                'arriving_time' => $request->get('arriving_time'),
-                'cost_of_insurance' => $request->get('cost_of_insurance'),
-                'sum_of_insurance' => $request->get('sum_of_insurance'),
-                'bonus_of_insurance' => $request->get('bonus_of_insurance')
-            ]);
+        $client = Client::create($request['client']);
+        $contract_auditor = ContractAuditor::create($request['contract_auditor']);
+
+        $contract_data = $request['contract'];
+        $contract_data['client_id'] = $client->id;
+        $contract_data['number'] = '';
+        $contract_data['status'] = 'concluded';
+        $contract_data['model_type'] = ContractAuditor::class;
+        $contract_data['model_id'] = $contract_auditor->id;
+
+        $contract = Contract::create($contract_data);
+
+        foreach($policies_data as $policy_data) {
+            $policy = Policy::where('name', '=', $policy_data['name'])
+                            ->where('series', '=', $policy_data['series'])
+                            ->get()
+                            ->first();
+
+            if ($policy) {
+                $policy_auditor = PolicyAuditor::create($policy_data['policy_auditor']);
+
+                unset($policy_data['policy_auditor']);
+
+                $policy_data['contract_id'] = $contract->id;
+                $policy_data['model_type'] = PolicyAuditor::class;
+                $policy_data['model_id'] = $policy_auditor->id;
+
+                $policy->fill($policy_data);
+                $policy->save();
+            }
         }
 
-        return "Saved successfully";
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
+
+        $contract_files = [];
+        $contract_auditor_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file_collection) {
+                if (in_array($type, [ContractAuditor::FILE_DOCUMENT])) {
+                    foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                        $contract_auditor_files[] = [
+                            'type' => $type,
+                            'original_name' => $file_item->getClientOriginalName(),
+                            'path' => Storage::putFile('public/contract_auditor', $file_item),
+                        ];
+                    }
+                } else {
+                    $file = $file_collection;
+
+                    $contract_files[] = [
+                        'type' => $type,
+                        'original_name' => $file->getClientOriginalName(),
+                        'path' => Storage::putFile('public/contract', $file),
+                    ];
+                }
+            }
+        }
+
+        $contract->files()->createMany($contract_files);
+        $contract_auditor->files()->createMany($contract_auditor_files);
+
+        $contract->generateNumber();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено сохранение контракта');
     }
 
     /**
-     * Display the specified resource.
+     * Display an existing contract.
      *
-     * @param int $id
+     * @param  \App\Model\Contract $audit
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contract $audit)
     {
-        //
+        $contract = $audit;
+
+        return view('audit.form', [
+            'block' => true,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_auditor' => $contract->contract_model,
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show a form to edit existing contract.
      *
-     * @param int $id
-     */
-    public function edit($id)
-    {
-        $product = OtvetsvennostAudit::query()->with('policyHolder', 'auditTurnover', 'auditInfos',
-            'currencyTerms')->findOrFail($id);
-        $banks = Bank::query()->get();
-        return view('audit.edit', compact('product', 'banks'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \App\Model\Contract $audit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function edit(Contract $audit)
     {
-        $product = OtvetsvennostAudit::query()->find($id);
-        $policyHolder = PolicyHolder::query()->find($product->policy_holder_id);
-        $auditTurnover = AuditTurnover::query()->find($product->audit_turnover_id);
-        $auditInfo = AuditInfo::query()->where('otvetsvennost_audit_id', $product->id)->first();
-        $currency_terms = CurrencyTerm::query()->where('id', $product->id)->first();
+        $contract = $audit;
 
-        $policyHolder->update([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->tel_insurer,
-            'checking_account' => $request->address_schet,
-            'inn' => $request->inn_insurer,
-            'mfo' => $request->mfo_insurer,
-            'oked' => $request->oked_insurer,
-            'bank_id' => $request->bank_insurer,
-            'okonx' => $request->okonh_insurer,
-            'activity_type' => $request->active_type,
-            'personal_info' => $request->personal_info,
+        return view('audit.form', [
+            'block' => false,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_auditor' => $contract->contract_model,
         ]);
-
-        $auditTurnover->update([
-            'polis_premium' => $request->polis_premium,
-            'turnover' => $request->turnover,
-            'net_profit' => $request->net_profit,
-            'second_polis_premium' => $request->second_polis_premium,
-            'second_turnover' => $request->second_turnover,
-            'second_net_profit' => $request->second_net_profit,
-
-        ]);
-        if (!empty($request->questionnaire)) {
-            $questionnaire_path = $request->questionnaire->store("pictures");
-            Storage::delete($product->questionnaire_path);
-        } else {
-            $questionnaire_path = $product->questionnaire_path;
-        }
-        if (!empty($request->contract)) {
-            $contract_path = $request->contract->store("pictures");
-            Storage::delete($product->contract_path);
-        } else {
-            $contract_path = $product->contract_path;
-        }
-        if (!empty($request->policy_file)) {
-            $policy_file_path = $request->policy_file->store("pictures");
-            Storage::delete($product->policy_file_path);
-        } else {
-            $policy_file_path = $product->policy_file_path;
-        }
-        if (!empty($request->retransfer_akt_file)) {
-            $retransfer_akt_file_path = $request->retransfer_akt_file->store("pictures");
-            Storage::delete($product->policy_file_path);
-        } else {
-            $retransfer_akt_file_path = $product->retransfer_akt_file;
-        }
-        $product->update([
-            'policy_holder_id' => $policyHolder->id,
-            'audit_turnover_id' => $auditTurnover->id,
-            'insurance_from' => $request->insurance_from,
-            'insurance_to' => $request->insurance_to,
-            'geo_zone' => $request->geo_zone,
-            'active_period_from' => $request->active_period_from,
-            'active_period_to' => $request->active_period_to,
-
-            'questionnaire' => $questionnaire_path,
-            'contract' => $contract_path,
-            'policy_file' => $policy_file_path,
-
-            'polis_series' => $request->polis_series,
-            'polis_from' => $request->polis_from,
-            'litso' => $request->litso,
-
-            'insurance_premium_currency' => $request->insurance_premium_currency,
-            'payment_term' => $request->payment_term,
-            'all_sum' => $request->all_sum,
-            'franchise' => $request->franchise,
-            'insurance_bonus' => $request->insurance_bonus,
-            'payment_sum_main' => $request->payment_sum_main,
-            'payment_from_main' => $request->payment_from_main,
-
-            'acted' => $request->acted,
-            'public_sector_comment' => $request->public_sector_comment,
-            'private_sector_comment' => $request->private_sector_comment,
-            'risk' => $request->risk,
-            'cases' => $request->cases,
-            'reason_case' => $request->reason_case,
-            'administrative_case' => $request->administrative_case,
-            'reason_administrative_case' => $request->reason_administrative_case,
-            'sphere_of_activity' => $request->sphere_of_activity,
-            'prof_insurance_services' => $request->prof_insurance_services,
-            'liability_limit' => $request->liability_limit,
-            'retransfer_akt_file' => $retransfer_akt_file_path,
-
-            'number_polis_main' => $request->number_polis_main,
-            'series_polis_main' => $request->series_polis_main,
-            'validity_period_from_main' => $request->validity_period_from_main,
-            'validity_period_to_main' => $request->validity_period_to_main,
-            'polis_agent_main' => $request->polis_agent_main,
-            'polis_mark_main' => $request->polis_mark_main,
-            'specialty_main' => $request->specialty_main,
-            'workExp_main' => $request->workExp_main,
-            'polis_model_main' => $request->polis_model_main,
-            'arriving_time_main' => $request->arriving_time_main,
-            'cost_of_insurance_main' => $request->cost_of_insurance_main,
-            'sum_of_insurance_main' => $request->sum_of_insurance_main,
-            'bonus_of_insurance_main' => $request->bonus_of_insurance_main,
-
-        ]);
-
-        $auditInfo->update([
-            'number_polis' => $request->get('number_polis'),
-            'series_polis' => $request->get('series_polis'),
-            'validity_period_from' => $request->get('validity_period_from'),
-            'validity_period_to' => $request->get('validity_period_to'),
-            'polis_agent' => $request->get('polis_agent'),
-            'polis_mark' => $request->get('polis_mark'),
-            'specialty' => $request->get('specialty'),
-            'workExp' => $request->get('workExp'),
-            'polis_model' => $request->get('polis_model'),
-            'arriving_time' => $request->get('arriving_time'),
-            'cost_of_insurance' => $request->get('cost_of_insurance'),
-            'sum_of_insurance' => $request->get('sum_of_insurance'),
-            'bonus_of_insurance' => $request->get('bonus_of_insurance')
-        ]);
-
-        $currency_terms->update([
-            'payment_sum' => $request->get('payment_sum'),
-            'payment_from' => $request->get('payment_from')
-        ]);
-        return "success";
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update an existing contract.
      *
-     * @param int $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Model\Contract      $audit
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function update(Request $request, Contract $audit)
     {
-        $product = OtvetsvennostAudit::query()->findOrFail($id);
-        $auditInfos = AuditInfo::query()->where('otvetsvennost_audit_id', $product->id)->get();
-        $polocyHolder = PolicyHolder::query()->findOrFail($product->policy_holder_id);
-        $audutTurnOver = AuditTurnover::query()->findOrFail($product->audit_turnover_id);
-        $polocyHolder->delete();
-        $audutTurnOver->delete();
-        foreach ($auditInfos as $item) {
-            $item->delete();
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            ContractAuditor::$validate,
+            [
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
+
+                'policies.*.name' => 'required',
+                'policies.*.series' => 'required',
+                'policies.*.date_of_issue' => 'required',
+                'policies.*.polis_from_date' => 'required',
+                'policies.*.polis_to_date' => 'required',
+                'policies.*.insurance_sum' => 'required',
+                'policies.*.franchise' => 'required',
+
+                'policies.*.policy_auditor.fio' => 'required',
+                'policies.*.policy_auditor.speciality' => 'required',
+                'policies.*.policy_auditor.work_experience' => 'required',
+                'policies.*.policy_auditor.position' => 'required',
+                'policies.*.policy_auditor.start_date' => 'required',
+                'policies.*.policy_auditor.insurance_value' => 'required',
+            ],
+        ));
+
+        $contract = $audit;
+
+        $client = $contract->client;
+        $client->fill($request['client']);
+        $client->save();
+
+        $contract_auditor = $contract->contract_model;
+        $contract_auditor->fill($request['contract_auditor']);
+        $contract_auditor->save();
+
+        $contract->fill($request['contract']);
+        $contract->save();
+
+        if ($request['policies']) {
+            $policies_ids = [];
+            foreach($request['policies'] as $policy_data) {
+                $policy = Policy::where('contract_id', '=', $contract->id)
+                                ->where('name', '=', $policy_data['name'])
+                                ->where('series', '=', $policy_data['series'])
+                                ->get()
+                                ->first();
+
+                if ($policy) {
+                    $policy_auditor = $policy->policy_model;
+                    $policy_auditor->fill($policy_data['policy_auditor']);
+                    $policy_auditor->save();
+
+                    unset($policy_data['policy_auditor']);
+
+                    $policy->fill($policy_data);
+                    $policy->save();
+                } else {
+                    $policy = Policy::where('name', '=', $policy_data['name'])
+                                    ->where('series', '=', $policy_data['series'])
+                                    ->get()
+                                    ->first();
+
+                    if ($policy) {
+                        $policy_auditor = PolicyAuditor::create($policy_data['policy_auditor']);
+
+                        unset($policy_data['policy_auditor']);
+
+                        $policy_data['contract_id'] = $contract->id;
+                        $policy_data['model_type'] = PolicyAuditor::class;
+                        $policy_data['model_id'] = $policy_auditor->id;
+
+                        $policy->fill($policy_data);
+                        $policy->save();
+                    }
+                }
+
+                $policies_ids[] = $policy->id;
+            }
+
+            $policies = Policy::where('contract_id', '=', $contract->id)
+                              ->whereNotIn('id', $policies_ids)
+                              ->get();
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
         }
-        $product->delete();
-        return "success";
+
+        if ($request['tranches']) {
+            $tranche_ids = [];
+
+            foreach($request['tranches'] as $tranche_data) {
+                $tranche = Tranche::where('contract_id', '=', $contract->id)
+                                  ->where('from', '=', $tranche_data['from'])
+                                  ->get()
+                                  ->first();
+
+                if ($tranche) {
+                    if ($tranche->sum != $tranche_data['sum']) {
+                        $tranche->sum = $tranche_data['sum'];
+                        $tranche->save();
+                    }
+                } else {
+                    $tranche = $contract->tranches()->create($tranche_data);
+                }
+
+                $tranche_ids[] = $tranche->id;
+            }
+
+            Tranche::where('contract_id', '=', $contract->id)
+                   ->whereNotIn('id', $tranche_ids)
+                   ->delete();
+        }
+
+        $contract_files = [];
+        $contract_auditor_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file_collection) {
+                if (in_array($type, [ContractAuditor::FILE_DOCUMENT])) {
+                    foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                        foreach($contract_auditor->getFiles($type) as $old_file) {
+                            $old_file->delete();
+                        }
+
+                        $contract_auditor_files[] = [
+                            'type' => $type,
+                            'original_name' => $file_item->getClientOriginalName(),
+                            'path' => Storage::putFile('public/contract_auditor', $file_item),
+                        ];
+                    }
+                } else {
+                    $file = $file_collection;
+
+                    if ($old_file = $contract->getFile($type)) {
+                        $old_file->delete();
+                    }
+
+                    $contract_files[] = [
+                        'type' => $type,
+                        'original_name' => $file->getClientOriginalName(),
+                        'path' => Storage::putFile('public/contract', $file),
+                    ];
+                }
+            }
+        }
+
+        $contract->files()->createMany($contract_files);
+        $contract_auditor->files()->createMany($contract_auditor_files);
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено изменение контракта');
+    }
+
+    /**
+     * Destroy an existing contract.
+     *
+     * @param  \App\Model\Contract $audit
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Contract $audit)
+    {
+        $contract = $audit;
+
+        if ($policies = $contract->policies) {
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+        $contract->delete();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
 }
