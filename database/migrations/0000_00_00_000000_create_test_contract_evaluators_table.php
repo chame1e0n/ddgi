@@ -30,7 +30,6 @@ class CreateTestContractEvaluatorsTable extends Migration
             $table->text('claim_filing_reason')->nullable();
             $table->text('administrative_penalty_filing_reason')->nullable();
             $table->enum('professional_activity_insurance', ['bank_audit', 'organization_audit', 'exchange_audit', 'general_audit'])->nullable();
-            $table->enum('professional_service_insurance', ['accounting_restoration', 'reporting', 'reporting_translation', 'activity_analysis', 'consulting', 'calculation_compilation'])->nullable();
             $table->enum('required_responsibility_limit', ['annual', 'insured_event'])->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
