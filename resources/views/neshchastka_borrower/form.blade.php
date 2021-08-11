@@ -53,6 +53,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="contract-borrower-accident-loan-agreement">Кредитный договор</label>
+
                                         <div class="input-group mb-3">
                                             <input required
                                                    class="form-control @error('contract_borrower_accident.loan_agreement') is-invalid @enderror"
@@ -66,6 +67,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="contract-borrower-accident-agreement-date">Дата заключения договора</label>
+
                                         <div class="input-group mb-3">
                                             <input required
                                                    class="form-control @error('contract_borrower_accident.agreement_date') is-invalid @enderror"
