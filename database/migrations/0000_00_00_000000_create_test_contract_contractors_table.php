@@ -16,7 +16,6 @@ class CreateTestContractContractorsTable extends Migration
         Schema::create('contract_contractors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('geo_zone');
-            $table->string('file_agreement');
             $table->string('construction_object', 45);
             $table->string('work_experience', 45);
             $table->timestamps();
