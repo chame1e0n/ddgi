@@ -6,7 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreNotaryRequest;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractNotary;
 use App\Model\Employee;
+use App\Model\NotaryEmployee;
+use App\Model\Policy;
+use App\Model\PolicyNotary;
+use App\Model\Specification;
+use App\Model\Tranche;
 use App\Models\Notary;
 use App\Models\NotaryGrey;
 use App\Models\NotaryPaymentTerm;
@@ -16,144 +22,440 @@ use App\Models\Spravochniki\Bank;
 use App\Models\Spravochniki\PolicySeries;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class NotaryController extends Controller
 {
     /**
-     * @return Application|Factory|View
+     * Display a list of all contracts.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create()
+    public function index()
     {
-        $agents = Employee::where('role', Employee::ROLE_AGENT)->get();
-        $client = new Client();
-        $contract = new Contract();
-        $polis_series = [];
-
-        return view('products.otvetstvennost.notaries.create', compact('agents', 'client', 'contract', 'polis_series'));
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * @param Request $request
+     * Show a form to create a new contract.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreNotaryRequest $request)
+    public function create()
     {
-//        dd($request->all());
+        $old_data = old();
 
-        PolicyHolder::create([
-            'FIO' => $request->fio_insurer,
-            'address' => $request->address_insurer,
-            'phone_number' => $request->phone_insurer,
-            'checking_account' => $request->payment_bill,
-            'vid_deyatelnosti' => $request->insurer_type_active,
-            'mfo' => $request->mfo_insurer,
-            'inn' => $request->inn,
-            'okonx' => $request->okonh_insurer,
-            'bank_id' => $request->bank_insurer,
-            'oked' => $request->oked_insurer,
-        ]);
+        $specification = Specification::where('key', '=', 'S_PLION')->get()->first();
 
-        for ($i = 0; $i < count($request->number); $i++) {
-            NotaryGrey::create([
-                'number' => $request->number[$i],
-                'director' => $request->director[$i],
-                'qualified' => $request->qualified[$i],
-                'other' => $request->other[$i],
-            ]);
+        $contract = new Contract();
+        $contract_notary = new ContractNotary();
+
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_LEGAL;
         }
-
-        $year = json_encode($request->year);
-        $turnover = json_encode($request->turnover);
-        $earnings = json_encode($request->earnings);
-
-        if ($request->hasFile('anketaFile')) {
-            $image = $request->file('anketaFile')->store('/img/Notaries', 'public');
-            $request->anketaFile = $image;
+        if (isset($old_data['notary_employees'])) {
+            foreach ($old_data['notary_employees'] as $item) {
+                $contract_notary->notary_employees[] = new NotaryEmployee();
+            }
         }
+        if (isset($old_data['policies'])) {
+            foreach ($old_data['policies'] as $key => $item) {
+                $policy = new Policy();
+                $policy->policy_model = new PolicyNotary();
 
-        if ($request->hasFile('dogovorFile')) {
-            $image = $request->file('dogovorFile')->store('/img/Notaries', 'public');
-            $request->dogovorFile = $image;
+                $contract->policies[$key] = $policy;
+            }
         }
-
-        if ($request->hasFile('polisFile')) {
-            $image = $request->file('polisFile')->store('/img/Notaries', 'public');
-            $request->polisFile = $image;
-        }
-
-        if ($request->hasFile('retransferAktFile')) {
-            $image = $request->file('retransferAktFile')->store('/img/Notaries', 'public');
-            $request->retransferAktFile = $image;
-        }
-        $notary = Notary::create([
-            'info_personal' => $request->info_personal,
-            'insurance_from' => $request->insurance_from,
-            'insurance_to' => $request->insurance_to,
-            'geo_zone' => $request->geo_zone,
-            'year' => $year,
-            'turnover' => $turnover,
-            'earnings' => $earnings,
-            'activity_period_from' => $request->activity_period_from,
-            'activity_period_to' => $request->activity_period_to,
-            'acted' => $request->acted ? 1 : 0,
-            'public_sector_comment' => $request->public_sector_comment,
-            'private_sector_comment' => $request->private_sector_comment,
-            'riski' => $request->riski,
-            'other_insurance_0' => $request->other_insurance_0,
-            'reason_case' => $request->reason_case,
-            'administrative_case' => $request->administrative_case ? 1 : 0,
-            'reason_administrative_case' => $request->reason_administrative_case,
-            'sphereOfActivity' => $request->sphereOfActivity,
-            'profInsuranceServices' => $request->profInsuranceServices,
-            'retransferAktFile' => $request->retransferAktFile,
-            'wallet' => $request->wallet,
-            'sum_insured' => $request->sum_insured,
-            'franchise' => $request->franchise,
-            'insurance_premium' => $request->insurance_premium,
-            'polis_series' => $request->polis_series,
-            'insurance_policy_from' => $request->insurance_policy_from,
-            'anketaFile' => $request->anketaFile,
-            'dogovorFile' => $request->dogovorFile,
-            'polisFile' => $request->polisFile,
-            'litso' => $request->litso,
-            'payment_term' => $request->payment_term,
-        ]);
-
-        if ($request->payment_term == 'other') {
-//            dd($request->payment_term);
-            for ($i = 0; $i < count($request->payment_sum); $i++) {
-                NotaryPaymentTerm::create([
-                    'payment_sum' => $request->payment_sum[$i],
-                    'payment_from' => $request->payment_from[$i],
-                    'notary_id' => $notary->id
-                ]);
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
             }
         }
 
-        //TODO after fix front
-//        for ($i = 0; $i < count($request->period_polis); $i++){
-//            NotaryInfo::create([
-//                'period_polis' => $request->period_polis[$i],
-//                'polis_id' => PolicySeries::create(['code' => $request->polis_id[$i]])->id,
-//                'validity_period_from' => $request->validity_period_from[$i],
-//                'validity_period_to' => $request->validity_period_to[$i],
-//                'polis_agent' => $request->polis_agent[$i],
-//                'polis_mark' => $request->polis_mark[$i],
-//                'specialty' => $request->specialty, // Maybe not correct work because is not array
-//                'workExp' => $request->workExp, // Maybe not correct work because is not array
-//                'polis_model' => $request->polis_model[$i],
-//                'polis_modification' => $request->polis_modification[$i],
-//                'polis_gos_num' => $request->polis_gos_num[$i],
-//                'polis_teh_passport' => $request->polis_teh_passport[$i],
-//            ]);
-//        }
-
-        dd($request->all());
+        return view('products.otvetstvennost.notaries.form', [
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_notary' => $contract_notary,
+        ]);
     }
 
-    public function show($id)
+    /**
+     * Store a new contract.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
     {
-        dd('asdasdasd');
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            ContractNotary::$validate,
+            [
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
+
+                'policies.*.name' => 'required',
+                'policies.*.series' => 'required',
+                'policies.*.date_of_issue' => 'required',
+                'policies.*.polis_from_date' => 'required',
+                'policies.*.polis_to_date' => 'required',
+                'policies.*.insurance_sum' => 'required',
+                'policies.*.franchise' => 'required',
+
+                'policies.*.policy_notary.fio' => 'required',
+                'policies.*.policy_notary.speciality' => 'required',
+                'policies.*.policy_notary.work_experience' => 'required',
+                'policies.*.policy_notary.position' => 'required',
+                'policies.*.policy_notary.start_date' => 'required',
+                'policies.*.policy_notary.insurance_value' => 'required',
+
+                'notary_employees.*.number' => 'required',
+                'notary_employees.*.administrator' => 'required',
+                'notary_employees.*.composition' => 'required',
+                'notary_employees.*.other' => 'required',
+            ],
+        ));
+
+        $policies_data = $request['policies'];
+
+        $query = Policy::query();
+        if ($policies_data) {
+            foreach($policies_data as $policies_item) {
+                $query->orWhere(function (Builder $sub_query) use ($policies_item) {
+                    $sub_query->where('name', '=', $policies_item['name'])
+                              ->where('series', '=', $policies_item['series']);
+                });
+            }
+        }
+
+        if (empty($policies_data) || $query->count() == 0) {
+            return back()->withErrors('В базе не обнаружен ни один полис с указанными именованием и серией');
+        }
+
+        $client = Client::create($request['client']);
+        $contract_notary = ContractNotary::create($request['contract_notary']);
+
+        $contract_data = $request['contract'];
+        $contract_data['client_id'] = $client->id;
+        $contract_data['number'] = '';
+        $contract_data['status'] = 'concluded';
+        $contract_data['model_type'] = ContractNotary::class;
+        $contract_data['model_id'] = $contract_notary->id;
+
+        $contract = Contract::create($contract_data);
+
+        foreach($policies_data as $policy_data) {
+            $policy = Policy::where('name', '=', $policy_data['name'])
+                            ->where('series', '=', $policy_data['series'])
+                            ->get()
+                            ->first();
+
+            if ($policy) {
+                $policy_notary = PolicyNotary::create($policy_data['policy_notary']);
+
+                unset($policy_data['policy_notary']);
+
+                $policy_data['contract_id'] = $contract->id;
+                $policy_data['model_type'] = PolicyNotary::class;
+                $policy_data['model_id'] = $policy_notary->id;
+
+                $policy->fill($policy_data);
+                $policy->save();
+            }
+        }
+
+        if ($request['notary_employees']) {
+            $contract_notary->notary_employees()->createMany($request['notary_employees']);
+        }
+
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
+
+        $contract_files = [];
+        $contract_notary_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file_collection) {
+                if (in_array($type, [ContractNotary::FILE_DOCUMENT])) {
+                    foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                        $contract_notary_files[] = [
+                            'type' => $type,
+                            'original_name' => $file_item->getClientOriginalName(),
+                            'path' => Storage::putFile('public/contract_notary', $file_item),
+                        ];
+                    }
+                } else {
+                    $file = $file_collection;
+
+                    $contract_files[] = [
+                        'type' => $type,
+                        'original_name' => $file->getClientOriginalName(),
+                        'path' => Storage::putFile('public/contract', $file),
+                    ];
+                }
+            }
+        }
+
+        $contract->files()->createMany($contract_files);
+        $contract_notary->files()->createMany($contract_notary_files);
+
+        $contract->generateNumber();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено сохранение контракта');
+    }
+
+    /**
+     * Display an existing contract.
+     *
+     * @param  \App\Model\Contract $otvetstvennost_notary
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Contract $otvetstvennost_notary)
+    {
+        $contract = $otvetstvennost_notary;
+
+        return view('products.otvetstvennost.notaries.form', [
+            'block' => true,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_notary' => $contract->contract_model,
+        ]);
+    }
+
+    /**
+     * Show a form to edit existing contract.
+     *
+     * @param  \App\Model\Contract $otvetstvennost_notary
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Contract $otvetstvennost_notary)
+    {
+        $contract = $otvetstvennost_notary;
+
+        return view('products.otvetstvennost.notaries.form', [
+            'block' => false,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_notary' => $contract->contract_model,
+        ]);
+    }
+
+    /**
+     * Update an existing contract.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Model\Contract      $otvetstvennost_notary
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Contract $otvetstvennost_notary)
+    {
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            ContractNotary::$validate,
+            [
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
+
+                'policies.*.name' => 'required',
+                'policies.*.series' => 'required',
+                'policies.*.date_of_issue' => 'required',
+                'policies.*.polis_from_date' => 'required',
+                'policies.*.polis_to_date' => 'required',
+                'policies.*.insurance_sum' => 'required',
+                'policies.*.franchise' => 'required',
+
+                'policies.*.policy_notary.fio' => 'required',
+                'policies.*.policy_notary.speciality' => 'required',
+                'policies.*.policy_notary.work_experience' => 'required',
+                'policies.*.policy_notary.position' => 'required',
+                'policies.*.policy_notary.start_date' => 'required',
+                'policies.*.policy_notary.insurance_value' => 'required',
+
+                'notary_employees.*.number' => 'required',
+                'notary_employees.*.administrator' => 'required',
+                'notary_employees.*.composition' => 'required',
+                'notary_employees.*.other' => 'required',
+            ],
+        ));
+
+        $contract = $otvetstvennost_notary;
+
+        $client = $contract->client;
+        $client->fill($request['client']);
+        $client->save();
+
+        $contract_notary = $contract->contract_model;
+        $contract_notary->fill($request['contract_notary']);
+        $contract_notary->save();
+
+        $contract->fill($request['contract']);
+        $contract->save();
+
+        if ($request['notary_employees']) {
+            $notary_employee_ids = [];
+
+            foreach($request['notary_employees'] as $notary_employee_data) {
+                $notary_employee = NotaryEmployee::where('contract_notary_id', '=', $contract_notary->id)
+                                                 ->where('number', '=', $notary_employee_data['number'])
+                                                 ->where('administrator', '=', $notary_employee_data['administrator'])
+                                                 ->where('composition', '=', $notary_employee_data['composition'])
+                                                 ->where('other', '=', $notary_employee_data['other'])
+                                                 ->get()
+                                                 ->first();
+
+                if (!$notary_employee) {
+                    $notary_employee = $contract_notary->notary_employees()->create($notary_employee_data);
+                }
+
+                $notary_employee_ids[] = $notary_employee->id;
+            }
+
+            NotaryEmployee::where('contract_notary_id', '=', $contract_notary->id)
+                          ->whereNotIn('id', $notary_employee_ids)
+                          ->delete();
+        }
+
+        if ($request['policies']) {
+            $policies_ids = [];
+            foreach($request['policies'] as $policy_data) {
+                $policy = Policy::where('contract_id', '=', $contract->id)
+                                ->where('name', '=', $policy_data['name'])
+                                ->where('series', '=', $policy_data['series'])
+                                ->get()
+                                ->first();
+
+                if ($policy) {
+                    $policy_notary = $policy->policy_model;
+                    $policy_notary->fill($policy_data['policy_notary']);
+                    $policy_notary->save();
+
+                    unset($policy_data['policy_notary']);
+
+                    $policy->fill($policy_data);
+                    $policy->save();
+                } else {
+                    $policy = Policy::where('name', '=', $policy_data['name'])
+                                    ->where('series', '=', $policy_data['series'])
+                                    ->get()
+                                    ->first();
+
+                    if ($policy) {
+                        $policy_notary = PolicyNotary::create($policy_data['policy_notary']);
+
+                        unset($policy_data['policy_notary']);
+
+                        $policy_data['contract_id'] = $contract->id;
+                        $policy_data['model_type'] = PolicyNotary::class;
+                        $policy_data['model_id'] = $policy_notary->id;
+
+                        $policy->fill($policy_data);
+                        $policy->save();
+                    }
+                }
+
+                $policies_ids[] = $policy->id;
+            }
+
+            $policies = Policy::where('contract_id', '=', $contract->id)
+                              ->whereNotIn('id', $policies_ids)
+                              ->get();
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+
+        if ($request['tranches']) {
+            $tranche_ids = [];
+
+            foreach($request['tranches'] as $tranche_data) {
+                $tranche = Tranche::where('contract_id', '=', $contract->id)
+                                  ->where('from', '=', $tranche_data['from'])
+                                  ->get()
+                                  ->first();
+
+                if ($tranche) {
+                    if ($tranche->sum != $tranche_data['sum']) {
+                        $tranche->sum = $tranche_data['sum'];
+                        $tranche->save();
+                    }
+                } else {
+                    $tranche = $contract->tranches()->create($tranche_data);
+                }
+
+                $tranche_ids[] = $tranche->id;
+            }
+
+            Tranche::where('contract_id', '=', $contract->id)
+                   ->whereNotIn('id', $tranche_ids)
+                   ->delete();
+        }
+
+        $contract_files = [];
+        $contract_notary_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file_collection) {
+                if (in_array($type, [ContractNotary::FILE_DOCUMENT])) {
+                    foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                        foreach($contract_notary->getFiles($type) as $old_file) {
+                            $old_file->delete();
+                        }
+
+                        $contract_notary_files[] = [
+                            'type' => $type,
+                            'original_name' => $file_item->getClientOriginalName(),
+                            'path' => Storage::putFile('public/contract_notary', $file_item),
+                        ];
+                    }
+                } else {
+                    $file = $file_collection;
+
+                    if ($old_file = $contract->getFile($type)) {
+                        $old_file->delete();
+                    }
+
+                    $contract_files[] = [
+                        'type' => $type,
+                        'original_name' => $file->getClientOriginalName(),
+                        'path' => Storage::putFile('public/contract', $file),
+                    ];
+                }
+            }
+        }
+
+        $contract->files()->createMany($contract_files);
+        $contract_notary->files()->createMany($contract_notary_files);
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено изменение контракта');
+    }
+
+    /**
+     * Destroy an existing contract.
+     *
+     * @param  \App\Model\Contract $otvetstvennost_notary
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Contract $otvetstvennost_notary)
+    {
+        $contract = $otvetstvennost_notary;
+
+        if ($policies = $contract->policies) {
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+        $contract->delete();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
 }

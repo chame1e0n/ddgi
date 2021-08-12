@@ -9,6 +9,8 @@ class ContractNotary extends Model
 {
     use SoftDeletes;
 
+    public const FILE_DOCUMENT = 'document';
+
     public const PROFESSIONAL_ACTIVITY_INSURANCE_BANK_AUDIT = 'bank_audit';
     public const PROFESSIONAL_ACTIVITY_INSURANCE_EXCHANGE_AUDIT = 'exchange_audit';
     public const PROFESSIONAL_ACTIVITY_INSURANCE_GENERAL_AUDIT = 'general_audit';
@@ -16,6 +18,52 @@ class ContractNotary extends Model
 
     public const REQUIRED_RESPONSIBILITY_LIMIT_ANNUAL = 'annual';
     public const REQUIRED_RESPONSIBILITY_LIMIT_INSURED_EVENT = 'insured_event';
+
+    /**
+     * Professional activity insurance names.
+     * 
+     * @var array
+     */
+    public static $professional_activity_insurances = [
+        self::PROFESSIONAL_ACTIVITY_INSURANCE_BANK_AUDIT => 'аудит банков и кредитных учреждений',
+        self::PROFESSIONAL_ACTIVITY_INSURANCE_EXCHANGE_AUDIT => 'аудит бирж, внебюджетных фондов и инвестиционных институтов',
+        self::PROFESSIONAL_ACTIVITY_INSURANCE_GENERAL_AUDIT => 'общий аудит',
+        self::PROFESSIONAL_ACTIVITY_INSURANCE_ORGANIZATION_AUDIT => 'аудит страховых организаций и обществ взаимного страхования',
+    ];
+
+    /**
+     * Required responsibility limit names.
+     * 
+     * @var array
+     */
+    public static $required_responsibility_limits = [
+        self::REQUIRED_RESPONSIBILITY_LIMIT_ANNUAL => 'годовой совокупный',
+        self::REQUIRED_RESPONSIBILITY_LIMIT_INSURED_EVENT => 'по страховому случаю',
+    ];
+
+
+    /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_notary.geo_zone' => 'required',
+        'contract_notary.annual_turnover_first_year' => 'required',
+        'contract_notary.annual_turnover_first_money' => 'required',
+        'contract_notary.annual_turnover_first_earnings' => 'required',
+        'contract_notary.annual_turnover_second_year' => 'required',
+        'contract_notary.annual_turnover_second_money' => 'required',
+        'contract_notary.annual_turnover_second_earnings' => 'required',
+        'contract_notary.activity_period_from' => 'required',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     /**
      * Name of the table for the model.
@@ -26,6 +74,7 @@ class ContractNotary extends Model
 
     /**
      * Get relation to the notary_employees table.
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function notary_employees()
@@ -35,11 +84,33 @@ class ContractNotary extends Model
 
     /**
      * Get relation to the contracts table.
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
     public function contract()
     {
         return $this->morphOne(Contract::class, 'model');
+    }
+
+    /**
+     * Get relation to the files table.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'model');
+    }
+
+    /**
+     * Get notary contract's files of the specified type.
+     * 
+     * @param string $type Type
+     * @return File
+     */
+    public function getFiles($type = 'document')
+    {
+        return $this->files()->where('type' , '=', $type)->get();
     }
 
     /**
@@ -49,6 +120,9 @@ class ContractNotary extends Model
     {
         foreach($this->notary_employees as /* @var $notary_employee NotaryEmployee */ $notary_employee) {
             $notary_employee->delete();
+        }
+        foreach($this->files as /* @var $file File */ $file) {
+            $file->delete();
         }
 
         return parent::delete();

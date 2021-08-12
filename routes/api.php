@@ -52,6 +52,19 @@ Route::post('construction_participant/for/table', function(Request $request) {
     ];
 })->name('get_construction_participant_for_table');
 
+Route::post('notary_employee/for/table', function(Request $request) {
+    $view = view('includes.notary_employee_in_table', [
+        'key' => $request['key'],
+        'notary_employee' => new \App\Model\NotaryEmployee(),
+        'errors' => new \Illuminate\Support\ViewErrorBag(),
+    ])->toHtml();
+
+    return [
+        'code' => 200,
+        'template' => $view,
+    ];
+})->name('get_notary_employee_for_table');
+
 Route::post('policy/for/table', function(Request $request) {
     $model = '\\App\\Model\\' . $request['model'];
 

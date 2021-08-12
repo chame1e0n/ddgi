@@ -83,6 +83,7 @@
     <script type="text/javascript">
         const ddgi_routes = {
             construction_participant_row: '{{route("get_construction_participant_for_table")}}',
+            notary_employee_row: '{{route("get_notary_employee_for_table")}}',
             policies: '{{route("get_policies")}}',
             policy_row: '{{route("get_policy_for_table")}}',
             policy_employee: '{{route("get_policy_employee")}}',

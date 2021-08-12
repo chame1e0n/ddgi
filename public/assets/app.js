@@ -34,7 +34,9 @@ function calculation() {
         contract_custom_officer_activity_period = (contract_custom_officer_activity_period_to.valueAsDate - contract_custom_officer_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
     }
 
-    $('#contract-custom-officer-activity-period').val(contract_custom_officer_activity_period.toFixed(0) + ' дней');
+    contract_custom_officer_activity_period = contract_custom_officer_activity_period >= 0 ? contract_custom_officer_activity_period.toFixed(0) + ' дней' : '';
+
+    $('#contract-custom-officer-activity-period').val(contract_custom_officer_activity_period);
 
     let custom_officer_annual_turnover_money = Number($('#contract-custom-officer-annual-turnover-first-money').val()) +
                                                Number($('#contract-custom-officer-annual-turnover-second-money').val());
@@ -59,7 +61,9 @@ function calculation() {
         contract_auditor_activity_period = (contract_auditor_activity_period_to.valueAsDate - contract_auditor_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
     }
 
-    $('#contract-auditor-activity-period').val(contract_auditor_activity_period.toFixed(0) + ' дней');
+    contract_auditor_activity_period = contract_auditor_activity_period >= 0 ? contract_auditor_activity_period.toFixed(0) + ' дней' : '';
+
+    $('#contract-auditor-activity-period').val(contract_auditor_activity_period);
 
     let auditor_annual_turnover_money = Number($('#contract-auditor-annual-turnover-first-money').val()) +
                                         Number($('#contract-auditor-annual-turnover-second-money').val());
@@ -84,7 +88,9 @@ function calculation() {
         contract_realtor_activity_period = (contract_realtor_activity_period_to.valueAsDate - contract_realtor_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
     }
 
-    $('#contract-realtor-activity-period').val(contract_realtor_activity_period.toFixed(0) + ' дней');
+    contract_realtor_activity_period = contract_realtor_activity_period >= 0 ? contract_realtor_activity_period.toFixed(0) + ' дней' : '';
+
+    $('#contract-realtor-activity-period').val(contract_realtor_activity_period);
 
     let realtor_annual_turnover_money = Number($('#contract-realtor-annual-turnover-first-money').val()) +
                                         Number($('#contract-realtor-annual-turnover-second-money').val());
@@ -109,7 +115,9 @@ function calculation() {
         contract_evaluator_activity_period = (contract_evaluator_activity_period_to.valueAsDate - contract_evaluator_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
     }
 
-    $('#contract-evaluator-activity-period').val(contract_evaluator_activity_period.toFixed(0) + ' дней');
+    contract_evaluator_activity_period = contract_evaluator_activity_period >= 0 ? contract_evaluator_activity_period.toFixed(0) + ' дней' : '';
+
+    $('#contract-evaluator-activity-period').val(contract_evaluator_activity_period);
 
     let evaluator_annual_turnover_money = Number($('#contract-evaluator-annual-turnover-first-money').val()) +
                                           Number($('#contract-evaluator-annual-turnover-second-money').val());
@@ -123,6 +131,33 @@ function calculation() {
 
     if (evaluator_annual_turnover_earnings) {
         $('#annual-turnover-earnings').val(evaluator_annual_turnover_earnings.toFixed(2));
+    }
+
+    // -- contract_notary --
+    let contract_notary_activity_period_from = $('#contract-notary-activity-period-from').get(0);
+    let contract_notary_activity_period_to = $('#contract-notary-activity-period-to').get(0);
+
+    let contract_notary_activity_period = 0;
+    if (contract_notary_activity_period_from && contract_notary_activity_period_to) {
+        contract_notary_activity_period = (contract_notary_activity_period_to.valueAsDate - contract_notary_activity_period_from.valueAsDate) / (1000 * 60 * 60 * 24);
+    }
+
+    contract_notary_activity_period = contract_notary_activity_period >= 0 ? contract_notary_activity_period.toFixed(0) + ' дней' : '';
+
+    $('#contract-notary-activity-period').val(contract_notary_activity_period);
+
+    let notary_annual_turnover_money = Number($('#contract-notary-annual-turnover-first-money').val()) +
+                                       Number($('#contract-notary-annual-turnover-second-money').val());
+
+    if (notary_annual_turnover_money) {
+        $('#annual-turnover-money').val(notary_annual_turnover_money.toFixed(2));
+    }
+
+    let notary_annual_turnover_earnings = Number($('#contract-notary-annual-turnover-first-earnings').val()) +
+                                          Number($('#contract-notary-annual-turnover-second-earnings').val());
+
+    if (notary_annual_turnover_earnings) {
+        $('#annual-turnover-earnings').val(notary_annual_turnover_earnings.toFixed(2));
     }
 
     // -- policy_construction_installation_work
@@ -301,6 +336,34 @@ function addConstructionParticipant() {
 
 function removeConstructionParticipant(event) {
     if (event.target.classList.contains('ddgi-remove-construction-participant')) {
+        event.target.parentElement.parentElement.remove();
+    }
+}
+
+function addNotaryEmployee() {
+    let notary_employee_block = document.getElementById('notary-employees').querySelector('tbody');
+    let counter = notary_employee_block.childElementCount;
+
+    while(document.getElementById('notary-employee-row-' + counter)) {
+        counter++;
+    }
+
+    $.ajax({
+        url: ddgi_routes.notary_employee_row,
+        type: 'post',
+        data: { key: counter },
+        dataType: 'json',
+        success: function (response) {
+            notary_employee_block.insertAdjacentHTML('beforeend', response.template);
+        },
+        error: function (data) {
+            console.log('get notary employee template error', data);
+        }
+    });
+}
+
+function removeNotaryEmployee(event) {
+    if (event.target.classList.contains('ddgi-remove-notary-employee')) {
         event.target.parentElement.parentElement.remove();
     }
 }
@@ -494,6 +557,9 @@ $(document).ready(function() {
 
     $('#construction-participants').delegate('.ddgi-add-construction-participant', 'click', addConstructionParticipant);
     $('#construction-participants').delegate('.ddgi-remove-construction-participant', 'click', removeConstructionParticipant);
+
+    $('#notary-employees').delegate('.ddgi-add-notary-employee', 'click', addNotaryEmployee);
+    $('#notary-employees').delegate('.ddgi-remove-notary-employee', 'click', removeNotaryEmployee);
 
     $('#properties').delegate('.ddgi-add-property', 'click', addProperty);
     $('#properties').delegate('.ddgi-remove-property', 'click', removeProperty);
