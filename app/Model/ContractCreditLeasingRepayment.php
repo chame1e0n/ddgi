@@ -10,6 +10,26 @@ class ContractCreditLeasingRepayment extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_credit_leasing_repayment.loan_agreement' => 'required',
+        'contract_credit_leasing_repayment.period_from' => 'required',
+        'contract_credit_leasing_repayment.period_to' => 'required',
+        'contract_credit_leasing_repayment.sum' => 'required',
+        'contract_credit_leasing_repayment.purpose' => 'required',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

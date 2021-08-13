@@ -10,6 +10,30 @@ class Borrower extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'borrower.bank_id' => ['required', 'integer'],
+        'borrower.fio' => 'required',
+        'borrower.address' => 'required',
+        'borrower.phone' => 'required',
+        'borrower.bank_account' => 'required',
+        'borrower.inn' => 'required',
+        'borrower.mfo' => 'required',
+        'borrower.passport_series' => 'required',
+        'borrower.passport_number' => 'required',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

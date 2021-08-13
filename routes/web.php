@@ -169,9 +169,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('otvetstvennost_otsenshiki', 'Product\OtvetstvennostOtsenshikiController');
     Route::resource('otvetstvennost_podryadchik','Product\OtvetstvennostPodryadchikController');
     Route::resource('otvetstvennost_notaries', 'Product\NotaryController');
-
-    Route::resource('credit-nepogashen','Product\CreditNepogashenController')->names('credit-nepogashen');
+    Route::resource('credit_nepogashen','Product\CreditNepogashenController');
     Route::resource('potrebkredit', 'PotrebKreditController');
+
     Route::resource('avtocredit','Product\AvtocreditController');
     Route::resource('microzaym', 'MicroZaymController');
     Route::resource('rassrochka','Product\CreditRassrochkaController');

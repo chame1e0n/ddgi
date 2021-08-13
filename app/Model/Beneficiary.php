@@ -24,7 +24,6 @@ class Beneficiary extends Model
         'beneficiary.mfo' => 'required',
     ];
 
-
     /**
      * The attributes that are not mass assignable.
      *

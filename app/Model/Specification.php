@@ -61,7 +61,7 @@ class Specification extends Model
         'S_PLION' => 'otvetstvennost_notaries',
         'S_CLIOCA' => null,
         'S_IOCLOTOOTC' => null,
-        'S_LDRIL' => 'credit-nepogashen',
+        'S_LDRIL' => 'credit_nepogashen',
         'S_CLNRRI' => 'potrebkredit',
         'S_CCLI' => 'avtocredit',
         'S_MDRI' => 'microzaym',
