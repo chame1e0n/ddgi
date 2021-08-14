@@ -24,9 +24,9 @@ class CreateTestContractInstallmentsTable extends Migration
             $table->float('risk_tariff', 12, 3)->unsigned()->nullable();
             $table->float('risk_premium', 12, 3)->unsigned()->nullable();
             $table->float('risk_franchise', 12, 3)->unsigned()->nullable();
-            $table->float('franchise_earthquake_fire_percent', 6, 3)->unsigned()->nullable();
-            $table->float('franchise_illegal_action_percent', 6, 3)->unsigned()->nullable();
-            $table->float('franchise_other_risks_percent', 6, 3)->unsigned()->nullable();
+            $table->float('franchise_earthquake_fire_percent', 6, 3)->unsigned();
+            $table->float('franchise_illegal_action_percent', 6, 3)->unsigned();
+            $table->float('franchise_other_risks_percent', 6, 3)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

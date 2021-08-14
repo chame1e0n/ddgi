@@ -1,229 +1,199 @@
 @extends('layouts.index')
 
 @section('content')
-    <form method="POST" action="{{ route('rassrochka.store') }}" id="mainFormKasko"
-          enctype="multipart/form-data">
-        <div class="content-wrapper">
+    <form action="{{ route('rassrochka.' . ($contract->exists ? 'update' : 'store'), $contract->id) }}"
+          enctype="multipart/form-data"
+          id="form-contract"
+          method="POST">
+        @csrf
 
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
+        @if($contract->exists)
+            @method('PUT')
+        @endif
 
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                                <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
-                                <li class="breadcrumb-item active">Создать Анкету</li>
-                            </ol>
+        <fieldset @if($block) disabled="disabled" @endif>
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6</div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                                    <li class="breadcrumb-item active"><a href="/form">Анкеты</a></li>
+                                    <li class="breadcrumb-item active">Создать Анкету</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <section class="content">
-                @include('includes.messages')
 
-                @include('includes.contract')
+                <section class="content">
+                    @include('includes.messages')
 
-                <div class="card-body">
+                    @include('includes.contract')
+
                     @include('includes.client')
-                </div>
-                <div class="card-body">
+
                     @include('includes.pledger')
-                </div>
-                <div class="card-body">
+
                     @include('includes.beneficiary')
-                </div>
-                <div class="card-body">
-                    <div id="anketa-fields">
-                        <div class="row">
+
+                    <div class="card card-info" id="contract-installment">
+                        <div class="card-header">
+                            <h3 class="card-title">Дополнительные поля контракта</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
                             <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-group">
-                                                <label for="dogovor-lizing-num" class="col-form-label">Договор №</label>
-                                                <input type="text" id="dogovor-lizing-num" name="dogovor_lizing_num"
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="col-form-label">Срок действия рассрочки</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">до</span>
-                                            </div>
-                                            <input id="insurance_from" name="insurance_from" type="date"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="geographic-zone">Сумма рассрочки</label>
-                                            <input type="text" id="geographic-zone" name="geo_zone"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label class="col-form-label">Срок действия договора страхования</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">до</span>
-                                            </div>
-                                            <input id="insurance_from" name="insurance_from" type="date"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label for="polises">Валюта взаиморасчетов</label>
-                                        <select class="form-control polises" id="polises" name="polis_series[]"
-                                                style="width: 100%;">
-                                            <option selected="selected">UZS</option>
-                                        </select>
+                                <div class="form-group">
+                                    <label for="contract-installment-sum">
+                                        Сумма рассрочки
+                                    </label>
+
+                                    <input class="form-control @if($errors->has('contract_installment.sum')) is-invalid @endif"
+                                           id="contract-installment-sum"
+                                           name="contract_installment[sum]"
+                                           step="0.01"
+                                           type="number"
+                                           value="{{old('contract_installment.sum', $contract_installment->sum)}}" />
+                                </div>
+                            </div>
+
+                            <div class="card card-success">
+                                <div class="card-header">
+                                    <h3 class="card-title">Условия оплаты страховой премии</h3>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
                                     </div>
                                 </div>
+                                <div class="card-body">
+                                    <label>Утрата (Гибель) или повреждение ТС</label>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label for="contract-installment-loss-sum">Страховая сумма</label>
 
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Сведения о ТС</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
+                                                    <input class="form-control @if($errors->has('contract_installment.loss_sum')) is-invalid @endif"
+                                                           id="contract-installment-loss-sum"
+                                                           name="contract_installment[loss_sum]"
+                                                           step="0.01"
+                                                           type="number"
+                                                           value="{{old('contract_installment.loss_sum', $contract_installment->loss_sum)}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label for="contract-installment-loss-tariff">Тариф</label>
 
-                    <div class="card-body">
-                        <div class="form-group">
-                            <button type="button" id="generalProductFieldsAddButton" class="btn btn-primary ">Добавить
-                            </button>
-                        </div>
-                        <div class="table-responsive p-0 " style="max-height: 300px;">
-                            <div id="product-fields" data-info-table class="product-fields" data-field-number="0">
-                                <table class="table table-hover table-head-fixed" id="empTable">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-nowrap">Номер полиса</th>
-                                        <th class="text-nowrap">Год выпуска</th>
-                                        <th class="text-nowrap">Дата выдачи</th>
-                                        <th class="text-nowrap">Марка</th>
-                                        <th class="text-nowrap">Модель</th>
-                                        <th class="text-nowrap">Гос. номер</th>
-                                        <th class="text-nowrap">Номер тех паспорта</th>
-                                        <th class="text-nowrap">Номер двигателя</th>
-                                        <th class="text-nowrap">Номер кузова</th>
-                                        <th class="text-nowrap">Страховая стоимость</th>
-                                        <th class="text-nowrap">Страховая сумма</th>
-                                        <th class="text-nowrap">Страховая премия</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr></tr>
-                                    <tr>
-                                        <td colspan="9" style="text-align: right"><label class="text-bold">Итого</label>
-                                        </td>
-                                        <td><input readonly data-insurance-stoimost type="text"
-                                                   class="form-control overall-sum"/></td>
-                                        <td><input readonly data-insurance-sum type="text"
-                                                   class="form-control overall-sum4"/></td>
-                                        <td><input readonly data-insurance-award type="text"
-                                                   class="form-control overall-sum3"/></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="general-product-fields">
-                    </div>
-                </div>
-                <div class="card card-success">
-                    <div class="card-header">
-                        <h3 class="card-title">Условия оплаты страховой премии</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                    title="Collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="payment-terms-form">
-                            <div>
-                                <label>Утрата (Гибель) или повреждение ТС</label>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                                    <input class="form-control @if($errors->has('contract_installment.loss_tariff')) is-invalid @endif"
+                                                           id="contract-installment-loss-tariff"
+                                                           name="contract_installment[loss_tariff]"
+                                                           step="0.01"
+                                                           type="number"
+                                                           value="{{old('contract_installment.loss_tariff', $contract_installment->loss_tariff)}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Страховая сумма</label>
-                                                <input type="text" class="form-control">
+                                                <div class="form-group">
+                                                    <label for="contract-installment-loss-premium">Страховая премия</label>
+
+                                                    <input class="form-control @if($errors->has('contract_installment.loss_premium')) is-invalid @endif"
+                                                           id="contract-installment-loss-premium"
+                                                           name="contract_installment[loss_premium]"
+                                                           step="0.01"
+                                                           type="number"
+                                                           value="{{old('contract_installment.loss_premium', $contract_installment->loss_premium)}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label for="contract-installment-loss-franchise">Франшиза</label>
+
+                                                    <input class="form-control @if($errors->has('contract_installment.loss_franchise')) is-invalid @endif"
+                                                           id="contract-installment-loss-franchise"
+                                                           name="contract_installment[loss_franchise]"
+                                                           step="0.01"
+                                                           type="number"
+                                                           value="{{old('contract_installment.loss_franchise', $contract_installment->loss_franchise)}}" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+
+                                    <label>Риск невозврата кредита</label>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Тариф</label>
-                                                <input type="text" class="form-control">
+                                                <div class="form-group">
+                                                    <label for="contract-installment-risk-sum">Страховая сумма</label>
+
+                                                    <input class="form-control @if($errors->has('contract_installment.risk_sum')) is-invalid @endif"
+                                                           id="contract-installment-risk-sum"
+                                                           name="contract_installment[risk_sum]"
+                                                           step="0.01"
+                                                           type="number"
+                                                           value="{{old('contract_installment.risk_sum', $contract_installment->risk_sum)}}" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Страховая премия</label>
-                                                <input type="text" class="form-control">
+                                                <div class="form-group">
+                                                    <label for="contract-installment-risk-tariff">Тариф</label>
+
+                                                    <input class="form-control @if($errors->has('contract_installment.risk_tariff')) is-invalid @endif"
+                                                           id="contract-installment-risk-tariff"
+                                                           name="contract_installment[risk_tariff]"
+                                                           step="0.01"
+                                                           type="number"
+                                                           value="{{old('contract_installment.risk_tariff', $contract_installment->risk_tariff)}}" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Франшиза</label>
-                                                <input type="text" class="form-control">
+                                                <div class="form-group">
+                                                    <label for="contract-installment-risk-premium">Страховая премия</label>
+
+                                                    <input class="form-control @if($errors->has('contract_installment.risk_premium')) is-invalid @endif"
+                                                           id="contract-installment-risk-premium"
+                                                           name="contract_installment[risk_premium]"
+                                                           step="0.01"
+                                                           type="number"
+                                                           value="{{old('contract_installment.risk_premium', $contract_installment->risk_premium)}}" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <label>Риск невозврата кредита</label>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Страховая сумма</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="form-group">
-                                                <label>Тариф</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="form-group">
-                                                <label>Страховая премия</label>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="form-group">
-                                                <label>Франшиза</label>
-                                                <input type="text" class="form-control">
+                                                <div class="form-group">
+                                                    <label for="contract-installment-risk-franchise">Франшиза</label>
+
+                                                    <input class="form-control @if($errors->has('contract_installment.risk_franchise')) is-invalid @endif"
+                                                           id="contract-installment-risk-franchise"
+                                                           name="contract_installment[risk_franchise]"
+                                                           step="0.01"
+                                                           type="number"
+                                                           value="{{old('contract_installment.risk_franchise', $contract_installment->risk_franchise)}}" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -231,137 +201,79 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
+
+                    @include('includes.policies', ['model' => 'PolicyInstallment'])
+
+                    <div class="card card-info">
                         <div class="card-header">
                             <h3 class="card-title">Франшиза</h3>
+
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="card-body" id="beneficiary-card-body">
+                        <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="summ-1">% от страховой суммы по риску землетрясения и пожара по
-                                            каждому убытку и/или по всем убыткам в результате каждого страхового
-                                            случая</label>
-                                        <input type="text" id="summ-1" name="geo_zone" class="form-control">
-                                        <input type="text" id="zalog-address" name="address_zalog"
-                                               value="{{old('address_zalog')}}" @if($errors->has('address_zalog'))
-                                               class="form-control is-invalid"
-                                               @else
-                                               class="form-control"
-                                               @endif
-                                               required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="summ-2">% от страховой суммы по риску противоправные действия
-                                            третьих лиц по каждому убытку и/или по всем убыткам в результате каждого
-                                            страхового случая</label>
-                                        <input type="text" id="summ-2" name="geo_zone" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="geographic-zone">% от страховой суммы по другим рискам по каждому
-                                            <br> убытку и/или по всем убыткам в результате каждого <br> страхового
-                                            случая</label>
-                                        <input type="text" id="geographic-zone" name="geo_zone" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                        <label for="contract-installment-franchise-earthquake-fire-percent">
+                                            % от страховой суммы по риску землетрясения и пожара по каждому убытку и/или по всем убыткам в результате каждого страхового случая
+                                        </label>
 
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card card-info" id="clone-beneficiary">
-                        <div class="card-header">
-                            <h3 class="card-title">Сведения о страховом полисе</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                        data-toggle="tooltip" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body" id="beneficiary-card-body">
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="polis_name" class="col-form-label">Наименование</label>
-                                            <select @if($errors->has('polis_name'))
-                                                    class="form-control is-invalid"
-                                                    @else
-                                                    class="form-control"
-                                                    @endif id="polis_name"
-                                                    name="polis_name"
-                                                    style="width: 100%;" required>
-                                                <option></option>
-                                            </select>
-                                        </div>
+                                        <input required
+                                               class="form-control @if($errors->has('contract_installment.franchise_earthquake_fire_percent')) is-invalid @endif"
+                                               id="contract-installment-franchise-earthquake-fire-percent"
+                                               name="contract_installment[franchise_earthquake_fire_percent]"
+                                               step="0.01"
+                                               type="number"
+                                               value="{{old('contract_installment.franchise_earthquake_fire_percent', $contract_installment->franchise_earthquake_fire_percent)}}" />
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="policy_id" class="col-form-label">Серийный номер</label>
-                                            <select @if($errors->has('policy_id'))
-                                                    class="form-control is-invalid"
-                                                    @else
-                                                    class="form-control"
-                                                    @endif id="policy_id"
-                                                    name="policy_id"
-                                                    style="width: 100%;" required>
-                                                <option></option>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="contract-installment-franchise-illegal-action-percent">
+                                            % от страховой суммы по риску противоправных действий третьих лиц по каждому убытку и/или по всем убыткам в результате каждого страхового случая
+                                        </label>
+
+                                        <input required
+                                               class="form-control @if($errors->has('contract_installment.franchise_illegal_action_percent')) is-invalid @endif"
+                                               id="contract-installment-franchise-illegal-action-percent"
+                                               name="contract_installment[franchise_illegal_action_percent]"
+                                               step="0.01"
+                                               type="number"
+                                               value="{{old('contract_installment.franchise_illegal_action_percent', $contract_installment->franchise_illegal_action_percent)}}" />
                                     </div>
-                                    <div class="col-sm-3">
-                                        <label class="col-form-label">Дата выдачи страхового полиса </label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"></span>
-                                            </div>
-                                            <input id="data_vidachi" name="data_vidachi" type="date"
-                                                   value="{{old('data_vidachi')}}"
-                                                   @if($errors->has('data_vidachi'))
-                                                   class="form-control is-invalid"
-                                                   @else
-                                                   class="form-control"
-                                                @endif >
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="otvet_litso">Ответственное лицо</label>
-                                            <select @if($errors->has('otvet_litso'))
-                                                    class="form-control is-invalid"
-                                                    @else
-                                                    class="form-control"
-                                                    @endif id="otvet_litso" name="otvet_litso"
-                                                    style="width: 100%;" required>
-                                                <option></option>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="contract-installment-franchise-other-risks-percent">
+                                            % от страховой суммы по другим рискам по каждому убытку и/или по всем убыткам в результате каждого страхового случая
+                                        </label>
+
+                                        <input required
+                                               class="form-control @if($errors->has('contract_installment.franchise_other_risks_percent')) is-invalid @endif"
+                                               id="contract-installment-franchise-other-risks-percent"
+                                               name="contract_installment[franchise_other_risks_percent]"
+                                               step="0.01"
+                                               type="number"
+                                               value="{{old('contract_installment.franchise_other_risks_percent', $contract_installment->franchise_other_risks_percent)}}" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                </div>
-            </section>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
+                </section>
             </div>
-        </div>
-    </form>
 
+            @if(!$block)
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right" id="form-save-button">
+                        {{$contract->exists ? 'Изменить' : 'Добавить'}}
+                    </button>
+                </div>
+            @endif
+        </fieldset>
+    </form>
 @endsection

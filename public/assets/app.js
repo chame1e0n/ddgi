@@ -286,6 +286,39 @@ function calculation() {
             policy_additional_premium += policy_leasing_autocredit_premium;
         }
 
+        // -- policy_installment --
+        $('#policies-' + number + '-policy-installment-ec-driver-sum').val(Number($('#policies-' + number + '-policy-installment-ec-driver-amount').val()) * Number($('#policies-' + number + '-policy-installment-ec-driver-sum-for-person').val()));
+        $('#policies-' + number + '-policy-installment-ec-passenger-sum').val(Number($('#policies-' + number + '-policy-installment-ec-passenger-amount').val()) * Number($('#policies-' + number + '-policy-installment-ec-passenger-sum-for-person').val()));
+        $('#policies-' + number + '-policy-installment-ec-general-limit-sum').val(Number($('#policies-' + number + '-policy-installment-ec-general-limit-amount').val()) * Number($('#policies-' + number + '-policy-installment-ec-general-limit-sum-for-person').val()));
+
+        $('#policies-' + number + '-policy-installment-ec-total-sum').val(Number($('#policies-' + number + '-policy-installment-ec-driver-sum').val()) + Number($('#policies-' + number + '-policy-installment-ec-passenger-sum').val()) + Number($('#policies-' + number + '-policy-installment-ec-general-limit-sum').val()));
+        $('#policies-' + number + '-policy-installment-ec-total-premium').val(Number($('#policies-' + number + '-policy-installment-ec-driver-premium').val()) + Number($('#policies-' + number + '-policy-installment-ec-passenger-premium').val()) + Number($('#policies-' + number + '-policy-installment-ec-general-limit-premium').val()));
+
+        let policy_installment_ae_additional_insured_sum = Number($('#policies-' + number + '-policy-installment-ae-additional-insured-sum').val());
+        let policy_installment_ec_vehicle_death_recovery_sum = Number($('#policies-' + number + '-policy-installment-ec-vehicle-death-recovery-sum').val());
+        let policy_installment_ec_civil_liability_sum = Number($('#policies-' + number + '-policy-installment-ec-civil-liability-sum').val());
+        let policy_installment_ec_total_sum = Number($('#policies-' + number + '-policy-installment-ec-total-sum').val());
+
+        let policy_installment_sum = policy_installment_ae_additional_insured_sum + policy_installment_ec_vehicle_death_recovery_sum + policy_installment_ec_civil_liability_sum + policy_installment_ec_total_sum;
+
+        $('#policies-' + number + '-policy-installment-total-sum').val(policy_installment_sum.toFixed(2));
+
+        if (!window.isNaN(policy_installment_sum)) {
+            policy_additional_sum += policy_installment_sum;
+        }
+
+        let policy_installment_ec_vehicle_death_recovery_premium = Number($('#policies-' + number + '-policy-installment-ec-vehicle-death-recovery-premium').val());
+        let policy_installment_ec_civil_liability_premium = Number($('#policies-' + number + '-policy-installment-ec-civil-liability-premium').val());
+        let policy_installment_ec_total_premium = Number($('#policies-' + number + '-policy-installment-ec-total-premium').val());
+
+        let policy_installment_premium = policy_installment_ec_vehicle_death_recovery_premium + policy_installment_ec_civil_liability_premium + policy_installment_ec_total_premium;
+
+        $('#policies-' + number + '-policy-installment-total-premium').val(policy_installment_premium.toFixed(2));
+
+        if (!window.isNaN(policy_installment_premium)) {
+            policy_additional_premium += policy_installment_premium;
+        }
+
         // -- policy --
         $('#policies-' + number + '-insurance-sum-plus').text('+ ' + policy_additional_sum.toFixed(2));
         $('#policies-' + number + '-insurance-premium-plus').text('+ ' + policy_additional_premium.toFixed(2));
