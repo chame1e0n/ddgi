@@ -15,9 +15,6 @@ class CreateTestContractInstallmentsTable extends Migration
     {
         Schema::create('contract_installments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('loan_agreement');
-            $table->date('period_from');
-            $table->date('period_to');
             $table->float('sum', 12, 3)->unsigned()->nullable();
             $table->float('loss_sum', 12, 3)->unsigned()->nullable();
             $table->float('loss_tariff', 12, 3)->unsigned()->nullable();
