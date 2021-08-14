@@ -10,6 +10,25 @@ class ContractMicroloan extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_microloan.credit_agreement_date' => 'required',
+        'contract_microloan.microloan_from' => 'required',
+        'contract_microloan.microloan_to' => 'required',
+        'contract_microloan.microloan_sum' => 'required',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

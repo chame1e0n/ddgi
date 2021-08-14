@@ -105,7 +105,7 @@
                                value="{{old('borrower.oked', $borrower->oked)}}" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="borrower-passport-series" class="col-form-label">Серия паспорта</label>
                         <input required
@@ -116,7 +116,7 @@
                                value="{{old('borrower.passport_series', $borrower->passport_series)}}" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="borrower-passport-number" class="col-form-label">Номер паспорта</label>
                         <input required
@@ -127,7 +127,7 @@
                                value="{{old('borrower.passport_number', $borrower->passport_number)}}" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="borrower-passport-issued-place" class="col-form-label">Кем выдан</label>
                         <input class="form-control polises @error('borrower.passport_issued_place') is-invalid @enderror"
@@ -137,7 +137,7 @@
                                value="{{old('borrower.passport_issued_place', $borrower->passport_issued_place)}}" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="borrower-passport-issued-date" class="col-form-label">Когда выдан</label>
                         <div class="input-group">
