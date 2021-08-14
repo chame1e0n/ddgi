@@ -92,6 +92,15 @@ class Bank extends Model
     }
 
     /**
+     * Get relation to the principals table.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function principals()
+    {
+        return $this->hasMany(Principal::class);
+    }
+
+    /**
      * Cascade deletion.
      */
     public function delete()
@@ -113,6 +122,9 @@ class Bank extends Model
         }
         foreach($this->pledgers as /* @var $pledger Pledger */ $pledger) {
             $pledger->delete();
+        }
+        foreach($this->principals as /* @var $principal Principal */ $principal) {
+            $principal->delete();
         }
 
         return parent::delete();

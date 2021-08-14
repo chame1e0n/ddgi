@@ -24,6 +24,7 @@ class CreateTestContractsTable extends Migration
             $table->integer('insured_person_id')->unsigned()->nullable();
             $table->integer('payment_method_id')->unsigned()->nullable();
             $table->integer('pledger_id')->unsigned()->nullable();
+            $table->integer('principal_id')->unsigned()->nullable();
             $table->integer('specification_id')->unsigned();
             $table->string('number', 50);
             $table->enum('payment_type', ['entirely', 'tranche'])->nullable();
@@ -45,6 +46,7 @@ class CreateTestContractsTable extends Migration
             $table->foreign('insured_person_id', 'fk_contract_insured_person')->references('id')->on('insured_persons');
             $table->foreign('payment_method_id', 'fk_contract_payment_method')->references('id')->on('payment_methods');
             $table->foreign('pledger_id', 'fk_contract_pledger')->references('id')->on('pledgers');
+            $table->foreign('principal_id', 'fk_contract_principal')->references('id')->on('principals');
             $table->foreign('specification_id', 'fk_contract_specification')->references('id')->on('specifications');
         });
     }

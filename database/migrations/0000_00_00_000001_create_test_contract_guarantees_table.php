@@ -15,19 +15,17 @@ class CreateTestContractGuaranteesTable extends Migration
     {
         Schema::create('contract_guarantees', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('contragent_id')->unsigned();
-            $table->string('loan_agreement');
+            $table->string('contragent_name', 100);
+            $table->string('contragent_agreement', 45);
+            $table->date('contragent_from');
             $table->date('period_from');
             $table->date('period_to');
             $table->date('waiting_from')->nullable();
             $table->date('waiting_to')->nullable();
             $table->string('other_information')->nullable();
-            $table->float('sum', 12, 3)->unsigned()->nullable();
-            $table->string('purpose')->nullable();
             $table->string('other_security_forms')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
-            $table->foreign('contragent_id', 'fk_contract_guarantee_contragent')->references('id')->on('contragents');
         });
     }
 

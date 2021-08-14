@@ -15,7 +15,6 @@ class CreateTestContractMibFamilyIsEntrepreneursTable extends Migration
     {
         Schema::create('contract_mib_family_is_entrepreneurs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('loan_agreement');
             $table->date('period_from');
             $table->date('period_to');
             $table->float('sum', 12, 3)->unsigned();

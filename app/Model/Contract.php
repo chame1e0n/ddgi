@@ -157,6 +157,15 @@ class Contract extends Model
     }
 
     /**
+     * Get relation to the principals table.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function principal()
+    {
+        return $this->belongsTo(Principal::class);
+    }
+
+    /**
      * Get relation to the specifications table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

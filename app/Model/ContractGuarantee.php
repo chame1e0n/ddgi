@@ -17,15 +17,6 @@ class ContractGuarantee extends Model
     protected $table = 'contract_guarantees';
 
     /**
-     * Get relation to the contragents table.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function contragent()
-    {
-        return $this->belongsTo(Contragent::class);
-    }
-
-    /**
      * Get relation to the contracts table.
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
