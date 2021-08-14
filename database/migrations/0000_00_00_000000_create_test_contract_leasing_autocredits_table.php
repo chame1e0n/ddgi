@@ -15,11 +15,8 @@ class CreateTestContractLeasingAutocreditsTable extends Migration
     {
         Schema::create('contract_leasing_autocredits', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('loan_agreement');
             $table->date('period_from');
             $table->date('period_to');
-            $table->date('validity_from')->nullable();
-            $table->date('validity_to')->nullable();
             $table->float('sum', 12, 3)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

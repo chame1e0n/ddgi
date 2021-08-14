@@ -22,7 +22,7 @@ class CreateTestPolicyLeasingAutocreditsTable extends Migration
             $table->string('techpassport_number', 45);
             $table->string('engine_number', 45);
             $table->string('carcase_number', 45);
-            $table->string('carrying_capacity', 45);
+            $table->float('insurance_value', 12, 3)->unsigned();
             $table->string('ae_modification_brand', 250)->nullable();
             $table->string('ae_equipment_identification', 100)->nullable();
             $table->string('ae_serial_number', 45)->nullable();
@@ -37,17 +37,14 @@ class CreateTestPolicyLeasingAutocreditsTable extends Migration
             $table->float('ec_civil_liability_sum', 12, 3)->unsigned()->nullable();
             $table->float('ec_civil_liability_premium', 12, 3)->unsigned()->nullable();
             $table->float('ec_driver_sum_for_person', 12, 3)->unsigned()->nullable();
-            $table->float('ec_driver_sum', 12, 3)->unsigned()->nullable();
             $table->float('ec_driver_premium', 12, 3)->unsigned()->nullable();
             $table->integer('ec_passenger_amount')->unsigned()->nullable();
             $table->float('ec_passenger_sum_for_person', 12, 3)->unsigned()->nullable();
-            $table->float('ec_passenger_sum', 12, 3)->unsigned()->nullable();
             $table->float('ec_passenger_premium', 12, 3)->unsigned()->nullable();
             $table->integer('ec_general_limit_amount')->unsigned()->nullable();
             $table->float('ec_general_limit_sum_for_person', 12, 3)->unsigned()->nullable();
-            $table->float('ec_general_limit_sum', 12, 3)->unsigned()->nullable();
             $table->float('ec_general_limit_premium', 12, 3)->unsigned()->nullable();
-            $table->float('ec_general_limit_price', 12, 3)->unsigned()->nullable();
+            $table->float('ec_general_limit_responsibility', 12, 3)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
