@@ -1,6 +1,4 @@
 @extends('layouts.index')
-@include('products._form_elements.blocks._svediniya_o_polise.create')
-@include('products._form_elements.blocks._franshiza.create')
 
 @section('content')
     <form method="POST" action="{{ route('rassrochka.store') }}" id="mainFormKasko"
@@ -234,8 +232,131 @@
                         </div>
                     </div>
                 </div>
-                @yield('_franshiza_content')
-                @yield('_svediniya_o_polise_content')
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Франшиза</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="summ-1">% от страховой суммы по риску землетрясения и пожара по
+                                            каждому убытку и/или по всем убыткам в результате каждого страхового
+                                            случая</label>
+                                        <input type="text" id="summ-1" name="geo_zone" class="form-control">
+                                        <input type="text" id="zalog-address" name="address_zalog"
+                                               value="{{old('address_zalog')}}" @if($errors->has('address_zalog'))
+                                               class="form-control is-invalid"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="summ-2">% от страховой суммы по риску противоправные действия
+                                            третьих лиц по каждому убытку и/или по всем убыткам в результате каждого
+                                            страхового случая</label>
+                                        <input type="text" id="summ-2" name="geo_zone" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="geographic-zone">% от страховой суммы по другим рискам по каждому
+                                            <br> убытку и/или по всем убыткам в результате каждого <br> страхового
+                                            случая</label>
+                                        <input type="text" id="geographic-zone" name="geo_zone" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card card-info" id="clone-beneficiary">
+                        <div class="card-header">
+                            <h3 class="card-title">Сведения о страховом полисе</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="beneficiary-card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="polis_name" class="col-form-label">Наименование</label>
+                                            <select @if($errors->has('polis_name'))
+                                                    class="form-control is-invalid"
+                                                    @else
+                                                    class="form-control"
+                                                    @endif id="polis_name"
+                                                    name="polis_name"
+                                                    style="width: 100%;" required>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="policy_id" class="col-form-label">Серийный номер</label>
+                                            <select @if($errors->has('policy_id'))
+                                                    class="form-control is-invalid"
+                                                    @else
+                                                    class="form-control"
+                                                    @endif id="policy_id"
+                                                    name="policy_id"
+                                                    style="width: 100%;" required>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Дата выдачи страхового полиса </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"></span>
+                                            </div>
+                                            <input id="data_vidachi" name="data_vidachi" type="date"
+                                                   value="{{old('data_vidachi')}}"
+                                                   @if($errors->has('data_vidachi'))
+                                                   class="form-control is-invalid"
+                                                   @else
+                                                   class="form-control"
+                                                @endif >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="otvet_litso">Ответственное лицо</label>
+                                            <select @if($errors->has('otvet_litso'))
+                                                    class="form-control is-invalid"
+                                                    @else
+                                                    class="form-control"
+                                                    @endif id="otvet_litso" name="otvet_litso"
+                                                    style="width: 100%;" required>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </section>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary float-right" id="form-save-button">Сохранить</button>
@@ -243,8 +364,4 @@
         </div>
     </form>
 
-@endsection
-
-@section('scripts')
-    @yield('_zalogodatel_scripts')
 @endsection
