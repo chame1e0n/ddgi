@@ -10,6 +10,23 @@ class ContractLeasingAutocredit extends Model
     use SoftDeletes;
 
     /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        'contract_leasing_autocredit.period_from' => 'required',
+        'contract_leasing_autocredit.period_to' => 'required',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Name of the table for the model.
      *
      * @var string

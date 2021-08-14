@@ -253,6 +253,39 @@ function calculation() {
             policy_additional_premium += policy_casco_premium;
         }
 
+        // -- policy_leasing_autocredit --
+        $('#policies-' + number + '-policy-leasing-autocredit-ec-driver-sum').val(Number($('#policies-' + number + '-policy-leasing-autocredit-ec-driver-amount').val()) * Number($('#policies-' + number + '-policy-leasing-autocredit-ec-driver-sum-for-person').val()));
+        $('#policies-' + number + '-policy-leasing-autocredit-ec-passenger-sum').val(Number($('#policies-' + number + '-policy-leasing-autocredit-ec-passenger-amount').val()) * Number($('#policies-' + number + '-policy-leasing-autocredit-ec-passenger-sum-for-person').val()));
+        $('#policies-' + number + '-policy-leasing-autocredit-ec-general-limit-sum').val(Number($('#policies-' + number + '-policy-leasing-autocredit-ec-general-limit-amount').val()) * Number($('#policies-' + number + '-policy-leasing-autocredit-ec-general-limit-sum-for-person').val()));
+
+        $('#policies-' + number + '-policy-leasing-autocredit-ec-total-sum').val(Number($('#policies-' + number + '-policy-leasing-autocredit-ec-driver-sum').val()) + Number($('#policies-' + number + '-policy-leasing-autocredit-ec-passenger-sum').val()) + Number($('#policies-' + number + '-policy-leasing-autocredit-ec-general-limit-sum').val()));
+        $('#policies-' + number + '-policy-leasing-autocredit-ec-total-premium').val(Number($('#policies-' + number + '-policy-leasing-autocredit-ec-driver-premium').val()) + Number($('#policies-' + number + '-policy-leasing-autocredit-ec-passenger-premium').val()) + Number($('#policies-' + number + '-policy-leasing-autocredit-ec-general-limit-premium').val()));
+
+        let policy_leasing_autocredit_ae_additional_insured_sum = Number($('#policies-' + number + '-policy-leasing-autocredit-ae-additional-insured-sum').val());
+        let policy_leasing_autocredit_ec_vehicle_death_recovery_sum = Number($('#policies-' + number + '-policy-leasing-autocredit-ec-vehicle-death-recovery-sum').val());
+        let policy_leasing_autocredit_ec_civil_liability_sum = Number($('#policies-' + number + '-policy-leasing-autocredit-ec-civil-liability-sum').val());
+        let policy_leasing_autocredit_ec_total_sum = Number($('#policies-' + number + '-policy-leasing-autocredit-ec-total-sum').val());
+
+        let policy_leasing_autocredit_sum = policy_leasing_autocredit_ae_additional_insured_sum + policy_leasing_autocredit_ec_vehicle_death_recovery_sum + policy_leasing_autocredit_ec_civil_liability_sum + policy_leasing_autocredit_ec_total_sum;
+
+        $('#policies-' + number + '-policy-leasing-autocredit-total-sum').val(policy_leasing_autocredit_sum.toFixed(2));
+
+        if (!window.isNaN(policy_leasing_autocredit_sum)) {
+            policy_additional_sum += policy_leasing_autocredit_sum;
+        }
+
+        let policy_leasing_autocredit_ec_vehicle_death_recovery_premium = Number($('#policies-' + number + '-policy-leasing-autocredit-ec-vehicle-death-recovery-premium').val());
+        let policy_leasing_autocredit_ec_civil_liability_premium = Number($('#policies-' + number + '-policy-leasing-autocredit-ec-civil-liability-premium').val());
+        let policy_leasing_autocredit_ec_total_premium = Number($('#policies-' + number + '-policy-leasing-autocredit-ec-total-premium').val());
+
+        let policy_leasing_autocredit_premium = policy_leasing_autocredit_ec_vehicle_death_recovery_premium + policy_leasing_autocredit_ec_civil_liability_premium + policy_leasing_autocredit_ec_total_premium;
+
+        $('#policies-' + number + '-policy-leasing-autocredit-total-premium').val(policy_leasing_autocredit_premium.toFixed(2));
+
+        if (!window.isNaN(policy_leasing_autocredit_premium)) {
+            policy_additional_premium += policy_leasing_autocredit_premium;
+        }
+
         // -- policy --
         $('#policies-' + number + '-insurance-sum-plus').text('+ ' + policy_additional_sum.toFixed(2));
         $('#policies-' + number + '-insurance-premium-plus').text('+ ' + policy_additional_premium.toFixed(2));
