@@ -151,15 +151,15 @@
 
                     @include('includes.policy_in_section')
                 </section>
-
-                @if(!$block)
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary float-right" id="form-save-button">
-                            {{$contract->exists ? 'Изменить' : 'Добавить'}}
-                        </button>
-                    </div>
-                @endif
             </div>
+
+            @if(!$block)
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right" id="form-save-button">
+                        {{$contract->exists ? 'Изменить' : 'Добавить'}}
+                    </button>
+                </div>
+            @endif
         </fieldset>
     </form>
 @endsection
