@@ -1,5 +1,7 @@
 @extends('layouts.index')
 
+@include('includes.contract')
+
 @section('content')
     <form action="{{route('zalog_autozalog3x.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
           enctype="multipart/form-data"
@@ -31,15 +33,18 @@
                 <section class="content">
                     @include('includes.messages')
 
-                    @include('includes.contract')
+                    @yield('includes.contract.block.1')
 
                     @include('includes.client')
 
                     @include('includes.beneficiary')
 
+                    @yield('includes.contract.block.2')
+
                     <div class="card card-info" id="contract-trilateral-car-deposit">
                         <div class="card-header">
                             <h3 class="card-title">Дополнительные поля контракта</h3>
+
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-minus"></i>
@@ -218,6 +223,10 @@
                     </div>
 
                     @include('includes.policies', ['model' => 'PolicyTrilateralCarDeposit'])
+
+                    @yield('includes.contract.block.3')
+
+                    @yield('includes.contract.block.4')
                 </section>
             </div>
 

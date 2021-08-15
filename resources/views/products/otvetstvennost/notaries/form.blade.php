@@ -1,5 +1,7 @@
 @extends('layouts.index')
 
+@include('includes.contract')
+
 @section('content')
     <form action="{{route('otvetstvennost_notaries.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
           enctype="multipart/form-data"
@@ -31,11 +33,13 @@
                 <section class="content">
                     @include('includes.messages')
 
-                    @include('includes.contract')
+                    @yield('includes.contract.block.1')
 
                     @include('includes.client')
 
                     @include('includes.policies', ['model' => 'PolicyNotary'])
+
+                    @yield('includes.contract.block.2')
 
                     <div class="card card-info" id="contract-notary">
                         <div class="card-header">
@@ -497,6 +501,10 @@
                             </div>
                         </div>
                     </div>
+
+                    @yield('includes.contract.block.3')
+
+                    @yield('includes.contract.block.4')
                 </section>
             </div>
 

@@ -1,5 +1,7 @@
 @extends('layouts.index')
 
+@include('includes.contract')
+
 @section('content')
     <form action="{{route('imushestvo_lizing_zalog.' . ($contract->exists ? 'update' : 'store'), $contract->id)}}"
           enctype="multipart/form-data"
@@ -31,11 +33,13 @@
                 <section class="content">
                     @include('includes.messages')
 
-                    @include('includes.contract')
+                    @yield('includes.contract.block.1')
 
                     @include('includes.client')
 
                     @include('includes.beneficiary')
+
+                    @yield('includes.contract.block.2')
 
                     <div class="card card-info" id="contract-property-leasing">
                         <div class="card-header">
@@ -145,6 +149,10 @@
                     @include('includes.properties')
 
                     @include('includes.policy_in_section')
+
+                    @yield('includes.contract.block.3')
+
+                    @yield('includes.contract.block.4')
                 </section>
             </div>
 
