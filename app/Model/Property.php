@@ -36,6 +36,7 @@ class Property extends Model
      *  contract_general_property_pledges.
      *  contract_mortgages
      *  contract_multilateral_property_pledges
+     *  contract_properties
      *  contract_property_leasings
      *  contract_special_equipment_pledges
      *  contract_trilateral_property_pledges.

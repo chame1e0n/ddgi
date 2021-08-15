@@ -9,10 +9,21 @@ class ContractProperty extends Model
 {
     use SoftDeletes;
 
-    public const USAGE_BASEMENT_LEASING = 'leasing';
-    public const USAGE_BASEMENT_PROXY = 'proxy';
-    public const USAGE_BASEMENT_TECHPASSPORT = 'techpassport';
-    public const USAGE_BASEMENT_WAYBILL = 'waybill';
+    /**
+     * Validation rules for the form fields.
+     *
+     * @var array
+     */
+    public static $validate = [
+        //
+    ];
+
+    /**
+     * Name of the columns which should not be fillable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     /**
      * Name of the table for the model.
@@ -28,5 +39,26 @@ class ContractProperty extends Model
     public function contract()
     {
         return $this->morphOne(Contract::class, 'model');
+    }
+
+    /**
+     * Get relation to the properties table.
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function properties()
+    {
+        return $this->morphMany(Property::class, 'model');
+    }
+
+    /**
+     * Cascade deletion.
+     */
+    public function delete()
+    {
+        foreach($this->properties as /* @var $property Property */ $property) {
+            $property->delete();
+        }
+
+        return parent::delete();
     }
 }

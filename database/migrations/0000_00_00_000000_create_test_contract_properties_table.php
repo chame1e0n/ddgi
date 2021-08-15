@@ -15,10 +15,6 @@ class CreateTestContractPropertiesTable extends Migration
     {
         Schema::create('contract_properties', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('period_from');
-            $table->date('period_to');
-            $table->enum('usage_basement', ['techpassport', 'proxy', 'leasing', 'waybill']);
-            $table->string('geo_zone', 45);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
