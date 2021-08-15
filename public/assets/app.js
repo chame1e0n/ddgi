@@ -640,4 +640,8 @@ $(document).ready(function() {
     });
 
     $('.summernote').summernote();
+
+    $('select[id$=bank-id]').select2({
+        theme: 'bootstrap4'
+    });
 });
