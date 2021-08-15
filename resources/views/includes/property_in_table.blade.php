@@ -1,5 +1,12 @@
 <tr id="property-row-{{$key}}">
     <td>
+        <input class="form-control @error('properties.' . $key . '.inventory_number') is-invalid @enderror"
+               id="properties-{{$key}}-inventory-number"
+               name="properties[{{$key}}][inventory_number]"
+               type="text"
+               value="{{old('properties.' . $key . '.inventory_number', $property->inventory_number)}}" />
+    </td>
+    <td>
         <input required
                class="form-control @error('properties.' . $key . '.name') is-invalid @enderror"
                id="properties-{{$key}}-name"

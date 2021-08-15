@@ -14,6 +14,7 @@
             <table class="table table-hover table-head-fixed">
                 <thead>
                     <tr>
+                        <th class="text-nowrap">Инвентарный номер</th>
                         <th class="text-nowrap">Наименование</th>
                         <th class="text-nowrap">Местонахождение</th>
                         <th class="text-nowrap">Дата выдачи</th>

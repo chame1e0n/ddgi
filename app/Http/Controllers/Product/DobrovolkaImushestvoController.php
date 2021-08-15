@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 use App\Model\Beneficiary;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractProperty;
+use App\Model\Policy;
+use App\Model\Property;
+use App\Model\Specification;
+use App\Model\Tranche;
 use App\Models\PolicyBeneficiaries;
 use App\Models\PolicyHolder;
 use Illuminate\Http\Request;
@@ -19,383 +24,342 @@ use Illuminate\Support\Facades\Storage;
 class DobrovolkaImushestvoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-        //
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $beneficiary = new Beneficiary();
-        $client = new Client();
-        $contract = new Contract();
+        $old_data = old();
 
-        return view('products.dobrovolka_imushestvo.create', compact('beneficiary', 'client', 'contract'));
+        $specification = Specification::where('key', '=', 'S_PI')->get()->first();
+
+        $contract = new Contract();
+        $contract_property = new ContractProperty();
+
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+        if (isset($old_data['properties'])) {
+            foreach ($old_data['properties'] as $item) {
+                $contract_property->properties[] = new Property();
+            }
+        }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
+
+        return view('products.dobrovolka_imushestvo.form', [
+            'beneficiary' => new Beneficiary(),
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_property' => $contract_property,
+            'policy' => new Policy(),
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new contract.
      *
-     * @param Request $request
-     * @return Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            // Общие сведения
-            'fio_insurer' => 'required|string|max:255',
-            'address_insurer' => 'required|string|max:255',
-            'tel_insurer' => 'required|digits:12',          // 998909998877
-            'address_schet' => 'required|string|max:255',
-            'inn_insurer' => 'required|integer',
-            'mfo_insurer' => 'required|integer',
-            'bank_insurer' => 'required|integer',
-            'oked_insurer' => 'required|integer',
+        $request->validate(array_merge(
+            Beneficiary::$validate,
+            Client::$validate,
+            Contract::$validate,
+            ContractProperty::$validate,
+            [
+                'policy.name' => 'required',
+                'policy.series' => 'required',
+                'policy.date_of_issue' => 'required',
+                'policy.polis_from_date' => 'required',
+                'policy.polis_to_date' => 'required',
+                'policy.insurance_sum' => 'required',
+                'policy.franchise' => 'required',
 
-            // Выгодоприобретатель
-            'fio_beneficiary' => 'required|string|max:255',
-            'address_beneficiary' => 'required|string|max:255',
-            'tel_beneficiary' => 'required|digits:12',
-            'beneficiary_schet' => 'required|integer',
-            'inn_beneficiary' => 'required|integer',
-            'mfo_beneficiary' => 'required|integer',
-            'bank_beneficiary' => 'required|integer',
-            'okonx_beneficiary' => 'required|integer',
-            'seria_passport' => 'required|string|max:255',
-            'nomer_passport' => 'required|integer',
+                'properties.*.name' => 'required',
+                'properties.*.location' => 'required',
+                'properties.*.insurance_value' => 'required',
+                'properties.*.insurance_sum' => 'required',
 
-            // Период страхования...
-            'ts_osnovanii' => 'required|integer',
-            'period_insurance_from' => 'required|date',
-            'period_insurance_to' => 'required|date',
-            'geo_zone' => 'required|string',
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
+            ]
+        ));
 
-            // Полис
-            'polis_name_id' => 'required|array',        // Наименование полиса
-            'polis_series_id' => 'required|array',      // Серия полиса
-            'data_vidachi' => 'required|array',         // Дата выдачи
-            'period_deystviya_ot' => 'required|array',  // Период действия полиса от
-            'period_deystviya_do' => 'required|array',  // Период действия полиса до
-            'otvet_litso' => 'required|array',          // Выбор агента
-            'kolichestvo' => 'required|array',          // Количество
-            'strah_stoimost' => 'required|array',       // Страховая стоимость
-            'strah_summa' => 'required|array',          // Страховая сумма
-            'strah_premiya' => 'required|array',        // Страховая премия
+        $policy_data = $request['policy'];
 
-            // Условия оплаты страховой премии
-            'insurance_sum' => 'required|integer',
-            'insurance_bonus' => 'required|integer',
-            'franchise' => 'required|integer',
-            'insurance_premium_currency' => 'required|string',
-            'sposob_rascheta' => 'required|integer',
+        $policy = Policy::where('name', '=', $policy_data['name'])
+                        ->where('series', '=', $policy_data['series'])
+                        ->get()
+                        ->first();
 
-            'payment_term' => 'required|in:transh,1',                   // транш
-            'payment_sum' => 'required_if:payment_term,transh|array',   // транш
-            'payment_from' => 'required_if:payment_term,transh|array',  // транш
-
-            'tarif' => 'nullable',                  // can be 'on' or nullable
-            'tarif_other' => 'required_with:tarif',
-            'preim' => 'nullable',                  // can be 'on' or nullable
-            'premiya_other' => 'required_with:preim',
-
-            'application_form_file' => 'nullable|file',
-            'contract_file' => 'nullable|file',
-            'policy_file' => 'nullable|file',
-        ]);
-
-        if ($request->hasFile('application_form_file')) {
-            $file = $request->file('application_form_file')->store('/img/PolicyHolder', 'public');
-
-            $request->application_form_file = $file;
-        }
-        if ($request->hasFile('contract_file')) {
-            $file = $request->file('contract_file')->store('/img/PolicyHolder', 'public');
-
-            $request->contract_file = $file;
-        }
-        if ($request->hasFile('policy_file')) {
-            $file = $request->file('policy_file')->store('/img/PolicyHolder', 'public');
-
-            $request->policy_file = $file;
-        }
-
-        $all_product = DB::transaction(function () use ($request) {
-            $ph = PolicyHolder::createPolicyHolders($request);
-            $pb = PolicyBeneficiaries::createPolicyBeneficiaries($request);
-
-            $all_p = AllProduct::query()->create([
-                'ts_osnovanii' => $request->input('ts_osnovanii'),
-                'period_insurance_from' => $request->input('period_insurance_from'),
-                'period_insurance_to' => $request->input('period_insurance_to'),
-                'geo_zone' => $request->input('geo_zone'),
-                'insurance_sum' => $request->input('insurance_sum'),
-                'insurance_bonus' => $request->input('insurance_bonus'),
-                'franchise' => $request->input('franchise'),
-                'insurance_premium_currency' => $request->input('insurance_premium_currency'),
-                'sposob_rascheta' => $request->input('sposob_rascheta'),
-                'tarif_other' => $request->has('tarif') ? $request->input('tarif_other') : null,
-                'premiya_other' => $request->has('preim') ? $request->input('premiya_other') : null,
-                'policy_holder_id' => $ph->id,
-                'policy_beneficiaries_id' => $pb->id,
-                'application_form_file' => $request->hasFile('application_form_file') ? $request->application_form_file : null,
-                'contract_file' => $request->hasFile('contract_file') ? $request->contract_file : null,
-                'policy_file' => $request->hasFile('policy_file') ? $request->policy_file : null,
+        if (!$policy) {
+            return back()->withErrors([
+                sprintf(
+                    'В базе не обнаружен полис с %s именованием и с %s серией',
+                    $policy_data['name'],
+                    $policy_data['series']
+                )
             ]);
+        }
 
-            if ($request->input('payment_term') == 'transh') {
-                foreach ($request->input('payment_sum') as $key => $value) {
-                    AllProductsTermsTransh::query()->create([
-                        'payment_sum' => $request->input('payment_sum')[$key],
-                        'payment_from' => $request->input('payment_from')[$key],
-                        'all_products_id' => $all_p->id,
-                    ]);
-                }
+        $beneficiary = Beneficiary::create($request['beneficiary']);
+        $client = Client::create($request['client']);
+        $contract_property = ContractProperty::create([]);
+
+        $contract_data = $request['contract'];
+        $contract_data['beneficiary_id'] = $beneficiary->id;
+        $contract_data['client_id'] = $client->id;
+        $contract_data['number'] = '';
+        $contract_data['status'] = 'concluded';
+        $contract_data['model_type'] = ContractProperty::class;
+        $contract_data['model_id'] = $contract_property->id;
+
+        $contract = Contract::create($contract_data);
+
+        $policy_data['contract_id'] = $contract->id;
+
+        $policy->fill($policy_data);
+        $policy->save();
+
+        if ($request['properties']) {
+            $contract_property->properties()->createMany($request['properties']);
+        }
+
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
+
+        $contract_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                $contract_files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
             }
+        }
 
-            foreach ($request->input('polis_name_id') as $key => $item) {
-                AllProductInformation::query()->create([
-                    'policy_id' => $request->input('polis_series_id')[$key],
-                    'data_vidachi' => $request->input('data_vidachi')[$key],
-                    'period_deystviya_ot' => $request->input('period_deystviya_ot')[$key],
-                    'period_deystviya_do' => $request->input('period_deystviya_do')[$key],
-                    'otvet_litso' => $request->input('otvet_litso')[$key],
-                    'kolichestvo' => $request->input('kolichestvo')[$key],
-                    'strah_stoimost' => $request->input('strah_stoimost')[$key],
-                    'strah_summa' => $request->input('strah_summa')[$key],
-                    'strah_premiya' => $request->input('strah_premiya')[$key],
-                    'all_products_id' => $all_p->id,
-                ]);
-            }
+        $contract->files()->createMany($contract_files);
 
-            return $all_p;
-        });
+        $contract->generateNumber();
 
-        return redirect()->route('dobrovolka_imushestvo.edit', $all_product->id)->withInput()->with([sprintf('Данные успешно добавлены')]);
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено сохранение контракта');
     }
 
     /**
-     * Display the specified resource.
+     * Display an existing contract.
      *
-     * @param int $id
-     * @return Response
+     * @param  \App\Model\Contract $dobrovolka_imushestvo
+     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contract $dobrovolka_imushestvo)
     {
-        //
-    }
+        $contract = $dobrovolka_imushestvo;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $product = AllProduct::query()->with('policyHolder', 'policyBeneficiaries')->find($id);
-
-        return view('products.dobrovolka_imushestvo.edit', compact('product'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            // Общие сведения
-            'fio_insurer' => 'required|string|max:255',
-            'address_insurer' => 'required|string|max:255',
-            'tel_insurer' => 'required|digits:12',          // 998909998877
-            'address_schet' => 'required|string|max:255',
-            'inn_insurer' => 'required|integer',
-            'mfo_insurer' => 'required|integer',
-            'bank_insurer' => 'required|integer',
-            'oked_insurer' => 'required|integer',
-
-            // Выгодоприобретатель
-            'fio_beneficiary' => 'required|string|max:255',
-            'address_beneficiary' => 'required|string|max:255',
-            'tel_beneficiary' => 'required|digits:12',
-            'beneficiary_schet' => 'required|integer',
-            'inn_beneficiary' => 'required|integer',
-            'mfo_beneficiary' => 'required|integer',
-            'bank_beneficiary' => 'required|integer',
-            'okonx_beneficiary' => 'required|integer',
-            'seria_passport' => 'required|string|max:255',
-            'nomer_passport' => 'required|integer',
-
-            // Период страхования...
-            'ts_osnovanii' => 'required|integer',
-            'period_insurance_from' => 'required|date',
-            'period_insurance_to' => 'required|date',
-            'geo_zone' => 'required|string',
-
-            // Полис
-            'polis_name_id' => 'required|array',        // Наименование полиса
-            'polis_series_id' => 'required|array',      // Серия полиса
-            'data_vidachi' => 'required|array',         // Дата выдачи
-            'period_deystviya_ot' => 'required|array',  // Период действия полиса от
-            'period_deystviya_do' => 'required|array',  // Период действия полиса до
-            'otvet_litso' => 'required|array',          // Выбор агента
-            'kolichestvo' => 'required|array',          // Количество
-            'strah_stoimost' => 'required|array',       // Страховая стоимость
-            'strah_summa' => 'required|array',          // Страховая сумма
-            'strah_premiya' => 'required|array',        // Страховая премия
-
-            // Условия оплаты страховой премии
-            'insurance_sum' => 'required|integer',
-            'insurance_bonus' => 'required|integer',
-            'franchise' => 'required|integer',
-            'insurance_premium_currency' => 'required|string',
-            'sposob_rascheta' => 'required|integer',
-
-            'payment_term' => 'required|in:transh,1',                   // транш
-            'payment_sum' => 'required_if:payment_term,transh|array',   // транш
-            'payment_from' => 'required_if:payment_term,transh|array',  // транш
-
-            'tarif' => 'nullable',                  // can be 'on' or nullable
-            'tarif_other' => 'required_with:tarif',
-            'preim' => 'nullable',                  // can be 'on' or nullable
-            'premiya_other' => 'required_with:preim',
-
-            'application_form_file' => 'nullable|file',
-            'contract_file' => 'nullable|file',
-            'policy_file' => 'nullable|file',
+        return view('products.dobrovolka_imushestvo.form', [
+            'beneficiary' => $contract->beneficiary,
+            'block' => true,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_property' => $contract->contract_model,
+            'policy' => $contract->policies->first(),
         ]);
-
-        $all_p = AllProduct::query()->findOrFail($id);
-        $ph = PolicyHolder::query()->findOrFail($all_p->policy_holder_id);
-        $pb = PolicyBeneficiaries::query()->findOrFail($all_p->policy_beneficiaries_id);
-
-        if ($request->hasFile('application_form_file')) {
-            if ($all_p->application_form_file){
-                Storage::disk('public')->delete($all_p->application_form_file);
-            }
-
-            $file = $request->file('application_form_file')->store('/img/PolicyHolder', 'public');
-
-            $request->application_form_file = $file;
-        }
-        if ($request->hasFile('contract_file')) {
-            if ($all_p->contract_file){
-                Storage::disk('public')->delete($all_p->contract_file);
-            }
-
-            $file = $request->file('contract_file')->store('/img/PolicyHolder', 'public');
-
-            $request->contract_file = $file;
-        }
-        if ($request->hasFile('policy_file')) {
-            if ($all_p->policy_file){
-                Storage::disk('public')->delete($all_p->policy_file);
-            }
-
-            $file = $request->file('policy_file')->store('/img/PolicyHolder', 'public');
-
-            $request->policy_file = $file;
-        }
-
-        $all_p = DB::transaction(function () use ($request, $all_p, $ph, $pb) {
-            $ph = PolicyHolder::updatePolicyHolders($ph->id, $request);
-            $pb = PolicyBeneficiaries::updatePolicyBeneficiaries($pb->id, $request);
-
-            $all_p->update([
-                'ts_osnovanii' => $request->input('ts_osnovanii'),
-                'period_insurance_from' => $request->input('period_insurance_from'),
-                'period_insurance_to' => $request->input('period_insurance_to'),
-                'geo_zone' => $request->input('geo_zone'),
-                'insurance_sum' => $request->input('insurance_sum'),
-                'insurance_bonus' => $request->input('insurance_bonus'),
-                'franchise' => $request->input('franchise'),
-                'insurance_premium_currency' => $request->input('insurance_premium_currency'),
-                'sposob_rascheta' => $request->input('sposob_rascheta'),
-                'tarif_other' => $request->has('tarif') ? $request->input('tarif_other') : null,
-                'premiya_other' => $request->has('preim') ? $request->input('premiya_other') : null,
-                'policy_holder_id' => $ph->id,
-                'policy_beneficiaries_id' => $pb->id,
-                'application_form_file' => $request->hasFile('application_form_file') ? $request->application_form_file : null,
-                'contract_file' => $request->hasFile('contract_file') ? $request->contract_file : null,
-                'policy_file' => $request->hasFile('policy_file') ? $request->policy_file : null,
-            ]);
-
-            // 1. был "транш" стал "единоврем" -> удаляем новые обьекты
-            if ($all_p->has('allProductTermTransh') && $request->input('payment_term') == 1) {
-                $all_p->allProductTermTransh()->delete();
-            // 2. был "транш" стал "транш" -> добавляем обьекты или удаляем существующие и изменям существующие
-            } else if ($all_p->has('allProductTermTransh') && $request->input('payment_term') == 'transh') {
-                $exclude = [];
-
-                foreach ($request->input('payment_sum') as $key => $value) {
-                    $transh = AllProductsTermsTransh::query()->updateOrCreate([
-                        'payment_sum' => $request->input('payment_sum')[$key],
-                        'payment_from' => $request->input('payment_from')[$key],
-                        'all_products_id' => $all_p->id
-                    ], [
-                        'payment_sum' => $request->input('payment_sum')[$key],
-                        'payment_from' => $request->input('payment_from')[$key],
-                        'all_products_id' => $all_p->id
-                    ]);
-
-                    $exclude[] = $transh->id;
-                }
-
-                $all_p->allProductTermTransh()->whereNotIn('id', $exclude)->delete();
-            // 3. был "единоврем" стал "транш" -> добавляем просто новые обьекты
-            } else if ($request->input('payment_term') == 'transh') {
-                foreach ($request->input('payment_sum') as $key => $value) {
-                    AllProductsTermsTransh::query()->create([
-                        'payment_sum' => $request->input('payment_sum')[$key],
-                        'payment_from' => $request->input('payment_from')[$key],
-                        'all_products_id' => $all_p->id,
-                    ]);
-                }
-            }
-
-            foreach ($request->input('polis_name_id') as $key => $item) {
-                AllProductInformation::query()->updateOrCreate([
-                    'policy_id' => $request->input('polis_series_id')[$key],
-                    'all_products_id' => $all_p->id,
-                ], [
-                    'data_vidachi' => $request->input('data_vidachi')[$key],
-                    'period_deystviya_ot' => $request->input('period_deystviya_ot')[$key],
-                    'period_deystviya_do' => $request->input('period_deystviya_do')[$key],
-                    'otvet_litso' => $request->input('otvet_litso')[$key],
-                    'kolichestvo' => $request->input('kolichestvo')[$key],
-                    'strah_stoimost' => $request->input('strah_stoimost')[$key],
-                    'strah_summa' => $request->input('strah_summa')[$key],
-                    'strah_premiya' => $request->input('strah_premiya')[$key],
-                    'all_products_id' => $all_p->id,
-                ]);
-            }
-
-            return $all_p;
-        });
-
-        return back()->withInput()->with([sprintf('Данные успешно обновлены')]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Show a form to edit existing contract.
      *
-     * @param int $id
-     * @return Response
+     * @param  \App\Model\Contract $dobrovolka_imushestvo
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function edit(Contract $dobrovolka_imushestvo)
     {
-        //
+        $contract = $dobrovolka_imushestvo;
+
+        return view('products.dobrovolka_imushestvo.form', [
+            'beneficiary' => $contract->beneficiary,
+            'block' => false,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_property' => $contract->contract_model,
+            'policy' => $contract->policies->first(),
+        ]);
+    }
+
+    /**
+     * Update an existing contract.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Model\Contract      $dobrovolka_imushestvo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Contract $dobrovolka_imushestvo)
+    {
+        $request->validate(array_merge(
+            Beneficiary::$validate,
+            Client::$validate,
+            Contract::$validate,
+            ContractProperty::$validate,
+            [
+                'policy.name' => 'required',
+                'policy.series' => 'required',
+                'policy.date_of_issue' => 'required',
+                'policy.polis_from_date' => 'required',
+                'policy.polis_to_date' => 'required',
+                'policy.insurance_sum' => 'required',
+                'policy.franchise' => 'required',
+
+                'properties.*.name' => 'required',
+                'properties.*.location' => 'required',
+                'properties.*.insurance_value' => 'required',
+                'properties.*.insurance_sum' => 'required',
+
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
+            ]
+        ));
+
+        $contract = $dobrovolka_imushestvo;
+
+        $beneficiary = $contract->beneficiary;
+        $beneficiary->fill($request['beneficiary']);
+        $beneficiary->save();
+
+        $client = $contract->client;
+        $client->fill($request['client']);
+        $client->save();
+
+        $contract_property = $contract->contract_model;
+        $contract_property->fill([]);
+        $contract_property->save();
+
+        $contract->fill($request['contract']);
+        $contract->save();
+
+        $policy = $contract->policies->first();
+        $policy->fill($request['policy']);
+        $policy->save();
+
+        if ($request['properties']) {
+            $properties_ids = [];
+
+            foreach($request['properties'] as $property_data) {
+                $property = Property::where('model_type', '=', ContractProperty::class)
+                                    ->where('model_id', '=', $contract_property->id)
+                                    ->where('name', '=', $property_data['name'])
+                                    ->where('location', '=', $property_data['location'])
+                                    ->get()
+                                    ->first();
+
+                if ($property) {
+                    $property->fill($property_data);
+                    $property->save();
+                } else {
+                    $property_data['model_type'] = ContractProperty::class;
+                    $property_data['model_id'] = $contract_property->id;
+
+                    $property = Property::create($property_data);
+                }
+
+                $properties_ids[] = $property->id;
+            }
+
+            $properties = Property::where('model_type', '=', ContractProperty::class)
+                                  ->where('model_id', '=', $contract_property->id)
+                                  ->whereNotIn('id', $properties_ids)
+                                  ->get();
+            foreach($properties as /* @var $property Property */ $property) {
+                $property->delete();
+            }
+        }
+
+        if ($request['tranches']) {
+            $tranche_ids = [];
+
+            foreach($request['tranches'] as $tranche_data) {
+                $tranche = Tranche::where('contract_id', '=', $contract->id)
+                                  ->where('from', '=', $tranche_data['from'])
+                                  ->get()
+                                  ->first();
+
+                if ($tranche) {
+                    if ($tranche->sum != $tranche_data['sum']) {
+                        $tranche->sum = $tranche_data['sum'];
+                        $tranche->save();
+                    }
+                } else {
+                    $tranche = $contract->tranches()->create($tranche_data);
+                }
+
+                $tranche_ids[] = $tranche->id;
+            }
+
+            Tranche::where('contract_id', '=', $contract->id)
+                   ->whereNotIn('id', $tranche_ids)
+                   ->delete();
+        }
+
+        $contract_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                if ($old_file = $contract->getFile($type)) {
+                    $old_file->delete();
+                }
+
+                $contract_files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($contract_files);
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено изменение контракта');
+    }
+
+    /**
+     * Destroy an existing contract.
+     *
+     * @param  \App\Model\Contract $dobrovolka_imushestvo
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Contract $dobrovolka_imushestvo)
+    {
+        $contract = $dobrovolka_imushestvo;
+
+        if ($policies = $contract->policies) {
+            foreach($policies as /* @var $policy Policy */ $policy) {
+                $policy->delete();
+            }
+        }
+        $contract->delete();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
 }
