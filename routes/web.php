@@ -174,8 +174,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('avtocredit','Product\AvtocreditController');
     Route::resource('microzaym', 'MicroZaymController');
     Route::resource('rassrochka','Product\CreditRassrochkaController');
-
-    Route::resource('product3777', 'Product3777\Product3777Controller')->except('index');
+    Route::resource('product3777', 'Product3777\Product3777Controller');
     Route::resource('garant','Product\GarantController');
 });
 

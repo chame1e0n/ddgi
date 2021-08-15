@@ -5,8 +5,14 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Model\Client;
 use App\Model\Contract;
+use App\Model\ContractGuarantee;
+use App\Model\Policy;
+use App\Model\Principal;
+use App\Model\Specification;
+use App\Model\Tranche;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class GarantController
@@ -15,265 +21,287 @@ use Illuminate\Http\Response;
 class GarantController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all contracts.
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
-//        return view('products.about-tamojenniy-sklad.create');
+        return redirect()->route('contracts.index');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show a form to create a new contract.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $client = new Client();
+        $old_data = old();
+
+        $specification = Specification::where('key', '=', 'S_SI')->get()->first();
+
         $contract = new Contract();
 
-        return view('products.credit.garant.create', compact('client', 'contract'));
+        if ($specification) {
+            $contract->specification_id = $specification->id;
+            $contract->type = Contract::TYPE_INDIVIDUAL;
+        }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
+
+        return view('products.credit.garant.form', [
+            'block' => false,
+            'client' => new Client(),
+            'contract' => $contract,
+            'contract_guarantee' => new ContractGuarantee(),
+            'policy' => new Policy(),
+            'principal' => new Principal(),
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new contract.
      *
-     * @param Request $request
-     * @return Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-//        $request->validate([
-//            'fio_insurer' => 'required',
-//            'address_insurer' => 'required',
-//            'tel_insurer' => 'required',
-//            'address_schet' => 'required',
-//            'inn_insurer' => 'required',
-//            'mfo_insurer' => 'required',
-//            'okonh_insurer' => 'required',
-//            'bank_insurer' => 'required',
-//            'fio_beneficiary' => 'required',
-//            'address_beneficiary' => 'required',
-//            'tel_beneficiary' => 'required',
-//            'beneficiary_schet' => 'required',
-//            'inn_beneficiary' => 'required',
-//            'mfo_beneficiary' => 'required',
-//            'okonh_beneficiary' => 'required',
-//            'bank_beneficiary' => 'required',
-//            'client_type_radio' => 'required',
-//            'product_id' => 'required',
-//            'insurance_premium_payment_type' => 'required',
-//            'insurance_premium_currency' => 'required',
-//            'insurance_from' => 'required',
-//            'insurance_to' => 'required',
-//            'volume' => 'required',
-//            'volume_measure' => 'required',
-//            'total_price' => 'required',
-//            'stock_date' => 'required',
-//            'total_insured_price' => 'required',
-//            'total_insured_closed_stock_price' => 'required',
-//            'total_insured_open_stock_price' => 'required',
-//            'insurance_premium' => 'required',
-//            'settlement_currency' => 'required',
-//            'litso' => 'required',
-//            'from_date_info' => 'required',
-//        ]);
-//
-//        $policy = Policy::where('policy_series_id', $request->policy_series_id)->where('status', '<>', 'in_use')->first();
-//
-//        if (empty($policy)) {
-//            $policySeries = PolicySeries::find( $request->policy_series_id);
-//
-//            return back()->withInput()->withErrors([
-//                sprintf('В базе отсутсвует полюс данной серии: %s', $policySeries->code)
-//            ]);
-//        }
-//
-//        $policyHolder = PolicyHolder::create([
-//            'FIO' => $request->fio_insurer,
-//            'address' => $request->address_insurer,
-//            'phone_number' => $request->tel_insurer,
-//            'checking_account' => $request->address_schet,
-//            'inn' => $request->inn_insurer,
-//            'mfo' => $request->mfo_insurer,
-//            'okonx' => $request->okonh_insurer,
-//            'bank_id' => $request->bank_insurer,
-//        ]);
-//
-//        $policyBeneficiaries = PolicyBeneficiaries::create([
-//            'FIO' => $request->fio_beneficiary,
-//            'address' => $request->address_beneficiary,
-//            'phone_number' => $request->tel_beneficiary,
-//            'checking_account' => $request->beneficiary_schet,
-//            'inn' => $request->inn_beneficiary,
-//            'mfo' => $request->mfo_beneficiary,
-//            'okonx' => $request->okonh_beneficiary,
-//            'bank_id' => $request->bank_beneficiary,
-//        ]);
-//
-//        $insurance_premium_currency_rate = null;
-//
-//        if ($request->insurance_premium_currency != 'UZS') {
-//            $jsonurl = 'https://cbu.uz/ru/arkhiv-kursov-valyut/json';
-//            $json = file_get_contents($jsonurl);
-//            $json = json_decode($json);
-//
-//            foreach ($json as $data) {
-//                if ($data->Ccy == $request->insurance_premium_currency) {
-//                    $insurance_premium_currency_rate = $data->Rate;
-//                }
-//            }
-//        }
-//
-//        $bonded = Bonded::create([
-//            'type' => $request->client_type_radio,
-//            'product_id' => (int)$request->product_id,
-//            'insurance_premium_payment_type' => (int)$request->insurance_premium_payment_type,
-//            'insurance_premium_currency_rate' => $insurance_premium_currency_rate,
-//            'insurance_premium_currency' => $request->insurance_premium_currency,
-//            'policy_beneficiary_id' => $policyBeneficiaries->id,
-//            'policy_holder_id' => $policyHolder->id,
-//            'from_date' => $request->insurance_from,
-//            'to_date' => $request->insurance_to,
-//            'volume' => $request->volume,
-//            'volume_measure' => $request->volume_measure,
-//            'total_price' => $request->total_price,
-//            'stock_date' => $request->stock_date,
-//            'total_insured_price' => $request->total_insured_price,
-//            'total_insured_closed_stock_price' => $request->total_insured_closed_stock_price,
-//            'total_insured_open_stock_price' => $request->total_insured_open_stock_price,
-//            'insurance_premium' => $request->insurance_premium,
-//            'settlement_currency' => $request->settlement_currency,
-//            'premium_terms' => $request->premium_terms,
-//        ]);
-//
-//        $policy->update([
-//            'status' => 'in_use',
-//            'client_type' => $request->client_type_radio,
-//            ]);
-//
-//        $brancId = User::find($request->litso)->branch_id;
-//        $uniqueNumber = new Dogovor;
-//        $uniqueNumber = $uniqueNumber->createUniqueNumber(
-//            $brancId,
-//            $request->insurance_premium_payment_type,
-//            2,
-//            'bonded',
-//            $bonded->id
-//        );
-//
-//        $bonded->update([
-//            'unique_number' => $uniqueNumber
-//        ]);
-//
-//        BondedPolicyInformation::create([
-//            'bonded_id' => $bonded->id,
-//            'policy_series_id' => $request->policy_series_id,
-//            'policy_id' => $policy->id,
-//            'user_id' => $request->litso,
-//            'from_date' => $request->from_date_info,
-//        ]);
-//
-//        return redirect()->route('all_products.index')
-//            ->with('success','Успешно заполнен продукт');
-//    }
-//
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param $id
-//     * @return void
-//     */
-//    public function show($id)
-//    {
-//    }
-//
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param Bonded $product
-//     * @return void
-//     */
-//    public function edit($id)
-//    {
-//        $bonded = Bonded::find($id);
-//        $agents = Agent::all();
-//        $policySeries = PolicySeries::all();
-//        $banks = Bank::all();
-//        return view('products.about-tamojenniy-sklad.edit', compact('bonded', 'agents', 'policySeries', 'banks'));
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            ContractGuarantee::$validate,
+            [
+                'policy.name' => 'required',
+                'policy.series' => 'required',
+                'policy.date_of_issue' => 'required',
+                'policy.polis_from_date' => 'required',
+                'policy.polis_to_date' => 'required',
+                'policy.insurance_sum' => 'required',
+                'policy.franchise' => 'required',
+
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
+            ],
+            Principal::$validate,
+        ));
+
+        $policy_data = $request['policy'];
+
+        $policy = Policy::where('name', '=', $policy_data['name'])
+                        ->where('series', '=', $policy_data['series'])
+                        ->get()
+                        ->first();
+
+        if (!$policy) {
+            return back()->withErrors([
+                sprintf(
+                    'В базе не обнаружен полис с %s именованием и с %s серией',
+                    $policy_data['name'],
+                    $policy_data['series']
+                )
+            ]);
+        }
+
+        $client = Client::create($request['client']);
+        $principal = Principal::create($request['principal']);
+        $contract_guarantee = ContractGuarantee::create($request['contract_guarantee']);
+
+        $contract_data = $request['contract'];
+        $contract_data['client_id'] = $client->id;
+        $contract_data['principal_id'] = $principal->id;
+        $contract_data['number'] = '';
+        $contract_data['status'] = 'concluded';
+        $contract_data['model_type'] = ContractGuarantee::class;
+        $contract_data['model_id'] = $contract_guarantee->id;
+
+        $contract = Contract::create($contract_data);
+
+        $policy_data['contract_id'] = $contract->id;
+
+        $policy->fill($policy_data);
+        $policy->save();
+
+        if ($request['tranches']) {
+            $contract->tranches()->createMany($request['tranches']);
+        }
+
+        $contract_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                $contract_files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($contract_files);
+
+        $contract->generateNumber();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено сохранение контракта');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Display an existing contract.
      *
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param  \App\Model\Contract $garant
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function show(Contract $garant)
     {
-//        $bonded = Bonded::find($id);
-//        $bonded->policyHolder->update([
-//            'FIO' => $request->fio_insurer,
-//            'address' => $request->address_insurer,
-//            'phone_number' => $request->tel_insurer,
-//            'checking_account' => $request->address_schet,
-//            'inn' => $request->inn_insurer,
-//            'mfo' => $request->mfo_insurer,
-//            'okonx' => $request->okonh_insurer,
-//            'bank_id' => $request->bank_insurer,
-//        ]);
-//
-//        $bonded->policyBeneficiaries->update([
-//            'FIO' => $request->fio_beneficiary,
-//            'address' => $request->address_beneficiary,
-//            'phone_number' => $request->tel_beneficiary,
-//            'checking_account' => $request->beneficiary_schet,
-//            'inn' => $request->inn_beneficiary,
-//            'mfo' => $request->mfo_beneficiary,
-//            'okonx' => $request->okonh_beneficiary,
-//            'bank_id' => $request->bank_beneficiary,
-//        ]);
-//        $bonded->update([
-//            'from_date' => $request->insurance_from,
-//            'to_date' => $request->insurance_to,
-//            'volume' => $request->volume,
-//            'volume_measure' => $request->volume_measure,
-//            'total_price' => $request->total_price,
-//            'stock_date' => $request->stock_date,
-//            'total_insured_price' => $request->total_insured_price,
-//            'total_insured_closed_stock_price' => $request->total_insured_closed_stock_price,
-//            'total_insured_open_stock_price' => $request->total_insured_open_stock_price,
-//            'insurance_premium' => $request->insurance_premium,
-//            'settlement_currency' => $request->settlement_currency,
-//            'premium_terms' => $request->premium_terms,
-//        ]);
-//
-//        $bonded->policyInformations->update([
-//            'bonded_id' => $bonded->id,
-//            'policy_series_id' => $request->policy_series_id,
-//            'user_id' => $request->litso,
-//            'from_date' => $request->from_date_info,
-//        ]);
-//
-//        return redirect()->back()->with('success', 'Успешно распределены полюсы');
+        $contract = $garant;
+
+        return view('products.credit.garant.form', [
+            'block' => true,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_guarantee' => $contract->contract_model,
+            'policy' => $contract->policies->first(),
+            'principal' => $contract->principal,
+        ]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Show a form to edit existing contract.
      *
-     * @param int $id
-     * @return Response
+     * @param  \App\Model\Contract $garant
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function edit(Contract $garant)
     {
-//        $bonded = Bonded::find($id);
-//        $bonded->policyInformations->delete();
-//        $bonded->delete();
-//
-//        return redirect()->route('all_products.index')
-//            ->with('success', sprintf('Дынные о продукте были успешно удалены', $bonded->unique_number));
+        $contract = $garant;
+
+        return view('products.credit.garant.form', [
+            'block' => false,
+            'client' => $contract->client,
+            'contract' => $contract,
+            'contract_guarantee' => $contract->contract_model,
+            'policy' => $contract->policies->first(),
+            'principal' => $contract->principal,
+        ]);
+    }
+
+    /**
+     * Update an existing contract.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Model\Contract      $garant
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, Contract $garant)
+    {
+        $request->validate(array_merge(
+            Client::$validate,
+            Contract::$validate,
+            ContractGuarantee::$validate,
+            [
+                'policy.name' => 'required',
+                'policy.series' => 'required',
+                'policy.date_of_issue' => 'required',
+                'policy.polis_from_date' => 'required',
+                'policy.polis_to_date' => 'required',
+                'policy.insurance_sum' => 'required',
+                'policy.franchise' => 'required',
+
+                'tranches.*.sum' => 'required',
+                'tranches.*.from' => 'required',
+            ],
+            Principal::$validate,
+        ));
+
+        $contract = $garant;
+
+        $client = $contract->client;
+        $client->fill($request['client']);
+        $client->save();
+
+        $principal = $contract->principal;
+        $principal->fill($request['principal']);
+        $principal->save();
+
+        $contract_guarantee = $contract->contract_model;
+        $contract_guarantee->fill($request['contract_guarantee']);
+        $contract_guarantee->save();
+
+        $contract->fill($request['contract']);
+        $contract->save();
+
+        $policy = $contract->policies->first();
+        $policy->fill($request['policy']);
+        $policy->save();
+
+        if ($request['tranches']) {
+            $tranche_ids = [];
+
+            foreach($request['tranches'] as $tranche_data) {
+                $tranche = Tranche::where('contract_id', '=', $contract->id)
+                                  ->where('from', '=', $tranche_data['from'])
+                                  ->get()
+                                  ->first();
+
+                if ($tranche) {
+                    if ($tranche->sum != $tranche_data['sum']) {
+                        $tranche->sum = $tranche_data['sum'];
+                        $tranche->save();
+                    }
+                } else {
+                    $tranche = $contract->tranches()->create($tranche_data);
+                }
+
+                $tranche_ids[] = $tranche->id;
+            }
+
+            Tranche::where('contract_id', '=', $contract->id)
+                   ->whereNotIn('id', $tranche_ids)
+                   ->delete();
+        }
+
+        $contract_files = [];
+        if (isset($request['files'])) {
+            foreach($request['files'] as $type => $file) {
+                if ($old_file = $contract->getFile($type)) {
+                    $old_file->delete();
+                }
+
+                $contract_files[] = [
+                    'type' => $type,
+                    'original_name' => $file->getClientOriginalName(),
+                    'path' => Storage::putFile('public/contract', $file),
+                ];
+            }
+        }
+
+        $contract->files()->createMany($contract_files);
+
+        return redirect()->route('contracts.index')
+                         ->with('success', 'Успешно произведено изменение контракта');
+    }
+
+    /**
+     * Destroy an existing contract.
+     *
+     * @param  \App\Model\Contract $garant
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Contract $garant)
+    {
+        $contract = $garant;
+
+        if ($policy = $contract->policies->first()) {
+            $policy->delete();
+        }
+        $contract->delete();
+
+        return redirect()->route('contracts.index')
+                         ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
 }

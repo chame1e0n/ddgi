@@ -15,14 +15,14 @@ class Principal extends Model
      * @var array
      */
     public static $validate = [
-        'borrower.bank_id' => ['required', 'integer'],
-        'borrower.address' => 'required',
-        'borrower.phone' => 'required',
-        'borrower.bank_account' => 'required',
-        'borrower.inn' => 'required',
-        'borrower.mfo' => 'required',
-        'borrower.passport_series' => 'required',
-        'borrower.passport_number' => 'required',
+        'principal.bank_id' => ['required', 'integer'],
+        'principal.address' => 'required',
+        'principal.phone' => 'required',
+        'principal.bank_account' => 'required',
+        'principal.inn' => 'required',
+        'principal.mfo' => 'required',
+        'principal.passport_series' => 'required',
+        'principal.passport_number' => 'required',
     ];
 
     /**
