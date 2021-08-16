@@ -19,7 +19,6 @@ class ContractCustomPayment extends Model
         'contract_custom_payment.period_from' => 'required',
         'contract_custom_payment.period_to' => 'required',
         'contract_custom_payment.risks' => 'required',
-        'contract_custom_payment.cause' => 'required',
     ];
 
     /**

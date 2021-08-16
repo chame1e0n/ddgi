@@ -19,7 +19,7 @@ class CreateTestContractCustomPaymentsTable extends Migration
             $table->date('period_from');
             $table->date('period_to');
             $table->string('risks');
-            $table->string('cause');
+            $table->string('cause')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

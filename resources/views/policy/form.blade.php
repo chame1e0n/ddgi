@@ -5,6 +5,7 @@
         <div class="content-header">
             <div class="container-fluid">
                 <a href="{{ url()->previous() }}" class="btn btn-info">Назад</a>
+
                 <br /><br />
 
                 @include('includes.messages')
@@ -17,6 +18,7 @@
                       id="form-policy"
                       method="post">
                     @csrf
+
                     @method('PUT')
 
                     <fieldset @if($block) disabled="disabled" @endif>
@@ -25,6 +27,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Добавить полис</h3>
+
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                                 <i class="fas fa-minus"></i>
@@ -35,6 +38,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="policy-name" class="col-form-label">Наименование</label>
+
                                                 <input required
                                                        class="form-control @if($errors->has('policy.name')) is-invalid @endif"
                                                        id="policy-name"
@@ -44,6 +48,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="policy-act-number" class="col-form-label">Номер акта</label>
+
                                                 <input required
                                                        class="form-control @if($errors->has('policy.act_number')) is-invalid @endif"
                                                        id="policy-act-number"
@@ -54,6 +59,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="policy-price" class="col-form-label">Стоимость одного бланка </label>
+
                                                     <input required
                                                            class="form-control @if($errors->has('policy.price')) is-invalid @endif"
                                                            id="policy-price"
@@ -73,14 +79,21 @@
                                                            name="policy[print_size]"
                                                            type="radio"
                                                            value="{{$size}}" />
+
                                                     <label for="policy-print-size-{{$size}}">{{$label}}</label>
                                                 </div>
                                             @endforeach
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="files" class="col-form-label">Загрузка документов</label>
+
+                                                @foreach($policy->getFiles() as $file)
+                                                    <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
+                                                @endforeach
+
                                                 <div class="input-group">
                                                     <input type="file" multiple id="files" name="files[]" class="form-control" />
+
                                                     <div class="input-group-append">
                                                         <a class="btn btn-info" href="#">
                                                             <i class="fas fa-download"></i>

@@ -135,6 +135,17 @@ class Policy extends Model
     }
 
     /**
+     * Get policy contract's files of the specified type.
+     * 
+     * @param string $type Type
+     * @return File
+     */
+    public function getFiles($type = 'document')
+    {
+        return $this->files()->where('type' , '=', $type)->get();
+    }
+
+    /**
      * Cascade deletion.
      */
     public function delete()

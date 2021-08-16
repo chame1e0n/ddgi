@@ -39,7 +39,7 @@
                                 </button>
                             </div>
                         </td>
-                        <td colspan="4" style="text-align: right;">
+                        <td colspan="5" style="text-align: right;">
                             <label class="text-bold">Итого:</label>
                         </td>
                         <td>
