@@ -87,6 +87,7 @@ class Specification extends Model
         'specification.type_id' => ['required', 'integer'],
         'specification.code' => 'required',
         'specification.name' => 'required',
+        'specification.tariff' => ['nullable', 'numeric', 'between:0,99.99'],
     ];
 
     /**

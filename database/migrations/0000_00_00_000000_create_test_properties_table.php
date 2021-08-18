@@ -20,10 +20,10 @@ class CreateTestPropertiesTable extends Migration
             $table->string('name', 45);
             $table->string('location', 100);
             $table->date('issue_date')->nullable();
-            $table->float('quantity', 12, 3)->unsigned()->nullable();
+            $table->float('quantity', 32, 2)->unsigned()->nullable();
             $table->enum('measure', ['m_2', 'sm_2'])->nullable();
-            $table->float('insurance_value', 12, 3)->unsigned();
-            $table->float('insurance_sum', 12, 3)->unsigned();
+            $table->float('insurance_value', 32, 2)->unsigned();
+            $table->float('insurance_sum', 32, 2)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

@@ -39,7 +39,7 @@
 
                                             <tr>
                                                 <th>
-                                                    Продукт
+                                                    Группа
                                                     <div class="form-group">
                                                         <input class="form-control"
                                                                name="filter[types.name]"

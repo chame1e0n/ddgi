@@ -20,7 +20,7 @@ class CreateTestPolicyEvaluatorsTable extends Migration
             $table->string('work_experience', 45);
             $table->string('position', 45);
             $table->string('start_date', 45);
-            $table->float('insurance_value', 12, 3)->unsigned();
+            $table->float('insurance_value', 32, 2)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

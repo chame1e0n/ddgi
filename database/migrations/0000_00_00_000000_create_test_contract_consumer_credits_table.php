@@ -19,11 +19,11 @@ class CreateTestContractConsumerCreditsTable extends Migration
             $table->date('credit_agreement_date');
             $table->date('credit_from');
             $table->date('credit_to');
-            $table->float('credit_sum', 12, 3)->unsigned();
+            $table->float('credit_sum', 32, 2)->unsigned();
             $table->string('collateral_type', 45);
             $table->string('purpose')->nullable();
             $table->string('description', 45);
-            $table->float('collateral_sum', 12, 3)->unsigned();
+            $table->float('collateral_sum', 32, 2)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

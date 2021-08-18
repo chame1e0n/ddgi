@@ -15,9 +15,18 @@ class ContractInstallment extends Model
      * @var array
      */
     public static $validate = [
-        'contract_installment.franchise_earthquake_fire_percent' => 'required',
-        'contract_installment.franchise_illegal_action_percent' => 'required',
-        'contract_installment.franchise_other_risks_percent' => 'required',
+        'contract_installment.sum' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.loss_sum' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.loss_tariff' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.loss_premium' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.loss_franchise' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.risk_sum' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.risk_tariff' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.risk_premium' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.risk_franchise' => ['nullable', 'numeric', 'min:0'],
+        'contract_installment.franchise_earthquake_fire_percent' => ['required', 'numeric', 'between:0,99.99'],
+        'contract_installment.franchise_illegal_action_percent' => ['required', 'numeric', 'between:0,99.99'],
+        'contract_installment.franchise_other_risks_percent' => ['required', 'numeric', 'between:0,99.99'],
     ];
 
     /**

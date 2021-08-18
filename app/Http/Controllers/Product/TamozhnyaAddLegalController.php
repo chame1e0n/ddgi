@@ -57,6 +57,11 @@ class TamozhnyaAddLegalController extends Controller
             $contract->specification_id = $specification->id;
             $contract->type = Contract::TYPE_INDIVIDUAL;
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.tamozhnya.add-legal.form', [
             'block' => false,
@@ -85,10 +90,10 @@ class TamozhnyaAddLegalController extends Controller
                 'policy.date_of_issue' => 'required',
                 'policy.polis_from_date' => 'required',
                 'policy.polis_to_date' => 'required',
-                'policy.insurance_sum' => 'required',
-                'policy.franchise' => 'required',
+                'policy.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policy.franchise' => ['required', 'numeric', 'min:0'],
 
-                'tranches.*.sum' => 'required',
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
                 'tranches.*.from' => 'required',
             ],
         ));
@@ -207,10 +212,10 @@ class TamozhnyaAddLegalController extends Controller
                 'policy.date_of_issue' => 'required',
                 'policy.polis_from_date' => 'required',
                 'policy.polis_to_date' => 'required',
-                'policy.insurance_sum' => 'required',
-                'policy.franchise' => 'required',
+                'policy.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policy.franchise' => ['required', 'numeric', 'min:0'],
 
-                'tranches.*.sum' => 'required',
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
                 'tranches.*.from' => 'required',
             ],
         ));

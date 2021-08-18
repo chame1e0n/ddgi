@@ -16,8 +16,8 @@ class CreateTestContractCarAccidentsTable extends Migration
         Schema::create('contract_car_accidents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
-            $table->float('sum', 12, 3)->unsigned()->nullable();
-            $table->float('premium', 12, 3)->unsigned()->nullable();
+            $table->float('sum', 32, 2)->unsigned()->nullable();
+            $table->float('premium', 32, 2)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

@@ -64,6 +64,11 @@ class Neshchastka24TimeController extends Controller
                 $contract->policies[] = $policy;
             }
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.neshchastka.24time.form', [
             'beneficiary' => new Beneficiary(),
@@ -91,14 +96,17 @@ class Neshchastka24TimeController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_accident.fio' => 'required',
                 'policies.*.policy_accident.birthdate' => 'required',
                 'policies.*.policy_accident.beneficiary' => 'required',
                 'policies.*.policy_accident.passport_series' => 'required',
                 'policies.*.policy_accident.passport_number' => 'required',
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 
@@ -234,14 +242,17 @@ class Neshchastka24TimeController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_accident.fio' => 'required',
                 'policies.*.policy_accident.birthdate' => 'required',
                 'policies.*.policy_accident.beneficiary' => 'required',
                 'policies.*.policy_accident.passport_series' => 'required',
                 'policies.*.policy_accident.passport_number' => 'required',
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 

@@ -85,10 +85,10 @@ class CreditNepogashenController extends Controller
                 'policy.date_of_issue' => 'required',
                 'policy.polis_from_date' => 'required',
                 'policy.polis_to_date' => 'required',
-                'policy.insurance_sum' => 'required',
-                'policy.franchise' => 'required',
+                'policy.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policy.franchise' => ['required', 'numeric', 'min:0'],
 
-                'tranches.*.sum' => 'required',
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
                 'tranches.*.from' => 'required',
             ]
         ));
@@ -212,10 +212,10 @@ class CreditNepogashenController extends Controller
                 'policy.date_of_issue' => 'required',
                 'policy.polis_from_date' => 'required',
                 'policy.polis_to_date' => 'required',
-                'policy.insurance_sum' => 'required',
-                'policy.franchise' => 'required',
+                'policy.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policy.franchise' => ['required', 'numeric', 'min:0'],
 
-                'tranches.*.sum' => 'required',
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
                 'tranches.*.from' => 'required',
             ]
         ));

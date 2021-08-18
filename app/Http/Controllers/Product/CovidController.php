@@ -63,6 +63,11 @@ class CovidController extends Controller
                 $contract->policies[] = $policy;
             }
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.covid.fiz-litso.form', [
             'beneficiary' => new Beneficiary(),
@@ -88,8 +93,8 @@ class CovidController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_covid.name' => 'required',
                 'policies.*.policy_covid.surname' => 'required',
@@ -97,7 +102,10 @@ class CovidController extends Controller
                 'policies.*.policy_covid.passport' => 'required',
                 'policies.*.policy_covid.passport_issue_date' => 'required',
                 'policies.*.policy_covid.passport_issue_place' => 'required',
-                'policies.*.policy_covid.insurance_value' => 'required',
+                'policies.*.policy_covid.insurance_value' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 
@@ -224,8 +232,8 @@ class CovidController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_covid.name' => 'required',
                 'policies.*.policy_covid.surname' => 'required',
@@ -233,7 +241,10 @@ class CovidController extends Controller
                 'policies.*.policy_covid.passport' => 'required',
                 'policies.*.policy_covid.passport_issue_date' => 'required',
                 'policies.*.policy_covid.passport_issue_place' => 'required',
-                'policies.*.policy_covid.insurance_value' => 'required',
+                'policies.*.policy_covid.insurance_value' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 

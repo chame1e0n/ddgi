@@ -60,6 +60,11 @@ class CmpController extends Controller
                 $contract_construction_installation_work->construction_participants[] = new ConstructionParticipant();
             }
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.cmp.form', [
             'block' => false,
@@ -89,13 +94,13 @@ class CmpController extends Controller
                 'policy.date_of_issue' => 'required',
                 'policy.polis_from_date' => 'required',
                 'policy.polis_to_date' => 'required',
-                'policy.insurance_sum' => 'required',
-                'policy.franchise' => 'required',
-
-                'tranches.*.sum' => 'required',
-                'tranches.*.from' => 'required',
+                'policy.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policy.franchise' => ['required', 'numeric', 'min:0'],
 
                 'construction_participants.*.name' => 'required',
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ],
             PolicyConstructionInstallationWork::$validate,
         ));
@@ -238,13 +243,13 @@ class CmpController extends Controller
                 'policy.date_of_issue' => 'required',
                 'policy.polis_from_date' => 'required',
                 'policy.polis_to_date' => 'required',
-                'policy.insurance_sum' => 'required',
-                'policy.franchise' => 'required',
-
-                'tranches.*.sum' => 'required',
-                'tranches.*.from' => 'required',
+                'policy.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policy.franchise' => ['required', 'numeric', 'min:0'],
 
                 'construction_participants.*.name' => 'required',
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ],
             PolicyConstructionInstallationWork::$validate,
         ));

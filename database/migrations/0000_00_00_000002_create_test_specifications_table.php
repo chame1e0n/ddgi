@@ -21,7 +21,7 @@ class CreateTestSpecificationsTable extends Migration
             $table->string('name', 255);
             $table->tinyInteger('is_for_individual')->unsigned()->default(0);
             $table->tinyInteger('is_for_legal')->unsigned()->default(0);
-            $table->integer('tariff')->unsigned()->nullable();
+            $table->float('tariff', 4, 2)->unsigned()->nullable();
             $table->integer('max_acceptable_amount')->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

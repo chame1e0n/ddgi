@@ -17,7 +17,7 @@ class CreateTestContractLeasingAutocreditsTable extends Migration
             $table->increments('id');
             $table->date('period_from');
             $table->date('period_to');
-            $table->float('sum', 12, 3)->unsigned()->nullable();
+            $table->float('sum', 32, 2)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

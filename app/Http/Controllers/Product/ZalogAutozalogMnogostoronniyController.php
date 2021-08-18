@@ -65,6 +65,11 @@ class ZalogAutozalogMnogostoronniyController extends Controller
                 $contract->policies[] = $policy;
             }
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.zalog.autozalog-mnogostoronniy.form', [
             'beneficiary' => new Beneficiary(),
@@ -94,8 +99,8 @@ class ZalogAutozalogMnogostoronniyController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_multilateral_car_deposit.issue_year' => 'required',
                 'policies.*.policy_multilateral_car_deposit.brand' => 'required',
@@ -106,7 +111,10 @@ class ZalogAutozalogMnogostoronniyController extends Controller
                 'policies.*.policy_multilateral_car_deposit.engine_number' => 'required',
                 'policies.*.policy_multilateral_car_deposit.carcase_number' => 'required',
                 'policies.*.policy_multilateral_car_deposit.carrying_capacity' => 'required',
-                'policies.*.policy_multilateral_car_deposit.insurance_value' => 'required',
+                'policies.*.policy_multilateral_car_deposit.insurance_value' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 
@@ -254,8 +262,8 @@ class ZalogAutozalogMnogostoronniyController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_multilateral_car_deposit.issue_year' => 'required',
                 'policies.*.policy_multilateral_car_deposit.brand' => 'required',
@@ -266,7 +274,10 @@ class ZalogAutozalogMnogostoronniyController extends Controller
                 'policies.*.policy_multilateral_car_deposit.engine_number' => 'required',
                 'policies.*.policy_multilateral_car_deposit.carcase_number' => 'required',
                 'policies.*.policy_multilateral_car_deposit.carrying_capacity' => 'required',
-                'policies.*.policy_multilateral_car_deposit.insurance_value' => 'required',
+                'policies.*.policy_multilateral_car_deposit.insurance_value' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 

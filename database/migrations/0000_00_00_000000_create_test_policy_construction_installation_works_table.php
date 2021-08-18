@@ -15,12 +15,12 @@ class CreateTestPolicyConstructionInstallationWorksTable extends Migration
     {
         Schema::create('policy_construction_installation_works', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('construction_installation_price', 12, 3)->unsigned();
-            $table->float('construction_price', 12, 3)->unsigned();
-            $table->float('equipment_price', 12, 3)->unsigned();
-            $table->float('machine_price', 12, 3)->unsigned();
-            $table->float('clear_location_price', 12, 3)->unsigned();
-            $table->float('insurance_value', 12, 3)->unsigned();
+            $table->float('construction_installation_price', 32, 2)->unsigned();
+            $table->float('construction_price', 32, 2)->unsigned();
+            $table->float('equipment_price', 32, 2)->unsigned();
+            $table->float('machine_price', 32, 2)->unsigned();
+            $table->float('clear_location_price', 32, 2)->unsigned();
+            $table->float('insurance_value', 32, 2)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

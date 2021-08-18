@@ -18,7 +18,7 @@ class ContractCreditLeasingRepayment extends Model
         'contract_credit_leasing_repayment.loan_agreement' => 'required',
         'contract_credit_leasing_repayment.period_from' => 'required',
         'contract_credit_leasing_repayment.period_to' => 'required',
-        'contract_credit_leasing_repayment.sum' => 'required',
+        'contract_credit_leasing_repayment.sum' => ['required', 'numeric', 'min:0'],
         'contract_credit_leasing_repayment.purpose' => 'required',
     ];
 

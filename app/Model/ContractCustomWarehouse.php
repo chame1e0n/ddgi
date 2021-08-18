@@ -31,9 +31,9 @@ class ContractCustomWarehouse extends Model
      */
     public static $validate = [
         'contract_custom_warehouse.measure' => 'required',
-        'contract_custom_warehouse.square' => 'required',
-        'contract_custom_warehouse.capacity' => 'required',
-        'contract_custom_warehouse.sum' => 'required',
+        'contract_custom_warehouse.square' => ['required', 'numeric', 'min:0'],
+        'contract_custom_warehouse.capacity' => ['required', 'numeric', 'min:0'],
+        'contract_custom_warehouse.sum' => ['required', 'numeric', 'min:0'],
         'contract_custom_warehouse.goods_period_from' => 'required',
         'contract_custom_warehouse.goods_period_to' => 'required',
     ];

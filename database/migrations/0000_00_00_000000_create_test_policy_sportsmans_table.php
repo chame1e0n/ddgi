@@ -20,10 +20,10 @@ class CreateTestPolicySportsmansTable extends Migration
             $table->string('sport', 45);
             $table->string('beneficiary', 45)->nullable();
             $table->integer('traumatic_quantity')->nullable();
-            $table->float('traumatic_sum', 12, 3)->unsigned()->nullable();
-            $table->float('traumatic_premium', 12, 3)->unsigned()->nullable();
-            $table->float('death_sum', 12, 3)->unsigned()->nullable();
-            $table->float('death_premium', 12, 3)->unsigned()->nullable();
+            $table->float('traumatic_sum', 32, 2)->unsigned()->nullable();
+            $table->float('traumatic_premium', 32, 2)->unsigned()->nullable();
+            $table->float('death_sum', 32, 2)->unsigned()->nullable();
+            $table->float('death_premium', 32, 2)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

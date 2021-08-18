@@ -60,6 +60,11 @@ class BorrowerSportsmanController extends Controller
                 $contract->policies[] = $policy;
             }
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.borrower_sportsman.form', [
             'beneficiary' => new Beneficiary(),
@@ -87,12 +92,19 @@ class BorrowerSportsmanController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_sportsman.fio' => 'required',
                 'policies.*.policy_sportsman.birthdate' => 'required',
                 'policies.*.policy_sportsman.sport' => 'required',
+                'policies.*.policy_sportsman.traumatic_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_sportsman.traumatic_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_sportsman.death_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_sportsman.death_premium' => ['nullable', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 
@@ -228,12 +240,19 @@ class BorrowerSportsmanController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_sportsman.fio' => 'required',
                 'policies.*.policy_sportsman.birthdate' => 'required',
                 'policies.*.policy_sportsman.sport' => 'required',
+                'policies.*.policy_sportsman.traumatic_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_sportsman.traumatic_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_sportsman.death_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_sportsman.death_premium' => ['nullable', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 

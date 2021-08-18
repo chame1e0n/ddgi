@@ -17,11 +17,11 @@ class CreateTestContractNotariesTable extends Migration
             $table->increments('id');
             $table->string('geo_zone');
             $table->integer('annual_turnover_first_year')->unsigned();
-            $table->float('annual_turnover_first_money', 12, 3)->unsigned();
-            $table->float('annual_turnover_first_earnings', 12, 3)->unsigned();
+            $table->float('annual_turnover_first_money', 32, 2)->unsigned();
+            $table->float('annual_turnover_first_earnings', 32, 2)->unsigned();
             $table->integer('annual_turnover_second_year')->unsigned();
-            $table->float('annual_turnover_second_money', 12, 3)->unsigned();
-            $table->float('annual_turnover_second_earnings', 12, 3)->unsigned();
+            $table->float('annual_turnover_second_money', 32, 2)->unsigned();
+            $table->float('annual_turnover_second_earnings', 32, 2)->unsigned();
             $table->date('activity_period_from');
             $table->date('activity_period_to')->nullable();
             $table->text('activity_in_goverment_sector')->nullable();

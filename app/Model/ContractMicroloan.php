@@ -18,7 +18,7 @@ class ContractMicroloan extends Model
         'contract_microloan.credit_agreement_date' => 'required',
         'contract_microloan.microloan_from' => 'required',
         'contract_microloan.microloan_to' => 'required',
-        'contract_microloan.microloan_sum' => 'required',
+        'contract_microloan.microloan_sum' => ['required', 'numeric', 'min:0'],
     ];
 
     /**

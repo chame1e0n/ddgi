@@ -20,6 +20,9 @@ class InsuredPerson extends Model
         'insured_person.phone' => 'required',
         'insured_person.passport_series' => 'required',
         'insured_person.passport_number' => 'required',
+        'insured_person.sum' => ['nullable', 'numeric', 'min:0'],
+        'insured_person.tariff' => ['nullable', 'numeric', 'between:0,99.99'],
+        'insured_person.premium' => ['nullable', 'numeric', 'min:0'],
     ];
 
     /**

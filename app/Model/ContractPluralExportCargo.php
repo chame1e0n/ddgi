@@ -46,7 +46,17 @@ class ContractPluralExportCargo extends Model
         'contract_plural_export_cargo.agreement_goods_type' => 'required',
         'contract_plural_export_cargo.insurance_country' => 'required',
         'contract_plural_export_cargo.shipping_date' => 'required',
-        'contract_plural_export_cargo.shipped_goods_value' => 'required',
+        'contract_plural_export_cargo.shipped_goods_value' => ['required', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.shipped_goods_paid' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.buyer_debt' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.overdue_amount_1_60' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.overdue_amount_60_180' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.paid_insurance_premium' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.penalty' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.shipped_goods_payment' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.unshipped_goods_payment' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.other_expenses' => ['nullable', 'numeric', 'min:0'],
+        'contract_plural_export_cargo.credit_letter_sum' => ['nullable', 'numeric', 'min:0'],
     ];
 
     /**

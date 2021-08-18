@@ -5,6 +5,7 @@
         <div class="content-header">
             <div class="container-fluid">
                 <a href="{{url()->previous()}}" class="btn btn-info">Назад</a>
+
                 <br /><br />
 
                 @include('includes.messages')
@@ -25,6 +26,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Движение полиса</h3>
+
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                                 <i class="fas fa-minus"></i>
@@ -35,6 +37,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <label for="policy-name" class="col-form-label">Наименование</label>
+
                                                 <input disabled
                                                        class="form-control"
                                                        id="policy-name"
@@ -43,6 +46,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="policy-series" class="col-form-label">Серия</label>
+
                                                 <input disabled
                                                        class="form-control"
                                                        id="policy-series"
@@ -53,6 +57,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="policy-flow-status" class="col-form-label">Статус</label>
+
                                                     <select id="policy-flow-status" class="form-control select2" name="policy_flow[status]">
                                                         <option></option>
 
@@ -70,6 +75,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="policy-flow-act-date" class="col-form-label">Дата акта</label>
+
                                                     <div class="input-group">
                                                         <input required
                                                                class="form-control @if($errors->has('policy_flow.act_date')) is-invalid @endif"
@@ -84,6 +90,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="policy-flow-from-employee-id" class="col-form-label">От кого</label>
+
                                                     <select id="policy-flow-from-employee-id" class="form-control select2" name="policy_flow[from_employee_id]">
                                                         <option></option>
 
@@ -110,6 +117,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="policy-flow-to-employee-id" class="col-form-label">Кому</label>
+
                                                     <select id="policy-flow-to-employee-id" class="form-control select2" name="policy_flow[to_employee_id]">
                                                         <option></option>
 
@@ -135,8 +143,14 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="files" class="col-form-label">Загрузка документов</label>
+
+                                                @foreach($policy_flow->getFiles() as $file)
+                                                    <a href="{{asset($file->path)}}" target="_blank">Скачать</a>
+                                                @endforeach
+
                                                 <div class="input-group">
                                                     <input type="file" multiple id="files" name="files[]" class="form-control" />
+
                                                     <div class="input-group-append">
                                                         <a class="btn btn-info" href="#">
                                                             <i class="fas fa-download"></i>

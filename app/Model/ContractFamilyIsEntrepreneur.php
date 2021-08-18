@@ -22,7 +22,7 @@ class ContractFamilyIsEntrepreneur extends Model
     public static $validate = [
         'contract_family_is_entrepreneur.period_from' => 'required',
         'contract_family_is_entrepreneur.period_to' => 'required',
-        'contract_family_is_entrepreneur.sum' => 'required',
+        'contract_family_is_entrepreneur.sum' => ['required', 'numeric', 'min:0'],
         'contract_family_is_entrepreneur.purpose' => 'required',
     ];
 

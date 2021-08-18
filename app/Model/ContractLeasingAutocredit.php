@@ -17,6 +17,7 @@ class ContractLeasingAutocredit extends Model
     public static $validate = [
         'contract_leasing_autocredit.period_from' => 'required',
         'contract_leasing_autocredit.period_to' => 'required',
+        'contract_leasing_autocredit.sum' => ['nullable', 'numeric', 'min:0'],
     ];
 
     /**

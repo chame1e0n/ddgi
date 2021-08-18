@@ -20,9 +20,9 @@ class CreateTestInsuredPersonsTable extends Migration
             $table->string('phone', 50);
             $table->string('passport_series');
             $table->string('passport_number');
-            $table->float('sum', 12, 3)->unsigned()->nullable();
-            $table->float('tariff', 12, 3)->unsigned()->nullable();
-            $table->float('premium', 12, 3)->unsigned()->nullable();
+            $table->float('sum', 32, 2)->unsigned()->nullable();
+            $table->float('tariff', 4, 2)->unsigned()->nullable();
+            $table->float('premium', 32, 2)->unsigned()->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

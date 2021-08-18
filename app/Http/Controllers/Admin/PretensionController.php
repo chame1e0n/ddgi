@@ -111,8 +111,10 @@ class PretensionController extends Controller
             //'pretension.policy_id' => 'required',
             'pretension.status' => 'required',
             'pretension.case_number' => 'required',
-            'pretension.actually_paid' => 'required',
+            'pretension.actually_paid' => ['required', 'numeric', 'min:0'],
             'pretension.last_payment_date' => 'required',
+            'pretension.franchise_sum' => ['nullable', 'numeric', 'min:0'],
+            'pretension.franchise_percent' => ['nullable', 'numeric', 'between:0,99.99'],
         ]);
 
         $pretension->fill(request('pretension'));

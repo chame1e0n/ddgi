@@ -22,13 +22,13 @@ class CreateTestPoliciesTable extends Migration
             $table->integer('series')->unsigned();
             $table->string('act_number', 50);
             $table->enum('print_size', ['a4', 'a5']);
-            $table->float('price', 12, 3)->unsigned();
+            $table->float('price', 32, 2)->unsigned();
             $table->string('status', 45);
             $table->date('polis_from_date')->nullable();
             $table->date('polis_to_date')->nullable();
             $table->date('date_of_issue')->nullable();
-            $table->float('insurance_sum', 12, 3)->unsigned()->nullable();
-            $table->float('franchise', 12, 3)->unsigned()->nullable();
+            $table->float('insurance_sum', 32, 2)->unsigned()->nullable();
+            $table->float('franchise', 32, 2)->unsigned()->nullable();
             $table->nullableMorphs('model');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

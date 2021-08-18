@@ -50,11 +50,11 @@ class ContractNotary extends Model
     public static $validate = [
         'contract_notary.geo_zone' => 'required',
         'contract_notary.annual_turnover_first_year' => 'required',
-        'contract_notary.annual_turnover_first_money' => 'required',
-        'contract_notary.annual_turnover_first_earnings' => 'required',
+        'contract_notary.annual_turnover_first_money' => ['required', 'numeric', 'min:0'],
+        'contract_notary.annual_turnover_first_earnings' => ['required', 'numeric', 'min:0'],
         'contract_notary.annual_turnover_second_year' => 'required',
-        'contract_notary.annual_turnover_second_money' => 'required',
-        'contract_notary.annual_turnover_second_earnings' => 'required',
+        'contract_notary.annual_turnover_second_money' => ['required', 'numeric', 'min:0'],
+        'contract_notary.annual_turnover_second_earnings' => ['required', 'numeric', 'min:0'],
         'contract_notary.activity_period_from' => 'required',
     ];
 

@@ -20,7 +20,7 @@ class CreateTestContractMicroloansTable extends Migration
             $table->date('microloan_to');
             $table->date('waiting_from')->nullable();
             $table->date('waiting_to')->nullable();
-            $table->float('microloan_sum', 12, 3)->unsigned();
+            $table->float('microloan_sum', 32, 2)->unsigned();
             $table->string('purpose')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

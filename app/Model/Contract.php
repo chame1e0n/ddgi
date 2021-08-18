@@ -47,6 +47,8 @@ class Contract extends Model
     public static $validate = [
         'contract.specification_id' => ['required', 'integer'],
         'contract.type' => 'required',
+        'contract.tariff' => ['nullable', 'numeric', 'between:0,99.99'],
+        'contract.premium' => ['nullable', 'numeric', 'min:0'],
     ];
 
     /**

@@ -59,6 +59,11 @@ class LizingTsController extends Controller
                 $contract->policies[] = $policy;
             }
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.lizing_ts.form', [
             'beneficiary' => new Beneficiary(),
@@ -86,8 +91,8 @@ class LizingTsController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_autoleasing.issue_year' => 'required',
                 'policies.*.policy_autoleasing.brand' => 'required',
@@ -96,7 +101,10 @@ class LizingTsController extends Controller
                 'policies.*.policy_autoleasing.techpassport_number' => 'required',
                 'policies.*.policy_autoleasing.engine_number' => 'required',
                 'policies.*.policy_autoleasing.carcase_number' => 'required',
-                'policies.*.policy_autoleasing.insurance_value' => 'required',
+                'policies.*.policy_autoleasing.insurance_value' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 
@@ -229,8 +237,8 @@ class LizingTsController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_autoleasing.issue_year' => 'required',
                 'policies.*.policy_autoleasing.brand' => 'required',
@@ -239,7 +247,10 @@ class LizingTsController extends Controller
                 'policies.*.policy_autoleasing.techpassport_number' => 'required',
                 'policies.*.policy_autoleasing.engine_number' => 'required',
                 'policies.*.policy_autoleasing.carcase_number' => 'required',
-                'policies.*.policy_autoleasing.insurance_value' => 'required',
+                'policies.*.policy_autoleasing.insurance_value' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 

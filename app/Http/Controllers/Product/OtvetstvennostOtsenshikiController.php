@@ -91,23 +91,23 @@ class OtvetstvennostOtsenshikiController extends Controller
             Contract::$validate,
             ContractEvaluator::$validate,
             [
-                'tranches.*.sum' => 'required',
-                'tranches.*.from' => 'required',
-
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
                 'policies.*.polis_from_date' => 'required',
                 'policies.*.polis_to_date' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_evaluator.fio' => 'required',
                 'policies.*.policy_evaluator.speciality' => 'required',
                 'policies.*.policy_evaluator.work_experience' => 'required',
                 'policies.*.policy_evaluator.position' => 'required',
                 'policies.*.policy_evaluator.start_date' => 'required',
-                'policies.*.policy_evaluator.insurance_value' => 'required',
+                'policies.*.policy_evaluator.insurance_value' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ],
         ));
 
@@ -246,23 +246,23 @@ class OtvetstvennostOtsenshikiController extends Controller
             Contract::$validate,
             ContractEvaluator::$validate,
             [
-                'tranches.*.sum' => 'required',
-                'tranches.*.from' => 'required',
-
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
                 'policies.*.polis_from_date' => 'required',
                 'policies.*.polis_to_date' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_evaluator.fio' => 'required',
                 'policies.*.policy_evaluator.speciality' => 'required',
                 'policies.*.policy_evaluator.work_experience' => 'required',
                 'policies.*.policy_evaluator.position' => 'required',
                 'policies.*.policy_evaluator.start_date' => 'required',
-                'policies.*.policy_evaluator.insurance_value' => 'required',
+                'policies.*.policy_evaluator.insurance_value' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ],
         ));
 

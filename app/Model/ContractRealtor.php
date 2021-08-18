@@ -71,11 +71,11 @@ class ContractRealtor extends Model
     public static $validate = [
         'contract_realtor.geo_zone' => 'required',
         'contract_realtor.annual_turnover_first_year' => 'required',
-        'contract_realtor.annual_turnover_first_money' => 'required',
-        'contract_realtor.annual_turnover_first_earnings' => 'required',
+        'contract_realtor.annual_turnover_first_money' => ['required', 'numeric', 'min:0'],
+        'contract_realtor.annual_turnover_first_earnings' => ['required', 'numeric', 'min:0'],
         'contract_realtor.annual_turnover_second_year' => 'required',
-        'contract_realtor.annual_turnover_second_money' => 'required',
-        'contract_realtor.annual_turnover_second_earnings' => 'required',
+        'contract_realtor.annual_turnover_second_money' => ['required', 'numeric', 'min:0'],
+        'contract_realtor.annual_turnover_second_earnings' => ['required', 'numeric', 'min:0'],
         'contract_realtor.activity_period_from' => 'required',
     ];
 

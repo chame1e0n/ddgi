@@ -16,9 +16,11 @@ class ContractPropertyLeasing extends Model
      */
     public static $validate = [
         'contract_property_leasing.geo_zone' => 'required',
-        'contract_property_leasing.franchise_earthquake_fire_percent' => 'required',
-        'contract_property_leasing.franchise_illegal_action_percent' => 'required',
-        'contract_property_leasing.franchise_other_risks_percent' => 'required',
+        'contract_property_leasing.insured_sum_for_closed_warehouse' => ['nullable', 'numeric', 'min:0'],
+        'contract_property_leasing.insured_sum_for_opened_warehouse' => ['nullable', 'numeric', 'min:0'],
+        'contract_property_leasing.franchise_earthquake_fire_percent' => ['required', 'numeric', 'between:0,99.99'],
+        'contract_property_leasing.franchise_illegal_action_percent' => ['required', 'numeric', 'between:0,99.99'],
+        'contract_property_leasing.franchise_other_risks_percent' => ['required', 'numeric', 'between:0,99.99'],
     ];
 
     /**

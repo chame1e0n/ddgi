@@ -19,10 +19,10 @@ class CreateTestPretensionsTable extends Migration
             $table->integer('policy_id')->unsigned();
             $table->enum('status', ['in_progress', 'refused', 'accepted']);
             $table->integer('case_number')->unsigned();
-            $table->float('actually_paid', 12, 3)->unsigned()->nullable();
+            $table->float('actually_paid', 32, 2)->unsigned()->nullable();
             $table->date('last_payment_date')->nullable();
-            $table->float('franchise_sum', 12, 3)->nullable();
-            $table->float('franchise_percent', 6, 3)->unsigned()->nullable();
+            $table->float('franchise_sum', 32, 2)->unsigned()->nullable();
+            $table->float('franchise_percent', 4, 2)->unsigned()->nullable();
             $table->string('reinsurance', 50)->nullable();
             $table->date('statement_date')->nullable();
             $table->date('insured_event_date')->nullable();

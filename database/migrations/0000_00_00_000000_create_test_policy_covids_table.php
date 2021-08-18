@@ -21,7 +21,7 @@ class CreateTestPolicyCovidsTable extends Migration
             $table->string('passport', 45);
             $table->date('passport_issue_date');
             $table->string('passport_issue_place', 45);
-            $table->float('insurance_value', 12, 3)->unsigned();
+            $table->float('insurance_value', 32, 2)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

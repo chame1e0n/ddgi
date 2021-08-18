@@ -20,9 +20,9 @@ class CreateTestContractMortgagesTable extends Migration
             $table->string('evaluation_basis', 45);
             $table->string('fire_certificate')->nullable();
             $table->string('security_certificate')->nullable();
-            $table->float('franchise_earthquake_fire_percent', 6, 3)->unsigned();
-            $table->float('franchise_illegal_action_percent', 6, 3)->unsigned();
-            $table->float('franchise_other_risks_percent', 6, 3)->unsigned();
+            $table->float('franchise_earthquake_fire_percent', 4, 2)->unsigned();
+            $table->float('franchise_illegal_action_percent', 4, 2)->unsigned();
+            $table->float('franchise_other_risks_percent', 4, 2)->unsigned();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

@@ -31,7 +31,9 @@ class Policy extends Model
         'policy.name' => 'required',
         'policy.act_number' => 'required',
         'policy.print_size' => 'required',
-        'policy.price' => 'required',
+        'policy.price' => ['required', 'numeric', 'min:0'],
+        'policy.insurance_sum' => ['nullable', 'numeric', 'min:0'],
+        'policy.franchise' => ['nullable', 'numeric', 'min:0'],
     ];
 
     /**

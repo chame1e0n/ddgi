@@ -16,7 +16,7 @@ class CreateTestTranchesTable extends Migration
         Schema::create('tranches', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('contract_id')->unsigned();
-            $table->float('sum', 12, 3)->unsigned();
+            $table->float('sum', 32, 2)->unsigned();
             $table->date('from');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

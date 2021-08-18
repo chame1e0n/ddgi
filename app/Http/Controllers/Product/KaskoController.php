@@ -63,6 +63,11 @@ class KaskoController extends Controller
                 $contract->policies[] = $policy;
             }
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.kasko.form', [
             'beneficiary' => new Beneficiary(),
@@ -90,8 +95,8 @@ class KaskoController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_casco.issue_year' => 'required',
                 'policies.*.policy_casco.brand' => 'required',
@@ -101,7 +106,26 @@ class KaskoController extends Controller
                 'policies.*.policy_casco.engine_number' => 'required',
                 'policies.*.policy_casco.carcase_number' => 'required',
                 'policies.*.policy_casco.carrying_capacity' => 'required',
-                'policies.*.policy_casco.insurance_value' => 'required',
+                'policies.*.policy_casco.insurance_value' => ['required', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ae_additional_insured_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ac_terrorist_attack_for_car' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ac_terrorist_attack_for_human' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ac_terrorist_attack_evacuation' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_vehicle_death_recovery_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_vehicle_death_recovery_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_vehicle_death_recovery_franchise' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_civil_liability_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_civil_liability_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_driver_sum_for_person' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_driver_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_passenger_sum_for_person' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_passenger_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_general_limit_sum_for_person' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_general_limit_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_general_limit_responsibility' => ['nullable', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 
@@ -234,8 +258,8 @@ class KaskoController extends Controller
                 'policies.*.name' => 'required',
                 'policies.*.series' => 'required',
                 'policies.*.date_of_issue' => 'required',
-                'policies.*.insurance_sum' => 'required',
-                'policies.*.franchise' => 'required',
+                'policies.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policies.*.franchise' => ['required', 'numeric', 'min:0'],
 
                 'policies.*.policy_casco.issue_year' => 'required',
                 'policies.*.policy_casco.brand' => 'required',
@@ -245,7 +269,26 @@ class KaskoController extends Controller
                 'policies.*.policy_casco.engine_number' => 'required',
                 'policies.*.policy_casco.carcase_number' => 'required',
                 'policies.*.policy_casco.carrying_capacity' => 'required',
-                'policies.*.policy_casco.insurance_value' => 'required',
+                'policies.*.policy_casco.insurance_value' => ['required', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ae_additional_insured_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ac_terrorist_attack_for_car' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ac_terrorist_attack_for_human' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ac_terrorist_attack_evacuation' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_vehicle_death_recovery_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_vehicle_death_recovery_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_vehicle_death_recovery_franchise' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_civil_liability_sum' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_civil_liability_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_driver_sum_for_person' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_driver_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_passenger_sum_for_person' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_passenger_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_general_limit_sum_for_person' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_general_limit_premium' => ['nullable', 'numeric', 'min:0'],
+                'policies.*.policy_casco.ec_general_limit_responsibility' => ['nullable', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 

@@ -90,6 +90,17 @@ class PolicyFlow extends Model
     }
 
     /**
+     * Get policy flow contract's files of the specified type.
+     * 
+     * @param string $type Type
+     * @return File
+     */
+    public function getFiles($type = 'document')
+    {
+        return $this->files()->where('type' , '=', $type)->get();
+    }
+
+    /**
      * Overriden save method.
      */
     public function save($options = [])

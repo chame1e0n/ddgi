@@ -60,6 +60,11 @@ class ZalogTehnikaController extends Controller
                 $contract_special_equipment_pledge->properties[] = new Property();
             }
         }
+        if (isset($old_data['tranches'])) {
+            foreach ($old_data['tranches'] as $key => $item) {
+                $contract->tranches[$key] = new Tranche();
+            }
+        }
 
         return view('products.zalog.tehnika.form', [
             'beneficiary' => new Beneficiary(),
@@ -92,13 +97,17 @@ class ZalogTehnikaController extends Controller
                 'policy.date_of_issue' => 'required',
                 'policy.polis_from_date' => 'required',
                 'policy.polis_to_date' => 'required',
-                'policy.insurance_sum' => 'required',
-                'policy.franchise' => 'required',
+                'policy.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policy.franchise' => ['required', 'numeric', 'min:0'],
 
                 'properties.*.name' => 'required',
                 'properties.*.location' => 'required',
-                'properties.*.insurance_value' => 'required',
-                'properties.*.insurance_sum' => 'required',
+                'properties.*.quantity' => ['nullable', 'numeric', 'min:0'],
+                'properties.*.insurance_value' => ['required', 'numeric', 'min:0'],
+                'properties.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 
@@ -240,13 +249,17 @@ class ZalogTehnikaController extends Controller
                 'policy.date_of_issue' => 'required',
                 'policy.polis_from_date' => 'required',
                 'policy.polis_to_date' => 'required',
-                'policy.insurance_sum' => 'required',
-                'policy.franchise' => 'required',
+                'policy.insurance_sum' => ['required', 'numeric', 'min:0'],
+                'policy.franchise' => ['required', 'numeric', 'min:0'],
 
                 'properties.*.name' => 'required',
                 'properties.*.location' => 'required',
-                'properties.*.insurance_value' => 'required',
-                'properties.*.insurance_sum' => 'required',
+                'properties.*.quantity' => ['nullable', 'numeric', 'min:0'],
+                'properties.*.insurance_value' => ['required', 'numeric', 'min:0'],
+                'properties.*.insurance_sum' => ['required', 'numeric', 'min:0'],
+
+                'tranches.*.sum' => ['required', 'numeric', 'min:0'],
+                'tranches.*.from' => 'required',
             ]
         ));
 

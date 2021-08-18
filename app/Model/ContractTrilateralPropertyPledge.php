@@ -23,9 +23,9 @@ class ContractTrilateralPropertyPledge extends Model
         'contract_trilateral_property_pledge.between_agreement_number' => 'required',
         'contract_trilateral_property_pledge.between_agreement_date' => 'required',
         'contract_trilateral_property_pledge.evaluation_basis' => 'required',
-        'contract_trilateral_property_pledge.franchise_earthquake_fire_percent' => 'required',
-        'contract_trilateral_property_pledge.franchise_illegal_action_percent' => 'required',
-        'contract_trilateral_property_pledge.franchise_other_risks_percent' => 'required',
+        'contract_trilateral_property_pledge.franchise_earthquake_fire_percent' => ['required', 'numeric', 'between:0,99.99'],
+        'contract_trilateral_property_pledge.franchise_illegal_action_percent' => ['required', 'numeric', 'between:0,99.99'],
+        'contract_trilateral_property_pledge.franchise_other_risks_percent' => ['required', 'numeric', 'between:0,99.99'],
     ];
 
     /**

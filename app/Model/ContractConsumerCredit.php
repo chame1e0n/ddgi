@@ -25,10 +25,10 @@ class ContractConsumerCredit extends Model
         'contract_consumer_credit.credit_agreement_date' => 'required',
         'contract_consumer_credit.credit_from' => 'required',
         'contract_consumer_credit.credit_to' => 'required',
-        'contract_consumer_credit.credit_sum' => 'required',
+        'contract_consumer_credit.credit_sum' => ['required', 'numeric', 'min:0'],
         'contract_consumer_credit.collateral_type' => 'required',
         'contract_consumer_credit.description' => 'required',
-        'contract_consumer_credit.collateral_sum' => 'required',
+        'contract_consumer_credit.collateral_sum' => ['required', 'numeric', 'min:0'],
     ];
 
     /**

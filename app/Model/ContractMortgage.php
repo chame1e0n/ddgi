@@ -23,9 +23,9 @@ class ContractMortgage extends Model
         'contract_mortgage.between_agreement_number' => 'required',
         'contract_mortgage.between_agreement_date' => 'required',
         'contract_mortgage.evaluation_basis' => 'required',
-        'contract_mortgage.franchise_earthquake_fire_percent' => 'required',
-        'contract_mortgage.franchise_illegal_action_percent' => 'required',
-        'contract_mortgage.franchise_other_risks_percent' => 'required',
+        'contract_mortgage.franchise_earthquake_fire_percent' => ['required', 'numeric', 'between:0,99.99'],
+        'contract_mortgage.franchise_illegal_action_percent' => ['required', 'numeric', 'between:0,99.99'],
+        'contract_mortgage.franchise_other_risks_percent' => ['required', 'numeric', 'between:0,99.99'],
     ];
 
     /**

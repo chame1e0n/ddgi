@@ -22,9 +22,9 @@ class PolicyController extends Controller
         $filter = array_filter($data, function ($value) { return !is_null($value) && $value !== ''; });
 
         $policies = Policy::select('policies.*')
-            ->crossJoin('employees', 'policies.employee_id', '=', 'employees.id')
-            ->where($filter)
-            ->get();
+                          ->crossJoin('employees', 'policies.employee_id', '=', 'employees.id')
+                          ->where($filter)
+                          ->get();
 
         return view('policy.index', compact('policies'));
     }
@@ -54,7 +54,10 @@ class PolicyController extends Controller
     {
         $request->validate(array_merge(
             Policy::$validate,
-            ['policy_series_from' => 'required', 'policy_series_to' => 'required'],
+            [
+                'policy_series_from' => 'required',
+                'policy_series_to' => 'required',
+            ],
         ));
 
         $policy_data = $request['policy'];
@@ -62,10 +65,9 @@ class PolicyController extends Controller
         $policy_series_to = $request['policy_series_to'];
 
         $existing_policies = Policy::select('id')
-            ->whereBetween('series', [$policy_series_from, $policy_series_to])
-            ->where('act_number', $policy_data['act_number'])
-            ->where('name', $policy_data['name'])
-            ->get();
+                                   ->whereBetween('series', [$policy_series_from, $policy_series_to])
+                                   ->where('name', $policy_data['name'])
+                                   ->get();
 
         if ($existing_policies->count() > 0) {
             return back()->withErrors([
@@ -80,10 +82,10 @@ class PolicyController extends Controller
 
         $employee = Auth::user()->employees->first();
 
-        $files = [];
+        $policy_files = [];
         if ($request['files']) {
             foreach($request['files'] as $file) {
-                $files[] = [
+                $policy_files[] = [
                     'type' => 'document',
                     'original_name' => $file->getClientOriginalName(),
                     'path' => Storage::putFile('public/policy', $file),
@@ -98,7 +100,7 @@ class PolicyController extends Controller
 
             $policy = Policy::create($policy_data);
 
-            $policy->files()->createMany($files);
+            $policy->files()->createMany($policy_files);
         }
 
         return redirect()->route('policies.index')
@@ -148,10 +150,10 @@ class PolicyController extends Controller
         $policy->save();
 
         if ($request['files']) {
-            $files = [];
+            $policy_files = [];
 
             foreach($request['files'] as $file) {
-                $files[] = [
+                $policy_files[] = [
                     'type' => 'document',
                     'original_name' => $file->getClientOriginalName(),
                     'path' => Storage::putFile('public/policy', $file),
@@ -159,7 +161,7 @@ class PolicyController extends Controller
             }
 
             $policy->files()->delete();
-            $policy->files()->createMany($files);
+            $policy->files()->createMany($policy_files);
         }
 
         return redirect()->route('policies.index')

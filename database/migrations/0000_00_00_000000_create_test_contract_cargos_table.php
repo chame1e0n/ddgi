@@ -26,7 +26,7 @@ class CreateTestContractCargosTable extends Migration
             $table->string('name', 45);
             $table->string('type', 45);
             $table->string('package', 45);
-            $table->float('weight', 12, 3)->unsigned();
+            $table->float('weight', 32, 2)->unsigned();
             $table->integer('quantity')->unsigned();
             $table->string('transport', 45);
             $table->string('features')->nullable();
