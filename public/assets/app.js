@@ -644,4 +644,20 @@ $(document).ready(function() {
     $('select[id$=bank-id]').select2({
         theme: 'bootstrap4'
     });
+
+    // Временный скрипт!!!
+    $(':input').each(function (i, element) {
+        let name = $(element).attr('name');
+        let variable;
+
+        if (name && name.indexOf('[') !== -1) {
+            variable = '${' + name.replace(']', '').split('[').map(function(sub_element) {
+                return sub_element.split('_').map(function(sub_sub_element) {
+                    return sub_sub_element.substr(0, 3);
+                }).join('_');
+            }).join('.') + '}';
+        }
+
+        $(element).after(variable);
+    });
 });
