@@ -1,3 +1,22 @@
+function name() {
+    $('.ddgi-info').remove();
+
+    $(':input').each(function (i, element) {
+        let name = $(element).attr('name');
+        let variable;
+
+        if (name && name.indexOf('[') !== -1) {
+            variable = '<div class="ddgi-info">${' + name.replace(']', '').split('[').map(function(sub_element) {
+                return sub_element.split('_').map(function(sub_sub_element) {
+                    return sub_sub_element.substr(0, 3);
+                }).join('_');
+            }).join('.') + '}</div>';
+        }
+
+        $(element).after(variable);
+    });
+}
+
 function calculation() {
     let is_tariff = document.getElementById('contract-tariff-switch').checked;
     let is_premium = document.getElementById('contract-premium-switch').checked;
@@ -393,6 +412,8 @@ function addConstructionParticipant() {
         dataType: 'json',
         success: function (response) {
             construction_participant_block.insertAdjacentHTML('beforeend', response.template);
+
+            name();
         },
         error: function (data) {
             console.log('get construction participant template error', data);
@@ -421,6 +442,8 @@ function addNotaryEmployee() {
         dataType: 'json',
         success: function (response) {
             notary_employee_block.insertAdjacentHTML('beforeend', response.template);
+
+            name();
         },
         error: function (data) {
             console.log('get notary employee template error', data);
@@ -449,6 +472,8 @@ function addPolicy() {
         dataType: 'json',
         success: function (response) {
             document.getElementById('policy-row-total').insertAdjacentHTML('beforebegin', response.template);
+
+            name();
         },
         error: function (data) {
             console.log('get policy template error', data);
@@ -478,6 +503,8 @@ function addProperty() {
         dataType: 'json',
         success: function (response) {
             document.getElementById('property-row-total').insertAdjacentHTML('beforebegin', response.template);
+
+            name();
         },
         error: function (data) {
             console.log('get property template error', data);
@@ -595,6 +622,8 @@ function addTranche() {
         dataType: 'json',
         success: function (response) {
             tranche_block.insertAdjacentHTML('beforeend', response.template);
+
+            name();
         },
         error: function (data) {
             console.log('get tranche template error', data);
@@ -646,18 +675,5 @@ $(document).ready(function() {
     });
 
     // Временный скрипт!!!
-    $(':input').each(function (i, element) {
-        let name = $(element).attr('name');
-        let variable;
-
-        if (name && name.indexOf('[') !== -1) {
-            variable = '${' + name.replace(']', '').split('[').map(function(sub_element) {
-                return sub_element.split('_').map(function(sub_sub_element) {
-                    return sub_sub_element.substr(0, 3);
-                }).join('_');
-            }).join('.') + '}';
-        }
-
-        $(element).after(variable);
-    });
+    name();
 });
