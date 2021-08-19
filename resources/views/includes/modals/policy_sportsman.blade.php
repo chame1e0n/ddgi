@@ -78,6 +78,7 @@
 
                                     <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_sportsman.traumatic_sum') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-sportsman-traumatic-sum"
+                                           min="0"
                                            name="policies[{{$key}}][policy_sportsman][traumatic_sum]"
                                            step="0.01"
                                            type="number"
@@ -92,6 +93,7 @@
 
                                     <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_sportsman.traumatic_premium') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-sportsman-traumatic-premium"
+                                           min="0"
                                            name="policies[{{$key}}][policy_sportsman][traumatic_premium]"
                                            step="0.01"
                                            type="number"
@@ -110,6 +112,7 @@
 
                                     <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_sportsman.death_sum') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-sportsman-death-sum"
+                                           min="0"
                                            name="policies[{{$key}}][policy_sportsman][death_sum]"
                                            step="0.01"
                                            type="number"
@@ -124,6 +127,7 @@
 
                                     <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_sportsman.death_premium') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-sportsman-death-premium"
+                                           min="0"
                                            name="policies[{{$key}}][policy_sportsman][death_premium]"
                                            step="0.01"
                                            type="number"

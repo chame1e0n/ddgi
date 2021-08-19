@@ -154,6 +154,7 @@
                                                             <input required
                                                                    class="form-control ddgi-calculate @error('contract_realtor.annual_turnover_first_money') is-invalid @enderror"
                                                                    id="contract-realtor-annual-turnover-first-money"
+                                                                   min="0"
                                                                    name="contract_realtor[annual_turnover_first_money]"
                                                                    step="0.01"
                                                                    type="number"
@@ -163,6 +164,7 @@
                                                             <input required
                                                                    class="form-control ddgi-calculate @error('contract_realtor.annual_turnover_first_earnings') is-invalid @enderror"
                                                                    id="contract-realtor-annual-turnover-first-earnings"
+                                                                   min="0"
                                                                    name="contract_realtor[annual_turnover_first_earnings]"
                                                                    step="0.01"
                                                                    type="number"
@@ -183,6 +185,7 @@
                                                             <input required
                                                                    class="form-control ddgi-calculate @error('contract_realtor.annual_turnover_second_money') is-invalid @enderror"
                                                                    id="contract-realtor-annual-turnover-second-money"
+                                                                   min="0"
                                                                    name="contract_realtor[annual_turnover_second_money]"
                                                                    step="0.01"
                                                                    type="number"
@@ -192,6 +195,7 @@
                                                             <input required
                                                                    class="form-control ddgi-calculate @error('contract_realtor.annual_turnover_second_earnings') is-invalid @enderror"
                                                                    id="contract-realtor-annual-turnover-second-earnings"
+                                                                   min="0"
                                                                    name="contract_realtor[annual_turnover_second_earnings]"
                                                                    step="0.01"
                                                                    type="number"

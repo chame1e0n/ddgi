@@ -70,6 +70,7 @@
                             <input required
                                    class="form-control @error('policies.' . $key . '.policy_custom_officer.insurance_value') is-invalid @enderror"
                                    id="policies-{{$key}}-policy-custom-officer-insurance-value"
+                                   min="0"
                                    name="policies[{{$key}}][policy_custom_officer][insurance_value]"
                                    step="0.01"
                                    type="number"

@@ -198,6 +198,8 @@
                                         <input required
                                                class="form-control @error('contract_mortgage.franchise_earthquake_fire_percent') is-invalid @enderror"
                                                id="contract-mortgage-franchise-earthquake-fire-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_mortgage[franchise_earthquake_fire_percent]"
                                                step="0.01"
                                                type="number"
@@ -213,6 +215,8 @@
                                         <input required
                                                class="form-control @error('contract_mortgage.franchise_illegal_action_percent') is-invalid @enderror"
                                                id="contract-mortgage-franchise-illegal-action-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_mortgage[franchise_illegal_action_percent]"
                                                step="0.01"
                                                type="number"
@@ -228,6 +232,8 @@
                                         <input required
                                                class="form-control @error('contract_mortgage.franchise_other_risks_percent') is-invalid @enderror"
                                                id="contract-mortgage-franchise-other-risks-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_mortgage[franchise_other_risks_percent]"
                                                step="0.01"
                                                type="number"

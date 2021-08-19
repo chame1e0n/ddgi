@@ -224,6 +224,8 @@
 
                         <input class="form-control ddgi-calculate @error('contract.tariff') is-invalid @enderror"
                                id="contract-tariff"
+                               max="99.99"
+                               min="0"
                                name="contract[tariff]"
                                step="0.01"
                                type="number"
@@ -248,6 +250,8 @@
 
                         <input class="form-control ddgi-calculate @error('contract.premium') is-invalid @enderror"
                                id="contract-premium"
+                               max="99.99"
+                               min="0"
                                name="contract[premium]"
                                step="0.01"
                                type="number"

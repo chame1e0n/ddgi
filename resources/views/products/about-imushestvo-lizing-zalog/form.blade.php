@@ -75,6 +75,7 @@
 
                                         <input class="form-control @error('contract_property_leasing.insured_sum_for_closed_warehouse') is-invalid @enderror"
                                                id="contract-property-leasing-insured-sum-for-closed-warehouse"
+                                               min="0"
                                                name="contract_property_leasing[insured_sum_for_closed_warehouse]"
                                                step="0.01"
                                                type="number"
@@ -89,6 +90,7 @@
 
                                         <input class="form-control @error('contract_property_leasing.insured_sum_for_opened_warehouse') is-invalid @enderror"
                                                id="contract-property-leasing-insured-sum-for-opened-warehouse"
+                                               min="0"
                                                name="contract_property_leasing[insured_sum_for_opened_warehouse]"
                                                step="0.01"
                                                type="number"
@@ -104,6 +106,8 @@
                                         <input required
                                                class="form-control @error('contract_property_leasing.franchise_earthquake_fire_percent') is-invalid @enderror"
                                                id="contract-property-leasing-franchise-earthquake-fire-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_property_leasing[franchise_earthquake_fire_percent]"
                                                step="0.01"
                                                type="number"
@@ -119,6 +123,8 @@
                                         <input required
                                                class="form-control @error('contract_property_leasing.franchise_illegal_action_percent') is-invalid @enderror"
                                                id="contract-property-leasing-franchise-illegal-action-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_property_leasing[franchise_illegal_action_percent]"
                                                step="0.01"
                                                type="number"
@@ -134,6 +140,8 @@
                                         <input required
                                                class="form-control @error('contract_property_leasing.franchise_other_risks_percent') is-invalid @enderror"
                                                id="contract-property-leasing-franchise-other-risks-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_property_leasing[franchise_other_risks_percent]"
                                                step="0.01"
                                                type="number"

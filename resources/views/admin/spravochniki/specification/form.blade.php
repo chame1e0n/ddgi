@@ -68,7 +68,10 @@
                                         <label for="specification-tariff" class="col-form-label">Тарифная ставка</label>
                                         <input class="form-control @error('specification.tariff') is-invalid @enderror"
                                                id="specification-tariff"
+                                               max="99.99"
+                                               min="0"
                                                name="specification[tariff]"
+                                               step="0.01"
                                                type="number"
                                                value="{{old('specification.tariff', $specification->tariff)}}" />
                                     </div>

@@ -63,8 +63,10 @@
                                                     <input required
                                                            class="form-control @if($errors->has('policy.price')) is-invalid @endif"
                                                            id="policy-price"
+                                                           min="0"
                                                            name="policy[price]"
-                                                           type="text"
+                                                           step="0.01"
+                                                           type="number"
                                                            value="{{old('policy.price', $policy->price)}}" />
                                                 </div>
                                             </div>

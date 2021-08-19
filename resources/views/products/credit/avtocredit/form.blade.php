@@ -95,6 +95,7 @@
 
                                         <input class="form-control @if($errors->has('contract_leasing_autocredit.sum')) is-invalid @endif"
                                                id="contract-leasing-autocredit-sum"
+                                               min="0"
                                                name="contract_leasing_autocredit[sum]"
                                                step="0.01"
                                                type="number"

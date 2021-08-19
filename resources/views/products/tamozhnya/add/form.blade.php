@@ -62,6 +62,7 @@
                                         <input required
                                                class="form-control @error('contract_custom_warehouse.square') is-invalid @enderror"
                                                id="contract-custom-warehouse-square"
+                                               min="0"
                                                name="contract_custom_warehouse[square]"
                                                step="0.01"
                                                type="number"
@@ -78,6 +79,7 @@
                                             <input required
                                                    class="form-control @error('contract_custom_warehouse.capacity') is-invalid @enderror"
                                                    id="contract-custom-warehouse-capacity"
+                                                   min="0"
                                                    name="contract_custom_warehouse[capacity]"
                                                    step="0.01"
                                                    type="number"
@@ -109,6 +111,7 @@
                                         <input required
                                                class="form-control @error('contract_custom_warehouse.sum') is-invalid @enderror"
                                                id="contract-custom-warehouse-sum"
+                                               min="0"
                                                name="contract_custom_warehouse[sum]"
                                                step="0.01"
                                                type="number"

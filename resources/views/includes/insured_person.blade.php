@@ -70,6 +70,7 @@
                         <label for="insured-person-sum" class="col-form-label">Сумма</label>
                         <input class="form-control @error('insured_person.sum') is-invalid @enderror"
                                id="insured-person-sum"
+                               min="0"
                                name="insured_person[sum]"
                                step="0.01"
                                type="number"
@@ -81,6 +82,7 @@
                         <label for="insured-person-premium" class="col-form-label">Премия</label>
                         <input class="form-control @error('insured_person.premium') is-invalid @enderror"
                                id="insured-person-premium"
+                               min="0"
                                name="insured_person[premium]"
                                step="0.01"
                                type="number"
@@ -103,6 +105,8 @@
                         <label for="insured-person-tariff" class="col-form-label">Укажите процент тарифа</label>
                         <input class="form-control @error('insured_person.tariff') is-invalid @enderror"
                                id="insured-person-tariff"
+                               max="99.99"
+                               min="0"
                                name="insured_person[tariff]"
                                step="0.01"
                                type="number"

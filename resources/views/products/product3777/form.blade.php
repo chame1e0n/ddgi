@@ -116,6 +116,7 @@
                                         <input required
                                                class="form-control @error('contract_family_is_entrepreneur.sum') is-invalid @enderror"
                                                id="contract-family-is-entrepreneur-sum"
+                                               min="0"
                                                name="contract_family_is_entrepreneur[sum]"
                                                step="0.01"
                                                type="number"

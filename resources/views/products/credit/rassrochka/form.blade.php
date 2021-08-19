@@ -62,6 +62,7 @@
 
                                     <input class="form-control @if($errors->has('contract_installment.sum')) is-invalid @endif"
                                            id="contract-installment-sum"
+                                           min="0"
                                            name="contract_installment[sum]"
                                            step="0.01"
                                            type="number"
@@ -90,6 +91,7 @@
 
                                                     <input class="form-control @if($errors->has('contract_installment.loss_sum')) is-invalid @endif"
                                                            id="contract-installment-loss-sum"
+                                                           min="0"
                                                            name="contract_installment[loss_sum]"
                                                            step="0.01"
                                                            type="number"
@@ -104,6 +106,7 @@
 
                                                     <input class="form-control @if($errors->has('contract_installment.loss_tariff')) is-invalid @endif"
                                                            id="contract-installment-loss-tariff"
+                                                           min="0"
                                                            name="contract_installment[loss_tariff]"
                                                            step="0.01"
                                                            type="number"
@@ -118,6 +121,7 @@
 
                                                     <input class="form-control @if($errors->has('contract_installment.loss_premium')) is-invalid @endif"
                                                            id="contract-installment-loss-premium"
+                                                           min="0"
                                                            name="contract_installment[loss_premium]"
                                                            step="0.01"
                                                            type="number"
@@ -132,6 +136,7 @@
 
                                                     <input class="form-control @if($errors->has('contract_installment.loss_franchise')) is-invalid @endif"
                                                            id="contract-installment-loss-franchise"
+                                                           min="0"
                                                            name="contract_installment[loss_franchise]"
                                                            step="0.01"
                                                            type="number"
@@ -151,6 +156,7 @@
 
                                                     <input class="form-control @if($errors->has('contract_installment.risk_sum')) is-invalid @endif"
                                                            id="contract-installment-risk-sum"
+                                                           min="0"
                                                            name="contract_installment[risk_sum]"
                                                            step="0.01"
                                                            type="number"
@@ -165,6 +171,7 @@
 
                                                     <input class="form-control @if($errors->has('contract_installment.risk_tariff')) is-invalid @endif"
                                                            id="contract-installment-risk-tariff"
+                                                           min="0"
                                                            name="contract_installment[risk_tariff]"
                                                            step="0.01"
                                                            type="number"
@@ -179,6 +186,7 @@
 
                                                     <input class="form-control @if($errors->has('contract_installment.risk_premium')) is-invalid @endif"
                                                            id="contract-installment-risk-premium"
+                                                           min="0"
                                                            name="contract_installment[risk_premium]"
                                                            step="0.01"
                                                            type="number"
@@ -193,6 +201,7 @@
 
                                                     <input class="form-control @if($errors->has('contract_installment.risk_franchise')) is-invalid @endif"
                                                            id="contract-installment-risk-franchise"
+                                                           min="0"
                                                            name="contract_installment[risk_franchise]"
                                                            step="0.01"
                                                            type="number"
@@ -229,6 +238,8 @@
                                         <input required
                                                class="form-control @if($errors->has('contract_installment.franchise_earthquake_fire_percent')) is-invalid @endif"
                                                id="contract-installment-franchise-earthquake-fire-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_installment[franchise_earthquake_fire_percent]"
                                                step="0.01"
                                                type="number"
@@ -244,6 +255,8 @@
                                         <input required
                                                class="form-control @if($errors->has('contract_installment.franchise_illegal_action_percent')) is-invalid @endif"
                                                id="contract-installment-franchise-illegal-action-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_installment[franchise_illegal_action_percent]"
                                                step="0.01"
                                                type="number"
@@ -259,6 +272,8 @@
                                         <input required
                                                class="form-control @if($errors->has('contract_installment.franchise_other_risks_percent')) is-invalid @endif"
                                                id="contract-installment-franchise-other-risks-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_installment[franchise_other_risks_percent]"
                                                step="0.01"
                                                type="number"

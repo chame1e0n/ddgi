@@ -190,6 +190,7 @@
                                         <input required
                                                class="form-control ddgi-calculate @error('contract_plural_export_cargo.shipped_goods_value') is-invalid @enderror"
                                                id="contract-plural-export-cargo-shipped-goods-value"
+                                               min="0"
                                                name="contract_plural_export_cargo[shipped_goods_value]"
                                                step="0.01"
                                                type="number"
@@ -204,6 +205,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.shipped_goods_paid') is-invalid @enderror"
                                                id="contract-plural-export-cargo-shipped-goods-paid"
+                                               min="0"
                                                name="contract_plural_export_cargo[shipped_goods_paid]"
                                                step="0.01"
                                                type="number"
@@ -218,6 +220,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.buyer_debt') is-invalid @enderror"
                                                id="contract-plural-export-cargo-buyer-debt"
+                                               min="0"
                                                name="contract_plural_export_cargo[buyer_debt]"
                                                step="0.01"
                                                type="number"
@@ -232,6 +235,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.overdue_amount_1_60') is-invalid @enderror"
                                                id="contract-plural-export-cargo-overdue-amount-1-60"
+                                               min="0"
                                                name="contract_plural_export_cargo[overdue_amount_1_60]"
                                                step="0.01"
                                                type="number"
@@ -246,6 +250,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.overdue_amount_60_180') is-invalid @enderror"
                                                id="contract-plural-export-cargo-overdue-amount-60-180"
+                                               min="0"
                                                name="contract_plural_export_cargo[overdue_amount_60_180]"
                                                step="0.01"
                                                type="number"
@@ -265,6 +270,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.paid_insurance_premium') is-invalid @enderror"
                                                id="contract-plural-export-cargo-paid-insurance-premium"
+                                               min="0"
                                                name="contract_plural_export_cargo[paid_insurance_premium]"
                                                step="0.01"
                                                type="number"
@@ -279,6 +285,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.penalty') is-invalid @enderror"
                                                id="contract-plural-export-cargo-penalty"
+                                               min="0"
                                                name="contract_plural_export_cargo[penalty]"
                                                step="0.01"
                                                type="number"
@@ -293,6 +300,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.other_expenses') is-invalid @enderror"
                                                id="contract-plural-export-cargo-other-expenses"
+                                               min="0"
                                                name="contract_plural_export_cargo[other_expenses]"
                                                step="0.01"
                                                type="number"
@@ -307,6 +315,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.shipped_goods_payment') is-invalid @enderror"
                                                id="contract-plural-export-cargo-shipped-goods-payment"
+                                               min="0"
                                                name="contract_plural_export_cargo[shipped_goods_payment]"
                                                step="0.01"
                                                type="number"
@@ -321,6 +330,7 @@
 
                                         <input class="form-control ddgi-calculate @error('contract_plural_export_cargo.unshipped_goods_payment') is-invalid @enderror"
                                                id="contract-plural-export-cargo-unshipped-goods-payment"
+                                               min="0"
                                                name="contract_plural_export_cargo[unshipped_goods_payment]"
                                                step="0.01"
                                                type="number"
@@ -745,6 +755,7 @@
 
                                         <input class="form-control @error('contract_plural_export_cargo.credit_letter_sum') is-invalid @enderror"
                                                id="contract-plural-export-cargo-credit-letter-sum"
+                                               min="0"
                                                name="contract_plural_export_cargo[credit_letter_sum]"
                                                step="0.01"
                                                type="number"

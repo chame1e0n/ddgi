@@ -90,6 +90,7 @@
                                         <input required
                                                class="form-control @error('contract_consumer_credit.credit_sum') is-invalid @enderror"
                                                id="contract-consumer-credit-credit-sum"
+                                               min="0"
                                                name="contract_consumer_credit[credit_sum]"
                                                step="0.01"
                                                type="number"
@@ -186,6 +187,7 @@
                                         <input required
                                                class="form-control @error('contract_consumer_credit.collateral_sum') is-invalid @enderror"
                                                id="contract-consumer-credit-collateral-sum"
+                                               min="0"
                                                name="contract_consumer_credit[collateral_sum]"
                                                step="0.01"
                                                type="number"

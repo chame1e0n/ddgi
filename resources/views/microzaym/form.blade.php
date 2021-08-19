@@ -76,6 +76,7 @@
                                         <input required
                                                class="form-control @error('contract_microloan.microloan_sum') is-invalid @enderror"
                                                id="contract-microloan-microloan-sum"
+                                               min="0"
                                                name="contract_microloan[microloan_sum]"
                                                step="0.01"
                                                type="number"

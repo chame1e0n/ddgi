@@ -60,6 +60,7 @@
             <input required
                    class="form-control ddgi-calculate @error('policies.' . $key . '.insurance_sum') is-invalid @enderror"
                    id="policies-{{$key}}-insurance-sum"
+                   min="0"
                    name="policies[{{$key}}][insurance_sum]"
                    step="0.01"
                    type="number"
@@ -91,6 +92,7 @@
         <input required
                class="form-control ddgi-calculate @error('policies.' . $key . '.franchise') is-invalid @enderror"
                id="policies-{{$key}}-franchise"
+               min="0"
                name="policies[{{$key}}][franchise]"
                step="0.01"
                type="number"

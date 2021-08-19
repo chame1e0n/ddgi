@@ -49,6 +49,7 @@
                             <input required
                                    class="form-control @error('policies.' . $key . '.policy_autoleasing.insurance_value') is-invalid @enderror"
                                    id="policies-{{$key}}-policy-autoleasing-insurance-value"
+                                   min="0"
                                    name="policies[{{$key}}][policy_autoleasing][insurance_value]"
                                    step="0.01"
                                    type="number"

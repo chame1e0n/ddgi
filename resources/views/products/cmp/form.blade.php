@@ -369,6 +369,7 @@
                                         <input required
                                                class="form-control ddgi-calculate @error('policy_construction_installation_work.construction_installation_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-construction-installation-price"
+                                               min="0"
                                                name="policy_construction_installation_work[construction_installation_price]"
                                                step="0.01"
                                                type="number"
@@ -384,6 +385,7 @@
                                         <input required
                                                class="form-control ddgi-calculate @error('policy_construction_installation_work.construction_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-construction-price"
+                                               min="0"
                                                name="policy_construction_installation_work[construction_price]"
                                                step="0.01"
                                                type="number"
@@ -399,6 +401,7 @@
                                         <input required
                                                class="form-control ddgi-calculate @error('policy_construction_installation_work.equipment_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-equipment-price"
+                                               min="0"
                                                name="policy_construction_installation_work[equipment_price]"
                                                step="0.01"
                                                type="number"
@@ -414,6 +417,7 @@
                                         <input required
                                                class="form-control ddgi-calculate @error('policy_construction_installation_work.machine_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-machine-price"
+                                               min="0"
                                                name="policy_construction_installation_work[machine_price]"
                                                step="0.01"
                                                type="number"
@@ -429,6 +433,7 @@
                                         <input required
                                                class="form-control ddgi-calculate @error('policy_construction_installation_work.clear_location_price') is-invalid @enderror"
                                                id="policy-construction-installation-work-clear-location-price"
+                                               min="0"
                                                name="policy_construction_installation_work[clear_location_price]"
                                                step="0.01"
                                                type="number"
@@ -444,6 +449,7 @@
                                         <input required
                                                class="form-control ddgi-calculate @error('policy_construction_installation_work.insurance_value') is-invalid @enderror"
                                                id="policy-construction-installation-work-insurance-value"
+                                               min="0"
                                                name="policy_construction_installation_work[insurance_value]"
                                                step="0.01"
                                                type="number"

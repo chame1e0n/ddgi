@@ -198,6 +198,8 @@
                                         <input required
                                                class="form-control @error('contract_multilateral_property_pledge.franchise_earthquake_fire_percent') is-invalid @enderror"
                                                id="contract-multilateral-property-pledge-franchise-earthquake-fire-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_multilateral_property_pledge[franchise_earthquake_fire_percent]"
                                                step="0.01"
                                                type="number"
@@ -213,6 +215,8 @@
                                         <input required
                                                class="form-control @error('contract_multilateral_property_pledge.franchise_illegal_action_percent') is-invalid @enderror"
                                                id="contract-multilateral-property-pledge-franchise-illegal-action-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_multilateral_property_pledge[franchise_illegal_action_percent]"
                                                step="0.01"
                                                type="number"
@@ -228,6 +232,8 @@
                                         <input required
                                                class="form-control @error('contract_multilateral_property_pledge.franchise_other_risks_percent') is-invalid @enderror"
                                                id="contract-multilateral-property-pledge-franchise-other-risks-percent"
+                                               max="99.99"
+                                               min="0"
                                                name="contract_multilateral_property_pledge[franchise_other_risks_percent]"
                                                step="0.01"
                                                type="number"

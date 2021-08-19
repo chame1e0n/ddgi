@@ -116,6 +116,7 @@
                                         <input required
                                                class="form-control @error('contract_credit_leasing_repayment.sum') is-invalid @enderror"
                                                id="contract-credit-leasing-repayment-sum"
+                                               min="0"
                                                name="contract_credit_leasing_repayment[sum]"
                                                step="0.01"
                                                type="number"

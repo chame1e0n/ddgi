@@ -102,6 +102,7 @@
                         <input required
                                class="form-control @error('policy.insurance_sum') is-invalid @enderror"
                                id="policy-insurance-sum"
+                               min="0"
                                name="policy[insurance_sum]"
                                step="0.01"
                                type="number"
@@ -126,6 +127,7 @@
                         <input required
                                class="form-control @error('policy.franchise') is-invalid @enderror"
                                id="policy-franchise"
+                               min="0"
                                name="policy[franchise]"
                                step="0.01"
                                type="number"

@@ -114,6 +114,7 @@
                                     <input required
                                            class="form-control @error('policies.' . $key . '.policy_casco.insurance_value') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-casco-insurance-value"
+                                           min="0"
                                            name="policies[{{$key}}][policy_casco][insurance_value]"
                                            step="0.01"
                                            type="number"
@@ -175,6 +176,7 @@
 
                                     <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ae_additional_insured_sum') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-casco-ae-additional-insured-sum"
+                                           min="0"
                                            name="policies[{{$key}}][policy_casco][ae_additional_insured_sum]"
                                            step="0.01"
                                            type="number"
@@ -201,6 +203,7 @@
 
                                     <input class="form-control @error('policies.' . $key . '.policy_casco.ac_terrorist_attack_for_car') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-casco-ac-terrorist-attack-for-car"
+                                           min="0"
                                            name="policies[{{$key}}][policy_casco][ac_terrorist_attack_for_car]"
                                            step="0.01"
                                            type="number"
@@ -213,6 +216,7 @@
 
                                     <input class="form-control @error('policies.' . $key . '.policy_casco.ac_terrorist_attack_for_human') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-casco-ac-terrorist-attack-for-human"
+                                           min="0"
                                            name="policies[{{$key}}][policy_casco][ac_terrorist_attack_for_human]"
                                            step="0.01"
                                            type="number"
@@ -225,6 +229,7 @@
 
                                     <input class="form-control @error('policies.' . $key . '.policy_casco.ac_terrorist_attack_evacuation') is-invalid @enderror"
                                            id="policies-{{$key}}-policy-casco-ac-terrorist-attack-evacuation"
+                                           min="0"
                                            name="policies[{{$key}}][policy_casco][ac_terrorist_attack_evacuation]"
                                            step="0.01"
                                            type="number"
@@ -349,6 +354,7 @@
 
                                         <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_vehicle_death_recovery_sum') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-vehicle-death-recovery-sum"
+                                               min="0"
                                                name="policies[{{$key}}][policy_casco][ec_vehicle_death_recovery_sum]"
                                                step="0.01"
                                                type="number"
@@ -361,6 +367,7 @@
 
                                         <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_vehicle_death_recovery_premium') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-vehicle-death-recovery-premium"
+                                               min="0"
                                                name="policies[{{$key}}][policy_casco][ec_vehicle_death_recovery_premium]"
                                                step="0.01"
                                                type="number"
@@ -373,6 +380,7 @@
 
                                         <input class="form-control @error('policies.' . $key . '.policy_casco.ec_vehicle_death_recovery_franchise') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-vehicle-death-recovery-franchise"
+                                               min="0"
                                                name="policies[{{$key}}][policy_casco][ec_vehicle_death_recovery_franchise]"
                                                step="0.01"
                                                type="number"
@@ -427,6 +435,7 @@
 
                                         <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_civil_liability_sum') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-civil-liability-sum"
+                                               min="0"
                                                name="policies[{{$key}}][policy_casco][ec_civil_liability_sum]"
                                                step="0.01"
                                                type="number"
@@ -439,6 +448,7 @@
 
                                         <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_civil_liability_premium') is-invalid @enderror"
                                                id="policies-{{$key}}-policy-casco-ec-civil-liability-premium"
+                                               min="0"
                                                name="policies[{{$key}}][policy_casco][ec_civil_liability_premium]"
                                                step="0.01"
                                                type="number"
@@ -512,6 +522,7 @@
                                             <td>
                                                 <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_driver_sum_for_person') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-driver-sum-for-person"
+                                                       min="0"
                                                        name="policies[{{$key}}][policy_casco][ec_driver_sum_for_person]"
                                                        step="0.01"
                                                        type="number"
@@ -527,6 +538,7 @@
                                             <td>
                                                 <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_driver_premium') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-driver-premium"
+                                                       min="0"
                                                        name="policies[{{$key}}][policy_casco][ec_driver_premium]"
                                                        step="0.01"
                                                        type="number"
@@ -546,6 +558,7 @@
                                             <td>
                                                 <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_passenger_sum_for_person') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-passenger-sum-for-person"
+                                                       min="0"
                                                        name="policies[{{$key}}][policy_casco][ec_passenger_sum_for_person]"
                                                        step="0.01"
                                                        type="number"
@@ -561,6 +574,7 @@
                                             <td>
                                                 <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_passenger_premium') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-passenger-premium"
+                                                       min="0"
                                                        name="policies[{{$key}}][policy_casco][ec_passenger_premium]"
                                                        step="0.01"
                                                        type="number"
@@ -580,6 +594,7 @@
                                             <td>
                                                 <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_general_limit_sum_for_person') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-general-limit-sum-for-person"
+                                                       min="0"
                                                        name="policies[{{$key}}][policy_casco][ec_general_limit_sum_for_person]"
                                                        step="0.01"
                                                        type="number"
@@ -595,6 +610,7 @@
                                             <td>
                                                 <input class="form-control ddgi-calculate @error('policies.' . $key . '.policy_casco.ec_general_limit_premium') is-invalid @enderror"
                                                        id="policies-{{$key}}-policy-casco-ec-general-limit-premium"
+                                                       min="0"
                                                        name="policies[{{$key}}][policy_casco][ec_general_limit_premium]"
                                                        step="0.01"
                                                        type="number"
@@ -630,6 +646,7 @@
 
                                 <input class="form-control @error('policies.' . $key . '.policy_casco.ec_general_limit_responsibility') is-invalid @enderror"
                                        id="policies-{{$key}}-policy-casco-ec-general-limit-responsibility"
+                                       min="0"
                                        name="policies[{{$key}}][policy_casco][ec_general_limit_responsibility]"
                                        step="0.01"
                                        type="number"

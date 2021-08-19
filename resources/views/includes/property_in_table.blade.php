@@ -32,6 +32,7 @@
     <td>
         <input class="form-control @error('properties.' . $key . '.quantity') is-invalid @enderror"
                id="properties-{{$key}}-quantity"
+               min="0"
                name="properties[{{$key}}][quantity]"
                step="0.01"
                type="number"
@@ -55,6 +56,7 @@
         <input required
                class="form-control ddgi-calculate @error('properties.' . $key . '.insurance_value') is-invalid @enderror"
                id="properties-{{$key}}-insurance-value"
+               min="0"
                name="properties[{{$key}}][insurance_value]"
                step="0.01"
                type="number"
@@ -64,6 +66,7 @@
         <input required
                class="form-control ddgi-calculate @error('properties.' . $key . '.insurance_sum') is-invalid @enderror"
                id="properties-{{$key}}-insurance-sum"
+               min="0"
                name="properties[{{$key}}][insurance_sum]"
                step="0.01"
                type="number"

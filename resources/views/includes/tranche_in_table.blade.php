@@ -3,6 +3,8 @@
         <input required
                class="form-control @error('tranches.' . $key . '.sum') is-invalid @enderror"
                id="tranches-{{$key}}-sum"
+               max="99.99"
+               min="0"
                name="tranches[{{$key}}][sum]"
                step="0.01"
                type="number"
