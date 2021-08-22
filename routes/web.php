@@ -120,6 +120,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('avto/index', 'Product\DobrovolkaAvtoController')->names('avto-index');
 
+
+
     Route::resource('directory/banks', 'Admin\Spravochniki\BankController');
     Route::resource('directory/branches', 'Admin\Spravochniki\BranchController');
     Route::resource('directory/currencies', 'Admin\Spravochniki\CurrencyController');
@@ -141,6 +143,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('policy_flows','PolicyFlowController');
 
     Route::resource('contracts', 'ContractController');
+
+    Route::get('contracts/{contract}/print', 'ContractController@print')->name('contract.print');
+
+    Route::get('reports/regions', 'ReportController@regions')->name('report.regions');
 
     Route::resource('neshchastka_borrower', 'NeshchastkaBorrowerController');
     Route::resource('borrower_sportsman', 'BorrowerSportsmanController');

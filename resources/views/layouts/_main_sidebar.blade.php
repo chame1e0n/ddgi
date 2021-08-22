@@ -22,6 +22,14 @@
                         <p>Контракты</p>
                     </a>
                 </li>
+                <li class="nav-header">Отчеты</li>
+                <li class="nav-item has-treeview">
+                    <a href="{{route('report.regions')}}" class="nav-link">
+                        <i class="nav-icon fas fa-folder-open"></i>
+
+                        <p>Сведения по областям</p>
+                    </a>
+                </li>
                 <li class="nav-header">Претензии</li>
                 <li class="nav-item">
                     <a href="{{route('pretension.index')}}" class="nav-link">
