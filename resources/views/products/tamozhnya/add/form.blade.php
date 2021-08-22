@@ -163,6 +163,8 @@
                     @yield('includes.contract.block.3')
 
                     @yield('includes.contract.block.4')
+
+                    @yield('includes.contract.block.5')
                 </section>
             </div>
 

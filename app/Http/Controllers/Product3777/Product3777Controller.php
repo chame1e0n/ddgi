@@ -343,18 +343,4 @@ class Product3777Controller extends Controller
         return redirect()->route('contracts.index')
                          ->with('success', sprintf('Данные о контракте \'%s\' были успешно удалены', $contract->number));
     }
-
-//    public function print($id)
-//    {
-//        <div class="card-footer">
-//            <a href="{{route("print", $product->id)}}" type="submit" class="btn btn-warning float-right"
-//               id="form-print-button">Print</a>
-//        </div>
-//        $entity = AllProduct::query()->findOrFail($id);
-//        $printFormProcessor = new PrintFormProcessor();
-//        $templateFile = resource_path('test.docx');
-//        $tempFileName = $printFormProcessor->process($templateFile, $entity);
-//        $fileName = 'product3777_' . $id;
-//        return response()->download($tempFileName, $fileName . '.docx')->deleteFileAfterSend();
-//    }
 }

@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Contract extends Model
 {
@@ -213,23 +214,63 @@ class Contract extends Model
     }
 
     /**
-     * Get names of all contract policies.
+     * Get array of object variables for the print files.
      * 
+     * @param object  $object       Model object
+     * @param integer $index_number Index number
      * @return array
      */
-    public function getPolicyNames()
+    public static function convertToVariables(object $object, $index_number = null)
     {
-        return array_unique($this->policies->pluck('name')->all());
+        $class = Str::snake(basename(get_class($object)));
+
+        $class_variable = implode('_', array_map(function($value) {
+            return substr($value, 0, 3);
+        }, explode('_', $class)));
+
+        return collect($object->attributesToArray())->mapWithKeys(function ($value, $key) use ($class_variable, $index_number) {
+            $key_variable = implode('_', array_map(function($value) {
+                return substr($value, 0, 3);
+            }, explode('_', $key)));
+
+            if (is_null($index_number)) {
+                $key_name = $class_variable . '.' . $key_variable;
+            } else {
+                $key_name = $class_variable . '.' . $index_number . '.' . $key_variable;
+            }
+
+            return [ $key_name => $value];
+        });
     }
 
     /**
-     * Get series of all contract policies.
-     * 
-     * @return array
+     * Generate contract number.
      */
-    public function getPolicySeries()
+    public function generateNumber()
     {
-        return array_unique($this->policies->pluck('series')->all());
+        if (empty($this->number)) {
+            $branch = $this->policies->first()->policy_flows->first()->to_employee->branch;
+            $region = $branch->region;
+            $specification = $this->specification;
+            $type = $specification->type;
+            $payment_method = $this->payment_method;
+
+            $contract_number = Contract::select('contracts.*')
+                ->join('policies', 'contracts.id', '=', 'policies.contract_id')
+                ->join('policy_flows', 'policies.id', '=', 'policy_flows.policy_id')
+                ->join('employees', 'policy_flows.to_employee_id', '=', 'employees.id')
+                ->where('contracts.specification_id', '=', $specification->id)
+                ->where('employees.branch_id', '=', $branch->id)
+                ->whereNull(['policies.deleted_at', 'policy_flows.deleted_at', 'employees.deleted_at'])
+                ->count();
+
+            $this->number = substr($region->code, -2) . substr($branch->code, -2) . '/' .
+                            substr($type->code, -2) . substr($specification->code, -2) . '/' .
+                            substr($payment_method->code, -2) . '/' .
+                            date('y', $this->created_at->timestamp) . sprintf('%05d', $contract_number - 1);
+
+            $this->save();
+        }
     }
 
     /**
@@ -266,33 +307,92 @@ class Contract extends Model
     }
 
     /**
-     * Generate contract number.
+     * Get names of all contract policies.
+     * 
+     * @return array
      */
-    public function generateNumber()
+    public function getPolicyNames()
     {
-        if (empty($this->number)) {
-            $branch = $this->policies->first()->policy_flows->first()->to_employee->branch;
-            $region = $branch->region;
-            $specification = $this->specification;
-            $type = $specification->type;
-            $payment_method = $this->payment_method;
+        return array_unique($this->policies->pluck('name')->all());
+    }
 
-            $contract_number = Contract::select('contracts.*')
-                ->join('policies', 'contracts.id', '=', 'policies.contract_id')
-                ->join('policy_flows', 'policies.id', '=', 'policy_flows.policy_id')
-                ->join('employees', 'policy_flows.to_employee_id', '=', 'employees.id')
-                ->where('contracts.specification_id', '=', $specification->id)
-                ->where('employees.branch_id', '=', $branch->id)
-                ->whereNull(['policies.deleted_at', 'policy_flows.deleted_at', 'employees.deleted_at'])
-                ->count();
+    /**
+     * Get series of all contract policies.
+     * 
+     * @return array
+     */
+    public function getPolicySeries()
+    {
+        return array_unique($this->policies->pluck('series')->all());
+    }
 
-            $this->number = substr($region->code, -2) . substr($branch->code, -2) . '/' .
-                            substr($type->code, -2) . substr($specification->code, -2) . '/' .
-                            substr($payment_method->code, -2) . '/' .
-                            date('y', $this->created_at->timestamp) . sprintf('%05d', $contract_number - 1);
+    /**
+     * Get available print file names.
+     * 
+     * @return array
+     */
+    public function getPrintFiles()
+    {
+        $key = $this->specification->key;
 
-            $this->save();
+        $files = glob(storage_path('prints' . DIRECTORY_SEPARATOR . $key . DIRECTORY_SEPARATOR . '*.docx'));
+        $file_names = array_map('basename', $files);
+
+        return $file_names;
+    }
+
+    /**
+     * 
+     */
+    public function getPrintVariables()
+    {
+        $variables = self::convertToVariables($this);
+
+        if ($this->beneficiary) {
+            $variables = $variables->merge(self::convertToVariables($this->beneficiary));
         }
+        if ($this->borrower) {
+            $variables = $variables->merge(self::convertToVariables($this->borrower));
+        }
+
+        $variables = $variables->merge(self::convertToVariables($this->client));
+
+        if ($this->currency) {
+            $variables = $variables->merge(self::convertToVariables($this->currency));
+        }
+        if ($this->customer) {
+            $variables = $variables->merge(self::convertToVariables($this->customer));
+        }
+        if ($this->guarantor) {
+            $variables = $variables->merge(self::convertToVariables($this->guarantor));
+        }
+        if ($this->insured_person) {
+            $variables = $variables->merge(self::convertToVariables($this->insured_person));
+        }
+        if ($this->payment_method) {
+            $variables = $variables->merge(self::convertToVariables($this->payment_method));
+        }
+        if ($this->pledger) {
+            $variables = $variables->merge(self::convertToVariables($this->pledger));
+        }
+        if ($this->principal) {
+            $variables = $variables->merge(self::convertToVariables($this->principal));
+        }
+
+        $variables = $variables->merge(self::convertToVariables($this->specification));
+
+        if ($this->contract_model) {
+            $variables = $variables->merge(self::convertToVariables($this->contract_model));
+        }
+
+        foreach($this->tranches as $key => $tranche) {
+            $variables = $variables->merge(self::convertToVariables($tranche, $key));
+        }
+        foreach($this->policies as $key => $policy) {
+            $variables = $variables->merge(self::convertToVariables($policy, $key));
+        }
+
+        return $variables;
     }
 
     /**

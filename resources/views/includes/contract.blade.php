@@ -1,68 +1,68 @@
 @section('includes.contract.block.1')
-<div class="card card-success" id="contract-block-1">
-    <div class="card-header">
-        <h3 class="card-title">Тип контракта</h3>
+    <div class="card card-success" id="contract-block-1">
+        <div class="card-header">
+            <h3 class="card-title">Тип контракта</h3>
 
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fas fa-minus"></i>
-            </button>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>Типы клиента</label>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Типы клиента</label>
 
-                    <div class="row">
-                    @foreach(\App\Model\Contract::$types as $type => $label)
-                        <div class="col-sm-4">
-                            <div class="icheck-success">
-                                <input @if($type == old('contract.type', $contract->type)) checked @endif
-                                       @if($contract->exists) disabled @endif
-                                       class="client-type-radio"
-                                       id="contract-type-{{$type}}"
-                                       name="contract[type]"
-                                       type="radio"
-                                       value="{{$type}}"
-                                       onchange="defineSpecifications(this)" />
+                        <div class="row">
+                        @foreach(\App\Model\Contract::$types as $type => $label)
+                            <div class="col-sm-4">
+                                <div class="icheck-success">
+                                    <input @if($type == old('contract.type', $contract->type)) checked @endif
+                                           @if($contract->exists) disabled @endif
+                                           class="client-type-radio"
+                                           id="contract-type-{{$type}}"
+                                           name="contract[type]"
+                                           type="radio"
+                                           value="{{$type}}"
+                                           onchange="defineSpecifications(this)" />
 
-                                <label for="contract-type-{{$type}}">{{$label}}</label>
+                                    <label for="contract-type-{{$type}}">{{$label}}</label>
+                                </div>
                             </div>
+                        @endforeach
                         </div>
-                    @endforeach
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="contract-specification-id">Вид продукта</label>
+
+                        <select @if($contract->exists) disabled="disabled" @endif
+                                class="form-control @error('contract.specification_id') is-invalid @enderror"
+                                id="contract-specification-id"
+                                name="contract[specification_id]"
+                                style="width: 100%;"
+                                onchange="redirect(this)">
+                            <option></option>
+
+                            @foreach(\App\Model\Specification::getSpecificationsByType($contract->type) as $specification)
+                                <option @if($specification->id == old('contract.specification_id', $contract->specification_id)) selected @endif
+                                        value="{{$specification->id}}"
+                                        data-route="{{\App\Model\Specification::$specification_key_to_routes[$specification->key]}}">
+                                    {{$specification->name}}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="contract-specification-id">Вид продукта</label>
-
-                    <select @if($contract->exists) disabled="disabled" @endif
-                            class="form-control @error('contract.specification_id') is-invalid @enderror"
-                            id="contract-specification-id"
-                            name="contract[specification_id]"
-                            style="width: 100%;"
-                            onchange="redirect(this)">
-                        <option></option>
-
-                        @foreach(\App\Model\Specification::getSpecificationsByType($contract->type) as $specification)
-                            <option @if($specification->id == old('contract.specification_id', $contract->specification_id)) selected @endif
-                                    value="{{$specification->id}}"
-                                    data-route="{{\App\Model\Specification::$specification_key_to_routes[$specification->key]}}">
-                                {{$specification->name}}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+            <div>
+                <input id="specification-tariff" type="hidden" value="{{$contract->specification->tariff}}" />
             </div>
         </div>
-        <div>
-            <input id="specification-tariff" type="hidden" value="{{$contract->specification->tariff}}" />
-        </div>
     </div>
-</div>
 @endsection
 
 @section('includes.contract.block.2')
@@ -321,4 +321,31 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('includes.contract.block.5')
+    @if($contract->exists)
+        <div class="card card-success" id="contract-block-4">
+            <div class="card-header">
+                <h3 class="card-title">Распечатка документов</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                    @foreach($contract->getPrintFiles() as $print_file)
+                        <a target="_blank" href="{{route('contract.print', ['contract' => $contract->id, 'file' => $print_file])}}" class="btn btn-warning">
+                            <i class="fa fa-download" aria-hidden="true"></i> Скачать {{ $print_file }}
+                        </a>
+                    @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
