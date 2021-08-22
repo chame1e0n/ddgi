@@ -43,7 +43,7 @@ class CreditRassrochkaController extends Controller
 
         if ($specification) {
             $contract->specification_id = $specification->id;
-            $contract->type = Contract::TYPE_INDIVIDUAL;
+            $contract->type = request('type', Contract::TYPE_INDIVIDUAL);
         }
         if (isset($old_data['policies'])) {
             foreach ($old_data['policies'] as $item) {

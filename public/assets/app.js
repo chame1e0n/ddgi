@@ -522,6 +522,36 @@ function removeProperty(event) {
     }
 }
 
+function addTranche() {
+    let tranche_block = document.getElementById('tranches').querySelector('tbody');
+    let counter = tranche_block.childElementCount;
+
+    while(document.getElementById('tranche-row-' + counter)) {
+        counter++;
+    }
+
+    $.ajax({
+        url: ddgi_routes.tranche_row,
+        type: 'post',
+        data: { key: counter },
+        dataType: 'json',
+        success: function (response) {
+            tranche_block.insertAdjacentHTML('beforeend', response.template);
+
+            name();
+        },
+        error: function (data) {
+            console.log('get tranche template error', data);
+        }
+    });
+}
+
+function removeTranche(event) {
+    if (event.target.classList.contains('ddgi-remove-tranche')) {
+        event.target.parentElement.parentElement.remove();
+    }
+}
+
 function definePolicySeries() {
     let series = document.getElementById(this.id.replace('name', 'series'));
 
@@ -587,12 +617,16 @@ function toggleSwitch(element, block_id) {
 function redirect(element) {
     var selected_option = element.selectedOptions[0];
 
+    let type = document.getElementById('contract-type-individual').checked ? 'individual' : 'legal';
+
     if (selected_option.dataset.route) {
-        window.location = '/' + selected_option.dataset.route + '/create';
+        window.location = '/' + selected_option.dataset.route + '/create?type=' + type;
     }
 }
 
 function defineSpecifications(element) {
+    let old_value = $('#contract-specification-id').val();
+
     $.ajax({
         url: ddgi_routes.type_specifications,
         type: 'get',
@@ -602,41 +636,13 @@ function defineSpecifications(element) {
             $('#contract-specification-id').empty();
             $('#contract-specification-id').append('<option></option>');
 
+            let is_selected = response[i]['id'] == old_value;
+
             for (var i = 0; i < response.length; i++) {
-                $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '">' + response[i]['name'] + '</option>');
+                $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '"' . (is_selected ? ' selected=""' : '') . '>' + response[i]['name'] + '</option>');
             }
         }
     });
-}
-
-function addTranche() {
-    let tranche_block = document.getElementById('tranches').querySelector('tbody');
-    let counter = tranche_block.childElementCount;
-
-    while(document.getElementById('tranche-row-' + counter)) {
-        counter++;
-    }
-
-    $.ajax({
-        url: ddgi_routes.tranche_row,
-        type: 'post',
-        data: { key: counter },
-        dataType: 'json',
-        success: function (response) {
-            tranche_block.insertAdjacentHTML('beforeend', response.template);
-
-            name();
-        },
-        error: function (data) {
-            console.log('get tranche template error', data);
-        }
-    });
-}
-
-function removeTranche(event) {
-    if (event.target.classList.contains('ddgi-remove-tranche')) {
-        event.target.parentElement.parentElement.remove();
-    }
 }
 
 $(document).ready(function() {

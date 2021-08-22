@@ -51,7 +51,7 @@ class BrokerController extends Controller
 
         if ($specification) {
             $contract->specification_id = $specification->id;
-            $contract->type = Contract::TYPE_LEGAL;
+            $contract->type = request('type', Contract::TYPE_LEGAL);
         }
         if (isset($old_data['policies'])) {
             foreach ($old_data['policies'] as $key => $item) {

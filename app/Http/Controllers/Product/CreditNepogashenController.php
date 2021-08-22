@@ -48,7 +48,7 @@ class CreditNepogashenController extends Controller
 
         if ($specification) {
             $contract->specification_id = $specification->id;
-            $contract->type = Contract::TYPE_LEGAL;
+            $contract->type = request('type', Contract::TYPE_LEGAL);
         }
         if (isset($old_data['tranches'])) {
             foreach ($old_data['tranches'] as $key => $item) {

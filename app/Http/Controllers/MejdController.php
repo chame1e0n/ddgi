@@ -46,7 +46,7 @@ class MejdController extends Controller
 
         if ($specification) {
             $contract->specification_id = $specification->id;
-            $contract->type = Contract::TYPE_INDIVIDUAL;
+            $contract->type = request('type', Contract::TYPE_INDIVIDUAL);
         }
         if (isset($old_data['tranches'])) {
             foreach ($old_data['tranches'] as $key => $item) {
