@@ -268,7 +268,7 @@
                                                             <span class="input-group-text">В государственном секторе</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_evaluator.activity_in_goverment_sector')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_evaluator.activity_in_goverment_sector') is-invalid @enderror"
                                                                   id="contract-evaluator-activity-in-goverment-sector"
                                                                   name="contract_evaluator[activity_in_goverment_sector]">{{old('contract_evaluator.activity_in_goverment_sector', $contract_evaluator->activity_in_goverment_sector)}}</textarea>
                                                     </div>
@@ -281,7 +281,7 @@
                                                             <span class="input-group-text">В частном секторе</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_evaluator.activity_in_private_sector')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_evaluator.activity_in_private_sector') is-invalid @enderror"
                                                                   id="contract-evaluator-activity-in-private-sector"
                                                                   name="contract_evaluator[activity_in_private_sector]">{{old('contract_evaluator.activity_in_private_sector', $contract_evaluator->activity_in_private_sector)}}</textarea>
                                                     </div>
@@ -345,7 +345,7 @@
                                                             <span class="input-group-text">Причина</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_evaluator.claim_filing_reason')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_evaluator.claim_filing_reason') is-invalid @enderror"
                                                                   id="contract-evaluator-claim-filing-reason"
                                                                   name="contract_evaluator[claim_filing_reason]">{{old('contract_evaluator.claim_filing_reason', $contract_evaluator->claim_filing_reason)}}</textarea>
                                                     </div>
@@ -396,7 +396,7 @@
                                                             <span class="input-group-text">Причина</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_evaluator.administrative_penalty_filing_reason')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_evaluator.administrative_penalty_filing_reason') is-invalid @enderror"
                                                                   id="contract-evaluator-administrative-penalty-filing-reason"
                                                                   name="contract_evaluator[administrative_penalty_filing_reason]">{{old('contract_evaluator.administrative_penalty_filing_reason', $contract_evaluator->administrative_penalty_filing_reason)}}</textarea>
                                                     </div>

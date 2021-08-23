@@ -59,7 +59,7 @@
                                             Географическая зона
                                         </label>
                                         <input required
-                                               class="form-control @if($errors->has('contract_autoleasing.geo_zone')) is-invalid @endif"
+                                               class="form-control @error('contract_autoleasing.geo_zone') is-invalid @enderror"
                                                id="contract-autoleasing-geo-zone"
                                                name="contract_autoleasing[geo_zone]"
                                                type="text"

@@ -134,7 +134,7 @@
                                                 Спецификация
                                             </label>
 
-                                            <input class="form-control @if($errors->has('contract_trilateral_property_pledge.fire_certificate')) is-invalid @endif"
+                                            <input class="form-control @error('contract_trilateral_property_pledge.fire_certificate') is-invalid @enderror"
                                                    id="contract-trilateral-property-pledge-fire-certificate"
                                                    name="contract_trilateral_property_pledge[fire_certificate]"
                                                    type="text"
@@ -181,7 +181,7 @@
                                                 Причина
                                             </label>
 
-                                            <input class="form-control @if($errors->has('contract_trilateral_property_pledge.security_certificate')) is-invalid @endif"
+                                            <input class="form-control @error('contract_trilateral_property_pledge.security_certificate') is-invalid @enderror"
                                                    id="contract-trilateral-property-pledge-security-certificate"
                                                    name="contract_trilateral_property_pledge[security_certificate]"
                                                    type="text"

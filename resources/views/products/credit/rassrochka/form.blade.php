@@ -60,7 +60,7 @@
                                         Сумма рассрочки
                                     </label>
 
-                                    <input class="form-control @if($errors->has('contract_installment.sum')) is-invalid @endif"
+                                    <input class="form-control @error('contract_installment.sum') is-invalid @enderror"
                                            id="contract-installment-sum"
                                            min="0"
                                            name="contract_installment[sum]"
@@ -89,7 +89,7 @@
                                                 <div class="form-group">
                                                     <label for="contract-installment-loss-sum">Страховая сумма</label>
 
-                                                    <input class="form-control @if($errors->has('contract_installment.loss_sum')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_installment.loss_sum') is-invalid @enderror"
                                                            id="contract-installment-loss-sum"
                                                            min="0"
                                                            name="contract_installment[loss_sum]"
@@ -104,7 +104,7 @@
                                                 <div class="form-group">
                                                     <label for="contract-installment-loss-tariff">Тариф</label>
 
-                                                    <input class="form-control @if($errors->has('contract_installment.loss_tariff')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_installment.loss_tariff') is-invalid @enderror"
                                                            id="contract-installment-loss-tariff"
                                                            min="0"
                                                            name="contract_installment[loss_tariff]"
@@ -119,7 +119,7 @@
                                                 <div class="form-group">
                                                     <label for="contract-installment-loss-premium">Страховая премия</label>
 
-                                                    <input class="form-control @if($errors->has('contract_installment.loss_premium')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_installment.loss_premium') is-invalid @enderror"
                                                            id="contract-installment-loss-premium"
                                                            min="0"
                                                            name="contract_installment[loss_premium]"
@@ -134,7 +134,7 @@
                                                 <div class="form-group">
                                                     <label for="contract-installment-loss-franchise">Франшиза</label>
 
-                                                    <input class="form-control @if($errors->has('contract_installment.loss_franchise')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_installment.loss_franchise') is-invalid @enderror"
                                                            id="contract-installment-loss-franchise"
                                                            min="0"
                                                            name="contract_installment[loss_franchise]"
@@ -154,7 +154,7 @@
                                                 <div class="form-group">
                                                     <label for="contract-installment-risk-sum">Страховая сумма</label>
 
-                                                    <input class="form-control @if($errors->has('contract_installment.risk_sum')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_installment.risk_sum') is-invalid @enderror"
                                                            id="contract-installment-risk-sum"
                                                            min="0"
                                                            name="contract_installment[risk_sum]"
@@ -169,7 +169,7 @@
                                                 <div class="form-group">
                                                     <label for="contract-installment-risk-tariff">Тариф</label>
 
-                                                    <input class="form-control @if($errors->has('contract_installment.risk_tariff')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_installment.risk_tariff') is-invalid @enderror"
                                                            id="contract-installment-risk-tariff"
                                                            min="0"
                                                            name="contract_installment[risk_tariff]"
@@ -184,7 +184,7 @@
                                                 <div class="form-group">
                                                     <label for="contract-installment-risk-premium">Страховая премия</label>
 
-                                                    <input class="form-control @if($errors->has('contract_installment.risk_premium')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_installment.risk_premium') is-invalid @enderror"
                                                            id="contract-installment-risk-premium"
                                                            min="0"
                                                            name="contract_installment[risk_premium]"
@@ -199,7 +199,7 @@
                                                 <div class="form-group">
                                                     <label for="contract-installment-risk-franchise">Франшиза</label>
 
-                                                    <input class="form-control @if($errors->has('contract_installment.risk_franchise')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_installment.risk_franchise') is-invalid @enderror"
                                                            id="contract-installment-risk-franchise"
                                                            min="0"
                                                            name="contract_installment[risk_franchise]"
@@ -236,7 +236,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_installment.franchise_earthquake_fire_percent')) is-invalid @endif"
+                                               class="form-control @error('contract_installment.franchise_earthquake_fire_percent') is-invalid @enderror"
                                                id="contract-installment-franchise-earthquake-fire-percent"
                                                max="99.99"
                                                min="0"
@@ -253,7 +253,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_installment.franchise_illegal_action_percent')) is-invalid @endif"
+                                               class="form-control @error('contract_installment.franchise_illegal_action_percent') is-invalid @enderror"
                                                id="contract-installment-franchise-illegal-action-percent"
                                                max="99.99"
                                                min="0"
@@ -270,7 +270,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_installment.franchise_other_risks_percent')) is-invalid @endif"
+                                               class="form-control @error('contract_installment.franchise_other_risks_percent') is-invalid @enderror"
                                                id="contract-installment-franchise-other-risks-percent"
                                                max="99.99"
                                                min="0"

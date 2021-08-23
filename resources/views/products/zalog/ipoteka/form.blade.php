@@ -134,7 +134,7 @@
                                                 Спецификация
                                             </label>
 
-                                            <input class="form-control @if($errors->has('contract_mortgage.fire_certificate')) is-invalid @endif"
+                                            <input class="form-control @error('contract_mortgage.fire_certificate') is-invalid @enderror"
                                                    id="contract-mortgage-fire-certificate"
                                                    name="contract_mortgage[fire_certificate]"
                                                    type="text"
@@ -181,7 +181,7 @@
                                                 Причина
                                             </label>
 
-                                            <input class="form-control @if($errors->has('contract_mortgage.security_certificate')) is-invalid @endif"
+                                            <input class="form-control @error('contract_mortgage.security_certificate') is-invalid @enderror"
                                                    id="contract-mortgage-security-certificate"
                                                    name="contract_mortgage[security_certificate]"
                                                    type="text"

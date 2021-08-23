@@ -78,7 +78,7 @@
 
                                                     <div class="input-group">
                                                         <input required
-                                                               class="form-control @if($errors->has('policy_flow.act_date')) is-invalid @endif"
+                                                               class="form-control @error('policy_flow.act_date') is-invalid @enderror"
                                                                id="policy-flow-act-date"
                                                                name="policy_flow[act_date]"
                                                                placeholder="yyyy-mm-dd"

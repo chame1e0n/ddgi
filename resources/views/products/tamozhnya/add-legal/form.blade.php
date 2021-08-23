@@ -154,7 +154,7 @@
                                                         Описание причины
                                                     </label>
 
-                                                    <input class="form-control @if($errors->has('contract_custom_payment.cause')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_custom_payment.cause') is-invalid @enderror"
                                                            id="contract-custom-payment-cause"
                                                            name="contract_custom_payment[cause]"
                                                            type="text"

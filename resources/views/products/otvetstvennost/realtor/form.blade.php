@@ -268,7 +268,7 @@
                                                             <span class="input-group-text">В государственном секторе</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_realtor.activity_in_goverment_sector')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_realtor.activity_in_goverment_sector') is-invalid @enderror"
                                                                   id="contract-realtor-activity-in-goverment-sector"
                                                                   name="contract_realtor[activity_in_goverment_sector]">{{old('contract_realtor.activity_in_goverment_sector', $contract_realtor->activity_in_goverment_sector)}}</textarea>
                                                     </div>
@@ -281,7 +281,7 @@
                                                             <span class="input-group-text">В частном секторе</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_realtor.activity_in_private_sector')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_realtor.activity_in_private_sector') is-invalid @enderror"
                                                                   id="contract-realtor-activity-in-private-sector"
                                                                   name="contract_realtor[activity_in_private_sector]">{{old('contract_realtor.activity_in_private_sector', $contract_realtor->activity_in_private_sector)}}</textarea>
                                                     </div>
@@ -345,7 +345,7 @@
                                                             <span class="input-group-text">Причина</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_realtor.claim_filing_reason')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_realtor.claim_filing_reason') is-invalid @enderror"
                                                                   id="contract-realtor-claim-filing-reason"
                                                                   name="contract_realtor[claim_filing_reason]">{{old('contract_realtor.claim_filing_reason', $contract_realtor->claim_filing_reason)}}</textarea>
                                                     </div>
@@ -396,7 +396,7 @@
                                                             <span class="input-group-text">Причина</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_realtor.administrative_penalty_filing_reason')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_realtor.administrative_penalty_filing_reason') is-invalid @enderror"
                                                                   id="contract-realtor-administrative-penalty-filing-reason"
                                                                   name="contract_realtor[administrative_penalty_filing_reason]">{{old('contract_realtor.administrative_penalty_filing_reason', $contract_realtor->administrative_penalty_filing_reason)}}</textarea>
                                                     </div>

@@ -103,15 +103,9 @@
                                     <tr>
                                         <th scope="col" rowspan="2">наименование регионов</th>
                                         <th scope="col" colspan="2">действующих на отчетную дату</th>
-                                        <th scope="col" colspan="2">в т.ч. в сельской местности</th>
                                         <th scope="col" colspan="2">заключенных за отчетный период</th>
-                                        <th scope="col" colspan="2">в т.ч. в сельской местности</th>
                                     </tr>
                                     <tr>
-                                        <th scope="col">юр. лица</th>
-                                        <th scope="col">физ. лица</th>
-                                        <th scope="col">юр. лица</th>
-                                        <th scope="col">физ. лица</th>
                                         <th scope="col">юр. лица</th>
                                         <th scope="col">физ. лица</th>
                                         <th scope="col">юр. лица</th>
@@ -134,12 +128,8 @@
                                             <th scope="row" class="text-left">{{$region->name}}</th>
                                             <td>{{$active_legal}}</td>
                                             <td>{{$active_individual}}</td>
-                                            <td></td>
-                                            <td></td>
                                             <td>{{$signed_legal}}</td>
                                             <td>{{$signed_individual}}</td>
-                                            <td></td>
-                                            <td></td>
                                         </tr>
 
                                         @php $active_legal_total += $active_legal @endphp
@@ -152,12 +142,8 @@
                                         <th scope="row" class="text-right text-dark">Всего:</th>
                                         <td>{{$active_legal_total}}</td>
                                         <td>{{$active_individual_total}}</td>
-                                        <td></td>
-                                        <td></td>
                                         <td>{{$signed_legal_total}}</td>
                                         <td>{{$signed_individual_total}}</td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -60,7 +60,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_trilateral_car_deposit.credit_agreement_number')) is-invalid @endif"
+                                               class="form-control @error('contract_trilateral_car_deposit.credit_agreement_number') is-invalid @enderror"
                                                id="contract-trilateral-car-deposit-credit-agreement-number"
                                                name="contract_trilateral_car_deposit[credit_agreement_number]"
                                                type="text"
@@ -79,7 +79,7 @@
                                             </div>
 
                                             <input required
-                                                   class="form-control @if($errors->has('contract_trilateral_car_deposit.credit_period_from')) is-invalid @endif"
+                                                   class="form-control @error('contract_trilateral_car_deposit.credit_period_from') is-invalid @enderror"
                                                    id="contract-trilateral-car-deposit-credit-period-from"
                                                    name="contract_trilateral_car_deposit[credit_period_from]"
                                                    type="date"
@@ -99,7 +99,7 @@
                                             </div>
 
                                             <input required
-                                                   class="form-control @if($errors->has('contract_trilateral_car_deposit.credit_period_to')) is-invalid @endif"
+                                                   class="form-control @error('contract_trilateral_car_deposit.credit_period_to') is-invalid @enderror"
                                                    id="contract-trilateral-car-deposit-credit-period-to"
                                                    name="contract_trilateral_car_deposit[credit_period_to]"
                                                    type="date"
@@ -149,7 +149,7 @@
                                                         Комментарий
                                                     </label>
 
-                                                    <input class="form-control @if($errors->has('contract_trilateral_car_deposit.defect_damage_comment')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_trilateral_car_deposit.defect_damage_comment') is-invalid @enderror"
                                                            id="contract-trilateral-car-deposit-defect-damage-comment"
                                                            name="contract_trilateral_car_deposit[defect_damage_comment]"
                                                            type="text"
@@ -211,7 +211,7 @@
                                             Комментарий
                                         </label>
 
-                                        <input class="form-control @if($errors->has('contract_trilateral_car_deposit.actual_insurance_comment')) is-invalid @endif"
+                                        <input class="form-control @error('contract_trilateral_car_deposit.actual_insurance_comment') is-invalid @enderror"
                                                id="contract-trilateral-car-deposit-actual-insurance-comment"
                                                name="contract_trilateral_car_deposit[actual_insurance_comment]"
                                                type="text"

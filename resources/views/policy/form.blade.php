@@ -40,7 +40,7 @@
                                                 <label for="policy-name" class="col-form-label">Наименование</label>
 
                                                 <input required
-                                                       class="form-control @if($errors->has('policy.name')) is-invalid @endif"
+                                                       class="form-control @error('policy.name') is-invalid @enderror"
                                                        id="policy-name"
                                                        name="policy[name]"
                                                        type="text"
@@ -50,7 +50,7 @@
                                                 <label for="policy-act-number" class="col-form-label">Номер акта</label>
 
                                                 <input required
-                                                       class="form-control @if($errors->has('policy.act_number')) is-invalid @endif"
+                                                       class="form-control @error('policy.act_number') is-invalid @enderror"
                                                        id="policy-act-number"
                                                        name="policy[act_number]"
                                                        type="text"
@@ -61,7 +61,7 @@
                                                     <label for="policy-price" class="col-form-label">Стоимость одного бланка </label>
 
                                                     <input required
-                                                           class="form-control @if($errors->has('policy.price')) is-invalid @endif"
+                                                           class="form-control @error('policy.price') is-invalid @enderror"
                                                            id="policy-price"
                                                            min="0"
                                                            name="policy[price]"

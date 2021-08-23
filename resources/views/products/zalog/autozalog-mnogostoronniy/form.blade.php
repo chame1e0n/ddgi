@@ -61,7 +61,7 @@
                                             Номер договора страхования
                                         </label>
                                         <input required
-                                               class="form-control @if($errors->has('contract_multilateral_car_deposit.insurance_agreement_number')) is-invalid @endif"
+                                               class="form-control @error('contract_multilateral_car_deposit.insurance_agreement_number') is-invalid @enderror"
                                                id="contract-multilateral-car-deposit-insurance-agreement-number"
                                                name="contract_multilateral_car_deposit[insurance_agreement_number]"
                                                type="text"
@@ -74,7 +74,7 @@
                                             Дата договора страхования
                                         </label>
                                         <input required
-                                               class="form-control @if($errors->has('contract_multilateral_car_deposit.insurance_agreement_date')) is-invalid @endif"
+                                               class="form-control @error('contract_multilateral_car_deposit.insurance_agreement_date') is-invalid @enderror"
                                                id="contract-multilateral-car-deposit-insurance-agreement-date"
                                                name="contract_multilateral_car_deposit[insurance_agreement_date]"
                                                type="date"
@@ -87,7 +87,7 @@
                                             Номер кредитного договора
                                         </label>
                                         <input required
-                                               class="form-control @if($errors->has('contract_multilateral_car_deposit.credit_agreement_number')) is-invalid @endif"
+                                               class="form-control @error('contract_multilateral_car_deposit.credit_agreement_number') is-invalid @enderror"
                                                id="contract-multilateral-car-deposit-credit-agreement-number"
                                                name="contract_multilateral_car_deposit[credit_agreement_number]"
                                                type="text"
@@ -106,7 +106,7 @@
                                                 <span class="input-group-text">с</span>
                                             </div>
                                             <input required
-                                                   class="form-control @if($errors->has('contract_multilateral_car_deposit.credit_period_from')) is-invalid @endif"
+                                                   class="form-control @error('contract_multilateral_car_deposit.credit_period_from') is-invalid @enderror"
                                                    id="contract-multilateral-car-deposit-credit-period-from"
                                                    name="contract_multilateral_car_deposit[credit_period_from]"
                                                    type="date"
@@ -124,7 +124,7 @@
                                                 <span class="input-group-text">до</span>
                                             </div>
                                             <input required
-                                                   class="form-control @if($errors->has('contract_multilateral_car_deposit.credit_period_to')) is-invalid @endif"
+                                                   class="form-control @error('contract_multilateral_car_deposit.credit_period_to') is-invalid @enderror"
                                                    id="contract-multilateral-car-deposit-credit-period-to"
                                                    name="contract_multilateral_car_deposit[credit_period_to]"
                                                    type="date"
@@ -140,7 +140,7 @@
                                             Географическая зона
                                         </label>
                                         <input required
-                                               class="form-control @if($errors->has('contract_multilateral_car_deposit.geo_zone')) is-invalid @endif"
+                                               class="form-control @error('contract_multilateral_car_deposit.geo_zone') is-invalid @enderror"
                                                id="contract-multilateral-car-deposit-geo-zone"
                                                name="contract_multilateral_car_deposit[geo_zone]"
                                                type="text"
@@ -153,7 +153,7 @@
                                             Цель использования ТС
                                         </label>
                                         <input required
-                                               class="form-control @if($errors->has('contract_multilateral_car_deposit.purpose')) is-invalid @endif"
+                                               class="form-control @error('contract_multilateral_car_deposit.purpose') is-invalid @enderror"
                                                id="contract-multilateral-car-deposit-purpose"
                                                name="contract_multilateral_car_deposit[purpose]"
                                                type="text"
@@ -199,7 +199,7 @@
                                                     <label for="contract-multilateral-car-deposit-overview-comment" class="col-form-label">
                                                         Комментарий
                                                     </label>
-                                                    <input class="form-control @if($errors->has('contract_multilateral_car_deposit.overview_comment')) is-invalid @endif"
+                                                    <input class="form-control @error('contract_multilateral_car_deposit.overview_comment') is-invalid @enderror"
                                                            id="contract-multilateral-car-deposit-overview-comment"
                                                            name="contract_multilateral_car_deposit[overview_comment]"
                                                            type="text"
@@ -257,7 +257,7 @@
                                         <label for="contract-multilateral-car-deposit-insurance-comment" class="col-form-label">
                                             Комментарий
                                         </label>
-                                        <input class="form-control @if($errors->has('contract_multilateral_car_deposit.insurance_comment')) is-invalid @endif"
+                                        <input class="form-control @error('contract_multilateral_car_deposit.insurance_comment') is-invalid @enderror"
                                                id="contract-multilateral-car-deposit-insurance-comment"
                                                name="contract_multilateral_car_deposit[insurance_comment]"
                                                type="text"

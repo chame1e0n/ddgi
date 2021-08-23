@@ -268,7 +268,7 @@
                                                             <span class="input-group-text">В государственном секторе</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_custom_officer.activity_in_goverment_sector')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_custom_officer.activity_in_goverment_sector') is-invalid @enderror"
                                                                   id="contract-custom-officer-activity-in-goverment-sector"
                                                                   name="contract_custom_officer[activity_in_goverment_sector]">{{old('contract_custom_officer.activity_in_goverment_sector', $contract_custom_officer->activity_in_goverment_sector)}}</textarea>
                                                     </div>
@@ -281,7 +281,7 @@
                                                             <span class="input-group-text">В частном секторе</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_custom_officer.activity_in_private_sector')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_custom_officer.activity_in_private_sector') is-invalid @enderror"
                                                                   id="contract-custom-officer-activity-in-private-sector"
                                                                   name="contract_custom_officer[activity_in_private_sector]">{{old('contract_custom_officer.activity_in_private_sector', $contract_custom_officer->activity_in_private_sector)}}</textarea>
                                                     </div>
@@ -345,7 +345,7 @@
                                                             <span class="input-group-text">Причина</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_custom_officer.claim_filing_reason')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_custom_officer.claim_filing_reason') is-invalid @enderror"
                                                                   id="contract-custom-officer-claim-filing-reason"
                                                                   name="contract_custom_officer[claim_filing_reason]">{{old('contract_custom_officer.claim_filing_reason', $contract_custom_officer->claim_filing_reason)}}</textarea>
                                                     </div>
@@ -396,7 +396,7 @@
                                                             <span class="input-group-text">Причина</span>
                                                         </div>
 
-                                                        <textarea class="form-control @if($errors->has('contract_custom_officer.administrative_penalty_filing_reason')) is-invalid @endif"
+                                                        <textarea class="form-control @error('contract_custom_officer.administrative_penalty_filing_reason') is-invalid @enderror"
                                                                   id="contract-custom-officer-administrative-penalty-filing-reason"
                                                                   name="contract_custom_officer[administrative_penalty_filing_reason]">{{old('contract_custom_officer.administrative_penalty_filing_reason', $contract_custom_officer->administrative_penalty_filing_reason)}}</textarea>
                                                     </div>

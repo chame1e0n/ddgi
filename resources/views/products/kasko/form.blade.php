@@ -74,7 +74,7 @@
                                         <label for="contract-casco-geo-zone">Географическая зона</label>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_casco.geo_zone')) is-invalid @endif"
+                                               class="form-control @error('contract_casco.geo_zone') is-invalid @enderror"
                                                id="contract-casco-geo-zone"
                                                name="contract_casco[geo_zone]"
                                                type="text"

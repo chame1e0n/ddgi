@@ -62,7 +62,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_special_equipment_pledge.pledge_agreement_number')) is-invalid @endif"
+                                               class="form-control @error('contract_special_equipment_pledge.pledge_agreement_number') is-invalid @enderror"
                                                id="contract-special-equipment-pledge-pledge-agreement-number"
                                                name="contract_special_equipment_pledge[pledge_agreement_number]"
                                                type="text"
@@ -80,7 +80,7 @@
                                         </div>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_special_equipment_pledge.pledge_agreement_from')) is-invalid @endif"
+                                               class="form-control @error('contract_special_equipment_pledge.pledge_agreement_from') is-invalid @enderror"
                                                id="contract-special-equipment-pledge-pledge-agreement-from"
                                                name="contract_special_equipment_pledge[pledge_agreement_from]"
                                                type="date"
@@ -98,7 +98,7 @@
                                         </div>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_special_equipment_pledge.pledge_agreement_to')) is-invalid @endif"
+                                               class="form-control @error('contract_special_equipment_pledge.pledge_agreement_to') is-invalid @enderror"
                                                id="contract-special-equipment-pledge-pledge-agreement-to"
                                                name="contract_special_equipment_pledge[pledge_agreement_to]"
                                                type="date"
@@ -112,7 +112,7 @@
                                         </label>
 
                                         <input required
-                                               class="form-control @if($errors->has('contract_special_equipment_pledge.estimation_basement')) is-invalid @endif"
+                                               class="form-control @error('contract_special_equipment_pledge.estimation_basement') is-invalid @enderror"
                                                id="contract-special-equipment-pledge-estimation-basement"
                                                name="contract_special_equipment_pledge[estimation_basement]"
                                                type="text"

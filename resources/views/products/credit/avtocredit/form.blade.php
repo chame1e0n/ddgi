@@ -63,7 +63,7 @@
                                             </div>
 
                                             <input required
-                                                   class="form-control @if($errors->has('contract_leasing_autocredit.period_from')) is-invalid @endif"
+                                                   class="form-control @error('contract_leasing_autocredit.period_from') is-invalid @enderror"
                                                    id="contract-leasing-autocredit-period-from"
                                                    name="contract_leasing_autocredit[period_from]"
                                                    type="date"
@@ -81,7 +81,7 @@
                                             </div>
 
                                             <input required
-                                                   class="form-control @if($errors->has('contract_leasing_autocredit.period_to')) is-invalid @endif"
+                                                   class="form-control @error('contract_leasing_autocredit.period_to') is-invalid @enderror"
                                                    id="contract-leasing-autocredit-period-to"
                                                    name="contract_leasing_autocredit[period_to]"
                                                    type="date"
@@ -93,7 +93,7 @@
                                     <div class="form-group">
                                         <label for="contract-leasing-autocredit-sum">Сумма кредита</label>
 
-                                        <input class="form-control @if($errors->has('contract_leasing_autocredit.sum')) is-invalid @endif"
+                                        <input class="form-control @error('contract_leasing_autocredit.sum') is-invalid @enderror"
                                                id="contract-leasing-autocredit-sum"
                                                min="0"
                                                name="contract_leasing_autocredit[sum]"
