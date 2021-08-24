@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Model\Contract;
+use App\Model\Policy;
 use App\Model\Region;
 use Illuminate\Http\Request;
 
@@ -19,10 +20,10 @@ class ReportController extends Controller
         $request->validate([
             'regions.from' => ['nullable', 'required_with:regions.to', 'date'],
             'regions.to' => ['nullable', 'required_with:regions.from', 'date'],
-            'regions.action' => ['nullable', 'required_with:regions.from,regions.to', 'in:filter,download'],
+            'regions.action' => ['nullable', 'required_with:regions.from,regions.to'],
         ]);
 
-        $report = [];
+        $report = [ 1 => [], 2 => [] ];
         $from = $request->input('regions.from');
         $to = $request->input('regions.to');
         $action = $request->input('regions.action', 'filter');
@@ -30,6 +31,8 @@ class ReportController extends Controller
 
         if ($from && $to) {
             $connection = DB::connection();
+
+            $all_contracts = [];
 
             $active_contracts = $connection->select('SELECT contracts.id AS contract_id, contracts.type AS contract_type, regions.id AS region_id '
                                                   . 'FROM contracts '
@@ -43,7 +46,9 @@ class ReportController extends Controller
             );
 
             foreach($active_contracts as /* @var $active_contract \stdClass */ $active_contract) {
-                $report['active'][$active_contract->region_id][$active_contract->contract_type][$active_contract->contract_id] = 1;
+                $all_contracts[] = $active_contract->contract_id;
+
+                $report[1]['active'][$active_contract->region_id][$active_contract->contract_type][$active_contract->contract_id] = 1;
             }
 
             $signed_contracts = $connection->select('SELECT contracts.id AS contract_id, contracts.type AS contract_type, regions.id AS region_id '
@@ -58,7 +63,28 @@ class ReportController extends Controller
             );
 
             foreach($signed_contracts as /* @var $signed_contract \stdClass */ $signed_contract) {
-                $report['signed'][$signed_contract->region_id][$signed_contract->contract_type][$signed_contract->contract_id] = 1;
+                $all_contracts[] = $signed_contract->contract_id;
+
+                $report[1]['signed'][$signed_contract->region_id][$signed_contract->contract_type][$signed_contract->contract_id] = 1;
+            }
+
+            $contracts = Contract::with(['policies'])->whereIn('id', $all_contracts)->get();
+
+            foreach($report[1] as $report_type => $report_regions) {
+                foreach($report_regions as $report_region_id => $report_contract_types) {
+                    foreach($report_contract_types as $report_contract_type => $report_contract_ids) {
+                        foreach($report_contract_ids as $report_contract_id => $nothing) {
+                            $contract = $contracts->where('id', $report_contract_id)->first();
+
+                            $sum = 0;
+                            foreach($contract->policies as /* @var $policy Policy */ $policy) {
+                                $sum += $policy->insurance_premium;
+                            }
+
+                            $report[2]['active'][$report_region_id][$report_contract_type] = $sum;
+                        }
+                    }
+                }
             }
         }
 
@@ -69,7 +95,7 @@ class ReportController extends Controller
                 'to' => $to,
                 'report' => $report,
             ]);
-        } elseif ($action == 'download') {
+        } elseif ($action == 'report-1') {
             $fp = fopen('php://temp', 'w+');
 
             header('Content-Disposition: attachment; filename="regions.csv"');
@@ -99,10 +125,10 @@ class ReportController extends Controller
             $signed_individual_total = 0;
 
             foreach($regions as $region) {
-                $active_legal = isset($report['active'][$region->id][Contract::TYPE_LEGAL]) ? count($report['active'][$region->id][Contract::TYPE_LEGAL]) : 0;
-                $active_individual = isset($report['active'][$region->id][Contract::TYPE_INDIVIDUAL]) ? count($report['active'][$region->id][Contract::TYPE_INDIVIDUAL]) : 0;
-                $signed_legal = isset($report['signed'][$region->id][Contract::TYPE_LEGAL]) ? count($report['signed'][$region->id][Contract::TYPE_LEGAL]) : 0;
-                $signed_individual = isset($report['signed'][$region->id][Contract::TYPE_INDIVIDUAL]) ? count($report['signed'][$region->id][Contract::TYPE_INDIVIDUAL]) : 0;
+                $active_legal = isset($report[1]['active'][$region->id][Contract::TYPE_LEGAL]) ? count($report[1]['active'][$region->id][Contract::TYPE_LEGAL]) : 0;
+                $active_individual = isset($report[1]['active'][$region->id][Contract::TYPE_INDIVIDUAL]) ? count($report[1]['active'][$region->id][Contract::TYPE_INDIVIDUAL]) : 0;
+                $signed_legal = isset($report[1]['signed'][$region->id][Contract::TYPE_LEGAL]) ? count($report[1]['signed'][$region->id][Contract::TYPE_LEGAL]) : 0;
+                $signed_individual = isset($report[1]['signed'][$region->id][Contract::TYPE_INDIVIDUAL]) ? count($report[1]['signed'][$region->id][Contract::TYPE_INDIVIDUAL]) : 0;
 
                 $row = [$region->name, $active_legal, $active_individual, '', '', $signed_legal, $signed_individual, '', ''];
 

@@ -37,6 +37,13 @@ class Policy extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['insurance_premium'];
+
+    /**
      * Name of the columns which should not be fillable.
      *
      * @var array
@@ -134,6 +141,33 @@ class Policy extends Model
     public function files()
     {
         return $this->morphMany(File::class, 'model');
+    }
+
+    /**
+     * Defining insurance premium attribute.
+     * 
+     * @param null $value Value
+     * @return float
+     */
+    public function getInsurancePremiumAttribute()
+    {
+        $insurance_premium = 0;
+        $contract = $this->contract;
+
+        $policy_insurance_sum = $this->insurance_sum;
+        $days = ((strtotime($contract->to) - strtotime($contract->from)) / (60 * 60 * 24)) + 1;
+
+        if (is_null($this->tariff) && is_null($this->premium)) {
+            $insurance_premium = ($days * $policy_insurance_sum * $contract->specification->tariff) / 365;
+        }
+        if ($this->tariff) {
+            $insurance_premium = ($days * $policy_insurance_sum * $contract->tariff) / 365;
+        }
+        if ($this->premium) {
+            $insurance_premium = $contract->premium;
+        }
+
+        return $insurance_premium;
     }
 
     /**
