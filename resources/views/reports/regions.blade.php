@@ -249,6 +249,152 @@
                         </div>
                     </div>
                 </div>
+                <div class="card card-info" id="report-insurance-sums">
+                    <div class="card-header">
+                        <h3 class="card-title">Объем принятых страховых обязательств (тыс. сум)</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                        <div class="card-tools">
+                            <button class="btn btn-success float-right"
+                                    name="regions[action]"
+                                    style="margin-right: 20px;"
+                                    type="submit"
+                                    value="report-3">
+                                Скачать
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table small text-center table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" rowspan="2">наименование регионов</th>
+                                            <th scope="col" colspan="2">по действующим на отчетную дату договорам страхования</th>
+                                            <th scope="col" colspan="2">по заключенным за отчетный период договорам страхования</th>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">юр. лица</th>
+                                            <th scope="col">физ. лица</th>
+                                            <th scope="col">юр. лица</th>
+                                            <th scope="col">физ. лица</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php $active_legal_total = 0 @endphp
+                                        @php $active_individual_total = 0 @endphp
+                                        @php $signed_legal_total = 0 @endphp
+                                        @php $signed_individual_total = 0 @endphp
+
+                                        @foreach($regions as $region)
+                                            @php $active_legal = isset($report[3]['active'][$region->id][\App\Model\Contract::TYPE_LEGAL]) ? $report[3]['active'][$region->id][\App\Model\Contract::TYPE_LEGAL] : 0 @endphp
+                                            @php $active_individual = isset($report[3]['active'][$region->id][\App\Model\Contract::TYPE_INDIVIDUAL]) ? $report[3]['active'][$region->id][\App\Model\Contract::TYPE_INDIVIDUAL] : 0 @endphp
+                                            @php $signed_legal = isset($report[3]['signed'][$region->id][\App\Model\Contract::TYPE_LEGAL]) ? $report[3]['signed'][$region->id][\App\Model\Contract::TYPE_LEGAL] : 0 @endphp
+                                            @php $signed_individual = isset($report[3]['signed'][$region->id][\App\Model\Contract::TYPE_INDIVIDUAL]) ? $report[3]['signed'][$region->id][\App\Model\Contract::TYPE_INDIVIDUAL] : 0 @endphp
+
+                                            <tr>
+                                                <th scope="row" class="text-left">{{$region->name}}</th>
+                                                <td>{{number_format($active_legal, 2, ".", "'")}}</td>
+                                                <td>{{number_format($active_individual, 2, ".", "'")}}</td>
+                                                <td>{{number_format($signed_legal, 2, ".", "'")}}</td>
+                                                <td>{{number_format($signed_individual, 2, ".", "'")}}</td>
+                                            </tr>
+
+                                            @php $active_legal_total += $active_legal @endphp
+                                            @php $active_individual_total += $active_individual @endphp
+                                            @php $signed_legal_total += $signed_legal @endphp
+                                            @php $signed_individual_total += $signed_individual @endphp
+                                        @endforeach
+
+                                        <tr class="text-blue text-bold">
+                                            <th scope="row" class="text-right text-dark">Всего:</th>
+                                            <td>{{number_format($active_legal_total, 2, ".", "'")}}</td>
+                                            <td>{{number_format($active_individual_total, 2, ".", "'")}}</td>
+                                            <td>{{number_format($signed_legal_total, 2, ".", "'")}}</td>
+                                            <td>{{number_format($signed_individual_total, 2, ".", "'")}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-info" id="report-other">
+                    <div class="card-header">
+                        <h3 class="card-title">Другие данные</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                        <div class="card-tools">
+                            <button class="btn btn-success float-right"
+                                    name="regions[action]"
+                                    style="margin-right: 20px;"
+                                    type="submit"
+                                    value="report-4">
+                                Скачать
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table small text-center table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">наименование регионов</th>
+                                            <th scope="col">количество видов страховых услуг (шт.)</th>
+                                            <th scope="col">???</th>
+                                            <th scope="col">работники (ед.)</th>
+                                            <th scope="col">сумма выплаченных агентских вознаграждений (тыс. сум)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php $specification_count_total = 0 @endphp
+
+                                        @php $employee_count_total = 0 @endphp
+                                        @php $region_insurance_premium_total = 0 @endphp
+
+                                        @foreach($regions as $region)
+                                            @php $specification_count = isset($report[4]['specification'][$region->id]) ? count($report[4]['specification'][$region->id]) : 0 @endphp
+
+                                            @php $employee_count = isset($report[4]['employee'][$region->id]) ? count($report[4]['employee'][$region->id]) : 0 @endphp
+                                            @php $region_insurance_premium = isset($report[4][$region->id]) ? $report[4][$region->id] : 0 @endphp
+
+                                            <tr>
+                                                <th scope="row" class="text-left">{{$region->name}}</th>
+                                                <td>{{$specification_count}}</td>
+                                                <td>???</td>
+                                                <td>{{$employee_count}}</td>
+                                                <td>{{number_format($region_insurance_premium, 2, ".", "'")}}</td>
+                                            </tr>
+
+                                            @php $specification_count_total += $specification_count @endphp
+
+                                            @php $employee_count_total += $employee_count @endphp
+                                            @php $region_insurance_premium_total += $region_insurance_premium @endphp
+                                        @endforeach
+
+                                        <tr class="text-blue text-bold">
+                                            <th scope="row" class="text-right text-dark">Всего:</th>
+                                            <td>{{$specification_count_total}}</td>
+                                            <td>???</td>
+                                            <td>{{$employee_count_total}}</td>
+                                            <td>{{number_format($region_insurance_premium_total, 2, ".", "'")}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </section>
     </div>

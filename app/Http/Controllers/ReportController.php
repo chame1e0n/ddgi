@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Model\Contract;
+use App\Model\Employee;
 use App\Model\Policy;
 use App\Model\Region;
 use Illuminate\Http\Request;
@@ -76,25 +77,70 @@ class ReportController extends Controller
                         foreach($report_contract_ids as $report_contract_id => $nothing) {
                             $contract = $contracts->where('id', $report_contract_id)->first();
 
-                            $sum = 0;
+                            $insurance_sum = $premium_sum = 0;
                             foreach($contract->policies as /* @var $policy Policy */ $policy) {
-                                $sum += $policy->insurance_premium;
+                                $insurance_sum += $policy->insurance_sum;
+                                $premium_sum += $policy->insurance_premium;
                             }
 
-                            $report[2]['active'][$report_region_id][$report_contract_type] = $sum;
+                            $report[2]['active'][$report_region_id][$report_contract_type] = $premium_sum;
+                            $report[3]['active'][$report_region_id][$report_contract_type] = $insurance_sum;
+                            $report[4]['specification'][$report_region_id][$contract->specification_id] = 1;
                         }
                     }
                 }
             }
+
+            foreach(Employee::with(['branch'])->get() as /* @var $employee Employee */ $employee) {
+                $period_from = strtotime($from);
+                $period_to = strtotime($to);
+                $employee->work_start_date = strtotime($employee->work_start_date);
+                $employee->work_end_date = is_null($employee->work_end_date) ? time() : strtotime($employee->work_end_date);
+
+                if (
+                    ($employee->role != Employee::ROLE_AGENT) &&
+                    (
+                        ($employee->work_start_date <= $period_from && $employee->work_end_date >= $period_to) ||
+                        ($employee->work_start_date > $period_from && $employee->work_start_date < $period_to && $employee->work_end_date > $period_to)
+                    )
+                ) {
+                    $report[4]['employee'][$employee->branch->region_id][$employee->id] = 1;
+                }
+            }
+
+            $agency_fees = $connection->select('SELECT policies.id AS policy_id, regions.id AS region_id '
+                                             . 'FROM contracts '
+                                             . 'INNER JOIN policies ON (contracts.id = policies.contract_id AND policies.deleted_at IS NULL) '
+                                             . 'INNER JOIN policy_flows ON (policies.id = policy_flows.policy_id AND policy_flows.deleted_at IS NULL) '
+                                             . 'INNER JOIN employees ON (policy_flows.to_employee_id = employees.id AND employees.deleted_at IS NULL) '
+                                             . 'INNER JOIN branches ON (employees.branch_id = branches.id AND branches.deleted_at IS NULL) '
+                                             . 'INNER JOIN regions ON (branches.region_id = regions.id AND regions.deleted_at IS NULL) '
+                                             . 'WHERE contracts.from < :from AND contracts.to >= :to AND contracts.deleted_at IS NULL AND employees.role = :role AND policies.polis_from_date < :policy_from AND policies.polis_to_date >= :policy_to',
+                ['from' => $from, 'to' => $to, 'role' => 'agent', 'policy_from' => $from, 'policy_to' => $to]
+            );
+
+            $policies = [];
+            foreach($agency_fees as /* @var $agency_fee \stdClass */ $agency_fee) {
+                $policy = isset($policies[$agency_fee->policy_id]) ? $policies[$agency_fee->policy_id] : Policy::find($agency_fee->policy_id);
+
+                if (isset($report[4][$agency_fee->region_id])) {
+                    $report[4][$agency_fee->region_id] += $policy->insurance_premium;
+                } else {
+                    $report[4][$agency_fee->region_id] = $policy->insurance_premium;
+                }
+
+                $policies[$agency_fee->policy_id] = $policy;
+            }
         }
 
-        if ($action == 'filter') {
+//        if ($action == 'filter') {
             return view('reports.regions', [
                 'regions' => $regions,
                 'from' => $from,
                 'to' => $to,
                 'report' => $report,
             ]);
+/*
         } elseif ($action == 'report-1') {
             $fp = fopen('php://temp', 'w+');
 
@@ -160,5 +206,6 @@ class ReportController extends Controller
 
             echo $csv_contents;
         }
+*/
     }
 }
