@@ -12,7 +12,7 @@ function name() {
         }
 
         if (variable) {
-            variable = variable.replace(/\$\{pol\.(\w)/, '${pol.0.$1');
+            variable = variable.replace(/\$\{pol\.([a-z])/, '${pol.0.$1');
         }
 
         $(element).attr('title', variable);
@@ -639,7 +639,7 @@ function defineSpecifications(element) {
             let is_selected = response[i]['id'] == old_value;
 
             for (var i = 0; i < response.length; i++) {
-                $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '"' . (is_selected ? ' selected=""' : '') . '>' + response[i]['name'] + '</option>');
+                $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '"' + (is_selected ? ' selected=""' : '') + '>' + response[i]['name'] + '</option>');
             }
         }
     });
