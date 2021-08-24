@@ -636,9 +636,9 @@ function defineSpecifications(element) {
             $('#contract-specification-id').empty();
             $('#contract-specification-id').append('<option></option>');
 
-            let is_selected = response[i]['id'] == old_value;
-
             for (var i = 0; i < response.length; i++) {
+                let is_selected = response[i]['id'] == old_value;
+
                 $('#contract-specification-id').append('<option value="' + response[i]['id']+ '" data-route="' + response[i]['route'] + '"' + (is_selected ? ' selected=""' : '') + '>' + response[i]['name'] + '</option>');
             }
         }
