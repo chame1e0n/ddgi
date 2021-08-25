@@ -222,7 +222,7 @@ class Contract extends Model
      */
     public static function convertToVariables(object $object, $index_number = null)
     {
-        $class = Str::snake(basename(get_class($object)));
+        $class = Str::snake(lcfirst((new \ReflectionClass($object))->getShortName()));
 
         $class_variable = implode('_', array_map(function($value) {
             return substr($value, 0, 3);
@@ -346,7 +346,12 @@ class Contract extends Model
      */
     public function getPrintVariables()
     {
-        $variables = self::convertToVariables($this);
+        $default_values = [
+            'tra.0.fro' => '',
+        ];
+
+        $variables = collect($default_values);
+        $variables = $variables->merge(self::convertToVariables($this));
 
         if ($this->beneficiary) {
             $variables = $variables->merge(self::convertToVariables($this->beneficiary));
