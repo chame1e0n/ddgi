@@ -154,17 +154,19 @@ class Policy extends Model
         $insurance_premium = 0;
         $contract = $this->contract;
 
-        $policy_insurance_sum = $this->insurance_sum;
-        $days = ((strtotime($contract->to) - strtotime($contract->from)) / (60 * 60 * 24)) + 1;
+        if ($contract) {
+            $policy_insurance_sum = $this->insurance_sum;
+            $days = ((strtotime($contract->to) - strtotime($contract->from)) / (60 * 60 * 24)) + 1;
 
-        if (is_null($this->tariff) && is_null($this->premium)) {
-            $insurance_premium = ($days * $policy_insurance_sum * $contract->specification->tariff) / 365;
-        }
-        if ($this->tariff) {
-            $insurance_premium = ($days * $policy_insurance_sum * $contract->tariff) / 365;
-        }
-        if ($this->premium) {
-            $insurance_premium = $contract->premium;
+            if (is_null($this->tariff) && is_null($this->premium)) {
+                $insurance_premium = ($days * $policy_insurance_sum * $contract->specification->tariff) / 365;
+            }
+            if ($this->tariff) {
+                $insurance_premium = ($days * $policy_insurance_sum * $contract->tariff) / 365;
+            }
+            if ($this->premium) {
+                $insurance_premium = $contract->premium;
+            }
         }
 
         return $insurance_premium;
