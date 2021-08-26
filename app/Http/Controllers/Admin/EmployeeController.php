@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\AgentInfo;
 use App\Model\Branch;
 use App\Model\Employee;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -46,8 +48,10 @@ class EmployeeController extends Controller
         $employee->role = $this->role;
 
         $user = new User();
+        $agent_info = new AgentInfo();
 
         return view('admin.employee.form', [
+            'agent_info' => $agent_info,
             'block' => false,
             'employee' => $employee,
             'user' => $user,
@@ -62,7 +66,34 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(array_merge(Employee::$validate, User::$validate));
+        $validation_rules = array_merge(Employee::$validate, User::$validate);
+
+        if ($this->role == Employee::ROLE_AGENT) {
+            $validation_rules = array_merge($validation_rules, AgentInfo::$validate);
+        }
+
+        $request->validate($validation_rules);
+
+        if ($this->role == Employee::ROLE_AGENT) {
+            $agent_info = AgentInfo::create($request['agent_info']);
+
+            $agent_info_files = [];
+            if (isset($request['files'])) {
+                foreach($request['files'] as $type => $file_collection) {
+                    if (in_array($type, [AgentInfo::FILE_DOCUMENT])) {
+                        foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                            $agent_info_files[] = [
+                                'type' => $type,
+                                'original_name' => $file_item->getClientOriginalName(),
+                                'path' => Storage::putFile('public/agent_info', $file_item),
+                            ];
+                        }
+                    }
+                }
+            }
+
+            $agent_info->files()->createMany($agent_info_files);
+        }
 
         $user = new User();
         $user->name = $request['employee.name'];
@@ -74,6 +105,7 @@ class EmployeeController extends Controller
         $employee->fill($request['employee']);
         $employee->role = $this->role;
         $employee->user_id = $user->id;
+        $employee->agent_info_id = isset($agent_info) ? $agent_info->id : null;
         $employee->save();
 
         return redirect()->route($this->role . 's.index')
@@ -91,6 +123,7 @@ class EmployeeController extends Controller
         $employee = Employee::find($id);
 
         return view('admin.employee.form', [
+            'agent_info' => $employee->agent_info,
             'block' => true,
             'employee' => $employee,
             'user' => $employee->user,
@@ -108,6 +141,7 @@ class EmployeeController extends Controller
         $employee = Employee::find($id);
 
         return view('admin.employee.form', [
+            'agent_info' => $employee->agent_info,
             'block' => false,
             'employee' => $employee,
             'user' => $employee->user,
@@ -123,7 +157,13 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate(array_merge(Employee::$validate));
+        $validation_rules = array_merge(Employee::$validate, User::$validate);
+
+        if ($this->role == Employee::ROLE_AGENT) {
+            $validation_rules = array_merge($validation_rules, AgentInfo::$validate);
+        }
+
+        $request->validate($validation_rules);
 
         $employee = Employee::find($id);
 
@@ -135,6 +175,33 @@ class EmployeeController extends Controller
 
         $employee->fill($request['employee']);
         $employee->save();
+
+        if ($this->role == Employee::ROLE_AGENT) {
+            $agent_info = $employee->agent_info;
+            $agent_info->fill($request['agent_info']);
+            $agent_info->save();
+
+            $agent_info_files = [];
+            if (isset($request['files'])) {
+                foreach($request['files'] as $type => $file_collection) {
+                    if (in_array($type, [AgentInfo::FILE_DOCUMENT])) {
+                        foreach ($file_collection as /* @var $file_item \Illuminate\Http\UploadedFile */ $file_item) {
+                            foreach($agent_info->getFiles($type) as $old_file) {
+                                $old_file->delete();
+                            }
+
+                            $agent_info_files[] = [
+                                'type' => $type,
+                                'original_name' => $file_item->getClientOriginalName(),
+                                'path' => Storage::putFile('public/agent_info', $file_item),
+                            ];
+                        }
+                    }
+                }
+            }
+
+            $agent_info->files()->createMany($agent_info_files);
+        }
 
         return redirect()->route($this->role . 's.index')
                          ->with('success', sprintf('Данные о ' . Employee::$roles[$this->role] . 'е \'%s\' были успешно обновлены', $employee->name));

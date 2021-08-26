@@ -47,12 +47,6 @@ class Employee extends Model
      */
     public static $validate = [
         'employee.branch_id' => ['required', 'integer'],
-        'employee.name' => 'required',
-        'employee.surname' => 'required',
-        'employee.middlename' => 'required',
-        'employee.birthdate' => 'required',
-        'employee.passport_number' => 'required',
-        'employee.passport_series' => 'required',
         'employee.phone' => 'required',
         'employee.address' => 'required',
     ];

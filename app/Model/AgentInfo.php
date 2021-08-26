@@ -9,19 +9,21 @@ class AgentInfo extends Model
 {
     use SoftDeletes;
 
+    public const FILE_DOCUMENT = 'document';
+
     /**
      * Validation rules for the form fields.
      *
      * @var array
      */
     public static $validate = [
-        'principal.bank_id' => ['required', 'integer'],
-        'principal.company' => 'required',
-        'principal.bank_account' => 'required',
-        'principal.inn' => 'required',
-        'principal.mfo' => 'required',
-        'principal.agreement_number' => 'required',
-        'principal.agreement_date' => 'required',
+        'agent_info.bank_id' => ['required', 'integer'],
+        'agent_info.company' => 'required',
+        'agent_info.bank_account' => 'required',
+        'agent_info.inn' => 'required',
+        'agent_info.mfo' => 'required',
+        'agent_info.agreement_number' => 'required',
+        'agent_info.agreement_date' => 'required',
     ];
 
     /**
@@ -57,10 +59,34 @@ class AgentInfo extends Model
     }
 
     /**
+     * Get relation to the files table.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'model');
+    }
+
+    /**
+     * Get agent info's files of the specified type.
+     * 
+     * @param string $type Type
+     * @return File
+     */
+    public function getFiles($type = 'document')
+    {
+        return $this->files()->where('type' , '=', $type)->get();
+    }
+
+    /**
      * Cascade deletion.
      */
     public function delete()
     {
+        foreach($this->files as /* @var $file File */ $file) {
+            $file->delete();
+        }
         foreach($this->employees as /* @var $employee Employee */ $employee) {
             $employee->agent_info_id = null;
             $employee->save();
