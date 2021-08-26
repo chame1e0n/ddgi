@@ -58,6 +58,15 @@ class Employee extends Model
     ];
 
     /**
+     * Get relation to the agent_infos table.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function agent_info()
+    {
+        return $this->belongsTo(AgentInfo::class);
+    }
+
+    /**
      * Get relation to the branches table.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

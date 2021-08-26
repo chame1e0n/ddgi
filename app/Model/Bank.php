@@ -38,6 +38,15 @@ class Bank extends Model
     ];
 
     /**
+     * Get relation to the agent_infos table.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function agent_infos()
+    {
+        return $this->hasMany(AgentInfo::class);
+    }
+
+    /**
      * Get relation to the beneficiaries table.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -105,6 +114,9 @@ class Bank extends Model
      */
     public function delete()
     {
+        foreach($this->agent_infos as /* @var $agent_info AgentInfo */ $agent_info) {
+            $agent_info->delete();
+        }
         foreach($this->beneficiaries as /* @var $beneficiary Beneficiary */ $beneficiary) {
             $beneficiary->delete();
         }
